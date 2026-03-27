@@ -25,7 +25,17 @@ const NAV = [
 export function Sidebar() {
   const pathname = usePathname()
   const { isRunning: evalRunning, overallProgress } = useEvalSessionStore()
-  const { isRunning: simRunning, currentTurn, maxTurns } = useVisualEvalStore()
+  const {
+    isRunning: simRunning,
+    currentTurn,
+    maxTurns,
+    currentTask,
+    taskTotal,
+  } = useVisualEvalStore()
+
+  const simProgressText = taskTotal > 0
+    ? `${currentTask}/${taskTotal}`
+    : `${currentTurn}/${maxTurns}`
 
   return (
     <aside className="w-56 shrink-0 border-r border-[#E5E5E4] bg-[#F9F9F8] flex flex-col h-screen sticky top-0">
@@ -66,7 +76,7 @@ export function Sidebar() {
               {isSimPage && simRunning && (
                 <span className="flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-[10px] text-emerald-600 font-mono">{currentTurn}/{maxTurns}</span>
+                  <span className="text-[10px] text-emerald-600 font-mono">{simProgressText}</span>
                 </span>
               )}
             </Link>

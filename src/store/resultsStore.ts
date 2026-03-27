@@ -6,6 +6,10 @@ import { RunResult } from '@/types'
 interface ResultsState {
   runs: RunResult[]
   addRun: (r: RunResult) => void
+  // Upsert by runId — replaces existing entry with same runId
+  upsertRun: (r: RunResult) => void
+  // Replace entire store with runs loaded from disk (disk = source of truth)
+  replaceAll: (rs: RunResult[]) => void
   removeRun: (id: string) => void
   clearAll: () => void
 }
@@ -14,13 +18,23 @@ export const useResultsStore = create<ResultsState>()(
   persist(
     (set) => ({
       runs: [],
+
       addRun: (r) =>
         set((state) => ({
-          // Strip taskDetails (contains full logs — too large for localStorage)
           runs: [...state.runs.filter(x => x.runId !== r.runId), { ...r, taskDetails: undefined }],
         })),
+
+      upsertRun: (r) =>
+        set((state) => ({
+          runs: [...state.runs.filter(x => x.runId !== r.runId), { ...r, taskDetails: undefined }],
+        })),
+
+      replaceAll: (rs) =>
+        set({ runs: rs.map(r => ({ ...r, taskDetails: undefined })) }),
+
       removeRun: (id) =>
         set((state) => ({ runs: state.runs.filter(x => x.runId !== id) })),
+
       clearAll: () => set({ runs: [] }),
     }),
     {

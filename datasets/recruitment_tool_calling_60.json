@@ -1,0 +1,4781 @@
+{
+  "metadata": {
+    "task_name": "recruitment_tool_calling",
+    "task_type": "tool_calling",
+    "description": "AVA Tuyển dụng — Tool calling: đánh giá agent gọi đúng tool (get_list_recruitment, get_recruitment_detail, collect_cv) và hoàn thành task tuyển dụng",
+    "source": "MISA AMIS Tuyển dụng — synthetic từ FAKE_JOBS + FAKE_KNOWLEDGE_CHUNKS",
+    "total_samples": 78,
+    "sampling_strategy": "manual_stratified_by_tool",
+    "tools": [
+      "get_list_recruitment",
+      "get_recruitment_detail",
+      "collect_cv",
+      "search_knowledge"
+    ],
+    "tool_distribution": {
+      "get_list_recruitment": 22,
+      "get_recruitment_detail": 18,
+      "collect_cv": 20,
+      "search_knowledge": 25
+    },
+    "gt_metrics": [
+      "ast_accuracy",
+      "task_success_rate"
+    ],
+    "agent_name": "Mai Linh",
+    "app_code": "recruitment",
+    "llm_router": "gemini-2.5-flash-lite",
+    "llm_skill": "gpt-4.1",
+    "created_date": "2026-03-24",
+    "notes": "output và tool_calls để trống, điền sau khi chạy inference. expected_tool_calls là ground truth. collect_cv schema dùng anyOf(CvUrl, CvContent) — bắt buộc ít nhất một trong hai không rỗng. ListRecruitmentID=null nghĩa là ứng tuyển chung chưa chỉ định vị trí. conversation_history tối đa 3 turns trước.",
+    "difficulty_distribution": {
+      "easy": 44,
+      "medium": 21,
+      "hard": 13
+    },
+    "multi_turn_count": 13,
+    "negative_count": 6,
+    "multi_step_count": 10,
+    "last_updated": "2026-03-24",
+    "version": "2.0",
+    "changelog": [
+      "v1.0 (2026-03-24): 60 samples khởi tạo",
+      "v2.0 (2026-03-24): +18 cases (multi-turn, edge, error-handling, cross-skill); sửa collect_cv schema → anyOf; fix ListRecruitmentID=[] → null; chuẩn hoá difficulty labels"
+    ]
+  },
+  "data": [
+    {
+      "id": "recruitment_tc_001",
+      "input": "Công ty đang tuyển vị trí nào liên quan đến Python không?",
+      "output": "",
+      "reference": "Hiện tại công ty đang tuyển vị trí Kỹ sư Phần mềm Backend Python (Senior) tại Hà Nội, mức lương 15–25 triệu VNĐ.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"Python\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng: Tìm kiếm và lấy danh sách các vị trí đang tuyển dụng theo từ khóa, địa điểm hoặc ngành nghề.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Từ khóa tìm kiếm vị trí, địa điểm hoặc ngành nghề"
+                },
+                "skip": {
+                  "type": "number",
+                  "description": "Số bản ghi bỏ qua (phân trang)"
+                },
+                "take": {
+                  "type": "number",
+                  "description": "Số bản ghi lấy về"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_002",
+      "input": "Cho tôi xem danh sách tất cả các vị trí đang tuyển dụng?",
+      "output": "",
+      "reference": "Hiện công ty đang có 6 vị trí tuyển dụng: Backend Python, Frontend React, Business Analyst, Chuyên viên Tuyển dụng, Kế toán Tổng hợp, Sales Executive.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"\", \"skip\": 0, \"take\": 10}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng: Tìm kiếm và lấy danh sách các vị trí đang tuyển dụng theo từ khóa, địa điểm hoặc ngành nghề.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Từ khóa tìm kiếm"
+                },
+                "skip": {
+                  "type": "number",
+                  "description": "Số bản ghi bỏ qua"
+                },
+                "take": {
+                  "type": "number",
+                  "description": "Số bản ghi lấy về"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_003",
+      "input": "Công ty có tuyển vị trí IT tại TP. Hồ Chí Minh không?",
+      "output": "",
+      "reference": "Có, công ty đang tuyển Kỹ sư Frontend React/TypeScript tại TP. Hồ Chí Minh, mức lương 12–20 triệu.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"IT Hồ Chí Minh\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_004",
+      "input": "Tôi muốn tìm việc làm kế toán ở Đà Nẵng",
+      "output": "",
+      "reference": "Công ty đang tuyển vị trí Kế toán Tổng hợp tại Đà Nẵng, lương 8–15 triệu, hạn nộp hồ sơ 25/04/2026.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"kế toán Đà Nẵng\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_005",
+      "input": "Có vị trí sales không? Lương bao nhiêu?",
+      "output": "",
+      "reference": "Công ty đang tuyển Chuyên viên Kinh doanh (Sales Executive) tại TP.HCM, lương cứng 10 triệu + hoa hồng không giới hạn, thu nhập thực tế 15–30 triệu/tháng.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"sales kinh doanh\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_006",
+      "input": "Tôi là fresher, có vị trí nào junior không?",
+      "output": "",
+      "reference": "Công ty đang có 2 vị trí Junior: Chuyên viên Tuyển dụng (Hà Nội, 8–12 triệu) và Sales Executive (TP.HCM, 10 triệu + hoa hồng).",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"junior fresher\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_007",
+      "input": "Tôi muốn tuyển dụng tại Hà Nội, có những vị trí nào?",
+      "output": "",
+      "reference": "Tại Hà Nội hiện có 3 vị trí: Backend Python (Senior), Business Analyst (Senior), Chuyên viên Tuyển dụng (Junior).",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"Hà Nội\", \"skip\": 0, \"take\": 10}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_008",
+      "input": "Bạn có vị trí nào liên quan đến HR hoặc nhân sự không?",
+      "output": "",
+      "reference": "Công ty đang tuyển Chuyên viên Tuyển dụng tại Hà Nội, mức lương 8–12 triệu, hạn nộp 10/04/2026.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"nhân sự HR tuyển dụng\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_009",
+      "input": "Tôi có background về React và TypeScript, công ty có vị trí phù hợp không?",
+      "output": "",
+      "reference": "Rất phù hợp! Công ty đang tuyển Kỹ sư Frontend React/TypeScript (Mid-level) tại TP.HCM, lương 12–20 triệu.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"React TypeScript frontend\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_010",
+      "input": "Trang 2 danh sách tuyển dụng",
+      "output": "",
+      "reference": "Hiển thị danh sách tuyển dụng từ vị trí thứ 5 trở đi.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"\", \"skip\": 5, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Cho tôi xem danh sách tuyển dụng?"
+        },
+        {
+          "role": "assistant",
+          "content": "Hiện công ty có 6 vị trí tuyển dụng. Dưới đây là 5 vị trí đầu tiên: Backend Python, Frontend React, Business Analyst, Chuyên viên Tuyển dụng, Kế toán Tổng hợp."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Test phân trang (pagination) — skip=5"
+      }
+    },
+    {
+      "id": "recruitment_tc_011",
+      "input": "Tôi muốn ứng tuyển vị trí có ID 1001. Cho xem chi tiết JD được không?",
+      "output": "",
+      "reference": "Vị trí Kỹ sư Phần mềm Backend Python (Senior) — Phòng Phát triển Sản phẩm — Hà Nội. Yêu cầu 3+ năm Python, FastAPI/Django, microservices. Lương 15–25 triệu. Quy trình: CV → Phỏng vấn kỹ thuật → HR → Offer.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1001\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng: Lấy toàn bộ thông tin chi tiết (mô tả công việc, yêu cầu, quyền lợi, vòng phỏng vấn) của một tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string",
+                  "description": "ID của tin tuyển dụng"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1001
+      }
+    },
+    {
+      "id": "recruitment_tc_012",
+      "input": "Vị trí Frontend có bao nhiêu vòng phỏng vấn? Yêu cầu gì?",
+      "output": "",
+      "reference": "Vị trí Frontend React/TypeScript (ID 1002) có 3 vòng: CV → Bài test kỹ thuật → Phỏng vấn HR. Yêu cầu: 2+ năm React, thành thạo TypeScript, kinh nghiệm RESTful API và state management.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1002\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Có tuyển Frontend không?"
+        },
+        {
+          "role": "assistant",
+          "content": "Có, công ty đang tuyển Kỹ sư Frontend React/TypeScript (ID: 1002) tại TP.HCM, lương 12–20 triệu."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string",
+                  "description": "ID của tin tuyển dụng"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "target_job_id": 1002
+      }
+    },
+    {
+      "id": "recruitment_tc_013",
+      "input": "Xem JD vị trí Business Analyst (ID 1003)",
+      "output": "",
+      "reference": "Vị trí BA (Senior) — Phòng Phân tích Nghiệp vụ — Hà Nội. Yêu cầu 3+ năm BA, nền tảng kế toán/tài chính. Lương 12–18 triệu. 3 vòng: CV → Phỏng vấn nghiệp vụ → HR+Offer.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1003\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1003
+      }
+    },
+    {
+      "id": "recruitment_tc_014",
+      "input": "Cho tôi biết quyền lợi và các vòng tuyển dụng của vị trí Kế toán (ID 1005)?",
+      "output": "",
+      "reference": "Vị trí Kế toán Tổng hợp tại Đà Nẵng: quyền lợi lương 8–15 triệu, môi trường chuyên nghiệp. 3 vòng: CV → Phỏng vấn chuyên môn → Phỏng vấn BGĐ.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1005\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1005
+      }
+    },
+    {
+      "id": "recruitment_tc_015",
+      "input": "Sales Executive (ID 1006) có bao nhiêu chỉ tiêu tuyển?",
+      "output": "",
+      "reference": "Vị trí Sales Executive tuyển 5 người tại TP.HCM.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1006\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1006
+      }
+    },
+    {
+      "id": "recruitment_tc_016",
+      "input": "Tôi muốn ứng tuyển vị trí Backend Python. Đây là link CV của tôi: https://drive.google.com/file/d/abc123/cv_nguyen_van_a.pdf",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận thành công. HR sẽ liên hệ trong 3–5 ngày làm việc.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://drive.google.com/file/d/abc123/cv_nguyen_van_a.pdf\", \"ListRecruitmentID\": [1001], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Cho tôi xem JD vị trí Backend Python"
+        },
+        {
+          "role": "assistant",
+          "content": "Vị trí Kỹ sư Phần mềm Backend Python (ID: 1001) tại Hà Nội, lương 15–25 triệu. Yêu cầu 3+ năm Python, FastAPI/Django. Bạn có muốn nộp CV không?"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1001
+      }
+    },
+    {
+      "id": "recruitment_tc_017",
+      "input": "Tôi nộp CV text luôn nhé. Tên: Trần Thị B, 5 năm kinh nghiệm Frontend React/Vue, email: tranthib@gmail.com, muốn apply vị trí 1002.",
+      "output": "",
+      "reference": "CV của bạn Trần Thị B đã được tiếp nhận thành công cho vị trí Frontend. HR sẽ liên hệ trong 3–5 ngày làm việc.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"\", \"ListRecruitmentID\": [1002], \"CvContent\": \"Tên: Trần Thị B, 5 năm kinh nghiệm Frontend React/Vue, email: tranthib@gmail.com\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "target_job_id": 1002,
+        "note": "Ứng viên nhập CV text, không có URL"
+      }
+    },
+    {
+      "id": "recruitment_tc_018",
+      "input": "Tôi muốn nộp CV cho cả hai vị trí Backend (1001) và BA (1003). Link CV: https://dropbox.com/cv_le_van_c.pdf",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận cho 2 vị trí (Backend Python và Business Analyst). HR sẽ liên hệ trong 3–5 ngày làm việc.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://dropbox.com/cv_le_van_c.pdf\", \"ListRecruitmentID\": [1001, 1003], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Apply nhiều vị trí cùng lúc — ListRecruitmentID có 2 phần tử"
+      }
+    },
+    {
+      "id": "recruitment_tc_019",
+      "input": "Bạn có nhận CV qua email không? Nếu không thì tôi upload thế nào?",
+      "output": "",
+      "reference": "Bạn có thể nộp CV trực tiếp qua chatbot này — chỉ cần gửi link CV (Google Drive, Dropbox) hoặc paste nội dung CV vào đây. Ngoài ra có thể nộp qua email tuyendung.it@misa.com.vn.",
+      "tool_calls": [],
+      "expected_tool_calls": [],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [],
+        "num_tool_calls": 0,
+        "difficulty": "medium",
+        "note": "Negative case — hỏi cách nộp CV, chưa cung cấp CV content → không nên gọi tool"
+      }
+    },
+    {
+      "id": "recruitment_tc_020",
+      "input": "Nộp CV cho vị trí Sales: https://onedrive.com/cv_pham_thi_d.docx, muốn ứng tuyển vị trí 1006",
+      "output": "",
+      "reference": "CV đã được tiếp nhận thành công cho vị trí Sales Executive. HR sẽ liên hệ trong 3–5 ngày làm việc.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://onedrive.com/cv_pham_thi_d.docx\", \"ListRecruitmentID\": [1006], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1006
+      }
+    },
+    {
+      "id": "recruitment_tc_021",
+      "input": "Xem vị trí tuyển dụng Backend rồi nộp CV luôn nhé, link của tôi: https://drive.google.com/file/d/xyz789/cv.pdf",
+      "output": "",
+      "reference": "Đã xem JD vị trí Backend Python (ID 1001) và tiếp nhận CV của bạn thành công.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1001\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://drive.google.com/file/d/xyz789/cv.pdf\", \"ListRecruitmentID\": [1001], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "get_recruitment_detail",
+          "collect_cv"
+        ],
+        "num_tool_calls": 2,
+        "difficulty": "hard",
+        "note": "Multi-step: xem JD rồi apply trong cùng 1 turn"
+      }
+    },
+    {
+      "id": "recruitment_tc_022",
+      "input": "Tìm vị trí Backend rồi cho tôi xem chi tiết vị trí đầu tiên tìm được",
+      "output": "",
+      "reference": "Tìm thấy vị trí Backend Python (ID 1001). Chi tiết: Senior, Phòng PT Sản phẩm, Hà Nội, lương 15–25 triệu, yêu cầu 3+ năm Python/FastAPI.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"backend\", \"skip\": 0, \"take\": 5}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1001\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment",
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 2,
+        "difficulty": "hard",
+        "note": "Multi-step: list → detail trong cùng 1 turn"
+      }
+    },
+    {
+      "id": "recruitment_tc_023",
+      "input": "Quy trình tuyển dụng tại MISA gồm mấy bước?",
+      "output": "",
+      "reference": "Quy trình tuyển dụng thông thường gồm 3–4 vòng: (1) Vòng CV, (2) Phỏng vấn chuyên môn/kỹ thuật, (3) Phỏng vấn HR, (4) Offer. Mỗi vị trí có thể có số vòng khác nhau.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"quy trình tuyển dụng MISA\", \"knowledge_code\": \"company_overview\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base về công ty, văn hóa, chính sách, phúc lợi và thông tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Câu hỏi hoặc từ khóa cần tìm"
+                },
+                "knowledge_code": {
+                  "type": "string",
+                  "description": "Mã knowledge base cần tìm (company_overview, culture, hr_policy, benefits, contact)"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_024",
+      "input": "Văn hóa làm việc tại MISA như thế nào? Có WFH không?",
+      "output": "",
+      "reference": "MISA áp dụng mô hình OKR, văn hóa flat, phản hồi thẳng thắn. Nhân viên sau thử việc 2 tháng được WFH tối đa 2 ngày/tuần.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"văn hóa làm việc WFH làm từ xa\", \"knowledge_code\": \"culture\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base về công ty.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_025",
+      "input": "Lương thưởng và phúc lợi tại MISA như thế nào?",
+      "output": "",
+      "reference": "MISA có: lương tháng 13 dịp Tết, thưởng KPI quý 0–200% lương tháng, bảo hiểm PTI 50 triệu/năm, 12 ngày phép/năm, ngân sách học tập 5 triệu/năm.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"lương thưởng phúc lợi đãi ngộ\", \"knowledge_code\": \"benefits\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_026",
+      "input": "Liên hệ với HR MISA bằng cách nào?",
+      "output": "",
+      "reference": "Liên hệ HR: Email tuyen.dung@misa.com.vn, điện thoại 024-3795-8899, Zalo OA 'MISA Tuyển dụng', Facebook: facebook.com/misa.tuyen.dung.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"liên hệ HR tuyển dụng email điện thoại\", \"knowledge_code\": \"contact\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_027",
+      "input": "MISA thành lập năm nào? Có bao nhiêu nhân viên?",
+      "output": "",
+      "reference": "MISA JSC thành lập năm 1994, hiện có hơn 3.000 nhân viên và phục vụ hơn 250.000 khách hàng doanh nghiệp.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"MISA thành lập lịch sử số lượng nhân viên\", \"knowledge_code\": \"company_overview\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_028",
+      "input": "Chính sách nghỉ phép tại MISA như thế nào? Có bao nhiêu ngày?",
+      "output": "",
+      "reference": "MISA có 12 ngày phép năm, tăng 1 ngày mỗi 5 năm. Có 3 ngày nghỉ sinh nhật. Phép năm chưa dùng chuyển tối đa 5 ngày sang năm sau.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"chính sách nghỉ phép số ngày phép năm\", \"knowledge_code\": \"hr_policy\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_029",
+      "input": "Địa chỉ văn phòng MISA tại TP.HCM ở đâu?",
+      "output": "",
+      "reference": "Văn phòng MISA tại TP.HCM: 243 Hoàng Văn Thụ, Phú Nhuận.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"địa chỉ văn phòng TP.HCM Hồ Chí Minh\", \"knowledge_code\": \"company_overview\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_030",
+      "input": "MISA có chương trình mentor hoặc đào tạo nội bộ không?",
+      "output": "",
+      "reference": "Có, MISA có chương trình mentorship nội bộ kết nối nhân viên mới với senior. Mỗi nhân viên được cấp ngân sách học tập 5 triệu/năm. Ngoài ra có thư viện MISA Knowledge Hub với hàng nghìn tài liệu kỹ thuật.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"mentor đào tạo nội bộ học tập phát triển\", \"knowledge_code\": \"culture\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_031",
+      "input": "Tôi đang tìm vị trí IT tại Hà Nội, lương trên 15 triệu",
+      "output": "",
+      "reference": "Vị trí phù hợp: Kỹ sư Backend Python (Senior, Hà Nội, 15–25 triệu). Bạn có muốn xem chi tiết JD không?",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"IT công nghệ Hà Nội\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_032",
+      "input": "Tôi 2 năm kinh nghiệm kế toán, muốn tìm việc ở Đà Nẵng",
+      "output": "",
+      "reference": "Phù hợp với vị trí Kế toán Tổng hợp (ID 1005) tại Đà Nẵng, lương 8–15 triệu, cần 2+ năm kinh nghiệm. Hạn nộp 25/04/2026.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"kế toán Đà Nẵng\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_033",
+      "input": "Hạn nộp CV vị trí Backend Python còn bao lâu nữa?",
+      "output": "",
+      "reference": "Vị trí Backend Python (ID 1001) có hạn nộp hồ sơ 30/04/2026.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1001\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1001
+      }
+    },
+    {
+      "id": "recruitment_tc_034",
+      "input": "Vị trí 1004 cần bao nhiêu người?",
+      "output": "",
+      "reference": "Vị trí Chuyên viên Tuyển dụng (ID 1004) cần tuyển 2 người.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1004\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1004
+      }
+    },
+    {
+      "id": "recruitment_tc_035",
+      "input": "Tôi đã có 4 năm kinh nghiệm BA trong lĩnh vực tài chính. Xin CV của tôi cho vị trí BA nhé: https://cv.io/ba_nguyen.pdf",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận thành công cho vị trí Business Analyst. HR sẽ liên hệ trong 3–5 ngày làm việc.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://cv.io/ba_nguyen.pdf\", \"ListRecruitmentID\": [1003], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "target_job_id": 1003
+      }
+    },
+    {
+      "id": "recruitment_tc_036",
+      "input": "Tôi không có link CV, để tôi nhập thông tin trực tiếp: Nguyễn Văn E, 3 năm Python/FastAPI, thành thạo Postgres và Redis, email: nguyenvane@gmail.com. Muốn apply vị trí Backend.",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận cho vị trí Backend Python. HR sẽ liên hệ trong 3–5 ngày.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"\", \"ListRecruitmentID\": [1001], \"CvContent\": \"Nguyễn Văn E, 3 năm Python/FastAPI, thành thạo Postgres và Redis, email: nguyenvane@gmail.com\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "CvContent có thông tin, CvUrl rỗng"
+      }
+    },
+    {
+      "id": "recruitment_tc_037",
+      "input": "Tôi muốn tìm việc liên quan CNTT, có thể cho tôi biết công ty MISA đang cần gì không, sau đó tôi nộp CV luôn: https://drive.google.com/cv_it_tester.pdf",
+      "output": "",
+      "reference": "Tìm thấy 2 vị trí CNTT: Backend Python (Hà Nội) và Frontend React (TP.HCM). CV của bạn đã được ghi nhận.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"CNTT công nghệ thông tin\", \"skip\": 0, \"take\": 5}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://drive.google.com/cv_it_tester.pdf\", \"ListRecruitmentID\": null, \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "get_list_recruitment",
+          "collect_cv"
+        ],
+        "num_tool_calls": 2,
+        "difficulty": "hard",
+        "note": "Multi-step: list + nộp CV. ListRecruitmentID=null = ứng tuyển chung, chưa chỉ định vị trí."
+      }
+    },
+    {
+      "id": "recruitment_tc_038",
+      "input": "Cho xem tất cả vị trí tuyển dụng, rồi cho tôi biết chi tiết vị trí ID 1002, sau đó tôi nộp CV: https://s3.amazonaws.com/cv_frontend_tran.pdf",
+      "output": "",
+      "reference": "Đã lấy danh sách 6 vị trí. Chi tiết ID 1002: Frontend React/TypeScript, Mid-level, TP.HCM, 12–20 triệu. CV đã được tiếp nhận.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"\", \"skip\": 0, \"take\": 10}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1002\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://s3.amazonaws.com/cv_frontend_tran.pdf\", \"ListRecruitmentID\": [1002], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "get_list_recruitment",
+          "get_recruitment_detail",
+          "collect_cv"
+        ],
+        "num_tool_calls": 3,
+        "difficulty": "hard",
+        "note": "3-step pipeline: list → detail → apply"
+      }
+    },
+    {
+      "id": "recruitment_tc_039",
+      "input": "Hello, bạn là ai?",
+      "output": "",
+      "reference": "Xin chào! Mình là Mai Linh, trợ lý AI tuyển dụng của MISA. Mình có thể giúp bạn tìm hiểu các vị trí đang tuyển, xem chi tiết JD và hướng dẫn nộp CV.",
+      "tool_calls": [],
+      "expected_tool_calls": [],
+      "conversation_history": [],
+      "tools": [],
+      "metadata": {
+        "skill_code": "general_purpose",
+        "tools_used": [],
+        "num_tool_calls": 0,
+        "difficulty": "easy",
+        "note": "Chitchat — không cần gọi tool"
+      }
+    },
+    {
+      "id": "recruitment_tc_040",
+      "input": "CV của tôi đã được nộp chưa vậy?",
+      "output": "",
+      "reference": "Tôi chưa thấy bạn gửi CV trong cuộc trò chuyện này. Bạn có thể gửi link CV (Google Drive, Dropbox) hoặc paste nội dung CV vào đây để tôi tiếp nhận nhé.",
+      "tool_calls": [],
+      "expected_tool_calls": [],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [],
+        "num_tool_calls": 0,
+        "difficulty": "medium",
+        "note": "Negative case — hỏi trạng thái CV nhưng chưa cung cấp CV → không gọi tool"
+      }
+    },
+    {
+      "id": "recruitment_tc_041",
+      "input": "Lương vị trí Kỹ sư Backend Python cụ thể là bao nhiêu?",
+      "output": "",
+      "reference": "Vị trí Kỹ sư Phần mềm Backend Python (Senior, ID 1001) có mức lương 15–25 triệu VNĐ/tháng, review lương 2 lần/năm.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1001\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Có tuyển Backend Python không?"
+        },
+        {
+          "role": "assistant",
+          "content": "Có! Công ty đang tuyển Kỹ sư Phần mềm Backend Python (Senior, ID: 1001) tại Hà Nội. Bạn muốn xem chi tiết không?"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "target_job_id": 1001,
+        "note": "Hỏi lương — phải gọi get_recruitment_detail để có thông tin chính xác"
+      }
+    },
+    {
+      "id": "recruitment_tc_042",
+      "input": "Tôi muốn apply vị trí Chuyên viên Tuyển dụng nhưng chưa chuẩn bị CV. Tôi nên chuẩn bị gì?",
+      "output": "",
+      "reference": "Bạn có thể chuẩn bị: (1) CV đề cập rõ kinh nghiệm tuyển dụng, kỹ năng giao tiếp; (2) Link CV trên Google Drive/Dropbox hoặc paste text CV vào đây. Khi sẵn sàng, bạn chỉ cần gửi CV là tôi tiếp nhận ngay.",
+      "tool_calls": [],
+      "expected_tool_calls": [],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [],
+        "num_tool_calls": 0,
+        "difficulty": "medium",
+        "note": "Negative case — chưa có CV thực sự, không gọi collect_cv"
+      }
+    },
+    {
+      "id": "recruitment_tc_043",
+      "input": "Bảo hiểm tại MISA có gì? Bao nhiêu tiền một năm?",
+      "output": "",
+      "reference": "MISA đóng đầy đủ BHXH/BHYT/BHTN theo quy định. Nhân viên chính thức còn được bảo hiểm sức khỏe PTI với bảo lãnh viện phí đến 50 triệu/năm.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"bảo hiểm sức khỏe PTI BHXH BHYT\", \"knowledge_code\": \"benefits\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_044",
+      "input": "Thời gian thử việc tại MISA bao lâu? Lương thử việc bao nhiêu phần trăm?",
+      "output": "",
+      "reference": "Thời gian thử việc tại MISA là 2 tháng theo quy định pháp luật. Lương thử việc là 85% lương chính thức đã thỏa thuận.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"thời gian thử việc lương thử việc phần trăm\", \"knowledge_code\": \"hr_policy\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_045",
+      "input": "Sứ mệnh và tầm nhìn của MISA là gì?",
+      "output": "",
+      "reference": "Sứ mệnh MISA: Số hóa quản trị để doanh nghiệp Việt phát triển bền vững. Tầm nhìn 2030: Trở thành nền tảng quản trị doanh nghiệp số hàng đầu Đông Nam Á, phục vụ hơn 1 triệu doanh nghiệp.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"sứ mệnh tầm nhìn giá trị cốt lõi\", \"knowledge_code\": \"company_overview\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_046",
+      "input": "Tôi muốn tìm vị trí phù hợp. Tôi học kế toán 3 năm, có thể làm ở Đà Nẵng, muốn tìm vị trí, xem chi tiết rồi nộp CV: https://link.cv/ketoan_dng.pdf",
+      "output": "",
+      "reference": "Tìm thấy vị trí Kế toán Tổng hợp (ID 1005) tại Đà Nẵng. Đây là JD chi tiết. CV của bạn đã được tiếp nhận.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"kế toán Đà Nẵng\", \"skip\": 0, \"take\": 5}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1005\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://link.cv/ketoan_dng.pdf\", \"ListRecruitmentID\": [1005], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "get_list_recruitment",
+          "get_recruitment_detail",
+          "collect_cv"
+        ],
+        "num_tool_calls": 3,
+        "difficulty": "hard",
+        "note": "Full pipeline 3 bước: search → detail → apply"
+      }
+    },
+    {
+      "id": "recruitment_tc_047",
+      "input": "Công ty có team building không? Có ăn trưa không?",
+      "output": "",
+      "reference": "MISA tổ chức team building hàng quý và du lịch toàn công ty hàng năm. Có cafeteria nội bộ phục vụ bữa trưa giá ưu đãi, ngoài ra còn phụ cấp ăn trưa 30.000đ/ngày.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"team building ăn trưa cafeteria phụ cấp\", \"knowledge_code\": \"culture\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_048",
+      "input": "Cho tôi biết thêm về chính sách WFH và dress code tại MISA",
+      "output": "",
+      "reference": "WFH: sau 2 tháng thử việc được WFH tối đa 2 ngày/tuần, đăng ký qua AMIS Nhân sự trước 8:00. Dress code: business casual T2-T5, casual T6. Nhân viên IT được casual toàn tuần.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"WFH làm từ xa dress code trang phục\", \"knowledge_code\": \"hr_policy\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_049",
+      "input": "Thưởng cuối năm và KPI tại MISA như thế nào?",
+      "output": "",
+      "reference": "MISA có thưởng tháng 13 vào dịp Tết Nguyên Đán. Thưởng KPI quý tùy kết quả đánh giá, dao động 0–200% lương tháng.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"thưởng cuối năm KPI tháng 13\", \"knowledge_code\": \"benefits\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_050",
+      "input": "Muốn hỏi thêm về công ty trước khi nộp CV, MISA có những sản phẩm gì?",
+      "output": "",
+      "reference": "Hệ sinh thái AMIS gồm: AMIS Kế toán, AMIS Nhân sự, AMIS Bán hàng, AMIS CRM, AMIS Tuyển dụng, AMIS Công việc. Ngoài ra có MISA SME (kế toán hộ kinh doanh) và eHoadon (hóa đơn điện tử).",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"sản phẩm AMIS hệ sinh thái dịch vụ\", \"knowledge_code\": \"company_overview\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_051",
+      "input": "IT Recruiter tại MISA tên là gì? Email liên hệ?",
+      "output": "",
+      "reference": "IT Recruiter tại MISA là anh Trần Văn Minh, email: tuyendung.it@misa.com.vn, phụ trách tuyển các vị trí Backend, Frontend, Mobile, DevOps, QA, BA.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"IT recruiter tuyển dụng kỹ thuật liên hệ email\", \"knowledge_code\": \"contact\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_052",
+      "input": "Làm ở MISA có được tăng lương không? Bao lâu review một lần?",
+      "output": "",
+      "reference": "MISA review lương 1–2 lần/năm (tháng 1 và tháng 7). Nhân viên top performer có thể được tăng lương ngoài chu kỳ. Lương chuyển khoản vào ngày 10 hàng tháng.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"tăng lương review lương chu kỳ\", \"knowledge_code\": \"benefits\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_053",
+      "input": "Tôi quan tâm vị trí Sales tại HCM, cho tôi thông tin chi tiết và nộp CV luôn: https://resume.io/cv_sales_le.pdf",
+      "output": "",
+      "reference": "Chi tiết Sales Executive (ID 1006): Junior, Phòng Kinh doanh, TP.HCM, 10 triệu + hoa hồng. Tuyển 5 người. CV đã được tiếp nhận.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1006\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://resume.io/cv_sales_le.pdf\", \"ListRecruitmentID\": [1006], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "get_recruitment_detail",
+          "collect_cv"
+        ],
+        "num_tool_calls": 2,
+        "difficulty": "hard",
+        "target_job_id": 1006
+      }
+    },
+    {
+      "id": "recruitment_tc_054",
+      "input": "Văn phòng MISA có những địa điểm nào trên cả nước?",
+      "output": "",
+      "reference": "MISA có 3 văn phòng: Hà Nội (Tòa nhà MISA, 1 Phùng Chí Kiên, Cầu Giấy), TP.HCM (243 Hoàng Văn Thụ, Phú Nhuận), Đà Nẵng (12 Trần Phú, Hải Châu).",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"địa chỉ văn phòng chi nhánh Hà Nội HCM Đà Nẵng\", \"knowledge_code\": \"company_overview\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_055",
+      "input": "Tìm việc làm ngành nhân sự",
+      "output": "",
+      "reference": "Công ty đang tuyển Chuyên viên Tuyển dụng (Junior) tại Hà Nội, lương 8–12 triệu, hạn nộp 10/04/2026.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"nhân sự HR\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_056",
+      "input": "CV tôi đây, apply vị trí 1001 và 1002: https://notion.so/cv_fullstack_nguyen.pdf",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận thành công cho 2 vị trí: Backend Python (1001) và Frontend React (1002). HR sẽ liên hệ trong 3–5 ngày.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://notion.so/cv_fullstack_nguyen.pdf\", \"ListRecruitmentID\": [1001, 1002], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung chưa chỉ định vị trí."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Apply 2 vị trí cùng lúc"
+      }
+    },
+    {
+      "id": "recruitment_tc_057",
+      "input": "Xin chào MISA, mình muốn tìm hiểu về công ty trước",
+      "output": "",
+      "reference": "Xin chào! MISA JSC thành lập 1994, hơn 3.000 nhân viên, chuyên cung cấp phần mềm quản trị doanh nghiệp (hệ sinh thái AMIS). Sứ mệnh: Số hóa quản trị để doanh nghiệp Việt phát triển bền vững. Bạn muốn tìm hiểu thêm hay tìm vị trí tuyển dụng?",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"giới thiệu công ty MISA lịch sử sứ mệnh sản phẩm\", \"knowledge_code\": \"company_overview\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_058",
+      "input": "Giờ làm việc tại MISA là mấy giờ? Có phải làm thứ 7 không?",
+      "output": "",
+      "reference": "Giờ làm việc chuẩn: 8:00–17:30, thứ Hai đến thứ Sáu. Thứ Bảy: linh hoạt theo team, một số team làm 2 thứ Bảy/tháng.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"giờ làm việc thứ 7 lịch làm việc\", \"knowledge_code\": \"hr_policy\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "knowledge_code": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy"
+      }
+    },
+    {
+      "id": "recruitment_tc_059",
+      "input": "Tôi đang cần tuyển dụng gấp cho team IT, MISA có tuyển DevOps không?",
+      "output": "",
+      "reference": "Hiện tại tôi không tìm thấy vị trí DevOps trong danh sách đang mở. Các vị trí IT hiện tại: Backend Python (1001) và Frontend React (1002). Bạn có thể liên hệ IT Recruiter Trần Văn Minh: tuyendung.it@misa.com.vn để hỏi thêm.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"DevOps\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string"
+                },
+                "skip": {
+                  "type": "number"
+                },
+                "take": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Negative search — không có vị trí DevOps, agent nên báo không tìm thấy"
+      }
+    },
+    {
+      "id": "recruitment_tc_060",
+      "input": "Cảm ơn bạn đã hỗ trợ!",
+      "output": "",
+      "reference": "Không có gì, rất vui được hỗ trợ bạn! Nếu có thêm câu hỏi về tuyển dụng hay muốn nộp CV, cứ nhắn mình nhé. Chúc bạn sớm tìm được công việc phù hợp!",
+      "tool_calls": [],
+      "expected_tool_calls": [],
+      "conversation_history": [],
+      "tools": [],
+      "metadata": {
+        "skill_code": "general_purpose",
+        "tools_used": [],
+        "num_tool_calls": 0,
+        "difficulty": "easy",
+        "note": "Chitchat kết thúc — không cần gọi tool"
+      }
+    },
+    {
+      "id": "recruitment_tc_061",
+      "input": "Tôi muốn apply vị trí đó",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận thành công cho vị trí Frontend React/TypeScript. HR sẽ liên hệ trong 3–5 ngày làm việc.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://drive.google.com/file/d/frontend_cv.pdf\", \"ListRecruitmentID\": [1002], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Có tuyển Frontend không?"
+        },
+        {
+          "role": "assistant",
+          "content": "Có! Công ty đang tuyển Kỹ sư Frontend React/TypeScript (ID: 1002) tại TP.HCM, lương 12–20 triệu."
+        },
+        {
+          "role": "user",
+          "content": "Link CV của tôi: https://drive.google.com/file/d/frontend_cv.pdf"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn nộp CV cho vị trí Frontend React/TypeScript (ID: 1002) vừa xem không?"
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Multi-turn 4 turns: user dùng 'vị trí đó' (pronoun resolution từ history) → agent phải resolve ID từ context"
+      }
+    },
+    {
+      "id": "recruitment_tc_062",
+      "input": "Cho xem chi tiết đi, lương bao nhiêu vậy?",
+      "output": "",
+      "reference": "Vị trí Kỹ sư Backend Python (Senior): lương 15–25 triệu VNĐ/tháng, 3 vòng phỏng vấn: CV → Kỹ thuật → HR → Offer.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1001\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Có vị trí Backend Python không?"
+        },
+        {
+          "role": "assistant",
+          "content": "Có! Đang tuyển Kỹ sư Backend Python (Senior, ID: 1001) tại Hà Nội."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết JD của một tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string",
+                  "description": "ID của tin tuyển dụng"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Multi-turn: dùng 'vị trí đó' implicit — agent phải lấy ID 1001 từ conversation history"
+      }
+    },
+    {
+      "id": "recruitment_tc_063",
+      "input": "Tôi đổi ý, thôi apply BA đi. Link CV vẫn như cũ nhé",
+      "output": "",
+      "reference": "CV của bạn đã được cập nhật để ứng tuyển vị trí Business Analyst (ID 1003). HR sẽ liên hệ sớm.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://drive.google.com/file/d/my_cv.pdf\", \"ListRecruitmentID\": [1003], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Nộp CV vị trí Backend: https://drive.google.com/file/d/my_cv.pdf"
+        },
+        {
+          "role": "assistant",
+          "content": "CV của bạn đã được tiếp nhận cho vị trí Backend Python (ID 1001). HR sẽ liên hệ trong 3–5 ngày."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "hard",
+        "note": "Change-of-mind: user thay đổi vị trí sau khi đã nộp lần trước; agent phải dùng lại URL từ history và thay ListRecruitmentID → [1003]"
+      }
+    },
+    {
+      "id": "recruitment_tc_064",
+      "input": "Còn vị trí nào khác tương tự không? Tôi muốn xem thêm",
+      "output": "",
+      "reference": "Ngoài vị trí Frontend đã xem, có thể bạn quan tâm thêm vị trí Backend Python (Hà Nội) hoặc BA (Hà Nội). Bạn muốn xem chi tiết vị trí nào?",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"IT công nghệ\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Cho xem JD vị trí Frontend 1002"
+        },
+        {
+          "role": "assistant",
+          "content": "Vị trí Frontend React/TypeScript (ID 1002) tại TP.HCM, lương 12–20 triệu, cần 2+ năm React/TypeScript."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng đang mở theo từ khóa, địa điểm hoặc ngành nghề.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Từ khóa tìm kiếm"
+                },
+                "skip": {
+                  "type": "number",
+                  "description": "Số bản ghi bỏ qua (phân trang)"
+                },
+                "take": {
+                  "type": "number",
+                  "description": "Số bản ghi lấy về"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Multi-turn: sau khi xem JD frontend, user hỏi tìm thêm vị trí tương tự → agent search lại"
+      }
+    },
+    {
+      "id": "recruitment_tc_065",
+      "input": "OK được rồi, tôi nộp CV luôn nhé: https://cv.io/my_cv_2026.pdf",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận cho vị trí Kế toán Tổng hợp (ID 1005). HR sẽ liên hệ trong 3–5 ngày làm việc.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://cv.io/my_cv_2026.pdf\", \"ListRecruitmentID\": [1005], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Tìm việc kế toán ở Đà Nẵng"
+        },
+        {
+          "role": "assistant",
+          "content": "Có vị trí Kế toán Tổng hợp (ID: 1005) tại Đà Nẵng, lương 8–15 triệu, hạn 25/04."
+        },
+        {
+          "role": "user",
+          "content": "Yêu cầu gì vậy?"
+        },
+        {
+          "role": "assistant",
+          "content": "Yêu cầu: tốt nghiệp Kế toán/Tài chính, 2+ năm kinh nghiệm, biết AMIS Kế toán là lợi thế."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Multi-turn 4 turns: user đã tìm và hỏi yêu cầu trước đó → agent phải dùng job ID 1005 từ history khi collect_cv"
+      }
+    },
+    {
+      "id": "recruitment_tc_066",
+      "input": "Thế thì lương BA ở vị trí 1003 so với Frontend 1002 thì thế nào?",
+      "output": "",
+      "reference": "BA (ID 1003): 12–18 triệu, Senior, Hà Nội. Frontend (ID 1002): 12–20 triệu, Mid-level, TP.HCM. Lương tương đương nhưng Frontend có mức trần cao hơn.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1003\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1002\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Danh sách tuyển dụng IT?"
+        },
+        {
+          "role": "assistant",
+          "content": "Có 3 vị trí: Backend Python (1001), Frontend React (1002), Business Analyst (1003)."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết JD của một tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string",
+                  "description": "ID của tin tuyển dụng"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail",
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 2,
+        "difficulty": "hard",
+        "note": "Multi-turn + multi-step: so sánh 2 vị trí → gọi get_recruitment_detail 2 lần"
+      }
+    },
+    {
+      "id": "recruitment_tc_067",
+      "input": "Nộp CV cho tôi với link này: https://drive.google.com/private/confidential_cv_xyz",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận (link đã ghi nhận). Tuy nhiên đảm bảo link Google Drive được đặt ở chế độ 'Anyone with the link' để HR có thể xem được nhé.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://drive.google.com/private/confidential_cv_xyz\", \"ListRecruitmentID\": null, \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Edge case: link có thể bị private — agent nên vẫn collect nhưng cảnh báo quyền truy cập"
+      }
+    },
+    {
+      "id": "recruitment_tc_068",
+      "input": "Tôi muốn apply vị trí ID 9999",
+      "output": "",
+      "reference": "Tôi không tìm thấy vị trí tuyển dụng với ID 9999. Có thể vị trí này đã đóng hoặc ID không tồn tại. Bạn có muốn xem danh sách các vị trí đang tuyển không?",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"9999\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết JD của một tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string",
+                  "description": "ID của tin tuyển dụng"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng đang mở theo từ khóa, địa điểm hoặc ngành nghề.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Từ khóa tìm kiếm"
+                },
+                "skip": {
+                  "type": "number",
+                  "description": "Số bản ghi bỏ qua (phân trang)"
+                },
+                "take": {
+                  "type": "number",
+                  "description": "Số bản ghi lấy về"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_recruitment_detail"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Edge case: invalid RecruitmentID → tool trả 404 → agent phải graceful fallback, không crash"
+      }
+    },
+    {
+      "id": "recruitment_tc_069",
+      "input": "Tôi đã nộp CV rồi, sao chưa thấy phản hồi?",
+      "output": "",
+      "reference": "Thông thường HR sẽ liên hệ trong 3–5 ngày làm việc sau khi nhận CV. Nếu đã quá thời gian đó, bạn có thể liên hệ trực tiếp: IT Recruiter Trần Văn Minh – tuyendung.it@misa.com.vn hoặc HR Lead Nguyễn Thị Hương – tuyen.dung@misa.com.vn.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"liên hệ HR recruiter email điện thoại\", \"knowledge_code\": \"contact\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Nộp CV cho vị trí 1001: https://drive.google.com/cv.pdf"
+        },
+        {
+          "role": "assistant",
+          "content": "CV đã được tiếp nhận thành công. HR sẽ liên hệ trong 3–5 ngày làm việc."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base về công ty, văn hóa, chính sách, phúc lợi và thông tin liên hệ.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Câu hỏi hoặc từ khóa cần tìm"
+                },
+                "knowledge_code": {
+                  "type": "string",
+                  "description": "Mã kho tri thức (company_overview, culture, hr_policy, benefits, contact)"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Multi-turn: follow-up sau khi nộp CV — hỏi trạng thái → agent hướng dẫn liên hệ HR"
+      }
+    },
+    {
+      "id": "recruitment_tc_070",
+      "input": "Tôi đã nộp CV Backend hôm qua rồi, bây giờ muốn nộp thêm cho Frontend luôn",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận cho vị trí Frontend React/TypeScript (ID 1002). HR sẽ liên hệ sớm.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://drive.google.com/cv_old.pdf\", \"ListRecruitmentID\": [1002], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Nộp CV: https://drive.google.com/cv_old.pdf cho vị trí 1001"
+        },
+        {
+          "role": "assistant",
+          "content": "CV đã tiếp nhận cho Backend Python (ID 1001)."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "hard",
+        "note": "Nộp CV bổ sung vị trí mới — agent phải dùng lại URL từ history, chỉ thay ListRecruitmentID → [1002]. Test khả năng reuse context."
+      }
+    },
+    {
+      "id": "recruitment_tc_071",
+      "input": "Tôi không có link CV, không có file, chỉ có thể điền thông tin thôi được không?",
+      "output": "",
+      "reference": "Được! Bạn có thể paste nội dung CV vào đây (tên, email, số điện thoại, kinh nghiệm, kỹ năng). Tôi sẽ tiếp nhận và gửi cho HR.",
+      "tool_calls": [],
+      "expected_tool_calls": [],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [],
+        "num_tool_calls": 0,
+        "difficulty": "medium",
+        "note": "Negative case: user hỏi cách nộp CV text — agent giải thích, chưa đủ thông tin để gọi collect_cv"
+      }
+    },
+    {
+      "id": "recruitment_tc_072",
+      "input": "Muốn apply nhưng chưa biết nộp vào vị trí nào, tôi học IT 4 năm",
+      "output": "",
+      "reference": "Với background IT 4 năm, bạn phù hợp với: Backend Python (Senior, Hà Nội, 15–25 triệu) hoặc Frontend React (Mid-level, TP.HCM, 12–20 triệu). Bạn muốn xem chi tiết vị trí nào?",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"IT công nghệ\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng đang mở theo từ khóa, địa điểm hoặc ngành nghề.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Từ khóa tìm kiếm"
+                },
+                "skip": {
+                  "type": "number",
+                  "description": "Số bản ghi bỏ qua (phân trang)"
+                },
+                "take": {
+                  "type": "number",
+                  "description": "Số bản ghi lấy về"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Ambiguous intent: user muốn apply nhưng chưa chọn vị trí → agent nên gợi ý list trước"
+      }
+    },
+    {
+      "id": "recruitment_tc_073",
+      "input": "Tui nộp hồ sơ đc ko? đây link cv: https://zalo.me/cv_abc.pdf, apply vị trí 1004",
+      "output": "",
+      "reference": "CV của bạn đã được tiếp nhận thành công cho vị trí Chuyên viên Tuyển dụng (ID 1004). HR sẽ liên hệ trong 3–5 ngày.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://zalo.me/cv_abc.pdf\", \"ListRecruitmentID\": [1004], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "collect_cv"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "easy",
+        "note": "Informal speech: viết tắt, tiếng lóng ('tui', 'đc') — agent phải parse đúng URL và job ID"
+      }
+    },
+    {
+      "id": "recruitment_tc_074",
+      "input": "Tìm vị trí DevOps senior tại Hà Nội cho tôi",
+      "output": "",
+      "reference": "Rất tiếc, hiện tại công ty chưa có vị trí DevOps Senior tại Hà Nội. Các vị trí IT đang mở gồm: Backend Python (Hà Nội) và Frontend React (TP.HCM). Bạn có muốn xem không, hoặc liên hệ IT Recruiter để hỏi thêm?",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"DevOps senior Hà Nội\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng đang mở theo từ khóa, địa điểm hoặc ngành nghề.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Từ khóa tìm kiếm"
+                },
+                "skip": {
+                  "type": "number",
+                  "description": "Số bản ghi bỏ qua (phân trang)"
+                },
+                "take": {
+                  "type": "number",
+                  "description": "Số bản ghi lấy về"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_suggest_job",
+        "tools_used": [
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "medium",
+        "note": "Tool-failure handling: tool trả empty results → agent phải graceful fallback, gợi ý alternatives"
+      }
+    },
+    {
+      "id": "recruitment_tc_075",
+      "input": "Tôi muốn tìm hiểu về văn hóa công ty, rồi nếu phù hợp sẽ apply ngay. CV của tôi: https://cv.io/phan_van_f.pdf vị trí 1001",
+      "output": "",
+      "reference": "Văn hóa MISA: OKR, flat structure, không ép làm thêm giờ, WFH 2 ngày/tuần sau thử việc, team building hàng quý. CV của bạn đã được tiếp nhận cho Backend Python (ID 1001).",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"văn hóa làm việc môi trường OKR WFH\", \"knowledge_code\": \"culture\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://cv.io/phan_van_f.pdf\", \"ListRecruitmentID\": [1001], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base về công ty, văn hóa, chính sách, phúc lợi và thông tin liên hệ.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Câu hỏi hoặc từ khóa cần tìm"
+                },
+                "knowledge_code": {
+                  "type": "string",
+                  "description": "Mã kho tri thức (company_overview, culture, hr_policy, benefits, contact)"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "search_knowledge",
+          "collect_cv"
+        ],
+        "num_tool_calls": 2,
+        "difficulty": "hard",
+        "note": "Multi-step khác loại tool: search_knowledge + collect_cv trong cùng 1 turn"
+      }
+    },
+    {
+      "id": "recruitment_tc_076",
+      "input": "Lương tại MISA trả vào ngày mấy? Rồi cho tôi xem vị trí Sales",
+      "output": "",
+      "reference": "Lương tại MISA được chuyển khoản vào ngày 10 hàng tháng. Vị trí Sales Executive (ID 1006) tại TP.HCM: lương 10 triệu + hoa hồng không giới hạn.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"lương thanh toán ngày mấy chuyển khoản\", \"knowledge_code\": \"benefits\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "arguments": "{\"query\": \"sales kinh doanh\", \"skip\": 0, \"take\": 5}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base về công ty, văn hóa, chính sách, phúc lợi và thông tin liên hệ.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Câu hỏi hoặc từ khóa cần tìm"
+                },
+                "knowledge_code": {
+                  "type": "string",
+                  "description": "Mã kho tri thức (company_overview, culture, hr_policy, benefits, contact)"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_list_recruitment",
+            "description": "Lấy danh sách tin tuyển dụng đang mở theo từ khóa, địa điểm hoặc ngành nghề.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Từ khóa tìm kiếm"
+                },
+                "skip": {
+                  "type": "number",
+                  "description": "Số bản ghi bỏ qua (phân trang)"
+                },
+                "take": {
+                  "type": "number",
+                  "description": "Số bản ghi lấy về"
+                }
+              },
+              "required": [
+                "query",
+                "skip",
+                "take"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge",
+          "get_list_recruitment"
+        ],
+        "num_tool_calls": 2,
+        "difficulty": "hard",
+        "note": "Multi-skill trong 1 turn: hỏi knowledge base + tìm tuyển dụng"
+      }
+    },
+    {
+      "id": "recruitment_tc_077",
+      "input": "Tôi có thể rút lại CV đã nộp không? Tôi nộp nhầm vị trí",
+      "output": "",
+      "reference": "Hiện tại chatbot chưa hỗ trợ rút CV trực tiếp. Để rút hoặc chỉnh sửa đơn ứng tuyển, vui lòng liên hệ IT Recruiter Trần Văn Minh: tuyendung.it@misa.com.vn hoặc gọi 024-3795-8899.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"liên hệ IT recruiter email điện thoại\", \"knowledge_code\": \"contact\"}"
+          }
+        }
+      ],
+      "conversation_history": [
+        {
+          "role": "user",
+          "content": "Nộp CV vị trí 1001: https://cv.io/abc.pdf"
+        },
+        {
+          "role": "assistant",
+          "content": "CV đã được tiếp nhận cho Backend Python. HR sẽ liên hệ trong 3–5 ngày."
+        }
+      ],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base về công ty, văn hóa, chính sách, phúc lợi và thông tin liên hệ.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Câu hỏi hoặc từ khóa cần tìm"
+                },
+                "knowledge_code": {
+                  "type": "string",
+                  "description": "Mã kho tri thức (company_overview, culture, hr_policy, benefits, contact)"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "document_qa_specialist",
+        "tools_used": [
+          "search_knowledge"
+        ],
+        "num_tool_calls": 1,
+        "difficulty": "hard",
+        "note": "Out-of-scope request: rút CV — chatbot không hỗ trợ trực tiếp → agent hướng dẫn liên hệ HR"
+      }
+    },
+    {
+      "id": "recruitment_tc_078",
+      "input": "Tôi muốn biết AMIS Tuyển dụng có gì, rồi xem JD vị trí 1004, sau đó nộp CV: https://resume.vn/cv_hr.pdf",
+      "output": "",
+      "reference": "AMIS Tuyển dụng là sản phẩm trong hệ sinh thái AMIS của MISA. JD Chuyên viên Tuyển dụng (ID 1004): Junior, Hà Nội, 8–12 triệu, cần 1+ năm tuyển dụng. CV đã được tiếp nhận.",
+      "tool_calls": [],
+      "expected_tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "arguments": "{\"query\": \"AMIS Tuyển dụng sản phẩm hệ sinh thái\", \"knowledge_code\": \"company_overview\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "arguments": "{\"RecruitmentID\": \"1004\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "arguments": "{\"CvUrl\": \"https://resume.vn/cv_hr.pdf\", \"ListRecruitmentID\": [1004], \"CvContent\": \"\"}"
+          }
+        }
+      ],
+      "conversation_history": [],
+      "tools": [
+        {
+          "type": "function",
+          "function": {
+            "name": "search_knowledge",
+            "description": "Tìm kiếm thông tin trong knowledge base về công ty, văn hóa, chính sách, phúc lợi và thông tin liên hệ.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "Câu hỏi hoặc từ khóa cần tìm"
+                },
+                "knowledge_code": {
+                  "type": "string",
+                  "description": "Mã kho tri thức (company_overview, culture, hr_policy, benefits, contact)"
+                }
+              },
+              "required": [
+                "query"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_detail",
+            "description": "Lấy chi tiết JD của một tin tuyển dụng.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "RecruitmentID": {
+                  "type": "string",
+                  "description": "ID của tin tuyển dụng"
+                }
+              },
+              "required": [
+                "RecruitmentID"
+              ]
+            }
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "collect_cv",
+            "description": "Thu thập CV: Tiếp nhận CV ứng tuyển của ứng viên. Bắt buộc có ít nhất một trong hai: CvUrl (link CV) HOẶC CvContent (nội dung text CV).",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "CvUrl": {
+                  "type": "string",
+                  "description": "URL link CV (Google Drive, Dropbox, OneDrive...). Để trống nếu dùng CvContent."
+                },
+                "ListRecruitmentID": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "description": "Danh sách ID vị trí ứng tuyển. null = ứng tuyển chung."
+                },
+                "CvContent": {
+                  "type": "string",
+                  "description": "Nội dung CV dạng text. Để trống nếu dùng CvUrl."
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "CvUrl"
+                  ]
+                },
+                {
+                  "required": [
+                    "CvContent"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "metadata": {
+        "skill_code": "recruitment_collect_cv",
+        "tools_used": [
+          "search_knowledge",
+          "get_recruitment_detail",
+          "collect_cv"
+        ],
+        "num_tool_calls": 3,
+        "difficulty": "hard",
+        "note": "3-step cross-skill pipeline: knowledge + detail + apply trong 1 turn"
+      }
+    }
+  ]
+}

@@ -13,6 +13,8 @@ Next.js web app kiểu LangSmith để đánh giá LLM. Chạy bằng `npm run d
 ## Cấu trúc thư mục
 
 ```
+datasets/                       ← benchmark datasets (JSON, committed vào repo)
+results/                        ← eval outputs (JSON, git-ignored, tạo lúc runtime)
 src/
 ├── app/
 │   ├── layout.tsx              ← RootLayout, sidebar cố định, main scroll
@@ -24,9 +26,9 @@ src/
 │   ├── visual-eval/page.tsx    ← 2 AI tự conversation (agentic eval)
 │   ├── leaderboard/page.tsx    ← bảng xếp hạng + radar charts
 │   └── api/
-│       ├── datasets/route.ts   ← đọc file datasets từ disk
-│       ├── results/route.ts    ← đọc kết quả run từ disk
-│       └── visual-eval/route.ts← lưu transcript simulation ra disk
+│       ├── datasets/route.ts   ← đọc file từ datasets/ trong repo
+│       ├── results/route.ts    ← đọc/ghi kết quả vào results/ trong repo
+│       └── visual-eval/route.ts← lưu transcript simulation vào results/ trong repo
 ├── components/
 │   ├── layout/Sidebar.tsx      ← nav sidebar (indicator khi eval/sim đang chạy)
 │   └── ui/

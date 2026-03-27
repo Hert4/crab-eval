@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { useDatasetsStore } from '@/store/datasetsStore'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -18,16 +18,23 @@ interface LogEntry extends GTProgress {
 
 export default function GTGeneratorPage() {
   const { datasets, updateRecord } = useDatasetsStore()
+  const [hydrated, setHydrated] = useState(false)
 
   // Config state
-  const [selectedDatasetId, setSelectedDatasetId] = useState<string>(datasets[0]?.id ?? '')
+  const [selectedDatasetId, setSelectedDatasetId] = useState<string>('')
   const [filter, setFilter] = useState<RecordFilter>('empty_ref')
   const [baseUrl, setBaseUrl] = useState('https://api.openai.com/v1')
-  const [apiKey, setApiKeyState] = useState(getApiKey('gt_api_key'))
+  const [apiKey, setApiKeyState] = useState('')
   const [model, setModel] = useState('gpt-4o')
   const [promptTemplate, setPromptTemplate] = useState(DEFAULT_GT_PROMPT)
   const [delayMs, setDelayMs] = useState(200)
   const [showPrompt, setShowPrompt] = useState(false)
+
+  useEffect(() => {
+    setSelectedDatasetId(datasets[0]?.id ?? '')
+    setApiKeyState(getApiKey('gt_api_key'))
+    setHydrated(true)
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Run state
   const [running, setRunning] = useState(false)
@@ -119,6 +126,8 @@ export default function GTGeneratorPage() {
   }
 
   const filteredCount = getFilteredIds().length
+
+  if (!hydrated) return null
 
   return (
     <div className="p-8 max-w-5xl mx-auto">

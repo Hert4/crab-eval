@@ -268,7 +268,7 @@ async function _runEval(
 
     // Save to localStorage (strips taskDetails to avoid quota issues)
     const { useResultsStore } = await import('@/store/resultsStore')
-    useResultsStore.getState().addRun(result)
+    useResultsStore.getState().upsertRun(result)
 
     // Save to disk: results/<model>/<task>.json
     try {

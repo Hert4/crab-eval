@@ -2,26 +2,55 @@ import { NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-// results/ lives next to datasets/, 2 levels up from eval-framework/
-const RESULTS_DIR = path.resolve(process.cwd(), '..', 'results')
+// results/ lives inside the repo at crab-eval/results/
+const RESULTS_DIR = path.resolve(process.cwd(), 'results')
 
 // Sanitise a string for use as a folder/file name
 function safeName(s: string): string {
   return s.replace(/[^a-zA-Z0-9_\-\.]/g, '_').replace(/_+/g, '_').slice(0, 120)
 }
 
+// Convert a SimulationResult (visual eval) → RunResult shape for the leaderboard
+function simResultToRunResult(sim: Record<string, unknown>) {
+  if (sim.finalScore === null || sim.evaluationStatus === 'unavailable') return null
+
+  const tasks = sim.tasks as Record<string, Record<string, number>> | undefined
+  return {
+    runId:      sim.simId,
+    model:      sim.targetModel,
+    baseUrl:    '',
+    date:       sim.date,
+    durationMs: sim.durationMs ?? 0,
+    tasks:      tasks ?? {
+      [sim.scenarioName as string]: { overall: sim.finalScore ?? 0 },
+    },
+  }
+}
+
+// Parse a file into a RunResult-shaped object, or null if unrecognised
+function parseFile(filepath: string): Record<string, unknown> | null {
+  try {
+    const raw = JSON.parse(fs.readFileSync(filepath, 'utf-8')) as Record<string, unknown>
+    if (raw.runId && raw.tasks) return raw                       // RunResult (eval runner)
+    if (raw.simId && raw.targetModel) return simResultToRunResult(raw)  // SimulationResult (visual eval)
+    return null
+  } catch {
+    return null
+  }
+}
+
 // ── GET /api/results ─────────────────────────────────────────────────
-// Returns all saved runs: { runs: RunResult[] }
+// Returns the LATEST run per model (by date field) from each model folder.
 export async function GET() {
   try {
     if (!fs.existsSync(RESULTS_DIR)) {
       return NextResponse.json({ runs: [], dir: RESULTS_DIR })
     }
 
-    const runs: unknown[] = []
+    // model name → latest parsed run
+    const latestByModel = new Map<string, Record<string, unknown>>()
     const errors: string[] = []
 
-    // results/<model_name>/<task_name>.json
     const modelDirs = fs.readdirSync(RESULTS_DIR, { withFileTypes: true })
       .filter(d => d.isDirectory())
 
@@ -30,16 +59,24 @@ export async function GET() {
       const files = fs.readdirSync(modelPath).filter(f => f.endsWith('.json'))
 
       for (const file of files) {
-        try {
-          const raw = JSON.parse(fs.readFileSync(path.join(modelPath, file), 'utf-8'))
-          runs.push(raw)
-        } catch (e) {
-          errors.push(`${modelDir.name}/${file}: ${e}`)
+        const run = parseFile(path.join(modelPath, file))
+        if (!run) continue
+
+        const model = (run.model as string) || modelDir.name
+        const existing = latestByModel.get(model)
+
+        // Keep whichever run has the later date string (ISO-comparable)
+        if (!existing || String(run.date) > String(existing.date)) {
+          latestByModel.set(model, run)
         }
       }
     }
 
-    return NextResponse.json({ runs, errors, dir: RESULTS_DIR })
+    return NextResponse.json({
+      runs: [...latestByModel.values()],
+      errors,
+      dir: RESULTS_DIR,
+    })
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 500 })
   }

@@ -16,11 +16,14 @@ function fmt(v: number) { return v.toFixed(1) + '%' }
 export default function RunPage() {
   const { datasets } = useDatasetsStore()
   const config = useConfigStore()
+  const [hydrated, setHydrated] = useState(false)
 
   // Eval session state from global store (survives navigation)
   const {
     isRunning, isDone, progress, logs, overallProgress, errorMessage, reset,
   } = useEvalSessionStore()
+
+  useEffect(() => { setHydrated(true) }, [])
 
   // selectedIds auto-sync: default = all datasets checked
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
@@ -90,6 +93,8 @@ export default function RunPage() {
   useEffect(() => {
     if (errorMessage) toast.error(`Eval failed: ${errorMessage}`)
   }, [errorMessage])
+
+  if (!hydrated) return null
 
   return (
     // Full viewport height layout: sidebar is fixed, main is flex-1

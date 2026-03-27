@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useConfigStore } from '@/store/configStore'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -18,10 +18,17 @@ function Field({ label, children, hint }: { label: string; children: React.React
 
 export default function ConfigPage() {
   const config = useConfigStore()
+  const [hydrated, setHydrated] = useState(false)
 
   // API keys (sessionStorage only, not in zustand)
-  const [targetKey, setTargetKey] = useState(getApiKey('target_api_key'))
-  const [judgeKey, setJudgeKey] = useState(getApiKey('judge_api_key'))
+  const [targetKey, setTargetKey] = useState('')
+  const [judgeKey, setJudgeKey] = useState('')
+
+  useEffect(() => {
+    setTargetKey(getApiKey('target_api_key'))
+    setJudgeKey(getApiKey('judge_api_key'))
+    setHydrated(true)
+  }, [])
 
   const [testingTarget, setTestingTarget] = useState(false)
   const [testingJudge, setTestingJudge] = useState(false)
@@ -66,6 +73,8 @@ export default function ConfigPage() {
       ? <CheckCircle2 size={14} className="text-emerald-500" />
       : <XCircle size={14} className="text-red-500" />
   }
+
+  if (!hydrated) return null
 
   return (
     <div className="p-8 max-w-3xl mx-auto">

@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-// Resolve the datasets folder — it lives at the repo root, 2 levels up from eval-framework/
-const DATASETS_DIR = path.resolve(process.cwd(), '..', 'datasets')
+// Resolve the datasets folder — lives inside the repo at crab-eval/datasets/
+const DATASETS_DIR = path.resolve(process.cwd(), 'datasets')
 
 export async function GET() {
   try {

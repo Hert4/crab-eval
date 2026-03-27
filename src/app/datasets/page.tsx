@@ -1,5 +1,5 @@
 'use client'
-import { useCallback, useState } from 'react'
+import { useCallback, useState, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useDatasetsStore } from '@/store/datasetsStore'
 import { Dataset, DataRecord } from '@/types'
@@ -30,9 +30,12 @@ function parseDataset(filename: string, raw: unknown): Dataset | null {
 
 export default function DatasetsPage() {
   const { datasets, addDataset, removeDataset, mergeGT } = useDatasetsStore()
+  const [hydrated, setHydrated] = useState(false)
   const [preview, setPreview] = useState<Dataset | null>(null)
   const [mergeTarget, setMergeTarget] = useState<string | null>(null)
   const [loadingFolder, setLoadingFolder] = useState(false)
+
+  useEffect(() => { setHydrated(true) }, [])
 
   // ── Load from datasets/ folder via API ────────
   const loadFromFolder = useCallback(async () => {
@@ -126,6 +129,8 @@ export default function DatasetsPage() {
   // ── Stats ─────────────────────────────────────
   const withRef = (ds: Dataset) => ds.data.filter(r => r.reference && r.reference !== '').length
   const withOutput = (ds: Dataset) => ds.data.filter(r => r.output && r.output !== '').length
+
+  if (!hydrated) return null
 
   return (
     <div className="p-8 max-w-5xl mx-auto">

@@ -28,6 +28,9 @@ const METRIC_SHORT: Record<string, string> = {
   bleu: 'BLEU', rouge: 'ROUGE', faithfulness: 'Faith.',
   answer_relevancy: 'Relev.', ast_accuracy: 'AST', task_success_rate: 'Task%',
   list_match: 'Recall', comet: 'COMET',
+  // Visual eval holistic metrics
+  overall: 'Overall', relevancy: 'Relev.', helpfulness: 'Help.',
+  task_completion: 'Complet.', proactiveness: 'Proact.', error_correction: 'Err.Corr', conv_quality: 'Conv.Q',
 }
 
 const PALETTE = [
@@ -50,9 +53,14 @@ function taskShort(t: string) {
 }
 
 // ── Compute helpers ─────────────────────────────────────────────────
+// For visual eval tasks that have an 'overall' key, use it directly as the
+// task score (it already blends turn-by-turn + holistic). For classic eval
+// tasks (no 'overall'), average all metric values as before.
 function getTaskAvg(entry: RunResult, task: string): number | null {
   const metrics = entry.tasks?.[task]
   if (!metrics) return null
+  // If task has an explicit 'overall' score, use it — don't re-average sub-metrics
+  if (typeof metrics.overall === 'number') return metrics.overall
   const vals = Object.values(metrics).filter((v): v is number => typeof v === 'number')
   return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null
 }
@@ -86,29 +94,27 @@ function getActiveGroups(runs: RunResult[]): TaskGroup[] {
   return [...base, { id: 'visual_eval', label: 'Visual Eval', tasks: unclassified }]
 }
 
-// ── Merge runs with same model name → best score per task ────────────
+// ── Merge runs with same model name → keep best single run (highest global avg) ──
+function runGlobalAvg(r: RunResult): number {
+  const tasks = r.tasks || {}
+  const scores: number[] = []
+  for (const metrics of Object.values(tasks)) {
+    if (typeof metrics.overall === 'number') {
+      scores.push(metrics.overall)
+    } else {
+      const vals = Object.values(metrics).filter((v): v is number => typeof v === 'number')
+      if (vals.length) scores.push(vals.reduce((a, b) => a + b, 0) / vals.length)
+    }
+  }
+  return scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 0
+}
+
 function mergeRunsByModel(runs: RunResult[]): RunResult[] {
   const byModel = new Map<string, RunResult>()
   for (const r of runs) {
     const existing = byModel.get(r.model)
-    if (!existing) {
-      byModel.set(r.model, { ...r, tasks: { ...r.tasks } })
-    } else {
-      // Merge tasks: for each task, keep metric score from whichever run is higher avg
-      const merged = { ...existing.tasks }
-      for (const [taskName, metrics] of Object.entries(r.tasks || {})) {
-        if (!merged[taskName]) {
-          merged[taskName] = { ...metrics }
-        } else {
-          // Keep the run with higher average score for this task
-          const existingAvg = Object.values(merged[taskName]).reduce((a, b) => a + b, 0) / Math.max(1, Object.values(merged[taskName]).length)
-          const newAvg = Object.values(metrics).reduce((a, b) => a + b, 0) / Math.max(1, Object.values(metrics).length)
-          if (newAvg > existingAvg) merged[taskName] = { ...metrics }
-        }
-      }
-      // Keep the most recent date
-      const keepDate = existing.date > r.date ? existing.date : r.date
-      byModel.set(r.model, { ...existing, tasks: merged, date: keepDate })
+    if (!existing || runGlobalAvg(r) > runGlobalAvg(existing)) {
+      byModel.set(r.model, r)
     }
   }
   return [...byModel.values()]
@@ -147,7 +153,8 @@ type ViewMode = 'group' | 'task'
 type SortCol = 'global' | string
 
 export default function LeaderboardPage() {
-  const { runs, removeRun, addRun } = useResultsStore()
+  const { runs, removeRun, replaceAll } = useResultsStore()
+  const [hydrated, setHydrated] = useState(false)
   const [search, setSearch] = useState('')
   const [viewMode, setViewMode] = useState<ViewMode>('group')
   const [showBars, setShowBars] = useState(false)
@@ -155,7 +162,9 @@ export default function LeaderboardPage() {
   const [sortAsc, setSortAsc] = useState(false)
   const [activeGroupIds, setActiveGroupIds] = useState<Set<string>>(new Set())
   const [loadingDisk, setLoadingDisk] = useState(false)
-  const [mergeMode, setMergeMode] = useState(true)  // true = merge same-model runs
+  const [mergeMode, setMergeMode] = useState(true)
+
+  useEffect(() => { setHydrated(true) }, [])
 
   // Effective runs: merged per-model or raw per-run
   const effectiveRuns = useMemo(() =>
@@ -180,16 +189,14 @@ export default function LeaderboardPage() {
       const json = await res.json()
       if (!res.ok) { toast.error(json.error || 'Failed to load results'); return }
 
-      let added = 0, skipped = 0
-      for (const run of json.runs ?? []) {
-        if (!run?.runId || !run?.tasks) continue
-        // Only load _run_*.json summary files (skip per-task detail files)
-        if (runs.find(r => r.runId === run.runId)) { skipped++; continue }
-        addRun(run)
-        added++
+      const valid = (json.runs ?? []).filter((r: RunResult) => r?.runId && r?.tasks)
+      if (valid.length === 0) {
+        toast('No saved runs found in results/ folder')
+        return
       }
-      if (added === 0 && skipped === 0) toast('No saved runs found in results/ folder')
-      else toast.success(`Loaded ${added} run${added !== 1 ? 's' : ''} from disk${skipped ? ` (${skipped} already loaded)` : ''}`)
+      // Disk is source of truth — replace entire store so stale/old runs are cleared
+      replaceAll(valid)
+      toast.success(`Loaded ${valid.length} run${valid.length !== 1 ? 's' : ''} from disk`)
     } catch (e) {
       toast.error(`Error loading from disk: ${e}`)
     } finally {
@@ -264,6 +271,8 @@ export default function LeaderboardPage() {
   )
 
   const topModel = filtered[0]
+
+  if (!hydrated) return null
 
   if (runs.length === 0) {
     return (

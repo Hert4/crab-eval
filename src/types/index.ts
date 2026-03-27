@@ -128,17 +128,47 @@ export interface LeaderboardEntry {
 // Visual Eval (Simulation) types
 // ──────────────────────────────────────────────
 
+// Result for a single task evaluated by the holistic judge
+export interface ToolTraceSummary {
+  totalToolCalls: number
+  validToolCalls: number
+  invalidToolCalls: number
+  unknownTools: number
+  malformedArguments: number
+  missingRequiredArguments: number
+}
+
+export interface TaskScoreBreakdown {
+  completion: number
+  grounding: number
+  clarification: number | null
+  toolUse: number | null
+  toolTrace: number | null
+}
+
+export interface TaskResult {
+  task: string          // original task description
+  status: 'completed' | 'wrong' | 'incomplete' | 'skipped'
+  score: number         // 0–100 for this task
+  note: string          // 1-2 sentence explanation
+  durationMs?: number   // wall-clock time from task start to completion (optional)
+  breakdown?: TaskScoreBreakdown
+  toolTrace?: ToolTraceSummary
+}
+
+export interface SimulationEvaluationDebug {
+  evaluator: string
+  rawJudgeResponse?: string
+  parseError?: string
+  unavailableReason?: string
+}
+
 export interface SimulationTurn {
   turnIndex: number
   role: 'user' | 'assistant' | 'tool'
   content: string
   tool_calls?: Array<{ type: string; function: { name: string; arguments: string } }>
-  tool_name?: string           // when role = 'tool'
-  scores?: {                   // user model scores after each assistant turn
-    relevancy: number          // 1-10
-    accuracy: number
-    helpfulness: number
-  }
+  tool_name?: string     // when role = 'tool'
   durationMs?: number
 }
 
@@ -150,7 +180,10 @@ export interface SimulationResult {
   date: string
   durationMs: number
   turns: SimulationTurn[]
-  finalScore: number           // 0-100
+  finalScore: number | null    // 0-100, weighted avg of task scores; null when evaluation unavailable
   finalAssessment: string
+  taskResults?: TaskResult[]   // per-task breakdown from holistic judge
+  evaluationStatus?: 'scored' | 'unavailable'
+  evaluationDebug?: SimulationEvaluationDebug
   status: 'completed' | 'stopped' | 'error'
 }
