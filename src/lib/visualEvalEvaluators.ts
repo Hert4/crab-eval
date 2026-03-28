@@ -4,6 +4,11 @@ import {
   TaskResult,
   TaskScoreBreakdown,
   ToolTraceSummary,
+  MultiJudgeResult,
+  JudgeVerdict,
+  ThreeAxisScore,
+  ComplianceResult,
+  ComplianceRule,
 } from '@/types'
 import { chatCompletion, OpenAIConfig, OpenAITool } from './openai'
 
@@ -146,7 +151,7 @@ function buildPriorContext(turns: SimulationTurn[]): string {
   return truncate(sections.join('\n\n'), 1800)
 }
 
-function buildTaskSegments(turns: SimulationTurn[], tasks?: string[]): TaskSegment[] {
+export function buildTaskSegments(turns: SimulationTurn[], tasks?: string[]): TaskSegment[] {
   const userIndexes = turns
     .map((turn, idx) => turn.role === 'user' ? idx : -1)
     .filter(idx => idx !== -1)
@@ -343,7 +348,7 @@ function detectJudgeMetricMultiplier(tasks: JudgeTaskPayload[]): number {
   return 1
 }
 
-function buildJudgePrompt(segments: TaskSegment[]): string {
+export function buildJudgePrompt(segments: TaskSegment[]): string {
   const payload = segments.map(segment => ({
     task_index: segment.index + 1,
     task: segment.task,
@@ -683,4 +688,207 @@ export async function evaluateVisualSimulation(
       rawJudgeResponse: rawResponses.join('\n\n---JUDGE RUN---\n\n'),
     },
   }
+}
+
+// ── Multi-Judge Evaluation (Milestone 2) ─────────────────────────────────
+// Runs evaluateVisualSimulation() for each judge in parallel, then computes
+// a consensus score using weighted median of all successful verdicts.
+
+export async function multiJudgeEvaluate(
+  turns: SimulationTurn[],
+  primaryJudgeCfg: OpenAIConfig,
+  additionalJudges: Array<{ config: OpenAIConfig }>,
+  signal: AbortSignal,
+  options: EvaluateOptions
+): Promise<MultiJudgeResult> {
+  const allJudges: Array<{ cfg: OpenAIConfig; weight: number }> = [
+    { cfg: primaryJudgeCfg, weight: 1 },
+    ...additionalJudges.map(j => ({ cfg: j.config, weight: 1 })),
+  ]
+
+  const t0 = Date.now()
+  // Run all judges in parallel — if one fails we still use the others
+  const results = await Promise.allSettled(
+    allJudges.map(({ cfg }) => evaluateVisualSimulation(turns, cfg, signal, options))
+  )
+
+  const verdicts: JudgeVerdict[] = results.map((r, i) => {
+    const judge = allJudges[i]
+    if (r.status === 'fulfilled') {
+      return {
+        model: judge.cfg.model,
+        baseUrl: judge.cfg.baseUrl,
+        finalScore: r.value.finalScore,
+        taskResults: r.value.taskResults,
+        assessment: r.value.assessment,
+        durationMs: Date.now() - t0,
+      }
+    } else {
+      return {
+        model: judge.cfg.model,
+        baseUrl: judge.cfg.baseUrl,
+        finalScore: null,
+        assessment: '',
+        error: String(r.reason),
+        durationMs: Date.now() - t0,
+      }
+    }
+  })
+
+  const successful = verdicts.filter(v => v.finalScore !== null)
+  const scores = successful.map(v => v.finalScore as number)
+
+  // Weighted median of successful scores
+  let consensusScore: number | null = null
+  let consensusAssessment = ''
+  if (scores.length > 0) {
+    const sorted = [...scores].sort((a, b) => a - b)
+    const mid = Math.floor(sorted.length / 2)
+    consensusScore = sorted.length % 2 === 0
+      ? Math.round((sorted[mid - 1] + sorted[mid]) / 2)
+      : sorted[mid]
+    // Use assessment from the verdict closest to consensus
+    const closestIdx = successful.reduce((bestIdx, v, i) =>
+      Math.abs((v.finalScore ?? 0) - consensusScore!) <
+      Math.abs((successful[bestIdx].finalScore ?? 0) - consensusScore!)
+        ? i : bestIdx, 0)
+    consensusAssessment = successful[closestIdx].assessment
+  }
+
+  // Compute pairwise agreement rate (agree if scores within 15 points)
+  let totalPairs = 0
+  let agreedPairs = 0
+  for (let i = 0; i < scores.length; i++) {
+    for (let j = i + 1; j < scores.length; j++) {
+      totalPairs++
+      if (Math.abs(scores[i] - scores[j]) <= 15) agreedPairs++
+    }
+  }
+  const agreementRate = totalPairs > 0 ? agreedPairs / totalPairs : 1
+
+  return {
+    verdicts,
+    consensusScore,
+    consensusAssessment,
+    agreementRate,
+    judgeCount: allJudges.length,
+    successCount: successful.length,
+  }
+}
+
+// ── 3-Axis Score (Milestone 2) ────────────────────────────────────────────
+// Combines tool trace (programmatic), judge score (semantic), and compliance
+// into a transparent 3-axis breakdown alongside the existing combined score.
+
+export function computeThreeAxisScore(
+  toolTraceScore: number | null,
+  judgeScore: number | null,
+  complianceScore: number
+): ThreeAxisScore {
+  const taskCompletion = clampScore(toolTraceScore ?? judgeScore ?? 0)
+  const qualityScore   = clampScore(judgeScore ?? 0)
+  const compliance     = clampScore(complianceScore)
+  const combined       = clampScore(
+    taskCompletion * 0.50 +
+    qualityScore   * 0.35 +
+    compliance     * 0.15
+  )
+  return { taskCompletion, qualityScore, complianceScore: compliance, combined }
+}
+
+// ── Compliance Checker (Milestone 2) ─────────────────────────────────────
+// Config-driven rule evaluation — no hardcoded domain logic.
+
+function getNestedValue(obj: unknown, path: string): unknown {
+  return path.split('.').reduce((acc: unknown, key) => {
+    if (acc && typeof acc === 'object' && !Array.isArray(acc)) {
+      return (acc as Record<string, unknown>)[key]
+    }
+    return undefined
+  }, obj)
+}
+
+export function checkCompliance(
+  turns: SimulationTurn[],
+  rules: ComplianceRule[]
+): ComplianceResult {
+  if (rules.length === 0) return { score: 100, passedRules: [], failedRules: [] }
+
+  const passedRules: string[] = []
+  const failedRules: string[] = []
+  let totalWeight = 0
+  let passedWeight = 0
+
+  for (const rule of rules) {
+    totalWeight += rule.weight
+    let passed = true
+
+    switch (rule.check) {
+      case 'id_format': {
+        // Check that all tool call arguments at fieldPath match the pattern
+        const re = new RegExp(rule.pattern ?? '.*')
+        const toolTurns = turns.filter(t => t.tool_calls?.length)
+        passed = toolTurns.every(t =>
+          (t.tool_calls ?? []).every(tc => {
+            if (!rule.fieldPath) return true
+            try {
+              const args = JSON.parse(tc.function.arguments) as unknown
+              const val = getNestedValue(args, rule.fieldPath)
+              return val === undefined || re.test(String(val))
+            } catch { return true }
+          })
+        )
+        break
+      }
+      case 'must_clarify': {
+        // Assistant must ask a clarifying question (contain '?') before first tool call
+        const firstToolIdx = turns.findIndex(t => t.tool_calls?.length)
+        const askedBefore = turns.slice(0, firstToolIdx).some(
+          t => t.role === 'assistant' && t.content.includes('?')
+        )
+        passed = firstToolIdx === -1 || askedBefore
+        break
+      }
+      case 'no_hallucination': {
+        // Check that assistant turns don't claim success for tool calls that returned errors
+        const toolResults = turns
+          .filter(t => t.role === 'tool')
+          .map(t => {
+            try { return JSON.parse(t.content) as Record<string, unknown> } catch { return null }
+          })
+        const hasErrors = toolResults.some(r => r && (r.error || r.success === false))
+        if (hasErrors) {
+          // At least one tool returned an error — check that assistant acknowledged it
+          const lastAssistant = [...turns].reverse().find(t => t.role === 'assistant')
+          const content = lastAssistant?.content?.toLowerCase() ?? ''
+          passed = content.includes('error') || content.includes('fail') ||
+                   content.includes('unable') || content.includes('not found')
+        }
+        break
+      }
+      case 'custom_regex': {
+        // Apply regex pattern across all assistant turn content
+        const re = new RegExp(rule.pattern ?? '.*', 'i')
+        const assistantContent = turns
+          .filter(t => t.role === 'assistant')
+          .map(t => t.content)
+          .join('\n')
+        passed = re.test(assistantContent)
+        break
+      }
+      default:
+        passed = true
+    }
+
+    if (passed) {
+      passedRules.push(rule.id)
+      passedWeight += rule.weight
+    } else {
+      failedRules.push(rule.id)
+    }
+  }
+
+  const score = totalWeight > 0 ? clampScore((passedWeight / totalWeight) * 100) : 100
+
+  return { score, passedRules, failedRules }
 }

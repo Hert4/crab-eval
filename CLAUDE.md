@@ -182,3 +182,46 @@ npm run dev    # localhost:3000
 npm run build  # production build
 npx tsc --noEmit  # type check
 ```
+
+## Evaluation Pipeline v2
+
+### Milestone 1 — Frozen Oracle Dataset
+- `generateFrozenOracle()` in `src/lib/visualEvalRunner.ts`
+- Oracle runs a dry-run simulation (oracle acts as target) to discover all tool calls organically, then pre-caches responses. Ensures every target model in a batch gets **identical** mock tool responses.
+- Oracle datasets saved to `results/oracle-datasets/{datasetId}.json`
+- API: `GET/POST /api/visual-eval/oracle`
+- Types: `FrozenOracleDataset`, `FrozenToolResponse` in `src/types/index.ts`
+- `SimulationResult` carries: `judgePromptHash`, `oracleDatasetId`, `toolDefinitions`, `evaluationVersion`
+
+### Milestone 2 — Multi-Judge + 3-Axis Scoring
+- `multiJudgeEvaluate()` in `src/lib/visualEvalEvaluators.ts`
+  - Runs `evaluateVisualSimulation()` for each judge in parallel (`Promise.allSettled`)
+  - Consensus = weighted median of successful judge scores
+  - `agreementRate` = fraction of judge pairs agreeing within 15 points
+- `computeThreeAxisScore(toolTrace, judgeScore, compliance)` → `ThreeAxisScore`
+  - Task Completion (programmatic, tool trace) — 50%
+  - Quality Score (LLM judge semantic) — 35%
+  - Compliance Score (config-driven rules) — 15%
+- `checkCompliance(turns, rules)` — no hardcoded domain logic; rules in `ComplianceRule[]`
+- UI: Up to 2 additional judges in Judge config section (`cfg.additionalJudges`)
+- `SimulationResult` carries: `multiJudgeResult`, `threeAxisScore`, `complianceResult`, `judgeAgreement`
+
+### Milestone 3 — Statistical Rigor
+- `src/lib/statistics.ts`: `bootstrapCI()`, `passAtK()`, `isSignificantlyDifferent()`
+  - Bootstrap CI: 2000 iterations, percentile method
+  - Pass@k: unbiased estimator `1 - C(n-c,k)/C(n,k)` (τ-bench / Yao et al. 2024)
+  - Significance: Welch's t-test, α=0.05, no external dependencies
+- `runsPerModel` in batch config — frozen oracle generated once, shared across all runs
+- `SimulationResult` carries: `runIndex`, `totalRuns`
+- Leaderboard (`src/app/leaderboard/page.tsx`):
+  - Default `mergeMode=false` (statistical view) — was `true`
+  - 95% CI column shown when ≥2 runs per model
+  - significance badge when NOT significantly different from #1
+  - H1 shows "A vs B" only when exactly 2 models AND significantly different
+  - pass@1 / pass@3 shown per model row
+
+### Key invariants
+- All `SimulationResult` new fields are optional — backward compatible with old JSON files
+- API keys: sessionStorage only (`getApiKey()`), never Zustand/localStorage
+- `judgeBaseUrl`, `judgeModel` already existed in store/UI before M1 — not re-added
+- `EVALUATION_VERSION = '2.0.0'` in `visualEvalRunner.ts`

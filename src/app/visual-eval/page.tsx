@@ -374,6 +374,12 @@ export default function VisualEvalPage() {
       judgeConfig: (cfg.judgeBaseUrl.trim() && cfg.judgeModel.trim())
         ? { baseUrl: cfg.judgeBaseUrl.trim(), model: cfg.judgeModel.trim() }
         : undefined,
+      additionalJudges: (cfg.additionalJudges ?? [])
+        .filter(j => j.baseUrl.trim() && j.model.trim())
+        .map(j => ({ baseUrl: j.baseUrl.trim(), model: j.model.trim(), apiKeyName: j.apiKeyName || 'visual_judge_api_key' })),
+      complianceRules: (() => {
+        try { return cfg.complianceRulesJson ? JSON.parse(cfg.complianceRulesJson) : undefined } catch { return undefined }
+      })(),
       maxTurns: cfg.maxTurnsInput,
       tools: parsedTools.length > 0 ? parsedTools : undefined,
       mockContext: cfg.mockContext || undefined,
@@ -443,11 +449,18 @@ export default function VisualEvalPage() {
       judgeConfig: (cfg.judgeBaseUrl.trim() && cfg.judgeModel.trim())
         ? { baseUrl: cfg.judgeBaseUrl.trim(), model: cfg.judgeModel.trim() }
         : undefined,
+      additionalJudges: (cfg.additionalJudges ?? [])
+        .filter(j => j.baseUrl.trim() && j.model.trim())
+        .map(j => ({ baseUrl: j.baseUrl.trim(), model: j.model.trim(), apiKeyName: j.apiKeyName || 'visual_judge_api_key' })),
+      complianceRules: (() => {
+        try { return cfg.complianceRulesJson ? JSON.parse(cfg.complianceRulesJson) : undefined } catch { return undefined }
+      })(),
       maxTurns: cfg.maxTurnsInput,
       tools: parsedTools.length > 0 ? parsedTools : undefined,
       mockContext: cfg.mockContext || undefined,
       tasks: taskList,
       replayScript,
+      runsPerModel: cfg.runsPerModel ?? 1,
     }
 
     await startBatchSimulation(parsedBatchModels, baseConfig)
@@ -567,6 +580,40 @@ export default function VisualEvalPage() {
                       onChange={e => { setJudgeApiKeyState(e.target.value); setApiKey('visual_judge_api_key', e.target.value) }}
                       placeholder="API Key (blank = same as User)" className="w-full text-xs border border-[#E5E5E4] rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]" />
                   </div>
+
+                  {/* Additional judges for multi-judge consensus (M2) */}
+                  {(cfg.additionalJudges ?? []).length === 0 && (
+                    <p className="text-[10px] text-[#9B9B9B] mt-1.5">Single judge — add 2+ for consensus scoring</p>
+                  )}
+                  {(cfg.additionalJudges ?? []).map((judge, i) => (
+                    <div key={i} className="mt-2 border border-[#E5E5E4] rounded-lg p-2 space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wider">Judge {i + 2}</span>
+                        <button
+                          onClick={() => setCfg({ additionalJudges: (cfg.additionalJudges ?? []).filter((_, idx) => idx !== i) })}
+                          className="text-[10px] text-[#9B9B9B] hover:text-[#DC2626]"
+                        >Remove</button>
+                      </div>
+                      <input
+                        value={judge.baseUrl}
+                        onChange={e => setCfg({ additionalJudges: (cfg.additionalJudges ?? []).map((j, idx) => idx === i ? { ...j, baseUrl: e.target.value } : j) })}
+                        placeholder="Base URL" className="w-full text-xs border border-[#E5E5E4] rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]" />
+                      <input
+                        value={judge.model}
+                        onChange={e => setCfg({ additionalJudges: (cfg.additionalJudges ?? []).map((j, idx) => idx === i ? { ...j, model: e.target.value } : j) })}
+                        placeholder="Model name" className="w-full text-xs border border-[#E5E5E4] rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]" />
+                      <input
+                        value={judge.apiKeyName ?? ''}
+                        onChange={e => setCfg({ additionalJudges: (cfg.additionalJudges ?? []).map((j, idx) => idx === i ? { ...j, apiKeyName: e.target.value } : j) })}
+                        placeholder="API key name in sessionStorage" className="w-full text-xs border border-[#E5E5E4] rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]" />
+                    </div>
+                  ))}
+                  {(cfg.additionalJudges ?? []).length < 2 && (
+                    <button
+                      onClick={() => setCfg({ additionalJudges: [...(cfg.additionalJudges ?? []), { baseUrl: '', model: '', apiKeyName: 'visual_judge_api_key_2', weight: 1 }] })}
+                      className="mt-1.5 text-[10px] text-[#6B6B6B] hover:text-[#1A1A1A] border border-dashed border-[#E5E5E4] rounded-lg px-3 py-1 w-full text-center"
+                    >+ Add Judge</button>
+                  )}
                 </div>
 
                 {/* Upload */}
@@ -692,6 +739,19 @@ export default function VisualEvalPage() {
                   <p className="text-[10px] text-violet-500 mt-0.5">
                     Batch fairness reuses one fixed replay script and shared cached tool results across models.
                   </p>
+                  {/* Runs per model (M3) */}
+                  <div className="flex items-center gap-2 mt-1.5">
+                    <span className="text-[10px] text-[#9B9B9B]">Runs / model:</span>
+                    <input
+                      type="number" min={1} max={10}
+                      value={cfg.runsPerModel ?? 1}
+                      onChange={e => setCfg({ runsPerModel: Math.max(1, Math.min(10, parseInt(e.target.value, 10) || 1)) })}
+                      className="w-14 text-xs text-center border border-[#E5E5E4] rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                    />
+                    {(cfg.runsPerModel ?? 1) > 1 && (
+                      <span className="text-[10px] text-[#9B9B9B]">Bootstrap CI enabled</span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Replay Script indicator */}                {activeReplayCount > 0 && (

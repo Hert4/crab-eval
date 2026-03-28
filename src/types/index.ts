@@ -154,6 +154,7 @@ export interface TaskResult {
   durationMs?: number   // wall-clock time from task start to completion (optional)
   breakdown?: TaskScoreBreakdown
   toolTrace?: ToolTraceSummary
+  threeAxisScore?: ThreeAxisScore  // 3-axis breakdown (Milestone 2)
 }
 
 export interface SimulationEvaluationDebug {
@@ -194,4 +195,99 @@ export interface SimulationResult {
   replayScript?: string[]      // fixed user messages used in this run (if replay mode)
   toolsUsed?: Array<{ name: string; description?: string }>  // tools available to target model
   worldState?: string          // pre-generated fixed mock database shared across all batch models
+  // ── Evaluation pipeline v2 metadata ──────────────────────────────
+  judgePromptHash?: string     // simpleHash of judge prompt text (for reproducibility)
+  oracleDatasetId?: string     // FrozenOracleDataset.datasetId used in this run
+  toolDefinitions?: ToolDefinition[]  // snapshot of tools used
+  evaluationVersion?: string   // version of scoring pipeline e.g. "1.0.0"
+  // ── Multi-judge metadata (Milestone 2) ───────────────────────────
+  multiJudgeResult?: MultiJudgeResult
+  threeAxisScore?: ThreeAxisScore
+  complianceResult?: ComplianceResult
+  judgeAgreement?: number      // shortcut: multiJudgeResult.agreementRate
+  // ── Multi-run statistics (Milestone 3) ───────────────────────────
+  runIndex?: number            // 0-based index within multi-run batch
+  totalRuns?: number           // total runs requested for this model
+}
+
+// ──────────────────────────────────────────────
+// Frozen Oracle Dataset types (Milestone 1)
+// ──────────────────────────────────────────────
+
+export interface FrozenToolResponse {
+  cacheKey: string       // output of getToolCallCacheKey(name, args)
+  toolName: string
+  response: string       // oracle JSON string response
+  generatedAt: string    // ISO timestamp
+  oracleModel: string
+  schemaValid: boolean
+}
+
+export interface FrozenOracleDataset {
+  datasetId: string      // simpleHash of all cacheKeys joined
+  scenarioName: string
+  createdAt: string
+  oracleModel: string
+  oracleBaseUrl: string
+  replayScript: string[]
+  entries: FrozenToolResponse[]
+  version: string        // "1.0"
+}
+
+export interface ToolDefinition {
+  name: string
+  description: string
+  parametersSchema: Record<string, unknown>
+}
+
+// ──────────────────────────────────────────────
+// Multi-Judge + Scoring types (Milestone 2)
+// ──────────────────────────────────────────────
+
+export interface MultiJudgeConfig {
+  baseUrl: string
+  model: string
+  apiKeyName: string   // sessionStorage key for this judge's API key
+  weight?: number      // default 1.0
+}
+
+export interface JudgeVerdict {
+  model: string
+  baseUrl: string
+  finalScore: number | null
+  taskResults?: TaskResult[]
+  assessment: string
+  error?: string
+  durationMs: number
+}
+
+export interface MultiJudgeResult {
+  verdicts: JudgeVerdict[]
+  consensusScore: number | null   // weighted median of successful verdicts
+  consensusAssessment: string
+  agreementRate: number           // 0-1, fraction of pairs agreeing within 15 pts
+  judgeCount: number
+  successCount: number
+}
+
+export interface ThreeAxisScore {
+  taskCompletion: number    // 0-100, programmatic (tool trace based)
+  qualityScore: number      // 0-100, LLM judge semantic quality
+  complianceScore: number   // 0-100, rule-based compliance
+  combined: number          // weighted: 50% + 35% + 15%
+}
+
+export interface ComplianceRule {
+  id: string
+  description: string
+  check: 'id_format' | 'must_clarify' | 'no_hallucination' | 'custom_regex'
+  pattern?: string    // regex string
+  fieldPath?: string  // dot-path into tool args JSON
+  weight: number      // 0-1
+}
+
+export interface ComplianceResult {
+  score: number         // 0-100
+  passedRules: string[] // rule IDs
+  failedRules: string[]
 }

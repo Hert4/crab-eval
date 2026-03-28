@@ -1,7 +1,7 @@
 'use client'
 import { create } from 'zustand'
 import { persist, type PersistStorage } from 'zustand/middleware'
-import { SimulationTurn, SimulationResult } from '@/types'
+import { SimulationTurn, SimulationResult, MultiJudgeConfig } from '@/types'
 
 // ── Module-level AbortController ────────────────────────────────────
 let _simController: AbortController | null = null
@@ -34,6 +34,14 @@ export interface VisualEvalConfig {
   // Judge model — dedicated evaluator/judge (if blank, falls back to User Model)
   judgeBaseUrl: string
   judgeModel: string
+  // Judge API key name — sessionStorage key for judge's API key (default: 'visual_judge_api_key')
+  judgeApiKeyName: string
+  // Additional judges for multi-judge consensus (Milestone 2) — max 2 extra
+  additionalJudges: MultiJudgeConfig[]
+  // Compliance rules — JSON array of ComplianceRule[] (Milestone 2)
+  complianceRulesJson: string
+  // Runs per model for statistical rigor (Milestone 3) — default 1, max 10
+  runsPerModel: number
   // Ordered task list — User Model delivers these tasks one by one to Target Model.
   // Format: JSON array of strings. Each string is one task description.
   // ["Find candidates named X", "Get Technical Interview list for RJ20231201", ...]
@@ -62,6 +70,10 @@ type PersistedVisualEvalConfig = Pick<
   | 'oracleModel'
   | 'judgeBaseUrl'
   | 'judgeModel'
+  | 'judgeApiKeyName'
+  | 'additionalJudges'
+  | 'complianceRulesJson'
+  | 'runsPerModel'
   | 'tasksJson'
   | 'numTasksInput'
   | 'replayScript'
@@ -139,6 +151,10 @@ const DEFAULT_CFG: VisualEvalConfig = {
   oracleModel: '',
   judgeBaseUrl: '',
   judgeModel: '',
+  judgeApiKeyName: 'visual_judge_api_key',
+  additionalJudges: [],
+  complianceRulesJson: '',
+  runsPerModel: 1,
   tasksJson: '[]',
   numTasksInput: 4,
   replayScript: '[]',
@@ -176,6 +192,10 @@ function sanitizePersistedCfg(cfg?: Partial<VisualEvalConfig> | null): Persisted
     oracleModel: cfg?.oracleModel ?? DEFAULT_CFG.oracleModel,
     judgeBaseUrl: cfg?.judgeBaseUrl ?? DEFAULT_CFG.judgeBaseUrl,
     judgeModel: cfg?.judgeModel ?? DEFAULT_CFG.judgeModel,
+    judgeApiKeyName: cfg?.judgeApiKeyName ?? DEFAULT_CFG.judgeApiKeyName,
+    additionalJudges: cfg?.additionalJudges ?? DEFAULT_CFG.additionalJudges,
+    complianceRulesJson: cfg?.complianceRulesJson ?? DEFAULT_CFG.complianceRulesJson,
+    runsPerModel: cfg?.runsPerModel ?? DEFAULT_CFG.runsPerModel,
     tasksJson: cfg?.tasksJson ?? DEFAULT_CFG.tasksJson,
     numTasksInput: cfg?.numTasksInput ?? DEFAULT_CFG.numTasksInput,
     replayScript: cfg?.replayScript ?? DEFAULT_CFG.replayScript,
@@ -303,6 +323,10 @@ export const useVisualEvalStore = create<VisualEvalState>()(
             oracleModel: s.cfg.oracleModel,
             judgeBaseUrl: s.cfg.judgeBaseUrl,
             judgeModel: s.cfg.judgeModel,
+            judgeApiKeyName: s.cfg.judgeApiKeyName,
+            additionalJudges: s.cfg.additionalJudges,
+            complianceRulesJson: s.cfg.complianceRulesJson,
+            runsPerModel: s.cfg.runsPerModel,
             maxTurnsInput: s.cfg.maxTurnsInput,
             batchModelsText: s.cfg.batchModelsText,
             // replayScript intentionally cleared — new doc needs new script
@@ -343,7 +367,7 @@ export const useVisualEvalStore = create<VisualEvalState>()(
     }),
     {
       name: 'eval.visual',
-      version: 4,
+      version: 5,
       storage: visualEvalStorage,
       // Persist only compact config. Large runtime state and uploaded file content stay in memory.
       partialize: (s): PersistedVisualEvalState => ({

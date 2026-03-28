@@ -1,7 +1,8 @@
-import { SimulationTurn, SimulationResult, TaskResult } from '@/types'
+import { SimulationTurn, SimulationResult, TaskResult, FrozenToolResponse, FrozenOracleDataset, ToolDefinition, MultiJudgeResult, ComplianceRule } from '@/types'
 import { chatCompletion, OpenAIConfig, OpenAIMessage, OpenAITool, getApiKey } from './openai'
 import { useVisualEvalStore, getSimController, abortSim, BatchModelResult } from '@/store/visualEvalStore'
-import { evaluateVisualSimulation } from './visualEvalEvaluators'
+import { evaluateVisualSimulation, buildTaskSegments, buildJudgePrompt, multiJudgeEvaluate, checkCompliance, computeThreeAxisScore } from './visualEvalEvaluators'
+import { simpleHash } from './hash'
 
 // ── Sanitize a single JSON Schema property recursively ───────────────
 // Normalize non-standard type strings that LLMs sometimes generate:
@@ -122,6 +123,12 @@ export interface SimConfig {
     baseUrl: string
     model: string
   }
+  // Additional judges for multi-judge consensus (Milestone 2)
+  additionalJudges?: Array<{ baseUrl: string; model: string; apiKeyName?: string }>
+  // Compliance rules for programmatic checks (Milestone 2)
+  complianceRules?: ComplianceRule[]
+  // Runs per model for statistical rigor (Milestone 3) — default 1, max 10
+  runsPerModel?: number
   maxTurns: number
   tools?: OpenAITool[]
   mockContext?: string
@@ -134,8 +141,13 @@ export interface SimConfig {
 
 interface SimulationRuntimeOptions {
   sharedOracleCache?: Map<string, string>
-  worldState?: string   // pre-generated fixed mock database for this batch
+  worldState?: string             // pre-generated fixed mock database for this batch
+  frozenOracleDatasetId?: string  // ID of the FrozenOracleDataset used (M1)
+  runIndex?: number               // 0-based index within multi-run batch (M3)
+  totalRuns?: number              // total runs requested for this model (M3)
 }
+
+const EVALUATION_VERSION = '2.0.0'
 
 // ── Oracle schema validation ──────────────────────────────────────────
 // Validates tool call arguments against the tool's JSON Schema.
@@ -494,67 +506,110 @@ export async function startBatchSimulation(
     )
 
     if (worldState) {
-      useVisualEvalStore.getState().updateStatus(`World state ready (${worldState.length} chars) — starting batch…`)
+      useVisualEvalStore.getState().updateStatus(`World state ready (${worldState.length} chars) — generating frozen oracle…`)
     } else {
-      useVisualEvalStore.getState().updateStatus('World state unavailable — using shared cache fallback…')
+      useVisualEvalStore.getState().updateStatus('World state unavailable — generating frozen oracle with live fallback…')
     }
 
-    for (let i = 0; i < targets.length; i++) {
-      const target = targets[i]
+    // ── Generate frozen oracle dataset (M1) ───────────────────────────
+    // Oracle runs a dry-run simulation to discover all tool calls, then
+    // pre-populates sharedOracleCache so every target model gets identical responses.
+    let frozenDataset: FrozenOracleDataset | undefined
+    try {
+      frozenDataset = await generateFrozenOracle(
+        sharedReplayScript,
+        oracleCfgForWorldState,
+        baseConfig.mockContext ?? '',
+        worldState,
+        parsedTools,
+        baseConfig.scenarioName ?? 'unnamed',
+        controller.signal
+      )
+      // Pre-populate shared cache from frozen dataset
+      for (const entry of frozenDataset.entries) {
+        sharedOracleCache.set(entry.cacheKey, entry.response)
+      }
+      useVisualEvalStore.getState().updateStatus(`Frozen oracle ready (${frozenDataset.entries.length} responses) — starting batch…`)
+      console.log(`[Oracle] Frozen dataset: ${frozenDataset.datasetId} — ${frozenDataset.entries.length} entries`)
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') throw e
+      console.warn('[Oracle] Failed to generate frozen dataset — using live oracle fallback:', e)
+      useVisualEvalStore.getState().updateStatus('Frozen oracle failed — using live oracle…')
+    }
+
+    const runsPerModel = Math.max(1, Math.min(10, baseConfig.runsPerModel ?? 1))
+    const totalBatchSteps = targets.length * runsPerModel
+    let stepIndex = 0
+
+    for (let runIdx = 0; runIdx < runsPerModel; runIdx++) {
+      for (let i = 0; i < targets.length; i++) {
+        const target = targets[i]
+        if (controller.signal.aborted) break
+
+        useVisualEvalStore.getState().nextBatchModel(stepIndex, target.model, baseConfig.maxTurns, baseConfig.tasks?.length ?? 0)
+        if (runsPerModel > 1) {
+          useVisualEvalStore.getState().updateStatus(`[${stepIndex + 1}/${totalBatchSteps}] ${target.model} (run ${runIdx + 1}/${runsPerModel})…`)
+        }
+        stepIndex++
+
+        const simConfig: SimConfig = {
+          ...baseConfig,
+          replayScript: sharedReplayScript,
+          targetConfig: {
+            baseUrl: target.baseUrl,
+            model: target.model,
+            maxTokens: 4096,
+            temperature: 0.3,
+          },
+        }
+
+        const startTime = Date.now()
+        let batchResult: BatchModelResult
+
+        try {
+          await _runSimulation(simConfig, controller.signal, {
+            sharedOracleCache,
+            worldState,
+            frozenOracleDatasetId: frozenDataset?.datasetId,
+            runIndex: runIdx,
+            totalRuns: runsPerModel,
+          })
+          const state = useVisualEvalStore.getState()
+          const fr = state.finalResult
+
+          // Compute avg from taskResults on finalResult
+          const taskScores = fr?.taskResults?.map((t: TaskResult) => t.score) ?? []
+          const avgScore = taskScores.length
+            ? Math.round(taskScores.reduce((a: number, b: number) => a + b, 0) / taskScores.length)
+            : fr?.finalScore ?? null
+
+          batchResult = {
+            model: target.model,
+            finalScore: fr?.finalScore ?? null,
+            avgScore,
+            durationMs: Date.now() - startTime,
+            turns: fr?.turns.length ?? 0,
+            status: 'done',
+          }
+        } catch (e) {
+          if (e instanceof DOMException && e.name === 'AbortError') break
+          batchResult = {
+            model: target.model,
+            finalScore: null,
+            avgScore: null,
+            durationMs: Date.now() - startTime,
+            turns: 0,
+            status: 'error',
+            error: String(e),
+          }
+        }
+
+        useVisualEvalStore.getState().addBatchResult(batchResult)
+
+        // Small pause between models so UI can breathe
+        await new Promise(r => setTimeout(r, 800))
+      }
       if (controller.signal.aborted) break
-
-      useVisualEvalStore.getState().nextBatchModel(i, target.model, baseConfig.maxTurns, baseConfig.tasks?.length ?? 0)
-
-      const simConfig: SimConfig = {
-        ...baseConfig,
-        replayScript: sharedReplayScript,
-        targetConfig: {
-          baseUrl: target.baseUrl,
-          model: target.model,
-          maxTokens: 4096,
-          temperature: 0.3,
-        },
-      }
-
-      const startTime = Date.now()
-      let batchResult: BatchModelResult
-
-      try {
-        await _runSimulation(simConfig, controller.signal, { sharedOracleCache, worldState })
-        const state = useVisualEvalStore.getState()
-        const fr = state.finalResult
-
-        // Compute avg from taskResults on finalResult
-        const taskScores = fr?.taskResults?.map((t: TaskResult) => t.score) ?? []
-        const avgScore = taskScores.length
-          ? Math.round(taskScores.reduce((a: number, b: number) => a + b, 0) / taskScores.length)
-          : fr?.finalScore ?? null
-
-        batchResult = {
-          model: target.model,
-          finalScore: fr?.finalScore ?? null,
-          avgScore,
-          durationMs: Date.now() - startTime,
-          turns: fr?.turns.length ?? 0,
-          status: 'done',
-        }
-      } catch (e) {
-        if (e instanceof DOMException && e.name === 'AbortError') break
-        batchResult = {
-          model: target.model,
-          finalScore: null,
-          avgScore: null,
-          durationMs: Date.now() - startTime,
-          turns: 0,
-          status: 'error',
-          error: String(e),
-        }
-      }
-
-      useVisualEvalStore.getState().addBatchResult(batchResult)
-
-      // Small pause between models so UI can breathe
-      await new Promise(r => setTimeout(r, 800))
     }
 
     useVisualEvalStore.getState().finishBatch()
@@ -636,6 +691,153 @@ ${memory}
 - Always return a JSON object unless the tool clearly returns a list (then use {"items":[...], "total": N}).
 - For scoring or evaluation tools: always include a narrative "Summary" field with 1-2 sentences and a "Highlights" array with 2-3 specific details — this gives the assistant real content to reason about.
 - For write/save/create tools: always return {"success": true, "id": "<generated_id>", "message": "Saved successfully"} so the assistant knows the action completed.`
+}
+
+// ── Frozen Oracle Generation (Milestone 1) ───────────────────────────────
+// Runs a dry-run simulation where oracle acts as target to discover all tool
+// calls organically from the replay script. Saves responses to disk so every
+// target model in a batch gets identical mock responses.
+async function generateFrozenOracle(
+  replayScript: string[],
+  oracleCfg: OpenAIConfig,
+  mockContext: string,
+  worldState: string | undefined,
+  tools: OpenAITool[] | undefined,
+  scenarioName: string,
+  signal: AbortSignal
+): Promise<FrozenOracleDataset> {
+  const seen = new Set<string>()
+  const entries: FrozenToolResponse[] = []
+  const oracleMemory = new Map<string, string>()
+
+  // Oracle acts as target — it has system prompt with tools context
+  const dryMessages: OpenAIMessage[] = []
+
+  for (const userMsg of replayScript) {
+    if (signal.aborted) break
+
+    dryMessages.push({ role: 'user', content: userMsg })
+
+    // Call oracle as "target" with tools so it may emit tool_calls
+    let assistantRes
+    try {
+      assistantRes = await chatCompletion(oracleCfg, dryMessages, signal, tools)
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') throw e
+      break
+    }
+
+    const assistantMsg = assistantRes.choices?.[0]?.message
+    if (!assistantMsg) break
+
+    const rawContent = assistantMsg.content ?? ''
+    const toolCalls: Array<{ id: string; name: string; arguments: string }> =
+      (assistantMsg.tool_calls ?? []).map((tc: { id?: string; function: { name: string; arguments: string } }) => ({
+        id: tc.id ?? `dry_${Date.now()}`,
+        name: tc.function.name,
+        arguments: tc.function.arguments,
+      }))
+
+    // Push assistant message (with tool_calls if any)
+    dryMessages.push({
+      role: 'assistant',
+      content: rawContent || null,
+      tool_calls: toolCalls.length > 0
+        ? toolCalls.map(tc => ({ id: tc.id, type: 'function' as const, function: { name: tc.name, arguments: tc.arguments } }))
+        : undefined,
+    })
+
+    // For each tool call, generate oracle response and save
+    for (const tc of toolCalls) {
+      if (signal.aborted) break
+      const cacheKey = getToolCallCacheKey(tc.name, tc.arguments)
+
+      if (!seen.has(cacheKey)) {
+        // Build oracle memory string
+        const memEntries = [...oracleMemory.entries()].slice(-20)
+        const memoryStr = memEntries.map(([k, v]) => `${k}:\n${v}`).join('\n\n')
+
+        const oracleMessages: OpenAIMessage[] = [
+          { role: 'system', content: buildOracleSystemPrompt(mockContext, memoryStr, worldState) },
+          { role: 'user', content: `Tool called: ${tc.name}\nArguments: ${tc.arguments}\n\nReturn a realistic JSON object this tool would return.` },
+        ]
+
+        let mockResult = '{}'
+        let schemaValid = false
+        try {
+          const mockRes = await chatCompletion({ ...oracleCfg, maxTokens: 1024 }, oracleMessages, signal)
+          const raw = mockRes.choices?.[0]?.message?.content?.trim() || '{}'
+          const stripped = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+          try {
+            JSON.parse(stripped)
+            mockResult = postProcessOracleResponse(stripped)
+            schemaValid = true
+          } catch { mockResult = raw }
+        } catch (e) {
+          if (e instanceof DOMException && e.name === 'AbortError') throw e
+        }
+
+        entries.push({
+          cacheKey,
+          toolName: tc.name,
+          response: mockResult,
+          generatedAt: new Date().toISOString(),
+          oracleModel: oracleCfg.model,
+          schemaValid,
+        })
+        seen.add(cacheKey)
+        oracleMemory.set(cacheKey, mockResult)
+      }
+
+      // Inject tool response back into dry-run conversation
+      const frozenResponse = oracleMemory.get(cacheKey) ?? '{}'
+      dryMessages.push({
+        role: 'tool',
+        tool_call_id: tc.id,
+        name: tc.name,
+        content: frozenResponse,
+      })
+    }
+
+    // If there were tool calls, get oracle's follow-up after tool results
+    if (toolCalls.length > 0 && !signal.aborted) {
+      try {
+        const followUp = await chatCompletion(oracleCfg, dryMessages, signal, tools)
+        const followContent = followUp.choices?.[0]?.message?.content ?? ''
+        if (followContent) {
+          dryMessages.push({ role: 'assistant', content: followContent })
+        }
+      } catch (e) {
+        if (e instanceof DOMException && e.name === 'AbortError') throw e
+      }
+    }
+  }
+
+  const datasetId = `oracle_${simpleHash(entries.map(e => e.cacheKey).join('|') || `empty_${Date.now()}`)}`
+
+  const dataset: FrozenOracleDataset = {
+    datasetId,
+    scenarioName,
+    createdAt: new Date().toISOString(),
+    oracleModel: oracleCfg.model,
+    oracleBaseUrl: oracleCfg.baseUrl,
+    replayScript,
+    entries,
+    version: '1.0',
+  }
+
+  // Save to disk (best-effort — if it fails, we still use the in-memory dataset)
+  try {
+    await fetch('/api/visual-eval/oracle', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dataset),
+    })
+  } catch (e) {
+    console.warn('[Oracle] Failed to save frozen dataset to disk:', e)
+  }
+
+  return dataset
 }
 
 // ── Task classification ────────────────────────────────────────────────
@@ -1117,18 +1319,87 @@ async function _runSimulation(
   let taskResults: TaskResult[] | undefined
   let evaluationStatus: SimulationResult['evaluationStatus'] = 'unavailable'
   let evaluationDebug: SimulationResult['evaluationDebug'] | undefined
+  let multiJudgeResult: MultiJudgeResult | undefined
+  let complianceResultForResult: SimulationResult['complianceResult']
+  let threeAxisScoreForResult: SimulationResult['threeAxisScore']
 
   if (!signal.aborted && storeTurns.length > 0) {
     store().updateStatus('Evaluating tasks…')
-    const evaluation = await evaluateVisualSimulation(storeTurns, judgeCfg, signal, {
-      tasks: config.tasks,
-      tools,
-    })
-    finalScore = evaluation.finalScore
-    taskResults = evaluation.taskResults
-    evaluationStatus = evaluation.status
-    evaluationDebug = evaluation.debug
-    finalAssessment = evaluation.assessment || 'Evaluation complete.'
+
+    const evalOptions = { tasks: config.tasks, tools }
+
+    // Build additional judge configs (M2)
+    const additionalJudgeConfigs = (config.additionalJudges ?? []).map(j => ({
+      config: {
+        baseUrl: j.baseUrl,
+        apiKey: getApiKey(j.apiKeyName ?? 'visual_judge_api_key') || judgeApiKey,
+        model: j.model,
+        maxTokens: 2500,
+        temperature: 0,
+      } as OpenAIConfig,
+    }))
+
+    if (additionalJudgeConfigs.length > 0) {
+      // Multi-judge path
+      store().updateStatus(`Evaluating with ${1 + additionalJudgeConfigs.length} judges…`)
+      try {
+        multiJudgeResult = await multiJudgeEvaluate(
+          storeTurns,
+          judgeCfg,
+          additionalJudgeConfigs,
+          signal,
+          evalOptions
+        )
+        finalScore = multiJudgeResult.consensusScore
+        finalAssessment = multiJudgeResult.consensusAssessment || 'Evaluation complete.'
+        taskResults = multiJudgeResult.verdicts[0]?.taskResults
+        evaluationStatus = multiJudgeResult.successCount > 0 ? 'scored' : 'unavailable'
+        evaluationDebug = {
+          evaluator: `multi_judge_v2 (${multiJudgeResult.successCount}/${multiJudgeResult.judgeCount} judges)`,
+          rawJudgeResponse: multiJudgeResult.verdicts.map(v => `[${v.model}] score=${v.finalScore ?? 'null'}`).join('\n'),
+        }
+      } catch (e) {
+        if (e instanceof DOMException && e.name === 'AbortError') throw e
+        console.warn('[visualEvalRunner] Multi-judge failed — falling back to single judge:', e)
+        const evaluation = await evaluateVisualSimulation(storeTurns, judgeCfg, signal, evalOptions)
+        finalScore = evaluation.finalScore
+        taskResults = evaluation.taskResults
+        evaluationStatus = evaluation.status
+        evaluationDebug = evaluation.debug
+        finalAssessment = evaluation.assessment || 'Evaluation complete.'
+      }
+    } else {
+      // Single-judge path (backward compatible)
+      const evaluation = await evaluateVisualSimulation(storeTurns, judgeCfg, signal, evalOptions)
+      finalScore = evaluation.finalScore
+      taskResults = evaluation.taskResults
+      evaluationStatus = evaluation.status
+      evaluationDebug = evaluation.debug
+      finalAssessment = evaluation.assessment || 'Evaluation complete.'
+    }
+
+    // Compliance check (M2) — config-driven, no hardcoded domain rules
+    const complianceRules = config.complianceRules ?? []
+    const complianceResult = checkCompliance(storeTurns, complianceRules)
+    complianceResultForResult = complianceResult
+
+    // Attach 3-axis score to each task result (M2)
+    if (taskResults?.length) {
+      taskResults = taskResults.map(tr => ({
+        ...tr,
+        threeAxisScore: computeThreeAxisScore(
+          tr.breakdown?.toolTrace ?? null,
+          tr.score,
+          complianceResult.score
+        ),
+      }))
+    }
+
+    // Top-level 3-axis score (average of task scores)
+    const toolTraceAvg = taskResults?.length
+      ? (taskResults.reduce((s, t) => s + (t.breakdown?.toolTrace ?? 0), 0) / taskResults.length)
+      : null
+    threeAxisScoreForResult = computeThreeAxisScore(toolTraceAvg, finalScore, complianceResult.score)
   }
 
   if (signal.aborted) {
@@ -1150,6 +1421,15 @@ async function _runSimulation(
     // No task results — single scenario entry
     leaderboardTasks[config.scenarioName] = { overall: finalScore }
   }
+
+  // ── Compute judge prompt hash for reproducibility (M1) ───────────
+  let judgePromptHash: string | undefined
+  try {
+    const segments = buildTaskSegments(storeTurns, config.tasks)
+    if (segments.length > 0) {
+      judgePromptHash = simpleHash(buildJudgePrompt(segments))
+    }
+  } catch { /* non-critical — skip hash on error */ }
 
   // ── Build final result ────────────────────────────────────────────
   const endDate = new Date().toISOString().replace('T', ' ').slice(0, 19)
@@ -1177,6 +1457,23 @@ async function _runSimulation(
     replayScript: isReplay ? config.replayScript : undefined,
     toolsUsed: tools?.map(t => ({ name: t.function.name, description: t.function.description })),
     worldState: runtime.worldState,
+    // ── Evaluation pipeline v2 metadata (M1) ────────────────────────
+    judgePromptHash,
+    oracleDatasetId: runtime.frozenOracleDatasetId,
+    toolDefinitions: tools?.map(t => ({
+      name: t.function.name,
+      description: t.function.description ?? '',
+      parametersSchema: (t.function.parameters ?? {}) as Record<string, unknown>,
+    })) satisfies ToolDefinition[] | undefined,
+    evaluationVersion: EVALUATION_VERSION,
+    // ── Multi-judge metadata (M2) ────────────────────────────────────
+    multiJudgeResult,
+    threeAxisScore: threeAxisScoreForResult,
+    complianceResult: complianceResultForResult,
+    judgeAgreement: multiJudgeResult?.agreementRate,
+    // ── Multi-run statistics (M3) ────────────────────────────────────
+    runIndex: runtime.runIndex,
+    totalRuns: runtime.totalRuns,
   }
 
   // Save to disk
