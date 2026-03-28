@@ -1,0 +1,344 @@
+{
+  "taskSetId": "taskset_ntfwn0",
+  "scenarioName": "AVA_Tuyen_Dung_Chi_Tiet_Skills_Tools",
+  "createdAt": "2026-03-28T12:06:55.999Z",
+  "generatedBy": "gpt-5.2",
+  "tasks": [
+    {
+      "taskIndex": 0,
+      "userMessage": "Mình chỉ nhớ ứng viên tên gần đúng là “Nguyễn Thị H… Trang” (có thể là Huyền Trang hoặc Hải Trang). Bạn tìm giúp trong AMIS Tuyển dụng theo cụm tên này và trả về danh sách các kết quả khớp để mình chọn đúng người, kèm CandidateID và thông tin nhận diện tối thiểu (email hoặc số điện thoại nếu hệ thống có).",
+      "expectedBehavior": "call_tool",
+      "actions": [
+        {
+          "actionId": "t0_action_0",
+          "toolName": "get_candidates",
+          "requiredArgs": {
+            "CandidateName": "Nguyễn Thị H… Trang",
+            "RecruitmentName": ""
+          },
+          "compareArgs": [
+            "CandidateName",
+            "RecruitmentName"
+          ]
+        }
+      ],
+      "communication": {
+        "id": "t0_comm",
+        "contains": [
+          "CandidateID",
+          "email",
+          "số điện thoại"
+        ],
+        "containsMode": "any",
+        "notContains": [
+          "tôi đoán"
+        ]
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action"
+      ]
+    },
+    {
+      "taskIndex": 1,
+      "userMessage": "Với RecruitmentID = 240315-DEVBE-01, bạn lấy giúp danh sách ứng viên đang ở trạng thái có thể đánh giá (shortlist/đang phỏng vấn/đề nghị) và tóm tắt nhanh theo từng ứng viên: CandidateID, họ tên, nguồn ứng tuyển và trạng thái hiện tại.",
+      "expectedBehavior": "call_tool",
+      "actions": [
+        {
+          "actionId": "t1_action_0",
+          "toolName": "get_candidates_for_evaluation",
+          "requiredArgs": {
+            "Query": "Danh sách ứng viên của RecruitmentID 240315-DEVBE-01 ở trạng thái có thể đánh giá: shortlist/đang phỏng vấn/đề nghị; trả về CandidateID, họ tên, nguồn, trạng thái."
+          },
+          "compareArgs": []
+        }
+      ],
+      "communication": {
+        "id": "t1_comm",
+        "contains": [
+          "CandidateID",
+          "nguồn",
+          "trạng thái"
+        ],
+        "containsMode": "all",
+        "notContains": []
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action"
+      ]
+    },
+    {
+      "taskIndex": 2,
+      "userMessage": "Mình có CandidateID = 1002387 và RecruitmentID = 240315-DEVBE-01. Bạn đánh giá mức độ phù hợp của ứng viên với tin tuyển dụng này và tóm tắt: điểm fit (nếu có), 3 điểm mạnh khớp yêu cầu, và 3 điểm còn thiếu/điểm cần làm rõ — chỉ dựa trên dữ liệu CV và yêu cầu job trong hệ thống.",
+      "expectedBehavior": "call_tool",
+      "actions": [
+        {
+          "actionId": "t2_action_0",
+          "toolName": "get_candidate_fit_score",
+          "requiredArgs": {
+            "CandidateID": "1002387",
+            "RecruitmentID": "240315-DEVBE-01"
+          },
+          "compareArgs": [
+            "CandidateID",
+            "RecruitmentID"
+          ]
+        }
+      ],
+      "communication": {
+        "id": "t2_comm",
+        "contains": [
+          "điểm",
+          "điểm mạnh",
+          "cần làm rõ"
+        ],
+        "containsMode": "all",
+        "notContains": [
+          "tôi nghĩ",
+          "có lẽ"
+        ]
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action"
+      ]
+    },
+    {
+      "taskIndex": 3,
+      "userMessage": "Với RecruitmentID = 240315-DEVBE-01 và các CandidateID = [1002387, 1002412, 1002550], bạn chấm điểm fit đồng loạt và trả về bảng xếp hạng từ cao xuống thấp, kèm 1–2 lý do chính cho mỗi ứng viên (bám theo dữ liệu trong hệ thống).",
+      "expectedBehavior": "call_tool",
+      "actions": [
+        {
+          "actionId": "t3_action_0",
+          "toolName": "get_multiple_candidates_fit_score",
+          "requiredArgs": {
+            "CandidateIDs": [
+              "1002387",
+              "1002412",
+              "1002550"
+            ],
+            "RecruitmentID": "240315-DEVBE-01"
+          },
+          "compareArgs": [
+            "CandidateIDs",
+            "RecruitmentID"
+          ]
+        }
+      ],
+      "communication": {
+        "id": "t3_comm",
+        "contains": [
+          "xếp hạng",
+          "lý do",
+          "điểm"
+        ],
+        "containsMode": "any",
+        "notContains": [
+          "tôi đoán"
+        ]
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action"
+      ]
+    },
+    {
+      "taskIndex": 4,
+      "userMessage": "So sánh trực tiếp 2 ứng viên CandidateID = 1002387 và 1002412 cho RecruitmentID = 240315-DEVBE-01, rồi đề xuất 1 người nên đi tiếp vòng sau. Trình bày rõ: tiêu chí so sánh theo JD, điểm mạnh nổi bật, rủi ro/thiếu hụt và đề xuất câu hỏi để kiểm tra thêm các điểm rủi ro (dựa trên dữ liệu đang có).",
+      "expectedBehavior": "call_tool",
+      "actions": [
+        {
+          "actionId": "t4_action_0",
+          "toolName": "get_multiple_candidates_fit_score",
+          "requiredArgs": {
+            "CandidateIDs": [
+              "1002387",
+              "1002412"
+            ],
+            "RecruitmentID": "240315-DEVBE-01"
+          },
+          "compareArgs": [
+            "CandidateIDs",
+            "RecruitmentID"
+          ]
+        }
+      ],
+      "communication": {
+        "id": "t4_comm",
+        "contains": [
+          "tiêu chí",
+          "rủi ro",
+          "câu hỏi"
+        ],
+        "containsMode": "all",
+        "notContains": []
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action"
+      ]
+    },
+    {
+      "taskIndex": 5,
+      "userMessage": "Với CandidateID = 1002412, bạn trích xuất nội dung CV trong hệ thống và tóm tắt ngắn gọn theo cấu trúc: Kinh nghiệm (company/role/thời gian), kỹ năng chính, dự án/stack nổi bật, học vấn/chứng chỉ (nếu có).",
+      "expectedBehavior": "call_tool",
+      "actions": [
+        {
+          "actionId": "t5_action_0",
+          "toolName": "get_cv_content",
+          "requiredArgs": {
+            "CandidateID": "1002412"
+          },
+          "compareArgs": [
+            "CandidateID"
+          ]
+        }
+      ],
+      "communication": {
+        "id": "t5_comm",
+        "contains": [
+          "Kinh nghiệm",
+          "kỹ năng",
+          "học vấn"
+        ],
+        "containsMode": "all",
+        "notContains": [
+          "tôi đoán"
+        ]
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action"
+      ]
+    },
+    {
+      "taskIndex": 6,
+      "userMessage": "Bạn tìm giúp ứng viên tên “Trần Đức Hoàng Vũ” trong AMIS Tuyển dụng và cho mình CandidateID cùng thông tin liên hệ (email/số điện thoại nếu có). Nếu không tìm thấy thì báo không có kết quả, đừng suy đoán.",
+      "expectedBehavior": "call_tool",
+      "actions": [
+        {
+          "actionId": "t6_action_0",
+          "toolName": "get_candidates",
+          "requiredArgs": {
+            "CandidateName": "Trần Đức Hoàng Vũ",
+            "RecruitmentName": ""
+          },
+          "compareArgs": [
+            "CandidateName",
+            "RecruitmentName"
+          ]
+        }
+      ],
+      "communication": {
+        "id": "t6_comm",
+        "contains": [
+          "CandidateID",
+          "email",
+          "số điện thoại",
+          "không có kết quả",
+          "không tìm thấy"
+        ],
+        "containsMode": "any",
+        "notContains": [
+          "tôi đoán"
+        ]
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action"
+      ]
+    },
+    {
+      "taskIndex": 7,
+      "userMessage": "Với CandidateID = 9999999, bạn lấy nội dung CV trong hệ thống và tóm tắt giúp. Nếu hệ thống không có CV hoặc trả về rỗng thì báo rõ là không đủ dữ liệu để đánh giá và gợi ý bước tiếp theo để xử lý (ví dụ yêu cầu ứng viên bổ sung CV).",
+      "expectedBehavior": "report_not_found",
+      "actions": [
+        {
+          "actionId": "t7_action_0",
+          "toolName": "get_cv_content",
+          "requiredArgs": {
+            "CandidateID": "9999999"
+          },
+          "compareArgs": [
+            "CandidateID"
+          ]
+        }
+      ],
+      "communication": {
+        "id": "t7_comm",
+        "contains": [
+          "không có CV",
+          "rỗng",
+          "không đủ dữ liệu",
+          "bổ sung CV"
+        ],
+        "containsMode": "any",
+        "notContains": [
+          "tôi đoán"
+        ]
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action",
+        "communication"
+      ]
+    },
+    {
+      "taskIndex": 8,
+      "userMessage": "Mình có mã tin tuyển dụng ghi là “240315-DEVBE-O1” (ký tự cuối có thể là chữ O hoặc số 0). Bạn kiểm tra giúp tin tuyển dụng tương ứng; nếu mã không hợp lệ/không tìm thấy thì hỏi lại mình để xác nhận đúng RecruitmentID hoặc gợi ý cách nhận diện (ví dụ đối chiếu theo tên vị trí), nhưng đừng tự đoán.",
+      "expectedBehavior": "call_tool",
+      "actions": [
+        {
+          "actionId": "t8_action_0",
+          "toolName": "get_recruitment",
+          "requiredArgs": {
+            "RecruitmentName": "240315-DEVBE-O1"
+          },
+          "compareArgs": [
+            "RecruitmentName"
+          ]
+        }
+      ],
+      "communication": {
+        "id": "t8_comm",
+        "contains": [
+          "không tìm thấy",
+          "không hợp lệ",
+          "xác nhận"
+        ],
+        "containsMode": "any",
+        "notContains": [
+          "tôi đoán"
+        ]
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "action"
+      ]
+    },
+    {
+      "taskIndex": 9,
+      "userMessage": "Bạn đánh giá mức độ phù hợp của ứng viên Nguyễn Văn A với vị trí Backend Developer và cho mình điểm fit kèm nhận xét. Hiện mình chưa có CandidateID và RecruitmentID trong tay.",
+      "expectedBehavior": "ask_clarification",
+      "actions": [],
+      "communication": {
+        "id": "t9_comm",
+        "contains": [
+          "?",
+          "CandidateID",
+          "RecruitmentID"
+        ],
+        "containsMode": "all",
+        "notContains": [
+          "điểm fit"
+        ]
+      },
+      "nlAssertions": [],
+      "rewardBasis": [
+        "communication"
+      ]
+    }
+  ],
+  "version": "1.0"
+}

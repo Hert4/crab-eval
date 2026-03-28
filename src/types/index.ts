@@ -314,9 +314,10 @@ export interface ExpectedAction {
 /** Expected info the agent should communicate to user */
 export interface ExpectedCommunication {
   id: string
-  contains: string[]        // response must contain ALL of these strings/patterns
-  notContains?: string[]    // response must NOT contain any of these
-  isRegex?: boolean         // treat contains/notContains as regex patterns
+  contains: string[]              // response must contain these strings/patterns
+  notContains?: string[]          // response must NOT contain any of these
+  isRegex?: boolean               // treat contains/notContains as regex patterns
+  containsMode?: 'all' | 'any'    // 'all' = AND (default), 'any' = OR (for synonyms/alternatives)
 }
 
 /** Expected behavior classification */

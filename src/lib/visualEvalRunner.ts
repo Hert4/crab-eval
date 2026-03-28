@@ -1040,6 +1040,39 @@ async function generateFrozenTaskSet(
   const existingMessages = config.replayScript ?? config.tasks ?? []
   const hasMessages = existingMessages.length > 0
 
+  // Free-text arg names that should NEVER appear in compareArgs
+  // because models will paraphrase them differently
+  const FREE_TEXT_ARG_NAMES = new Set([
+    'query', 'description', 'reason', 'note', 'content',
+    'message', 'text', 'summary', 'comment', 'search',
+    'keyword', 'filter', 'criteria', 'detail', 'info',
+  ])
+
+  // Shared rules appended to both prompt variants
+  const sharedRules = `
+CRITICAL rules for actions[].compareArgs:
+- ONLY include args with fixed, deterministic values: structured IDs (CAND-xxx, REC-xxx), exact names
+- NEVER include free-text args like "Query", "Description", "Reason" in compareArgs
+  → These will be paraphrased differently by each model — exact matching will always fail
+- For tools with a Query/search parameter: set compareArgs to [] (empty array, match tool name only)
+- Example GOOD: "compareArgs": ["CandidateID", "RecruitmentID"]
+- Example BAD: "compareArgs": ["Query", "Description"]
+
+CRITICAL rules for actions[].requiredArgs:
+- Use the EXACT IDs and names from the user message
+- If user says "REC-2026-031 (Senior Backend Engineer)", use "REC-2026-031" for RecruitmentID (not the description)
+- For name fields: use the exact name string from the user message
+- For Query/search fields: write a brief description of intent, but do NOT add it to compareArgs
+
+CRITICAL rules for communication.contains:
+- Keep terms SHORT (2-4 words max) — longer phrases are less likely to exact-match
+- Use containsMode: "any" when terms are SYNONYMS or ALTERNATIVES
+  (e.g., ["không tồn tại", "không tìm thấy", "not found"] → any one is sufficient → use "any")
+- Use containsMode: "all" when terms represent DIFFERENT pieces of required information
+  (e.g., candidate name AND score must BOTH appear → use "all")
+- For Vietnamese: list 2-3 common variations rather than one long phrase
+- Do NOT require specific formatting characters (dashes, colons, etc.)`
+
   const prompt = hasMessages
     ? `You are generating expected outcomes for a benchmark test suite.
 
@@ -1065,14 +1098,15 @@ Return ONLY valid JSON in this exact format:
         {
           "actionId": "t0_action_0",
           "toolName": "exact_tool_name",
-          "requiredArgs": { "argName": "expectedValue" },
-          "compareArgs": ["argName"]
+          "requiredArgs": { "RecruitmentID": "REC-2026-031" },
+          "compareArgs": ["RecruitmentID"]
         }
       ],
       "communication": {
         "id": "t0_comm",
-        "contains": ["key phrase that must appear in response"],
-        "notContains": ["phrase that must NOT appear"]
+        "contains": ["không tồn tại", "không tìm thấy"],
+        "containsMode": "any",
+        "notContains": []
       },
       "nlAssertions": [],
       "rewardBasis": ["action"]
@@ -1084,13 +1118,13 @@ Rules:
 1. taskIndex must match the input message index (0-based)
 2. userMessage must be EXACTLY the input message (do not paraphrase)
 3. For "call_tool": actions[] lists the expected tool + key args; rewardBasis = ["action"]
-4. For "ask_clarification": actions = [], communication.contains includes "?"; rewardBasis = ["communication"]
-5. For "report_not_found": actions list the tool (it SHOULD be called), communication.contains includes "not found" or "không tìm thấy"; rewardBasis = ["action", "communication"]
+4. For "ask_clarification": actions = [], communication.contains includes "?", containsMode = "all"; rewardBasis = ["communication"]
+5. For "report_not_found": actions list the tool (it SHOULD be called), communication.contains lists not-found phrases with containsMode = "any"; rewardBasis = ["action", "communication"]
 6. For "refuse_invalid": actions = [], communication.contains describes the issue; rewardBasis = ["communication"]
-7. For "respond_directly": actions = [], communication.contains has expected info; rewardBasis = ["communication"]
-8. compareArgs lists ONLY the arg keys that truly matter — skip formatting-dependent args
-9. requiredArgs values should match or approximate what the task implies
-10. DO NOT include explanations or markdown. Return ONLY the JSON.`
+7. For "respond_directly": actions = [], communication.contains has key expected info; rewardBasis = ["communication"]
+8. ONLY reference tools from the available tools list — if no tool matches the task, use expectedBehavior "refuse_invalid" or "respond_directly"
+${sharedRules}
+DO NOT include explanations or markdown. Return ONLY the JSON.`
     : `You are creating a benchmark test suite for an AI assistant.
 
 Scenario: ${config.scenarioDescription}
@@ -1113,14 +1147,15 @@ Return ONLY valid JSON in this exact format:
         {
           "actionId": "t0_action_0",
           "toolName": "exact_tool_name_from_list",
-          "requiredArgs": { "argName": "expectedValue" },
-          "compareArgs": ["argName"]
+          "requiredArgs": { "CandidateID": "CAND-2026-01021" },
+          "compareArgs": ["CandidateID"]
         }
       ],
       "communication": {
         "id": "t0_comm",
-        "contains": ["key phrase that must appear in response"],
-        "notContains": ["phrase that must NOT appear"]
+        "contains": ["không tồn tại", "không tìm thấy"],
+        "containsMode": "any",
+        "notContains": []
       },
       "nlAssertions": [],
       "rewardBasis": ["action"]
@@ -1129,18 +1164,18 @@ Return ONLY valid JSON in this exact format:
 }
 
 Rules for generating tasks:
-1. ONLY create tasks achievable with the listed tools
+1. ONLY create tasks using tools from the available tools list above — no imaginary tools
 2. Mix task types:
    - ~50% happy-path: tool exists, user provides correct info; expectedBehavior: "call_tool"
    - ~20% edge cases: tool exists but returns empty; expectedBehavior: "report_not_found"
    - ~15% clarification: user provides ambiguous/incomplete info; expectedBehavior: "ask_clarification"
    - ~15% invalid: wrong ID format, non-existent capability; expectedBehavior: "refuse_invalid"
-3. For "call_tool": actions[] must list the exact tool name and key args; rewardBasis = ["action"]
-4. For "ask_clarification": actions = [], communication.contains includes "?"; rewardBasis = ["communication"]
-5. For "report_not_found": actions list the tool (it SHOULD be called), communication.contains includes not-found phrase; rewardBasis = ["action", "communication"]
+3. For "call_tool": actions[] must list the exact tool name and ID/name args; rewardBasis = ["action"]
+4. For "ask_clarification": actions = [], communication.contains includes "?", containsMode = "all"; rewardBasis = ["communication"]
+5. For "report_not_found": actions list the tool (it SHOULD be called), communication.contains lists not-found phrases with containsMode = "any"; rewardBasis = ["action", "communication"]
 6. Use the scenario's language for userMessage and communication.contains
-7. compareArgs lists ONLY truly significant arg keys (skip formatting-dependent ones)
-8. DO NOT include explanations or markdown. Return ONLY the JSON.`
+${sharedRules}
+DO NOT include explanations or markdown. Return ONLY the JSON.`
 
   try {
     const res = await chatCompletion(
@@ -1156,12 +1191,57 @@ Rules for generating tasks:
       throw new Error('No tasks in response')
     }
 
+    // ── Fix 2: Filter impossible tasks — remove any that reference non-existent tools ──
+    const toolNames = new Set(
+      (config.tools ?? []).map(t => t.function.name.toLowerCase())
+    )
+
+    let validTasks = parsed.tasks.filter((task, idx) => {
+      if (!task.actions?.length) return true  // no-tool tasks are always valid
+      const invalidActions = task.actions.filter(a =>
+        !a.mustNotCall && !toolNames.has(a.toolName.toLowerCase())
+      )
+      if (invalidActions.length > 0) {
+        console.warn(
+          `[TaskSet] Removing task ${idx} — references non-existent tool(s): ${invalidActions.map(a => a.toolName).join(', ')}`
+        )
+        return false
+      }
+      return true
+    })
+
+    if (validTasks.length < parsed.tasks.length) {
+      console.warn(`[TaskSet] Filtered ${parsed.tasks.length - validTasks.length} impossible task(s) — ${validTasks.length} remain`)
+    }
+
+    // ── Fix 6: Sanitize compareArgs — strip free-text arg names ────────────
+    for (const task of validTasks) {
+      for (const action of task.actions ?? []) {
+        if (action.compareArgs && action.compareArgs.length > 0) {
+          const cleaned = action.compareArgs.filter(
+            (arg: string) => !FREE_TEXT_ARG_NAMES.has(arg.toLowerCase())
+          )
+          if (cleaned.length < action.compareArgs.length) {
+            console.log(
+              `[TaskSet] Task ${task.taskIndex} action ${action.actionId}: removed free-text compareArgs ${
+                action.compareArgs.filter((a: string) => FREE_TEXT_ARG_NAMES.has(a.toLowerCase())).join(', ')
+              }`
+            )
+          }
+          action.compareArgs = cleaned
+        }
+      }
+    }
+
+    // Re-index taskIndex to be contiguous after filtering
+    validTasks = validTasks.map((t, i) => ({ ...t, taskIndex: i }))
+
     const taskSet: FrozenTaskSet = {
-      taskSetId: `taskset_${simpleHash(JSON.stringify(parsed))}`,
+      taskSetId: `taskset_${simpleHash(JSON.stringify(validTasks))}`,
       scenarioName: config.scenarioName ?? 'unnamed',
       createdAt: new Date().toISOString(),
       generatedBy: oracleCfg.model,
-      tasks: parsed.tasks,
+      tasks: validTasks,
       version: '1.0',
     }
 
@@ -1646,10 +1726,26 @@ async function _runSimulation(
       }
 
       if (programmaticVerifications.length > 0) {
+        // ── Fix 5: Count missing tasks as failures for incomplete runs ──────
+        const totalExpectedTasks = taskSet.tasks.length
+        const evaluatedTasks = programmaticVerifications.length
+        if (evaluatedTasks < totalExpectedTasks) {
+          const missingCount = totalExpectedTasks - evaluatedTasks
+          console.warn(`[Verify] Only ${evaluatedTasks}/${totalExpectedTasks} tasks evaluated — ${missingCount} task(s) counted as failures (incomplete run)`)
+          for (let i = evaluatedTasks; i < totalExpectedTasks; i++) {
+            programmaticVerifications.push({
+              taskIndex: i,
+              finalReward: 0,
+              behaviorCorrect: false,
+            })
+          }
+        }
+
+        // Use totalExpectedTasks as denominator (not evaluatedTasks) — Fix 5
         programmaticScoreForResult = Math.round(
-          (programmaticVerifications.reduce((s, v) => s + v.finalReward, 0) / programmaticVerifications.length) * 100
+          (programmaticVerifications.reduce((s, v) => s + v.finalReward, 0) / totalExpectedTasks) * 100
         )
-        console.log(`[Verifier] Programmatic score: ${programmaticScoreForResult}% (${programmaticVerifications.filter(v => v.finalReward === 1).length}/${programmaticVerifications.length} passed)`)
+        console.log(`[Verifier] Programmatic score: ${programmaticScoreForResult}% (${programmaticVerifications.filter(v => v.finalReward === 1).length}/${totalExpectedTasks} passed)`)
       }
     }
 

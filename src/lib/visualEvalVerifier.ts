@@ -18,12 +18,95 @@ function safeParseArgs(argsStr: string | Record<string, unknown>): Record<string
   }
 }
 
+/**
+ * Extract meaningful words from text for fuzzy key-term matching.
+ * Strips stop words (Vietnamese + English) and short words.
+ */
+function extractKeyTerms(text: string): string[] {
+  const stopWords = new Set([
+    // Vietnamese stop words
+    'của', 'cho', 'với', 'và', 'hoặc', 'trong', 'là', 'có', 'được', 'các',
+    'hãy', 'vui', 'lòng', 'mình', 'bạn', 'này', 'đang', 'đã', 'sẽ', 'một',
+    'những', 'cần', 'tôi', 'theo', 'như', 'khi', 'rằng', 'lên', 'xuống',
+    // English stop words
+    'the', 'a', 'an', 'in', 'for', 'and', 'or', 'of', 'to', 'with',
+    'from', 'by', 'at', 'on', 'is', 'are', 'was', 'be', 'do', 'has',
+    'that', 'this', 'it', 'as', 'all', 'can', 'not', 'but', 'its',
+    'get', 'set', 'use', 'new', 'via',
+  ])
+  return text.toLowerCase()
+    .split(/[\s,.:;!?()\[\]"'/\\+]+/)
+    .filter(w => w.length >= 3 && !stopWords.has(w))
+}
+
+/**
+ * Type-aware argument comparison (Fix 1).
+ *
+ * Strategy:
+ *  - ID-like args (contain digits+dashes, or argName contains "id"): strict numeric comparison
+ *  - Name args (argName contains "name"): case-insensitive substring match either direction
+ *  - Free-text args (Query, Description, etc.): 50% key-term overlap
+ */
+function matchArg(expectedValue: unknown, actualValue: unknown, argName: string): boolean {
+  const expected = String(expectedValue ?? '').trim()
+  const actual = String(actualValue ?? '').trim()
+
+  // If expected is empty, any value is acceptable
+  if (!expected) return true
+  // If actual is empty but expected is not, no match
+  if (!actual) return false
+
+  const argLower = argName.toLowerCase()
+
+  // ── ID-like args: strict numeric-portion comparison ─────────────────
+  // Heuristic: structured IDs like CAND-2026-01021, REC-2026-031, pure numbers,
+  // or arg name explicitly contains "id"
+  const isIdLike = /^[A-Z]{2,}[-_]\d{2,}/.test(expected) ||  // PREFIX-digits pattern
+                   /^\d+$/.test(expected) ||                    // pure numeric
+                   argLower.includes('id') ||                   // arg name has "id"
+                   argLower.includes('code') ||                 // arg name has "code"
+                   argLower.includes('number')                  // arg name has "number"
+
+  if (isIdLike) {
+    // Extract numeric portions and compare — handles format variations
+    const expectedNums = expected.replace(/\D/g, '')
+    const actualNums = actual.replace(/\D/g, '')
+    if (expectedNums.length >= 3 && actualNums.length >= 3) {
+      return expectedNums === actualNums ||
+             actualNums.includes(expectedNums) ||
+             expectedNums.includes(actualNums)
+    }
+    // Fallback: case-insensitive exact match
+    return expected.toLowerCase() === actual.toLowerCase()
+  }
+
+  // ── Name args: case-insensitive substring match either direction ────
+  if (argLower.includes('name')) {
+    const exp = expected.toLowerCase()
+    const act = actual.toLowerCase()
+    return act.includes(exp) || exp.includes(act)
+  }
+
+  // ── Free-text args (Query, Description, etc.): key-term overlap ─────
+  // These are paraphrased differently by each model — require 50%+ term overlap
+  const expectedTerms = extractKeyTerms(expected)
+  const actualTerms = extractKeyTerms(actual)
+
+  if (expectedTerms.length === 0) return true  // nothing meaningful to match
+
+  const matchCount = expectedTerms.filter(et =>
+    actualTerms.some(at => at.includes(et) || et.includes(at))
+  ).length
+
+  return matchCount / expectedTerms.length >= 0.5
+}
+
 // ── Action verifier ──────────────────────────────────────────────────────────
 
 /**
  * Check if predicted tool calls match expected actions.
  * Logic follows τ-bench: for each expected action, scan all predicted calls for a match.
- * Match = same tool name + required args match (subset check or compareArgs check).
+ * Match = same tool name + required args match (type-aware comparison via matchArg).
  */
 export function verifyActions(
   turns: SimulationTurn[],
@@ -52,15 +135,20 @@ export function verifyActions(
     // Positive test: find a matching call
     const match = predictedCalls.find(pc => {
       if (pc.name !== expected.toolName) return false
-      if (!expected.requiredArgs) return true
+      if (!expected.requiredArgs) return true  // tool name match is enough
 
-      const keysToCheck = expected.compareArgs ?? Object.keys(expected.requiredArgs)
+      const keysToCheck = expected.compareArgs && expected.compareArgs.length > 0
+        ? expected.compareArgs
+        : Object.keys(expected.requiredArgs)
+
+      // If compareArgs is explicitly empty, only check tool name
+      if (expected.compareArgs && expected.compareArgs.length === 0) return true
+
       return keysToCheck.every(key => {
-        const expectedVal = String(expected.requiredArgs![key] ?? '').toLowerCase().trim()
-        const actualVal = String(pc.arguments[key] ?? '').toLowerCase().trim()
-        if (!expectedVal) return true // no expected value — name match is enough
-        // Flexible match: contains or equals
-        return actualVal.includes(expectedVal) || expectedVal.includes(actualVal)
+        const expectedVal = expected.requiredArgs![key]
+        const actualVal = pc.arguments[key]
+        if (expectedVal === undefined || expectedVal === null || expectedVal === '') return true
+        return matchArg(expectedVal, actualVal, key)
       })
     })
 
@@ -71,7 +159,9 @@ export function verifyActions(
       reason: match
         ? `Matched call to ${expected.toolName}`
         : `No matching call for ${expected.toolName}` +
-          (expected.requiredArgs ? ` with args ${JSON.stringify(expected.requiredArgs)}` : ''),
+          (expected.compareArgs?.length
+            ? ` (checking: ${expected.compareArgs.join(', ')})`
+            : expected.requiredArgs ? ` with args ${JSON.stringify(expected.requiredArgs)}` : ''),
     }
   })
 
@@ -88,6 +178,7 @@ export function verifyActions(
 
 /**
  * Check if agent's response contains/doesn't contain expected terms.
+ * Supports containsMode: 'all' (AND, default) | 'any' (OR, for synonym lists).
  */
 export function verifyCommunication(
   turns: SimulationTurn[],
@@ -102,18 +193,34 @@ export function verifyCommunication(
   const missingTerms: string[] = []
   const violatedTerms: string[] = []
 
-  for (const term of expected.contains) {
-    const match = expected.isRegex
-      ? new RegExp(term, 'i').test(assistantText)
-      : assistantText.toLowerCase().includes(term.toLowerCase())
-    if (!match) missingTerms.push(term)
+  const mode = expected.containsMode ?? 'all'
+
+  if (mode === 'any') {
+    // OR logic: at least ONE term must appear (useful for synonym alternatives)
+    const anyFound = expected.contains.some(term =>
+      expected.isRegex
+        ? new RegExp(term, 'i').test(assistantText)
+        : assistantText.toLowerCase().includes(term.toLowerCase())
+    )
+    if (!anyFound && expected.contains.length > 0) {
+      missingTerms.push(`(none of: ${expected.contains.join(' | ')})`)
+    }
+  } else {
+    // AND logic (default): ALL terms must appear
+    for (const term of expected.contains) {
+      const found = expected.isRegex
+        ? new RegExp(term, 'i').test(assistantText)
+        : assistantText.toLowerCase().includes(term.toLowerCase())
+      if (!found) missingTerms.push(term)
+    }
   }
 
+  // notContains always uses AND-NOT (every forbidden term must be absent)
   for (const term of expected.notContains ?? []) {
-    const match = expected.isRegex
+    const found = expected.isRegex
       ? new RegExp(term, 'i').test(assistantText)
       : assistantText.toLowerCase().includes(term.toLowerCase())
-    if (match) violatedTerms.push(term)
+    if (found) violatedTerms.push(term)
   }
 
   return {
@@ -147,7 +254,7 @@ export function verifyBehavior(
     case 'ask_clarification':
       return !hasToolCalls && hasQuestion
     case 'report_not_found':
-      // Tool was called (returned empty), agent should communicate not found
+      // Tool was called (returned empty); agent should communicate not found
       return hasToolCalls
     case 'refuse_invalid':
       return !hasToolCalls
@@ -162,7 +269,7 @@ export function verifyBehavior(
 
 /**
  * Verify a single task against its expected outcome.
- * Returns deterministic TaskVerification (no LLM calls — those are in verifyNLAssertions).
+ * Deterministic — no LLM calls (those are in verifyNLAssertions).
  */
 export function verifyTask(
   taskTurns: SimulationTurn[],
@@ -183,7 +290,7 @@ export function verifyTask(
     communicationResult = verifyCommunication(taskTurns, expected.communication)
   }
 
-  // Compute final reward = product of applicable rewards (τ-bench style)
+  // Final reward = product of applicable rewards (τ-bench style)
   const rewards: number[] = []
   if (actionResult) rewards.push(actionResult.reward)
   if (communicationResult) rewards.push(communicationResult.reward)
@@ -206,8 +313,8 @@ export function verifyTask(
 // ── NL Assertion verifier (LLM, yes/no only) ─────────────────────────────────
 
 /**
- * Verify NL assertions using LLM — but only yes/no, not scoring.
- * This is the only part that uses LLM. Returns binary per assertion.
+ * Verify NL assertions using LLM — binary yes/no per assertion, not scoring.
+ * This is the only function here that calls LLM.
  */
 export async function verifyNLAssertions(
   taskTurns: SimulationTurn[],
