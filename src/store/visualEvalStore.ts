@@ -1,6 +1,6 @@
 'use client'
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { persist, type PersistStorage } from 'zustand/middleware'
 import { SimulationTurn, SimulationResult } from '@/types'
 
 // ── Module-level AbortController ────────────────────────────────────
@@ -31,6 +31,9 @@ export interface VisualEvalConfig {
   // Oracle model — dedicated to faking tool responses (separate from User Model)
   oracleBaseUrl: string
   oracleModel: string
+  // Judge model — dedicated evaluator/judge (if blank, falls back to User Model)
+  judgeBaseUrl: string
+  judgeModel: string
   // Ordered task list — User Model delivers these tasks one by one to Target Model.
   // Format: JSON array of strings. Each string is one task description.
   // ["Find candidates named X", "Get Technical Interview list for RJ20231201", ...]
@@ -43,6 +46,32 @@ export interface VisualEvalConfig {
   generated: boolean
   // Batch eval — list of "baseUrl|modelName" entries, one per line
   batchModelsText: string
+}
+
+type PersistedVisualEvalConfig = Pick<
+  VisualEvalConfig,
+  | 'scenarioName'
+  | 'scenarioDesc'
+  | 'targetSysPrompt'
+  | 'toolsJson'
+  | 'mockContext'
+  | 'maxTurnsInput'
+  | 'userBaseUrl'
+  | 'userModel'
+  | 'oracleBaseUrl'
+  | 'oracleModel'
+  | 'judgeBaseUrl'
+  | 'judgeModel'
+  | 'tasksJson'
+  | 'numTasksInput'
+  | 'replayScript'
+  | 'fileName'
+  | 'generated'
+  | 'batchModelsText'
+>
+
+interface PersistedVisualEvalState {
+  cfg: PersistedVisualEvalConfig
 }
 
 // ── Batch result summary ─────────────────────────────────────────────
@@ -108,6 +137,8 @@ const DEFAULT_CFG: VisualEvalConfig = {
   userModel: '',
   oracleBaseUrl: '',
   oracleModel: '',
+  judgeBaseUrl: '',
+  judgeModel: '',
   tasksJson: '[]',
   numTasksInput: 4,
   replayScript: '[]',
@@ -115,6 +146,94 @@ const DEFAULT_CFG: VisualEvalConfig = {
   fileText: '',
   generated: false,
   batchModelsText: '',
+}
+
+function getBrowserStorage(kind: 'local' | 'session'): Storage | null {
+  if (typeof window === 'undefined') return null
+  return kind === 'local' ? window.localStorage : window.sessionStorage
+}
+
+function removeStorageValue(storage: Storage | null, key: string) {
+  if (!storage) return
+  try {
+    storage.removeItem(key)
+  } catch {
+    // Ignore storage cleanup failures.
+  }
+}
+
+function sanitizePersistedCfg(cfg?: Partial<VisualEvalConfig> | null): PersistedVisualEvalConfig {
+  return {
+    scenarioName: cfg?.scenarioName ?? DEFAULT_CFG.scenarioName,
+    scenarioDesc: cfg?.scenarioDesc ?? DEFAULT_CFG.scenarioDesc,
+    targetSysPrompt: cfg?.targetSysPrompt ?? DEFAULT_CFG.targetSysPrompt,
+    toolsJson: cfg?.toolsJson ?? DEFAULT_CFG.toolsJson,
+    mockContext: cfg?.mockContext ?? DEFAULT_CFG.mockContext,
+    maxTurnsInput: cfg?.maxTurnsInput ?? DEFAULT_CFG.maxTurnsInput,
+    userBaseUrl: cfg?.userBaseUrl ?? DEFAULT_CFG.userBaseUrl,
+    userModel: cfg?.userModel ?? DEFAULT_CFG.userModel,
+    oracleBaseUrl: cfg?.oracleBaseUrl ?? DEFAULT_CFG.oracleBaseUrl,
+    oracleModel: cfg?.oracleModel ?? DEFAULT_CFG.oracleModel,
+    judgeBaseUrl: cfg?.judgeBaseUrl ?? DEFAULT_CFG.judgeBaseUrl,
+    judgeModel: cfg?.judgeModel ?? DEFAULT_CFG.judgeModel,
+    tasksJson: cfg?.tasksJson ?? DEFAULT_CFG.tasksJson,
+    numTasksInput: cfg?.numTasksInput ?? DEFAULT_CFG.numTasksInput,
+    replayScript: cfg?.replayScript ?? DEFAULT_CFG.replayScript,
+    fileName: cfg?.fileName ?? DEFAULT_CFG.fileName,
+    generated: cfg?.generated ?? DEFAULT_CFG.generated,
+    batchModelsText: cfg?.batchModelsText ?? DEFAULT_CFG.batchModelsText,
+  }
+}
+
+const visualEvalStorage: PersistStorage<PersistedVisualEvalState> = {
+  getItem: (key) => {
+    const local = getBrowserStorage('local')
+    const session = getBrowserStorage('session')
+    const raw = local?.getItem(key) ?? session?.getItem(key) ?? null
+    if (!raw) return null
+    try {
+      return JSON.parse(raw)
+    } catch {
+      return null
+    }
+  },
+  setItem: (key, value) => {
+    const serialized = JSON.stringify(value)
+    const local = getBrowserStorage('local')
+    const session = getBrowserStorage('session')
+
+    if (local) {
+      try {
+        local.setItem(key, serialized)
+        removeStorageValue(session, key)
+        return
+      } catch (error) {
+        removeStorageValue(local, key)
+        try {
+          local.setItem(key, serialized)
+          removeStorageValue(session, key)
+          console.warn('[visualEvalStore] recovered localStorage after clearing stale state', error)
+          return
+        } catch (retryError) {
+          console.warn('[visualEvalStore] localStorage quota exceeded, falling back to sessionStorage', retryError)
+        }
+      }
+    }
+
+    if (session) {
+      try {
+        session.setItem(key, serialized)
+        return
+      } catch (error) {
+        removeStorageValue(session, key)
+        console.warn('[visualEvalStore] sessionStorage quota exceeded, persisted visual eval state dropped', error)
+      }
+    }
+  },
+  removeItem: (key) => {
+    removeStorageValue(getBrowserStorage('local'), key)
+    removeStorageValue(getBrowserStorage('session'), key)
+  },
 }
 
 const INITIAL_RUNTIME = {
@@ -182,6 +301,8 @@ export const useVisualEvalStore = create<VisualEvalState>()(
             userModel: s.cfg.userModel,
             oracleBaseUrl: s.cfg.oracleBaseUrl,
             oracleModel: s.cfg.oracleModel,
+            judgeBaseUrl: s.cfg.judgeBaseUrl,
+            judgeModel: s.cfg.judgeModel,
             maxTurnsInput: s.cfg.maxTurnsInput,
             batchModelsText: s.cfg.batchModelsText,
             // replayScript intentionally cleared — new doc needs new script
@@ -222,19 +343,30 @@ export const useVisualEvalStore = create<VisualEvalState>()(
     }),
     {
       name: 'eval.visual',
-      // Persist everything except isRunning (a running sim can't be resumed after page reload)
-      partialize: (s) => ({
-        isDone: s.isDone,
-        turns: s.turns,
-        currentTurn: s.currentTurn,
-        maxTurns: s.maxTurns,
-        currentTask: s.currentTask,
-        taskTotal: s.taskTotal,
-        statusText: s.statusText,
-        finalResult: s.finalResult,
-        batchResults: s.batchResults,
-        cfg: s.cfg,
+      version: 4,
+      storage: visualEvalStorage,
+      // Persist only compact config. Large runtime state and uploaded file content stay in memory.
+      partialize: (s): PersistedVisualEvalState => ({
+        cfg: sanitizePersistedCfg(s.cfg),
       }),
+      migrate: (persistedState) => {
+        const state = persistedState as Partial<VisualEvalState> | PersistedVisualEvalState | null
+        return {
+          cfg: sanitizePersistedCfg(state?.cfg),
+        }
+      },
+      merge: (persistedState, currentState) => {
+        const persisted = persistedState as Partial<PersistedVisualEvalState> | null
+        return {
+          ...currentState,
+          ...persisted,
+          cfg: {
+            ...DEFAULT_CFG,
+            ...currentState.cfg,
+            ...persisted?.cfg,
+          },
+        }
+      },
     }
   )
 )

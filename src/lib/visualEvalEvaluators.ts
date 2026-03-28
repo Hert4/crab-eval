@@ -13,6 +13,7 @@ interface TaskSegment {
   index: number
   task: string
   transcript: string
+  priorContext: string
   turns: SimulationTurn[]
   toolTrace: ToolTraceSummary
   calledTools: string[]
@@ -62,6 +63,54 @@ interface ChecklistEvaluator {
 
 const clampScore = (value: number) => Math.max(0, Math.min(100, Math.round(value)))
 
+function compactText(text: string, max = 240): string {
+  const normalized = text.replace(/\s+/g, ' ').trim()
+  return normalized.length <= max ? normalized : `${normalized.slice(0, max)}…`
+}
+
+function summarizeJsonForJudge(value: unknown, depth = 0): unknown {
+  if (value === null || value === undefined) return value
+  if (typeof value === 'string') return compactText(value, depth === 0 ? 260 : 180)
+  if (typeof value !== 'object') return value
+
+  if (Array.isArray(value)) {
+    const items = value.slice(0, 3).map(item => summarizeJsonForJudge(item, depth + 1))
+    return value.length > 3 ? [...items, `…(${value.length - 3} more)`] : items
+  }
+
+  const entries = Object.entries(value as Record<string, unknown>)
+  const maxKeys = depth === 0 ? 10 : 6
+  const summaryEntries = entries.slice(0, maxKeys).map(
+    ([key, nested]) => [key, summarizeJsonForJudge(nested, depth + 1)] as const
+  )
+  if (entries.length > maxKeys) summaryEntries.push(['__truncatedKeys', entries.length - maxKeys] as const)
+  return Object.fromEntries(summaryEntries)
+}
+
+function summarizeToolContent(content: string, max = 1200): string {
+  const trimmed = content.trim()
+  if (!trimmed) return ''
+
+  try {
+    const parsed = JSON.parse(trimmed) as unknown
+    return truncate(JSON.stringify(summarizeJsonForJudge(parsed)), max)
+  } catch {
+    return truncate(trimmed, max)
+  }
+}
+
+function formatCarryoverTurn(turn: SimulationTurn): string {
+  if (turn.role === 'tool') {
+    return `TOOL[${turn.tool_name}]: ${summarizeToolContent(turn.content, 260)}`
+  }
+
+  const label = turn.role === 'user' ? 'USER' : 'ASSISTANT'
+  const toolLine = turn.tool_calls?.length
+    ? ` CALLS=${turn.tool_calls.map(tc => tc.function.name).join(',')}`
+    : ''
+  return `${label}${toolLine}: ${compactText(turn.content, 180)}`
+}
+
 function truncate(text: string, max = 2800): string {
   if (text.length <= max) return text
   return `${text.slice(0, max)}…`
@@ -70,7 +119,7 @@ function truncate(text: string, max = 2800): string {
 function buildSegmentTranscript(turns: SimulationTurn[]): string {
   return turns.map(turn => {
     if (turn.role === 'tool') {
-      return `TOOL[${turn.tool_name}]: ${truncate(turn.content, 400)}`
+      return `TOOL[${turn.tool_name}]: ${summarizeToolContent(turn.content, 1200)}`
     }
     const label = turn.role === 'user' ? 'USER' : 'ASSISTANT'
     const toolLine = turn.tool_calls?.length
@@ -78,6 +127,23 @@ function buildSegmentTranscript(turns: SimulationTurn[]): string {
       : ''
     return `${label}:${toolLine}\n${turn.content}`
   }).join('\n\n---\n\n')
+}
+
+function buildPriorContext(turns: SimulationTurn[]): string {
+  if (turns.length === 0) return ''
+
+  const priorToolTurns = turns.filter(turn => turn.role === 'tool').slice(-8)
+  const recentDialogue = turns.filter(turn => turn.role !== 'tool').slice(-4)
+  const sections: string[] = []
+
+  if (priorToolTurns.length > 0) {
+    sections.push(`Earlier tool evidence:\n${priorToolTurns.map(formatCarryoverTurn).join('\n')}`)
+  }
+  if (recentDialogue.length > 0) {
+    sections.push(`Recent dialogue:\n${recentDialogue.map(formatCarryoverTurn).join('\n')}`)
+  }
+
+  return truncate(sections.join('\n\n'), 1800)
 }
 
 function buildTaskSegments(turns: SimulationTurn[], tasks?: string[]): TaskSegment[] {
@@ -93,6 +159,7 @@ function buildTaskSegments(turns: SimulationTurn[], tasks?: string[]): TaskSegme
       index: taskIndex,
       task,
       transcript: buildSegmentTranscript(segmentTurns),
+      priorContext: buildPriorContext(turns.slice(0, startIdx)),
       turns: segmentTurns,
       toolTrace: {
         totalToolCalls: 0,
@@ -215,12 +282,17 @@ function analyzeToolTrace(segment: TaskSegment, tools?: OpenAITool[]): { trace: 
       }
 
       const schema = isPlainObject(tool.function.parameters) ? tool.function.parameters : null
-      const issues = schema ? validateValueAgainstSchema(parsedArgs, schema) : []
+      const schemaIssues = schema ? validateValueAgainstSchema(parsedArgs, schema) : []
+      // Only use schema-based validation — no domain-specific business ID rules
+      const issues = schemaIssues
       if (issues.length === 0) {
         trace.validToolCalls += 1
       } else {
         trace.invalidToolCalls += 1
-        trace.missingRequiredArguments += issues.filter(issue => issue.includes('missing required')).length
+        trace.missingRequiredArguments += schemaIssues.filter(issue => issue.includes('missing required')).length
+        if (schemaIssues.some(issue => issue.includes('expected'))) {
+          trace.malformedArguments += 1
+        }
       }
     }
   }
@@ -254,7 +326,21 @@ function extractJsonObject(text: string): string | null {
 function safeMetric(value: unknown): number | null {
   if (value === null || value === undefined || value === 'null') return null
   const parsed = Number(value)
-  return Number.isFinite(parsed) ? clampScore(parsed) : null
+  return Number.isFinite(parsed) ? parsed : null
+}
+
+function detectJudgeMetricMultiplier(tasks: JudgeTaskPayload[]): number {
+  const values = tasks.flatMap(task => [
+    task.completion,
+    task.grounding,
+    task.clarification,
+    task.tool_use,
+  ]).filter((value): value is number => value !== null)
+
+  const maxValue = values.length ? Math.max(...values) : 0
+  if (maxValue <= 1) return 100
+  if (maxValue <= 10) return 10
+  return 1
 }
 
 function buildJudgePrompt(segments: TaskSegment[]): string {
@@ -263,23 +349,39 @@ function buildJudgePrompt(segments: TaskSegment[]): string {
     task: segment.task,
     tool_trace: segment.toolTrace,
     called_tools: segment.calledTools,
-    transcript: truncate(segment.transcript, 2600),
+    prior_context: segment.priorContext ? truncate(segment.priorContext, 900) : null,
+    transcript: truncate(segment.transcript, 2200),
   }))
 
   return `You are evaluating an AI assistant task-by-task.
 
 Score each task using these axes:
-- completion: Did the assistant satisfy the user request?
-- grounding: Did the assistant stay faithful to the available transcript/tool outputs, without inventing facts/actions?
-- clarification: Was any clarification behavior appropriate and efficient? Use null if irrelevant.
-- tool_use: Were tool choices and tool-call arguments appropriate? Use null if tools were not relevant.
+- completion (0-100): Did the assistant fully satisfy the user request?
+- grounding (0-100): Did the assistant stay faithful to tool outputs and transcript, without inventing facts?
+- clarification (0-100 or null): Was clarification behavior appropriate? Use null ONLY if clarification was completely irrelevant to this task.
+- tool_use (0-100 or null): Were tool choices and arguments correct and appropriate?
 
-Rules:
+CRITICAL RULE for tool_use — read carefully:
+- Use null ONLY when the task is purely conversational and no tools exist or are needed (e.g. task endpoint is explicitly "ask the user for clarification").
+- If tools are available AND the task requires data retrieval, lookup, comparison, or any action on real data → tool_use MUST be a number, never null.
+  - Assistant called the right tool with correct arguments → tool_use: 80-100
+  - Assistant called a tool but with wrong name or wrong arguments → tool_use: 10-40
+  - Assistant called no tool at all when a tool was needed → tool_use: 0
+- "I cannot do this without more information" when the task already provides enough info = tool_use: 0
+- Unnecessary clarification when the assistant could have proceeded = lowers both completion and tool_use
+
+Tool_use scoring examples:
+- Task: "Find candidates named X" → assistant calls get_candidates correctly → tool_use: 85
+- Task: "Find candidates named X" → assistant asks "which system should I search?" → tool_use: 0
+- Task: "Get details for RJ20240115" → assistant calls wrong tool → tool_use: 20
+- Task: "Send email to candidate" → no email tool exists → tool_use: null
+
+Additional rules:
 - Do NOT reward verbosity or polished writing by itself.
-- Wrong or malformed tool calls should reduce tool_use.
-- Asking for clarification is GOOD only when the task truly lacks the needed information.
-- If the assistant keeps asking for IDs while it could reasonably continue from available data, lower completion/tool_use.
-- If the assistant claims it saved/fetched/generated something not supported by the transcript, grounding must be low.
+- Asking for clarification is GOOD only when the task genuinely lacks required information that cannot be inferred.
+- Prior context is provided separately — use it only as established evidence, not to infer hidden facts.
+- Empty tool outputs like {} or [] are not evidence for specific claims or recommendations.
+- If the assistant claims it saved/fetched/generated something not in the transcript, grounding must be low.
 - Status must be one of: completed, wrong, incomplete, skipped.
 
 Return ONLY valid JSON:
@@ -288,10 +390,10 @@ Return ONLY valid JSON:
     {
       "task_index": 1,
       "status": "completed",
-      "completion": 0,
-      "grounding": 0,
+      "completion": 85,
+      "grounding": 90,
       "clarification": null,
-      "tool_use": null,
+      "tool_use": 80,
       "note": "One concise sentence."
     }
   ],
@@ -342,6 +444,14 @@ function parseJudgeResponse(raw: string, expectedTasks: number): JudgeResponse |
     })
   }
 
+  const multiplier = detectJudgeMetricMultiplier(tasks)
+  tasks.forEach(task => {
+    task.completion = clampScore(task.completion * multiplier)
+    task.grounding = clampScore(task.grounding * multiplier)
+    task.clarification = task.clarification === null ? null : clampScore(task.clarification * multiplier)
+    task.tool_use = task.tool_use === null ? null : clampScore(task.tool_use * multiplier)
+  })
+
   return {
     tasks,
     overall_assessment: String(parsed.overall_assessment || ''),
@@ -389,20 +499,24 @@ const VISUAL_EVALUATORS = {
 
 function combineWeightedScores(breakdown: TaskScoreBreakdown): number {
   const hasTool = breakdown.toolUse !== null || breakdown.toolTrace !== null
+
   const weighted: Array<{ value: number | null; weight: number }> = hasTool
     ? [
-        { value: breakdown.completion, weight: 0.4 },
-        { value: breakdown.grounding, weight: 0.25 },
-        { value: breakdown.clarification, weight: 0.1 },
-        { value: breakdown.toolUse, weight: 0.15 },
-        { value: breakdown.toolTrace, weight: 0.1 },
+        { value: breakdown.completion,   weight: 0.4  },
+        { value: breakdown.grounding,    weight: 0.25 },
+        { value: breakdown.clarification,weight: 0.1  },
+        { value: breakdown.toolUse,      weight: 0.15 },
+        { value: breakdown.toolTrace,    weight: 0.1  },
       ]
     : [
-        { value: breakdown.completion, weight: 0.55 },
-        { value: breakdown.grounding, weight: 0.3 },
-        { value: breakdown.clarification, weight: 0.15 },
+        { value: breakdown.completion,   weight: 0.55 },
+        { value: breakdown.grounding,    weight: 0.3  },
+        { value: breakdown.clarification,weight: 0.15 },
       ]
 
+  // Only exclude truly-null items (task genuinely doesn't use that axis).
+  // value=0 must be included — it means the axis was relevant but scored zero
+  // (e.g. model failed to call a required tool → tool_use=0, not null).
   const totalWeight = weighted.reduce((sum, item) => sum + (item.value === null ? 0 : item.weight), 0)
   if (totalWeight === 0) return 0
 
@@ -419,6 +533,61 @@ function fallbackAssessment(taskResults: TaskResult[]): string {
   const wrong = taskResults.filter(task => task.status === 'wrong').length
   const incomplete = taskResults.filter(task => task.status === 'incomplete').length
   return `Completed ${completed}/${taskResults.length} tasks. Wrong: ${wrong}. Incomplete: ${incomplete}.`
+}
+
+// ── Multi-judge helpers ────────────────────────────────────────────────
+
+function medianOfThree(a: number, b: number, c: number): number {
+  return [a, b, c].sort((x, y) => x - y)[1]
+}
+
+function medianNullable(values: (number | null)[]): number | null {
+  const nums = values.filter((v): v is number => v !== null)
+  if (nums.length === 0) return null
+  const sorted = [...nums].sort((a, b) => a - b)
+  const mid = Math.floor(sorted.length / 2)
+  return sorted.length % 2 === 0
+    ? Math.round((sorted[mid - 1] + sorted[mid]) / 2)
+    : sorted[mid]
+}
+
+// Pick the most common status (mode); tie-break toward worse status
+function modeStatus(statuses: TaskResult['status'][]): TaskResult['status'] {
+  const order: TaskResult['status'][] = ['completed', 'incomplete', 'wrong', 'skipped']
+  const counts = new Map<TaskResult['status'], number>()
+  for (const s of statuses) counts.set(s, (counts.get(s) ?? 0) + 1)
+  const maxCount = Math.max(...counts.values())
+  // Among tied statuses pick the worst (last in order)
+  const tied = order.filter(s => (counts.get(s) ?? 0) === maxCount)
+  return tied[tied.length - 1]
+}
+
+// Merge 3 judge payloads into one using median per metric
+function mergeJudgePayloads(
+  payloads: JudgeResponse[],
+  expectedTasks: number
+): JudgeResponse {
+  const tasks: JudgeTaskPayload[] = []
+  for (let i = 0; i < expectedTasks; i++) {
+    const entries = payloads.map(p => p.tasks[i]).filter(Boolean)
+    if (entries.length === 0) {
+      tasks.push({ task_index: i + 1, status: 'incomplete', completion: 0, grounding: 0, clarification: null, tool_use: null, note: 'No judge data.' })
+      continue
+    }
+    const completion  = medianOfThree(...(entries.map(e => e.completion)  as [number, number, number]))
+    const grounding   = medianOfThree(...(entries.map(e => e.grounding)   as [number, number, number]))
+    const clarification = medianNullable(entries.map(e => e.clarification))
+    const tool_use    = medianNullable(entries.map(e => e.tool_use))
+    const status      = modeStatus(entries.map(e => e.status))
+    // Use note from the median-scoring run
+    const scores      = entries.map(e => e.completion + e.grounding)
+    const medianRunIdx = scores.indexOf([...scores].sort((a,b) => a-b)[Math.floor(scores.length/2)])
+    const note        = entries[medianRunIdx]?.note ?? entries[0].note
+    tasks.push({ task_index: i + 1, status, completion, grounding, clarification, tool_use, note })
+  }
+  // Use assessment from the middle run
+  const midAssessment = payloads[Math.floor(payloads.length / 2)]?.overall_assessment ?? ''
+  return { tasks, overall_assessment: midAssessment }
 }
 
 export async function evaluateVisualSimulation(
@@ -446,23 +615,42 @@ export async function evaluateVisualSimulation(
     return evaluated.score
   })
 
-  const judgeResult = await VISUAL_EVALUATORS.checklistJudge.evaluate(segments, judgeCfg, signal)
-  if (!judgeResult || !('payload' in judgeResult) || !judgeResult.payload) {
+  // ── Run judge 3 times and take median per metric ──────────────────
+  // This eliminates judge variance (e.g. T4: 43 vs 100 on identical transcripts).
+  const JUDGE_RUNS = 3
+  const successfulPayloads: JudgeResponse[] = []
+  const rawResponses: string[] = []
+
+  for (let run = 0; run < JUDGE_RUNS; run++) {
+    if (signal.aborted) break
+    const judgeResult = await VISUAL_EVALUATORS.checklistJudge.evaluate(segments, judgeCfg, signal)
+    if (judgeResult?.raw) rawResponses.push(judgeResult.raw)
+    if (judgeResult && 'payload' in judgeResult && judgeResult.payload) {
+      successfulPayloads.push(judgeResult.payload)
+    }
+  }
+
+  if (successfulPayloads.length === 0) {
     return {
       finalScore: null,
       assessment: 'Evaluation unavailable.',
       status: 'unavailable',
       debug: {
-        evaluator: 'hybrid_visual_eval_v1',
-        rawJudgeResponse: judgeResult?.raw,
-        parseError: 'Judge response could not be parsed after retries.',
-        unavailableReason: 'Checklist evaluator failed to return valid JSON.',
+        evaluator: 'hybrid_visual_eval_v3_median',
+        rawJudgeResponse: rawResponses[0],
+        parseError: 'All judge runs failed to return valid JSON.',
+        unavailableReason: 'Checklist evaluator failed after 3 attempts.',
       },
     }
   }
 
+  // If only 1-2 runs succeeded, still use what we have
+  const mergedPayload = successfulPayloads.length >= 2
+    ? mergeJudgePayloads(successfulPayloads, segments.length)
+    : successfulPayloads[0]
+
   const taskResults: TaskResult[] = segments.map((segment, idx) => {
-    const judged = judgeResult.payload.tasks[idx]
+    const judged = mergedPayload.tasks[idx]
     const breakdown: TaskScoreBreakdown = {
       completion: judged.completion,
       grounding: judged.grounding,
@@ -488,11 +676,11 @@ export async function evaluateVisualSimulation(
   return {
     taskResults,
     finalScore,
-    assessment: judgeResult.payload.overall_assessment || fallbackAssessment(taskResults),
+    assessment: mergedPayload.overall_assessment || fallbackAssessment(taskResults),
     status: 'scored',
     debug: {
-      evaluator: 'hybrid_visual_eval_v1',
-      rawJudgeResponse: judgeResult.raw,
+      evaluator: `hybrid_visual_eval_v3_median (${successfulPayloads.length}/${JUDGE_RUNS} runs)`,
+      rawJudgeResponse: rawResponses.join('\n\n---JUDGE RUN---\n\n'),
     },
   }
 }

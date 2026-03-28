@@ -40,7 +40,7 @@ function parseFile(filepath: string): Record<string, unknown> | null {
 }
 
 // ── GET /api/results ─────────────────────────────────────────────────
-// Returns the LATEST run per model (by date field) from each model folder.
+// Returns all recognised runs from results/, newest first.
 export async function GET() {
   try {
     if (!fs.existsSync(RESULTS_DIR)) {
@@ -48,7 +48,8 @@ export async function GET() {
     }
 
     // model name → latest parsed run
-    const latestByModel = new Map<string, Record<string, unknown>>()
+    const runs: Record<string, unknown>[] = []
+    const seenRunIds = new Set<string>()
     const errors: string[] = []
 
     const modelDirs = fs.readdirSync(RESULTS_DIR, { withFileTypes: true })
@@ -62,18 +63,17 @@ export async function GET() {
         const run = parseFile(path.join(modelPath, file))
         if (!run) continue
 
-        const model = (run.model as string) || modelDir.name
-        const existing = latestByModel.get(model)
-
-        // Keep whichever run has the later date string (ISO-comparable)
-        if (!existing || String(run.date) > String(existing.date)) {
-          latestByModel.set(model, run)
-        }
+        const runId = typeof run.runId === 'string' ? run.runId : `${modelDir.name}:${file}`
+        if (seenRunIds.has(runId)) continue
+        seenRunIds.add(runId)
+        runs.push(run)
       }
     }
 
+    runs.sort((a, b) => String(b.date ?? '').localeCompare(String(a.date ?? '')))
+
     return NextResponse.json({
-      runs: [...latestByModel.values()],
+      runs,
       errors,
       dir: RESULTS_DIR,
     })
@@ -130,6 +130,52 @@ export async function POST(req: Request) {
     saved.push(`${run.model}/${summaryName}`)
 
     return NextResponse.json({ ok: true, saved, dir: modelDir })
+  } catch (e) {
+    return NextResponse.json({ error: String(e) }, { status: 500 })
+  }
+}
+
+// ── DELETE /api/results ──────────────────────────────────────────────
+// Body: { runId: string } — deletes a single result file by runId
+//       { model: string } — deletes all files for a model folder
+//       { all: true }     — wipes entire results/ directory
+export async function DELETE(req: Request) {
+  try {
+    const body = await req.json() as { runId?: string; model?: string; all?: boolean }
+
+    if (body.all) {
+      if (fs.existsSync(RESULTS_DIR)) fs.rmSync(RESULTS_DIR, { recursive: true, force: true })
+      return NextResponse.json({ ok: true, deleted: 'all' })
+    }
+
+    if (body.model) {
+      const modelDir = path.join(RESULTS_DIR, safeName(body.model))
+      if (fs.existsSync(modelDir)) fs.rmSync(modelDir, { recursive: true, force: true })
+      return NextResponse.json({ ok: true, deleted: body.model })
+    }
+
+    if (body.runId) {
+      // Search all model dirs for file matching runId
+      if (!fs.existsSync(RESULTS_DIR)) return NextResponse.json({ ok: true, deleted: 0 })
+      let deleted = 0
+      for (const modelDir of fs.readdirSync(RESULTS_DIR, { withFileTypes: true }).filter(d => d.isDirectory())) {
+        const dirPath = path.join(RESULTS_DIR, modelDir.name)
+        for (const file of fs.readdirSync(dirPath).filter(f => f.endsWith('.json'))) {
+          const filepath = path.join(dirPath, file)
+          try {
+            const raw = JSON.parse(fs.readFileSync(filepath, 'utf-8')) as Record<string, unknown>
+            const id = raw.simId ?? raw.runId
+            if (id === body.runId) {
+              fs.unlinkSync(filepath)
+              deleted++
+            }
+          } catch { /* skip unreadable files */ }
+        }
+      }
+      return NextResponse.json({ ok: true, deleted })
+    }
+
+    return NextResponse.json({ error: 'Provide runId, model, or all:true' }, { status: 400 })
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 500 })
   }

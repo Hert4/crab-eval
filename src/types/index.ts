@@ -186,4 +186,12 @@ export interface SimulationResult {
   evaluationStatus?: 'scored' | 'unavailable'
   evaluationDebug?: SimulationEvaluationDebug
   status: 'completed' | 'stopped' | 'error'
+  // ── Reproducibility metadata ──────────────────────────────────────
+  judgeModel?: string          // model name used as evaluator/judge
+  judgeBaseUrl?: string        // baseUrl of judge model
+  oracleModel?: string         // model name used as oracle (tool faker)
+  oracleBaseUrl?: string       // baseUrl of oracle model
+  replayScript?: string[]      // fixed user messages used in this run (if replay mode)
+  toolsUsed?: Array<{ name: string; description?: string }>  // tools available to target model
+  worldState?: string          // pre-generated fixed mock database shared across all batch models
 }

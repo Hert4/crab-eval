@@ -4,8 +4,31 @@ import { useVisualEvalStore, getSimController, abortSim, BatchModelResult } from
 import { evaluateVisualSimulation } from './visualEvalEvaluators'
 
 // ── Sanitize a single JSON Schema property recursively ───────────────
+// Normalize non-standard type strings that LLMs sometimes generate:
+// "array_string", "string_array", "array[string]", "array<string>" → type:array + items:string
+// "integer" → keep as integer (valid JSON Schema)
+// anything else unknown → fallback to "string"
+const VALID_TYPES = new Set(['string','number','integer','boolean','array','object','null'])
+
+function normalizeType(raw: unknown): { type: string; inferredItemType?: string } {
+  const t = String(raw ?? 'string').trim().toLowerCase()
+  if (VALID_TYPES.has(t)) return { type: t }
+
+  // "array_string", "string_array", "array[string]", "array<string>", "array of string"
+  if (/array.*(str|text)/i.test(t) || /str.*array/i.test(t)) return { type: 'array', inferredItemType: 'string' }
+  if (/array.*(num|int|float)/i.test(t) || /(num|int).*array/i.test(t)) return { type: 'array', inferredItemType: 'number' }
+  if (/array.*(bool)/i.test(t)) return { type: 'array', inferredItemType: 'boolean' }
+  if (/array/i.test(t)) return { type: 'array', inferredItemType: 'string' }
+
+  // "int", "float", "double" → number
+  if (/^(int|float|double|decimal)$/i.test(t)) return { type: 'number' }
+  if (/^bool$/i.test(t)) return { type: 'boolean' }
+
+  return { type: 'string' }  // safe fallback
+}
+
 function sanitizeProp(raw: Record<string, unknown>): Record<string, unknown> {
-  const type = (raw.type as string) ?? 'string'
+  const { type, inferredItemType } = normalizeType(raw.type)
   const result: Record<string, unknown> = { type }
 
   if (raw.description) result.description = String(raw.description)
@@ -16,7 +39,7 @@ function sanitizeProp(raw: Record<string, unknown>): Record<string, unknown> {
     const rawItems = raw.items as Record<string, unknown> | undefined
     result.items = rawItems && typeof rawItems === 'object'
       ? sanitizeProp(rawItems)
-      : { type: 'string' }
+      : { type: inferredItemType ?? 'string' }
   }
 
   if (type === 'object') {
@@ -93,6 +116,12 @@ export interface SimConfig {
     model: string
     maxTokens: number
   }
+  // Judge model — dedicated evaluator separate from User Model.
+  // Falls back to userConfig when not provided.
+  judgeConfig?: {
+    baseUrl: string
+    model: string
+  }
   maxTurns: number
   tools?: OpenAITool[]
   mockContext?: string
@@ -105,14 +134,208 @@ export interface SimConfig {
 
 interface SimulationRuntimeOptions {
   sharedOracleCache?: Map<string, string>
+  worldState?: string   // pre-generated fixed mock database for this batch
+}
+
+// ── Oracle schema validation ──────────────────────────────────────────
+// Validates tool call arguments against the tool's JSON Schema.
+// Returns null if valid, or an error string describing what's wrong.
+function validateToolCall(
+  toolName: string,
+  argsJson: string,
+  tools: OpenAITool[] | undefined
+): string | null {
+  if (!tools || tools.length === 0) return null
+
+  const toolDef = tools.find(t => t.function.name === toolName)
+  if (!toolDef) {
+    return `Unknown tool "${toolName}". Available tools: ${tools.map(t => t.function.name).join(', ')}.`
+  }
+
+  const params = toolDef.function.parameters as Record<string, unknown> | undefined
+  if (!params) return null
+
+  let args: Record<string, unknown>
+  try {
+    args = JSON.parse(argsJson)
+    if (typeof args !== 'object' || args === null || Array.isArray(args)) {
+      return `Arguments must be a JSON object, got: ${typeof args}`
+    }
+  } catch {
+    return `Malformed JSON arguments: ${argsJson.slice(0, 100)}`
+  }
+
+  const required = (params.required as string[] | undefined) ?? []
+  const properties = (params.properties as Record<string, Record<string, unknown>> | undefined) ?? {}
+
+  // Check required params
+  const missing = required.filter(k => !(k in args) || args[k] === null || args[k] === undefined || args[k] === '')
+  if (missing.length > 0) {
+    return `Missing required parameter(s): ${missing.join(', ')}. Tool "${toolName}" requires: ${required.join(', ')}.`
+  }
+
+  // Check types for provided params
+  const typeErrors: string[] = []
+  for (const [key, val] of Object.entries(args)) {
+    const schema = properties[key]
+    if (!schema) continue // unknown extra param — allow (lenient)
+    const expectedType = schema.type as string | undefined
+    if (!expectedType) continue
+    const actualType = Array.isArray(val) ? 'array' : typeof val
+    if (expectedType === 'integer' && typeof val === 'number') continue // number OK for integer
+    if (actualType !== expectedType) {
+      typeErrors.push(`"${key}" should be ${expectedType} but got ${actualType} (value: ${JSON.stringify(val)})`)
+    }
+  }
+  if (typeErrors.length > 0) {
+    return `Type mismatch in tool "${toolName}": ${typeErrors.join('; ')}`
+  }
+
+  return null // valid
 }
 
 function normalizeReplayScript(messages?: string[]): string[] {
   return (messages ?? []).map(m => m.trim()).filter(Boolean)
 }
 
-function stableSortJson(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(stableSortJson)
+function normalizeTaskText(task: string): string {
+  return task.replace(/\s+/g, ' ').trim()
+}
+
+function parseStringArrayResponse(text: string): string[] {
+  const match = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/) || text.match(/(\[[\s\S]*\])/)
+  const parsed = JSON.parse(match ? match[1] : text)
+  if (!Array.isArray(parsed)) return []
+  return parsed
+    .filter((value): value is string => typeof value === 'string')
+    .map(normalizeTaskText)
+    .filter(Boolean)
+}
+
+function collectTaskListIssues(tasks: string[], expectedCount: number): string[] {
+  // Only check structural issues deterministically — count and duplicates.
+  // Semantic issues (dependency on prior tasks, bad patterns) are caught by
+  // the LLM reviewer in validateTasksWithLLM() — no hardcoded regex needed.
+  const issues: string[] = []
+  if (tasks.length !== expectedCount) {
+    issues.push(`expected exactly ${expectedCount} tasks but got ${tasks.length}`)
+  }
+  const seen = new Set<string>()
+  tasks.forEach((task, idx) => {
+    const normalized = task.trim().toLowerCase().replace(/\s+/g, ' ')
+    if (seen.has(normalized)) issues.push(`task ${idx + 1} duplicates an earlier task`)
+    seen.add(normalized)
+  })
+  return issues
+}
+
+async function validateTasksWithLLM(
+  tasks: string[],
+  targetSystemPrompt: string,
+  scenarioDescription: string,
+  cfg: OpenAIConfig,
+  signal: AbortSignal
+): Promise<string[]> {
+  const prompt = `You are reviewing an evaluation task list for an AI assistant benchmark.
+
+Assistant role: ${targetSystemPrompt}
+Scenario: ${scenarioDescription}
+
+Task list:
+${tasks.map((t, i) => `${i + 1}. ${t}`).join('\n')}
+
+Check each task for these problems:
+- Depends on results from a previous task (not self-contained)
+- Requires a future user reply before the task can be completed (mixes clarification + execution in one task)
+- Is too vague to be verifiable
+- Is a duplicate of another task (same intent, different wording)
+- All tasks are happy-path only (no edge cases, no error handling, no clarification tasks)
+
+If the task list is acceptable, return exactly: OK
+If there are problems, return a short bullet list of issues (no JSON, no markdown). Be concise.`
+
+  try {
+    const res = await chatCompletion(
+      { ...cfg, maxTokens: 300, temperature: 0 },
+      [{ role: 'user', content: prompt }],
+      signal
+    )
+    const text = res.choices?.[0]?.message?.content?.trim() ?? ''
+    if (!text || text.toUpperCase().startsWith('OK')) return []
+    // Parse bullet lines as individual issues
+    return text.split('\n').map(l => l.replace(/^[-•*]\s*/, '').trim()).filter(Boolean)
+  } catch {
+    return [] // validation failure is non-fatal — proceed with tasks as-is
+  }
+}
+
+function buildTasksPrompt(
+  targetSystemPrompt: string,
+  scenarioDescription: string,
+  toolNames: string,
+  numTasks: number,
+  feedback = ''
+): string {
+  // Distribute task types across the set for balanced coverage.
+  // For N tasks: ~40% happy path, ~30% edge/error cases, ~20% multi-step, ~10% clarification-required.
+  const edgeCount = Math.max(1, Math.round(numTasks * 0.3))
+  const clarifyCount = Math.max(1, Math.round(numTasks * 0.1))
+  const happyCount = numTasks - edgeCount - clarifyCount
+
+  return `You are designing a RIGOROUS evaluation test suite for an AI assistant. The test must expose real capability differences between strong and weak models — not just happy-path scenarios.
+
+Assistant role: ${targetSystemPrompt}
+Scenario: ${scenarioDescription}
+${toolNames ? `Available tools: ${toolNames}` : ''}
+
+Generate exactly ${numTasks} tasks with the following MANDATORY distribution:
+
+HAPPY PATH tasks (${happyCount} tasks) — normal requests where data exists and tools work:
+- Each task must test a DIFFERENT action type — no two tasks may perform the same kind of operation
+- Require using the correct tool with correct arguments
+- Verifiable from tool output alone
+
+EDGE / ERROR HANDLING tasks (${edgeCount} tasks) — tasks that test robustness:
+- Request targets an entity that does NOT exist → assistant must report not found, not hallucinate
+- Tool returns empty or null result → assistant must handle gracefully, not invent data
+- Request references an ambiguous or slightly malformed identifier → assistant must seek clarification or explain the issue
+- Request asks for information the tool does not provide → assistant must acknowledge the limitation
+- Each edge task must test a DIFFERENT failure mode
+
+CLARIFICATION-REQUIRED tasks (${clarifyCount} tasks) — tasks where the assistant MUST ask before acting:
+- Request is intentionally missing a required piece of information
+- The correct behavior is to ask the user for the missing info, NOT to proceed with assumptions
+
+Rules for ALL tasks:
+- Be self-contained — no dependency on prior tasks or hidden results
+- Be completable within 1-3 tool calls (or 0 tool calls for clarification tasks)
+- Use realistic entity identifiers when mentioned (infer format from tool descriptions)
+- DIVERSITY IS MANDATORY: no two tasks should trigger the same tool for the same purpose
+- Do NOT name or hint at specific tool names in the task description — describe what the user wants, not how to implement it
+
+Avoid bad task patterns:
+- Tasks that combine clarification and execution in one request
+- Tasks that depend on the result of a previous task
+- Multiple tasks that repeat the same operation on different identifiers — that is one task type, not many
+- All tasks being straightforward retrievals with data guaranteed to exist
+
+${feedback ? `Previous draft problems that must be fixed:\n${feedback}\n` : ''}
+Return ONLY a JSON array of exactly ${numTasks} task strings (no explanation, no markdown):
+["Task description 1", "Task description 2", ...]`
+}
+
+function postProcessOracleResponse(raw: string): string {
+  // Validate JSON and return clean string (no domain-specific ID normalization)
+  try {
+    const parsed = JSON.parse(raw) as unknown
+    return JSON.stringify(parsed)
+  } catch {
+    // Not valid JSON — return as-is
+    return raw
+  }
+}
+
+function stableSortJson(value: unknown): unknown {  if (Array.isArray(value)) return value.map(stableSortJson)
   if (value && typeof value === 'object') {
     return Object.fromEntries(
       Object.entries(value as Record<string, unknown>)
@@ -140,7 +363,7 @@ async function buildBatchReplayScript(
   if (explicitReplay.length > 0) return explicitReplay
 
   const taskReplay = normalizeReplayScript(config.tasks)
-  if (taskReplay.length > 0) return taskReplay
+  const requestedCount = taskReplay.length > 0 ? taskReplay.length : config.maxTurns
 
   const userApiKey = getApiKey('visual_user_api_key')
   const userCfg: OpenAIConfig = {
@@ -155,12 +378,18 @@ async function buildBatchReplayScript(
 
 Scenario: ${config.scenarioDescription}
 Assistant role: ${config.targetSystemPrompt || '(none provided)'}
+${taskReplay.length > 0 ? `Benchmark tasks to rewrite into natural end-user messages (keep order and intent):
+${taskReplay.map((task, idx) => `${idx + 1}. ${task}`).join('\n')}` : ''}
 
-Return ONLY a JSON array of exactly ${config.maxTurns} concise user messages.
+Return ONLY a JSON array of exactly ${requestedCount} concise user messages.
 
 Rules:
+- If benchmark tasks are provided, rewrite EACH task into one realistic user message.
+- Remove benchmark/meta phrasing such as "hãy dùng tool", "gọi tool", "người dùng yêu cầu", or any evaluation instructions.
 - Each message must be self-contained and include any fictional names, IDs, or dates needed.
-- Do NOT depend on previous assistant replies.
+- Each message must be answerable within one assistant response cycle. Do NOT require a future user reply unless the whole goal is to ask for clarification/confirmation.
+- Do NOT depend on previous assistant replies or hidden earlier task outputs.
+- Keep exact entity identifier formats as they appear in the scenario — never alter IDs or reformatting them
 - Do NOT include explanations, numbering, or markdown.
 - Make the messages realistic for the scenario and varied enough to exercise the assistant.
 `
@@ -172,10 +401,7 @@ Rules:
       signal
     )
     const text = res.choices?.[0]?.message?.content || ''
-    const match = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/) || text.match(/(\[[\s\S]*\])/)
-    const parsed = JSON.parse(match ? match[1] : text)
-    if (!Array.isArray(parsed)) return undefined
-    const replay = normalizeReplayScript(parsed.filter((v): v is string => typeof v === 'string'))
+    const replay = normalizeReplayScript(parseStringArrayResponse(text))
     return replay.length > 0 ? replay : undefined
   } catch {
     return undefined
@@ -229,8 +455,49 @@ export async function startBatchSimulation(
 
   _simPromise = (async () => {
     const controller = getSimController()
+    const fallbackReplayScript = normalizeReplayScript(baseConfig.tasks)
     const sharedReplayScript = await buildBatchReplayScript(baseConfig, controller.signal)
+      ?? (fallbackReplayScript.length > 0 ? fallbackReplayScript : undefined)
+    if (!sharedReplayScript || sharedReplayScript.length === 0) {
+      throw new Error('Unable to build a shared replay script for fair batch comparison.')
+    }
     const sharedOracleCache = new Map<string, string>()
+
+    // ── Pre-generate world state (oracle calls this ONCE, all models share it) ──
+    const userApiKey = getApiKey('visual_user_api_key')
+    const oracleApiKey = getApiKey('visual_oracle_api_key') || userApiKey
+    const oracleCfgForWorldState: OpenAIConfig = baseConfig.oracleConfig
+      ? { baseUrl: baseConfig.oracleConfig.baseUrl, apiKey: oracleApiKey, model: baseConfig.oracleConfig.model, maxTokens: 8000 }
+      : { baseUrl: baseConfig.userConfig.baseUrl, apiKey: oracleApiKey, model: baseConfig.userConfig.model, maxTokens: 8000 }
+
+    useVisualEvalStore.getState().updateStatus('Generating shared world state for fair oracle…')
+    const parsedTools: OpenAITool[] | undefined = baseConfig.tools
+    console.log('[worldState] oracleCfg model:', oracleCfgForWorldState.model, 'baseUrl:', oracleCfgForWorldState.baseUrl)
+    console.log('[worldState] tools count:', parsedTools?.length ?? 0, '| tasks count:', baseConfig.tasks?.length ?? 0, '| replayScript len:', sharedReplayScript.length)
+    console.log('[worldState] apiKey present:', !!oracleApiKey)
+
+    // Classify tasks → separate positive (need data) from negative (need data absent)
+    // Use oracle cfg for classify call (small, fast)
+    const classifierCfg: OpenAIConfig = { ...oracleCfgForWorldState, maxTokens: 200 }
+    const classified = baseConfig.tasks && baseConfig.tasks.length > 0
+      ? await classifyTasks(baseConfig.tasks, classifierCfg, controller.signal)
+      : { positive: sharedReplayScript, negative: [] }
+
+    const worldState = await generateWorldState(
+      sharedReplayScript,
+      classified.positive.length > 0 ? classified.positive : (baseConfig.tasks ?? sharedReplayScript),
+      parsedTools,
+      baseConfig.mockContext,
+      oracleCfgForWorldState,
+      controller.signal,
+      classified.negative
+    )
+
+    if (worldState) {
+      useVisualEvalStore.getState().updateStatus(`World state ready (${worldState.length} chars) — starting batch…`)
+    } else {
+      useVisualEvalStore.getState().updateStatus('World state unavailable — using shared cache fallback…')
+    }
 
     for (let i = 0; i < targets.length; i++) {
       const target = targets[i]
@@ -253,7 +520,7 @@ export async function startBatchSimulation(
       let batchResult: BatchModelResult
 
       try {
-        await _runSimulation(simConfig, controller.signal, { sharedOracleCache })
+        await _runSimulation(simConfig, controller.signal, { sharedOracleCache, worldState })
         const state = useVisualEvalStore.getState()
         const fr = state.finalResult
 
@@ -327,25 +594,229 @@ RULES:
 Keep messages natural and concise. You are a busy professional — get to the point.`
 }
 
-function buildOracleSystemPrompt(mockContext: string, memory: string): string {
+function buildOracleSystemPrompt(mockContext: string, memory: string, worldState?: string): string {
   const today = new Date().toISOString().slice(0, 10)
+
+  // Extract __absent section from worldState for explicit enforcement
+  let absentRule = ''
+  if (worldState) {
+    try {
+      const ws = JSON.parse(worldState) as Record<string, unknown>
+      if (ws.__absent && typeof ws.__absent === 'object') {
+        const absent = ws.__absent as Record<string, unknown>
+        const ids = Array.isArray(absent.ids) ? (absent.ids as string[]) : []
+        const names = Array.isArray(absent.names) ? (absent.names as string[]) : []
+        if (ids.length > 0 || names.length > 0) {
+          absentRule = `\nABSENT ENTITIES — If the tool query matches any of these, return {"items":[],"total":0} or {"error":"Not found"} immediately. NEVER generate data for them:
+${ids.length > 0 ? `- IDs: ${ids.join(', ')}` : ''}
+${names.length > 0 ? `- Names: ${names.join(', ')}` : ''}
+`
+        }
+      }
+    } catch { /* ignore parse error */ }
+  }
+
   return `You are a tool response simulator. Your ONLY job is to return realistic mock JSON for tool calls.
 
 TODAY'S DATE: ${today}
 
-${mockContext ? `Context/data hints: ${mockContext}` : ''}
+${worldState ? `WORLD STATE — this is the FIXED ground truth for this benchmark session. You MUST use ONLY the entities defined here. Never invent new IDs, names, or records that contradict this world state:
+${worldState}
+${absentRule}
+` : mockContext ? `Context/data hints: ${mockContext}
 
-${memory ? `PREVIOUSLY RETURNED DATA — you MUST be fully consistent with this:
+` : ''}${memory && !worldState ? `PREVIOUSLY RETURNED DATA — you MUST be fully consistent with this:
 ${memory}
 
 ` : ''}CRITICAL RULES:
 - Return ONLY valid JSON. No explanation, no markdown fences, no extra text.
-- CONSISTENCY is paramount: if a CandidateID, RecruitmentID, or any entity was already returned above, reuse the EXACT same name/email/fields. Never invent different names for the same ID.
-- DATE AWARENESS: When a query includes a date range (e.g. "last 7 days", "from X to Y"), ALL returned records MUST have dates that fall within that range relative to today (${today}). If no range is specified, use recent dates (within the last 30 days).
-- Make all new data realistic and internally consistent (Vietnamese names, plausible IDs, ISO dates, scores 0-100).
+- CONSISTENCY is paramount: any entity (ID, name, fields) that was already returned must be reused EXACTLY the same every time it appears. Never invent different values for the same entity.
+- DATE AWARENESS: When a query includes a date range, ALL returned records MUST have dates that fall within that range relative to today (${today}). If no range is specified, use recent dates (within the last 30 days).
+- Make all new data realistic and internally consistent (plausible names, IDs in the format the tools expect, ISO dates, numeric scores 0-100).
 - Always return a JSON object unless the tool clearly returns a list (then use {"items":[...], "total": N}).
-- For fit score tools (e.g. get_candidate_fit_score, get_multiple_candidates_fit_score): always include a "Summary" field with 1–2 sentences describing the candidate's key strengths/gaps relative to the job requirements, and a "CVHighlights" array with 2–3 specific skills or experiences from their CV. This gives the assistant real content to reason about.
-- For save/write/create tools (e.g. save_email_template, create_template, save_*): always return {"success": true, "id": "<generated_id>", "message": "Saved successfully"} so the assistant knows the action completed.`
+- For scoring or evaluation tools: always include a narrative "Summary" field with 1-2 sentences and a "Highlights" array with 2-3 specific details — this gives the assistant real content to reason about.
+- For write/save/create tools: always return {"success": true, "id": "<generated_id>", "message": "Saved successfully"} so the assistant knows the action completed.`
+}
+
+// ── Task classification ────────────────────────────────────────────────
+// Classify tasks into positive (data must exist) vs negative (data must be absent/error).
+// Used to prevent worldState from including entities that adversarial tasks require absent.
+interface ClassifiedTasks {
+  positive: string[]   // happy-path tasks — need data to exist
+  negative: string[]   // edge/error tasks — need data to be absent or return errors
+}
+
+async function classifyTasks(
+  tasks: string[],
+  cfg: OpenAIConfig,
+  signal: AbortSignal
+): Promise<ClassifiedTasks> {
+  if (!tasks || tasks.length === 0) return { positive: [], negative: [] }
+
+  const prompt = `Classify each task below as either "positive" or "negative":
+- "positive": the task expects data to EXIST and be returned (search, lookup, compare, calculate, generate)
+- "negative": the task expects data to be ABSENT, NOT FOUND, or an error — the assistant should respond with not found, gracefully handle empty results, or explain a limitation
+
+Tasks:
+${tasks.map((t, i) => `${i + 1}. ${t}`).join('\n')}
+
+Return ONLY a JSON array of strings, one per task, each either "positive" or "negative":
+["positive", "negative", ...]`
+
+  try {
+    const res = await chatCompletion(
+      { ...cfg, maxTokens: 200, temperature: 0 },
+      [{ role: 'user', content: prompt }],
+      signal
+    )
+    const raw = res.choices?.[0]?.message?.content?.trim() ?? ''
+    const stripped = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+    const parsed = JSON.parse(stripped)
+    if (!Array.isArray(parsed) || parsed.length !== tasks.length) throw new Error('length mismatch')
+
+    const positive: string[] = []
+    const negative: string[] = []
+    tasks.forEach((t, i) => {
+      if (String(parsed[i]).toLowerCase().includes('negative')) negative.push(t)
+      else positive.push(t)
+    })
+    console.log('[worldState] classified tasks — positive:', positive.length, 'negative:', negative.length)
+    return { positive, negative }
+  } catch (err) {
+    console.warn('[worldState] classifyTasks failed, treating all as positive:', err)
+    return { positive: tasks, negative: [] }
+  }
+}
+
+// Extract entity names/IDs that negative tasks expect to be absent.
+// Returns a compact object for the __absent section of worldState.
+function extractAbsentEntities(negativeTasks: string[]): Record<string, string[]> {
+  if (negativeTasks.length === 0) return {}
+
+  const names: string[] = []
+  const ids: string[] = []
+
+  for (const task of negativeTasks) {
+    // Extract quoted strings — likely names or IDs
+    const quoted = task.match(/["']([^"']+)["']/g)?.map(s => s.replace(/["']/g, '')) ?? []
+    // Extract patterns that look like structured IDs (PREFIX-digits)
+    const idPatterns = task.match(/\b[A-Z]{2,}-\d{3,}\b/g) ?? []
+    // Extract plain words that look like person names (capitalized, 3+ chars, not common words)
+    const namePatterns = task.match(/\b[A-Z][a-z]{2,}\b/g)?.filter(w =>
+      !['Search', 'Find', 'Get', 'List', 'Check', 'Retrieve', 'Calculate', 'Compare',
+        'Create', 'Generate', 'The', 'For', 'And', 'With', 'That', 'This', 'From'].includes(w)
+    ) ?? []
+
+    ids.push(...idPatterns)
+    names.push(...quoted.filter(s => !s.match(/^[A-Z]{2,}-\d/)), ...namePatterns)
+  }
+
+  const result: Record<string, string[]> = {}
+  const uniqueIds = [...new Set(ids)]
+  const uniqueNames = [...new Set(names)]
+  if (uniqueIds.length > 0) result.ids = uniqueIds
+  if (uniqueNames.length > 0) result.names = uniqueNames
+  return result
+}
+
+// ── World state pre-generation ────────────────────────────────────────
+// Called ONCE before batch starts. Oracle generates a fixed JSON "database"
+// covering all entities referenced in the replay script + tasks.
+// Every model in the batch then queries this same world state → deterministic.
+async function generateWorldState(
+  replayScript: string[],
+  tasks: string[] | undefined,
+  tools: OpenAITool[] | undefined,
+  mockContext: string | undefined,
+  oracleCfg: OpenAIConfig,
+  signal: AbortSignal,
+  negativeTasks?: string[]   // tasks that require data to be ABSENT
+): Promise<string | undefined> {
+  const today = new Date().toISOString().slice(0, 10)
+
+  const toolSummary = tools && tools.length > 0
+    ? tools.map(t => {
+        const params = t.function.parameters as Record<string, unknown> | undefined
+        const props = params?.properties as Record<string, unknown> | undefined
+        const paramNames = props ? Object.keys(props).join(', ') : ''
+        return `- ${t.function.name}(${paramNames}): ${t.function.description ?? ''}`
+      }).join('\n')
+    : '(no tools defined)'
+
+  // Only use positive tasks for world state generation.
+  // Negative tasks (expecting no results / errors) must NOT have entities generated for them.
+  const positiveTasks = tasks && tasks.length > 0 ? tasks : replayScript.slice(0, 10)
+  const taskContext = positiveTasks.join('\n')
+
+  // Extract absent entities from negative tasks
+  const absentEntities = negativeTasks && negativeTasks.length > 0
+    ? extractAbsentEntities(negativeTasks)
+    : {}
+  const absentSection = Object.keys(absentEntities).length > 0
+    ? `\nABSENT ENTITIES — Do NOT generate any records matching these in the world state:
+${JSON.stringify(absentEntities, null, 2)}\n`
+    : ''
+
+  const prompt = `You are generating a FIXED mock database (world state) for a benchmark simulation. This world state will be used consistently across ALL model runs to ensure fair comparison.
+
+TODAY: ${today}
+${mockContext ? `\nDOMAIN CONTEXT:\n${mockContext}\n` : ''}
+AVAILABLE TOOLS:
+${toolSummary}
+
+TASKS THAT NEED DATA (generate entities to satisfy these):
+${taskContext}
+${absentSection}
+Generate a compact JSON world state containing all entities needed to answer the tasks above. The world state should include:
+- All entity types the tools operate on (infer from the tool definitions and task descriptions)
+- Enough records to make tasks interesting (3-8 records per entity type)
+- Realistic, internally consistent data (IDs, names, dates, scores)
+- IDs in whatever format the tool descriptions specify (infer from parameter names and descriptions)
+${Object.keys(absentEntities).length > 0 ? `- An "__absent" key listing entities that must NOT appear in any tool response (for adversarial test cases)` : ''}
+
+Rules:
+- Return ONLY a valid JSON object. No explanation, no markdown fences.
+- Structure as: { "entityType": [...records], ..., "__absent": {...} }
+- The "__absent" key (if needed) must contain: { "note": "...", "ids": [...], "names": [...] }
+- NEVER generate records for any name or ID listed in __absent.
+- Keep it compact — this will be injected into every oracle prompt.
+- Do NOT include more than ~50 total records across all entity types.
+- Dates must be recent relative to today (${today}).`
+
+  try {
+    // Use higher maxTokens for reasoning models (gpt-5.x, o1, o3) which consume
+    // tokens on reasoning before generating output. Temperature omitted — openai.ts
+    // already drops it for reasoning models automatically.
+    const isReasoningModel = /^(o1|o3|o4|gpt-5|computer-use)/i.test(oracleCfg.model)
+    const res = await chatCompletion(
+      { ...oracleCfg, maxTokens: isReasoningModel ? 8000 : 3000, temperature: isReasoningModel ? undefined : 0 },
+      [{ role: 'user', content: prompt }],
+      signal
+    )
+    const raw = res.choices?.[0]?.message?.content?.trim() ?? ''
+    const stripped = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+    try {
+      const parsed = JSON.parse(stripped) as Record<string, unknown>
+      // If __absent not already in worldState but we have absent entities, inject it
+      if (Object.keys(absentEntities).length > 0 && !parsed.__absent) {
+        parsed.__absent = {
+          note: 'These entities must NOT appear in any tool response — required absent for adversarial test cases.',
+          ...absentEntities,
+        }
+      }
+      const final = JSON.stringify(parsed)
+      console.log('[worldState] generated OK, length:', final.length, '| absent entities:', Object.keys(absentEntities).length > 0 ? JSON.stringify(absentEntities) : 'none')
+      return final
+    } catch {
+      try { JSON.parse(raw); return raw } catch {
+        console.warn('[worldState] JSON parse failed, raw preview:', raw.slice(0, 200))
+        return undefined
+      }
+    }
+  } catch (err) {
+    console.error('[worldState] generateWorldState failed:', err)
+    return undefined
+  }
 }
 
 // ── Main simulation loop ──────────────────────────────────────────────
@@ -358,6 +829,7 @@ async function _runSimulation(
   const targetApiKey = getApiKey('target_api_key')
   const userApiKey = getApiKey('visual_user_api_key')
   const oracleApiKey = getApiKey('visual_oracle_api_key') || userApiKey
+  const judgeApiKey = getApiKey('visual_judge_api_key') || userApiKey
 
   const isReplay = config.replayScript && config.replayScript.length > 0
 
@@ -387,6 +859,17 @@ async function _runSimulation(
         temperature: 0,
       }
     : { ...userCfg, apiKey: oracleApiKey, temperature: 0 }
+
+  // Judge: dedicated evaluator. Falls back to userCfg if not configured.
+  const judgeCfg: OpenAIConfig = config.judgeConfig
+    ? {
+        baseUrl: config.judgeConfig.baseUrl,
+        apiKey: judgeApiKey,
+        model: config.judgeConfig.model,
+        maxTokens: 2500,
+        temperature: 0,
+      }
+    : { ...userCfg, apiKey: judgeApiKey, temperature: 0 }
 
   // Message histories (kept separate, merged for each API call)
   const targetMessages: OpenAIMessage[] = []
@@ -534,6 +1017,12 @@ async function _runSimulation(
         let mockResult = cached || '{}'
 
         if (!cached) {
+          // ── Schema validation — reject invalid tool calls immediately ──
+          const validationError = validateToolCall(tc.name, tc.arguments, tools)
+          if (validationError) {
+            mockResult = JSON.stringify({ error: validationError })
+            // Do NOT cache validation errors — model may retry with correct args
+          } else {
           // Build memory string from past oracle responses (most recent 20 entries to avoid token bloat)
           const memoryEntries = [...oracleMemory.entries()].slice(-20)
           const memoryStr = memoryEntries.length > 0
@@ -542,7 +1031,7 @@ async function _runSimulation(
 
           // Oracle gets the tool call + memory of all previous responses for consistency
           const oracleMessages: OpenAIMessage[] = [
-            { role: 'system', content: buildOracleSystemPrompt(config.mockContext || '', memoryStr) },
+            { role: 'system', content: buildOracleSystemPrompt(config.mockContext || '', memoryStr, runtime.worldState) },
             {
               role: 'user',
               content: `Tool called: ${tc.name}\nArguments: ${tc.arguments}\n\nReturn a realistic JSON object this tool would return.`,
@@ -559,12 +1048,17 @@ async function _runSimulation(
             // Strip markdown fences if model wraps in ```json
             const stripped = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
             // Validate JSON — fall back to raw if parse fails
-            try { JSON.parse(stripped); mockResult = stripped } catch { mockResult = raw }
+            try {
+              JSON.parse(stripped)
+              // Validate JSON before caching
+              mockResult = postProcessOracleResponse(stripped)
+            } catch { mockResult = raw }
           } catch (e) {
             if (e instanceof DOMException && e.name === 'AbortError') throw e
           }
 
           runtime.sharedOracleCache?.set(cacheKey, mockResult)
+          } // end else (validation passed)
         }
 
         oracleMemory.set(cacheKey, mockResult)
@@ -626,7 +1120,7 @@ async function _runSimulation(
 
   if (!signal.aborted && storeTurns.length > 0) {
     store().updateStatus('Evaluating tasks…')
-    const evaluation = await evaluateVisualSimulation(storeTurns, userCfg, signal, {
+    const evaluation = await evaluateVisualSimulation(storeTurns, judgeCfg, signal, {
       tasks: config.tasks,
       tools,
     })
@@ -675,6 +1169,14 @@ async function _runSimulation(
     evaluationStatus,
     evaluationDebug,
     status: signal.aborted ? 'stopped' : 'completed',
+    // ── Reproducibility metadata ────────────────────────────────────
+    judgeModel: judgeCfg.model,
+    judgeBaseUrl: judgeCfg.baseUrl,
+    oracleModel: oracleCfg.model,
+    oracleBaseUrl: oracleCfg.baseUrl,
+    replayScript: isReplay ? config.replayScript : undefined,
+    toolsUsed: tools?.map(t => ({ name: t.function.name, description: t.function.description })),
+    worldState: runtime.worldState,
   }
 
   // Save to disk
@@ -803,6 +1305,50 @@ Rules:
     return true
   })
 
+  // Enrich parameter descriptions with format hints inferred from the parameter name itself.
+  // This is general — no domain hard-coding. The format hint is derived purely from the
+  // parameter name: if a param looks like an "entity ID" (ends with "id" or "ids"), we
+  // look at its existing description or sibling params to infer the expected string format,
+  // then append a hint so target models know to pass a string, not a number.
+  tools = tools.map(tool => {
+    const params = tool.function.parameters as Record<string, unknown> | undefined
+    if (!params || typeof params !== 'object') return tool
+
+    const props = params.properties as Record<string, Record<string, unknown>> | undefined
+    if (!props) return tool
+
+    const enrichedProps: Record<string, Record<string, unknown>> = {}
+    for (const [paramName, propSchema] of Object.entries(props)) {
+      const lower = paramName.toLowerCase()
+      const isIdParam = lower.endsWith('id') || lower.endsWith('ids')
+      const hasStringType = propSchema.type === 'string'
+      const alreadyHasFormatHint = typeof propSchema.description === 'string' &&
+        (propSchema.description.includes('format') || propSchema.description.includes('e.g.') || propSchema.description.includes('example'))
+
+      if (isIdParam && !alreadyHasFormatHint) {
+        // Infer a generic hint: "must be a string identifier" — if description exists, append; otherwise create one.
+        const existing = typeof propSchema.description === 'string' ? propSchema.description.trimEnd() : ''
+        const hint = existing
+          ? `${existing}. Must be a string identifier, never a plain number.`
+          : `String identifier for this entity. Never pass a plain number.`
+        enrichedProps[paramName] = { ...propSchema, type: 'string', description: hint }
+      } else if (isIdParam && !hasStringType) {
+        // At minimum force type to string so JSON schema validation passes
+        enrichedProps[paramName] = { ...propSchema, type: 'string' }
+      } else {
+        enrichedProps[paramName] = propSchema
+      }
+    }
+
+    return {
+      ...tool,
+      function: {
+        ...tool.function,
+        parameters: { ...params, properties: enrichedProps },
+      },
+    }
+  })
+
   // Auto-generate mockContext — includes today's date so Oracle uses realistic recent dates
   let mockContext = ''
   if (tools.length > 0) {
@@ -811,12 +1357,12 @@ Rules:
       const params = Object.keys((t.function.parameters as Record<string, unknown>)?.properties as Record<string, unknown> ?? {}).join(', ')
       return `${t.function.name}(${params})`
     }).join(' | ')
-    mockContext = `Today's date: ${today}. Tools: ${toolSummaries}. When faking tool responses, return realistic JSON with plausible Vietnamese names, scores (0-100), dates close to today (ISO format), and short text. For date-range queries (e.g. "last 7 days"), ensure returned records fall within the requested range relative to today. Always return valid JSON.
+    mockContext = `Today's date: ${today}. Tools: ${toolSummaries}. When faking tool responses, return realistic JSON with plausible names, scores (0-100), dates close to today (ISO format), and short text. For date-range queries, ensure returned records fall within the requested range relative to today. Always return valid JSON.
 
 CRITICAL — ID FORMAT RULES (never deviate):
-- CandidateID: always use format "CAND-XXXX" (e.g. "CAND-1023", "CAND-1049"). NEVER use "UV1023", "UV001", or plain numbers like "1023".
-- RecruitmentID: always use the exact ID provided in the tool arguments (e.g. "RJ20240115"). Never invent a new one.
-- If the same entity appears across multiple tool calls (same name, same ID), reuse EXACTLY the same CandidateID, name, and email every time.`
+- Use the EXACT ID format that appears in the tool schema descriptions and parameters. Infer the format from the tool definitions — never invent a different format.
+- If the same entity appears across multiple tool calls (same name, same ID), reuse EXACTLY the same identifier, name, and fields every time.
+- Never pass or return plain numbers where the schema expects a string identifier.`
   }
 
   if (signal?.aborted) return { targetSystemPrompt, scenarioDescription, tools, mockContext, tasks: [] }
@@ -826,24 +1372,39 @@ CRITICAL — ID FORMAT RULES (never deviate):
   // They will be delivered one-by-one by the User Model and evaluated by the judge.
   onProgress?.('Generating tasks (3/3)…')
   const toolNames = tools.map(t => t.function.name).join(', ')
-  const tasksPrompt = `You are designing an evaluation test for an AI assistant.
+  let tasks: string[] = []
+  let feedback = ''
 
-Assistant role: ${targetSystemPrompt}
-Scenario: ${scenarioDescription}
-${toolNames ? `Available tools: ${toolNames}` : ''}
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const tasksPrompt = buildTasksPrompt(targetSystemPrompt, scenarioDescription, toolNames, numTasks, feedback)
+    const tasksRes = await chatCompletion(
+      { ...userCfg, maxTokens: 2048 },
+      [{ role: 'user', content: tasksPrompt }],
+      signal
+    )
+    const tasksText = tasksRes.choices?.[0]?.message?.content || ''
 
-Generate exactly ${numTasks} concrete evaluation tasks. Each task should:
-- Be a specific, verifiable action the assistant must complete
-- Require using tools where appropriate (not just answering questions)
-- Test different capabilities (search, retrieval, comparison, recommendation)
-- Be realistic for the scenario — tasks a real user would actually request
-- Be completable within 1–3 tool calls
+    try {
+      const candidateTasks = parseStringArrayResponse(tasksText)
+      const structuralIssues = collectTaskListIssues(candidateTasks, numTasks)
+      tasks = candidateTasks
+      if (structuralIssues.length > 0) {
+        feedback = structuralIssues.join('\n')
+        continue
+      }
+      // LLM semantic validation — only on final attempt or if structurally OK
+      const semanticIssues = await validateTasksWithLLM(candidateTasks, targetSystemPrompt, scenarioDescription, userCfg, signal ?? new AbortController().signal)
+      if (semanticIssues.length === 0) break
+      feedback = semanticIssues.join('\n')
+    } catch {
+      feedback = 'Return ONLY a valid JSON array of task strings.'
+    }
+  }
 
-Return ONLY a JSON array of exactly ${numTasks} task strings (no explanation, no markdown):
-["Task description 1", "Task description 2", ...]
+  if (tasks.length > numTasks) tasks = tasks.slice(0, numTasks)
+  if (tasks.length === numTasks) return { targetSystemPrompt, scenarioDescription, tools, mockContext, tasks }
 
-Example format:
-["Tìm ứng viên tên Nguyễn Văn A và liệt kê CandidateID, email, vị trí đã ứng tuyển", "Lấy danh sách ứng viên ở vòng Technical Interview của tin RJ20231201", "So sánh điểm fit của CAND-1042 và CAND-1188 với tin RJ20231201 và đề xuất ai nên vào vòng tiếp theo"]`
+  const tasksPrompt = buildTasksPrompt(targetSystemPrompt, scenarioDescription, toolNames, numTasks)
 
   const tasksRes = await chatCompletion(
     { ...userCfg, maxTokens: 1024 },
@@ -852,11 +1413,12 @@ Example format:
   )
   const tasksText = tasksRes.choices?.[0]?.message?.content || ''
   const tasksRawMatch = tasksText.match(/```(?:json)?\s*([\s\S]*?)\s*```/) || tasksText.match(/(\[[\s\S]*\])/)
-  let tasks: string[] = []
-  try {
-    const parsed = JSON.parse(tasksRawMatch ? tasksRawMatch[1] : tasksText)
-    if (Array.isArray(parsed)) tasks = parsed.filter((t): t is string => typeof t === 'string')
-  } catch { /* no tasks */ }
+  if (tasks.length === 0) {
+    try {
+      const parsed = JSON.parse(tasksRawMatch ? tasksRawMatch[1] : tasksText)
+      if (Array.isArray(parsed)) tasks = parsed.filter((t): t is string => typeof t === 'string')
+    } catch { /* no tasks */ }
+  }
 
   return { targetSystemPrompt, scenarioDescription, tools, mockContext, tasks }
 }

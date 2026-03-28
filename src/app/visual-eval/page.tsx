@@ -85,7 +85,6 @@ function exportAsMarkdown(result: SimulationResult | null, turns: SimulationTurn
 function ChatBubble({ turn }: { turn: SimulationTurn }) {
   const [expanded, setExpanded] = useState(false)
   const isTool = turn.role === 'tool'
-  const isAssistant = turn.role === 'assistant'
   const isUser = turn.role === 'user'
   const hasToolCalls = turn.tool_calls && turn.tool_calls.length > 0
   const longContent = turn.content.length > 300
@@ -197,7 +196,7 @@ export default function VisualEvalPage() {
   const store = useVisualEvalStore()
   const {
     isRunning, isDone, turns, currentTurn, maxTurns, currentTask, taskTotal, statusText, finalResult, errorMessage,
-    cfg, setCfg, reset, resetTranscript, removeDocument,
+    cfg, setCfg, resetTranscript, removeDocument,
     isBatchRunning, batchIndex, batchTotal, batchResults,
   } = store
 
@@ -212,6 +211,8 @@ export default function VisualEvalPage() {
   const [showConfig,        setShowConfig]        = useState(true)
   const [userApiKeyState,   setUserApiKeyState]   = useState('')
   const [oracleApiKeyState, setOracleApiKeyState] = useState('')
+  const [judgeApiKeyState,  setJudgeApiKeyState]  = useState('')
+  const [showJudgeDebug,    setShowJudgeDebug]    = useState(false)
 
   // After hydration: read localStorage/sessionStorage and set correct initial values
   useEffect(() => {
@@ -219,6 +220,7 @@ export default function VisualEvalPage() {
     setShowConfig(!cfg.generated)
     setUserApiKeyState(getApiKey('visual_user_api_key'))
     setOracleApiKeyState(getApiKey('visual_oracle_api_key'))
+    setJudgeApiKeyState(getApiKey('visual_judge_api_key'))
     // Init User Model defaults from app config if empty
     if (!cfg.userBaseUrl && (appConfig.judgeBaseUrl || appConfig.targetBaseUrl)) {
       setCfg({ userBaseUrl: appConfig.judgeBaseUrl || appConfig.targetBaseUrl })
@@ -283,6 +285,10 @@ export default function VisualEvalPage() {
   }
 
   const runGenerate = async (text: string, fname: string) => {
+    if (!(text ?? '').trim()) {
+      toast.error('Re-upload the source document before generating again')
+      return
+    }
     if (userApiKeyState) setApiKey('visual_user_api_key', userApiKeyState)
     setGenerating(true)
     setCfg({ generated: false })
@@ -322,6 +328,7 @@ export default function VisualEvalPage() {
     if (!appConfig.targetBaseUrl || !appConfig.targetModel) { toast.error('Configure target model in Config page first'); return }
     if (!cfg.userBaseUrl || !cfg.userModel) { toast.error('Configure User Model'); return }
     if (userApiKeyState) setApiKey('visual_user_api_key', userApiKeyState)
+    if (judgeApiKeyState) setApiKey('visual_judge_api_key', judgeApiKeyState)
 
     let parsedTools: OpenAITool[] = []
     const trimmed = cfg.toolsJson.trim()
@@ -362,7 +369,10 @@ export default function VisualEvalPage() {
       },
       userConfig: { baseUrl: cfg.userBaseUrl, model: cfg.userModel, maxTokens: 2048 },
       oracleConfig: (cfg.oracleBaseUrl.trim() && cfg.oracleModel.trim())
-        ? { baseUrl: cfg.oracleBaseUrl.trim(), model: cfg.oracleModel.trim(), maxTokens: 1024 }
+        ? { baseUrl: cfg.oracleBaseUrl.trim(), model: cfg.oracleModel.trim(), maxTokens: 2048 }
+        : undefined,
+      judgeConfig: (cfg.judgeBaseUrl.trim() && cfg.judgeModel.trim())
+        ? { baseUrl: cfg.judgeBaseUrl.trim(), model: cfg.judgeModel.trim() }
         : undefined,
       maxTurns: cfg.maxTurnsInput,
       tools: parsedTools.length > 0 ? parsedTools : undefined,
@@ -399,6 +409,7 @@ export default function VisualEvalPage() {
     if (!cfg.userBaseUrl || !cfg.userModel) { toast.error('Configure User Model'); return }
     if (parsedBatchModels.length === 0) { toast.error('Add at least one model to the batch list'); return }
     if (userApiKeyState) setApiKey('visual_user_api_key', userApiKeyState)
+    if (judgeApiKeyState) setApiKey('visual_judge_api_key', judgeApiKeyState)
 
     let parsedTools: OpenAITool[] = []
     const trimmed = cfg.toolsJson.trim()
@@ -427,7 +438,10 @@ export default function VisualEvalPage() {
       targetSystemPrompt: cfg.targetSysPrompt.trim(),
       userConfig: { baseUrl: cfg.userBaseUrl, model: cfg.userModel, maxTokens: 2048 },
       oracleConfig: (cfg.oracleBaseUrl.trim() && cfg.oracleModel.trim())
-        ? { baseUrl: cfg.oracleBaseUrl.trim(), model: cfg.oracleModel.trim(), maxTokens: 1024 }
+        ? { baseUrl: cfg.oracleBaseUrl.trim(), model: cfg.oracleModel.trim(), maxTokens: 2048 }
+        : undefined,
+      judgeConfig: (cfg.judgeBaseUrl.trim() && cfg.judgeModel.trim())
+        ? { baseUrl: cfg.judgeBaseUrl.trim(), model: cfg.judgeModel.trim() }
         : undefined,
       maxTurns: cfg.maxTurnsInput,
       tools: parsedTools.length > 0 ? parsedTools : undefined,
@@ -443,6 +457,7 @@ export default function VisualEvalPage() {
   const progressIndex = taskTotal > 0 ? currentTask : currentTurn
   const progressTotal = taskTotal > 0 ? taskTotal : maxTurns
   const progress = progressTotal > 0 ? Math.round((progressIndex / progressTotal) * 100) : 0
+  const canRegenerate = Boolean((cfg.fileName ?? '').trim() && (cfg.fileText ?? '').trim())
 
   // Capture user-turn messages from current transcript for replay
   const captureReplayScript = () => {
@@ -530,6 +545,30 @@ export default function VisualEvalPage() {
                   </div>
                 </div>
 
+                {/* Judge Model — dedicated evaluator */}
+                <div>
+                  <div className="flex items-center gap-1 mb-0.5">
+                    <CheckCircle2 size={10} className="text-[#9B9B9B]" />
+                    <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wider">Judge Model</p>
+                  </div>
+                  <p className="text-[10px] text-[#9B9B9B] mb-1.5">Scores the transcript — leave blank to reuse User Model</p>
+                  {!cfg.judgeModel.trim() && cfg.userModel.trim() && (
+                    <div className="flex items-center gap-1 text-[10px] text-amber-600 bg-amber-50 border border-amber-100 rounded-lg px-2 py-1 mb-1.5">
+                      <AlertCircle size={10} />
+                      <span>Judge = User Model — may introduce provider bias</span>
+                    </div>
+                  )}
+                  <div className="space-y-1.5">
+                    <input value={cfg.judgeBaseUrl} onChange={e => setCfg({ judgeBaseUrl: e.target.value })}
+                      placeholder="Base URL (blank = same as User)" className="w-full text-xs border border-[#E5E5E4] rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]" />
+                    <input value={cfg.judgeModel} onChange={e => setCfg({ judgeModel: e.target.value })}
+                      placeholder="Model name (blank = same as User)" className="w-full text-xs border border-[#E5E5E4] rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]" />
+                    <input type="password" value={judgeApiKeyState}
+                      onChange={e => { setJudgeApiKeyState(e.target.value); setApiKey('visual_judge_api_key', e.target.value) }}
+                      placeholder="API Key (blank = same as User)" className="w-full text-xs border border-[#E5E5E4] rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]" />
+                  </div>
+                </div>
+
                 {/* Upload */}
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
@@ -563,8 +602,12 @@ export default function VisualEvalPage() {
                   </label>
                   {cfg.fileName && !generating && (
                     <div className="mt-1.5 flex gap-1.5">
-                      <button onClick={() => runGenerate(cfg.fileText, cfg.fileName)}
-                        className="flex-1 flex items-center justify-center gap-1.5 text-[11px] text-[#9B9B9B] hover:text-[#1A1A1A] py-1 rounded-lg hover:bg-[#F3F3F2] transition-colors">
+                      <button onClick={() => runGenerate(cfg.fileText, cfg.fileName)} disabled={!canRegenerate}
+                        className={`flex-1 flex items-center justify-center gap-1.5 text-[11px] py-1 rounded-lg transition-colors ${
+                          canRegenerate
+                            ? 'text-[#9B9B9B] hover:text-[#1A1A1A] hover:bg-[#F3F3F2]'
+                            : 'text-[#C4C4C3] cursor-not-allowed'
+                        }`}>
                         <Sparkles size={11} /> Re-generate
                       </button>
                       <button
@@ -951,6 +994,20 @@ export default function VisualEvalPage() {
                     <span>{Math.round(finalResult.durationMs / 1000)}s</span>
                     <span className="truncate">{finalResult.targetModel}</span>
                   </div>
+                  {/* Judge & Oracle metadata */}
+                  {(finalResult.judgeModel || finalResult.oracleModel) && (
+                    <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5 text-[10px] text-[#9B9B9B]">
+                      {finalResult.judgeModel && (
+                        <span>judge: <span className="font-medium text-[#6B6B6B]">{finalResult.judgeModel}</span></span>
+                      )}
+                      {finalResult.oracleModel && (
+                        <span>oracle: <span className="font-medium text-[#6B6B6B]">{finalResult.oracleModel}</span></span>
+                      )}
+                      {finalResult.toolsUsed && finalResult.toolsUsed.length > 0 && (
+                        <span>{finalResult.toolsUsed.length} tools</span>
+                      )}
+                    </div>
+                  )}
                   {activeReplayCount === 0 && (
                     <button
                       onClick={captureReplayScript}
@@ -958,6 +1015,23 @@ export default function VisualEvalPage() {
                     >
                       <Repeat2 size={11} /> Use as Replay Script
                     </button>
+                  )}
+                  {/* Judge debug panel */}
+                  {finalResult.evaluationDebug?.rawJudgeResponse && (
+                    <div className="mt-2">
+                      <button
+                        onClick={() => setShowJudgeDebug(v => !v)}
+                        className="flex items-center gap-1 text-[10px] text-[#9B9B9B] hover:text-[#6B6B6B] transition-colors"
+                      >
+                        {showJudgeDebug ? <ChevronUp size={10} /> : <ChevronDown size={10} />}
+                        Judge response {showJudgeDebug ? '(hide)' : '(show)'}
+                      </button>
+                      {showJudgeDebug && (
+                        <pre className="mt-1.5 text-[10px] font-mono bg-[#F9F9F8] border border-[#E5E5E4] rounded-lg px-3 py-2 overflow-x-auto whitespace-pre-wrap break-all text-[#6B6B6B] max-h-48 overflow-y-auto">
+                          {finalResult.evaluationDebug.rawJudgeResponse}
+                        </pre>
+                      )}
+                    </div>
                   )}
                 </div>
               )}

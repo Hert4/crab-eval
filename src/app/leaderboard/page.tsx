@@ -120,6 +120,28 @@ function mergeRunsByModel(runs: RunResult[]): RunResult[] {
   return [...byModel.values()]
 }
 
+// ── Compute variance stats across multiple runs for same model ────────
+interface ModelStats {
+  count: number
+  min: number
+  max: number
+  std: number
+}
+
+function computeModelStats(runs: RunResult[], model: string, activeGroups: Set<string>, allGroups: TaskGroup[]): ModelStats | null {
+  const modelRuns = runs.filter(r => r.model === model)
+  if (modelRuns.length < 2) return null
+  const scores = modelRuns.map(r => getGlobalAvg(r, activeGroups, allGroups))
+  const mean = scores.reduce((a, b) => a + b, 0) / scores.length
+  const variance = scores.reduce((sum, s) => sum + Math.pow(s - mean, 2), 0) / scores.length
+  return {
+    count: scores.length,
+    min: Math.min(...scores),
+    max: Math.max(...scores),
+    std: Math.sqrt(variance),
+  }
+}
+
 // ── Rank badge ───────────────────────────────────────────────────────
 function RankCell({ rank }: { rank: number }) {
   if (rank === 1) return <span className="text-lg">🥇</span>
@@ -357,12 +379,33 @@ export default function LeaderboardPage() {
         </Button>
         <Button
           size="sm"
+          variant="outline"
+          onClick={async () => {
+            if (!confirm('Delete ALL result files from disk and clear leaderboard?')) return
+            try {
+              await fetch('/api/results', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ all: true }),
+              })
+              replaceAll([])
+              toast.success('All results cleared')
+            } catch (e) {
+              toast.error(`Failed to clear: ${e}`)
+            }
+          }}
+          className="h-8 text-xs gap-1.5 border-[#E5E5E4] text-red-400 hover:text-red-600 hover:bg-red-50"
+        >
+          <Trash2 size={12} /> Clear all
+        </Button>
+        <Button
+          size="sm"
           variant={mergeMode ? 'default' : 'outline'}
           onClick={() => setMergeMode(v => !v)}
-          title={mergeMode ? 'Showing best result per model (click to show all runs)' : 'Showing all runs (click to merge by model)'}
+          title={mergeMode ? 'Showing best result per model — optimistic view (click to show all runs)' : 'Showing all runs individually (click to merge by model)'}
           className={`h-8 text-xs gap-1.5 ${mergeMode ? 'bg-[#1A1A1A] text-white' : 'border-[#E5E5E4] text-[#6B6B6B]'}`}
         >
-          <GitMerge size={12} /> {mergeMode ? 'Per model' : 'Per run'}
+          <GitMerge size={12} /> {mergeMode ? 'Best run / model' : 'Per run'}
         </Button>
         <Button
           size="sm"
@@ -425,6 +468,7 @@ export default function LeaderboardPage() {
             value: mergeMode
               ? `${effectiveRuns.length}${runs.length !== effectiveRuns.length ? ` (${runs.length} runs)` : ''}`
               : runs.length,
+            note: mergeMode && runs.length !== effectiveRuns.length ? 'best run/model' : undefined,
           },
           { label: 'Groups active', value: `${activeGroupIds.size} / ${activeGroups.length}` },
           { label: 'Tasks', value: allTasks.length },
@@ -432,9 +476,12 @@ export default function LeaderboardPage() {
         ].map(s => (
           <div key={s.label} className="bg-white border border-[#E5E5E4] rounded-xl px-4 py-3">
             <div className="text-[10px] text-[#9B9B9B] uppercase tracking-wider">{s.label}</div>
-            <div className="text-lg font-bold mt-0.5" style={s.color ? { color: s.color, fontSize: '14px' } : {}}>
+            <div className="text-lg font-bold mt-0.5" style={'color' in s && s.color ? { color: s.color as string, fontSize: '14px' } : {}}>
               {s.value}
             </div>
+            {'note' in s && s.note && (
+              <div className="text-[9px] text-amber-500 mt-0.5">{s.note as string}</div>
+            )}
           </div>
         ))}
       </div>
@@ -574,6 +621,15 @@ export default function LeaderboardPage() {
                             return <span className="ml-1.5 text-amber-600 font-medium">run #{idx2}</span>
                           }
                         })()}
+                        {mergeMode && (() => {
+                          const stats = computeModelStats(runs, r.model, activeGroupIds, activeGroups)
+                          if (!stats) return null
+                          return (
+                            <span className="ml-1.5 text-[#9B9B9B]" title={`${stats.count} runs — min ${stats.min.toFixed(1)}% / max ${stats.max.toFixed(1)}% / std ±${stats.std.toFixed(1)}%`}>
+                              {stats.count} runs · ±{stats.std.toFixed(1)}%
+                            </span>
+                          )
+                        })()}
                       </div>
                     </td>
                     <td className={`text-right py-2.5 px-3 font-mono font-bold text-sm ${isTopGlobal ? 'text-amber-600' : 'text-[#1A1A1A]'}`}>
@@ -597,12 +653,20 @@ export default function LeaderboardPage() {
 
                     <td className="py-2.5 px-3">
                       <button
-                        onClick={() => {
+                        onClick={async () => {
                           removeRun(r.runId)
+                          // Also delete from disk
+                          try {
+                            await fetch('/api/results', {
+                              method: 'DELETE',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ runId: r.runId }),
+                            })
+                          } catch { /* disk delete best-effort */ }
                           toast.success('Run removed')
                         }}
                         className="text-[#E5E5E4] hover:text-red-400 transition-colors"
-                        title="Remove run"
+                        title="Remove run (from memory + disk)"
                       >
                         <Trash2 size={13} />
                       </button>
