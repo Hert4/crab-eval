@@ -389,11 +389,15 @@ async function buildBatchReplayScript(
     temperature: 0,
   }
 
+  const toolList = config.tools?.length
+    ? `Available tools for the assistant:\n${config.tools.map(t => `- ${t.function.name}: ${t.function.description ?? ''}`).join('\n')}`
+    : ''
+
   const prompt = `Create a FIXED replay script for benchmarking multiple AI assistants fairly.
 
 Scenario: ${config.scenarioDescription}
 Assistant role: ${config.targetSystemPrompt || '(none provided)'}
-${taskReplay.length > 0 ? `Benchmark tasks to rewrite into natural end-user messages (keep order and intent):
+${toolList ? toolList + '\n' : ''}${taskReplay.length > 0 ? `Benchmark tasks to rewrite into natural end-user messages (keep order and intent):
 ${taskReplay.map((task, idx) => `${idx + 1}. ${task}`).join('\n')}` : ''}
 
 Return ONLY a JSON array of exactly ${requestedCount} concise user messages.
@@ -407,7 +411,14 @@ Rules:
 - Keep exact entity identifier formats as they appear in the scenario — never alter IDs or reformatting them
 - Do NOT include explanations, numbering, or markdown.
 - Make the messages realistic for the scenario and varied enough to exercise the assistant.
-`
+${toolList ? `
+CRITICAL — Tool Coverage Constraint:
+- ONLY generate tasks that can be completed using the tools listed above.
+- Before including a task, verify: "Is there a tool in the list that directly supports this action?"
+- Do NOT create tasks that require data fields no tool returns (e.g. "get email" when no tool returns emails).
+- Do NOT create tasks that require the user to provide IDs the system cannot discover (e.g. "list top 5 candidates" when the tool requires specific CandidateIDs as input).
+- If the scenario implies capabilities not covered by the tool list, skip those tasks and use tasks the tools CAN handle.
+` : ''}`
 
   try {
     const res = await chatCompletion(
@@ -420,6 +431,42 @@ Rules:
     return replay.length > 0 ? replay : undefined
   } catch {
     return undefined
+  }
+}
+
+// ── Task validation against tool schema ──────────────────────────────────
+/**
+ * Log warnings for replay script messages that request data fields
+ * no available tool can provide. Does NOT modify or filter the script —
+ * only surfaces potential benchmark quality issues to the console.
+ */
+function validateTasksAgainstTools(
+  replayScript: string[],
+  tools: OpenAITool[] | undefined
+): void {
+  if (!tools?.length) return
+
+  // Fields that tasks commonly request but tools may not support
+  const suspectFields = ['email', 'phone', 'address', 'salary', 'photo', 'avatar', 'password']
+
+  for (let i = 0; i < replayScript.length; i++) {
+    const msg = replayScript[i].toLowerCase()
+    for (const field of suspectFields) {
+      if (msg.includes(field)) {
+        const toolHasField = tools.some(t => {
+          const desc = (t.function.description ?? '').toLowerCase()
+          const name = t.function.name.toLowerCase()
+          const params = JSON.stringify(t.function.parameters ?? {}).toLowerCase()
+          return desc.includes(field) || name.includes(field) || params.includes(field)
+        })
+        if (!toolHasField) {
+          console.warn(
+            `[TaskValidation] Task ${i + 1} requests "${field}" but no tool provides it. ` +
+            `This may cause correct refusals to be mistaken for failures.`
+          )
+        }
+      }
+    }
   }
 }
 
@@ -632,6 +679,8 @@ export async function startBatchSimulation(
     if (!sharedReplayScript || sharedReplayScript.length === 0) {
       throw new Error('Unable to build a shared replay script for fair batch comparison.')
     }
+    // Fix 1: Warn about tasks that reference fields no tool can provide
+    validateTasksAgainstTools(sharedReplayScript, baseConfig.tools)
     const sharedOracleCache = new Map<string, string>()
 
     // ── Pre-generate world state (oracle calls this ONCE, all models share it) ──
@@ -912,6 +961,26 @@ async function generateFrozenOracle(
       const cacheKey = getToolCallCacheKey(tc.name, tc.arguments)
 
       if (!seen.has(cacheKey)) {
+        // Fix 2: Validate tool exists before generating oracle response.
+        // If oracle (acting as target during dry-run) calls a non-existent tool,
+        // record an error response — prevents fake-success entries in frozen dataset.
+        const dryRunValidation = validateToolCall(tc.name, tc.arguments, tools)
+        if (dryRunValidation) {
+          const errorResponse = JSON.stringify({ error: dryRunValidation })
+          entries.push({
+            cacheKey,
+            toolName: tc.name,
+            response: errorResponse,
+            generatedAt: new Date().toISOString(),
+            oracleModel: oracleCfg.model,
+            schemaValid: false,
+          })
+          seen.add(cacheKey)
+          oracleMemory.set(cacheKey, errorResponse)
+          dryMessages.push({ role: 'tool', tool_call_id: tc.id, name: tc.name, content: errorResponse })
+          continue
+        }
+
         // Build oracle memory string
         const memEntries = [...oracleMemory.entries()].slice(-20)
         const memoryStr = memEntries.map(([k, v]) => `${k}:\n${v}`).join('\n\n')

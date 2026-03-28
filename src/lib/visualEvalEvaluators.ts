@@ -250,6 +250,74 @@ function validateValueAgainstSchema(
   return issues
 }
 
+/**
+ * Detect if an assistant's no-tool response is a correct refusal.
+ * Returns true when the assistant correctly identified a task it cannot do
+ * (no matching tool, missing required info, invalid ID format, etc.).
+ */
+export function detectCorrectRefusal(
+  assistantText: string,
+  availableTools: OpenAITool[] | undefined
+): { isCorrectRefusal: boolean; reason: string } {
+  if (!assistantText) return { isCorrectRefusal: false, reason: '' }
+  const lower = assistantText.toLowerCase()
+
+  // Pattern 1: assistant explicitly says no tool available
+  const noToolSignals = [
+    'không có công cụ', 'chưa có công cụ', 'không có tool', 'không hỗ trợ',
+    'chưa hỗ trợ', 'hệ thống không có', 'tool không cung cấp', 'không tìm thấy công cụ',
+    'no tool', 'not available', 'no capability', 'not supported', 'cannot perform',
+    'don\'t have a tool', 'do not have a tool', 'no function', 'lack the ability',
+    'không có khả năng', 'không thể thực hiện', 'nằm ngoài khả năng',
+  ]
+  for (const s of noToolSignals) {
+    if (lower.includes(s)) return { isCorrectRefusal: true, reason: 'no_tool_available' }
+  }
+
+  // Pattern 2: invalid/unsupported format + suggests correction
+  const formatInvalidSignals = [
+    'không hợp lệ', 'sai định dạng', 'không đúng format', 'không đúng cú pháp',
+    'invalid', 'wrong format', 'incorrect format', 'malformed', 'not a valid',
+  ]
+  const correctionSignals = [
+    'nên dùng', 'đúng là', 'phải là', 'định dạng đúng', 'xác nhận', 'vui lòng',
+    'should be', 'correct format is', 'please provide', 'please confirm', 'expected format',
+  ]
+  const hasFormatIssue = formatInvalidSignals.some(s => lower.includes(s))
+  const hasSuggestion = correctionSignals.some(s => lower.includes(s))
+  if (hasFormatIssue && hasSuggestion) {
+    return { isCorrectRefusal: true, reason: 'format_issue_with_guidance' }
+  }
+
+  // Pattern 3: tool returned error and assistant explains gracefully
+  // (can't detect tool response here, but assistant often echoes the error)
+  const errorAckSignals = [
+    'lỗi xảy ra', 'đã xảy ra lỗi', 'không tìm thấy', 'not found', 'error occurred',
+    'returned an error', 'hệ thống báo lỗi',
+  ]
+  const gracefulSignals = [
+    'xin lỗi', 'tiếc là', 'unfortunately', 'i\'m sorry', 'apologies',
+    'có thể thử', 'bạn có thể', 'please try', 'alternatively',
+  ]
+  if (errorAckSignals.some(s => lower.includes(s)) && gracefulSignals.some(s => lower.includes(s))) {
+    return { isCorrectRefusal: true, reason: 'graceful_error_handling' }
+  }
+
+  // Pattern 4: missing required info that cannot be inferred
+  const missingInfoSignals = [
+    'thiếu thông tin', 'cần cung cấp', 'chưa cung cấp', 'chưa có thông tin',
+    'missing information', 'need more information', 'require additional', 'please provide',
+    'could you provide', 'can you provide', 'need to know', 'what is the',
+  ]
+  // Only count as correct refusal if there's also a clarifying question
+  if (missingInfoSignals.some(s => lower.includes(s)) && assistantText.includes('?')) {
+    return { isCorrectRefusal: true, reason: 'missing_required_info' }
+  }
+
+  void availableTools
+  return { isCorrectRefusal: false, reason: '' }
+}
+
 function analyzeToolTrace(segment: TaskSegment, tools?: OpenAITool[]): { trace: ToolTraceSummary; score: number | null; calledTools: string[] } {
   const toolMap = new Map((tools ?? []).map(tool => [tool.function.name, tool]))
   const trace: ToolTraceSummary = {
@@ -303,6 +371,17 @@ function analyzeToolTrace(segment: TaskSegment, tools?: OpenAITool[]): { trace: 
   }
 
   if (trace.totalToolCalls === 0) {
+    // Check if this is a correct refusal (no tools called, but for good reason)
+    const assistantTurns = segment.turns.filter(t => t.role === 'assistant')
+    const lastAssistant = assistantTurns[assistantTurns.length - 1]
+    if (lastAssistant?.content) {
+      const refusal = detectCorrectRefusal(lastAssistant.content, tools)
+      if (refusal.isCorrectRefusal) {
+        // Return a positive toolTrace score — correct refusal is good behavior
+        const refusalTrace: ToolTraceSummary = { ...trace }
+        return { trace: refusalTrace, score: 80, calledTools }
+      }
+    }
     return { trace, score: null, calledTools }
   }
 
@@ -381,11 +460,35 @@ CRITICAL RULE for tool_use — read carefully:
 - "I cannot do this without more information" when the task already provides enough info = tool_use: 0
 - Unnecessary clarification when the assistant could have proceeded = lowers both completion and tool_use
 
+## Correct Refusal Scoring
+
+When the assistant does NOT call any tool, evaluate WHY before assigning tool_use:
+
+CORRECT REFUSAL — do NOT penalize tool_use:
+- The task requires a capability or tool that does not exist in the available tool list
+  → Assistant correctly states it cannot do this → tool_use: 80-100, completion: 70-90
+- The task requires parameters the user has not provided and no tool can discover them
+  → Assistant correctly asks for missing required info → tool_use: 70-90
+- The task references an ID or value in an invalid/unsupported format, and assistant explains why
+  → Correct behavior → tool_use: 80-100
+- Tool returned an error (e.g. {"error": "Unknown tool"}) and assistant gracefully explains
+  → Not the assistant's fault → tool_use: 60-80
+
+INCORRECT REFUSAL — penalize tool_use:
+- A suitable tool clearly exists and the user provided all required info, but assistant refuses
+  → tool_use: 0-30
+- Assistant claims a tool doesn't exist when it clearly does exist in the tool list
+  → tool_use: 0-20
+
+Key principle: An assistant that correctly identifies an impossible or under-specified task demonstrates BETTER understanding than one that blindly calls a wrong or hallucinated tool. Do not reward fake success.
+
 Tool_use scoring examples:
 - Task: "Find candidates named X" → assistant calls get_candidates correctly → tool_use: 85
 - Task: "Find candidates named X" → assistant asks "which system should I search?" → tool_use: 0
 - Task: "Get details for RJ20240115" → assistant calls wrong tool → tool_use: 20
 - Task: "Send email to candidate" → no email tool exists → tool_use: null
+- Task: "Get salary for employee" → no salary tool exists → assistant correctly says it cannot → tool_use: 85, completion: 80
+- Task: "Search with malformed ID" → assistant explains the format issue and asks for correct format → tool_use: 80
 
 Additional rules:
 - Do NOT reward verbosity or polished writing by itself.
