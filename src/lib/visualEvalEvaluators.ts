@@ -366,6 +366,12 @@ Score each task using these axes:
 - clarification (0-100 or null): Was clarification behavior appropriate? Use null ONLY if clarification was completely irrelevant to this task.
 - tool_use (0-100 or null): Were tool choices and arguments correct and appropriate?
 
+ADAPTIVE REPLAY NOTE — read carefully:
+User messages prefixed with [adaptive] are auto-generated confirmation replies that were injected when the assistant asked a clarification question during replay-based testing.
+- If the assistant asked clarification because information was genuinely ambiguous or in an incorrect format → this is CORRECT behavior. Do NOT penalize completion or tool_use for asking clarification before proceeding.
+- If the assistant asked unnecessary clarification when all needed information was clearly provided → this MAY be penalized (lower clarification score).
+- An assistant that completes the task correctly AFTER receiving clarification should receive full credit for completion and tool_use, as if it completed without clarification.
+
 CRITICAL RULE for tool_use — read carefully:
 - Use null ONLY when the task is purely conversational and no tools exist or are needed (e.g. task endpoint is explicitly "ask the user for clarification").
 - If tools are available AND the task requires data retrieval, lookup, comparison, or any action on real data → tool_use MUST be a number, never null.

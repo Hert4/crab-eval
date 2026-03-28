@@ -129,6 +129,9 @@ export interface SimConfig {
   complianceRules?: ComplianceRule[]
   // Runs per model for statistical rigor (Milestone 3) — default 1, max 10
   runsPerModel?: number
+  // Adaptive Replay — auto-inject confirmation replies when target asks clarification
+  adaptiveReplay?: boolean         // default true
+  maxClarificationRetries?: number // default 2
   maxTurns: number
   tools?: OpenAITool[]
   mockContext?: string
@@ -418,6 +421,162 @@ Rules:
   } catch {
     return undefined
   }
+}
+
+// ── Adaptive Replay helpers ───────────────────────────────────────────────
+
+/**
+ * Detect if assistant response is a clarification question rather than task completion.
+ * Returns true only when ALL hold:
+ *  1. No tool_calls in this response
+ *  2. Response contains a '?'
+ *  3. Response contains known clarification signals (Vietnamese + English)
+ */
+function detectClarification(assistantText: string, hadToolCalls: boolean): boolean {
+  if (hadToolCalls) return false
+  if (!assistantText || assistantText.length < 10) return false
+  if (!assistantText.includes('?')) return false
+
+  const clarificationSignals = [
+    // Vietnamese
+    'xác nhận', 'vui lòng', 'cung cấp', 'cho mình', 'cho tôi',
+    'bạn có thể', 'chưa thể', 'chưa đủ', 'thiếu', 'cần thêm',
+    'đúng không', 'đúng chưa', 'phải không', 'chính xác',
+    'định dạng', 'hợp lệ', 'không hợp lệ',
+    // English
+    'confirm', 'clarify', 'provide', 'specify', 'verify',
+    'could you', 'can you', 'please provide', 'which one',
+    'before i can', 'before proceeding', 'need to know',
+    'correct format', 'valid', 'invalid', 'what is the',
+    'which format', 'please confirm',
+  ]
+
+  const lower = assistantText.toLowerCase()
+  return clarificationSignals.some(signal => lower.includes(signal))
+}
+
+/**
+ * Generate a short confirmation reply to unblock a target model that asked clarification.
+ * Uses User Model config to produce a natural 1-2 sentence reply.
+ * Falls back to a generic Vietnamese confirmation on any error.
+ */
+async function generateClarificationReply(
+  clarificationText: string,
+  conversationContext: OpenAIMessage[],
+  userCfg: OpenAIConfig,
+  signal: AbortSignal
+): Promise<string> {
+  const systemPrompt = `You are simulating a user in a testing scenario. The AI assistant just asked you a clarification question.
+Your job: give the SHORTEST possible confirmation or answer to unblock the assistant so it can proceed with the task.
+
+Rules:
+- Reply in the same language as the conversation (Vietnamese if conversation is in Vietnamese)
+- Confirm what the assistant asked — say yes, provide the info they need
+- Keep it to 1-2 sentences maximum
+- Do NOT ask new questions
+- Do NOT introduce new tasks
+- If the assistant asks about ID format, confirm whichever format they suggest
+- If the assistant asks for missing info, provide a reasonable placeholder
+
+Example: If assistant says "Bạn xác nhận dùng CND-55087 nhé?" → Reply: "Đúng rồi, dùng CND-55087."
+Example: If assistant says "Could you confirm the RecruitmentID format?" → Reply: "Yes, use whatever format your system requires."`
+
+  const messages: OpenAIMessage[] = [
+    { role: 'system', content: systemPrompt },
+    ...conversationContext.slice(-6),
+    { role: 'user', content: `The assistant just said:\n"${clarificationText.slice(0, 500)}"\n\nGenerate a short confirmation reply to unblock them.` },
+  ]
+
+  try {
+    const res = await chatCompletion(
+      { ...userCfg, maxTokens: 256, temperature: 0.3 },
+      messages,
+      signal
+    )
+    const reply = res.choices?.[0]?.message?.content?.trim() || ''
+    return reply || 'Đúng rồi, bạn tiếp tục đi.'
+  } catch (e) {
+    if (e instanceof DOMException && e.name === 'AbortError') throw e
+    return 'Đúng rồi, bạn tiếp tục đi.'
+  }
+}
+
+/**
+ * Handle a list of tool calls against oracle — shared by main loop and adaptive retry loop.
+ * Mutates oracleMemory, oracleCache, and appends turns/messages.
+ * Returns the updated turnIndex.
+ */
+async function handleToolCalls(
+  toolCalls: Array<{ id: string; name: string; arguments: string }>,
+  oracleCfg: OpenAIConfig,
+  targetCfg: OpenAIConfig,
+  targetMessages: OpenAIMessage[],
+  oracleMemory: Map<string, string>,
+  runtime: SimulationRuntimeOptions,
+  tools: OpenAITool[] | undefined,
+  config: SimConfig,
+  addTurn: (t: SimulationTurn) => void,
+  currentTurnIndex: number,
+  signal: AbortSignal
+): Promise<{ turnIndex: number; hadAnyCall: boolean }> {
+  let turnIndex = currentTurnIndex
+
+  for (const tc of toolCalls) {
+    if (signal.aborted) break
+
+    const cacheKey = getToolCallCacheKey(tc.name, tc.arguments)
+    const cached = runtime.sharedOracleCache?.get(cacheKey)
+    let mockResult = cached || '{}'
+
+    if (!cached) {
+      const validationError = validateToolCall(tc.name, tc.arguments, tools)
+      if (validationError) {
+        mockResult = JSON.stringify({ error: validationError })
+      } else {
+        const memoryEntries = [...oracleMemory.entries()].slice(-20)
+        const memoryStr = memoryEntries.length > 0
+          ? memoryEntries.map(([k, v]) => `${k}:\n${v}`).join('\n\n')
+          : ''
+        const oracleMessages: OpenAIMessage[] = [
+          { role: 'system', content: buildOracleSystemPrompt(config.mockContext || '', memoryStr, runtime.worldState) },
+          { role: 'user', content: `Tool called: ${tc.name}\nArguments: ${tc.arguments}\n\nReturn a realistic JSON object this tool would return.` },
+        ]
+        try {
+          const mockRes = await chatCompletion({ ...oracleCfg, maxTokens: 1024 }, oracleMessages, signal)
+          const raw = mockRes.choices?.[0]?.message?.content?.trim() || '{}'
+          const stripped = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+          try {
+            JSON.parse(stripped)
+            mockResult = postProcessOracleResponse(stripped)
+          } catch { mockResult = raw }
+        } catch (e) {
+          if (e instanceof DOMException && e.name === 'AbortError') throw e
+        }
+        runtime.sharedOracleCache?.set(cacheKey, mockResult)
+      }
+    }
+
+    oracleMemory.set(cacheKey, mockResult)
+
+    addTurn({ turnIndex: turnIndex++, role: 'tool', content: mockResult, tool_name: tc.name })
+    targetMessages.push({ role: 'tool', tool_call_id: tc.id, name: tc.name, content: mockResult })
+  }
+
+  // Target responds after all tool results
+  if (!signal.aborted && toolCalls.length > 0) {
+    try {
+      const afterRes = await chatCompletion(targetCfg, targetMessages, signal)
+      const afterText = afterRes.choices?.[0]?.message?.content || ''
+      if (afterText) {
+        addTurn({ turnIndex: turnIndex++, role: 'assistant', content: afterText })
+        targetMessages.push({ role: 'assistant', content: afterText })
+      }
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') throw e
+    }
+  }
+
+  return { turnIndex, hadAnyCall: toolCalls.length > 0 }
 }
 
 // ── Module-level singleton ────────────────────────────────────────────
@@ -1211,100 +1370,134 @@ async function _runSimulation(
     if (targetToolCalls.length > 0 && !signal.aborted) {
       store().updateStatus(`${progressLabel} — Oracle faking ${targetToolCalls.length} tool(s)…`)
 
-      for (const tc of targetToolCalls) {
-        if (signal.aborted) break
+      const handled = await handleToolCalls(
+        targetToolCalls,
+        oracleCfg,
+        targetCfg,
+        targetMessages,
+        oracleMemory,
+        runtime,
+        tools,
+        config,
+        (t) => store().addTurn(t),
+        turnIndex,
+        signal
+      )
+      turnIndex = handled.turnIndex
 
-        const cacheKey = getToolCallCacheKey(tc.name, tc.arguments)
-        const cached = runtime.sharedOracleCache?.get(cacheKey)
-        let mockResult = cached || '{}'
-
-        if (!cached) {
-          // ── Schema validation — reject invalid tool calls immediately ──
-          const validationError = validateToolCall(tc.name, tc.arguments, tools)
-          if (validationError) {
-            mockResult = JSON.stringify({ error: validationError })
-            // Do NOT cache validation errors — model may retry with correct args
-          } else {
-          // Build memory string from past oracle responses (most recent 20 entries to avoid token bloat)
-          const memoryEntries = [...oracleMemory.entries()].slice(-20)
-          const memoryStr = memoryEntries.length > 0
-            ? memoryEntries.map(([k, v]) => `${k}:\n${v}`).join('\n\n')
-            : ''
-
-          // Oracle gets the tool call + memory of all previous responses for consistency
-          const oracleMessages: OpenAIMessage[] = [
-            { role: 'system', content: buildOracleSystemPrompt(config.mockContext || '', memoryStr, runtime.worldState) },
-            {
-              role: 'user',
-              content: `Tool called: ${tc.name}\nArguments: ${tc.arguments}\n\nReturn a realistic JSON object this tool would return.`,
-            },
-          ]
-
-          try {
-            const mockRes = await chatCompletion(
-              { ...oracleCfg, maxTokens: 1024 },
-              oracleMessages,
-              signal
-            )
-            const raw = mockRes.choices?.[0]?.message?.content?.trim() || '{}'
-            // Strip markdown fences if model wraps in ```json
-            const stripped = raw.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
-            // Validate JSON — fall back to raw if parse fails
-            try {
-              JSON.parse(stripped)
-              // Validate JSON before caching
-              mockResult = postProcessOracleResponse(stripped)
-            } catch { mockResult = raw }
-          } catch (e) {
-            if (e instanceof DOMException && e.name === 'AbortError') throw e
-          }
-
-          runtime.sharedOracleCache?.set(cacheKey, mockResult)
-          } // end else (validation passed)
+      // Feed after-tool response to User Model in dynamic mode
+      if (!isReplay && targetMessages.length > 0) {
+        const lastMsg = targetMessages[targetMessages.length - 1]
+        if (lastMsg.role === 'assistant' && lastMsg.content) {
+          userMessages.push({ role: 'user', content: lastMsg.content })
         }
-
-        oracleMemory.set(cacheKey, mockResult)
-
-        // Add tool turn to transcript
-        store().addTurn({
-          turnIndex: turnIndex++,
-          role: 'tool',
-          content: mockResult,
-          tool_name: tc.name,
-        })
-
-        // Inject as proper role:'tool' message with matching tool_call_id
-        targetMessages.push({
-          role: 'tool',
-          tool_call_id: tc.id,
-          name: tc.name,
-          content: mockResult,
-        })
-      }
-
-      if (signal.aborted) break
-
-      // ── Step 3b: Target Model responds after tool result ──────────
-      store().updateStatus(`${progressLabel} — Target Model processing tool result…`)
-      const t2 = Date.now()
-      try {
-        const afterToolRes = await chatCompletion(targetCfg, targetMessages, signal)
-        const afterChoice = afterToolRes.choices?.[0]
-        const afterText = afterChoice?.message?.content || ''
-        if (afterText) {
-          store().addTurn({ turnIndex: turnIndex++, role: 'assistant', content: afterText, durationMs: Date.now() - t2 })
-          targetMessages.push({ role: 'assistant', content: afterText })
-          if (!isReplay) {
-            userMessages.push({ role: 'user', content: afterText })
-          }
-        }
-      } catch (e) {
-        if (e instanceof DOMException && e.name === 'AbortError') throw e
       }
     } else {
       if (!isReplay) {
         // No tool calls — feed assistant reply to User Model (dynamic mode only)
         userMessages.push({ role: 'user', content: targetText || '[No response]' })
+      } else if (config.adaptiveReplay !== false && isReplay) {
+        // ── Adaptive Replay: handle clarification in replay mode ────────
+        const isClarification = detectClarification(targetText, false)
+
+        if (isClarification) {
+          const maxRetries = config.maxClarificationRetries ?? 2
+          let resolved = false
+
+          for (let retry = 0; retry < maxRetries && !signal.aborted; retry++) {
+            store().updateStatus(`${progressLabel} — handling clarification (${retry + 1}/${maxRetries})…`)
+
+            // Generate a short confirmation reply to unblock the model
+            const clarReply = await generateClarificationReply(
+              targetText,
+              targetMessages,
+              userCfg,
+              signal
+            )
+
+            // Add as user turn — prefix marks it as auto-generated
+            store().addTurn({
+              turnIndex: turnIndex++,
+              role: 'user',
+              content: `[adaptive] ${clarReply}`,
+              durationMs: 0,
+            })
+            targetMessages.push({ role: 'user', content: clarReply })
+
+            // Let target respond again
+            const tRetry = Date.now()
+            let retryText = ''
+            let retryToolCalls: Array<{ id: string; name: string; arguments: string }> = []
+            try {
+              const retryRes = await chatCompletion(targetCfg, targetMessages, signal, tools)
+              const retryChoice = retryRes.choices?.[0]
+              retryText = retryChoice?.message?.content || ''
+              retryToolCalls = (retryChoice?.message?.tool_calls ?? []).map(
+                (tc: { id?: string; function: { name: string; arguments: string } }) => ({
+                  id: tc.id || `call_${tc.function.name}_${Date.now()}`,
+                  name: tc.function.name,
+                  arguments: tc.function.arguments,
+                })
+              )
+            } catch (e) {
+              if (e instanceof DOMException && e.name === 'AbortError') throw e
+              break
+            }
+
+            // Record assistant response
+            store().addTurn({
+              turnIndex: turnIndex++,
+              role: 'assistant',
+              content: retryText,
+              tool_calls: retryToolCalls.length > 0
+                ? retryToolCalls.map(tc => ({ type: 'function' as const, function: { name: tc.name, arguments: tc.arguments } }))
+                : undefined,
+              durationMs: Date.now() - tRetry,
+            })
+            targetMessages.push({
+              role: 'assistant',
+              content: retryText || null,
+              tool_calls: retryToolCalls.length > 0
+                ? retryToolCalls.map(tc => ({ id: tc.id, type: 'function' as const, function: { name: tc.name, arguments: tc.arguments } }))
+                : undefined,
+            })
+
+            if (retryToolCalls.length > 0) {
+              // Model finally called tools — handle them
+              store().updateStatus(`${progressLabel} — Oracle faking ${retryToolCalls.length} tool(s) after clarification…`)
+              const handled = await handleToolCalls(
+                retryToolCalls,
+                oracleCfg,
+                targetCfg,
+                targetMessages,
+                oracleMemory,
+                runtime,
+                tools,
+                config,
+                (t) => store().addTurn(t),
+                turnIndex,
+                signal
+              )
+              turnIndex = handled.turnIndex
+              resolved = true
+              break
+            }
+
+            // Still no tool call — check if still clarifying or gave a plain answer
+            if (!detectClarification(retryText, false)) {
+              // Plain answer without tools — accept and move on
+              resolved = true
+              break
+            }
+
+            targetText = retryText  // update for next retry context
+          }
+
+          if (!resolved) {
+            console.warn(`[Adaptive] Clarification unresolved after ${maxRetries} retries — continuing replay`)
+          }
+        }
+        // Non-clarification response (plain answer, no tools) in replay → do nothing, next turn
       }
     }
   }

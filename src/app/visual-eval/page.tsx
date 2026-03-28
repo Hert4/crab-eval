@@ -385,6 +385,8 @@ export default function VisualEvalPage() {
       mockContext: cfg.mockContext || undefined,
       tasks: taskList,
       replayScript,
+      adaptiveReplay: cfg.adaptiveReplay !== false,
+      maxClarificationRetries: cfg.maxClarificationRetries ?? 2,
     }
 
     await startSimulation(simConfig)
@@ -461,6 +463,8 @@ export default function VisualEvalPage() {
       tasks: taskList,
       replayScript,
       runsPerModel: cfg.runsPerModel ?? 1,
+      adaptiveReplay: cfg.adaptiveReplay !== false,
+      maxClarificationRetries: cfg.maxClarificationRetries ?? 2,
     }
 
     await startBatchSimulation(parsedBatchModels, baseConfig)
@@ -750,6 +754,28 @@ export default function VisualEvalPage() {
                     />
                     {(cfg.runsPerModel ?? 1) > 1 && (
                       <span className="text-[10px] text-[#9B9B9B]">Bootstrap CI enabled</span>
+                    )}
+                  </div>
+                  {/* Adaptive Replay toggle */}
+                  <div className="flex items-center gap-2 mt-1.5">
+                    <input
+                      type="checkbox"
+                      id="adaptiveReplay"
+                      checked={cfg.adaptiveReplay !== false}
+                      onChange={e => setCfg({ adaptiveReplay: e.target.checked })}
+                      className="w-3 h-3 accent-[#1A1A1A]"
+                    />
+                    <label htmlFor="adaptiveReplay" className="text-[10px] text-[#6B6B6B] cursor-pointer select-none">
+                      Adaptive Replay — auto-reply to clarification questions
+                    </label>
+                    {cfg.adaptiveReplay !== false && (
+                      <input
+                        type="number" min={1} max={5}
+                        value={cfg.maxClarificationRetries ?? 2}
+                        onChange={e => setCfg({ maxClarificationRetries: Math.max(1, Math.min(5, parseInt(e.target.value, 10) || 2)) })}
+                        className="w-10 text-xs text-center border border-[#E5E5E4] rounded px-1 py-0.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                        title="Max clarification retries per turn"
+                      />
                     )}
                   </div>
                 </div>
