@@ -155,6 +155,7 @@ export interface TaskResult {
   breakdown?: TaskScoreBreakdown
   toolTrace?: ToolTraceSummary
   threeAxisScore?: ThreeAxisScore  // 3-axis breakdown (Milestone 2)
+  verification?: TaskVerification  // τ-bench programmatic verification result
 }
 
 export interface SimulationEvaluationDebug {
@@ -208,6 +209,11 @@ export interface SimulationResult {
   // ── Multi-run statistics (Milestone 3) ───────────────────────────
   runIndex?: number            // 0-based index within multi-run batch
   totalRuns?: number           // total runs requested for this model
+  // ── τ-bench programmatic scoring ─────────────────────────────────
+  taskSetId?: string           // FrozenTaskSet used (if any)
+  programmaticScore?: number   // 0-100, from programmatic verifier
+  qualityScore?: number        // 0-100, from LLM judge
+  scoringMode?: 'hybrid' | 'programmatic' | 'judge_only'  // which scoring path was used
 }
 
 // ──────────────────────────────────────────────
@@ -290,4 +296,87 @@ export interface ComplianceResult {
   score: number         // 0-100
   passedRules: string[] // rule IDs
   failedRules: string[]
+}
+
+// ──────────────────────────────────────────────
+// τ-bench Style Expected Outcomes
+// ──────────────────────────────────────────────
+
+/** Expected tool call for a task — what tool should be called with what args */
+export interface ExpectedAction {
+  actionId: string                          // unique within task, e.g. "t1_action_0"
+  toolName: string                          // expected tool name
+  requiredArgs?: Record<string, unknown>    // args that MUST match (subset check, not exact)
+  compareArgs?: string[]                    // only check these arg keys (like τ-bench compare_args)
+  mustNotCall?: boolean                     // if true, this tool must NOT be called (negative test)
+}
+
+/** Expected info the agent should communicate to user */
+export interface ExpectedCommunication {
+  id: string
+  contains: string[]        // response must contain ALL of these strings/patterns
+  notContains?: string[]    // response must NOT contain any of these
+  isRegex?: boolean         // treat contains/notContains as regex patterns
+}
+
+/** Expected behavior classification */
+export type ExpectedBehavior =
+  | 'call_tool'           // agent should call a specific tool
+  | 'ask_clarification'   // agent should ask user for more info (not call tool)
+  | 'report_not_found'    // agent should report empty/not found after tool returns empty
+  | 'refuse_invalid'      // agent should refuse due to invalid input
+  | 'respond_directly'    // agent should answer without tools
+
+/** Complete expected outcome for one task */
+export interface ExpectedOutcome {
+  taskIndex: number
+  userMessage: string                   // the replay script message
+  expectedBehavior: ExpectedBehavior
+  actions?: ExpectedAction[]            // expected tool calls (when behavior = 'call_tool')
+  communication?: ExpectedCommunication // what agent should say
+  nlAssertions?: string[]               // free-text assertions for LLM judge (yes/no)
+  rewardBasis: ('action' | 'communication' | 'nl_assertion')[]  // which checks count
+}
+
+/** Frozen task set = replay script + expected outcomes */
+export interface FrozenTaskSet {
+  taskSetId: string
+  scenarioName: string
+  createdAt: string
+  generatedBy: string       // model that generated this
+  tasks: ExpectedOutcome[]
+  version: string           // "1.0"
+}
+
+/** Programmatic verification result for one task */
+export interface TaskVerification {
+  taskIndex: number
+  // Action check
+  actionResult?: {
+    expectedActions: number
+    matchedActions: number
+    checks: Array<{
+      actionId: string
+      toolName: string
+      matched: boolean
+      reason?: string
+    }>
+    reward: number          // 0 or 1 (binary like τ-bench)
+  }
+  // Communication check
+  communicationResult?: {
+    allContained: boolean
+    noneViolated: boolean
+    missingTerms: string[]
+    violatedTerms: string[]
+    reward: number          // 0 or 1
+  }
+  // NL assertion check (LLM judged, but yes/no only)
+  nlAssertionResult?: {
+    assertions: Array<{ assertion: string; passed: boolean; reason: string }>
+    reward: number          // 0 or 1 (all must pass)
+  }
+  // Combined
+  finalReward: number       // product of applicable rewards (τ-bench style)
+  behaviorCorrect: boolean  // did model exhibit expectedBehavior?
 }

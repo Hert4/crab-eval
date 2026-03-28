@@ -482,17 +482,30 @@ INCORRECT REFUSAL — penalize tool_use:
 
 Key principle: An assistant that correctly identifies an impossible or under-specified task demonstrates BETTER understanding than one that blindly calls a wrong or hallucinated tool. Do not reward fake success.
 
-Tool_use scoring examples:
-- Task: "Find candidates named X" → assistant calls get_candidates correctly → tool_use: 85
-- Task: "Find candidates named X" → assistant asks "which system should I search?" → tool_use: 0
-- Task: "Get details for RJ20240115" → assistant calls wrong tool → tool_use: 20
-- Task: "Send email to candidate" → no email tool exists → tool_use: null
-- Task: "Get salary for employee" → no salary tool exists → assistant correctly says it cannot → tool_use: 85, completion: 80
-- Task: "Search with malformed ID" → assistant explains the format issue and asks for correct format → tool_use: 80
+## Tool Called but Returned Empty/No Results
+
+When the assistant calls the CORRECT tool with reasonable arguments, but the tool returns empty results (e.g. {"items":[], "total":0} or {"error":"Not found"}):
+- The assistant DID use the tool correctly → tool_use: 80-95 (not 0)
+- The assistant should report "no results found" clearly → completion: 70-90
+- Offering next steps or alternatives after empty results is GOOD behavior, not "unnecessary clarification"
+- Do NOT penalize tool_use just because the tool returned no data — that is not the assistant's fault
+
+Tool_use scoring principles (apply to ANY domain):
+- Assistant calls the correct tool with valid arguments → tool_use: 80-100
+- Assistant calls a tool but with wrong name or wrong arguments → tool_use: 10-40
+- Assistant skips tool call when one was clearly needed and possible → tool_use: 0
+- No matching tool exists for the request → tool_use: null (not applicable)
+- No matching tool exists → assistant correctly explains this → tool_use: 85, completion: 80
+- ID/input has wrong format → assistant explains and asks for correction → tool_use: 80
+- Tool called correctly but returns empty → assistant reports "not found" → tool_use: 85
+
+Response length does NOT affect tool_use score. A short answer and a detailed answer with follow-up suggestions get the same tool_use score if both called the same tool correctly.
 
 Additional rules:
 - Do NOT reward verbosity or polished writing by itself.
+- Do NOT penalize verbosity either — score based on correctness of tool usage and accuracy of information, not response length.
 - Asking for clarification is GOOD only when the task genuinely lacks required information that cannot be inferred.
+- Offering next steps AFTER completing a task (including reporting empty results) is helpful behavior, not unnecessary clarification.
 - Prior context is provided separately — use it only as established evidence, not to infer hidden facts.
 - Empty tool outputs like {} or [] are not evidence for specific claims or recommendations.
 - If the assistant claims it saved/fetched/generated something not in the transcript, grounding must be low.
@@ -616,17 +629,17 @@ function combineWeightedScores(breakdown: TaskScoreBreakdown): number {
 
   const weighted: Array<{ value: number | null; weight: number }> = hasTool
     ? [
-        { value: breakdown.completion,   weight: 0.4  },
-        { value: breakdown.grounding,    weight: 0.25 },
-        { value: breakdown.clarification,weight: 0.1  },
-        { value: breakdown.toolUse,      weight: 0.15 },
-        { value: breakdown.toolTrace,    weight: 0.1  },
-      ]
+      { value: breakdown.completion, weight: 0.4 },
+      { value: breakdown.grounding, weight: 0.25 },
+      { value: breakdown.clarification, weight: 0.1 },
+      { value: breakdown.toolUse, weight: 0.15 },
+      { value: breakdown.toolTrace, weight: 0.1 },
+    ]
     : [
-        { value: breakdown.completion,   weight: 0.55 },
-        { value: breakdown.grounding,    weight: 0.3  },
-        { value: breakdown.clarification,weight: 0.15 },
-      ]
+      { value: breakdown.completion, weight: 0.55 },
+      { value: breakdown.grounding, weight: 0.3 },
+      { value: breakdown.clarification, weight: 0.15 },
+    ]
 
   // Only exclude truly-null items (task genuinely doesn't use that axis).
   // value=0 must be included — it means the axis was relevant but scored zero
@@ -688,15 +701,15 @@ function mergeJudgePayloads(
       tasks.push({ task_index: i + 1, status: 'incomplete', completion: 0, grounding: 0, clarification: null, tool_use: null, note: 'No judge data.' })
       continue
     }
-    const completion  = medianOfThree(...(entries.map(e => e.completion)  as [number, number, number]))
-    const grounding   = medianOfThree(...(entries.map(e => e.grounding)   as [number, number, number]))
+    const completion = medianOfThree(...(entries.map(e => e.completion) as [number, number, number]))
+    const grounding = medianOfThree(...(entries.map(e => e.grounding) as [number, number, number]))
     const clarification = medianNullable(entries.map(e => e.clarification))
-    const tool_use    = medianNullable(entries.map(e => e.tool_use))
-    const status      = modeStatus(entries.map(e => e.status))
+    const tool_use = medianNullable(entries.map(e => e.tool_use))
+    const status = modeStatus(entries.map(e => e.status))
     // Use note from the median-scoring run
-    const scores      = entries.map(e => e.completion + e.grounding)
-    const medianRunIdx = scores.indexOf([...scores].sort((a,b) => a-b)[Math.floor(scores.length/2)])
-    const note        = entries[medianRunIdx]?.note ?? entries[0].note
+    const scores = entries.map(e => e.completion + e.grounding)
+    const medianRunIdx = scores.indexOf([...scores].sort((a, b) => a - b)[Math.floor(scores.length / 2)])
+    const note = entries[medianRunIdx]?.note ?? entries[0].note
     tasks.push({ task_index: i + 1, status, completion, grounding, clarification, tool_use, note })
   }
   // Use assessment from the middle run
@@ -859,7 +872,7 @@ export async function multiJudgeEvaluate(
     // Use assessment from the verdict closest to consensus
     const closestIdx = successful.reduce((bestIdx, v, i) =>
       Math.abs((v.finalScore ?? 0) - consensusScore!) <
-      Math.abs((successful[bestIdx].finalScore ?? 0) - consensusScore!)
+        Math.abs((successful[bestIdx].finalScore ?? 0) - consensusScore!)
         ? i : bestIdx, 0)
     consensusAssessment = successful[closestIdx].assessment
   }
@@ -895,12 +908,12 @@ export function computeThreeAxisScore(
   complianceScore: number
 ): ThreeAxisScore {
   const taskCompletion = clampScore(toolTraceScore ?? judgeScore ?? 0)
-  const qualityScore   = clampScore(judgeScore ?? 0)
-  const compliance     = clampScore(complianceScore)
-  const combined       = clampScore(
+  const qualityScore = clampScore(judgeScore ?? 0)
+  const compliance = clampScore(complianceScore)
+  const combined = clampScore(
     taskCompletion * 0.50 +
-    qualityScore   * 0.35 +
-    compliance     * 0.15
+    qualityScore * 0.35 +
+    compliance * 0.15
   )
   return { taskCompletion, qualityScore, complianceScore: compliance, combined }
 }
@@ -971,7 +984,7 @@ export function checkCompliance(
           const lastAssistant = [...turns].reverse().find(t => t.role === 'assistant')
           const content = lastAssistant?.content?.toLowerCase() ?? ''
           passed = content.includes('error') || content.includes('fail') ||
-                   content.includes('unable') || content.includes('not found')
+            content.includes('unable') || content.includes('not found')
         }
         break
       }

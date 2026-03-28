@@ -385,8 +385,7 @@ export default function VisualEvalPage() {
       mockContext: cfg.mockContext || undefined,
       tasks: taskList,
       replayScript,
-      adaptiveReplay: cfg.adaptiveReplay !== false,
-      maxClarificationRetries: cfg.maxClarificationRetries ?? 2,
+      scoringMode: cfg.scoringMode ?? 'hybrid',
     }
 
     await startSimulation(simConfig)
@@ -463,8 +462,7 @@ export default function VisualEvalPage() {
       tasks: taskList,
       replayScript,
       runsPerModel: cfg.runsPerModel ?? 1,
-      adaptiveReplay: cfg.adaptiveReplay !== false,
-      maxClarificationRetries: cfg.maxClarificationRetries ?? 2,
+      scoringMode: cfg.scoringMode ?? 'hybrid',
     }
 
     await startBatchSimulation(parsedBatchModels, baseConfig)
@@ -756,27 +754,28 @@ export default function VisualEvalPage() {
                       <span className="text-[10px] text-[#9B9B9B]">Bootstrap CI enabled</span>
                     )}
                   </div>
-                  {/* Adaptive Replay toggle */}
-                  <div className="flex items-center gap-2 mt-1.5">
-                    <input
-                      type="checkbox"
-                      id="adaptiveReplay"
-                      checked={cfg.adaptiveReplay !== false}
-                      onChange={e => setCfg({ adaptiveReplay: e.target.checked })}
-                      className="w-3 h-3 accent-[#1A1A1A]"
-                    />
-                    <label htmlFor="adaptiveReplay" className="text-[10px] text-[#6B6B6B] cursor-pointer select-none">
-                      Adaptive Replay — auto-reply to clarification questions
-                    </label>
-                    {cfg.adaptiveReplay !== false && (
-                      <input
-                        type="number" min={1} max={5}
-                        value={cfg.maxClarificationRetries ?? 2}
-                        onChange={e => setCfg({ maxClarificationRetries: Math.max(1, Math.min(5, parseInt(e.target.value, 10) || 2)) })}
-                        className="w-10 text-xs text-center border border-[#E5E5E4] rounded px-1 py-0.5 focus:outline-none focus:ring-1 focus:ring-[#1A1A1A]"
-                        title="Max clarification retries per turn"
-                      />
-                    )}
+                  {/* Scoring Mode (τ-bench style) */}
+                  <div className="mt-1.5">
+                    <span className="text-[10px] text-[#9B9B9B] block mb-1">Scoring mode:</span>
+                    <div className="flex flex-col gap-1">
+                      {([
+                        ['hybrid', 'Hybrid (recommended) — 70% programmatic + 30% quality'],
+                        ['programmatic', 'Programmatic only — binary pass/fail per task'],
+                        ['judge_only', 'Judge only — LLM scoring (legacy)'],
+                      ] as const).map(([value, label]) => (
+                        <label key={value} className="flex items-center gap-1.5 cursor-pointer">
+                          <input
+                            type="radio"
+                            name="scoringMode"
+                            value={value}
+                            checked={(cfg.scoringMode ?? 'hybrid') === value}
+                            onChange={() => setCfg({ scoringMode: value })}
+                            className="w-3 h-3 accent-[#1A1A1A]"
+                          />
+                          <span className="text-[10px] text-[#6B6B6B] select-none">{label}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -1040,7 +1039,20 @@ export default function VisualEvalPage() {
                   {/* Per-task breakdown */}
                   {finalResult.taskResults && finalResult.taskResults.length > 0 && (
                     <div className="mt-3 space-y-1.5">
-                      <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wider mb-1">Task Breakdown</p>
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wider">Task Breakdown</p>
+                        {finalResult.scoringMode && finalResult.scoringMode !== 'judge_only' && (
+                          <span className="text-[9px] text-violet-600 bg-violet-50 border border-violet-200 rounded px-1.5 py-0.5 font-medium">
+                            {finalResult.scoringMode === 'hybrid' ? 'Hybrid' : 'Programmatic'} scoring
+                          </span>
+                        )}
+                      </div>
+                      {finalResult.programmaticScore !== undefined && finalResult.qualityScore !== undefined && (
+                        <div className="flex gap-3 text-[10px] text-[#9B9B9B] mb-1.5">
+                          <span>Programmatic: <span className="font-semibold text-[#1A1A1A]">{finalResult.programmaticScore}%</span></span>
+                          <span>Quality: <span className="font-semibold text-[#1A1A1A]">{Math.round(finalResult.qualityScore)}%</span></span>
+                        </div>
+                      )}
                       {finalResult.taskResults.map((tr: TaskResult, i: number) => {
                         const statusColor = tr.status === 'completed' ? 'text-emerald-700 bg-emerald-50 border-emerald-200'
                           : tr.status === 'wrong' ? 'text-red-700 bg-red-50 border-red-200'
@@ -1060,7 +1072,25 @@ export default function VisualEvalPage() {
                               <span className="shrink-0 font-bold">{tr.score}%</span>
                             </div>
                             {tr.note && <p className="text-[10px] mt-0.5 opacity-75 pl-4">{tr.note}</p>}
-                            {tr.breakdown && (
+                            {/* Programmatic verification details */}
+                            {tr.verification && (
+                              <div className="pl-4 mt-1 space-y-0.5 text-[10px] opacity-80">
+                                <span className="font-medium">
+                                  behavior: {tr.verification.behaviorCorrect ? 'correct' : 'wrong'}
+                                </span>
+                                {tr.verification.actionResult && (
+                                  <span className="ml-2">
+                                    actions: {tr.verification.actionResult.matchedActions}/{tr.verification.actionResult.expectedActions}
+                                  </span>
+                                )}
+                                {tr.verification.communicationResult && !tr.verification.communicationResult.allContained && (
+                                  <span className="ml-2 text-red-600">
+                                    missing: {tr.verification.communicationResult.missingTerms.slice(0, 2).join(', ')}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                            {tr.breakdown && !tr.verification && (
                               <div className="pl-4 mt-1 flex flex-wrap gap-1.5 text-[10px] opacity-80">
                                 <span>completion {tr.breakdown.completion}%</span>
                                 <span>grounding {tr.breakdown.grounding}%</span>

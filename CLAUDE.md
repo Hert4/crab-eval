@@ -225,3 +225,52 @@ npx tsc --noEmit  # type check
 - API keys: sessionStorage only (`getApiKey()`), never Zustand/localStorage
 - `judgeBaseUrl`, `judgeModel` already existed in store/UI before M1 — not re-added
 - `EVALUATION_VERSION = '2.0.0'` in `visualEvalRunner.ts`
+
+---
+
+## τ-bench Style Evaluation (Phase 2)
+
+**Problem solved:** LLM judge variance (18-33 point spread across runs) from 3 LLM sources.
+
+**New flow:**
+```
+LLM generates tasks+expected_outcomes (1 time, frozen) → Code verifies deterministically
+    ↑ random ONCE                                            ↑ no variance
++ LLM judge quality (30% weight only)
+    ↑ variance × 0.3 = negligible
+```
+
+### Key files
+- `src/lib/visualEvalVerifier.ts` — programmatic verification engine
+  - `verifyActions()` — tool calls match expected (τ-bench subset check)
+  - `verifyCommunication()` — response contains/not-contains expected phrases
+  - `verifyBehavior()` — call_tool / ask_clarification / report_not_found / refuse_invalid / respond_directly
+  - `verifyTask()` — combines all checks, binary reward (0 or 1)
+  - `verifyNLAssertions()` — LLM yes/no only, not scoring
+- `src/app/api/visual-eval/taskset/route.ts` — saves `FrozenTaskSet` to `results/task-sets/`
+- `generateFrozenTaskSet()` in `visualEvalRunner.ts` — generates tasks+outcomes in one LLM call
+
+### Key types (in `src/types/index.ts`)
+```ts
+ExpectedOutcome { taskIndex, userMessage, expectedBehavior, actions?, communication?, nlAssertions?, rewardBasis }
+FrozenTaskSet { taskSetId, tasks: ExpectedOutcome[], generatedBy, version }
+TaskVerification { taskIndex, actionResult?, communicationResult?, nlAssertionResult?, finalReward, behaviorCorrect }
+```
+
+### Scoring modes (configurable per batch)
+| Mode | Weight | Description |
+|------|--------|-------------|
+| `hybrid` | 70% prog + 30% quality | Default — balanced |
+| `programmatic` | 100% prog | Fully deterministic, binary |
+| `judge_only` | 100% judge | Legacy LLM scoring |
+
+### SimulationResult new fields
+- `taskSetId?` — FrozenTaskSet used
+- `programmaticScore?` — 0-100, from verifier
+- `qualityScore?` — 0-100, from LLM judge
+- `scoringMode?` — which path was used
+
+### Adaptive Replay removed
+- Replaced by programmatic verification: if model asks clarification → `ask_clarification` behavior → `reward=1` (correct)
+- No more `detectClarification()`, `generateClarificationReply()`, or retry loops
+- Removed: `adaptiveReplay`, `maxClarificationRetries` from `VisualEvalConfig`

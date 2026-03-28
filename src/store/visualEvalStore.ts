@@ -42,9 +42,6 @@ export interface VisualEvalConfig {
   complianceRulesJson: string
   // Runs per model for statistical rigor (Milestone 3) — default 1, max 10
   runsPerModel: number
-  // Adaptive Replay — auto-inject confirmation replies when target asks clarification
-  adaptiveReplay: boolean
-  maxClarificationRetries: number
   // Ordered task list — User Model delivers these tasks one by one to Target Model.
   // Format: JSON array of strings. Each string is one task description.
   // ["Find candidates named X", "Get Technical Interview list for RJ20231201", ...]
@@ -57,6 +54,8 @@ export interface VisualEvalConfig {
   generated: boolean
   // Batch eval — list of "baseUrl|modelName" entries, one per line
   batchModelsText: string
+  // Scoring mode — τ-bench style programmatic + judge hybrid
+  scoringMode: 'hybrid' | 'programmatic' | 'judge_only'
 }
 
 type PersistedVisualEvalConfig = Pick<
@@ -77,14 +76,13 @@ type PersistedVisualEvalConfig = Pick<
   | 'additionalJudges'
   | 'complianceRulesJson'
   | 'runsPerModel'
-  | 'adaptiveReplay'
-  | 'maxClarificationRetries'
   | 'tasksJson'
   | 'numTasksInput'
   | 'replayScript'
   | 'fileName'
   | 'generated'
   | 'batchModelsText'
+  | 'scoringMode'
 >
 
 interface PersistedVisualEvalState {
@@ -160,8 +158,6 @@ const DEFAULT_CFG: VisualEvalConfig = {
   additionalJudges: [],
   complianceRulesJson: '',
   runsPerModel: 1,
-  adaptiveReplay: true,
-  maxClarificationRetries: 2,
   tasksJson: '[]',
   numTasksInput: 4,
   replayScript: '[]',
@@ -169,6 +165,7 @@ const DEFAULT_CFG: VisualEvalConfig = {
   fileText: '',
   generated: false,
   batchModelsText: '',
+  scoringMode: 'hybrid',
 }
 
 function getBrowserStorage(kind: 'local' | 'session'): Storage | null {
@@ -203,14 +200,13 @@ function sanitizePersistedCfg(cfg?: Partial<VisualEvalConfig> | null): Persisted
     additionalJudges: cfg?.additionalJudges ?? DEFAULT_CFG.additionalJudges,
     complianceRulesJson: cfg?.complianceRulesJson ?? DEFAULT_CFG.complianceRulesJson,
     runsPerModel: cfg?.runsPerModel ?? DEFAULT_CFG.runsPerModel,
-    adaptiveReplay: cfg?.adaptiveReplay ?? DEFAULT_CFG.adaptiveReplay,
-    maxClarificationRetries: cfg?.maxClarificationRetries ?? DEFAULT_CFG.maxClarificationRetries,
     tasksJson: cfg?.tasksJson ?? DEFAULT_CFG.tasksJson,
     numTasksInput: cfg?.numTasksInput ?? DEFAULT_CFG.numTasksInput,
     replayScript: cfg?.replayScript ?? DEFAULT_CFG.replayScript,
     fileName: cfg?.fileName ?? DEFAULT_CFG.fileName,
     generated: cfg?.generated ?? DEFAULT_CFG.generated,
     batchModelsText: cfg?.batchModelsText ?? DEFAULT_CFG.batchModelsText,
+    scoringMode: cfg?.scoringMode ?? DEFAULT_CFG.scoringMode,
   }
 }
 
@@ -336,10 +332,9 @@ export const useVisualEvalStore = create<VisualEvalState>()(
             additionalJudges: s.cfg.additionalJudges,
             complianceRulesJson: s.cfg.complianceRulesJson,
             runsPerModel: s.cfg.runsPerModel,
-            adaptiveReplay: s.cfg.adaptiveReplay,
-            maxClarificationRetries: s.cfg.maxClarificationRetries,
             maxTurnsInput: s.cfg.maxTurnsInput,
             batchModelsText: s.cfg.batchModelsText,
+            scoringMode: s.cfg.scoringMode,
             // replayScript intentionally cleared — new doc needs new script
           },
         })),
@@ -378,7 +373,7 @@ export const useVisualEvalStore = create<VisualEvalState>()(
     }),
     {
       name: 'eval.visual',
-      version: 6,
+      version: 7,
       storage: visualEvalStorage,
       // Persist only compact config. Large runtime state and uploaded file content stay in memory.
       partialize: (s): PersistedVisualEvalState => ({

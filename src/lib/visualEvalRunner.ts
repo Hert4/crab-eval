@@ -1,7 +1,8 @@
-import { SimulationTurn, SimulationResult, TaskResult, FrozenToolResponse, FrozenOracleDataset, ToolDefinition, MultiJudgeResult, ComplianceRule } from '@/types'
+import { SimulationTurn, SimulationResult, TaskResult, FrozenToolResponse, FrozenOracleDataset, ToolDefinition, MultiJudgeResult, ComplianceRule, FrozenTaskSet, ExpectedOutcome, TaskVerification } from '@/types'
 import { chatCompletion, OpenAIConfig, OpenAIMessage, OpenAITool, getApiKey } from './openai'
 import { useVisualEvalStore, getSimController, abortSim, BatchModelResult } from '@/store/visualEvalStore'
 import { evaluateVisualSimulation, buildTaskSegments, buildJudgePrompt, multiJudgeEvaluate, checkCompliance, computeThreeAxisScore } from './visualEvalEvaluators'
+import { verifyTask, verifyNLAssertions, buildVerificationNote } from './visualEvalVerifier'
 import { simpleHash } from './hash'
 
 // ── Sanitize a single JSON Schema property recursively ───────────────
@@ -129,9 +130,6 @@ export interface SimConfig {
   complianceRules?: ComplianceRule[]
   // Runs per model for statistical rigor (Milestone 3) — default 1, max 10
   runsPerModel?: number
-  // Adaptive Replay — auto-inject confirmation replies when target asks clarification
-  adaptiveReplay?: boolean         // default true
-  maxClarificationRetries?: number // default 2
   maxTurns: number
   tools?: OpenAITool[]
   mockContext?: string
@@ -140,6 +138,8 @@ export interface SimConfig {
   tasks?: string[]
   // Replay script — verbatim user messages from a previous run (skips User Model).
   replayScript?: string[]
+  // Scoring mode — controls how programmatic + judge scores are combined
+  scoringMode?: 'hybrid' | 'programmatic' | 'judge_only'
 }
 
 interface SimulationRuntimeOptions {
@@ -148,6 +148,7 @@ interface SimulationRuntimeOptions {
   frozenOracleDatasetId?: string  // ID of the FrozenOracleDataset used (M1)
   runIndex?: number               // 0-based index within multi-run batch (M3)
   totalRuns?: number              // total runs requested for this model (M3)
+  frozenTaskSet?: FrozenTaskSet   // τ-bench style frozen task set with expected outcomes
 }
 
 const EVALUATION_VERSION = '2.0.0'
@@ -470,86 +471,8 @@ function validateTasksAgainstTools(
   }
 }
 
-// ── Adaptive Replay helpers ───────────────────────────────────────────────
-
 /**
- * Detect if assistant response is a clarification question rather than task completion.
- * Returns true only when ALL hold:
- *  1. No tool_calls in this response
- *  2. Response contains a '?'
- *  3. Response contains known clarification signals (Vietnamese + English)
- */
-function detectClarification(assistantText: string, hadToolCalls: boolean): boolean {
-  if (hadToolCalls) return false
-  if (!assistantText || assistantText.length < 10) return false
-  if (!assistantText.includes('?')) return false
-
-  const clarificationSignals = [
-    // Vietnamese
-    'xác nhận', 'vui lòng', 'cung cấp', 'cho mình', 'cho tôi',
-    'bạn có thể', 'chưa thể', 'chưa đủ', 'thiếu', 'cần thêm',
-    'đúng không', 'đúng chưa', 'phải không', 'chính xác',
-    'định dạng', 'hợp lệ', 'không hợp lệ',
-    // English
-    'confirm', 'clarify', 'provide', 'specify', 'verify',
-    'could you', 'can you', 'please provide', 'which one',
-    'before i can', 'before proceeding', 'need to know',
-    'correct format', 'valid', 'invalid', 'what is the',
-    'which format', 'please confirm',
-  ]
-
-  const lower = assistantText.toLowerCase()
-  return clarificationSignals.some(signal => lower.includes(signal))
-}
-
-/**
- * Generate a short confirmation reply to unblock a target model that asked clarification.
- * Uses User Model config to produce a natural 1-2 sentence reply.
- * Falls back to a generic Vietnamese confirmation on any error.
- */
-async function generateClarificationReply(
-  clarificationText: string,
-  conversationContext: OpenAIMessage[],
-  userCfg: OpenAIConfig,
-  signal: AbortSignal
-): Promise<string> {
-  const systemPrompt = `You are simulating a user in a testing scenario. The AI assistant just asked you a clarification question.
-Your job: give the SHORTEST possible confirmation or answer to unblock the assistant so it can proceed with the task.
-
-Rules:
-- Reply in the same language as the conversation (Vietnamese if conversation is in Vietnamese)
-- Confirm what the assistant asked — say yes, provide the info they need
-- Keep it to 1-2 sentences maximum
-- Do NOT ask new questions
-- Do NOT introduce new tasks
-- If the assistant asks about ID format, confirm whichever format they suggest
-- If the assistant asks for missing info, provide a reasonable placeholder
-
-Example: If assistant says "Bạn xác nhận dùng CND-55087 nhé?" → Reply: "Đúng rồi, dùng CND-55087."
-Example: If assistant says "Could you confirm the RecruitmentID format?" → Reply: "Yes, use whatever format your system requires."`
-
-  const messages: OpenAIMessage[] = [
-    { role: 'system', content: systemPrompt },
-    ...conversationContext.slice(-6),
-    { role: 'user', content: `The assistant just said:\n"${clarificationText.slice(0, 500)}"\n\nGenerate a short confirmation reply to unblock them.` },
-  ]
-
-  try {
-    const res = await chatCompletion(
-      { ...userCfg, maxTokens: 256, temperature: 0.3 },
-      messages,
-      signal
-    )
-    const reply = res.choices?.[0]?.message?.content?.trim() || ''
-    return reply || 'Đúng rồi, bạn tiếp tục đi.'
-  } catch (e) {
-    if (e instanceof DOMException && e.name === 'AbortError') throw e
-    return 'Đúng rồi, bạn tiếp tục đi.'
-  }
-}
-
-/**
- * Handle a list of tool calls against oracle — shared by main loop and adaptive retry loop.
+ * Handle a list of tool calls against oracle — shared by main loop.
  * Mutates oracleMemory, oracleCache, and appends turns/messages.
  * Returns the updated turnIndex.
  */
@@ -745,6 +668,28 @@ export async function startBatchSimulation(
       useVisualEvalStore.getState().updateStatus('Frozen oracle failed — using live oracle…')
     }
 
+    // ── Generate frozen task set (τ-bench style expected outcomes) ─────────
+    let frozenTaskSet: FrozenTaskSet | undefined
+    try {
+      useVisualEvalStore.getState().updateStatus('Generating frozen task set with expected outcomes…')
+      frozenTaskSet = await generateFrozenTaskSet(
+        { ...baseConfig, replayScript: sharedReplayScript },
+        oracleCfgForWorldState,
+        controller.signal
+      )
+      if (frozenTaskSet) {
+        // Use task set's user messages as the definitive replay script
+        // (they may be identical to sharedReplayScript, but now they're linked to expected outcomes)
+        useVisualEvalStore.getState().updateStatus(
+          `Frozen task set ready (${frozenTaskSet.tasks.length} tasks with expected outcomes) — starting batch…`
+        )
+        console.log(`[TaskSet] ${frozenTaskSet.taskSetId} — ${frozenTaskSet.tasks.length} tasks`)
+      }
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') throw e
+      console.warn('[TaskSet] Failed — falling back to judge-only scoring:', e)
+    }
+
     const runsPerModel = Math.max(1, Math.min(10, baseConfig.runsPerModel ?? 1))
     const totalBatchSteps = targets.length * runsPerModel
     let stepIndex = 0
@@ -781,6 +726,7 @@ export async function startBatchSimulation(
             frozenOracleDatasetId: frozenDataset?.datasetId,
             runIndex: runIdx,
             totalRuns: runsPerModel,
+            frozenTaskSet,
           })
           const state = useVisualEvalStore.getState()
           const fr = state.finalResult
@@ -1068,9 +1014,177 @@ async function generateFrozenOracle(
   return dataset
 }
 
+// ── Frozen Task Set Generation (τ-bench style) ───────────────────────────────
+// LLM generates replay messages AND expected outcomes in one call.
+// Both are frozen, ensuring deterministic evaluation.
+async function generateFrozenTaskSet(
+  config: Omit<SimConfig, 'targetConfig'>,
+  oracleCfg: OpenAIConfig,
+  signal: AbortSignal
+): Promise<FrozenTaskSet | undefined> {
+  const taskCount = config.replayScript?.length
+    ?? config.tasks?.length
+    ?? config.maxTurns
+    ?? 8
+
+  const toolList = config.tools?.length
+    ? config.tools.map(t => {
+        const params = t.function.parameters as Record<string, unknown> | undefined
+        const props = params?.properties as Record<string, unknown> | undefined
+        const paramStr = props ? Object.keys(props).join(', ') : ''
+        return `- ${t.function.name}(${paramStr}): ${t.function.description ?? ''}`
+      }).join('\n')
+    : '(none)'
+
+  // If we have a replay script, use it as the task messages and only generate expected outcomes
+  const existingMessages = config.replayScript ?? config.tasks ?? []
+  const hasMessages = existingMessages.length > 0
+
+  const prompt = hasMessages
+    ? `You are generating expected outcomes for a benchmark test suite.
+
+Scenario: ${config.scenarioDescription}
+Assistant role: ${config.targetSystemPrompt || '(none)'}
+
+Available tools:
+${toolList}
+
+For each user message below, generate the expected correct behavior and verification criteria.
+
+User messages:
+${existingMessages.map((m, i) => `${i}. ${m}`).join('\n')}
+
+Return ONLY valid JSON in this exact format:
+{
+  "tasks": [
+    {
+      "taskIndex": 0,
+      "userMessage": "exact message from input",
+      "expectedBehavior": "call_tool | ask_clarification | report_not_found | refuse_invalid | respond_directly",
+      "actions": [
+        {
+          "actionId": "t0_action_0",
+          "toolName": "exact_tool_name",
+          "requiredArgs": { "argName": "expectedValue" },
+          "compareArgs": ["argName"]
+        }
+      ],
+      "communication": {
+        "id": "t0_comm",
+        "contains": ["key phrase that must appear in response"],
+        "notContains": ["phrase that must NOT appear"]
+      },
+      "nlAssertions": [],
+      "rewardBasis": ["action"]
+    }
+  ]
+}
+
+Rules:
+1. taskIndex must match the input message index (0-based)
+2. userMessage must be EXACTLY the input message (do not paraphrase)
+3. For "call_tool": actions[] lists the expected tool + key args; rewardBasis = ["action"]
+4. For "ask_clarification": actions = [], communication.contains includes "?"; rewardBasis = ["communication"]
+5. For "report_not_found": actions list the tool (it SHOULD be called), communication.contains includes "not found" or "không tìm thấy"; rewardBasis = ["action", "communication"]
+6. For "refuse_invalid": actions = [], communication.contains describes the issue; rewardBasis = ["communication"]
+7. For "respond_directly": actions = [], communication.contains has expected info; rewardBasis = ["communication"]
+8. compareArgs lists ONLY the arg keys that truly matter — skip formatting-dependent args
+9. requiredArgs values should match or approximate what the task implies
+10. DO NOT include explanations or markdown. Return ONLY the JSON.`
+    : `You are creating a benchmark test suite for an AI assistant.
+
+Scenario: ${config.scenarioDescription}
+Assistant role: ${config.targetSystemPrompt || '(none)'}
+
+Available tools:
+${toolList}
+
+Generate a JSON object with exactly ${taskCount} test tasks.
+Each task has a user message AND the expected correct behavior.
+
+Return ONLY valid JSON in this exact format:
+{
+  "tasks": [
+    {
+      "taskIndex": 0,
+      "userMessage": "Natural user message in the scenario's language",
+      "expectedBehavior": "call_tool | ask_clarification | report_not_found | refuse_invalid | respond_directly",
+      "actions": [
+        {
+          "actionId": "t0_action_0",
+          "toolName": "exact_tool_name_from_list",
+          "requiredArgs": { "argName": "expectedValue" },
+          "compareArgs": ["argName"]
+        }
+      ],
+      "communication": {
+        "id": "t0_comm",
+        "contains": ["key phrase that must appear in response"],
+        "notContains": ["phrase that must NOT appear"]
+      },
+      "nlAssertions": [],
+      "rewardBasis": ["action"]
+    }
+  ]
+}
+
+Rules for generating tasks:
+1. ONLY create tasks achievable with the listed tools
+2. Mix task types:
+   - ~50% happy-path: tool exists, user provides correct info; expectedBehavior: "call_tool"
+   - ~20% edge cases: tool exists but returns empty; expectedBehavior: "report_not_found"
+   - ~15% clarification: user provides ambiguous/incomplete info; expectedBehavior: "ask_clarification"
+   - ~15% invalid: wrong ID format, non-existent capability; expectedBehavior: "refuse_invalid"
+3. For "call_tool": actions[] must list the exact tool name and key args; rewardBasis = ["action"]
+4. For "ask_clarification": actions = [], communication.contains includes "?"; rewardBasis = ["communication"]
+5. For "report_not_found": actions list the tool (it SHOULD be called), communication.contains includes not-found phrase; rewardBasis = ["action", "communication"]
+6. Use the scenario's language for userMessage and communication.contains
+7. compareArgs lists ONLY truly significant arg keys (skip formatting-dependent ones)
+8. DO NOT include explanations or markdown. Return ONLY the JSON.`
+
+  try {
+    const res = await chatCompletion(
+      { ...oracleCfg, maxTokens: 4000 },
+      [{ role: 'user', content: prompt }],
+      signal
+    )
+    const text = res.choices?.[0]?.message?.content || ''
+    const stripped = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+    const parsed = JSON.parse(stripped) as { tasks: ExpectedOutcome[] }
+
+    if (!Array.isArray(parsed.tasks) || parsed.tasks.length === 0) {
+      throw new Error('No tasks in response')
+    }
+
+    const taskSet: FrozenTaskSet = {
+      taskSetId: `taskset_${simpleHash(JSON.stringify(parsed))}`,
+      scenarioName: config.scenarioName ?? 'unnamed',
+      createdAt: new Date().toISOString(),
+      generatedBy: oracleCfg.model,
+      tasks: parsed.tasks,
+      version: '1.0',
+    }
+
+    // Save to disk (best-effort)
+    try {
+      await fetch('/api/visual-eval/taskset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(taskSet),
+      })
+    } catch (saveErr) {
+      console.warn('[TaskSet] Failed to save task set to disk:', saveErr)
+    }
+
+    return taskSet
+  } catch (e) {
+    if (e instanceof DOMException && e.name === 'AbortError') throw e
+    console.warn('[TaskSet] Failed to generate frozen task set:', e)
+    return undefined
+  }
+}
+
 // ── Task classification ────────────────────────────────────────────────
-// Classify tasks into positive (data must exist) vs negative (data must be absent/error).
-// Used to prevent worldState from including entities that adversarial tasks require absent.
 interface ClassifiedTasks {
   positive: string[]   // happy-path tasks — need data to exist
   negative: string[]   // edge/error tasks — need data to be absent or return errors
@@ -1465,109 +1579,9 @@ async function _runSimulation(
       if (!isReplay) {
         // No tool calls — feed assistant reply to User Model (dynamic mode only)
         userMessages.push({ role: 'user', content: targetText || '[No response]' })
-      } else if (config.adaptiveReplay !== false && isReplay) {
-        // ── Adaptive Replay: handle clarification in replay mode ────────
-        const isClarification = detectClarification(targetText, false)
-
-        if (isClarification) {
-          const maxRetries = config.maxClarificationRetries ?? 2
-          let resolved = false
-
-          for (let retry = 0; retry < maxRetries && !signal.aborted; retry++) {
-            store().updateStatus(`${progressLabel} — handling clarification (${retry + 1}/${maxRetries})…`)
-
-            // Generate a short confirmation reply to unblock the model
-            const clarReply = await generateClarificationReply(
-              targetText,
-              targetMessages,
-              userCfg,
-              signal
-            )
-
-            // Add as user turn — prefix marks it as auto-generated
-            store().addTurn({
-              turnIndex: turnIndex++,
-              role: 'user',
-              content: `[adaptive] ${clarReply}`,
-              durationMs: 0,
-            })
-            targetMessages.push({ role: 'user', content: clarReply })
-
-            // Let target respond again
-            const tRetry = Date.now()
-            let retryText = ''
-            let retryToolCalls: Array<{ id: string; name: string; arguments: string }> = []
-            try {
-              const retryRes = await chatCompletion(targetCfg, targetMessages, signal, tools)
-              const retryChoice = retryRes.choices?.[0]
-              retryText = retryChoice?.message?.content || ''
-              retryToolCalls = (retryChoice?.message?.tool_calls ?? []).map(
-                (tc: { id?: string; function: { name: string; arguments: string } }) => ({
-                  id: tc.id || `call_${tc.function.name}_${Date.now()}`,
-                  name: tc.function.name,
-                  arguments: tc.function.arguments,
-                })
-              )
-            } catch (e) {
-              if (e instanceof DOMException && e.name === 'AbortError') throw e
-              break
-            }
-
-            // Record assistant response
-            store().addTurn({
-              turnIndex: turnIndex++,
-              role: 'assistant',
-              content: retryText,
-              tool_calls: retryToolCalls.length > 0
-                ? retryToolCalls.map(tc => ({ type: 'function' as const, function: { name: tc.name, arguments: tc.arguments } }))
-                : undefined,
-              durationMs: Date.now() - tRetry,
-            })
-            targetMessages.push({
-              role: 'assistant',
-              content: retryText || null,
-              tool_calls: retryToolCalls.length > 0
-                ? retryToolCalls.map(tc => ({ id: tc.id, type: 'function' as const, function: { name: tc.name, arguments: tc.arguments } }))
-                : undefined,
-            })
-
-            if (retryToolCalls.length > 0) {
-              // Model finally called tools — handle them
-              store().updateStatus(`${progressLabel} — Oracle faking ${retryToolCalls.length} tool(s) after clarification…`)
-              const handled = await handleToolCalls(
-                retryToolCalls,
-                oracleCfg,
-                targetCfg,
-                targetMessages,
-                oracleMemory,
-                runtime,
-                tools,
-                config,
-                (t) => store().addTurn(t),
-                turnIndex,
-                signal
-              )
-              turnIndex = handled.turnIndex
-              resolved = true
-              break
-            }
-
-            // Still no tool call — check if still clarifying or gave a plain answer
-            if (!detectClarification(retryText, false)) {
-              // Plain answer without tools — accept and move on
-              resolved = true
-              break
-            }
-
-            targetText = retryText  // update for next retry context
-          }
-
-          if (!resolved) {
-            console.warn(`[Adaptive] Clarification unresolved after ${maxRetries} retries — continuing replay`)
-          }
-        }
-        // Non-clarification response (plain answer, no tools) in replay → do nothing, next turn
       }
+      // In replay mode: no tool calls, no adaptive logic — model's behavior is evaluated
+      // after simulation by the programmatic verifier (τ-bench style)
     }
   }
 
@@ -1584,11 +1598,60 @@ async function _runSimulation(
   let multiJudgeResult: MultiJudgeResult | undefined
   let complianceResultForResult: SimulationResult['complianceResult']
   let threeAxisScoreForResult: SimulationResult['threeAxisScore']
+  let programmaticScoreForResult: number | undefined
+  let qualityScoreForResult: number | undefined
+  let scoringModeForResult: SimulationResult['scoringMode'] = 'judge_only'
 
   if (!signal.aborted && storeTurns.length > 0) {
     store().updateStatus('Evaluating tasks…')
 
     const evalOptions = { tasks: config.tasks, tools }
+    const scoringMode = config.scoringMode ?? 'hybrid'
+
+    // ── τ-bench programmatic verification ─────────────────────────────
+    let programmaticVerifications: TaskVerification[] | undefined
+    const taskSet = runtime.frozenTaskSet
+
+    if (taskSet && scoringMode !== 'judge_only') {
+      store().updateStatus('Running programmatic verification…')
+      const segments = buildTaskSegments(storeTurns, taskSet.tasks.map(t => t.userMessage))
+      programmaticVerifications = []
+
+      for (let i = 0; i < taskSet.tasks.length && i < segments.length; i++) {
+        const expected = taskSet.tasks[i]
+        const segment = segments[i]
+
+        // Deterministic checks
+        const verification = verifyTask(segment.turns, expected)
+
+        // NL assertions (LLM yes/no) — only if present
+        if (expected.nlAssertions && expected.nlAssertions.length > 0 && expected.rewardBasis.includes('nl_assertion')) {
+          try {
+            verification.nlAssertionResult = await verifyNLAssertions(
+              segment.turns,
+              expected.nlAssertions,
+              judgeCfg,
+              signal
+            )
+            // Factor NL assertion into final reward
+            if (verification.nlAssertionResult) {
+              verification.finalReward = verification.finalReward * verification.nlAssertionResult.reward
+            }
+          } catch (e) {
+            if (e instanceof DOMException && e.name === 'AbortError') throw e
+          }
+        }
+
+        programmaticVerifications.push(verification)
+      }
+
+      if (programmaticVerifications.length > 0) {
+        programmaticScoreForResult = Math.round(
+          (programmaticVerifications.reduce((s, v) => s + v.finalReward, 0) / programmaticVerifications.length) * 100
+        )
+        console.log(`[Verifier] Programmatic score: ${programmaticScoreForResult}% (${programmaticVerifications.filter(v => v.finalReward === 1).length}/${programmaticVerifications.length} passed)`)
+      }
+    }
 
     // Build additional judge configs (M2)
     const additionalJudgeConfigs = (config.additionalJudges ?? []).map(j => ({
@@ -1601,28 +1664,61 @@ async function _runSimulation(
       } as OpenAIConfig,
     }))
 
-    if (additionalJudgeConfigs.length > 0) {
-      // Multi-judge path
-      store().updateStatus(`Evaluating with ${1 + additionalJudgeConfigs.length} judges…`)
-      try {
-        multiJudgeResult = await multiJudgeEvaluate(
-          storeTurns,
-          judgeCfg,
-          additionalJudgeConfigs,
-          signal,
-          evalOptions
-        )
-        finalScore = multiJudgeResult.consensusScore
-        finalAssessment = multiJudgeResult.consensusAssessment || 'Evaluation complete.'
-        taskResults = multiJudgeResult.verdicts[0]?.taskResults
-        evaluationStatus = multiJudgeResult.successCount > 0 ? 'scored' : 'unavailable'
-        evaluationDebug = {
-          evaluator: `multi_judge_v2 (${multiJudgeResult.successCount}/${multiJudgeResult.judgeCount} judges)`,
-          rawJudgeResponse: multiJudgeResult.verdicts.map(v => `[${v.model}] score=${v.finalScore ?? 'null'}`).join('\n'),
+    if (scoringMode === 'programmatic' && programmaticScoreForResult !== undefined) {
+      // ── Programmatic-only path — no LLM judge ──────────────────────
+      finalScore = programmaticScoreForResult
+      qualityScoreForResult = undefined
+      scoringModeForResult = 'programmatic'
+      evaluationStatus = 'scored'
+
+      // Build task results from verifications
+      taskResults = programmaticVerifications!.map((pv, i) => {
+        const expected = taskSet!.tasks[i]
+        const note = buildVerificationNote(pv)
+        return {
+          task: expected.userMessage,
+          status: pv.finalReward === 1 ? 'completed' as const : 'wrong' as const,
+          score: Math.round(pv.finalReward * 100),
+          note,
+          verification: pv,
+        } satisfies TaskResult
+      })
+
+      finalAssessment = `Programmatic: ${programmaticScoreForResult}% (${programmaticVerifications!.filter(v => v.finalReward === 1).length}/${programmaticVerifications!.length} tasks passed)`
+
+    } else {
+      // ── Judge scoring path (single, multi, or hybrid) ──────────────
+      if (additionalJudgeConfigs.length > 0) {
+        // Multi-judge path
+        store().updateStatus(`Evaluating with ${1 + additionalJudgeConfigs.length} judges…`)
+        try {
+          multiJudgeResult = await multiJudgeEvaluate(
+            storeTurns,
+            judgeCfg,
+            additionalJudgeConfigs,
+            signal,
+            evalOptions
+          )
+          finalScore = multiJudgeResult.consensusScore
+          finalAssessment = multiJudgeResult.consensusAssessment || 'Evaluation complete.'
+          taskResults = multiJudgeResult.verdicts[0]?.taskResults
+          evaluationStatus = multiJudgeResult.successCount > 0 ? 'scored' : 'unavailable'
+          evaluationDebug = {
+            evaluator: `multi_judge_v2 (${multiJudgeResult.successCount}/${multiJudgeResult.judgeCount} judges)`,
+            rawJudgeResponse: multiJudgeResult.verdicts.map(v => `[${v.model}] score=${v.finalScore ?? 'null'}`).join('\n'),
+          }
+        } catch (e) {
+          if (e instanceof DOMException && e.name === 'AbortError') throw e
+          console.warn('[visualEvalRunner] Multi-judge failed — falling back to single judge:', e)
+          const evaluation = await evaluateVisualSimulation(storeTurns, judgeCfg, signal, evalOptions)
+          finalScore = evaluation.finalScore
+          taskResults = evaluation.taskResults
+          evaluationStatus = evaluation.status
+          evaluationDebug = evaluation.debug
+          finalAssessment = evaluation.assessment || 'Evaluation complete.'
         }
-      } catch (e) {
-        if (e instanceof DOMException && e.name === 'AbortError') throw e
-        console.warn('[visualEvalRunner] Multi-judge failed — falling back to single judge:', e)
+      } else {
+        // Single-judge path (backward compatible)
         const evaluation = await evaluateVisualSimulation(storeTurns, judgeCfg, signal, evalOptions)
         finalScore = evaluation.finalScore
         taskResults = evaluation.taskResults
@@ -1630,14 +1726,39 @@ async function _runSimulation(
         evaluationDebug = evaluation.debug
         finalAssessment = evaluation.assessment || 'Evaluation complete.'
       }
-    } else {
-      // Single-judge path (backward compatible)
-      const evaluation = await evaluateVisualSimulation(storeTurns, judgeCfg, signal, evalOptions)
-      finalScore = evaluation.finalScore
-      taskResults = evaluation.taskResults
-      evaluationStatus = evaluation.status
-      evaluationDebug = evaluation.debug
-      finalAssessment = evaluation.assessment || 'Evaluation complete.'
+
+      qualityScoreForResult = finalScore ?? undefined
+
+      // ── Hybrid: combine programmatic (70%) + quality (30%) ─────────
+      if (scoringMode === 'hybrid' && programmaticScoreForResult !== undefined && finalScore !== null) {
+        const combined = Math.round(programmaticScoreForResult * 0.7 + finalScore * 0.3)
+        scoringModeForResult = 'hybrid'
+
+        // Build hybrid task results combining programmatic verifications + judge task results
+        if (programmaticVerifications && taskSet) {
+          taskResults = programmaticVerifications.map((pv, i) => {
+            const expected = taskSet.tasks[i]
+            const judgeTask = taskResults?.[i]
+            const hybridScore = Math.round(pv.finalReward * 70 + ((judgeTask?.score ?? 0) * 0.3))
+            const note = buildVerificationNote(pv)
+            return {
+              task: expected.userMessage,
+              status: pv.finalReward === 1 ? 'completed' as const : 'wrong' as const,
+              score: hybridScore,
+              note,
+              breakdown: judgeTask?.breakdown,
+              toolTrace: judgeTask?.toolTrace,
+              threeAxisScore: judgeTask?.threeAxisScore,
+              verification: pv,
+            } satisfies TaskResult
+          })
+        }
+
+        finalScore = combined
+        finalAssessment = `Programmatic: ${programmaticScoreForResult}% | Quality: ${Math.round(qualityScoreForResult ?? 0)}% | Combined: ${combined}%`
+      } else {
+        scoringModeForResult = 'judge_only'
+      }
     }
 
     // Compliance check (M2) — config-driven, no hardcoded domain rules
@@ -1649,7 +1770,7 @@ async function _runSimulation(
     if (taskResults?.length) {
       taskResults = taskResults.map(tr => ({
         ...tr,
-        threeAxisScore: computeThreeAxisScore(
+        threeAxisScore: tr.threeAxisScore ?? computeThreeAxisScore(
           tr.breakdown?.toolTrace ?? null,
           tr.score,
           complianceResult.score
@@ -1736,6 +1857,11 @@ async function _runSimulation(
     // ── Multi-run statistics (M3) ────────────────────────────────────
     runIndex: runtime.runIndex,
     totalRuns: runtime.totalRuns,
+    // ── τ-bench programmatic scoring ─────────────────────────────────
+    taskSetId: runtime.frozenTaskSet?.taskSetId,
+    programmaticScore: programmaticScoreForResult,
+    qualityScore: qualityScoreForResult,
+    scoringMode: scoringModeForResult,
   }
 
   // Save to disk
