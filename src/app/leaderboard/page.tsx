@@ -12,8 +12,6 @@ import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { Trophy, Trash2, Search, BarChart2, LayoutGrid, List, TrendingUp, FolderOpen, Loader2, GitMerge } from 'lucide-react'
 import Link from 'next/link'
-import { bootstrapCI, passAtK, isSignificantlyDifferent } from '@/lib/statistics'
-
 // ── Constants ──────────────────────────────────────────────────────
 const TASK_GROUPS: TaskGroup[] = [
   { id: 'translation',   label: 'Dịch thuật',      tasks: ['mtrans_translation'] },
@@ -54,9 +52,6 @@ function taskShort(t: string) {
 }
 
 // ── Compute helpers ─────────────────────────────────────────────────
-// For visual eval tasks that have an 'overall' key, use it directly as the
-// task score (it already blends turn-by-turn + holistic). For classic eval
-// tasks (no 'overall'), average all metric values as before.
 function getTaskAvg(entry: RunResult, task: string): number | null {
   const metrics = entry.tasks?.[task]
   if (!metrics) return null
@@ -88,11 +83,10 @@ function getGlobalAvg(entry: RunResult, activeGroups: Set<string>, allGroups: Ta
 function getActiveGroups(runs: RunResult[]): TaskGroup[] {
   const allTasks = new Set(runs.flatMap(r => Object.keys(r.tasks || {})))
   const knownTasks = new Set(TASK_GROUPS.flatMap(g => g.tasks))
-  // Tasks not in any predefined group → put in "Visual Eval / Other"
   const unclassified = [...allTasks].filter(t => !knownTasks.has(t))
   const base = TASK_GROUPS.filter(g => g.tasks.some(t => allTasks.has(t)))
   if (unclassified.length === 0) return base
-  return [...base, { id: 'visual_eval', label: 'Visual Eval', tasks: unclassified }]
+  return [...base, { id: 'other', label: 'Other', tasks: unclassified }]
 }
 
 // ── Merge runs with same model name → keep best single run (highest global avg) ──
@@ -129,16 +123,6 @@ interface ModelStats {
   std: number
 }
 
-interface ModelStatsFull extends ModelStats {
-  mean: number
-  median: number
-  ci95Lower: number
-  ci95Upper: number
-  passAt1: number
-  passAt3: number
-  isSignificantlyBetterThan: Record<string, boolean>
-}
-
 function computeModelStats(runs: RunResult[], model: string, activeGroups: Set<string>, allGroups: TaskGroup[]): ModelStats | null {
   const modelRuns = runs.filter(r => r.model === model)
   if (modelRuns.length < 2) return null
@@ -151,47 +135,6 @@ function computeModelStats(runs: RunResult[], model: string, activeGroups: Set<s
     max: Math.max(...scores),
     std: Math.sqrt(variance),
   }
-}
-
-function computeModelStatsFull(
-  allRuns: RunResult[],
-  model: string,
-  allModels: string[],
-  activeGroups: Set<string>,
-  allGroups: TaskGroup[]
-): ModelStatsFull | null {
-  const modelRuns = allRuns.filter(r => r.model === model)
-  if (modelRuns.length < 2) return null
-  const scores = modelRuns.map(r => getGlobalAvg(r, activeGroups, allGroups))
-  const ci = bootstrapCI(scores)
-  const p1 = passAtK(scores, 1)
-  const p3 = passAtK(scores, Math.min(3, scores.length))
-
-  // Compare against every other model
-  const significantlyBetterThan: Record<string, boolean> = {}
-  for (const other of allModels) {
-    if (other === model) continue
-    const otherScores = allRuns.filter(r => r.model === other).map(r => getGlobalAvg(r, activeGroups, allGroups))
-    if (otherScores.length >= 2) {
-      significantlyBetterThan[other] = isSignificantlyDifferent(scores, otherScores) && ci.mean > bootstrapCI(otherScores).mean
-    }
-  }
-
-  const sorted = [...scores].sort((a, b) => a - b)
-  return {
-    count: scores.length,
-    min: Math.min(...scores),
-    max: Math.max(...scores),
-    std: ci.std,
-    mean: ci.mean,
-    median: ci.median,
-    ci95Lower: ci.lower,
-    ci95Upper: ci.upper,
-    passAt1: p1,
-    passAt3: p3,
-    isSignificantlyBetterThan: significantlyBetterThan,
-  }
-  void sorted
 }
 
 // ── Rank badge ───────────────────────────────────────────────────────
@@ -389,14 +332,7 @@ export default function LeaderboardPage() {
           {(() => {
             // Show "ModelA vs ModelB" only when exactly 2 models with significantly different scores
             if (filtered.length === 2) {
-              const scoresA = runs.filter(r => r.model === filtered[0].model).map(r => getGlobalAvg(r, activeGroupIds, activeGroups))
-              const scoresB = runs.filter(r => r.model === filtered[1].model).map(r => getGlobalAvg(r, activeGroupIds, activeGroups))
-              const sig = scoresA.length >= 2 && scoresB.length >= 2
-                ? isSignificantlyDifferent(scoresA, scoresB)
-                : true  // single runs — show vs by default
-              if (sig) {
-                return <>{filtered[0].model} <span className="text-[#9B9B9B] font-normal text-2xl">vs</span> {filtered[1].model}</>
-              }
+              return <>{filtered[0].model} <span className="text-[#9B9B9B] font-normal text-2xl">vs</span> {filtered[1].model}</>
             }
             return 'Leaderboard'
           })()}
@@ -676,16 +612,7 @@ export default function LeaderboardPage() {
               {filtered.map((r, idx) => {
                 const globalAvg = getGlobalAvg(r, activeGroupIds, activeGroups)
                 const isTopGlobal = idx === 0
-                // Compute full stats for multi-run rows
-                const allModelNames = [...new Set(runs.map(x => x.model))]
-                const fullStats = !mergeMode
-                  ? computeModelStatsFull(runs, r.model, allModelNames, activeGroupIds, activeGroups)
-                  : null
-                const topScores = runs.filter(x => x.model === filtered[0]?.model).map(x => getGlobalAvg(x, activeGroupIds, activeGroups))
-                const myScores = runs.filter(x => x.model === r.model).map(x => getGlobalAvg(x, activeGroupIds, activeGroups))
-                const notSigDiff = idx > 0 && topScores.length >= 2 && myScores.length >= 2 &&
-                  !isSignificantlyDifferent(myScores, topScores)
-                const showCiCol = !mergeMode && runs.some(x => runs.filter(y => y.model === x.model).length >= 2)
+                const showCiCol = false
 
                 return (
                   <tr key={r.runId} className="border-t border-[#F3F3F2] hover:bg-[#FAFAFA] transition-colors">
@@ -693,10 +620,6 @@ export default function LeaderboardPage() {
                     <td className="py-2.5 px-3">
                       <div className="flex items-center gap-1.5">
                         <span className="font-semibold text-[#1A1A1A] text-sm">{r.model}</span>
-                        {notSigDiff && (
-                          <span className="text-[9px] text-[#9B9B9B] border border-[#E5E5E4] rounded px-1" title="Not significantly different from #1">
-                          </span>
-                        )}
                       </div>
                       <div className="text-[10px] text-[#9B9B9B]">
                         {r.date}
@@ -716,11 +639,6 @@ export default function LeaderboardPage() {
                             </span>
                           )
                         })()}
-                        {!mergeMode && fullStats && (
-                          <span className="ml-1.5 text-[#9B9B9B]" title={`p1=${(fullStats.passAt1*100).toFixed(0)}% p3=${(fullStats.passAt3*100).toFixed(0)}%`}>
-                            p@1={Math.round(fullStats.passAt1 * 100)}% · p@3={Math.round(fullStats.passAt3 * 100)}%
-                          </span>
-                        )}
                       </div>
                     </td>
                     <td className={`text-right py-2.5 px-3 font-mono font-bold text-sm ${isTopGlobal ? 'text-amber-600' : 'text-[#1A1A1A]'}`}>
@@ -730,9 +648,7 @@ export default function LeaderboardPage() {
                     {/* CI column */}
                     {showCiCol && (
                       <td className="text-right py-2.5 px-3 text-[10px] font-mono text-[#9B9B9B] whitespace-nowrap">
-                        {fullStats
-                          ? `[${fullStats.ci95Lower.toFixed(1)}, ${fullStats.ci95Upper.toFixed(1)}]`
-                          : '—'}
+                        —
                       </td>
                     )}
 
