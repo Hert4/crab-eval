@@ -12,6 +12,7 @@ export interface DataRecord {
   tool_calls?: ToolCall[]
   expected_tool_calls?: ToolCall[]
   conversation_history?: ConversationTurn[]
+  tools?: unknown[]              // OpenAI tool definitions passed to model on every call
 }
 
 export interface ToolCall {
@@ -105,6 +106,120 @@ export interface RunResult {
   tasks: Record<string, Record<string, number>>  // taskName → metric → score_pct
   // extended info (not shown in leaderboard but stored)
   taskDetails?: Record<string, TaskRunResult>
+}
+
+// ──────────────────────────────────────────────
+// Task Generator types
+// ──────────────────────────────────────────────
+
+export type TaskIntent =
+  | 'information_retrieval'
+  | 'analysis'
+  | 'content_generation'
+  | 'action'
+
+export interface ExpectedToolCall {
+  toolName: string
+  requiredArgs: string[]
+  optionalArgs: string[]
+  order: number
+}
+
+export interface ParamSpec {
+  name: string
+  type: string
+  description: string
+  sampleValues: string[]
+}
+
+export interface AtomicSubtask {
+  id: string
+  name: string
+  description: string
+  intent: TaskIntent
+  skillRef: string
+  expectedTools: ExpectedToolCall[]
+  requiredInputs: ParamSpec[]
+  optionalInputs: ParamSpec[]
+  assertionCriteria: string[]
+  group: string
+  dependsOn: string[]
+}
+
+export type UserPersona = 'expert' | 'novice' | 'out_of_scope'
+export type InfoCompleteness = 'complete' | 'partial' | 'ambiguous'
+
+export type EdgeCaseType =
+  | 'entity_not_found'
+  | 'ambiguous_entity'
+  | 'missing_required_input'
+  | 'malformed_input'
+  | 'out_of_scope'
+  | 'conflicting_request'
+  | null
+
+export interface CompositeTask {
+  id: string
+  name: string
+  subtaskIds: string[]
+  difficulty: 'easy' | 'medium' | 'hard' | 'expert'
+  numSteps: number
+  persona: UserPersona
+  infoCompleteness: InfoCompleteness
+  edgeCaseType: EdgeCaseType
+  assertionCriteria: string[]
+}
+
+export interface GeneratedTask {
+  id: string
+  compositeTaskId: string
+  userMessage: string
+  userMessageAlt?: string
+  persona: UserPersona
+  infoCompleteness: InfoCompleteness
+  difficulty: string
+  expectedToolChain: string[]
+  assertionCriteria: string[]
+  edgeCaseType: EdgeCaseType
+  tags: string[]
+}
+
+export interface TaskSetStats {
+  totalTasks: number
+  byDifficulty: Record<string, number>
+  byIntent: Record<string, number>
+  byPersona: Record<string, number>
+  byEdgeCase: Record<string, number>
+  avgStepsPerTask: number
+  skillCoverage: number
+  toolCoverage: number
+}
+
+export interface TaskSet {
+  id: string
+  name: string
+  createdAt: string
+  sourceDocumentName: string
+  detectedLanguage: string
+  atomicSubtasks: AtomicSubtask[]
+  compositeTasks: CompositeTask[]
+  generatedTasks: GeneratedTask[]
+  stats: TaskSetStats
+}
+
+export interface ComposeOptions {
+  maxSteps: number
+  includeEdgeCases: boolean
+  personas: UserPersona[]
+  infoLevels: InfoCompleteness[]
+  targetCount: number
+  balanceBy: 'difficulty' | 'intent' | 'both'
+}
+
+export interface ModelConfig {
+  baseUrl: string
+  model: string
+  apiKey: string
 }
 
 // ──────────────────────────────────────────────

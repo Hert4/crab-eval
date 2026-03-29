@@ -9,14 +9,16 @@ import {
   Play,
   Trophy,
   FlaskConical,
+  Layers,
 } from 'lucide-react'
 
 const NAV = [
-  { href: '/datasets',     label: 'Datasets',      icon: Database },
-  { href: '/gt-generator', label: 'GT Generator',  icon: Wand2 },
-  { href: '/config',       label: 'Config',         icon: Settings },
-  { href: '/run',          label: 'Run Eval',       icon: Play },
-  { href: '/leaderboard',  label: 'Leaderboard',    icon: Trophy },
+  { href: '/datasets',        label: 'Datasets',        icon: Database },
+  { href: '/gt-generator',    label: 'GT Generator',    icon: Wand2 },
+  { href: '/config',          label: 'Config',          icon: Settings },
+  { href: '/run',             label: 'Run Eval',        icon: Play },
+  { href: '/task-generator',  label: 'Task Generator',  icon: Layers },
+  { href: '/leaderboard',     label: 'Leaderboard',     icon: Trophy },
 ]
 
 export function Sidebar() {

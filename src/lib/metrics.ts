@@ -135,6 +135,15 @@ export function taskSuccessRate(
   return got.name === exp.name ? 100 : 0
 }
 
+// ─── Criteria Score (LLM-as-judge, handled by evalRunner) ───────────
+// Placeholder so the metric name is recognized by the dispatcher.
+// Actual scoring is done in evalRunner.ts when judge is enabled.
+// The reference field holds newline-separated assertion criteria.
+// Score = (criteria passed / total criteria) * 100
+export function criteriaScore(): number {
+  return 0  // computed by LLM judge in evalRunner, not here
+}
+
 // ─── Dispatcher ─────────────────────────────────
 export interface DataRecordForMetrics {
   output: string
@@ -179,6 +188,8 @@ export function computeMetrics(
       // faithfulness & answer_relevancy are LLM-as-judge — handled by evalRunner
       case 'faithfulness':
       case 'answer_relevancy':
+      // criteria_score is LLM-as-judge — handled by evalRunner
+      case 'criteria_score':
         break
       default:
         // Fallback: token_f1

@@ -132,6 +132,7 @@ async function _runEval(
     baseUrl: config.judgeConfig.baseUrl,
     apiKey: judgeApiKey,
     model: config.judgeConfig.model,
+    temperature: 0,   // deterministic judge — no randomness
   }
 
   const runId = crypto.randomUUID()
@@ -175,7 +176,7 @@ async function _runEval(
 
       try {
         const messages = buildMessages(record, config.targetConfig.systemPrompt)
-        const tools = (record as DataRecord & { tools?: OpenAITool[] }).tools
+        const tools = record.tools as OpenAITool[] | undefined
         const res = await chatCompletionWithRetry(targetOpenAI, messages, abortSignal, tools)
         const choice = res.choices?.[0]
         output = choice?.message?.content || ''
@@ -208,6 +209,24 @@ async function _runEval(
             abortSignal
           )
           if (score !== null) scores['answer_relevancy'] = score
+        }
+        if (metrics.includes('criteria_score') && record.reference) {
+          const criteria = record.reference
+            .split('\n')
+            .map(s => s.trim())
+            .filter(Boolean)
+          if (criteria.length > 0) {
+            const score = await criteriaJudgeScore(
+              judgeOpenAI,
+              record.input,
+              output,
+              gotToolCalls,
+              criteria,
+              abortSignal,
+              record.tools as OpenAITool[] | undefined
+            )
+            if (score !== null) scores['criteria_score'] = score
+          }
         }
       }
 
@@ -322,6 +341,91 @@ async function judgeScore(
     const raw = parseFloat(match[0])
     const score = raw <= 1 ? raw * 100 : raw <= 10 ? raw * 10 : raw
     return Math.min(100, Math.max(0, parseFloat(score.toFixed(2))))
+  } catch {
+    return null
+  }
+}
+
+// ── Criteria-grounded judge ──────────────────────────────────────────
+// Evaluates agent output (text + tool calls) against natural-language
+// assertion criteria. Returns 0-100: (criteria passed / total) * 100.
+async function criteriaJudgeScore(
+  config: OpenAIConfig,
+  question: string,
+  agentAnswer: string,
+  toolCalls: RecordLog['tool_calls'],
+  criteria: string[],
+  signal: AbortSignal,
+  toolDefinitions?: OpenAITool[]
+): Promise<number | null> {
+  const criteriaList = criteria
+    .map((c, i) => `${i + 1}. ${c}`)
+    .join('\n')
+
+  // Build tool schema section so judge can verify names + arg names
+  const toolSchemaSection = toolDefinitions && toolDefinitions.length > 0
+    ? `\nAvailable tool definitions (judge MUST use these to verify tool name and argument names are correct):\n${
+        toolDefinitions.map(t => {
+          const fn = t.function
+          const params = fn.parameters?.properties
+            ? Object.entries(fn.parameters.properties as Record<string, {type?: string; description?: string}>)
+                .map(([k, v]) => `    - ${k} (${v.type ?? 'any'}): ${v.description ?? ''}`)
+                .join('\n')
+            : '    (no parameters)'
+          const required: string[] = (fn.parameters?.required as string[]) ?? []
+          return `  • ${fn.name}: ${fn.description ?? ''}\n    Parameters:\n${params}\n    Required: [${required.join(', ')}]`
+        }).join('\n')
+      }`
+    : ''
+
+  // Build a readable representation of tool calls
+  const toolCallSection = toolCalls && toolCalls.length > 0
+    ? `\nAgent tool calls made:\n${toolCalls.map((tc, i) => {
+        let args = ''
+        try { args = JSON.stringify(JSON.parse(tc.function?.arguments || '{}'), null, 2) } catch { args = tc.function?.arguments || '' }
+        return `  ${i + 1}. ${tc.function?.name}(${args})`
+      }).join('\n')}`
+    : ''
+
+  const agentResponseSection = agentAnswer
+    ? `\nAgent text response:\n"""\n${agentAnswer}\n"""`
+    : '\nAgent text response: (none — agent responded with tool calls only)'
+
+  const prompt = `You are evaluating an AI agent's response against specific success criteria.
+This agent uses function/tool calls to perform actions. Evaluate based on BOTH the text response and the tool calls made.
+${toolSchemaSection}
+User message sent to agent:
+"""
+${question}
+"""
+${agentResponseSection}${toolCallSection}
+
+IMPORTANT:
+- If tool definitions are provided above, a tool call is only valid if the tool name exactly matches one of the defined tools AND the argument names match the defined parameter names. A tool call with an invented name or wrong argument names must be marked as FAIL even if the intent seems correct.
+- If the agent made a valid tool call with correct name and arguments, evaluate whether it satisfies the criteria. An agent that calls the right tool with the right arguments satisfies "action" criteria even if there is no text output.
+- If the agent asked for clarification when required info is missing, that satisfies "ask for clarification" criteria.
+
+Evaluate whether the agent's response satisfies each criterion below.
+For each criterion, answer only "pass" or "fail".
+
+Criteria:
+${criteriaList}
+
+Respond with ONLY a JSON array of "pass"/"fail" values, one per criterion, in order.
+Example for 3 criteria: ["pass", "fail", "pass"]
+No explanation. No markdown.`
+
+  try {
+    const res = await chatCompletion(
+      config,
+      [{ role: 'user', content: prompt }],
+      signal
+    )
+    const text = (res.choices[0]?.message?.content || '').trim()
+    const cleaned = text.replace(/^```(?:json)?\n?/m, '').replace(/\n?```$/m, '').trim()
+    const results: string[] = JSON.parse(cleaned)
+    const passed = results.filter(r => r.toLowerCase().trim() === 'pass').length
+    return Math.round((passed / criteria.length) * 100)
   } catch {
     return null
   }

@@ -8,13 +8,13 @@ import { Progress } from '@/components/ui/progress'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { toast } from 'sonner'
 import { startEval, stopEval, EvalConfig } from '@/lib/evalRunner'
-import { Play, Square, CheckCircle2, XCircle, Loader2, Trophy, AlertCircle, RefreshCw } from 'lucide-react'
+import { Play, Square, CheckCircle2, XCircle, Loader2, Trophy, AlertCircle, RefreshCw, Trash2 } from 'lucide-react'
 import Link from 'next/link'
 
 function fmt(v: number) { return v.toFixed(1) + '%' }
 
 export default function RunPage() {
-  const { datasets } = useDatasetsStore()
+  const { datasets, removeDataset } = useDatasetsStore()
   const config = useConfigStore()
   const [hydrated, setHydrated] = useState(false)
 
@@ -235,9 +235,9 @@ export default function RunPage() {
                     const withRef = ds.data.filter(r => r.reference && r.reference !== '').length
                     const checked = selectedIds.has(ds.id)
                     return (
-                      <label
+                      <div
                         key={ds.id}
-                        className={`flex items-start gap-2.5 px-2 py-2 rounded-lg cursor-pointer transition-colors ${
+                        className={`group flex items-start gap-2.5 px-2 py-2 rounded-lg transition-colors ${
                           checked ? 'bg-amber-50' : 'hover:bg-[#F9F9F8]'
                         }`}
                       >
@@ -245,9 +245,9 @@ export default function RunPage() {
                           type="checkbox"
                           checked={checked}
                           onChange={() => toggleDataset(ds.id)}
-                          className="accent-[#D97706] mt-0.5 shrink-0"
+                          className="accent-[#D97706] mt-0.5 shrink-0 cursor-pointer"
                         />
-                        <div className="flex-1 min-w-0">
+                        <div className="flex-1 min-w-0 cursor-pointer" onClick={() => toggleDataset(ds.id)}>
                           <div className="flex items-center gap-1.5">
                             <span className="text-xs font-medium text-[#1A1A1A] truncate">{ds.metadata.task_name}</span>
                             {withRef < ds.data.length && (
@@ -261,7 +261,20 @@ export default function RunPage() {
                             <span className="truncate">{(ds.metadata.gt_metrics || []).slice(0, 2).join(', ') || 'no metrics'}</span>
                           </div>
                         </div>
-                      </label>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            removeDataset(ds.id)
+                            setSelectedIds(prev => { const n = new Set(prev); n.delete(ds.id); return n })
+                            toast(`Removed "${ds.metadata.task_name}"`)
+                          }}
+                          disabled={isRunning}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-0.5 p-0.5 rounded text-[#9B9B9B] hover:text-red-500 disabled:pointer-events-none"
+                          title="Remove dataset"
+                        >
+                          <Trash2 size={12} />
+                        </button>
+                      </div>
                     )
                   })}
                 </div>

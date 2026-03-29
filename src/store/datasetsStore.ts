@@ -12,6 +12,51 @@ interface DatasetsState {
   clearAll: () => void
 }
 
+// Strip heavy fields before writing to localStorage.
+// `context` on each record can be very large (full document, metadata blocks, etc.)
+// and is only needed at eval-run time — it survives in-memory fine.
+// `output` is always empty on upload and doesn't need persisting either.
+function trimForStorage(datasets: Dataset[]): Dataset[] {
+  return datasets.map(d => ({
+    ...d,
+    data: d.data.map(r => ({
+      ...r,
+      context: r.context ? r.context.slice(0, 300) : r.context,
+      output: '',
+    })),
+  }))
+}
+
+const quotaSafeStorage = {
+  getItem: (key: string) => {
+    try { return JSON.parse(localStorage.getItem(key) ?? 'null') } catch { return null }
+  },
+  setItem: (key: string, value: unknown) => {
+    const serialized = JSON.stringify(value)
+    try {
+      localStorage.setItem(key, serialized)
+    } catch {
+      // QuotaExceededError — try trimming context first, then drop oldest dataset
+      try {
+        const parsed = JSON.parse(serialized) as { state?: { datasets?: Dataset[] } }
+        if (parsed?.state?.datasets) {
+          parsed.state.datasets = trimForStorage(parsed.state.datasets)
+          try {
+            localStorage.setItem(key, JSON.stringify(parsed))
+            return
+          } catch { /* still too big, drop oldest */ }
+          if (parsed.state.datasets.length > 1) {
+            parsed.state.datasets = parsed.state.datasets.slice(1)
+            try { localStorage.setItem(key, JSON.stringify(parsed)) } catch { /* give up */ }
+          }
+        }
+      } catch { /* give up */ }
+      console.warn('[datasetsStore] localStorage quota exceeded — some data not persisted')
+    }
+  },
+  removeItem: (key: string) => localStorage.removeItem(key),
+}
+
 export const useDatasetsStore = create<DatasetsState>()(
   persist(
     (set) => ({
@@ -55,6 +100,27 @@ export const useDatasetsStore = create<DatasetsState>()(
 
       clearAll: () => set({ datasets: [] }),
     }),
-    { name: 'eval.datasets' }
+    {
+      name: 'eval.datasets',
+      storage: quotaSafeStorage,
+      // Only persist metadata + record IDs/inputs/references.
+      // context & output are large and can be rebuilt — don't persist them.
+      partialize: (state) => ({
+        datasets: state.datasets.map(d => ({
+          ...d,
+          data: d.data.map(r => ({
+            id: r.id,
+            input: r.input,
+            output: '',
+            reference: r.reference,
+            // context: truncate to 4000 chars to stay within quota
+            // (system prompts are typically <2000 chars — this is safe)
+            ...(r.context ? { context: (r.context as string).slice(0, 4000) } : {}),
+            // tools: keep as-is (JSON schema definitions, not large)
+            ...(r.tools ? { tools: r.tools } : {}),
+          })),
+        })),
+      }),
+    }
   )
 )
