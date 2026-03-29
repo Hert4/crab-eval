@@ -10,6 +10,8 @@ import { generateGT, GTConfig, GTProgress, DEFAULT_GT_PROMPT } from '@/lib/gtGen
 import { getApiKey, setApiKey } from '@/lib/openai'
 import { Wand2, ChevronDown, ChevronUp, Check, X, Loader2, Save } from 'lucide-react'
 
+const inputCls = 'w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)] transition-colors'
+
 type RecordFilter = 'all' | 'empty_ref' | 'has_output'
 
 interface LogEntry extends GTProgress {
@@ -133,8 +135,8 @@ export default function GTGeneratorPage() {
     <div className="p-8 max-w-5xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-[#1A1A1A] tracking-tight">GT Generator</h1>
-        <p className="text-[#6B6B6B] text-sm mt-1">
+        <h1 className="text-2xl font-semibold text-[var(--crab-text)] tracking-tight">GT Generator</h1>
+        <p className="text-[var(--crab-text-secondary)] text-sm mt-1">
           Use an LLM to generate ground-truth references for your datasets.
         </p>
       </div>
@@ -142,16 +144,16 @@ export default function GTGeneratorPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Config */}
         <div className="space-y-5">
-          <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
-            <h2 className="text-sm font-semibold text-[#1A1A1A] mb-4">Dataset & Filter</h2>
+          <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
+            <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-4">Dataset & Filter</h2>
 
             <div className="space-y-3">
               <div>
-                <label className="text-xs text-[#6B6B6B] mb-1 block">Dataset</label>
+                <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Dataset</label>
                 <select
                   value={selectedDatasetId}
                   onChange={e => setSelectedDatasetId(e.target.value)}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm bg-white text-[#1A1A1A] outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className={inputCls}
                 >
                   {datasets.length === 0 && <option value="">No datasets uploaded</option>}
                   {datasets.map(d => (
@@ -161,7 +163,7 @@ export default function GTGeneratorPage() {
               </div>
 
               <div>
-                <label className="text-xs text-[#6B6B6B] mb-1 block">Records to process</label>
+                <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Records to process</label>
                 <div className="flex gap-2">
                   {(['all', 'empty_ref', 'has_output'] as RecordFilter[]).map(f => (
                     <button
@@ -169,63 +171,63 @@ export default function GTGeneratorPage() {
                       onClick={() => setFilter(f)}
                       className={`text-xs px-3 py-1.5 rounded-lg border transition-colors ${
                         filter === f
-                          ? 'bg-[#1A1A1A] text-white border-[#1A1A1A]'
-                          : 'bg-white text-[#6B6B6B] border-[#E5E5E4] hover:border-[#9B9B9B]'
+                          ? 'bg-[var(--crab-accent)] text-[var(--crab-text)] border-[var(--crab-accent)]'
+                          : 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] border-[var(--crab-border-strong)] hover:border-[var(--crab-accent)]'
                       }`}
                     >
                       {f === 'all' ? 'All' : f === 'empty_ref' ? 'Empty reference' : 'Has output'}
                     </button>
                   ))}
                 </div>
-                <p className="text-xs text-[#9B9B9B] mt-1.5">
+                <p className="text-xs text-[var(--crab-text-muted)] mt-1.5">
                   {filteredCount} records selected
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
-            <h2 className="text-sm font-semibold text-[#1A1A1A] mb-4">Model Config</h2>
+          <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
+            <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-4">Model Config</h2>
 
             <div className="space-y-3">
               <div>
-                <label className="text-xs text-[#6B6B6B] mb-1 block">Base URL</label>
+                <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Base URL</label>
                 <input
                   type="text"
                   value={baseUrl}
                   onChange={e => setBaseUrl(e.target.value)}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className={inputCls}
                   placeholder="https://api.openai.com/v1"
                 />
               </div>
               <div>
-                <label className="text-xs text-[#6B6B6B] mb-1 block">API Key</label>
+                <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">API Key</label>
                 <input
                   type="password"
                   value={apiKey}
                   onChange={e => setApiKeyState(e.target.value)}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className={inputCls}
                   placeholder="sk-..."
                 />
-                <p className="text-[10px] text-[#9B9B9B] mt-1">Stored in sessionStorage only</p>
+                <p className="text-[10px] text-[var(--crab-text-muted)] mt-1">Stored in localStorage — persisted across sessions</p>
               </div>
               <div>
-                <label className="text-xs text-[#6B6B6B] mb-1 block">Model</label>
+                <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Model</label>
                 <input
                   type="text"
                   value={model}
                   onChange={e => setModel(e.target.value)}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className={inputCls}
                   placeholder="gpt-4o"
                 />
               </div>
               <div>
-                <label className="text-xs text-[#6B6B6B] mb-1 block">Delay between requests (ms)</label>
+                <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Delay between requests (ms)</label>
                 <input
                   type="number"
                   value={delayMs}
                   onChange={e => setDelayMs(Number(e.target.value))}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className={inputCls}
                   min={0}
                 />
               </div>
@@ -233,9 +235,9 @@ export default function GTGeneratorPage() {
           </div>
 
           {/* Prompt template */}
-          <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
+          <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
             <button
-              className="flex items-center justify-between w-full text-sm font-semibold text-[#1A1A1A]"
+              className="flex items-center justify-between w-full text-sm font-semibold text-[var(--crab-text)]"
               onClick={() => setShowPrompt(v => !v)}
             >
               Prompt Template
@@ -246,10 +248,10 @@ export default function GTGeneratorPage() {
                 value={promptTemplate}
                 onChange={e => setPromptTemplate(e.target.value)}
                 rows={10}
-                className="mt-3 w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-xs font-mono outline-none focus:ring-1 focus:ring-[#1A1A1A] resize-none"
+                className={`mt-3 ${inputCls} text-xs font-mono resize-none`}
               />
             )}
-            <p className="text-[10px] text-[#9B9B9B] mt-2">
+            <p className="text-[10px] text-[var(--crab-text-muted)] mt-2">
               Use <code>{'{{input}}'}</code>, <code>{'{{context}}'}</code>, <code>{'{{#if context}}...{{/if}}'}</code>
             </p>
           </div>
@@ -260,7 +262,7 @@ export default function GTGeneratorPage() {
               <Button
                 onClick={handleRun}
                 disabled={!selectedDatasetId || filteredCount === 0}
-                className="bg-[#1A1A1A] text-white hover:bg-[#333] flex items-center gap-2"
+                className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2"
               >
                 <Wand2 size={14} />
                 Generate GT ({filteredCount} records)
@@ -269,7 +271,7 @@ export default function GTGeneratorPage() {
               <Button
                 variant="outline"
                 onClick={() => abortRef.current?.abort()}
-                className="border-red-200 text-red-600 hover:bg-red-50"
+                className="border-red-500/30 text-red-400 hover:bg-red-500/10"
               >
                 <X size={14} className="mr-1" /> Stop
               </Button>
@@ -281,21 +283,21 @@ export default function GTGeneratorPage() {
         <div className="space-y-4">
           {/* Progress */}
           {running && progress && (
-            <div className="bg-white border border-[#E5E5E4] rounded-xl p-4">
+            <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-[#6B6B6B]">Generating…</span>
-                <span className="text-xs text-[#9B9B9B]">{progress.index} / {progress.total}</span>
+                <span className="text-xs text-[var(--crab-text-secondary)]">Generating…</span>
+                <span className="text-xs text-[var(--crab-text-muted)]">{progress.index} / {progress.total}</span>
               </div>
               <Progress value={progress.total ? (progress.index / progress.total) * 100 : 0} className="h-1.5" />
-              <p className="text-xs text-[#9B9B9B] mt-1.5 truncate">{progress.recordId}</p>
+              <p className="text-xs text-[var(--crab-text-muted)] mt-1.5 truncate">{progress.recordId}</p>
             </div>
           )}
 
           {/* Pending results */}
           {pendingRefs.size > 0 && (
-            <div className="bg-white border border-[#E5E5E4] rounded-xl p-4">
+            <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-semibold text-[#1A1A1A]">Generated References</span>
+                <span className="text-sm font-semibold text-[var(--crab-text)]">Generated References</span>
                 <Button
                   size="sm"
                   onClick={handleSaveAll}
@@ -307,15 +309,15 @@ export default function GTGeneratorPage() {
               <ScrollArea className="h-64">
                 <div className="space-y-2">
                   {Array.from(pendingRefs.entries()).map(([id, ref]) => (
-                    <div key={id} className="bg-[#F9F9F8] rounded-lg p-3 text-xs">
+                    <div key={id} className="bg-[var(--crab-bg-tertiary)] rounded-lg p-3 text-xs">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <span className="font-mono text-[#9B9B9B] text-[10px]">{id}</span>
-                          <p className="text-[#1A1A1A] mt-1 line-clamp-3">{ref}</p>
+                          <span className="font-mono text-[var(--crab-text-muted)] text-[10px]">{id}</span>
+                          <p className="text-[var(--crab-text)] mt-1 line-clamp-3">{ref}</p>
                         </div>
                         <button
                           onClick={() => handleSaveOne(id, ref)}
-                          className="shrink-0 text-emerald-600 hover:text-emerald-700 p-1"
+                          className="shrink-0 text-emerald-400 hover:text-emerald-300 p-1"
                           title="Save this one"
                         >
                           <Check size={13} />
@@ -330,18 +332,18 @@ export default function GTGeneratorPage() {
 
           {/* Log */}
           {logs.length > 0 && (
-            <div className="bg-white border border-[#E5E5E4] rounded-xl p-4">
-              <h3 className="text-sm font-semibold text-[#1A1A1A] mb-3">Log</h3>
+            <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
+              <h3 className="text-sm font-semibold text-[var(--crab-text)] mb-3">Log</h3>
               <ScrollArea className="h-64">
                 <div className="space-y-1">
                   {logs.slice(-100).reverse().map((l, i) => (
                     <div key={i} className="flex items-center gap-2 text-xs py-1">
-                      <span className="text-[#9B9B9B] w-14 shrink-0">{l.timestamp}</span>
-                      {l.status === 'running' && <Loader2 size={11} className="animate-spin text-amber-500 shrink-0" />}
-                      {l.status === 'done' && <Check size={11} className="text-emerald-500 shrink-0" />}
-                      {l.status === 'error' && <X size={11} className="text-red-500 shrink-0" />}
-                      <span className="font-mono text-[#9B9B9B] truncate">{l.recordId}</span>
-                      {l.error && <span className="text-red-500 truncate">{l.error}</span>}
+                      <span className="text-[var(--crab-text-muted)] w-14 shrink-0">{l.timestamp}</span>
+                      {l.status === 'running' && <Loader2 size={11} className="animate-spin text-[var(--crab-accent)] shrink-0" />}
+                      {l.status === 'done' && <Check size={11} className="text-emerald-400 shrink-0" />}
+                      {l.status === 'error' && <X size={11} className="text-red-400 shrink-0" />}
+                      <span className="font-mono text-[var(--crab-text-muted)] truncate">{l.recordId}</span>
+                      {l.error && <span className="text-red-400 truncate">{l.error}</span>}
                     </div>
                   ))}
                 </div>
@@ -350,7 +352,7 @@ export default function GTGeneratorPage() {
           )}
 
           {!running && logs.length === 0 && (
-            <div className="bg-white border border-[#E5E5E4] rounded-xl p-10 text-center text-[#9B9B9B]">
+            <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
               <Wand2 size={32} className="mx-auto mb-3" strokeWidth={1.2} />
               <p className="text-sm">Configure and click Generate GT to start.</p>
             </div>

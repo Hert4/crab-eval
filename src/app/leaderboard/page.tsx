@@ -33,8 +33,8 @@ const METRIC_SHORT: Record<string, string> = {
 }
 
 const PALETTE = [
-  '#D97706', '#059669', '#3B82F6', '#8B5CF6', '#EF4444',
-  '#0EA5E9', '#10B981', '#F59E0B', '#6366F1', '#EC4899',
+  '#c96442', '#8fba7a', '#7dbfd4', '#b48ade', '#f87171',
+  '#38bdf8', '#34d399', '#fbbf24', '#818cf8', '#f472b6',
 ]
 
 function modelColor(i: number) { return PALETTE[i % PALETTE.length] }
@@ -142,21 +142,21 @@ function RankCell({ rank }: { rank: number }) {
   if (rank === 1) return <span className="text-lg">🥇</span>
   if (rank === 2) return <span className="text-lg">🥈</span>
   if (rank === 3) return <span className="text-lg">🥉</span>
-  return <span className="text-sm text-[#9B9B9B]">{rank}</span>
+  return <span className="text-sm text-[var(--crab-text-muted)]">{rank}</span>
 }
 
 // ── Score cell ───────────────────────────────────────────────────────
 function ScoreCell({ v, isBest, showBar, maxVal }: { v: number | null; isBest: boolean; showBar: boolean; maxVal: number }) {
-  if (v == null) return <td className="text-right text-[#9B9B9B] text-xs py-2.5 px-3">—</td>
+  if (v == null) return <td className="text-right text-[var(--crab-text-muted)] text-xs py-2.5 px-3">—</td>
   const pct = maxVal > 0 ? Math.min(100, (v / maxVal) * 100) : 0
-  const color = v >= 80 ? '#059669' : v >= 60 ? '#3B82F6' : v >= 40 ? '#D97706' : '#EF4444'
+  const color = v >= 80 ? '#8fba7a' : v >= 60 ? '#7dbfd4' : v >= 40 ? '#c96442' : '#f87171'
   return (
     <td className={`text-right py-2.5 px-3 text-xs font-mono ${isBest ? 'font-bold' : ''}`}
-      style={isBest ? { color } : { color: '#1A1A1A' }}>
+      style={isBest ? { color } : { color: 'var(--crab-text)' }}>
       {showBar ? (
         <div className="flex items-center justify-end gap-2">
           <span>{fmt(v)}</span>
-          <div className="w-12 h-1 bg-[#E5E5E4] rounded-full overflow-hidden">
+          <div className="w-12 h-1 bg-[var(--crab-bg-tertiary)] rounded-full overflow-hidden">
             <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
           </div>
         </div>
@@ -280,7 +280,7 @@ export default function LeaderboardPage() {
     <th
       onClick={() => handleSort(col)}
       className={`text-right py-2.5 px-3 text-[10px] uppercase tracking-wider cursor-pointer select-none whitespace-nowrap ${
-        sortCol === col ? 'text-amber-600' : 'text-[#9B9B9B] hover:text-[#6B6B6B]'
+        sortCol === col ? 'text-[var(--crab-accent)]' : 'text-[var(--crab-text-muted)] hover:text-[var(--crab-text-secondary)]'
       }`}
     >
       {children}{sortCol === col ? (sortAsc ? ' ↑' : ' ↓') : ''}
@@ -295,9 +295,9 @@ export default function LeaderboardPage() {
     return (
       <div className="p-8 max-w-5xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold text-[#1A1A1A] tracking-tight">Leaderboard</h1>
+          <h1 className="text-2xl font-semibold text-[var(--crab-text)] tracking-tight">Leaderboard</h1>
         </div>
-        <div className="bg-white border border-[#E5E5E4] rounded-xl p-16 text-center text-[#9B9B9B]">
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-16 text-center text-[var(--crab-text-muted)]">
           <Trophy size={40} className="mx-auto mb-4" strokeWidth={1.2} />
           <p className="text-sm mb-4">No evaluation runs yet.</p>
           <div className="flex gap-3 justify-center">
@@ -305,13 +305,13 @@ export default function LeaderboardPage() {
               variant="outline"
               onClick={loadFromDisk}
               disabled={loadingDisk}
-              className="flex items-center gap-2 border-[#E5E5E4] text-[#6B6B6B] hover:bg-[#F9F9F8] text-sm"
+              className="flex items-center gap-2 border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:bg-[var(--crab-bg-hover)] text-sm"
             >
               {loadingDisk ? <Loader2 size={14} className="animate-spin" /> : <FolderOpen size={14} />}
               Load from results/ folder
             </Button>
             <Link href="/run">
-              <Button className="bg-[#1A1A1A] text-white hover:bg-[#333] text-sm">Run Evaluation</Button>
+              <Button className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] text-sm">Run Evaluation</Button>
             </Link>
           </div>
         </div>
@@ -324,15 +324,15 @@ export default function LeaderboardPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-600 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--crab-accent)] bg-[var(--crab-accent-light)] border border-[var(--crab-accent-medium)] px-2.5 py-1 rounded-full">
             Benchmark Leaderboard · {activeGroups.length} groups
           </span>
         </div>
-        <h1 className="text-3xl font-bold text-[#1A1A1A] tracking-tight mb-2">
+        <h1 className="text-3xl font-bold text-[var(--crab-text)] tracking-tight mb-2">
           {(() => {
             // Show "ModelA vs ModelB" only when exactly 2 models with significantly different scores
             if (filtered.length === 2) {
-              return <>{filtered[0].model} <span className="text-[#9B9B9B] font-normal text-2xl">vs</span> {filtered[1].model}</>
+              return <>{filtered[0].model} <span className="text-[var(--crab-text-muted)] font-normal text-2xl">vs</span> {filtered[1].model}</>
             }
             return 'Leaderboard'
           })()}
@@ -342,12 +342,12 @@ export default function LeaderboardPage() {
           {filtered.slice(0, 2).map((r, i) => {
             const score = getGlobalAvg(r, activeGroupIds, activeGroups)
             return (
-              <div key={r.runId} className="bg-white border border-[#E5E5E4] rounded-xl px-4 py-3 flex items-center gap-3">
+              <div key={r.runId} className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl px-4 py-3 flex items-center gap-3">
                 <div className="w-2.5 h-2.5 rounded-full" style={{ background: modelColor(i) }} />
                 <div>
-                  <div className="text-xs font-semibold text-[#1A1A1A]">{r.model}</div>
+                  <div className="text-xs font-semibold text-[var(--crab-text)]">{r.model}</div>
                   <div className="text-2xl font-bold" style={{ color: modelColor(i) }}>{fmt(score)}</div>
-                  <div className="text-[10px] text-[#9B9B9B]">global avg</div>
+                  <div className="text-[10px] text-[var(--crab-text-muted)]">global avg</div>
                 </div>
               </div>
             )
@@ -356,14 +356,14 @@ export default function LeaderboardPage() {
       </div>
 
       {/* Toolbar */}
-      <div className="flex items-center gap-3 mb-4 flex-wrap border-b border-[#E5E5E4] pb-4">
+      <div className="flex items-center gap-3 mb-4 flex-wrap border-b border-[var(--crab-border)] pb-4">
         <div className="relative flex-1 min-w-44">
-          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#9B9B9B]" />
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--crab-text-muted)]" />
           <Input
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search models…"
-            className="pl-8 h-8 text-sm border-[#E5E5E4]"
+            className="pl-8 h-8 text-sm border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] text-[var(--crab-text)] placeholder-[var(--crab-text-muted)]"
           />
         </div>
         <Button
@@ -371,7 +371,7 @@ export default function LeaderboardPage() {
           variant="outline"
           onClick={loadFromDisk}
           disabled={loadingDisk}
-          className="h-8 text-xs gap-1.5 border-[#E5E5E4] text-[#6B6B6B] hover:bg-[#F9F9F8]"
+          className="h-8 text-xs gap-1.5 border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:bg-[var(--crab-bg-hover)]"
         >
           {loadingDisk ? <Loader2 size={12} className="animate-spin" /> : <FolderOpen size={12} />}
           Load from disk
@@ -393,7 +393,7 @@ export default function LeaderboardPage() {
               toast.error(`Failed to clear: ${e}`)
             }
           }}
-          className="h-8 text-xs gap-1.5 border-[#E5E5E4] text-red-400 hover:text-red-600 hover:bg-red-50"
+          className="h-8 text-xs gap-1.5 border-[var(--crab-border-strong)] text-red-400 hover:text-red-300 hover:bg-red-500/10"
         >
           <Trash2 size={12} /> Clear all
         </Button>
@@ -402,7 +402,7 @@ export default function LeaderboardPage() {
           variant={mergeMode ? 'default' : 'outline'}
           onClick={() => setMergeMode(v => !v)}
           title={mergeMode ? 'Showing best result per model — optimistic view (click to show all runs)' : 'Showing all runs individually (click to merge by model)'}
-          className={`h-8 text-xs gap-1.5 ${mergeMode ? 'bg-[#1A1A1A] text-white' : 'border-[#E5E5E4] text-[#6B6B6B]'}`}
+          className={`h-8 text-xs gap-1.5 ${mergeMode ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]' : 'border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)]'}`}
         >
           <GitMerge size={12} /> {mergeMode ? 'Best run / model (optimistic)' : 'All runs (statistical view)'}
         </Button>
@@ -410,20 +410,20 @@ export default function LeaderboardPage() {
           size="sm"
           variant={showBars ? 'default' : 'outline'}
           onClick={() => setShowBars(v => !v)}
-          className={`h-8 text-xs gap-1.5 ${showBars ? 'bg-[#1A1A1A] text-white' : 'border-[#E5E5E4] text-[#6B6B6B]'}`}
+          className={`h-8 text-xs gap-1.5 ${showBars ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]' : 'border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)]'}`}
         >
           <BarChart2 size={12} /> Bars
         </Button>
-        <div className="flex border border-[#E5E5E4] rounded-lg overflow-hidden">
+        <div className="flex border border-[var(--crab-border-strong)] rounded-lg overflow-hidden">
           <button
             onClick={() => setViewMode('group')}
-            className={`flex items-center gap-1.5 px-3 h-8 text-xs transition-colors ${viewMode === 'group' ? 'bg-[#1A1A1A] text-white' : 'text-[#6B6B6B] hover:bg-[#F9F9F8]'}`}
+            className={`flex items-center gap-1.5 px-3 h-8 text-xs transition-colors ${viewMode === 'group' ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]' : 'text-[var(--crab-text-secondary)] hover:bg-[var(--crab-bg-hover)]'}`}
           >
             <LayoutGrid size={12} /> Nhóm tác vụ
           </button>
           <button
             onClick={() => setViewMode('task')}
-            className={`flex items-center gap-1.5 px-3 h-8 text-xs border-l border-[#E5E5E4] transition-colors ${viewMode === 'task' ? 'bg-[#1A1A1A] text-white' : 'text-[#6B6B6B] hover:bg-[#F9F9F8]'}`}
+            className={`flex items-center gap-1.5 px-3 h-8 text-xs border-l border-[var(--crab-border-strong)] transition-colors ${viewMode === 'task' ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]' : 'text-[var(--crab-text-secondary)] hover:bg-[var(--crab-bg-hover)]'}`}
           >
             <List size={12} /> Theo task
           </button>
@@ -442,19 +442,19 @@ export default function LeaderboardPage() {
             })}
             className={`text-xs px-3 py-1.5 rounded-full border transition-colors ${
               activeGroupIds.has(g.id)
-                ? 'bg-amber-50 border-amber-300 text-amber-700 font-medium'
-                : 'bg-white border-[#E5E5E4] text-[#9B9B9B] hover:border-[#9B9B9B]'
+                ? 'bg-[var(--crab-accent-light)] border-[var(--crab-accent-medium)] text-[var(--crab-accent)] font-medium'
+                : 'bg-[var(--crab-bg-secondary)] border-[var(--crab-border)] text-[var(--crab-text-muted)] hover:border-[var(--crab-border-strong)]'
             }`}
           >
             {g.label}
           </button>
         ))}
         <button onClick={() => setActiveGroupIds(new Set(activeGroups.map(g => g.id)))}
-          className="text-xs px-3 py-1.5 rounded-full border border-[#E5E5E4] text-[#6B6B6B] hover:border-[#9B9B9B]">
+          className="text-xs px-3 py-1.5 rounded-full border border-[var(--crab-border)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-border-strong)]">
           Tất cả
         </button>
         <button onClick={() => setActiveGroupIds(new Set())}
-          className="text-xs px-3 py-1.5 rounded-full border border-[#E5E5E4] text-[#6B6B6B] hover:border-[#9B9B9B]">
+          className="text-xs px-3 py-1.5 rounded-full border border-[var(--crab-border)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-border-strong)]">
           Bỏ chọn
         </button>
       </div>
@@ -471,15 +471,15 @@ export default function LeaderboardPage() {
           },
           { label: 'Groups active', value: `${activeGroupIds.size} / ${activeGroups.length}` },
           { label: 'Tasks', value: allTasks.length },
-          { label: 'Top Model', value: topModel?.model || '—', color: '#D97706' },
+          { label: 'Top Model', value: topModel?.model || '—', color: '#c96442' },
         ].map(s => (
-          <div key={s.label} className="bg-white border border-[#E5E5E4] rounded-xl px-4 py-3">
-            <div className="text-[10px] text-[#9B9B9B] uppercase tracking-wider">{s.label}</div>
-            <div className="text-lg font-bold mt-0.5" style={'color' in s && s.color ? { color: s.color as string, fontSize: '14px' } : {}}>
+          <div key={s.label} className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl px-4 py-3">
+            <div className="text-[10px] text-[var(--crab-text-muted)] uppercase tracking-wider">{s.label}</div>
+            <div className="text-lg font-bold mt-0.5 text-[var(--crab-text)]" style={'color' in s && s.color ? { color: s.color as string, fontSize: '14px' } : {}}>
               {s.value}
             </div>
             {'note' in s && s.note && (
-              <div className="text-[9px] text-amber-500 mt-0.5">{s.note as string}</div>
+              <div className="text-[9px] text-[var(--crab-accent)] mt-0.5">{s.note as string}</div>
             )}
           </div>
         ))}
@@ -488,13 +488,13 @@ export default function LeaderboardPage() {
       {/* Legend */}
       <div className="flex items-center gap-4 mb-6 flex-wrap">
         {filtered.slice(0, 8).map((r, i) => (
-          <div key={r.runId} className="flex items-center gap-1.5 text-xs text-[#6B6B6B]">
+          <div key={r.runId} className="flex items-center gap-1.5 text-xs text-[var(--crab-text-secondary)]">
             <div className="w-2.5 h-2.5 rounded-sm" style={{ background: modelColor(i) }} />
             {r.model}
           </div>
         ))}
-        <div className="ml-auto flex items-center gap-1.5 text-xs text-[#9B9B9B]">
-          <div className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+        <div className="ml-auto flex items-center gap-1.5 text-xs text-[var(--crab-text-muted)]">
+          <div className="w-2 h-2 rounded-full bg-[var(--crab-accent)] animate-pulse" />
           Live data
         </div>
       </div>
@@ -502,8 +502,8 @@ export default function LeaderboardPage() {
       {/* Bar charts (group mode) */}
       {viewMode === 'group' && filtered.length > 0 && (
         <div className="mb-8">
-          <h2 className="text-base font-semibold text-[#1A1A1A] mb-4 flex items-center gap-2">
-            <TrendingUp size={16} className="text-[#9B9B9B]" />
+          <h2 className="text-base font-semibold text-[var(--crab-text)] mb-4 flex items-center gap-2">
+            <TrendingUp size={16} className="text-[var(--crab-text-muted)]" />
             Hiệu suất theo nhóm tác vụ
           </h2>
           <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
@@ -521,24 +521,26 @@ export default function LeaderboardPage() {
               const barSize = barData.length <= 2 ? 40 : barData.length <= 4 ? 28 : 18
 
               return (
-                <div key={group.id} className="bg-white border border-[#E5E5E4] rounded-xl p-4">
-                  <div className="text-xs font-semibold text-[#1A1A1A] mb-0.5 truncate">{group.label}</div>
-                  <div className="text-[10px] text-[#9B9B9B] mb-2 truncate">{group.tasks.map(taskShort).join(' · ')}</div>
+                <div key={group.id} className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
+                  <div className="text-xs font-semibold text-[var(--crab-text)] mb-0.5 truncate">{group.label}</div>
+                  <div className="text-[10px] text-[var(--crab-text-muted)] mb-2 truncate">{group.tasks.map(taskShort).join(' · ')}</div>
                   <div className="h-36">
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={barData} margin={{ top: 16, right: 4, left: 4, bottom: 0 }} barSize={barSize}>
-                        <CartesianGrid vertical={false} stroke="#F3F3F2" />
+                        <CartesianGrid vertical={false} stroke="var(--crab-border)" />
                         <XAxis
                           dataKey="model"
-                          tick={{ fontSize: 9, fill: '#9B9B9B' }}
+                          tick={{ fontSize: 9, fill: 'var(--crab-text-muted)' }}
                           axisLine={false}
                           tickLine={false}
                           tickFormatter={s => s.length > 10 ? s.slice(0, 9) + '…' : s}
                         />
                         <YAxis hide domain={[minY, maxY]} />
                         <Tooltip
-                          cursor={{ fill: 'rgba(0,0,0,0.03)' }}
-                          contentStyle={{ fontSize: 11, border: '1px solid #E5E5E4', borderRadius: 8, boxShadow: 'none' }}
+                          cursor={{ fill: 'rgba(255,255,255,0.03)' }}
+                          contentStyle={{ fontSize: 11, background: '#201f1e', border: '1px solid rgba(216,211,197,0.20)', borderRadius: 8, boxShadow: 'none', color: '#f7f5f0' }}
+                          itemStyle={{ color: '#b8b4a8' }}
+                          labelStyle={{ color: '#f7f5f0' }}
                           formatter={(v) => [typeof v === 'number' ? v.toFixed(2) + '%' : String(v), 'avg']}
                         />
                         <Bar dataKey="value" radius={[3, 3, 0, 0]}>
@@ -553,7 +555,7 @@ export default function LeaderboardPage() {
                               }
                               return (
                                 <text x={x + width / 2} y={y - 4} textAnchor="middle"
-                                  fontSize={9} fontWeight={600} fill={barData[index]?.color ?? '#6B6B6B'}>
+                                  fontSize={9} fontWeight={600} fill={barData[index]?.color ?? 'var(--crab-text-secondary)'}>
                                   {value?.toFixed(1)}%
                                 </text>
                               )
@@ -572,18 +574,18 @@ export default function LeaderboardPage() {
 
       {/* Table */}
       <div>
-        <h2 className="text-base font-semibold text-[#1A1A1A] mb-4">Toàn bộ metrics</h2>
-        <div className="bg-white border border-[#E5E5E4] rounded-xl overflow-hidden overflow-x-auto">
+        <h2 className="text-base font-semibold text-[var(--crab-text)] mb-4">Toàn bộ metrics</h2>
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl overflow-hidden overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
               {viewMode === 'group' ? (
                 <>
-                  <tr className="bg-[#F9F9F8]">
-                    <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[#9B9B9B] w-10">#</th>
-                    <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[#9B9B9B]">Model</th>
+                  <tr className="bg-[var(--crab-bg-tertiary)]">
+                    <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)] w-10">#</th>
+                    <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)]">Model</th>
                     <ThCell col="global">Global Avg</ThCell>
                     {!mergeMode && runs.some(r => runs.filter(x => x.model === r.model).length >= 2) && (
-                      <th className="text-right py-2.5 px-3 text-[10px] uppercase tracking-wider text-[#9B9B9B] whitespace-nowrap">95% CI</th>
+                      <th className="text-right py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)] whitespace-nowrap">95% CI</th>
                     )}
                     {activeGroups.filter(g => activeGroupIds.has(g.id)).map(g => (
                       <ThCell key={g.id} col={`g|${g.id}`}>{g.label}</ThCell>
@@ -593,12 +595,12 @@ export default function LeaderboardPage() {
                 </>
               ) : (
                 <>
-                  <tr className="bg-[#F9F9F8]">
-                    <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[#9B9B9B] w-10">#</th>
-                    <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[#9B9B9B]">Model</th>
+                  <tr className="bg-[var(--crab-bg-tertiary)]">
+                    <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)] w-10">#</th>
+                    <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)]">Model</th>
                     <ThCell col="global">Global Avg</ThCell>
                     {!mergeMode && runs.some(r => runs.filter(x => x.model === r.model).length >= 2) && (
-                      <th className="text-right py-2.5 px-3 text-[10px] uppercase tracking-wider text-[#9B9B9B] whitespace-nowrap">95% CI</th>
+                      <th className="text-right py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)] whitespace-nowrap">95% CI</th>
                     )}
                     {allTasks.map(t => (
                       <ThCell key={t} col={t}>{taskShort(t)}</ThCell>
@@ -615,39 +617,39 @@ export default function LeaderboardPage() {
                 const showCiCol = false
 
                 return (
-                  <tr key={r.runId} className="border-t border-[#F3F3F2] hover:bg-[#FAFAFA] transition-colors">
+                  <tr key={r.runId} className="border-t border-[var(--crab-border-subtle)] hover:bg-[var(--crab-bg-hover)] transition-colors">
                     <td className="py-2.5 px-3 text-center"><RankCell rank={idx + 1} /></td>
                     <td className="py-2.5 px-3">
                       <div className="flex items-center gap-1.5">
-                        <span className="font-semibold text-[#1A1A1A] text-sm">{r.model}</span>
+                        <span className="font-semibold text-[var(--crab-text)] text-sm">{r.model}</span>
                       </div>
-                      <div className="text-[10px] text-[#9B9B9B]">
+                      <div className="text-[10px] text-[var(--crab-text-muted)]">
                         {r.date}
                         {!mergeMode && (() => {
                           const sameModel = runs.filter(x => x.model === r.model)
                           if (sameModel.length > 1) {
                             const idx2 = sameModel.findIndex(x => x.runId === r.runId) + 1
-                            return <span className="ml-1.5 text-amber-600 font-medium">run #{idx2}</span>
+                            return <span className="ml-1.5 text-[var(--crab-accent)] font-medium">run #{idx2}</span>
                           }
                         })()}
                         {mergeMode && (() => {
                           const stats = computeModelStats(runs, r.model, activeGroupIds, activeGroups)
                           if (!stats) return null
                           return (
-                            <span className="ml-1.5 text-[#9B9B9B]" title={`${stats.count} runs — min ${stats.min.toFixed(1)}% / max ${stats.max.toFixed(1)}% / std ±${stats.std.toFixed(1)}%`}>
+                            <span className="ml-1.5 text-[var(--crab-text-muted)]" title={`${stats.count} runs — min ${stats.min.toFixed(1)}% / max ${stats.max.toFixed(1)}% / std ±${stats.std.toFixed(1)}%`}>
                               {stats.count} runs · ±{stats.std.toFixed(1)}%
                             </span>
                           )
                         })()}
                       </div>
                     </td>
-                    <td className={`text-right py-2.5 px-3 font-mono font-bold text-sm ${isTopGlobal ? 'text-amber-600' : 'text-[#1A1A1A]'}`}>
+                    <td className={`text-right py-2.5 px-3 font-mono font-bold text-sm ${isTopGlobal ? 'text-[var(--crab-accent)]' : 'text-[var(--crab-text)]'}`}>
                       {fmt(globalAvg)}
                     </td>
 
                     {/* CI column */}
                     {showCiCol && (
-                      <td className="text-right py-2.5 px-3 text-[10px] font-mono text-[#9B9B9B] whitespace-nowrap">
+                      <td className="text-right py-2.5 px-3 text-[10px] font-mono text-[var(--crab-text-muted)] whitespace-nowrap">
                         —
                       </td>
                     )}
@@ -681,7 +683,7 @@ export default function LeaderboardPage() {
                           } catch { /* disk delete best-effort */ }
                           toast.success('Run removed')
                         }}
-                        className="text-[#E5E5E4] hover:text-red-400 transition-colors"
+                        className="text-[var(--crab-border-strong)] hover:text-red-400 transition-colors"
                         title="Remove run (from memory + disk)"
                       >
                         <Trash2 size={13} />
@@ -692,7 +694,7 @@ export default function LeaderboardPage() {
               })}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={20} className="text-center py-12 text-[#9B9B9B] text-sm">
+                  <td colSpan={20} className="text-center py-12 text-[var(--crab-text-muted)] text-sm">
                     No models match your search.
                   </td>
                 </tr>

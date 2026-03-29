@@ -2,13 +2,13 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEvalSessionStore } from '@/store/evalSessionStore'
+import { CrabLogo } from './CrabLogo'
 import {
   Database,
   Wand2,
   Settings,
   Play,
   Trophy,
-  FlaskConical,
   Layers,
 } from 'lucide-react'
 
@@ -26,13 +26,13 @@ export function Sidebar() {
   const { isRunning: evalRunning, overallProgress } = useEvalSessionStore()
 
   return (
-    <aside className="w-56 shrink-0 border-r border-[#E5E5E4] bg-[#F9F9F8] flex flex-col h-screen sticky top-0">
+    <aside className="w-56 shrink-0 border-r border-[var(--crab-border)] bg-[var(--crab-bg-secondary)] flex flex-col h-screen sticky top-0">
       {/* Logo */}
-      <div className="h-14 flex items-center px-5 border-b border-[#E5E5E4]">
+      <div className="h-14 flex items-center px-5 border-b border-[var(--crab-border)]">
         <div className="flex items-center gap-2.5">
-          <FlaskConical size={18} className="text-[#D97706]" />
-          <span className="font-semibold text-[15px] text-[#1A1A1A] tracking-tight">
-            Eval Studio
+          <CrabLogo size={22} />
+          <span className="font-semibold text-[15px] text-[var(--crab-text)] tracking-tight">
+            Crab Eval
           </span>
         </div>
       </div>
@@ -48,16 +48,16 @@ export function Sidebar() {
               href={href}
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-[13.5px] font-medium transition-colors ${
                 active
-                  ? 'bg-[#EFEFED] text-[#1A1A1A]'
-                  : 'text-[#6B6B6B] hover:bg-[#EFEFED] hover:text-[#1A1A1A]'
+                  ? 'bg-[var(--crab-accent-light)] text-[var(--crab-accent)]'
+                  : 'text-[var(--crab-text-muted)] hover:bg-[var(--crab-bg-hover)] hover:text-[var(--crab-text)]'
               }`}
             >
               <Icon size={15} strokeWidth={active ? 2.2 : 1.8} />
               <span className="flex-1">{label}</span>
               {isRunPage && evalRunning && (
                 <span className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  <span className="text-[10px] text-amber-600 font-mono">{overallProgress}%</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--crab-accent)] animate-pulse" />
+                  <span className="text-[10px] text-[var(--crab-accent)] font-mono">{overallProgress}%</span>
                 </span>
               )}
             </Link>
@@ -66,8 +66,8 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="px-5 py-4 border-t border-[#E5E5E4]">
-        <p className="text-[11px] text-[#9B9B9B]">
+      <div className="px-5 py-4 border-t border-[var(--crab-border)]">
+        <p className="text-[11px] text-[var(--crab-text-muted)]">
           Data in localStorage
         </p>
       </div>

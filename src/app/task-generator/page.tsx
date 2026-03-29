@@ -75,7 +75,7 @@ const PERSONA_COLORS: Record<string, string> = {
   out_of_scope: 'bg-gray-100 text-gray-600',
 }
 
-const BAR_COLORS = ['#D97706', '#059669', '#7C3AED', '#2563EB', '#DC2626']
+const BAR_COLORS = ['#c96442', '#8fba7a', '#b48ade', '#7dbfd4', '#f87171']
 
 // ── Stepper ───────────────────────────────────────────────────────────
 
@@ -95,24 +95,24 @@ function Stepper({ current }: { current: number }) {
             <div
               className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
                 s.n === current
-                  ? 'bg-[#1A1A1A] text-white'
+                  ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]'
                   : s.n < current
                   ? 'bg-emerald-500 text-white'
-                  : 'bg-[#E5E5E4] text-[#9B9B9B]'
+                  : 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'
               }`}
             >
               {s.n < current ? <Check size={11} /> : s.n}
             </div>
             <span
               className={`text-[13px] font-medium ${
-                s.n === current ? 'text-[#1A1A1A]' : 'text-[#9B9B9B]'
+                s.n === current ? 'text-[var(--crab-text)]' : 'text-[var(--crab-text-muted)]'
               }`}
             >
               {s.label}
             </span>
           </div>
           {i < STEPS.length - 1 && (
-            <ChevronRight size={14} className="text-[#9B9B9B] mx-3" />
+            <ChevronRight size={14} className="text-[var(--crab-text-muted)] mx-3" />
           )}
         </div>
       ))}
@@ -143,17 +143,17 @@ function ModelConfigRow({
   return (
     <div className="grid grid-cols-3 gap-3">
       <div>
-        <label className="text-xs text-[#6B6B6B] mb-1 block">Base URL</label>
+        <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Base URL</label>
         <input
           type="text"
           value={baseUrl}
           onChange={e => setBaseUrl(e.target.value)}
-          className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+          className="w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
           placeholder="https://api.openai.com/v1"
         />
       </div>
       <div>
-        <label className="text-xs text-[#6B6B6B] mb-1 block">API Key</label>
+        <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">API Key</label>
         <input
           type="password"
           value={apiKey}
@@ -161,17 +161,17 @@ function ModelConfigRow({
             setApiKeyState(e.target.value)
             setApiKey(apiKeyName, e.target.value)
           }}
-          className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+          className="w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
           placeholder="sk-..."
         />
       </div>
       <div>
-        <label className="text-xs text-[#6B6B6B] mb-1 block">Model</label>
+        <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Model</label>
         <input
           type="text"
           value={model}
           onChange={e => setModel(e.target.value)}
-          className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+          className="w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
           placeholder="gpt-4o"
         />
       </div>
@@ -383,14 +383,14 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
 
   return (
     <div className="space-y-5">
-      <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
-        <h2 className="text-sm font-semibold text-[#1A1A1A] mb-1">Document</h2>
-        <p className="text-xs text-[#9B9B9B] mb-4">
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
+        <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-1">Document</h2>
+        <p className="text-xs text-[var(--crab-text-muted)] mb-4">
           Paste the agent specification document, or upload a file.
-          Supported: <span className="text-[#6B6B6B]">{ACCEPTED_LABEL}</span>
+          Supported: <span className="text-[var(--crab-text-secondary)]">{ACCEPTED_LABEL}</span>
         </p>
         <div className="flex items-center gap-2 mb-3">
-          <label className={`cursor-pointer flex items-center gap-1.5 text-xs px-3 py-1.5 border border-[#E5E5E4] rounded-lg bg-white text-[#6B6B6B] hover:border-[#9B9B9B] transition-colors ${isParsing ? 'opacity-50 pointer-events-none' : ''}`}>
+          <label className={`cursor-pointer flex items-center gap-1.5 text-xs px-3 py-1.5 border border-[var(--crab-border-strong)] rounded-lg bg-[var(--crab-bg-secondary)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] transition-colors ${isParsing ? 'opacity-50 pointer-events-none' : ''}`}>
             {isParsing
               ? <Loader2 size={12} className="animate-spin text-amber-500" />
               : <Upload size={12} />
@@ -405,13 +405,13 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
             />
           </label>
           {uploadedFilename && !isParsing && (
-            <span className="text-xs text-[#6B6B6B] flex items-center gap-1">
+            <span className="text-xs text-[var(--crab-text-secondary)] flex items-center gap-1">
               <Check size={11} className="text-emerald-500" />
               {uploadedFilename}
             </span>
           )}
           {documentContent && !isParsing && (
-            <span className="text-xs text-[#9B9B9B]">
+            <span className="text-xs text-[var(--crab-text-muted)]">
               {documentContent.length.toLocaleString()} chars
             </span>
           )}
@@ -421,12 +421,12 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
           onChange={e => setDocumentContent(e.target.value)}
           rows={14}
           placeholder="Paste your agent specification document here..."
-          className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2.5 text-sm font-mono outline-none focus:ring-1 focus:ring-[#1A1A1A] resize-none text-[#1A1A1A] placeholder:text-[#C0C0C0]"
+          className="w-full border border-[var(--crab-border-strong)] rounded-lg px-3 py-2.5 text-sm font-mono outline-none focus:ring-1 focus:ring-[var(--crab-accent)] resize-none text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)]"
         />
       </div>
 
-      <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
-        <h2 className="text-sm font-semibold text-[#1A1A1A] mb-4">Extraction Model</h2>
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
+        <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-4">Extraction Model</h2>
         <ModelConfigRow
           apiKeyName="tg_api_key"
           baseUrl={baseUrl}
@@ -434,22 +434,22 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
           model={model}
           setModel={setModel}
         />
-        <p className="text-[10px] text-[#9B9B9B] mt-2">API key stored in sessionStorage only</p>
+        <p className="text-[10px] text-[var(--crab-text-muted)] mt-2">API key stored in localStorage — persisted across sessions</p>
       </div>
 
-      <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-sm font-semibold text-[#1A1A1A]">Agent System Prompt</h2>
+          <h2 className="text-sm font-semibold text-[var(--crab-text)]">Agent System Prompt</h2>
           <div className="flex items-center gap-2">
             {agentSystemPrompt && (
-              <span className="text-[10px] text-emerald-600 flex items-center gap-1">
+              <span className="text-[10px] text-emerald-400 flex items-center gap-1">
                 <Check size={11} /> Auto-generated
               </span>
             )}
             <button
               onClick={handleGenerateSysPrompt}
               disabled={!documentContent.trim() || isGenSysPrompt || isExtracting}
-              className="text-[10px] px-2 py-1 rounded border border-[#E5E5E4] text-[#6B6B6B] hover:border-[#9B9B9B] hover:text-[#1A1A1A] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none"
+              className="text-[10px] px-2 py-1 rounded border border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text)] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none"
             >
               {isGenSysPrompt ? <Loader2 size={10} className="animate-spin" /> : <RefreshCw size={10} />}
               {isGenSysPrompt ? 'Generating...' : 'Generate'}
@@ -457,14 +457,14 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
             {agentSystemPrompt && (
               <button
                 onClick={() => setAgentSystemPrompt('')}
-                className="text-[10px] text-[#9B9B9B] hover:text-red-500 flex items-center gap-1 transition-colors"
+                className="text-[10px] text-[var(--crab-text-muted)] hover:text-red-500 flex items-center gap-1 transition-colors"
               >
                 <X size={10} /> Clear
               </button>
             )}
           </div>
         </div>
-        <p className="text-xs text-[#9B9B9B] mb-3">
+        <p className="text-xs text-[var(--crab-text-muted)] mb-3">
           Paste your agent system prompt here, or click Generate to auto-generate one from the document.
           This will be used as the system prompt when running eval.
         </p>
@@ -473,18 +473,18 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
           onChange={e => setAgentSystemPrompt(e.target.value)}
           rows={agentSystemPrompt ? 10 : 4}
           placeholder="Paste your agent system prompt here..."
-          className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2.5 text-xs font-mono outline-none focus:ring-1 focus:ring-[#1A1A1A] resize-y text-[#1A1A1A] placeholder:text-[#C0C0C0]"
+          className="w-full border border-[var(--crab-border-strong)] rounded-lg px-3 py-2.5 text-xs font-mono outline-none focus:ring-1 focus:ring-[var(--crab-accent)] resize-y text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)]"
         />
       </div>
 
-      <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-sm font-semibold text-[#1A1A1A]">Tool Definitions <span className="font-normal text-[#9B9B9B]">(optional)</span></h2>
+          <h2 className="text-sm font-semibold text-[var(--crab-text)]">Tool Definitions <span className="font-normal text-[var(--crab-text-muted)]">(optional)</span></h2>
           <div className="flex items-center gap-2">
             <button
               onClick={handleGenerateTools}
               disabled={!documentContent.trim() || isGenTools || isExtracting}
-              className="text-[10px] px-2 py-1 rounded border border-[#E5E5E4] text-[#6B6B6B] hover:border-[#9B9B9B] hover:text-[#1A1A1A] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none"
+              className="text-[10px] px-2 py-1 rounded border border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text)] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none"
             >
               {isGenTools ? <Loader2 size={10} className="animate-spin" /> : <RefreshCw size={10} />}
               {isGenTools ? 'Generating...' : 'Generate'}
@@ -492,14 +492,14 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
             {agentToolsJson && (
               <button
                 onClick={() => { setAgentToolsJson(''); setToolsError(null) }}
-                className="text-[10px] text-[#9B9B9B] hover:text-red-500 flex items-center gap-1 transition-colors"
+                className="text-[10px] text-[var(--crab-text-muted)] hover:text-red-500 flex items-center gap-1 transition-colors"
               >
                 <X size={10} /> Clear
               </button>
             )}
           </div>
         </div>
-        <p className="text-xs text-[#9B9B9B] mb-3">
+        <p className="text-xs text-[var(--crab-text-muted)] mb-3">
           Paste the OpenAI-format tool definitions JSON array, or click Generate to auto-generate from the document. These will be passed to the target model on every eval call so it can make function calls.
         </p>
         <textarea
@@ -507,10 +507,10 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
           onChange={e => handleToolsChange(e.target.value)}
           rows={agentToolsJson ? 8 : 3}
           placeholder={'[\n  { "type": "function", "function": { "name": "...", "parameters": { ... } } }\n]'}
-          className={`w-full border rounded-lg px-3 py-2.5 text-xs font-mono outline-none focus:ring-1 resize-y text-[#1A1A1A] placeholder:text-[#C0C0C0] ${
+          className={`w-full border bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2.5 text-xs font-mono outline-none focus:ring-1 resize-y text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)] ${
             toolsError
               ? 'border-red-300 focus:ring-red-400'
-              : 'border-[#E5E5E4] focus:ring-[#1A1A1A]'
+              : 'border-[var(--crab-border-strong)] focus:ring-[var(--crab-accent)]'
           }`}
         />
         {toolsError && (
@@ -519,7 +519,7 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
           </p>
         )}
         {agentToolsJson && !toolsError && (
-          <p className="text-[10px] text-emerald-600 mt-1 flex items-center gap-1">
+          <p className="text-[10px] text-emerald-400 mt-1 flex items-center gap-1">
             <Check size={10} />
             {(() => { try { return (JSON.parse(agentToolsJson) as unknown[]).length } catch { return 0 } })()} tool{(() => { try { return (JSON.parse(agentToolsJson) as unknown[]).length !== 1 ? 's' : '' } catch { return 's' } })()} defined
           </p>
@@ -531,7 +531,7 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
           <Button
             onClick={handleExtract}
             disabled={!documentContent.trim()}
-            className="bg-[#1A1A1A] text-white hover:bg-[#333] flex items-center gap-2"
+            className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2"
           >
             <FlaskConical size={14} />
             Extract Subtasks
@@ -540,7 +540,7 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
           <Button
             variant="outline"
             onClick={() => abortRef.current?.abort()}
-            className="border-red-200 text-red-600 hover:bg-red-50"
+            className="border-red-500/30 text-red-400 hover:bg-red-500/10"
           >
             <X size={14} className="mr-1" /> Stop
           </Button>
@@ -548,17 +548,17 @@ function Step1Extract({ onNext }: { onNext: () => void }) {
       </div>
 
       {log.length > 0 && (
-        <div className="bg-[#F9F9F8] border border-[#E5E5E4] rounded-xl p-4">
-          <h3 className="text-xs font-semibold text-[#6B6B6B] mb-2">Log</h3>
+        <div className="bg-[var(--crab-bg-tertiary)] border border-[var(--crab-border-strong)] rounded-xl p-4">
+          <h3 className="text-xs font-semibold text-[var(--crab-text-secondary)] mb-2">Log</h3>
           <div className="space-y-1">
             {log.map((line, i) => (
               <div key={i} className="flex items-start gap-2 text-xs">
                 {isExtracting && i === log.length - 1 ? (
                   <Loader2 size={11} className="animate-spin text-amber-500 mt-0.5 shrink-0" />
                 ) : (
-                  <span className="text-[#9B9B9B] shrink-0">→</span>
+                  <span className="text-[var(--crab-text-muted)] shrink-0">→</span>
                 )}
-                <span className="text-[#6B6B6B] font-mono">{line}</span>
+                <span className="text-[var(--crab-text-secondary)] font-mono">{line}</span>
               </div>
             ))}
           </div>
@@ -588,45 +588,45 @@ function SubtaskRow({
   const hasWarning = subtask.assertionCriteria.length === 0 || subtask.expectedTools.length === 0
 
   return (
-    <div className={`border rounded-xl overflow-hidden ${hasWarning ? 'border-amber-200' : 'border-[#E5E5E4]'}`}>
+    <div className={`border rounded-xl overflow-hidden ${hasWarning ? 'border-amber-200' : 'border-[var(--crab-border-strong)]'}`}>
       <div
-        className="flex items-center gap-3 px-4 py-3 bg-white cursor-pointer hover:bg-[#F9F9F8] transition-colors"
+        className="flex items-center gap-3 px-4 py-3 bg-[var(--crab-bg-secondary)] cursor-pointer hover:bg-[var(--crab-bg-hover)] transition-colors"
         onClick={() => setExpanded(e => !e)}
       >
         <button
           onClick={e => { e.stopPropagation(); setExpanded(v => !v) }}
-          className="text-[#9B9B9B] shrink-0"
+          className="text-[var(--crab-text-muted)] shrink-0"
         >
           {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
 
-        <span className="font-mono text-[10px] text-[#9B9B9B] w-36 shrink-0 truncate">{subtask.id}</span>
+        <span className="font-mono text-[10px] text-[var(--crab-text-muted)] w-36 shrink-0 truncate">{subtask.id}</span>
 
         {editing ? (
           <input
             value={localName}
             onChange={e => setLocalName(e.target.value)}
             onClick={e => e.stopPropagation()}
-            className="flex-1 border border-[#E5E5E4] rounded px-2 py-0.5 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+            className="flex-1 border border-[var(--crab-border-strong)] rounded px-2 py-0.5 text-sm outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
           />
         ) : (
-          <span className="flex-1 text-sm font-medium text-[#1A1A1A] truncate">{subtask.name}</span>
+          <span className="flex-1 text-sm font-medium text-[var(--crab-text)] truncate">{subtask.name}</span>
         )}
 
         <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0 ${INTENT_COLORS[subtask.intent] || 'bg-gray-100 text-gray-600'}`}>
           {subtask.intent.replace(/_/g, ' ')}
         </span>
 
-        <span className="text-xs text-[#9B9B9B] shrink-0 hidden sm:block truncate max-w-24">{subtask.skillRef}</span>
+        <span className="text-xs text-[var(--crab-text-muted)] shrink-0 hidden sm:block truncate max-w-24">{subtask.skillRef}</span>
 
         <div className="flex items-center gap-1 shrink-0">
           {subtask.expectedTools.slice(0, 3).map((t, i) => (
-            <span key={i} className="text-[10px] bg-[#F0F0EE] text-[#6B6B6B] px-1.5 py-0.5 rounded font-mono">
+            <span key={i} className="text-[10px] bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] px-1.5 py-0.5 rounded font-mono">
               {t.toolName}
             </span>
           ))}
           {subtask.expectedTools.length > 3 && (
-            <span className="text-[10px] text-[#9B9B9B]">+{subtask.expectedTools.length - 3}</span>
+            <span className="text-[10px] text-[var(--crab-text-muted)]">+{subtask.expectedTools.length - 3}</span>
           )}
         </div>
 
@@ -645,7 +645,7 @@ function SubtaskRow({
                 })
                 setEditing(false)
               }}
-              className="text-emerald-600 hover:text-emerald-700 p-1"
+              className="text-emerald-400 hover:text-emerald-700 p-1"
               title="Save"
             >
               <Check size={13} />
@@ -653,7 +653,7 @@ function SubtaskRow({
           ) : (
             <button
               onClick={() => setEditing(true)}
-              className="text-[#9B9B9B] hover:text-[#6B6B6B] p-1"
+              className="text-[var(--crab-text-muted)] hover:text-[var(--crab-text)] p-1"
               title="Edit"
             >
               <RefreshCw size={13} />
@@ -661,7 +661,7 @@ function SubtaskRow({
           )}
           <button
             onClick={onDelete}
-            className="text-[#9B9B9B] hover:text-red-500 p-1"
+            className="text-[var(--crab-text-muted)] hover:text-red-500 p-1"
             title="Delete"
           >
             <Trash2 size={13} />
@@ -670,37 +670,37 @@ function SubtaskRow({
       </div>
 
       {expanded && (
-        <div className="px-4 pb-4 pt-2 bg-[#F9F9F8] border-t border-[#E5E5E4] space-y-3">
+        <div className="px-4 pb-4 pt-2 bg-[var(--crab-bg-tertiary)] border-t border-[var(--crab-border-strong)] space-y-3">
           {editing ? (
             <>
               <div>
-                <label className="text-[10px] text-[#9B9B9B] mb-1 block">Description</label>
+                <label className="text-[10px] text-[var(--crab-text-muted)] mb-1 block">Description</label>
                 <input
                   value={localDesc}
                   onChange={e => setLocalDesc(e.target.value)}
-                  className="w-full border border-[#E5E5E4] rounded px-2 py-1 text-xs outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className="w-full border border-[var(--crab-border-strong)] rounded px-2 py-1 text-xs outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
                 />
               </div>
               <div>
-                <label className="text-[10px] text-[#9B9B9B] mb-1 block">Assertion Criteria (one per line)</label>
+                <label className="text-[10px] text-[var(--crab-text-muted)] mb-1 block">Assertion Criteria (one per line)</label>
                 <textarea
                   value={localCriteria}
                   onChange={e => setLocalCriteria(e.target.value)}
                   rows={4}
-                  className="w-full border border-[#E5E5E4] rounded px-2 py-1 text-xs font-mono outline-none focus:ring-1 focus:ring-[#1A1A1A] resize-none"
+                  className="w-full border border-[var(--crab-border-strong)] rounded px-2 py-1 text-xs font-mono outline-none focus:ring-1 focus:ring-[var(--crab-accent)] resize-none"
                 />
               </div>
             </>
           ) : (
             <>
-              <p className="text-xs text-[#6B6B6B]">{subtask.description}</p>
+              <p className="text-xs text-[var(--crab-text-secondary)]">{subtask.description}</p>
 
               {subtask.assertionCriteria.length > 0 && (
                 <div>
-                  <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wide mb-1">Success Criteria</p>
+                  <p className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide mb-1">Success Criteria</p>
                   <ul className="space-y-1">
                     {subtask.assertionCriteria.map((c, i) => (
-                      <li key={i} className="flex items-start gap-1.5 text-xs text-[#6B6B6B]">
+                      <li key={i} className="flex items-start gap-1.5 text-xs text-[var(--crab-text-secondary)]">
                         <Check size={11} className="text-emerald-500 mt-0.5 shrink-0" />
                         {c}
                       </li>
@@ -711,14 +711,14 @@ function SubtaskRow({
 
               {subtask.requiredInputs.length > 0 && (
                 <div>
-                  <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wide mb-1">Required Inputs</p>
+                  <p className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide mb-1">Required Inputs</p>
                   <div className="flex flex-wrap gap-1.5">
                     {subtask.requiredInputs.map((p, i) => (
-                      <div key={i} className="text-[10px] bg-white border border-[#E5E5E4] rounded px-2 py-1">
-                        <span className="font-mono font-medium text-[#1A1A1A]">{p.name}</span>
-                        <span className="text-[#9B9B9B]"> ({p.type})</span>
+                      <div key={i} className="text-[10px] bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded px-2 py-1">
+                        <span className="font-mono font-medium text-[var(--crab-text)]">{p.name}</span>
+                        <span className="text-[var(--crab-text-muted)]"> ({p.type})</span>
                         {p.sampleValues.length > 0 && (
-                          <span className="text-[#9B9B9B]"> — e.g. {p.sampleValues[0]}</span>
+                          <span className="text-[var(--crab-text-muted)]"> — e.g. {p.sampleValues[0]}</span>
                         )}
                       </div>
                     ))}
@@ -728,10 +728,10 @@ function SubtaskRow({
 
               {subtask.dependsOn.length > 0 && (
                 <div>
-                  <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wide mb-1">Depends On</p>
+                  <p className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide mb-1">Depends On</p>
                   <div className="flex gap-1.5">
                     {subtask.dependsOn.map((d, i) => (
-                      <span key={i} className="text-[10px] font-mono bg-[#E5E5E4] text-[#6B6B6B] rounded px-1.5 py-0.5">{d}</span>
+                      <span key={i} className="text-[10px] font-mono bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] rounded px-1.5 py-0.5">{d}</span>
                     ))}
                   </div>
                 </div>
@@ -772,25 +772,25 @@ function Step2Review({ onNext }: { onNext: () => void }) {
   return (
     <div className="space-y-4">
       {/* Stats bar */}
-      <div className="flex items-center gap-4 bg-white border border-[#E5E5E4] rounded-xl px-5 py-3">
+      <div className="flex items-center gap-4 bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl px-5 py-3">
         <div className="text-sm">
-          <span className="font-semibold text-[#1A1A1A]">{atomicSubtasks.length}</span>
-          <span className="text-[#6B6B6B] ml-1">subtasks</span>
+          <span className="font-semibold text-[var(--crab-text)]">{atomicSubtasks.length}</span>
+          <span className="text-[var(--crab-text-secondary)] ml-1">subtasks</span>
         </div>
-        <div className="w-px h-4 bg-[#E5E5E4]" />
+        <div className="w-px h-4 bg-[var(--crab-bg-tertiary)]" />
         <div className="text-sm">
-          <span className="font-semibold text-[#1A1A1A]">{skillCount}</span>
-          <span className="text-[#6B6B6B] ml-1">skills covered</span>
+          <span className="font-semibold text-[var(--crab-text)]">{skillCount}</span>
+          <span className="text-[var(--crab-text-secondary)] ml-1">skills covered</span>
         </div>
-        <div className="w-px h-4 bg-[#E5E5E4]" />
+        <div className="w-px h-4 bg-[var(--crab-bg-tertiary)]" />
         <div className="text-sm">
-          <span className="font-semibold text-[#1A1A1A]">{toolCount}</span>
-          <span className="text-[#6B6B6B] ml-1">unique tools</span>
+          <span className="font-semibold text-[var(--crab-text)]">{toolCount}</span>
+          <span className="text-[var(--crab-text-secondary)] ml-1">unique tools</span>
         </div>
-        <div className="w-px h-4 bg-[#E5E5E4]" />
+        <div className="w-px h-4 bg-[var(--crab-bg-tertiary)]" />
         <div className="text-sm">
-          <span className="font-semibold text-[#1A1A1A]">{detectedLanguage}</span>
-          <span className="text-[#6B6B6B] ml-1">language</span>
+          <span className="font-semibold text-[var(--crab-text)]">{detectedLanguage}</span>
+          <span className="text-[var(--crab-text-secondary)] ml-1">language</span>
         </div>
         <div className="flex-1" />
         {warnings > 0 && (
@@ -802,7 +802,7 @@ function Step2Review({ onNext }: { onNext: () => void }) {
       </div>
 
       {atomicSubtasks.length === 0 && (
-        <div className="bg-white border border-[#E5E5E4] rounded-xl p-10 text-center text-[#9B9B9B]">
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
           <FlaskConical size={32} className="mx-auto mb-3" strokeWidth={1.2} />
           <p className="text-sm">No subtasks yet. Go back to Step 1 to extract them.</p>
         </div>
@@ -824,7 +824,7 @@ function Step2Review({ onNext }: { onNext: () => void }) {
       <div className="flex gap-2">
         <button
           onClick={handleAddSubtask}
-          className="flex items-center gap-1.5 text-xs px-3 py-1.5 border border-dashed border-[#9B9B9B] rounded-lg text-[#6B6B6B] hover:border-[#1A1A1A] hover:text-[#1A1A1A] transition-colors"
+          className="flex items-center gap-1.5 text-xs px-3 py-1.5 border border-dashed border-[var(--crab-border-strong)] rounded-lg text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text)] transition-colors"
         >
           <Plus size={12} /> Add Subtask
         </button>
@@ -832,7 +832,7 @@ function Step2Review({ onNext }: { onNext: () => void }) {
         <Button
           onClick={onNext}
           disabled={atomicSubtasks.length === 0}
-          className="bg-[#1A1A1A] text-white hover:bg-[#333] flex items-center gap-2"
+          className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2"
         >
           Continue to Compose
           <ArrowRight size={14} />
@@ -854,13 +854,15 @@ function DistributionChart({ data, title }: { data: Record<string, number>; titl
 
   return (
     <div>
-      <p className="text-xs font-semibold text-[#6B6B6B] mb-2">{title}</p>
+      <p className="text-xs font-semibold text-[var(--crab-text-secondary)] mb-2">{title}</p>
       <ResponsiveContainer width="100%" height={120}>
         <BarChart data={chartData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-          <XAxis dataKey="name" tick={{ fontSize: 9, fill: '#9B9B9B' }} />
-          <YAxis tick={{ fontSize: 9, fill: '#9B9B9B' }} />
+          <XAxis dataKey="name" tick={{ fontSize: 9, fill: 'var(--crab-text-muted)' }} />
+          <YAxis tick={{ fontSize: 9, fill: 'var(--crab-text-muted)' }} />
           <Tooltip
-            contentStyle={{ fontSize: '11px', border: '1px solid #E5E5E4', borderRadius: '8px' }}
+            contentStyle={{ fontSize: '11px', background: '#201f1e', border: '1px solid rgba(216,211,197,0.20)', borderRadius: '8px', color: '#f7f5f0' }}
+            itemStyle={{ color: '#b8b4a8' }}
+            labelStyle={{ color: '#f7f5f0' }}
           />
           <Bar dataKey="value" radius={[3, 3, 0, 0]}>
             {chartData.map((_, i) => (
@@ -893,9 +895,9 @@ function PersonaCheckbox({
         type="checkbox"
         checked={checked}
         onChange={e => onChange(e.target.checked)}
-        className="w-3.5 h-3.5 accent-[#D97706]"
+        className="w-3.5 h-3.5 accent-[var(--crab-accent)]"
       />
-      <span className="text-xs text-[#1A1A1A]">{labels[value]}</span>
+      <span className="text-xs text-[var(--crab-text)]">{labels[value]}</span>
     </label>
   )
 }
@@ -920,9 +922,9 @@ function InfoLevelCheckbox({
         type="checkbox"
         checked={checked}
         onChange={e => onChange(e.target.checked)}
-        className="w-3.5 h-3.5 accent-[#D97706]"
+        className="w-3.5 h-3.5 accent-[var(--crab-accent)]"
       />
-      <span className="text-xs text-[#1A1A1A]">{labels[value]}</span>
+      <span className="text-xs text-[var(--crab-text)]">{labels[value]}</span>
     </label>
   )
 }
@@ -997,12 +999,12 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
       {/* Left: Config */}
       <div className="space-y-5">
-        <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
-          <h2 className="text-sm font-semibold text-[#1A1A1A] mb-4">Composition Settings</h2>
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
+          <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-4">Composition Settings</h2>
           <div className="space-y-4">
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-1 block">
-                Max steps per task: <span className="text-[#1A1A1A] font-medium">{composeOptions.maxSteps}</span>
+              <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">
+                Max steps per task: <span className="text-[var(--crab-text)] font-medium">{composeOptions.maxSteps}</span>
               </label>
               <input
                 type="range"
@@ -1010,15 +1012,15 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
                 max={6}
                 value={composeOptions.maxSteps}
                 onChange={e => setComposeOptions({ maxSteps: Number(e.target.value) })}
-                className="w-full accent-[#D97706]"
+                className="w-full accent-[var(--crab-accent)]"
               />
-              <div className="flex justify-between text-[9px] text-[#9B9B9B]">
+              <div className="flex justify-between text-[9px] text-[var(--crab-text-muted)]">
                 <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
               </div>
             </div>
 
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-2 block">Personas</label>
+              <label className="text-xs text-[var(--crab-text-secondary)] mb-2 block">Personas</label>
               <div className="space-y-1.5">
                 {(['expert', 'novice', 'out_of_scope'] as UserPersona[]).map(p => (
                   <PersonaCheckbox
@@ -1037,7 +1039,7 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
             </div>
 
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-2 block">Info Levels</label>
+              <label className="text-xs text-[var(--crab-text-secondary)] mb-2 block">Info Levels</label>
               <div className="space-y-1.5">
                 {(['complete', 'partial', 'ambiguous'] as InfoCompleteness[]).map(l => (
                   <InfoLevelCheckbox
@@ -1061,26 +1063,26 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
                   type="checkbox"
                   checked={composeOptions.includeEdgeCases}
                   onChange={e => setComposeOptions({ includeEdgeCases: e.target.checked })}
-                  className="w-3.5 h-3.5 accent-[#D97706]"
+                  className="w-3.5 h-3.5 accent-[var(--crab-accent)]"
                 />
-                <span className="text-xs text-[#1A1A1A]">Include edge case tasks</span>
+                <span className="text-xs text-[var(--crab-text)]">Include edge case tasks</span>
               </label>
             </div>
 
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-1 block">Target task count</label>
+              <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Target task count</label>
               <input
                 type="number"
                 min={10}
                 max={500}
                 value={composeOptions.targetCount}
                 onChange={e => setComposeOptions({ targetCount: Number(e.target.value) })}
-                className="w-28 border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                className="w-28 border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
               />
             </div>
 
             <div>
-              <label className="text-xs text-[#6B6B6B] mb-1.5 block">Balance by</label>
+              <label className="text-xs text-[var(--crab-text-secondary)] mb-1.5 block">Balance by</label>
               <div className="flex gap-3">
                 {(['difficulty', 'intent', 'both'] as const).map(opt => (
                   <label key={opt} className="flex items-center gap-1.5 cursor-pointer">
@@ -1090,9 +1092,9 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
                       value={opt}
                       checked={composeOptions.balanceBy === opt}
                       onChange={() => setComposeOptions({ balanceBy: opt })}
-                      className="accent-[#D97706]"
+                      className="accent-[var(--crab-accent)]"
                     />
-                    <span className="text-xs text-[#1A1A1A] capitalize">{opt}</span>
+                    <span className="text-xs text-[var(--crab-text)] capitalize">{opt}</span>
                   </label>
                 ))}
               </div>
@@ -1111,7 +1113,7 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
           <Button
             onClick={handleCompose}
             disabled={composing || atomicSubtasks.length === 0}
-            className="bg-[#1A1A1A] text-white hover:bg-[#333] flex items-center gap-2"
+            className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2"
           >
             {composing ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
             Compose Tasks
@@ -1119,7 +1121,7 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
           {compositeTasks.length > 0 && (
             <Button
               onClick={onNext}
-              className="bg-[#D97706] text-white hover:bg-amber-600 flex items-center gap-2"
+              className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2"
             >
               Continue to Generate
               <ArrowRight size={14} />
@@ -1132,10 +1134,10 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
       <div className="space-y-4">
         {compositeTasks.length > 0 ? (
           <>
-            <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
+            <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-sm font-semibold text-[#1A1A1A]">Preview</h2>
-                <span className="text-xs text-[#9B9B9B]">{compositeTasks.length} tasks</span>
+                <h2 className="text-sm font-semibold text-[var(--crab-text)]">Preview</h2>
+                <span className="text-xs text-[var(--crab-text-muted)]">{compositeTasks.length} tasks</span>
               </div>
 
               {!skillCoverageOk && (
@@ -1152,20 +1154,20 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
               </div>
             </div>
 
-            <div className="bg-white border border-[#E5E5E4] rounded-xl p-4">
-              <h3 className="text-xs font-semibold text-[#6B6B6B] mb-3">Sample Tasks</h3>
+            <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
+              <h3 className="text-xs font-semibold text-[var(--crab-text-secondary)] mb-3">Sample Tasks</h3>
               <ScrollArea className="h-64">
                 <div className="space-y-2">
                   {compositeTasks.slice(0, 20).map(t => (
-                    <div key={t.id} className="flex items-center gap-2 text-xs py-1.5 border-b border-[#F0F0EE] last:border-0">
+                    <div key={t.id} className="flex items-center gap-2 text-xs py-1.5 border-b border-[var(--crab-border-subtle)] last:border-0">
                       <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium shrink-0 ${DIFFICULTY_COLORS[t.difficulty]}`}>
                         {t.difficulty}
                       </span>
-                      <span className="text-[#9B9B9B] shrink-0 w-4 text-center">{t.numSteps}</span>
+                      <span className="text-[var(--crab-text-muted)] shrink-0 w-4 text-center">{t.numSteps}</span>
                       <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium shrink-0 ${PERSONA_COLORS[t.persona]}`}>
                         {t.persona}
                       </span>
-                      <span className="text-[#6B6B6B] truncate">{t.name}</span>
+                      <span className="text-[var(--crab-text-secondary)] truncate">{t.name}</span>
                       {t.edgeCaseType && (
                         <span className="text-[9px] bg-gray-100 text-gray-600 px-1 py-0.5 rounded shrink-0">
                           {t.edgeCaseType.replace(/_/g, ' ')}
@@ -1174,7 +1176,7 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
                     </div>
                   ))}
                   {compositeTasks.length > 20 && (
-                    <p className="text-xs text-[#9B9B9B] text-center py-2">
+                    <p className="text-xs text-[var(--crab-text-muted)] text-center py-2">
                       + {compositeTasks.length - 20} more tasks
                     </p>
                   )}
@@ -1183,7 +1185,7 @@ function Step3Compose({ onNext }: { onNext: () => void }) {
             </div>
           </>
         ) : (
-          <div className="bg-white border border-[#E5E5E4] rounded-xl p-10 text-center text-[#9B9B9B]">
+          <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
             <RefreshCw size={32} className="mx-auto mb-3" strokeWidth={1.2} />
             <p className="text-sm">Configure settings and click Compose Tasks.</p>
           </div>
@@ -1199,12 +1201,12 @@ function GeneratedTaskRow({ task }: { task: GeneratedTask }) {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div className="border border-[#E5E5E4] rounded-xl overflow-hidden">
+    <div className="border border-[var(--crab-border-strong)] rounded-xl overflow-hidden">
       <div
-        className="flex items-center gap-3 px-4 py-3 bg-white cursor-pointer hover:bg-[#F9F9F8] transition-colors"
+        className="flex items-center gap-3 px-4 py-3 bg-[var(--crab-bg-secondary)] cursor-pointer hover:bg-[var(--crab-bg-hover)] transition-colors"
         onClick={() => setExpanded(e => !e)}
       >
-        <button className="text-[#9B9B9B] shrink-0">
+        <button className="text-[var(--crab-text-muted)] shrink-0">
           {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
         <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium shrink-0 ${DIFFICULTY_COLORS[task.difficulty]}`}>
@@ -1213,42 +1215,42 @@ function GeneratedTaskRow({ task }: { task: GeneratedTask }) {
         <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium shrink-0 ${PERSONA_COLORS[task.persona]}`}>
           {task.persona}
         </span>
-        <span className="flex-1 text-xs text-[#1A1A1A] truncate">{task.userMessage}</span>
+        <span className="flex-1 text-xs text-[var(--crab-text)] truncate">{task.userMessage}</span>
         <div className="flex gap-1 shrink-0">
           {task.tags.slice(0, 2).map((tag, i) => (
-            <span key={i} className="text-[9px] bg-[#F0F0EE] text-[#6B6B6B] px-1.5 py-0.5 rounded">{tag}</span>
+            <span key={i} className="text-[9px] bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] px-1.5 py-0.5 rounded">{tag}</span>
           ))}
         </div>
       </div>
 
       {expanded && (
-        <div className="px-4 pb-4 pt-3 bg-[#F9F9F8] border-t border-[#E5E5E4] space-y-3">
+        <div className="px-4 pb-4 pt-3 bg-[var(--crab-bg-tertiary)] border-t border-[var(--crab-border-strong)] space-y-3">
           <div>
-            <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wide mb-1">User Message</p>
-            <p className="text-xs text-[#1A1A1A] leading-relaxed">{task.userMessage}</p>
+            <p className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide mb-1">User Message</p>
+            <p className="text-xs text-[var(--crab-text)] leading-relaxed">{task.userMessage}</p>
           </div>
           {task.userMessageAlt && (
             <div>
-              <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wide mb-1">Alternative Phrasing</p>
-              <p className="text-xs text-[#6B6B6B] leading-relaxed italic">{task.userMessageAlt}</p>
+              <p className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide mb-1">Alternative Phrasing</p>
+              <p className="text-xs text-[var(--crab-text-secondary)] leading-relaxed italic">{task.userMessageAlt}</p>
             </div>
           )}
           {task.expectedToolChain.length > 0 && (
             <div>
-              <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wide mb-1">Expected Tool Chain</p>
+              <p className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide mb-1">Expected Tool Chain</p>
               <div className="flex gap-1 flex-wrap">
                 {task.expectedToolChain.map((t, i) => (
-                  <span key={i} className="text-[10px] font-mono bg-white border border-[#E5E5E4] rounded px-1.5 py-0.5">{t}</span>
+                  <span key={i} className="text-[10px] font-mono bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded px-1.5 py-0.5">{t}</span>
                 ))}
               </div>
             </div>
           )}
           {task.assertionCriteria.length > 0 && (
             <div>
-              <p className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wide mb-1">Assertion Criteria</p>
+              <p className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide mb-1">Assertion Criteria</p>
               <ul className="space-y-0.5">
                 {task.assertionCriteria.map((c, i) => (
-                  <li key={i} className="flex items-start gap-1.5 text-xs text-[#6B6B6B]">
+                  <li key={i} className="flex items-start gap-1.5 text-xs text-[var(--crab-text-secondary)]">
                     <Check size={10} className="text-emerald-500 mt-0.5 shrink-0" />
                     {c}
                   </li>
@@ -1258,7 +1260,7 @@ function GeneratedTaskRow({ task }: { task: GeneratedTask }) {
           )}
           {task.edgeCaseType && (
             <div className="flex items-center gap-1.5">
-              <span className="text-[10px] font-semibold text-[#9B9B9B] uppercase tracking-wide">Edge Case:</span>
+              <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide">Edge Case:</span>
               <span className="text-[10px] bg-gray-100 text-gray-600 px-1.5 py-0.5 rounded">{task.edgeCaseType.replace(/_/g, ' ')}</span>
             </div>
           )}
@@ -1431,8 +1433,8 @@ function Step4Generate() {
   return (
     <div className="space-y-5">
       {/* Model config */}
-      <div className="bg-white border border-[#E5E5E4] rounded-xl p-5">
-        <h2 className="text-sm font-semibold text-[#1A1A1A] mb-4">Generation Model</h2>
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
+        <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-4">Generation Model</h2>
         <ModelConfigRow
           apiKeyName="tg_api_key"
           baseUrl={baseUrl}
@@ -1440,8 +1442,8 @@ function Step4Generate() {
           model={model}
           setModel={setModel}
         />
-        <p className="text-[10px] text-[#9B9B9B] mt-2">
-          Questions will be generated in: <span className="font-medium text-[#6B6B6B]">{detectedLanguage}</span>
+        <p className="text-[10px] text-[var(--crab-text-muted)] mt-2">
+          Questions will be generated in: <span className="font-medium text-[var(--crab-text-secondary)]">{detectedLanguage}</span>
         </p>
       </div>
 
@@ -1451,7 +1453,7 @@ function Step4Generate() {
           <Button
             onClick={handleGenerate}
             disabled={compositeTasks.length === 0}
-            className="bg-[#1A1A1A] text-white hover:bg-[#333] flex items-center gap-2"
+            className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2"
           >
             <FlaskConical size={14} />
             Generate Questions ({compositeTasks.length} tasks)
@@ -1460,7 +1462,7 @@ function Step4Generate() {
           <Button
             variant="outline"
             onClick={() => abortRef.current?.abort()}
-            className="border-red-200 text-red-600 hover:bg-red-50"
+            className="border-red-500/30 text-red-400 hover:bg-red-500/10"
           >
             <X size={14} className="mr-1" /> Stop
           </Button>
@@ -1470,7 +1472,7 @@ function Step4Generate() {
           <>
             <Button
               onClick={handleSendToRunEval}
-              className="bg-[#D97706] text-white hover:bg-amber-600 flex items-center gap-1.5"
+              className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-1.5"
             >
               <Play size={13} />
               Send to Run Eval
@@ -1478,7 +1480,7 @@ function Step4Generate() {
             <Button
               variant="outline"
               onClick={handleExportJson}
-              className="flex items-center gap-1.5 text-xs border-[#E5E5E4] text-[#6B6B6B] hover:text-[#1A1A1A]"
+              className="flex items-center gap-1.5 text-xs border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:text-[var(--crab-text)]"
             >
               <Download size={13} />
               Export JSON
@@ -1486,7 +1488,7 @@ function Step4Generate() {
             <Button
               variant="outline"
               onClick={handleSaveToServer}
-              className="flex items-center gap-1.5 text-xs border-[#E5E5E4] text-[#6B6B6B] hover:text-[#1A1A1A]"
+              className="flex items-center gap-1.5 text-xs border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:text-[var(--crab-text)]"
             >
               <Check size={13} />
               Save to Server
@@ -1494,7 +1496,7 @@ function Step4Generate() {
             <Button
               variant="outline"
               onClick={handleCopyScript}
-              className="flex items-center gap-1.5 text-xs border-[#E5E5E4] text-[#6B6B6B] hover:text-[#1A1A1A]"
+              className="flex items-center gap-1.5 text-xs border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:text-[var(--crab-text)]"
             >
               {copied ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} />}
               Copy Messages
@@ -1504,13 +1506,13 @@ function Step4Generate() {
       </div>
 
       {isGenerating && (
-        <div className="bg-white border border-[#E5E5E4] rounded-xl p-4">
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-[#6B6B6B] flex items-center gap-1.5">
+            <span className="text-xs text-[var(--crab-text-secondary)] flex items-center gap-1.5">
               <Loader2 size={11} className="animate-spin text-amber-500" />
               Generating questions...
             </span>
-            <span className="text-xs text-[#9B9B9B]">
+            <span className="text-xs text-[var(--crab-text-muted)]">
               {generateProgress.done} / {generateProgress.total}
             </span>
           </div>
@@ -1520,26 +1522,26 @@ function Step4Generate() {
 
       {/* Stats summary */}
       {stats && generatedTasks.length > 0 && (
-        <div className="bg-white border border-[#E5E5E4] rounded-xl p-4">
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
           <div className="flex flex-wrap gap-4">
             <div className="text-sm">
-              <span className="font-semibold text-[#1A1A1A]">{stats.totalTasks}</span>
-              <span className="text-[#6B6B6B] ml-1">tasks</span>
+              <span className="font-semibold text-[var(--crab-text)]">{stats.totalTasks}</span>
+              <span className="text-[var(--crab-text-secondary)] ml-1">tasks</span>
             </div>
-            <div className="w-px h-4 bg-[#E5E5E4] self-center" />
+            <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
             <div className="text-sm">
-              <span className="font-semibold text-[#1A1A1A]">{stats.avgStepsPerTask}</span>
-              <span className="text-[#6B6B6B] ml-1">avg steps</span>
+              <span className="font-semibold text-[var(--crab-text)]">{stats.avgStepsPerTask}</span>
+              <span className="text-[var(--crab-text-secondary)] ml-1">avg steps</span>
             </div>
-            <div className="w-px h-4 bg-[#E5E5E4] self-center" />
+            <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
             <div className="text-sm">
-              <span className="font-semibold text-[#1A1A1A]">{Math.round(stats.skillCoverage * 100)}%</span>
-              <span className="text-[#6B6B6B] ml-1">skill coverage</span>
+              <span className="font-semibold text-[var(--crab-text)]">{Math.round(stats.skillCoverage * 100)}%</span>
+              <span className="text-[var(--crab-text-secondary)] ml-1">skill coverage</span>
             </div>
-            <div className="w-px h-4 bg-[#E5E5E4] self-center" />
+            <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
             <div className="text-sm">
-              <span className="font-semibold text-[#1A1A1A]">{Math.round(stats.toolCoverage * 100)}%</span>
-              <span className="text-[#6B6B6B] ml-1">tool coverage</span>
+              <span className="font-semibold text-[var(--crab-text)]">{Math.round(stats.toolCoverage * 100)}%</span>
+              <span className="text-[var(--crab-text-secondary)] ml-1">tool coverage</span>
             </div>
           </div>
         </div>
@@ -1556,7 +1558,7 @@ function Step4Generate() {
         </ScrollArea>
       ) : (
         !isGenerating && compositeTasks.length > 0 && (
-          <div className="bg-white border border-[#E5E5E4] rounded-xl p-10 text-center text-[#9B9B9B]">
+          <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
             <FlaskConical size={32} className="mx-auto mb-3" strokeWidth={1.2} />
             <p className="text-sm">Click Generate Questions to create natural language test cases.</p>
           </div>
@@ -1591,10 +1593,10 @@ export default function TaskGeneratorPage() {
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-1">
-          <FlaskConical size={20} className="text-[#D97706]" strokeWidth={1.8} />
-          <h1 className="text-2xl font-semibold text-[#1A1A1A] tracking-tight">Task Generator</h1>
+          <FlaskConical size={20} className="text-[var(--crab-accent)]" strokeWidth={1.8} />
+          <h1 className="text-2xl font-semibold text-[var(--crab-text)] tracking-tight">Task Generator</h1>
         </div>
-        <p className="text-[#6B6B6B] text-sm mt-1">
+        <p className="text-[var(--crab-text-secondary)] text-sm mt-1">
           Generate diverse, difficulty-controlled test cases from any agent specification document.
         </p>
       </div>
@@ -1619,7 +1621,7 @@ export default function TaskGeneratorPage() {
         <div className="mt-6 flex items-center gap-2">
           <button
             onClick={() => setStep(currentStep - 1)}
-            className="text-xs text-[#9B9B9B] hover:text-[#6B6B6B] flex items-center gap-1"
+            className="text-xs text-[var(--crab-text-muted)] hover:text-[var(--crab-text)] flex items-center gap-1"
           >
             <ChevronRight size={12} className="rotate-180" />
             Back to {STEPS[currentStep - 2]?.label}

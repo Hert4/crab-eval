@@ -6,12 +6,14 @@ import { toast } from 'sonner'
 import { testConnection, getApiKey, setApiKey } from '@/lib/openai'
 import { CheckCircle2, XCircle, Loader2, Settings } from 'lucide-react'
 
+const inputCls = 'w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)] transition-colors'
+
 function Field({ label, children, hint }: { label: string; children: React.ReactNode; hint?: string }) {
   return (
     <div>
-      <label className="text-xs font-medium text-[#6B6B6B] mb-1 block">{label}</label>
+      <label className="text-xs font-medium text-[var(--crab-text-secondary)] mb-1 block">{label}</label>
       {children}
-      {hint && <p className="text-[10px] text-[#9B9B9B] mt-1">{hint}</p>}
+      {hint && <p className="text-[10px] text-[var(--crab-text-muted)] mt-1">{hint}</p>}
     </div>
   )
 }
@@ -20,7 +22,7 @@ export default function ConfigPage() {
   const config = useConfigStore()
   const [hydrated, setHydrated] = useState(false)
 
-  // API keys (sessionStorage only, not in zustand)
+  // API keys (localStorage)
   const [targetKey, setTargetKey] = useState('')
   const [judgeKey, setJudgeKey] = useState('')
 
@@ -70,8 +72,8 @@ export default function ConfigPage() {
   const StatusIcon = ({ s }: { s: boolean | null }) => {
     if (s === null) return null
     return s
-      ? <CheckCircle2 size={14} className="text-emerald-500" />
-      : <XCircle size={14} className="text-red-500" />
+      ? <CheckCircle2 size={14} className="text-emerald-400" />
+      : <XCircle size={14} className="text-red-400" />
   }
 
   if (!hydrated) return null
@@ -79,19 +81,19 @@ export default function ConfigPage() {
   return (
     <div className="p-8 max-w-3xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold text-[#1A1A1A] tracking-tight">Config</h1>
-        <p className="text-[#6B6B6B] text-sm mt-1">
+        <h1 className="text-2xl font-semibold text-[var(--crab-text)] tracking-tight">Config</h1>
+        <p className="text-[var(--crab-text-secondary)] text-sm mt-1">
           Configure API endpoints for evaluation and LLM-as-judge scoring.
         </p>
       </div>
 
       <div className="space-y-6">
         {/* Target model */}
-        <div className="bg-white border border-[#E5E5E4] rounded-xl p-6">
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-6">
           <div className="flex items-center gap-2 mb-5">
-            <Settings size={15} className="text-[#9B9B9B]" />
-            <h2 className="text-sm font-semibold text-[#1A1A1A]">Target Model</h2>
-            <span className="text-xs text-[#9B9B9B]">— model being evaluated</span>
+            <Settings size={15} className="text-[var(--crab-text-muted)]" />
+            <h2 className="text-sm font-semibold text-[var(--crab-text)]">Target Model</h2>
+            <span className="text-xs text-[var(--crab-text-muted)]">— model being evaluated</span>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -101,19 +103,19 @@ export default function ConfigPage() {
                   type="text"
                   value={config.targetBaseUrl}
                   onChange={e => config.setTarget({ targetBaseUrl: e.target.value })}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className={inputCls}
                   placeholder="https://api.openai.com/v1"
                 />
               </Field>
             </div>
             <div className="col-span-2">
-              <Field label="API Key" hint="Stored in sessionStorage only — cleared on tab close">
+              <Field label="API Key" hint="Stored in localStorage — persisted across sessions">
                 <div className="flex gap-2">
                   <input
                     type="password"
                     value={targetKey}
                     onChange={e => setTargetKey(e.target.value)}
-                    className="flex-1 border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                    className={`flex-1 ${inputCls.replace('w-full ', '')}`}
                     placeholder="sk-..."
                   />
                   <div className="flex items-center gap-1">
@@ -123,7 +125,7 @@ export default function ConfigPage() {
                       variant="outline"
                       onClick={testTarget}
                       disabled={testingTarget}
-                      className="text-xs h-9"
+                      className="text-xs h-9 border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:bg-[var(--crab-bg-hover)] hover:text-[var(--crab-text)]"
                     >
                       {testingTarget ? <Loader2 size={12} className="animate-spin" /> : 'Test'}
                     </Button>
@@ -136,7 +138,7 @@ export default function ConfigPage() {
                 type="text"
                 value={config.targetModel}
                 onChange={e => config.setTarget({ targetModel: e.target.value })}
-                className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                className={inputCls}
                 placeholder="gpt-4o-mini"
               />
             </Field>
@@ -145,7 +147,7 @@ export default function ConfigPage() {
                 type="number"
                 value={config.targetMaxTokens}
                 onChange={e => config.setTarget({ targetMaxTokens: Number(e.target.value) })}
-                className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                className={inputCls}
               />
             </Field>
             <Field label="Temperature">
@@ -156,7 +158,7 @@ export default function ConfigPage() {
                 max={2}
                 value={config.targetTemperature}
                 onChange={e => config.setTarget({ targetTemperature: Number(e.target.value) })}
-                className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                className={inputCls}
               />
             </Field>
             <div className="col-span-2">
@@ -168,7 +170,7 @@ export default function ConfigPage() {
                   rows={3}
                   value={config.targetSystemPrompt}
                   onChange={e => config.setTarget({ targetSystemPrompt: e.target.value })}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A] resize-none"
+                  className={`${inputCls} resize-none`}
                   placeholder="Optional system prompt…"
                 />
               </Field>
@@ -177,21 +179,21 @@ export default function ConfigPage() {
         </div>
 
         {/* Judge model */}
-        <div className="bg-white border border-[#E5E5E4] rounded-xl p-6">
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-6">
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
-              <Settings size={15} className="text-[#9B9B9B]" />
-              <h2 className="text-sm font-semibold text-[#1A1A1A]">Judge Model</h2>
-              <span className="text-xs text-[#9B9B9B]">— LLM-as-judge for faithfulness & relevancy</span>
+              <Settings size={15} className="text-[var(--crab-text-muted)]" />
+              <h2 className="text-sm font-semibold text-[var(--crab-text)]">Judge Model</h2>
+              <span className="text-xs text-[var(--crab-text-muted)]">— LLM-as-judge for faithfulness & relevancy</span>
             </div>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={config.judgeEnabled}
                 onChange={e => config.setJudge({ judgeEnabled: e.target.checked })}
-                className="accent-[#D97706]"
+                className="accent-[var(--crab-accent)]"
               />
-              <span className="text-xs text-[#6B6B6B]">Enable</span>
+              <span className="text-xs text-[var(--crab-text-secondary)]">Enable</span>
             </label>
           </div>
 
@@ -202,19 +204,19 @@ export default function ConfigPage() {
                   type="text"
                   value={config.judgeBaseUrl}
                   onChange={e => config.setJudge({ judgeBaseUrl: e.target.value })}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className={inputCls}
                   placeholder="https://api.openai.com/v1"
                 />
               </Field>
             </div>
             <div className="col-span-2">
-              <Field label="API Key" hint="Stored in sessionStorage only">
+              <Field label="API Key" hint="Stored in localStorage — persisted across sessions">
                 <div className="flex gap-2">
                   <input
                     type="password"
                     value={judgeKey}
                     onChange={e => setJudgeKey(e.target.value)}
-                    className="flex-1 border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                    className={`flex-1 ${inputCls.replace('w-full ', '')}`}
                     placeholder="sk-..."
                   />
                   <div className="flex items-center gap-1">
@@ -224,7 +226,7 @@ export default function ConfigPage() {
                       variant="outline"
                       onClick={testJudge}
                       disabled={testingJudge}
-                      className="text-xs h-9"
+                      className="text-xs h-9 border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:bg-[var(--crab-bg-hover)] hover:text-[var(--crab-text)]"
                     >
                       {testingJudge ? <Loader2 size={12} className="animate-spin" /> : 'Test'}
                     </Button>
@@ -238,7 +240,7 @@ export default function ConfigPage() {
                   type="text"
                   value={config.judgeModel}
                   onChange={e => config.setJudge({ judgeModel: e.target.value })}
-                  className="w-full border border-[#E5E5E4] rounded-lg px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#1A1A1A]"
+                  className={inputCls}
                   placeholder="gpt-4o"
                 />
               </Field>
@@ -248,7 +250,7 @@ export default function ConfigPage() {
 
         <Button
           onClick={save}
-          className="bg-[#1A1A1A] text-white hover:bg-[#333] w-full"
+          className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] w-full"
         >
           Save Config
         </Button>

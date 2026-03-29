@@ -128,15 +128,15 @@ export async function testConnection(config: OpenAIConfig): Promise<boolean> {
   }
 }
 
-// Session-storage helpers for API keys (not persisted to localStorage)
+// Local-storage helpers for API keys (persisted across sessions)
 export function getApiKey(key: string): string {
   if (typeof window === 'undefined') return ''
-  return sessionStorage.getItem(key) || ''
+  return localStorage.getItem(key) || ''
 }
 
 export function setApiKey(key: string, value: string) {
   if (typeof window === 'undefined') return
-  sessionStorage.setItem(key, value)
+  localStorage.setItem(key, value)
 }
 
 // ── File-aware message builder ────────────────────────────────────────
