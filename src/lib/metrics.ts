@@ -135,6 +135,57 @@ export function taskSuccessRate(
   return got.name === exp.name ? 100 : 0
 }
 
+// ─── Tool Call Exact (binary, 0 or 100) ─────────────
+// PASS (100): agent's tool calls exactly match expected (name + required param keys)
+// FAIL (0): any mismatch, or wrong number of calls
+//
+// Special case: expectedToolCalls === [] means the agent should clarify (not call tools).
+//   - toolCalls === []  → PASS (agent correctly did not call a tool)
+//   - toolCalls has items → FAIL (agent called tool when it should have asked)
+export function toolCallExact(
+  toolCalls: Array<{ function?: { name: string; arguments: string } }> | null | undefined,
+  expectedToolCalls: Array<{ function?: { name: string; arguments: string } }> | null | undefined
+): number {
+  // If expectedToolCalls is undefined/null → metric not applicable, skip (return 0)
+  if (expectedToolCalls === undefined || expectedToolCalls === null) return 0
+
+  const gotCalls = toolCalls ?? []
+
+  // Case: partial task — agent should clarify, not call any tool
+  if (expectedToolCalls.length === 0) {
+    return gotCalls.length === 0 ? 100 : 0
+  }
+
+  // Case: agent should have called tool(s) but didn't
+  if (gotCalls.length === 0) return 0
+
+  // Compare each expected call in order
+  if (gotCalls.length !== expectedToolCalls.length) return 0
+
+  for (let i = 0; i < expectedToolCalls.length; i++) {
+    const exp = expectedToolCalls[i]?.function
+    const got = gotCalls[i]?.function
+    if (!exp || !got) return 0
+
+    // Tool name must match exactly
+    if (got.name !== exp.name) return 0
+
+    // All required param keys must be present in got arguments
+    try {
+      const expArgs = JSON.parse(exp.arguments || '{}')
+      const gotArgs = JSON.parse(got.arguments || '{}')
+      const expKeys = Object.keys(expArgs)
+      // Every expected key must appear in the actual call
+      const allKeysPresent = expKeys.every(k => k in gotArgs)
+      if (!allKeysPresent) return 0
+    } catch {
+      return 0
+    }
+  }
+
+  return 100
+}
+
 // ─── Criteria Score (LLM-as-judge, handled by evalRunner) ───────────
 // Placeholder so the metric name is recognized by the dispatcher.
 // Actual scoring is done in evalRunner.ts when judge is enabled.
@@ -184,6 +235,9 @@ export function computeMetrics(
         break
       case 'task_success_rate':
         scores[metric] = taskSuccessRate(record.tool_calls, record.expected_tool_calls)
+        break
+      case 'tool_call_exact':
+        scores[metric] = toolCallExact(record.tool_calls, record.expected_tool_calls)
         break
       // faithfulness & answer_relevancy are LLM-as-judge — handled by evalRunner
       case 'faithfulness':

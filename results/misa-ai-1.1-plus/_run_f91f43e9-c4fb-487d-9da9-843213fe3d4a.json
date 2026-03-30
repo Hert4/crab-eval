@@ -1,0 +1,13 @@
+{
+  "runId": "f91f43e9-c4fb-487d-9da9-843213fe3d4a",
+  "model": "misa-ai-1.1-plus",
+  "baseUrl": "https://anne-continent-psi-shopping.trycloudflare.com/v1",
+  "date": "2026-03-30 09:38:15",
+  "durationMs": 183933,
+  "tasks": {
+    "Task Generator — 3/30/2026": {
+      "tool_call_exact": 69.83,
+      "criteria_score": 61.48
+    }
+  }
+}

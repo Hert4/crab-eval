@@ -1091,6 +1091,171 @@ export async function generateNaturalLanguageQuestions(
   return results
 }
 
+// ── Expected Tool Call Arguments ───────────────────────────────────────
+
+// Build a compact text spec for LLM: tool name + required param names + sample values.
+// toolDefsMap: toolName → required param names from the OpenAI tool definitions JSON (snake_case).
+// Falls back to et.requiredArgs if tool not found in map.
+function buildToolCallSpec(
+  ct: CompositeTask,
+  subtasks: AtomicSubtask[],
+  toolDefsMap: Map<string, string[]>
+): string {
+  const subtaskMap = new Map(subtasks.map(s => [s.id, s]))
+  const steps = ct.subtaskIds.map(id => subtaskMap.get(id)).filter(Boolean) as AtomicSubtask[]
+
+  const lines: string[] = [
+    `Task ID: ${ct.id}`,
+    `Edge case: ${ct.edgeCaseType || 'none'}`,
+    `Steps:`,
+  ]
+
+  for (const [i, s] of steps.entries()) {
+    const paramByName = new Map([...s.requiredInputs, ...s.optionalInputs].map(p => [p.name.toLowerCase(), p]))
+
+    for (const et of s.expectedTools) {
+      lines.push(`  ${i + 1}. tool="${et.toolName}"`)
+      // Use param names from tool definitions JSON (snake_case) if available, else fall back to requiredArgs
+      const defParams = toolDefsMap.get(et.toolName)
+      const requiredParams = defParams ?? et.requiredArgs
+      for (const argName of requiredParams) {
+        const spec = paramByName.get(argName.toLowerCase())
+        const samples = spec ? spec.sampleValues.slice(0, 2).join(', ') : ''
+        lines.push(`     required_param="${argName}"${samples ? ` examples=[${samples}]` : ''}`)
+      }
+      // Optional params: exclude from output
+      if (et.optionalArgs.length > 0 && !defParams) {
+        lines.push(`     (optional, exclude from output: ${et.optionalArgs.join(', ')})`)
+      }
+    }
+  }
+
+  return lines.join('\n')
+}
+
+/**
+ * Generate expected tool call arguments for each GeneratedTask.
+ *
+ * LLM reads the actual userMessage and decides:
+ *   - If the message provides all required params → generate tool_calls with argument values
+ *   - If the message is missing required params / out-of-scope / ambiguous → tool_calls: []
+ *     (meaning the correct agent behavior is to ask for clarification, not call a tool)
+ *
+ * Returns an updated copy of `generatedTasks` with `expectedToolCalls` populated.
+ */
+export async function generateExpectedToolCalls(
+  generatedTasks: GeneratedTask[],
+  compositeTasks: CompositeTask[],
+  subtasks: AtomicSubtask[],
+  config: ModelConfig,
+  signal?: AbortSignal,
+  onProgress?: (done: number, total: number) => void,
+  toolDefinitions?: Array<{ type?: string; function?: { name: string; parameters?: { required?: string[] } } }>
+): Promise<GeneratedTask[]> {
+  const ctMap = new Map(compositeTasks.map(c => [c.id, c]))
+  const results: GeneratedTask[] = generatedTasks.map(gt => ({ ...gt }))
+
+  // Build toolName → required param names from OpenAI tool definitions JSON (snake_case ground truth)
+  const toolDefsMap = new Map<string, string[]>()
+  if (toolDefinitions) {
+    for (const td of toolDefinitions) {
+      const fn = td.function
+      if (fn?.name && fn.parameters?.required) {
+        toolDefsMap.set(fn.name, fn.parameters.required)
+      }
+    }
+  }
+  const allIndices = results.map((_, i) => i)
+
+  const systemPrompt = `You are generating expected tool call arguments for AI agent evaluation tasks.
+For each task you will receive: the tool spec (tool name + required params) and the user's actual message.
+
+Decision rules:
+1. Read the user message carefully. If ALL required_param values are explicitly stated in the message → generate tool_calls with those exact values.
+2. If ANY required_param value is missing, implied but not explicit, or ambiguous → set tool_calls: [] (the correct agent behavior is to ask for clarification).
+3. Include ONLY required_param arguments — do NOT include optional params.
+4. Argument names MUST exactly match the required_param names as given in the spec.
+5. Use ONLY values explicitly present in the user message. Do NOT infer, calculate, or derive values (e.g. do not convert "tháng 7 năm 2024" into date ranges — that counts as missing).
+6. Exception: date range params (from_date/to_date) MAY be derived only if the user message gives an unambiguous complete period (e.g. "từ 01/07/2024 đến 31/07/2024" → explicit; "tháng 7 năm 2024" → NOT explicit → tool_calls: []).
+7. If the task spec says "partial" or "ambiguous" info completeness, lean toward tool_calls: [] unless ALL params are unmistakably explicit.
+
+Output schema — return a JSON array, one object per task, in the same order:
+[
+  {
+    "taskId": "...",
+    "tool_calls": [
+      { "name": "tool_name", "arguments": { "param": "value" } }
+    ]
+  }
+]
+tool_calls: [] means the agent should clarify, not call a tool.
+No markdown fences. No preamble. Return only the JSON array.`
+
+  const batchSize = 6
+
+  for (let bi = 0; bi < allIndices.length; bi += batchSize) {
+    if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
+
+    const batchIndices = allIndices.slice(bi, bi + batchSize)
+    const batchItems = batchIndices.map(idx => results[idx])
+
+    const specsText = batchItems.map(gt => {
+      const ct = ctMap.get(gt.compositeTaskId)
+      const spec = ct ? buildToolCallSpec(ct, subtasks, toolDefsMap) : `Task ID: ${gt.compositeTaskId}`
+      const infoHint = gt.infoCompleteness !== 'complete'
+        ? `Info completeness: ${gt.infoCompleteness}${gt.edgeCaseType ? ` (${gt.edgeCaseType})` : ''}`
+        : ''
+      return `${spec}${infoHint ? '\n' + infoHint : ''}\nUser message: "${gt.userMessage}"`
+    }).join('\n\n---\n\n')
+
+    const userMsg = `Generate expected tool call arguments for the following ${batchItems.length} task(s). Return a JSON array with exactly ${batchItems.length} objects in the same order.\n\n${specsText}`
+
+    const apiMessages: OpenAIMessage[] = [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userMsg },
+    ]
+
+    type ArgResult = { taskId: string; tool_calls: Array<{ name: string; arguments: Record<string, unknown> }> }
+
+    const raw = await withRetry(async () => {
+      if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
+      const res = await chatCompletion(
+        { baseUrl: config.baseUrl, apiKey: config.apiKey, model: config.model, maxTokens: 2000, temperature: 0 },
+        apiMessages,
+        signal
+      )
+      return res.choices[0]?.message?.content || ''
+    })
+
+    let parsed: ArgResult[]
+    try {
+      parsed = await parseJsonWithRepair<ArgResult[]>(raw, config, signal)
+    } catch (e) {
+      console.warn('[generateExpectedToolCalls] Failed to parse batch response, skipping batch:', e)
+      parsed = []
+    }
+
+    for (let j = 0; j < batchIndices.length; j++) {
+      const idx = batchIndices[j]
+      const r = parsed[j]
+      if (!r) continue
+
+      const toolCalls: import('@/types').ToolCall[] = (r.tool_calls || []).map(tc => ({
+        type: 'function',
+        function: {
+          name: tc.name,
+          arguments: JSON.stringify(tc.arguments ?? {}),
+        },
+      }))
+      results[idx].expectedToolCalls = toolCalls
+    }
+
+    onProgress?.(Math.min(bi + batchSize, allIndices.length), allIndices.length)
+  }
+
+  return results
+}
+
 // ── Stats computation ─────────────────────────────────────────────────
 
 export function computeTaskSetStats(

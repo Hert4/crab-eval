@@ -179,6 +179,7 @@ export interface GeneratedTask {
   infoCompleteness: InfoCompleteness
   difficulty: string
   expectedToolChain: string[]
+  expectedToolCalls?: ToolCall[]        // binary scoring: [] = should clarify, [{...}] = expected calls
   assertionCriteria: string[]
   edgeCaseType: EdgeCaseType
   tags: string[]

@@ -30,6 +30,7 @@ import {
   generateToolDefinitions,
   composeCompositeTasks,
   generateNaturalLanguageQuestions,
+  generateExpectedToolCalls,
   computeTaskSetStats,
 } from '@/lib/taskGenerator'
 import { getApiKey, setApiKey } from '@/lib/openai'
@@ -1292,6 +1293,8 @@ function Step4Generate() {
   const [baseUrl, setBaseUrl] = useState('https://api.openai.com/v1')
   const [model, setModel] = useState('gpt-4o')
   const [copied, setCopied] = useState(false)
+  const [isGeneratingArgs, setIsGeneratingArgs] = useState(false)
+  const [argsProgress, setArgsProgress] = useState({ done: 0, total: 0 })
   const abortRef = useRef<AbortController | null>(null)
 
   const handleGenerate = async () => {
@@ -1327,6 +1330,46 @@ function Step4Generate() {
       }
     } finally {
       setIsGenerating(false)
+    }
+  }
+
+  const handleGenerateArgs = async () => {
+    if (generatedTasks.length === 0) { toast.error('No generated tasks'); return }
+
+    setIsGeneratingArgs(true)
+    setArgsProgress({ done: 0, total: generatedTasks.length })
+    abortRef.current = new AbortController()
+
+    try {
+      const config: ModelConfig = {
+        baseUrl,
+        model,
+        apiKey: getApiKey('tg_api_key'),
+      }
+
+      let parsedToolDefs: Array<{ type?: string; function?: { name: string; parameters?: { required?: string[] } } }> | undefined
+      if (agentToolsJson.trim()) {
+        try { parsedToolDefs = JSON.parse(agentToolsJson) } catch { /* ignore */ }
+      }
+
+      const updated = await generateExpectedToolCalls(
+        generatedTasks,
+        compositeTasks,
+        atomicSubtasks,
+        config,
+        abortRef.current.signal,
+        (done, total) => setArgsProgress({ done, total }),
+        parsedToolDefs
+      )
+
+      setGeneratedTasks(updated)
+      toast.success(`Generated tool call arguments for ${updated.length} tasks`)
+    } catch (e) {
+      if (!(e instanceof DOMException && e.name === 'AbortError')) {
+        toast.error(`Argument generation failed: ${e}`)
+      }
+    } finally {
+      setIsGeneratingArgs(false)
     }
   }
 
@@ -1404,7 +1447,12 @@ function Step4Generate() {
       reference: t.assertionCriteria.join('\n'),
       context: agentSystemPrompt || undefined,
       ...(parsedTools ? { tools: parsedTools } : {}),
+      ...(t.expectedToolCalls !== undefined
+        ? { expected_tool_calls: t.expectedToolCalls }
+        : {}),
     }))
+
+    const hasExpectedToolCalls = generatedTasks.some(t => t.expectedToolCalls !== undefined)
 
     const dataset = {
       id: crypto.randomUUID(),
@@ -1414,7 +1462,9 @@ function Step4Generate() {
         task_name: `Task Generator — ${new Date().toLocaleDateString()}`,
         task_type: 'agent_eval',
         description: `Generated task set (${generatedTasks.length} tasks, ${detectedLanguage})`,
-        gt_metrics: ['criteria_score'],
+        gt_metrics: hasExpectedToolCalls
+          ? ['criteria_score', 'tool_call_exact']
+          : ['criteria_score'],
         created_date: new Date().toISOString(),
         sampled_records: generatedTasks.length,
       },
@@ -1517,6 +1567,59 @@ function Step4Generate() {
             </span>
           </div>
           <Progress value={progressPct} className="h-1.5" />
+        </div>
+      )}
+
+      {/* Generate Tool Call Arguments — optional step for binary scoring */}
+      {generatedTasks.length > 0 && !isGenerating && (
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold text-[var(--crab-text)]">Generate Tool Call Arguments</p>
+              <p className="text-[10px] text-[var(--crab-text-muted)] mt-0.5">
+                Optional — enables binary <code className="text-amber-600">tool_call_exact</code> scoring. Tasks requiring clarification will get <code className="text-amber-600">expected_tool_calls: []</code>.
+              </p>
+            </div>
+            {generatedTasks.some(t => t.expectedToolCalls !== undefined) && (
+              <span className="text-[10px] text-emerald-600 font-medium">Done</span>
+            )}
+          </div>
+          {!isGeneratingArgs ? (
+            <Button
+              onClick={handleGenerateArgs}
+              variant="outline"
+              className="flex items-center gap-1.5 text-xs border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:text-[var(--crab-text)]"
+            >
+              <ArrowRight size={13} />
+              Generate Tool Call Arguments
+            </Button>
+          ) : (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-[var(--crab-text-secondary)] flex items-center gap-1.5">
+                  <Loader2 size={11} className="animate-spin text-amber-500" />
+                  Generating arguments...
+                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-[var(--crab-text-muted)]">
+                    {argsProgress.done} / {argsProgress.total}
+                  </span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => abortRef.current?.abort()}
+                    className="h-6 px-2 text-[10px] border-red-500/30 text-red-400 hover:bg-red-500/10"
+                  >
+                    <X size={10} className="mr-1" /> Stop
+                  </Button>
+                </div>
+              </div>
+              <Progress
+                value={argsProgress.total > 0 ? Math.round((argsProgress.done / argsProgress.total) * 100) : 0}
+                className="h-1.5"
+              />
+            </div>
+          )}
         </div>
       )}
 
