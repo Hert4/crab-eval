@@ -369,42 +369,88 @@ print(f"B tốt hơn A: {len(b_better)} tasks")
 ### 8.1 Dataset
 
 - **Tên:** Task Generator — AVA Tuyển dụng
+- **Agent:** AVA Tuyển dụng (MISA AMIS)
 - **Số task:** 116
 - **Ngôn ngữ:** Tiếng Việt
-- **Tools:** 19 tools
+- **Tools:** 19 tools (snake_case params)
 - **Metrics:** `tool_call_exact` + `criteria_score`
+- **Dataset:** `task-set-1774863094057.json`
 
-### 8.2 Kết quả
+### 8.2 Leaderboard
 
-| Model | tool_call_exact | criteria_score | both=100 | no_call |
-|---|---|---|---|---|
-| misa-ai-1.1 | **68.97%** | **64.35%** | 24 | 28 |
-| misa-ai-1.1-plus | 69.83% | 61.48% | 22 | 38 |
+| Rank | Model | tool_call_exact | criteria_score | both=100 | no_call | both=0 |
+|------|-------|-----------------|----------------|----------|---------|--------|
+| 1 | misa-ai-1.1-plus | **69.83%** | 61.48% | 22 | 38 | 2 |
+| 2 | misa-ai-1.1 | 68.97% | **64.35%** | **24** | 28 | 3 |
+| 3 | gpt-5.4 | 68.10% | 65.77% | **24** | 32 | 4 |
+| 4 | claude-sonnet-4-5 | 65.52% | 65.30% | 23 | **25** | 5 |
+| 5 | gpt-4.1-mini | 60.34% | 65.08% | 23 | 31 | **7** |
 
-> Dataset: `task-set-1774863094057.json` (snake_case params, partial tasks = `[]`)
+> **Chú thích cột:**
+> - `both=100`: task đúng hoàn toàn cả 2 metrics
+> - `no_call`: số task model không gọi tool (đúng hoặc sai)
+> - `both=0`: task sai hoàn toàn cả 2 metrics
 
-### 8.3 Nhận xét
+### 8.3 Phân tích từng model
 
-**misa-ai-1.1 vs misa-ai-1.1-plus:**
-- Chênh lệch `tool_call_exact`: **+0.86pp** (nằm trong noise, không có ý nghĩa thống kê)
-- 1.1-plus conservative hơn (38 vs 28 no-call) — hay từ chối gọi tool hơn
-- `criteria_score` 1.1-plus thấp hơn 3pp — khi không gọi tool, response kém hơn
-- **Kết luận: 2 model tương đương nhau** trên benchmark này
+#### misa-ai-1.1-plus 🥇 (tool_call_exact: 69.83%)
+- Đứng đầu `tool_call_exact` nhưng `criteria_score` thấp nhất (61.48%)
+- **Conservative nhất**: 38 no-call — hay từ chối gọi tool, hay hỏi lại
+- Khi quyết định gọi tool thì chính xác cao
+- Điểm yếu: response quality kém khi không gọi tool
 
-**Pattern lỗi chung của cả 2 models:**
-- Không tuân thủ param name convention của tool API (snake_case vs PascalCase)
-- Hay bỏ sót tool call với tasks cần nhiều params
-- Tool `get_multiple_candidates_fit_score` luôn bị hallucinate key thành `candidate_i_ds`
+#### misa-ai-1.1 🥈 (tool_call_exact: 68.97%)
+- Cân bằng nhất: `criteria_score` cao nhất (64.35%)
+- Ít no-call hơn 1.1-plus (28 vs 38) — quyết đoán hơn trong việc gọi tool
+- Chênh lệch với 1.1-plus chỉ **0.86pp** — không có ý nghĩa thống kê
+- Top 5 tools fail: `get_candidates` (9), `get_data_for_gen_interview_question` (4), `get_cv_content` (4)
 
-### 8.4 Phân tích fail categories
+#### gpt-5.4 🥉 (tool_call_exact: 68.10%)
+- `criteria_score` cao nhất trong nhóm (65.77%) — response quality tốt nhất
+- Ngang với top 2 (~0.9pp) về `tool_call_exact`
+- Top 5 tools fail: `get_candidates` (10), `get_cv_content` (5), `get_data_for_gen_interview_question` (4)
 
-| Category | Số task | Mô tả |
-|---|---|---|
-| Sai param convention | ~21 | Model dùng snake_case, API yêu cầu PascalCase |
-| Model không gọi tool | ~17 | Miss tool call khi có đủ thông tin |
-| Model gọi sai tool | ~5 | Confuse giữa các tools tương tự |
-| Expected gen sai | ~7 | Gen model sinh sai, không đáng kể |
-| Model thực sự sai | ~46 | Sai params, sai logic |
+#### claude-sonnet-4-5 (tool_call_exact: 65.52%)
+- Thấp hơn top 4.3pp — **thật**, không phải noise
+- `criteria_score` cao (65.30%) — response quality tốt dù tool call sai
+- **Aggressive nhất**: chỉ 25 no-call — hay gọi tool nhưng hay gọi sai (14 wrong_tool)
+- Điểm yếu: hay gọi tool khi task yêu cầu hỏi lại (expected=`[]`)
+- Top 5 tools fail: `get_candidates` (13), `get_schedule` (4), `get_cv_content` (4)
+
+#### gpt-4.1-mini (tool_call_exact: 60.34%)
+- Thấp nhất, cách top **9.49pp** — khoảng cách có ý nghĩa
+- `criteria_score` trung bình (65.08%)
+- Nhiều both=0 nhất (7) — hay sai hoàn toàn
+- Điểm yếu nặng nhất với `get_candidates`: fail 14/20 lần
+- Top 5 tools fail: `get_candidates` (14), `get_cv_content` (5), `get_multiple_candidates_fit_score` (3)
+
+### 8.4 Pattern lỗi chung tất cả models
+
+| Tool | Lý do fail phổ biến |
+|------|---------------------|
+| `get_candidates` | Model dùng `candidate_name` khi expected là `CandidateName`; hoặc không gọi khi partial task |
+| `get_multiple_candidates_fit_score` | Model hallucinate key thành `candidate_i_ds` thay vì `candidate_ids` |
+| `get_cv_content` | Expected=`[]` (partial) nhưng model gọi tool; hoặc sai convention key |
+| `get_schedule` | Thiếu param `schedule_type` hoặc `scope` |
+| `get_recruitment_board` | Sai convention `candidate_schedule_id` vs `CandidateScheduleID` |
+
+### 8.5 Fail categories (trung bình tất cả models)
+
+| Category | ~Số task/model | Mô tả |
+|----------|---------------|-------|
+| Sai param name convention | ~16 | `expected_tool_calls` dùng convention khác model |
+| Model gọi tool khi nên hỏi | ~8 | expected=`[]` nhưng model gọi tool |
+| Model gọi sai tool / sai params | ~11 | Nhầm tool, thiếu key |
+| Model không gọi tool khi nên gọi | ~1 | Bỏ sót tool call |
+| Expected gen sai (false negative) | ~6 | Gen model sinh sai — noise |
+
+### 8.6 Kết luận
+
+- **Top 3 (misa-ai-1.1-plus, misa-ai-1.1, gpt-5.4)** ngang nhau trong khoảng 1.73pp — không phân biệt được bằng benchmark này
+- **claude-sonnet-4-5** rõ ràng kém hơn top 3 (~4pp) — aggressive hơn trong tool calling nhưng hay gọi sai
+- **gpt-4.1-mini** thấp nhất, cách biệt có ý nghĩa (~9pp)
+- `criteria_score` không phân biệt được models tốt (dao động 61-66%) — cần `tool_call_exact` để có discrimination power
+- Lỗi phổ biến nhất toàn bộ: **param name convention** và **tool selection với partial tasks**
 
 ---
 
