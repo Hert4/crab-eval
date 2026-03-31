@@ -10,13 +10,17 @@ import {
   Play,
   Trophy,
   Layers,
-  Bot,
 } from 'lucide-react'
+
+// Wrap CrabLogo to match Lucide icon interface (size prop)
+function CrabIcon({ size = 15 }: { size?: number; strokeWidth?: number }) {
+  return <CrabLogo size={size} />
+}
 
 const NAV = [
   { href: '/datasets',        label: 'Datasets',        icon: Database },
   { href: '/gt-generator',    label: 'GT Generator',    icon: Wand2 },
-  { href: '/agents',          label: 'Agents',          icon: Bot },
+  { href: '/agents',          label: 'Agents',          icon: CrabIcon },
   { href: '/config',          label: 'Config',          icon: Settings },
   { href: '/run',             label: 'Run Eval',        icon: Play },
   { href: '/task-generator',  label: 'Task Generator',  icon: Layers },

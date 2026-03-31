@@ -7,6 +7,8 @@ import {
   UserPersona,
   InfoCompleteness,
   ModelConfig,
+  QAPair,
+  QAIntent,
 } from '@/types'
 import { chatCompletion, OpenAIMessage, buildFileMessageContent } from './openai'
 
@@ -236,7 +238,7 @@ export async function extractAtomicSubtasks(
       ]
       const messages = [
         { role: 'system' as const, content: EXTRACT_SYSTEM },
-        { role: 'user' as const, content: userContent as OpenAIMessage['content'] },
+        { role: 'user' as const, content: userContent as unknown as OpenAIMessage['content'] },
       ]
       const raw = await withRetry(async () => {
         if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
@@ -466,7 +468,7 @@ export async function generateToolDefinitions(
       ]
       const messages: OpenAIMessage[] = [
         { role: 'system', content: TOOL_DEFS_GEN },
-        { role: 'user', content: userContent as OpenAIMessage['content'] },
+        { role: 'user', content: userContent as unknown as OpenAIMessage['content'] },
       ]
       const raw = await withRetry(async () => {
         if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
@@ -1304,4 +1306,278 @@ export function computeTaskSetStats(
     skillCoverage: allSkills.size > 0 ? coveredSkills.size / allSkills.size : 0,
     toolCoverage: allTools.size > 0 ? coveredTools.size / allTools.size : 0,
   }
+}
+
+// ── QA/RAG: Detect task type ──────────────────────────────────────────
+
+const DETECT_TYPE_SYSTEM = `You are an expert at classifying AI agent specification documents.
+
+Read the document excerpt below and determine whether it is:
+- "tool_calling": A technical spec describing API functions, tools, or skills that an AI agent can invoke (e.g., function names, parameters, integration guides).
+- "rag_qa": A knowledge document containing business information, FAQs, policies, procedures, or domain knowledge that a user might ask questions about.
+
+Return ONLY a JSON object with this exact shape:
+{"type": "tool_calling" | "rag_qa", "reason": "one short sentence explaining your decision"}
+
+No markdown fences. No preamble. Return only the JSON object.`
+
+export async function detectTaskType(
+  documentContent: string,
+  config: ModelConfig,
+  signal?: AbortSignal,
+  sourceFile?: File
+): Promise<'tool_calling' | 'rag_qa'> {
+  const sample = documentContent.slice(0, 6000)
+
+  let messages: OpenAIMessage[]
+
+  if (sourceFile) {
+    const fileContent = await buildFileMessageContent(sourceFile, config.baseUrl, config.apiKey, signal)
+    if (fileContent) {
+      const userContent: unknown[] = [
+        { type: 'text', text: 'Classify this document:' },
+        ...fileContent,
+      ]
+      messages = [
+        { role: 'system', content: DETECT_TYPE_SYSTEM },
+        {
+          role: 'user',
+          content: userContent as unknown as OpenAIMessage['content'],
+        },
+      ]
+    } else {
+      messages = [
+        { role: 'system', content: DETECT_TYPE_SYSTEM },
+        { role: 'user', content: sample },
+      ]
+    }
+  } else {
+    messages = [
+      { role: 'system', content: DETECT_TYPE_SYSTEM },
+      { role: 'user', content: sample },
+    ]
+  }
+
+  const res = await withRetry(() =>
+    chatCompletion(
+      { baseUrl: config.baseUrl, apiKey: config.apiKey, model: config.model },
+      messages,
+      signal
+    )
+  )
+
+  const raw = res.choices[0]?.message?.content || ''
+  try {
+    const parsed = await parseJsonWithRepair<{ type: string; reason: string }>(raw, config, signal)
+    if (parsed.type === 'tool_calling' || parsed.type === 'rag_qa') {
+      return parsed.type
+    }
+  } catch {
+    // fallback
+  }
+  // Default: if detection fails, assume tool_calling (preserves old behavior)
+  return 'tool_calling'
+}
+
+// ── QA/RAG: Generate QA pairs from document ──────────────────────────
+
+const QA_GEN_SYSTEM = `You are an expert at creating question-answer evaluation datasets from business documents.
+
+Given a document excerpt (the context), generate question-answer pairs that can be used to evaluate an AI assistant's ability to answer questions based on that context.
+
+RULES:
+- Each question must be answerable using ONLY the provided context. Do NOT use outside knowledge.
+- The reference answer must be concise, accurate, and derived directly from the context.
+- Cover different aspects: facts, procedures, definitions, comparisons.
+- Questions should sound natural, as a real user would ask them.
+- Use the same language as the document.
+- Vary difficulty: some simple (single fact), some requiring synthesis of multiple sentences.
+
+Return a JSON array with this exact shape:
+[
+  {
+    "question": "the natural language question",
+    "reference": "the concise ground-truth answer from the context",
+    "difficulty": "easy" | "medium" | "hard",
+    "intent": "factoid" | "procedural" | "definition" | "comparison",
+    "tags": ["tag1", "tag2"]
+  }
+]
+
+No markdown fences. No preamble. Return only the JSON array.`
+
+interface RawQAPair {
+  question: string
+  reference: string
+  difficulty: string
+  intent: string
+  tags: string[]
+}
+
+function isValidRawQAPair(x: unknown): x is RawQAPair {
+  if (!x || typeof x !== 'object') return false
+  const o = x as Record<string, unknown>
+  return (
+    typeof o.question === 'string' && o.question.length > 0 &&
+    typeof o.reference === 'string' && o.reference.length > 0 &&
+    typeof o.difficulty === 'string' &&
+    typeof o.intent === 'string'
+  )
+}
+
+function normalizeQADifficulty(d: string): 'easy' | 'medium' | 'hard' {
+  if (d === 'easy' || d === 'medium' || d === 'hard') return d
+  return 'medium'
+}
+
+function normalizeQAIntent(i: string): QAIntent {
+  if (i === 'factoid' || i === 'procedural' || i === 'definition' || i === 'comparison') return i
+  return 'factoid'
+}
+
+export async function generateQAPairs(
+  documentContent: string,
+  config: ModelConfig,
+  signal?: AbortSignal,
+  onProgress?: (done: number, total: number) => void,
+  sourceFile?: File,
+  targetCount = 30
+): Promise<QAPair[]> {
+  // How many QA pairs to ask per chunk
+  const pairsPerChunk = 5
+
+  // If file is small enough, try sending it directly
+  if (sourceFile) {
+    const fileContent = await buildFileMessageContent(sourceFile, config.baseUrl, config.apiKey, signal)
+    if (fileContent) {
+      const pairsToGenerate = Math.min(targetCount, 20)
+      const qaUserContent: unknown[] = [
+        { type: 'text', text: `Generate ${pairsToGenerate} question-answer pairs from this document:` },
+        ...fileContent,
+      ]
+      const messages: OpenAIMessage[] = [
+        {
+          role: 'system',
+          content: QA_GEN_SYSTEM + `\n\nGenerate exactly ${pairsToGenerate} question-answer pairs.`,
+        },
+        {
+          role: 'user',
+          content: qaUserContent as unknown as OpenAIMessage['content'],
+        },
+      ]
+
+      try {
+        const res = await withRetry(() =>
+          chatCompletion(
+            { baseUrl: config.baseUrl, apiKey: config.apiKey, model: config.model },
+            messages,
+            signal
+          )
+        )
+        const raw = res.choices[0]?.message?.content || ''
+        const parsed = await parseJsonWithRepair<RawQAPair[]>(raw, config, signal)
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          onProgress?.(1, 1)
+          return parsed.filter(isValidRawQAPair).map((p, i) => ({
+            id: `qa_${Date.now()}_${i}`,
+            question: p.question,
+            reference: p.reference,
+            context: documentContent.slice(0, 8000),
+            difficulty: normalizeQADifficulty(p.difficulty),
+            intent: normalizeQAIntent(p.intent),
+            tags: Array.isArray(p.tags) ? p.tags : [],
+          }))
+        }
+      } catch {
+        // fallback to chunked approach below
+      }
+    }
+  }
+
+  // Chunked approach: split document and generate QA per chunk
+  const chunks = chunkDocument(documentContent, 4000)
+  const allPairs: QAPair[] = []
+
+  for (let i = 0; i < chunks.length; i++) {
+    if (signal?.aborted) break
+
+    const chunk = chunks[i]
+    onProgress?.(i, chunks.length)
+
+    const messages: OpenAIMessage[] = [
+      {
+        role: 'system',
+        content: QA_GEN_SYSTEM + `\n\nGenerate exactly ${pairsPerChunk} question-answer pairs from the context below.`,
+      },
+      { role: 'user', content: chunk },
+    ]
+
+    try {
+      const res = await withRetry(() =>
+        chatCompletion(
+          { baseUrl: config.baseUrl, apiKey: config.apiKey, model: config.model },
+          messages,
+          signal
+        )
+      )
+
+      const raw = res.choices[0]?.message?.content || ''
+      const parsed = await parseJsonWithRepair<RawQAPair[]>(raw, config, signal)
+
+      if (Array.isArray(parsed)) {
+        for (const p of parsed) {
+          if (!isValidRawQAPair(p)) continue
+
+          // Deduplicate: skip if too similar to an existing question
+          const isDuplicate = allPairs.some(
+            existing => tokenOverlap(existing.question, p.question) > 0.7
+          )
+          if (isDuplicate) continue
+
+          allPairs.push({
+            id: `qa_${Date.now()}_${allPairs.length}`,
+            question: p.question,
+            reference: p.reference,
+            context: chunk,            // store the specific chunk as context
+            difficulty: normalizeQADifficulty(p.difficulty),
+            intent: normalizeQAIntent(p.intent),
+            tags: Array.isArray(p.tags) ? p.tags : [],
+          })
+        }
+      }
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') throw e
+      console.warn(`[generateQAPairs] chunk ${i + 1} failed:`, e)
+    }
+  }
+
+  onProgress?.(chunks.length, chunks.length)
+
+  // Subsample if over target
+  if (allPairs.length > targetCount) {
+    // Stratified: keep proportional mix of difficulty
+    const easy = allPairs.filter(p => p.difficulty === 'easy')
+    const medium = allPairs.filter(p => p.difficulty === 'medium')
+    const hard = allPairs.filter(p => p.difficulty === 'hard')
+
+    const result: QAPair[] = []
+    const easyTarget = Math.round(targetCount * 0.3)
+    const hardTarget = Math.round(targetCount * 0.2)
+    const mediumTarget = targetCount - easyTarget - hardTarget
+
+    result.push(...easy.slice(0, easyTarget))
+    result.push(...medium.slice(0, mediumTarget))
+    result.push(...hard.slice(0, hardTarget))
+
+    // Fill remaining slots if any bucket was smaller than target
+    const remaining = targetCount - result.length
+    if (remaining > 0) {
+      const leftovers = allPairs.filter(p => !result.includes(p))
+      result.push(...leftovers.slice(0, remaining))
+    }
+
+    return result.slice(0, targetCount)
+  }
+
+  return allPairs
 }

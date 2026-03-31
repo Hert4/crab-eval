@@ -209,6 +209,25 @@ export interface TaskSet {
   compositeTasks: CompositeTask[]
   generatedTasks: GeneratedTask[]
   stats: TaskSetStats
+  // QA/RAG mode fields
+  detectedTaskType?: 'tool_calling' | 'rag_qa'
+  qaPairs?: QAPair[]
+}
+
+// ──────────────────────────────────────────────
+// QA / RAG types
+// ──────────────────────────────────────────────
+
+export type QAIntent = 'factoid' | 'procedural' | 'definition' | 'comparison'
+
+export interface QAPair {
+  id: string
+  question: string          // input gửi cho model
+  reference: string         // ground-truth answer để so sánh
+  context: string           // đoạn chunk chứa câu trả lời (inject vào system message)
+  difficulty: 'easy' | 'medium' | 'hard'
+  intent: QAIntent
+  tags: string[]
 }
 
 export interface ComposeOptions {

@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { toast } from 'sonner'
 import { Upload, Trash2, Eye, Download, Merge, FileJson, AlertCircle, FolderOpen, Loader2 } from 'lucide-react'
+import { CrawdAnim } from '@/components/ui/CrawdAnim'
 
 function trunc(s: string, n = 80) {
   if (!s) return '—'
@@ -168,7 +169,10 @@ export default function DatasetsPage() {
         }`}
       >
         <input {...getInputProps()} />
-        <Upload size={28} className="mx-auto mb-3 text-[var(--crab-text-muted)]" strokeWidth={1.5} />
+        {isDragActive
+          ? <CrawdAnim type="happy" size={72} className="mb-3" />
+          : <CrawdAnim type="notification" size={72} className="mb-3" />
+        }
         <p className="text-[var(--crab-text)] font-medium text-sm">
           {isDragActive ? 'Drop files here…' : 'Drop JSON files here, or click to browse'}
         </p>
@@ -178,7 +182,7 @@ export default function DatasetsPage() {
       {/* Dataset list */}
       {datasets.length === 0 ? (
         <div className="text-center py-16 text-[var(--crab-text-muted)]">
-          <FileJson size={40} className="mx-auto mb-3" strokeWidth={1.2} />
+          <CrawdAnim type="sleeping" size={80} className="mb-3" />
           <p className="text-sm">No datasets yet. Upload some files above.</p>
         </div>
       ) : (

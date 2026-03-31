@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { Trophy, Trash2, Search, BarChart2, LayoutGrid, List, TrendingUp, FolderOpen, Loader2, GitMerge } from 'lucide-react'
 import Link from 'next/link'
+import { CrawdAnim } from '@/components/ui/CrawdAnim'
 // ── Constants ──────────────────────────────────────────────────────
 const TASK_GROUPS: TaskGroup[] = [
   { id: 'translation',   label: 'Dịch thuật',      tasks: ['mtrans_translation'] },
@@ -298,7 +299,7 @@ export default function LeaderboardPage() {
           <h1 className="text-2xl font-semibold text-[var(--crab-text)] tracking-tight">Leaderboard</h1>
         </div>
         <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-16 text-center text-[var(--crab-text-muted)]">
-          <Trophy size={40} className="mx-auto mb-4" strokeWidth={1.2} />
+          <CrawdAnim type="sleeping" size={96} className="mb-4" />
           <p className="text-sm mb-4">No evaluation runs yet.</p>
           <div className="flex gap-3 justify-center">
             <Button

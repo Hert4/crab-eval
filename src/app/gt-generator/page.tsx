@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 import { generateGT, GTConfig, GTProgress, DEFAULT_GT_PROMPT } from '@/lib/gtGenerator'
 import { getApiKey, setApiKey } from '@/lib/openai'
 import { Wand2, ChevronDown, ChevronUp, Check, X, Loader2, Save } from 'lucide-react'
+import { CrawdAnim } from '@/components/ui/CrawdAnim'
 
 const inputCls = 'w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)] transition-colors'
 
@@ -353,7 +354,7 @@ export default function GTGeneratorPage() {
 
           {!running && logs.length === 0 && (
             <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
-              <Wand2 size={32} className="mx-auto mb-3" strokeWidth={1.2} />
+              <CrawdAnim type="thinking" size={80} className="mb-3" />
               <p className="text-sm">Configure and click Generate GT to start.</p>
             </div>
           )}

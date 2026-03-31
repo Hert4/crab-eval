@@ -7,6 +7,7 @@ import type {
   GeneratedTask,
   ComposeOptions,
   TaskSetStats,
+  QAPair,
 } from '@/types'
 
 interface TaskGeneratorState {
@@ -24,6 +25,12 @@ interface TaskGeneratorState {
   isGenerating: boolean
   generateProgress: { done: number; total: number }
   stats: TaskSetStats | null
+
+  // QA/RAG mode
+  detectedTaskType: 'tool_calling' | 'rag_qa' | null
+  isDetecting: boolean
+  qaPairs: QAPair[]
+  qaProgress: { done: number; total: number }
 
   // Actions
   setStep: (step: number) => void
@@ -43,6 +50,13 @@ interface TaskGeneratorState {
   setIsGenerating: (v: boolean) => void
   setGenerateProgress: (p: { done: number; total: number }) => void
   setStats: (s: TaskSetStats) => void
+  // QA/RAG actions
+  setDetectedTaskType: (t: 'tool_calling' | 'rag_qa' | null) => void
+  setIsDetecting: (v: boolean) => void
+  setQAPairs: (pairs: QAPair[]) => void
+  updateQAPair: (id: string, patch: Partial<QAPair>) => void
+  removeQAPair: (id: string) => void
+  setQAProgress: (p: { done: number; total: number }) => void
   reset: () => void
 }
 
@@ -73,6 +87,12 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
       generateProgress: { done: 0, total: 0 },
       stats: null,
 
+      // QA/RAG mode initial state
+      detectedTaskType: null,
+      isDetecting: false,
+      qaPairs: [],
+      qaProgress: { done: 0, total: 0 },
+
       setStep: (step) => set({ currentStep: step }),
       setDocumentContent: (c) => set({ documentContent: c }),
       setDetectedLanguage: (l) => set({ detectedLanguage: l }),
@@ -100,6 +120,19 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
       setIsGenerating: (v) => set({ isGenerating: v }),
       setGenerateProgress: (p) => set({ generateProgress: p }),
       setStats: (s) => set({ stats: s }),
+
+      // QA/RAG actions
+      setDetectedTaskType: (t) => set({ detectedTaskType: t }),
+      setIsDetecting: (v) => set({ isDetecting: v }),
+      setQAPairs: (pairs) => set({ qaPairs: pairs }),
+      updateQAPair: (id, patch) =>
+        set((st) => ({
+          qaPairs: st.qaPairs.map((p) => (p.id === id ? { ...p, ...patch } : p)),
+        })),
+      removeQAPair: (id) =>
+        set((st) => ({ qaPairs: st.qaPairs.filter((p) => p.id !== id) })),
+      setQAProgress: (p) => set({ qaProgress: p }),
+
       reset: () =>
         set({
           currentStep: 1,
@@ -114,6 +147,10 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
           generatedTasks: [],
           generateProgress: { done: 0, total: 0 },
           stats: null,
+          detectedTaskType: null,
+          isDetecting: false,
+          qaPairs: [],
+          qaProgress: { done: 0, total: 0 },
         }),
     }),
     {

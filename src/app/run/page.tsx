@@ -10,6 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { toast } from 'sonner'
 import { startEval, stopEval, EvalConfig } from '@/lib/evalRunner'
 import { Play, Square, CheckCircle2, XCircle, Loader2, Trophy, AlertCircle, RefreshCw, Trash2 } from 'lucide-react'
+import { CrawdAnim } from '@/components/ui/CrawdAnim'
 import Link from 'next/link'
 
 function fmt(v: number) { return v.toFixed(1) + '%' }
@@ -304,7 +305,7 @@ export default function RunPage() {
         <div className="flex-1 min-w-0 flex flex-col bg-[var(--crab-bg)]">
           {logs.length === 0 && !isRunning ? (
             <div className="flex-1 flex flex-col items-center justify-center text-[var(--crab-text-muted)]">
-              <Play size={36} strokeWidth={1.2} className="mb-3" />
+              <CrawdAnim type="sleeping" size={88} className="mb-3" />
               <p className="text-sm">Select datasets and click <strong>Run Evaluation</strong> to start.</p>
               {!hasConfig && (
                 <p className="text-xs mt-2 text-[var(--crab-accent)]">

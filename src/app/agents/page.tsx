@@ -4,7 +4,33 @@ import { useAgentsStore, AgentProfile } from '@/store/agentsStore'
 import { testConnection, getApiKey, setApiKey } from '@/lib/openai'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
-import { Bot, Plus, Trash2, CheckCircle2, XCircle, Loader2, Pencil, X, Check } from 'lucide-react'
+import { Plus, Trash2, CheckCircle2, XCircle, Loader2, Pencil, X, Check } from 'lucide-react'
+import { CrawdAnim } from '@/components/ui/CrawdAnim'
+
+// Crab mascot SVG — sidebar icon (small pixel art, not animated)
+function CrabIcon({ size = 16, className = '' }: { size?: number; className?: string }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" className={className} aria-hidden>
+      {/* body */}
+      <ellipse cx="16" cy="17" rx="8" ry="6" fill="currentColor" opacity=".9" />
+      {/* left claw */}
+      <path d="M8 17 C4 14 2 11 4 9 C6 7 8 9 8 12" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+      <ellipse cx="3.5" cy="8.5" rx="2.5" ry="2" fill="currentColor" />
+      {/* right claw */}
+      <path d="M24 17 C28 14 30 11 28 9 C26 7 24 9 24 12" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+      <ellipse cx="28.5" cy="8.5" rx="2.5" ry="2" fill="currentColor" />
+      {/* left legs */}
+      <path d="M10 18 L6 21 M10 20 L7 24 M10 22 L8 26" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      {/* right legs */}
+      <path d="M22 18 L26 21 M22 20 L25 24 M22 22 L24 26" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      {/* eyes */}
+      <circle cx="13" cy="13" r="1.6" fill="currentColor" />
+      <circle cx="19" cy="13" r="1.6" fill="currentColor" />
+      <circle cx="13.6" cy="12.4" r=".6" fill="white" />
+      <circle cx="19.6" cy="12.4" r=".6" fill="white" />
+    </svg>
+  )
+}
 
 const inputCls = 'w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)] transition-colors'
 
@@ -78,7 +104,7 @@ function AgentCard({ agent }: { agent: AgentProfile }) {
       {/* Header row */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Bot size={15} className="text-[var(--crab-accent)]" />
+          <CrabIcon size={15} className="text-[var(--crab-accent)]" />
           {editing ? (
             <input
               value={form.name}
@@ -301,7 +327,7 @@ export default function AgentsPage() {
 
         {agents.length === 0 && !adding ? (
           <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-12 text-center text-[var(--crab-text-muted)]">
-            <Bot size={36} className="mx-auto mb-3" strokeWidth={1.2} />
+            <CrawdAnim type="sleeping" size={88} className="mb-3" />
             <p className="text-sm mb-4">No agents yet.</p>
             <Button
               onClick={() => setAdding(true)}
