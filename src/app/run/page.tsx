@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDatasetsStore } from '@/store/datasetsStore'
 import { useConfigStore } from '@/store/configStore'
+import { useAgentsStore } from '@/store/agentsStore'
 import { useEvalSessionStore } from '@/store/evalSessionStore'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
@@ -16,6 +17,7 @@ function fmt(v: number) { return v.toFixed(1) + '%' }
 export default function RunPage() {
   const { datasets, removeDataset } = useDatasetsStore()
   const config = useConfigStore()
+  const { agents } = useAgentsStore()
   const [hydrated, setHydrated] = useState(false)
 
   // Eval session state from global store (survives navigation)
@@ -184,6 +186,15 @@ export default function RunPage() {
             <h2 className="text-[11px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wider mb-2">Target Model</h2>
             {hasConfig ? (
               <div className="space-y-1">
+                {(() => {
+                  const agent = agents.find(a => a.model === config.targetModel && a.baseUrl === config.targetBaseUrl)
+                  return agent ? (
+                    <div className="flex items-center justify-between text-xs mb-1">
+                      <span className="text-[var(--crab-text-muted)]">Agent</span>
+                      <span className="font-medium text-[var(--crab-accent)] truncate max-w-[130px]">{agent.name}</span>
+                    </div>
+                  ) : null
+                })()}
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-[var(--crab-text-muted)]">Model</span>
                   <span className="font-medium text-[var(--crab-text)] truncate max-w-[130px]">{config.targetModel}</span>

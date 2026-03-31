@@ -104,6 +104,9 @@ export interface RunResult {
   date: string
   durationMs: number
   tasks: Record<string, Record<string, number>>  // taskName → metric → score_pct
+  // judge metadata — stored for reproducibility (who scored criteria_score)
+  judgeModel?: string
+  judgeBaseUrl?: string
   // extended info (not shown in leaderboard but stored)
   taskDetails?: Record<string, TaskRunResult>
 }

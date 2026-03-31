@@ -179,7 +179,7 @@ export default function LeaderboardPage() {
   const [sortAsc, setSortAsc] = useState(false)
   const [activeGroupIds, setActiveGroupIds] = useState<Set<string>>(new Set())
   const [loadingDisk, setLoadingDisk] = useState(false)
-  const [mergeMode, setMergeMode] = useState(false)  // changed from true in M3 — default shows all runs
+  const [mergeMode, setMergeMode] = useState(false)  // false = statistical view (all runs shown); true = optimistic best-run-per-model
 
   useEffect(() => { setHydrated(true) }, [])
 
@@ -401,7 +401,7 @@ export default function LeaderboardPage() {
           size="sm"
           variant={mergeMode ? 'default' : 'outline'}
           onClick={() => setMergeMode(v => !v)}
-          title={mergeMode ? 'Showing best result per model — optimistic view (click to show all runs)' : 'Showing all runs individually (click to merge by model)'}
+          title={mergeMode ? 'Optimistic view: chỉ lấy run tốt nhất mỗi model (không dùng để so sánh chính thức) — click để xem tất cả runs' : 'Statistical view: hiện tất cả runs, đây là chế độ mặc định và công bằng — click để chuyển sang best-run'}
           className={`h-8 text-xs gap-1.5 ${mergeMode ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]' : 'border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)]'}`}
         >
           <GitMerge size={12} /> {mergeMode ? 'Best run / model (optimistic)' : 'All runs (statistical view)'}
@@ -625,6 +625,11 @@ export default function LeaderboardPage() {
                       </div>
                       <div className="text-[10px] text-[var(--crab-text-muted)]">
                         {r.date}
+                        {r.judgeModel && (
+                          <span className="ml-1.5 text-[var(--crab-text-muted)]" title={`Judge: ${r.judgeModel} @ ${r.judgeBaseUrl || ''}`}>
+                            · judge: {r.judgeModel}
+                          </span>
+                        )}
                         {!mergeMode && (() => {
                           const sameModel = runs.filter(x => x.model === r.model)
                           if (sameModel.length > 1) {

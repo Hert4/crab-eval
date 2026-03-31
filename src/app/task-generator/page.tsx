@@ -34,6 +34,8 @@ import {
   computeTaskSetStats,
 } from '@/lib/taskGenerator'
 import { getApiKey, setApiKey } from '@/lib/openai'
+import { useAgentsStore } from '@/store/agentsStore'
+import { AgentSelector } from '@/components/ui/AgentSelector'
 import { useDatasetsStore } from '@/store/datasetsStore'
 import type {
   AtomicSubtask,
@@ -122,6 +124,7 @@ function Stepper({ current }: { current: number }) {
 }
 
 // ── Model config row ──────────────────────────────────────────────────
+// Supports agent quick-pick (fills all fields) + manual override
 
 function ModelConfigRow({
   apiKeyName,
@@ -136,45 +139,49 @@ function ModelConfigRow({
   model: string
   setModel: (v: string) => void
 }) {
+  const { agents } = useAgentsStore()
   const [apiKey, setApiKeyState] = useState('')
+  const [selectedAgentId, setSelectedAgentId] = useState('')
+
   useEffect(() => {
     setApiKeyState(getApiKey(apiKeyName))
   }, [apiKeyName])
 
+  const handleAgentSelect = (id: string) => {
+    setSelectedAgentId(id)
+    if (!id) return
+    const a = agents.find(x => x.id === id)
+    if (!a) return
+    setBaseUrl(a.baseUrl)
+    setModel(a.model)
+    const key = getApiKey(a.apiKeyName)
+    setApiKeyState(key)
+    setApiKey(apiKeyName, key)
+  }
+
+  const inputCls = 'w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)]'
+
   return (
-    <div className="grid grid-cols-3 gap-3">
-      <div>
-        <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Base URL</label>
-        <input
-          type="text"
-          value={baseUrl}
-          onChange={e => setBaseUrl(e.target.value)}
-          className="w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
-          placeholder="https://api.openai.com/v1"
-        />
-      </div>
-      <div>
-        <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">API Key</label>
-        <input
-          type="password"
-          value={apiKey}
-          onChange={e => {
-            setApiKeyState(e.target.value)
-            setApiKey(apiKeyName, e.target.value)
-          }}
-          className="w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
-          placeholder="sk-..."
-        />
-      </div>
-      <div>
-        <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Model</label>
-        <input
-          type="text"
-          value={model}
-          onChange={e => setModel(e.target.value)}
-          className="w-full border border-[var(--crab-border-strong)] bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2 text-sm text-[var(--crab-text)] placeholder-[var(--crab-text-muted)] outline-none focus:ring-1 focus:ring-[var(--crab-accent)]"
-          placeholder="gpt-4o"
-        />
+    <div className="space-y-2">
+      {agents.length > 0 && (
+        <div>
+          <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Quick-pick agent</label>
+          <AgentSelector value={selectedAgentId} onChange={handleAgentSelect} placeholder="Select agent to auto-fill…" />
+        </div>
+      )}
+      <div className="grid grid-cols-3 gap-3">
+        <div>
+          <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Base URL</label>
+          <input type="text" value={baseUrl} onChange={e => setBaseUrl(e.target.value)} className={inputCls} placeholder="https://api.openai.com/v1" />
+        </div>
+        <div>
+          <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">API Key</label>
+          <input type="password" value={apiKey} onChange={e => { setApiKeyState(e.target.value); setApiKey(apiKeyName, e.target.value) }} className={inputCls} placeholder="sk-..." />
+        </div>
+        <div>
+          <label className="text-xs text-[var(--crab-text-secondary)] mb-1 block">Model</label>
+          <input type="text" value={model} onChange={e => setModel(e.target.value)} className={inputCls} placeholder="gpt-4o" />
+        </div>
       </div>
     </div>
   )

@@ -1,0 +1,13 @@
+{
+  "runId": "589ec91b-e980-449f-a2b5-7f50f7cfb4e5",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "https://anne-continent-psi-shopping.trycloudflare.com/v1",
+  "date": "2026-03-30 16:00:14",
+  "durationMs": 249609,
+  "tasks": {
+    "Task Generator — 30/3/2026": {
+      "tool_call_exact": 67.69,
+      "criteria_score": 60.14
+    }
+  }
+}

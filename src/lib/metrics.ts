@@ -171,12 +171,15 @@ export function toolCallExact(
     if (got.name !== exp.name) return 0
 
     // All required param keys must be present in got arguments
+    // Key comparison is case-insensitive to avoid penalizing models that use
+    // different casing conventions (e.g. CandidateID vs candidateId vs candidate_id)
     try {
       const expArgs = JSON.parse(exp.arguments || '{}')
       const gotArgs = JSON.parse(got.arguments || '{}')
       const expKeys = Object.keys(expArgs)
-      // Every expected key must appear in the actual call
-      const allKeysPresent = expKeys.every(k => k in gotArgs)
+      const gotKeysLower = new Set(Object.keys(gotArgs).map(k => k.toLowerCase()))
+      // Every expected key must appear in the actual call (case-insensitive)
+      const allKeysPresent = expKeys.every(k => gotKeysLower.has(k.toLowerCase()))
       if (!allKeysPresent) return 0
     } catch {
       return 0

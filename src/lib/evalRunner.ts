@@ -283,6 +283,11 @@ async function _runEval(
       durationMs: Date.now() - startTime,
       tasks: taskScores,
       taskDetails: taskResults,
+      // store judge identity so results are reproducible
+      ...(config.judgeConfig?.enabled && {
+        judgeModel: config.judgeConfig.model,
+        judgeBaseUrl: config.judgeConfig.baseUrl,
+      }),
     }
 
     // Save to localStorage (strips taskDetails to avoid quota issues)
