@@ -3,28 +3,16 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEvalSessionStore } from '@/store/evalSessionStore'
 import { CrabLogo } from './CrabLogo'
-import {
-  Database,
-  Wand2,
-  Settings,
-  Play,
-  Trophy,
-  Layers,
-} from 'lucide-react'
-
-// Wrap CrabLogo to match Lucide icon interface (size prop)
-function CrabIcon({ size = 15 }: { size?: number; strokeWidth?: number }) {
-  return <CrabLogo size={size} />
-}
+import { Layers, Database, Settings, Play, Trophy, Wand2, Users } from 'lucide-react'
 
 const NAV = [
-  { href: '/datasets',        label: 'Datasets',        icon: Database },
-  { href: '/gt-generator',    label: 'GT Generator',    icon: Wand2 },
-  { href: '/agents',          label: 'Agents',          icon: CrabIcon },
-  { href: '/config',          label: 'Config',          icon: Settings },
-  { href: '/run',             label: 'Run Eval',        icon: Play },
-  { href: '/task-generator',  label: 'Task Generator',  icon: Layers },
-  { href: '/leaderboard',     label: 'Leaderboard',     icon: Trophy },
+  { href: '/task-generator', label: 'Task Generator', icon: Layers   },
+  { href: '/datasets',       label: 'Datasets',       icon: Database },
+  { href: '/gt-generator',   label: 'GT Generator',   icon: Wand2    },
+  { href: '/config',         label: 'Config',         icon: Settings },
+  { href: '/run',            label: 'Run Eval',       icon: Play     },
+  { href: '/leaderboard',    label: 'Leaderboard',    icon: Trophy   },
+  { href: '/agents',         label: 'Agents',         icon: Users    },
 ]
 
 export function Sidebar() {
@@ -44,7 +32,7 @@ export function Sidebar() {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
+      <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
         {NAV.map(({ href, label, icon: Icon }) => {
           const active = pathname === href || pathname.startsWith(href + '/')
           const isRunPage = href === '/run'
@@ -70,13 +58,6 @@ export function Sidebar() {
           )
         })}
       </nav>
-
-      {/* Footer */}
-      <div className="px-5 py-4 border-t border-[var(--crab-border)]">
-        <p className="text-[11px] text-[var(--crab-text-muted)]">
-          Data in localStorage
-        </p>
-      </div>
     </aside>
   )
 }

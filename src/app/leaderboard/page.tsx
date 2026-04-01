@@ -10,9 +10,11 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
-import { Trophy, Trash2, Search, BarChart2, LayoutGrid, List, TrendingUp, FolderOpen, Loader2, GitMerge } from 'lucide-react'
+import { Trophy, Trash2, Search, BarChart2, LayoutGrid, List, TrendingUp, FolderOpen, Loader2, GitMerge, Microscope } from 'lucide-react'
 import Link from 'next/link'
 import { CrawdAnim } from '@/components/ui/CrawdAnim'
+import { AnalysisBreakdown } from '@/components/ui/AnalysisBreakdown'
+import type { RunAnalysis } from '@/types'
 // ── Constants ──────────────────────────────────────────────────────
 const TASK_GROUPS: TaskGroup[] = [
   { id: 'translation',   label: 'Dịch thuật',      tasks: ['mtrans_translation'] },
@@ -181,6 +183,10 @@ export default function LeaderboardPage() {
   const [activeGroupIds, setActiveGroupIds] = useState<Set<string>>(new Set())
   const [loadingDisk, setLoadingDisk] = useState(false)
   const [mergeMode, setMergeMode] = useState(false)  // false = statistical view (all runs shown); true = optimistic best-run-per-model
+  const [activeTab, setActiveTab] = useState<'leaderboard' | 'analysis'>('leaderboard')
+  const [selectedRunId, setSelectedRunId] = useState<string | null>(null)
+  const [analysis, setAnalysis] = useState<RunAnalysis | null>(null)
+  const [loadingAnalysis, setLoadingAnalysis] = useState(false)
 
   useEffect(() => { setHydrated(true) }, [])
 
@@ -198,6 +204,24 @@ export default function LeaderboardPage() {
       setActiveGroupIds(new Set(activeGroups.map(g => g.id)))
     }
   }, [activeGroups])
+
+  // Load analysis breakdown for a specific run from disk
+  const loadAnalysis = async (runId: string) => {
+    setLoadingAnalysis(true)
+    setAnalysis(null)
+    setSelectedRunId(runId)
+    try {
+      const res = await fetch(`/api/results/${runId}`)
+      const json = await res.json()
+      if (!res.ok) { toast.error(json.error || 'Failed to load analysis'); return }
+      setAnalysis(json as RunAnalysis)
+      setActiveTab('analysis')
+    } catch (e) {
+      toast.error(`Error loading analysis: ${e}`)
+    } finally {
+      setLoadingAnalysis(false)
+    }
+  }
 
   // Load saved runs from results/ folder on disk
   const loadFromDisk = async () => {
@@ -460,7 +484,50 @@ export default function LeaderboardPage() {
         </button>
       </div>
 
-      {/* Stats bar */}
+      {/* Tab bar — Leaderboard / Analysis */}
+      <div className="flex border-b border-[var(--crab-border)] mb-4">
+        {(['leaderboard', 'analysis'] as const).map(tab => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium border-b-2 transition-colors capitalize ${
+              activeTab === tab
+                ? 'border-[var(--crab-accent)] text-[var(--crab-accent)]'
+                : 'border-transparent text-[var(--crab-text-muted)] hover:text-[var(--crab-text-secondary)]'
+            }`}
+          >
+            {tab === 'analysis' && <Microscope size={12} />}
+            {tab}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Analysis tab ─────────────────────────────────────────────── */}
+      {activeTab === 'analysis' && (
+        <div>
+          {loadingAnalysis ? (
+            <div className="flex flex-col items-center justify-center py-24 gap-4">
+              <CrawdAnim type="thinking" size={80} />
+              <p className="text-sm text-[var(--crab-text-muted)]">Loading analysis from disk…</p>
+            </div>
+          ) : analysis ? (
+            <AnalysisBreakdown analysis={analysis} />
+          ) : (
+            <div className="flex flex-col items-center justify-center py-24 gap-3">
+              <CrawdAnim type="sleeping" size={80} />
+              <p className="text-sm text-[var(--crab-text-muted)]">
+                Click the <Microscope size={12} className="inline mx-0.5" /> icon on a run row to view breakdown.
+              </p>
+              <p className="text-xs text-[var(--crab-text-muted)]">
+                Only runs executed after the metadata update will have breakdown data.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── Leaderboard tab ──────────────────────────────────────────── */}
+      {activeTab === 'leaderboard' && (<>
       <div className="grid grid-cols-4 gap-3 mb-6">
         {[
           {
@@ -676,24 +743,35 @@ export default function LeaderboardPage() {
                     }
 
                     <td className="py-2.5 px-3">
-                      <button
-                        onClick={async () => {
-                          removeRun(r.runId)
-                          // Also delete from disk
-                          try {
-                            await fetch('/api/results', {
-                              method: 'DELETE',
-                              headers: { 'Content-Type': 'application/json' },
-                              body: JSON.stringify({ runId: r.runId }),
-                            })
-                          } catch { /* disk delete best-effort */ }
-                          toast.success('Run removed')
-                        }}
-                        className="text-[var(--crab-border-strong)] hover:text-red-400 transition-colors"
-                        title="Remove run (from memory + disk)"
-                      >
-                        <Trash2 size={13} />
-                      </button>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => loadAnalysis(r.runId)}
+                          className="text-[var(--crab-border-strong)] hover:text-[var(--crab-accent)] transition-colors"
+                          title="View analysis breakdown"
+                        >
+                          {loadingAnalysis && selectedRunId === r.runId
+                            ? <Loader2 size={13} className="animate-spin" />
+                            : <Microscope size={13} />}
+                        </button>
+                        <button
+                          onClick={async () => {
+                            removeRun(r.runId)
+                            // Also delete from disk
+                            try {
+                              await fetch('/api/results', {
+                                method: 'DELETE',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ runId: r.runId }),
+                              })
+                            } catch { /* disk delete best-effort */ }
+                            toast.success('Run removed')
+                          }}
+                          className="text-[var(--crab-border-strong)] hover:text-red-400 transition-colors"
+                          title="Remove run (from memory + disk)"
+                        >
+                          <Trash2 size={13} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 )
@@ -709,6 +787,8 @@ export default function LeaderboardPage() {
           </table>
         </div>
       </div>
+      {/* end leaderboard tab */}
+      </>)}
     </div>
   )
 }

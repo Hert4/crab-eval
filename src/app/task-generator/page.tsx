@@ -35,6 +35,10 @@ import {
   computeTaskSetStats,
   detectTaskType,
   generateQAPairs,
+  generateMultiTurnPairs,
+  generateInstructionPairs,
+  generateSafetyCases,
+  generateSummarizationPairs,
 } from '@/lib/taskGenerator'
 import { getApiKey, setApiKey } from '@/lib/openai'
 import { useAgentsStore } from '@/store/agentsStore'
@@ -49,6 +53,10 @@ import type {
   UserPersona,
   InfoCompleteness,
   QAPair,
+  MultiTurnPair,
+  InstructionPair,
+  SafetyCase,
+  SummarizationPair,
 } from '@/types'
 import {
   BarChart,
@@ -63,66 +71,86 @@ import {
 // ── Color maps ────────────────────────────────────────────────────────
 
 const INTENT_COLORS: Record<TaskIntent, string> = {
-  information_retrieval: 'bg-blue-100 text-blue-700',
-  analysis: 'bg-purple-100 text-purple-700',
-  content_generation: 'bg-green-100 text-green-700',
-  action: 'bg-amber-100 text-amber-700',
+  information_retrieval: 'bg-sky-900/50 text-sky-300 border border-sky-700/40',
+  analysis: 'bg-purple-900/50 text-purple-300 border border-purple-700/40',
+  content_generation: 'bg-emerald-900/50 text-emerald-300 border border-emerald-700/40',
+  action: 'bg-amber-900/50 text-amber-300 border border-amber-700/40',
 }
 
 const DIFFICULTY_COLORS: Record<string, string> = {
-  easy: 'bg-emerald-100 text-emerald-700',
-  medium: 'bg-amber-100 text-amber-700',
-  hard: 'bg-orange-100 text-orange-700',
-  expert: 'bg-red-100 text-red-700',
+  easy: 'bg-emerald-900/40 text-emerald-300',
+  medium: 'bg-amber-900/40 text-amber-300',
+  hard: 'bg-orange-900/40 text-orange-300',
+  expert: 'bg-red-900/40 text-red-300',
 }
 
 const PERSONA_COLORS: Record<string, string> = {
-  expert: 'bg-indigo-100 text-indigo-700',
-  novice: 'bg-teal-100 text-teal-700',
-  out_of_scope: 'bg-gray-100 text-gray-600',
+  expert: 'bg-indigo-900/50 text-indigo-300',
+  novice: 'bg-teal-900/50 text-teal-300',
+  out_of_scope: 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]',
 }
 
 const BAR_COLORS = ['#c96442', '#8fba7a', '#b48ade', '#7dbfd4', '#f87171']
 
 // ── Stepper ───────────────────────────────────────────────────────────
 
-const STEPS = [
-  { n: 1, label: 'Upload & Extract' },
+const STEPS_TOOL_CALLING = [
+  { n: 1, label: 'Upload & Detect' },
   { n: 2, label: 'Review Subtasks' },
   { n: 3, label: 'Configure & Compose' },
   { n: 4, label: 'Generate & Export' },
 ]
 
-function Stepper({ current }: { current: number }) {
+const STEPS_SIMPLE = [
+  { n: 1, label: 'Upload & Detect' },
+  { n: 2, label: 'Review' },
+  { n: 3, label: 'Configure' },
+  { n: 4, label: 'Export' },
+]
+
+function Stepper({ current, taskType }: { current: number; taskType: string | null }) {
+  const isSimple = taskType && taskType !== 'tool_calling'
+  const steps = isSimple ? STEPS_SIMPLE : STEPS_TOOL_CALLING
+
   return (
     <div className="flex items-center gap-0 mb-8">
-      {STEPS.map((s, i) => (
-        <div key={s.n} className="flex items-center">
-          <div className="flex items-center gap-2">
-            <div
-              className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
-                s.n === current
-                  ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]'
-                  : s.n < current
-                  ? 'bg-emerald-500 text-white'
-                  : 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'
-              }`}
-            >
-              {s.n < current ? <Check size={11} /> : s.n}
+      {steps.map((s, i) => {
+        // For simple types, step 3 is skipped — show it faded
+        const isSkipped = isSimple && s.n === 3
+        return (
+          <div key={s.n} className="flex items-center">
+            <div className="flex items-center gap-2">
+              <div
+                className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
+                  isSkipped
+                    ? 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)] opacity-30'
+                    : s.n === current
+                    ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]'
+                    : s.n < current
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'
+                }`}
+              >
+                {!isSkipped && s.n < current ? <Check size={11} /> : s.n}
+              </div>
+              <span
+                className={`text-[13px] font-medium transition-colors ${
+                  isSkipped
+                    ? 'text-[var(--crab-text-muted)] opacity-30'
+                    : s.n === current
+                    ? 'text-[var(--crab-text)]'
+                    : 'text-[var(--crab-text-muted)]'
+                }`}
+              >
+                {s.label}
+              </span>
             </div>
-            <span
-              className={`text-[13px] font-medium ${
-                s.n === current ? 'text-[var(--crab-text)]' : 'text-[var(--crab-text-muted)]'
-              }`}
-            >
-              {s.label}
-            </span>
+            {i < steps.length - 1 && (
+              <ChevronRight size={14} className="text-[var(--crab-text-muted)] opacity-40 mx-3" />
+            )}
           </div>
-          {i < STEPS.length - 1 && (
-            <ChevronRight size={14} className="text-[var(--crab-text-muted)] mx-3" />
-          )}
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }
@@ -228,6 +256,14 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
     setCompositeTasks,
     setGeneratedTasks,
     setStats,
+    setMultiTurnPairs,
+    setMultiTurnProgress,
+    setInstructionPairs,
+    setInstructionProgress,
+    setSafetyCases,
+    setSafetyProgress,
+    setSummarizationPairs,
+    setSummarizationProgress,
   } = useTaskGeneratorStore()
 
   const [baseUrl, setBaseUrl] = useState('https://api.openai.com/v1')
@@ -238,6 +274,8 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
   const [isGenSysPrompt, setIsGenSysPrompt] = useState(false)
   const [isGenTools, setIsGenTools] = useState(false)
   const [toolsError, setToolsError] = useState<string | null>(null)
+  const [modelConfigOpen, setModelConfigOpen] = useState(false)
+  const [sysPromptOpen, setSysPromptOpen] = useState(false)
   const abortRef = useRef<AbortController | null>(null)
 
   // Validate tools JSON on change
@@ -307,6 +345,146 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
       } else {
         setLog(p => [...p, `Error: ${e}`])
         toast.error(`QA generation failed: ${e}`)
+      }
+    } finally {
+      setIsExtracting(false)
+    }
+  }
+
+  const handleExtractMultiTurn = async () => {
+    if (!documentContent.trim()) { toast.error('Please paste or upload a document first'); return }
+    setIsExtracting(true)
+    setLog(['Generating multi-turn conversation pairs...'])
+    abortRef.current = new AbortController()
+    try {
+      const config: ModelConfig = { baseUrl, model, apiKey: getApiKey('tg_api_key') }
+      const pairs = await generateMultiTurnPairs(
+        documentContent, config, abortRef.current.signal,
+        (done, total) => {
+          setMultiTurnProgress({ done, total })
+          setLog(p => {
+            const last = p[p.length - 1]
+            const msg = `Chunk ${done}/${total}...`
+            return last?.startsWith('Chunk') ? [...p.slice(0, -1), msg] : [...p, msg]
+          })
+        },
+        sourceFile ?? undefined, 20
+      )
+      setMultiTurnPairs(pairs)
+      setLog(p => [...p, `Generated ${pairs.length} multi-turn pairs.`, 'Done.'])
+      toast.success(`Generated ${pairs.length} multi-turn conversation pairs`)
+      setTimeout(onNextQA, 600)
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        setLog(p => [...p, 'Aborted.'])
+      } else {
+        setLog(p => [...p, `Error: ${e}`])
+        toast.error(`Multi-turn generation failed: ${e}`)
+      }
+    } finally {
+      setIsExtracting(false)
+    }
+  }
+
+  const handleExtractInstruction = async () => {
+    if (!documentContent.trim()) { toast.error('Please paste or upload a document first'); return }
+    setIsExtracting(true)
+    setLog(['Generating instruction-following pairs...'])
+    abortRef.current = new AbortController()
+    try {
+      const config: ModelConfig = { baseUrl, model, apiKey: getApiKey('tg_api_key') }
+      const pairs = await generateInstructionPairs(
+        documentContent, config, abortRef.current.signal,
+        (done, total) => {
+          setInstructionProgress({ done, total })
+          setLog(p => {
+            const last = p[p.length - 1]
+            const msg = `Chunk ${done}/${total}...`
+            return last?.startsWith('Chunk') ? [...p.slice(0, -1), msg] : [...p, msg]
+          })
+        },
+        sourceFile ?? undefined, 20
+      )
+      setInstructionPairs(pairs)
+      setLog(p => [...p, `Generated ${pairs.length} instruction pairs.`, 'Done.'])
+      toast.success(`Generated ${pairs.length} instruction-following pairs`)
+      setTimeout(onNextQA, 600)
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        setLog(p => [...p, 'Aborted.'])
+      } else {
+        setLog(p => [...p, `Error: ${e}`])
+        toast.error(`Instruction generation failed: ${e}`)
+      }
+    } finally {
+      setIsExtracting(false)
+    }
+  }
+
+  const handleExtractSafety = async () => {
+    if (!documentContent.trim()) { toast.error('Please paste or upload a document first'); return }
+    setIsExtracting(true)
+    setLog(['Generating safety test cases...'])
+    abortRef.current = new AbortController()
+    try {
+      const config: ModelConfig = { baseUrl, model, apiKey: getApiKey('tg_api_key') }
+      const cases = await generateSafetyCases(
+        documentContent, config, abortRef.current.signal,
+        (done, total) => {
+          setSafetyProgress({ done, total })
+          setLog(p => {
+            const last = p[p.length - 1]
+            const msg = `Chunk ${done}/${total}...`
+            return last?.startsWith('Chunk') ? [...p.slice(0, -1), msg] : [...p, msg]
+          })
+        },
+        sourceFile ?? undefined, 20
+      )
+      setSafetyCases(cases)
+      setLog(p => [...p, `Generated ${cases.length} safety cases.`, 'Done.'])
+      toast.success(`Generated ${cases.length} safety test cases`)
+      setTimeout(onNextQA, 600)
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        setLog(p => [...p, 'Aborted.'])
+      } else {
+        setLog(p => [...p, `Error: ${e}`])
+        toast.error(`Safety case generation failed: ${e}`)
+      }
+    } finally {
+      setIsExtracting(false)
+    }
+  }
+
+  const handleExtractSummarization = async () => {
+    if (!documentContent.trim()) { toast.error('Please paste or upload a document first'); return }
+    setIsExtracting(true)
+    setLog(['Generating summarization pairs...'])
+    abortRef.current = new AbortController()
+    try {
+      const config: ModelConfig = { baseUrl, model, apiKey: getApiKey('tg_api_key') }
+      const pairs = await generateSummarizationPairs(
+        documentContent, config, abortRef.current.signal,
+        (done, total) => {
+          setSummarizationProgress({ done, total })
+          setLog(p => {
+            const last = p[p.length - 1]
+            const msg = `Chunk ${done}/${total}...`
+            return last?.startsWith('Chunk') ? [...p.slice(0, -1), msg] : [...p, msg]
+          })
+        },
+        sourceFile ?? undefined, 20
+      )
+      setSummarizationPairs(pairs)
+      setLog(p => [...p, `Generated ${pairs.length} summarization pairs.`, 'Done.'])
+      toast.success(`Generated ${pairs.length} summarization pairs`)
+      setTimeout(onNextQA, 600)
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        setLog(p => [...p, 'Aborted.'])
+      } else {
+        setLog(p => [...p, `Error: ${e}`])
+        toast.error(`Summarization generation failed: ${e}`)
       }
     } finally {
       setIsExtracting(false)
@@ -467,272 +645,314 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
     }
   }
 
+  // ── Type metadata ────────────────────────────────────────────────────
+  const TYPE_META: Record<string, { label: string; description: string; colorCls: string }> = {
+    rag_qa:               { label: 'QA / RAG',           description: 'FAQ or knowledge base → generates Q&A evaluation pairs',             colorCls: 'bg-[var(--crab-accent-light)] text-[var(--crab-accent-hover)] border border-[var(--crab-accent-medium)]' },
+    tool_calling:         { label: 'Tool-Calling',        description: 'Agent spec or API docs → generates tool-calling test cases',         colorCls: 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] border border-[var(--crab-border-strong)]' },
+    multi_turn:           { label: 'Multi-turn Conv.',    description: 'Conversation scripts → generates multi-turn dialog tests',           colorCls: 'bg-sky-900/40 text-sky-300 border border-sky-700/40' },
+    instruction_following:{ label: 'Instruction Follow.', description: 'Policy or rules document → generates instruction-following pairs',   colorCls: 'bg-purple-900/40 text-purple-300 border border-purple-700/40' },
+    safety:               { label: 'Safety / Guardrail',  description: 'Content policy → generates safety and guardrail test cases',         colorCls: 'bg-red-900/40 text-red-300 border border-red-700/40' },
+    summarization:        { label: 'Summarization',       description: 'Long report or article → generates summarization tasks',             colorCls: 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/40' },
+  }
+
+  const handleSwitchType = () => {
+    if (!detectedTaskType) return
+    const ORDER = ['tool_calling', 'rag_qa', 'multi_turn', 'instruction_following', 'safety', 'summarization'] as const
+    const idx = ORDER.indexOf(detectedTaskType)
+    const next = ORDER[(idx + 1) % ORDER.length]
+    setDetectedTaskType(next)
+    if (detectedTaskType === 'rag_qa') { setQAPairs([]); setQAProgress({ done: 0, total: 0 }) }
+    else if (detectedTaskType === 'multi_turn') { setMultiTurnPairs([]); setMultiTurnProgress({ done: 0, total: 0 }) }
+    else if (detectedTaskType === 'instruction_following') { setInstructionPairs([]); setInstructionProgress({ done: 0, total: 0 }) }
+    else if (detectedTaskType === 'safety') { setSafetyCases([]); setSafetyProgress({ done: 0, total: 0 }) }
+    else if (detectedTaskType === 'summarization') { setSummarizationPairs([]); setSummarizationProgress({ done: 0, total: 0 }) }
+    else { setAtomicSubtasks([]); setCompositeTasks([]); setGeneratedTasks([]); setStats(null as never); setAgentSystemPrompt(''); setAgentToolsJson('') }
+  }
+
+  const typeMeta = detectedTaskType ? TYPE_META[detectedTaskType] : null
+
   return (
-    <div className="space-y-5">
-      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
-        <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-1">Document</h2>
-        <p className="text-xs text-[var(--crab-text-muted)] mb-4">
-          {detectedTaskType === 'rag_qa'
-            ? <>Upload your knowledge document (FAQ, policy, guide…) to generate QA pairs. Supported: <span className="text-[var(--crab-text-secondary)]">{ACCEPTED_LABEL}</span></>
-            : <>Paste the agent specification document, or upload a file. Supported: <span className="text-[var(--crab-text-secondary)]">{ACCEPTED_LABEL}</span></>
-          }
-        </p>
-        <div className="flex items-center gap-2 mb-3">
-          <label className={`cursor-pointer flex items-center gap-1.5 text-xs px-3 py-1.5 border border-[var(--crab-border-strong)] rounded-lg bg-[var(--crab-bg-secondary)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] transition-colors ${isParsing ? 'opacity-50 pointer-events-none' : ''}`}>
-            {isParsing
-              ? <Loader2 size={12} className="animate-spin text-amber-500" />
-              : <Upload size={12} />
-            }
-            {isParsing ? 'Parsing...' : 'Upload file'}
-            <input
-              type="file"
-              accept={ACCEPTED_EXTS}
-              className="hidden"
-              onChange={handleFileUpload}
-              disabled={isParsing}
-            />
-          </label>
-          {uploadedFilename && !isParsing && (
-            <span className="text-xs text-[var(--crab-text-secondary)] flex items-center gap-1">
-              <Check size={11} className="text-emerald-500" />
-              {uploadedFilename}
-              <button
-                onClick={() => {
-                  setSourceFile(null)
-                  setUploadedFilename(null)
-                  setDocumentContent('')
-                  setDetectedTaskType(null)
-                }}
-                className="ml-1 text-[var(--crab-text-muted)] hover:text-red-400 transition-colors"
-              >
-                <X size={11} />
-              </button>
-            </span>
-          )}
-          {documentContent && !isParsing && (
-            <span className="text-xs text-[var(--crab-text-muted)]">
-              {documentContent.length.toLocaleString()} chars
-            </span>
-          )}
-          {/* Re-detect button — appears when document exists */}
-          {documentContent.trim() && !isDetecting && !isExtracting && (
-            <button
-              onClick={() => handleDetectType(documentContent, sourceFile)}
-              className="text-[10px] px-2 py-1 rounded border border-[var(--crab-border-strong)] text-[var(--crab-text-muted)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text-secondary)] flex items-center gap-1 transition-colors ml-auto"
-            >
-              <RefreshCw size={10} />
-              Re-detect type
-            </button>
-          )}
-        </div>
-        <textarea
-          value={documentContent}
-          onChange={e => setDocumentContent(e.target.value)}
-          rows={14}
-          placeholder="Paste your agent specification document here..."
-          className="w-full border border-[var(--crab-border-strong)] rounded-lg px-3 py-2.5 text-sm font-mono outline-none focus:ring-1 focus:ring-[var(--crab-accent)] resize-none text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)]"
-        />
-      </div>
+    <div className="h-full flex">
 
-      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
-        <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-4">
-          {detectedTaskType === 'rag_qa' ? 'QA Generation Model' : 'Extraction Model'}
-        </h2>
-        <ModelConfigRow
-          apiKeyName="tg_api_key"
-          baseUrl={baseUrl}
-          setBaseUrl={setBaseUrl}
-          model={model}
-          setModel={setModel}
-        />
-        <p className="text-[10px] text-[var(--crab-text-muted)] mt-2">API key stored in localStorage — persisted across sessions</p>
-      </div>
+      {/* ── LEFT PANEL: Document input (scrollable) ──────────────── */}
+      <div className="w-[46%] shrink-0 flex flex-col overflow-y-auto border-r border-[var(--crab-border)] p-5 space-y-4">
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
+          <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-1">Document</h2>
+          <p className="text-xs text-[var(--crab-text-muted)] mb-3">
+            Paste text or upload a file. AI will auto-detect the type.{' '}
+            <span className="text-[var(--crab-text-secondary)]">{ACCEPTED_LABEL}</span>
+          </p>
 
-      {/* Agent System Prompt — tool_calling only */}
-      {detectedTaskType !== 'rag_qa' && (
-      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-sm font-semibold text-[var(--crab-text)]">Agent System Prompt</h2>
-          <div className="flex items-center gap-2">
-            {agentSystemPrompt && (
-              <span className="text-[10px] text-emerald-400 flex items-center gap-1">
-                <Check size={11} /> Auto-generated
+          {/* Upload button row */}
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
+            <label className={`cursor-pointer flex items-center gap-1.5 text-xs px-3 py-1.5 border border-[var(--crab-border-strong)] rounded-lg bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text)] transition-colors ${isParsing ? 'opacity-50 pointer-events-none' : ''}`}>
+              {isParsing ? <Loader2 size={12} className="animate-spin text-amber-500" /> : <Upload size={12} />}
+              {isParsing ? 'Parsing...' : 'Upload file'}
+              <input type="file" accept={ACCEPTED_EXTS} className="hidden" onChange={handleFileUpload} disabled={isParsing} />
+            </label>
+            {uploadedFilename && !isParsing && (
+              <span className="text-xs text-[var(--crab-text-secondary)] flex items-center gap-1 min-w-0">
+                <Check size={11} className="text-emerald-500 shrink-0" />
+                <span className="truncate max-w-[160px]">{uploadedFilename}</span>
+                <button
+                  onClick={() => { setSourceFile(null); setUploadedFilename(null); setDocumentContent(''); setDetectedTaskType(null) }}
+                  className="ml-0.5 text-[var(--crab-text-muted)] hover:text-red-400 transition-colors shrink-0"
+                >
+                  <X size={11} />
+                </button>
               </span>
             )}
-            <button
-              onClick={handleGenerateSysPrompt}
-              disabled={!documentContent.trim() || isGenSysPrompt || isExtracting}
-              className="text-[10px] px-2 py-1 rounded border border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text)] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none"
-            >
-              {isGenSysPrompt ? <Loader2 size={10} className="animate-spin" /> : <RefreshCw size={10} />}
-              {isGenSysPrompt ? 'Generating...' : 'Generate'}
-            </button>
-            {agentSystemPrompt && (
-              <button
-                onClick={() => setAgentSystemPrompt('')}
-                className="text-[10px] text-[var(--crab-text-muted)] hover:text-red-500 flex items-center gap-1 transition-colors"
-              >
-                <X size={10} /> Clear
-              </button>
+            {documentContent && !isParsing && (
+              <span className="text-[11px] text-[var(--crab-text-muted)] ml-auto shrink-0">
+                {documentContent.length.toLocaleString()} chars
+              </span>
             )}
           </div>
+
+          {/* Textarea — fills remaining left panel space */}
+          <textarea
+            value={documentContent}
+            onChange={e => setDocumentContent(e.target.value)}
+            rows={18}
+            placeholder={`Paste your document here, or upload a file above.\n\nExamples:\n• FAQ / knowledge base → Q&A pairs\n• Agent spec / API docs → tool-calling tests\n• Policy / guidelines → instruction-following\n• Long report / article → summarization tasks\n• Conversation scripts → multi-turn dialog tests\n• Security policies → safety & guardrail cases`}
+            className="w-full border border-[var(--crab-border-strong)] rounded-lg px-3 py-2.5 text-sm font-mono outline-none focus:ring-1 focus:ring-[var(--crab-accent)] resize-none text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)] bg-[var(--crab-bg-tertiary)]"
+          />
         </div>
-        <p className="text-xs text-[var(--crab-text-muted)] mb-3">
-          Paste your agent system prompt here, or click Generate to auto-generate one from the document.
-          This will be used as the system prompt when running eval.
-        </p>
-        <textarea
-          value={agentSystemPrompt}
-          onChange={e => setAgentSystemPrompt(e.target.value)}
-          rows={agentSystemPrompt ? 10 : 4}
-          placeholder="Paste your agent system prompt here..."
-          className="w-full border border-[var(--crab-border-strong)] rounded-lg px-3 py-2.5 text-xs font-mono outline-none focus:ring-1 focus:ring-[var(--crab-accent)] resize-y text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)]"
-        />
-      </div>
-      )}
-
-      {/* Tool Definitions — tool_calling only */}
-      {detectedTaskType !== 'rag_qa' && (
-      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-sm font-semibold text-[var(--crab-text)]">Tool Definitions <span className="font-normal text-[var(--crab-text-muted)]">(optional)</span></h2>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleGenerateTools}
-              disabled={!documentContent.trim() || isGenTools || isExtracting}
-              className="text-[10px] px-2 py-1 rounded border border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text)] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none"
-            >
-              {isGenTools ? <Loader2 size={10} className="animate-spin" /> : <RefreshCw size={10} />}
-              {isGenTools ? 'Generating...' : 'Generate'}
-            </button>
-            {agentToolsJson && (
-              <button
-                onClick={() => { setAgentToolsJson(''); setToolsError(null) }}
-                className="text-[10px] text-[var(--crab-text-muted)] hover:text-red-500 flex items-center gap-1 transition-colors"
-              >
-                <X size={10} /> Clear
-              </button>
-            )}
-          </div>
-        </div>
-        <p className="text-xs text-[var(--crab-text-muted)] mb-3">
-          Paste the OpenAI-format tool definitions JSON array, or click Generate to auto-generate from the document. These will be passed to the target model on every eval call so it can make function calls.
-        </p>
-        <textarea
-          value={agentToolsJson}
-          onChange={e => handleToolsChange(e.target.value)}
-          rows={agentToolsJson ? 8 : 3}
-          placeholder={'[\n  { "type": "function", "function": { "name": "...", "parameters": { ... } } }\n]'}
-          className={`w-full border bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2.5 text-xs font-mono outline-none focus:ring-1 resize-y text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)] ${
-            toolsError
-              ? 'border-red-300 focus:ring-red-400'
-              : 'border-[var(--crab-border-strong)] focus:ring-[var(--crab-accent)]'
-          }`}
-        />
-        {toolsError && (
-          <p className="text-[10px] text-red-500 mt-1 flex items-center gap-1">
-            <AlertTriangle size={10} /> {toolsError}
-          </p>
-        )}
-        {agentToolsJson && !toolsError && (
-          <p className="text-[10px] text-emerald-400 mt-1 flex items-center gap-1">
-            <Check size={10} />
-            {(() => { try { return (JSON.parse(agentToolsJson) as unknown[]).length } catch { return 0 } })()} tool{(() => { try { return (JSON.parse(agentToolsJson) as unknown[]).length !== 1 ? 's' : '' } catch { return 's' } })()} defined
-          </p>
-        )}
-      </div>
-      )}
-
-      <div className="flex gap-2 flex-wrap items-center">
-        {/* Detected type badge */}
-        {isDetecting && (
-          <span className="flex items-center gap-1.5 text-xs text-[var(--crab-text-muted)]">
-            <Loader2 size={11} className="animate-spin text-amber-500" />
-            Detecting document type...
-          </span>
-        )}
-        {!isDetecting && detectedTaskType && (
-          <div className="flex items-center gap-1.5">
-            <span className={`text-[10px] px-2 py-0.5 rounded font-medium ${
-              detectedTaskType === 'rag_qa'
-                ? 'bg-[var(--crab-accent-light)] text-[var(--crab-accent-hover)] border border-[var(--crab-accent-medium)]'
-                : 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] border border-[var(--crab-border-strong)]'
-            }`}>
-              {detectedTaskType === 'rag_qa' ? 'QA / RAG doc' : 'Tool-Calling spec'}
-            </span>
-            <button
-              disabled={isExtracting}
-              onClick={() => {
-                const next = detectedTaskType === 'rag_qa' ? 'tool_calling' : 'rag_qa'
-                setDetectedTaskType(next)
-                // Clear state belonging to the mode we're leaving
-                if (detectedTaskType === 'rag_qa') {
-                  setQAPairs([])
-                  setQAProgress({ done: 0, total: 0 })
-                } else {
-                  setAtomicSubtasks([])
-                  setCompositeTasks([])
-                  setGeneratedTasks([])
-                  setStats(null as never)
-                  setAgentSystemPrompt('')
-                  setAgentToolsJson('')
-                }
-              }}
-              className="text-[10px] text-[var(--crab-text-muted)] hover:text-[var(--crab-text)] underline disabled:opacity-40 disabled:pointer-events-none"
-            >
-              switch
-            </button>
-          </div>
-        )}
-
-        {!isExtracting ? (
-          detectedTaskType === 'rag_qa' ? (
-            <Button
-              onClick={handleExtractQA}
-              disabled={!documentContent.trim()}
-              className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2"
-            >
-              <FlaskConical size={14} />
-              Generate QA Pairs
-            </Button>
-          ) : (
-            <Button
-              onClick={handleExtract}
-              disabled={!documentContent.trim()}
-              className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2"
-            >
-              <FlaskConical size={14} />
-              Extract Subtasks
-            </Button>
-          )
-        ) : (
-          <Button
-            variant="outline"
-            onClick={() => abortRef.current?.abort()}
-            className="border-red-500/30 text-red-400 hover:bg-red-500/10"
-          >
-            <X size={14} className="mr-1" /> Stop
-          </Button>
-        )}
       </div>
 
-      {log.length > 0 && (
-        <div className="bg-[var(--crab-bg-tertiary)] border border-[var(--crab-border-strong)] rounded-xl p-4">
-          <h3 className="text-xs font-semibold text-[var(--crab-text-secondary)] mb-2">Log</h3>
-          <div className="space-y-1">
-            {log.map((line, i) => (
-              <div key={i} className="flex items-start gap-2 text-xs">
-                {isExtracting && i === log.length - 1 ? (
-                  <Loader2 size={11} className="animate-spin text-amber-500 mt-0.5 shrink-0" />
-                ) : (
-                  <span className="text-[var(--crab-text-muted)] shrink-0">→</span>
-                )}
-                <span className="text-[var(--crab-text-secondary)] font-mono">{line}</span>
+      {/* ── RIGHT PANEL: Detection + Config + CTA (flex-col, no outer scroll) */}
+      <div className="flex-1 min-w-0 flex flex-col h-full">
+
+        {/* ── Detection card (shrink-0, always visible at top) ────── */}
+        <div className="shrink-0 px-5 pt-5 pb-4 border-b border-[var(--crab-border)]">
+          <h2 className="text-xs font-semibold text-[var(--crab-text-muted)] uppercase tracking-wider mb-3">Detected Type</h2>
+
+          {!documentContent.trim() && !isDetecting && !detectedTaskType && (
+            <div className="flex flex-col items-center justify-center py-4 gap-2">
+              <CrawdAnim type="sleeping" size={72} className="opacity-70" />
+              <p className="text-xs text-[var(--crab-text-muted)] text-center">Upload or paste a document<br/>to detect its type automatically</p>
+            </div>
+          )}
+
+          {isDetecting && (
+            <div className="flex flex-col items-center justify-center py-4 gap-2">
+              <CrawdAnim type="thinking" size={72} />
+              <div className="text-center">
+                <p className="text-sm font-medium text-[var(--crab-text)]">Analyzing document…</p>
+                <p className="text-xs text-[var(--crab-text-muted)] mt-0.5">AI is classifying the content type</p>
               </div>
-            ))}
-          </div>
+            </div>
+          )}
+
+          {documentContent.trim() && !isDetecting && !detectedTaskType && (
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => handleDetectType(documentContent, sourceFile)}
+                className="flex items-center gap-2 text-xs px-3 py-1.5 rounded-lg border border-[var(--crab-accent-medium)] bg-[var(--crab-accent-light)] text-[var(--crab-accent)] hover:bg-[var(--crab-accent-medium)] transition-colors"
+              >
+                <RefreshCw size={12} />
+                Detect type now
+              </button>
+              <span className="text-xs text-[var(--crab-text-muted)]">auto-detects on upload</span>
+            </div>
+          )}
+
+          {!isDetecting && typeMeta && (
+            <div className="flex items-start gap-3">
+              <span className={`text-sm px-3 py-1.5 rounded-lg font-semibold shrink-0 ${typeMeta.colorCls}`}>
+                {typeMeta.label}
+              </span>
+              <div className="min-w-0">
+                <p className="text-xs text-[var(--crab-text-secondary)] leading-relaxed">{typeMeta.description}</p>
+                <div className="flex items-center gap-3 mt-1.5">
+                  <button
+                    disabled={isExtracting}
+                    onClick={handleSwitchType}
+                    className="text-[11px] text-[var(--crab-text-muted)] hover:text-[var(--crab-text)] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none"
+                  >
+                    <RefreshCw size={10} />
+                    Switch type
+                  </button>
+                  {documentContent.trim() && !isExtracting && (
+                    <button
+                      onClick={() => handleDetectType(documentContent, sourceFile)}
+                      className="text-[11px] text-[var(--crab-text-muted)] hover:text-[var(--crab-accent)] flex items-center gap-1 transition-colors"
+                    >
+                      <RefreshCw size={10} />
+                      Re-detect
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+
+        {/* ── Scrollable middle: accordions + log ─────────────────── */}
+        <div className="flex-1 min-h-0 overflow-y-auto px-5 py-4 space-y-2">
+
+          {/* Model Config */}
+          <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl overflow-hidden">
+            <button
+              className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-[var(--crab-bg-hover)] transition-colors"
+              onClick={() => setModelConfigOpen((v: boolean) => !v)}
+            >
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm font-semibold text-[var(--crab-text)]">Model Config</h3>
+                {!modelConfigOpen && (
+                  <span className="text-xs text-[var(--crab-text-muted)]">{model} · {baseUrl.replace('https://', '').split('/')[0]}</span>
+                )}
+              </div>
+              <ChevronDown size={14} className={`text-[var(--crab-text-muted)] transition-transform ${modelConfigOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {modelConfigOpen && (
+              <div className="px-4 pb-4 border-t border-[var(--crab-border-subtle)] pt-4">
+                <ModelConfigRow
+                  apiKeyName="tg_api_key"
+                  baseUrl={baseUrl}
+                  setBaseUrl={setBaseUrl}
+                  model={model}
+                  setModel={setModel}
+                />
+                <p className="text-[10px] text-[var(--crab-text-muted)] mt-2">API key in sessionStorage — cleared when tab closes</p>
+              </div>
+            )}
+          </div>
+
+          {/* Tool-calling only: System Prompt + Tool Defs */}
+          {(detectedTaskType === 'tool_calling' || !detectedTaskType) && (
+            <>
+              <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl overflow-hidden">
+                <button
+                  className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-[var(--crab-bg-hover)] transition-colors"
+                  onClick={() => setModelConfigOpen((v: boolean) => !v)}
+                >
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-semibold text-[var(--crab-text)]">Agent System Prompt</h3>
+                    {agentSystemPrompt && <span className="text-[10px] text-emerald-400 flex items-center gap-1"><Check size={10} /> set</span>}
+                  </div>
+                  <ChevronDown size={14} className={`text-[var(--crab-text-muted)] transition-transform ${modelConfigOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {modelConfigOpen && (
+                  <div className="px-4 pb-4 border-t border-[var(--crab-border-subtle)] pt-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-xs text-[var(--crab-text-muted)]">Auto-generate or paste the agent system prompt.</p>
+                      <div className="flex items-center gap-2 ml-3 shrink-0">
+                        <button onClick={handleGenerateSysPrompt} disabled={!documentContent.trim() || isGenSysPrompt || isExtracting}
+                          className="text-[10px] px-2 py-1 rounded border border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text)] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none">
+                          {isGenSysPrompt ? <Loader2 size={10} className="animate-spin" /> : <RefreshCw size={10} />}
+                          {isGenSysPrompt ? 'Generating...' : 'Generate'}
+                        </button>
+                        {agentSystemPrompt && (
+                          <button onClick={() => setAgentSystemPrompt('')} className="text-[10px] text-[var(--crab-text-muted)] hover:text-red-500 flex items-center gap-1 transition-colors">
+                            <X size={10} /> Clear
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                    <textarea value={agentSystemPrompt} onChange={e => setAgentSystemPrompt(e.target.value)}
+                      rows={agentSystemPrompt ? 6 : 3} placeholder="Paste your agent system prompt here..."
+                      className="w-full border border-[var(--crab-border-strong)] rounded-lg px-3 py-2.5 text-xs font-mono outline-none focus:ring-1 focus:ring-[var(--crab-accent)] resize-y text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)] bg-[var(--crab-bg-tertiary)]" />
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl overflow-hidden">
+                <button
+                  className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-[var(--crab-bg-hover)] transition-colors"
+                  onClick={() => setSysPromptOpen((v: boolean) => !v)}
+                >
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-sm font-semibold text-[var(--crab-text)]">Tool Definitions <span className="font-normal text-[var(--crab-text-muted)]">(optional)</span></h3>
+                    {agentToolsJson && !toolsError && (
+                      <span className="text-[10px] text-emerald-400 flex items-center gap-1">
+                        <Check size={10} />{(() => { try { return (JSON.parse(agentToolsJson) as unknown[]).length } catch { return '?' } })()} tools
+                      </span>
+                    )}
+                    {toolsError && <span className="text-[10px] text-red-400 flex items-center gap-1"><AlertTriangle size={10} /> invalid</span>}
+                  </div>
+                  <ChevronDown size={14} className={`text-[var(--crab-text-muted)] transition-transform ${sysPromptOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {sysPromptOpen && (
+                  <div className="px-4 pb-4 border-t border-[var(--crab-border-subtle)] pt-4">
+                    <div className="flex items-start justify-between mb-2">
+                      <p className="text-xs text-[var(--crab-text-muted)]">OpenAI-format tool definitions array. Passed to the target model on every eval call.</p>
+                      <div className="flex items-center gap-2 ml-3 shrink-0">
+                        <button onClick={handleGenerateTools} disabled={!documentContent.trim() || isGenTools || isExtracting}
+                          className="text-[10px] px-2 py-1 rounded border border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] hover:border-[var(--crab-accent)] hover:text-[var(--crab-text)] flex items-center gap-1 transition-colors disabled:opacity-40 disabled:pointer-events-none">
+                          {isGenTools ? <Loader2 size={10} className="animate-spin" /> : <RefreshCw size={10} />}
+                          {isGenTools ? 'Generating...' : 'Generate'}
+                        </button>
+                        {agentToolsJson && (
+                          <button onClick={() => { setAgentToolsJson(''); setToolsError(null) }} className="text-[10px] text-[var(--crab-text-muted)] hover:text-red-500 flex items-center gap-1 transition-colors">
+                            <X size={10} /> Clear
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                    <textarea value={agentToolsJson} onChange={e => handleToolsChange(e.target.value)}
+                      rows={agentToolsJson ? 6 : 3}
+                      placeholder={'[\n  { "type": "function", "function": { "name": "...", "parameters": { ... } } }\n]'}
+                      className={`w-full border bg-[var(--crab-bg-tertiary)] rounded-lg px-3 py-2.5 text-xs font-mono outline-none focus:ring-1 resize-y text-[var(--crab-text)] placeholder:text-[var(--crab-text-muted)] ${toolsError ? 'border-red-500/50 focus:ring-red-500/50' : 'border-[var(--crab-border-strong)] focus:ring-[var(--crab-accent)]'}`} />
+                    {toolsError && <p className="text-[10px] text-red-400 mt-1 flex items-center gap-1"><AlertTriangle size={10} /> {toolsError}</p>}
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+
+          {/* Log */}
+          {log.length > 0 && (
+            <div className="bg-[var(--crab-bg-tertiary)] border border-[var(--crab-border-strong)] rounded-xl p-4">
+              <h3 className="text-xs font-semibold text-[var(--crab-text-secondary)] mb-2">Log</h3>
+              <div className="space-y-1 max-h-36 overflow-y-auto">
+                {log.map((line, i) => (
+                  <div key={i} className="flex items-start gap-2 text-xs">
+                    {isExtracting && i === log.length - 1
+                      ? <Loader2 size={11} className="animate-spin text-amber-500 mt-0.5 shrink-0" />
+                      : <span className="text-[var(--crab-text-muted)] shrink-0">→</span>
+                    }
+                    <span className="text-[var(--crab-text-secondary)] font-mono">{line}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ── CTA — pinned at bottom, always visible ───────────────── */}
+        {detectedTaskType && (
+          <div className="shrink-0 px-5 py-4 border-t border-[var(--crab-border)] bg-[var(--crab-bg)]">
+            {!isExtracting ? (
+              <Button
+                onClick={
+                  detectedTaskType === 'rag_qa' ? handleExtractQA
+                  : detectedTaskType === 'multi_turn' ? handleExtractMultiTurn
+                  : detectedTaskType === 'instruction_following' ? handleExtractInstruction
+                  : detectedTaskType === 'safety' ? handleExtractSafety
+                  : detectedTaskType === 'summarization' ? handleExtractSummarization
+                  : handleExtract
+                }
+                disabled={!documentContent.trim()}
+                className="w-full bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center justify-center gap-2 h-10"
+              >
+                <FlaskConical size={15} />
+                {detectedTaskType === 'rag_qa' ? 'Generate QA Pairs'
+                  : detectedTaskType === 'multi_turn' ? 'Generate Conversations'
+                  : detectedTaskType === 'instruction_following' ? 'Generate Instructions'
+                  : detectedTaskType === 'safety' ? 'Generate Safety Cases'
+                  : detectedTaskType === 'summarization' ? 'Generate Summaries'
+                  : 'Extract Subtasks'}
+              </Button>
+            ) : (
+              <Button variant="outline" onClick={() => abortRef.current?.abort()}
+                className="w-full border-red-500/30 text-red-400 hover:bg-red-500/10 flex items-center justify-center gap-2 h-10">
+                <X size={14} /> Stop generation
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -953,6 +1173,402 @@ function Step2QAReview({ onNext }: { onNext: () => void }) {
             Continue to Export
             <ChevronRight size={14} />
           </Button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Step 2 (Multi-turn mode): Review Multi-turn Pairs ────────────────
+
+const MT_ASPECT_COLORS: Record<string, string> = {
+  context_retention: 'bg-sky-900/40 text-sky-300',
+  consistency:       'bg-purple-900/40 text-purple-300',
+  update_tracking:   'bg-amber-900/40 text-amber-300',
+}
+
+function Step2MultiTurnReview({ onNext }: { onNext: () => void }) {
+  const { multiTurnPairs, removeMultiTurnPair, sourceFile, documentContent } = useTaskGeneratorStore()
+  const byAspect = multiTurnPairs.reduce<Record<string, number>>((acc, p) => {
+    acc[p.test_aspect] = (acc[p.test_aspect] || 0) + 1; return acc
+  }, {})
+  const byDiff = multiTurnPairs.reduce<Record<string, number>>((acc, p) => {
+    acc[p.difficulty] = (acc[p.difficulty] || 0) + 1; return acc
+  }, {})
+
+  return (
+    <div className="space-y-5">
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
+        <div className="flex flex-wrap items-center gap-4">
+          <div>
+            <span className="text-xl font-semibold text-[var(--crab-text)]">{multiTurnPairs.length}</span>
+            <span className="text-xs text-[var(--crab-text-secondary)] ml-1.5">conversation pairs</span>
+          </div>
+          <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
+          <div className="flex items-center gap-1.5">
+            {Object.entries(byDiff).map(([d, n]) => (
+              <span key={d} className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${QA_DIFFICULTY_COLORS[d] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>
+                {d}: {n}
+              </span>
+            ))}
+          </div>
+          <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
+          <div className="flex items-center gap-1.5">
+            {Object.entries(byAspect).map(([a, n]) => (
+              <span key={a} className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${MT_ASPECT_COLORS[a] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>
+                {a.replace(/_/g, ' ')}: {n}
+              </span>
+            ))}
+          </div>
+          <div className="ml-auto">
+            <span className="text-[10px] text-[var(--crab-text-muted)]">
+              {sourceFile?.name || `${documentContent.length.toLocaleString()} chars`}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {multiTurnPairs.length > 0 ? (
+        <ScrollArea className="h-[540px] pr-1">
+          <div className="space-y-2">
+            {multiTurnPairs.map(pair => (
+              <MultiTurnPairRow key={pair.id} pair={pair} onDelete={() => removeMultiTurnPair(pair.id)} />
+            ))}
+          </div>
+        </ScrollArea>
+      ) : (
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
+          <CrawdAnim type="thinking" size={80} className="mb-3" />
+          <p className="text-sm">No multi-turn pairs yet. Go back to Step 1 and generate them.</p>
+        </div>
+      )}
+      {multiTurnPairs.length > 0 && (
+        <Button onClick={onNext} className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2">
+          Continue to Export <ChevronRight size={14} />
+        </Button>
+      )}
+    </div>
+  )
+}
+
+function MultiTurnPairRow({ pair, onDelete }: { pair: MultiTurnPair; onDelete: () => void }) {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <div className="border border-[var(--crab-border-strong)] rounded-xl overflow-hidden">
+      <div className="flex items-center gap-3 px-4 py-3 bg-[var(--crab-bg-secondary)] cursor-pointer hover:bg-[var(--crab-bg-hover)] transition-colors" onClick={() => setExpanded(e => !e)}>
+        <button onClick={e => { e.stopPropagation(); setExpanded(v => !v) }} className="text-[var(--crab-text-muted)] shrink-0">
+          {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        </button>
+        <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${QA_DIFFICULTY_COLORS[pair.difficulty] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{pair.difficulty}</span>
+        <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${MT_ASPECT_COLORS[pair.test_aspect] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{pair.test_aspect.replace(/_/g, ' ')}</span>
+        <span className="flex-1 text-xs text-[var(--crab-text)] truncate">{pair.final_input}</span>
+        <span className="text-[10px] text-[var(--crab-text-muted)] shrink-0">{pair.conversation_history.length} turns</span>
+        <button onClick={e => { e.stopPropagation(); onDelete() }} className="text-[var(--crab-text-muted)] hover:text-red-500 transition-colors shrink-0 ml-1"><Trash2 size={13} /></button>
+      </div>
+      {expanded && (
+        <div className="px-4 py-3 bg-[var(--crab-bg-tertiary)] space-y-3 border-t border-[var(--crab-border)]">
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Conversation History</span>
+            <div className="space-y-1">
+              {pair.conversation_history.map((turn, i) => (
+                <div key={i} className={`text-xs px-2 py-1 rounded ${turn.role === 'user' ? 'bg-[var(--crab-bg-secondary)] text-[var(--crab-text)]' : 'bg-sky-900/20 text-sky-200'}`}>
+                  <span className="font-semibold text-[10px] uppercase mr-2 opacity-60">{turn.role || 'user'}</span>
+                  {turn.content || turn.user || turn.bot || ''}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Final Input (test)</span>
+            <p className="text-xs text-[var(--crab-text-secondary)]">{pair.final_input}</p>
+          </div>
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Reference Answer</span>
+            <p className="text-xs text-[var(--crab-text-secondary)]">{pair.reference}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Step 2 (Instruction mode): Review Instruction Pairs ───────────────
+
+function Step2InstructionReview({ onNext }: { onNext: () => void }) {
+  const { instructionPairs, removeInstructionPair, sourceFile, documentContent } = useTaskGeneratorStore()
+  const byDiff = instructionPairs.reduce<Record<string, number>>((acc, p) => {
+    acc[p.difficulty] = (acc[p.difficulty] || 0) + 1; return acc
+  }, {})
+
+  return (
+    <div className="space-y-5">
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
+        <div className="flex flex-wrap items-center gap-4">
+          <div>
+            <span className="text-xl font-semibold text-[var(--crab-text)]">{instructionPairs.length}</span>
+            <span className="text-xs text-[var(--crab-text-secondary)] ml-1.5">instruction pairs</span>
+          </div>
+          <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
+          <div className="flex items-center gap-1.5">
+            {Object.entries(byDiff).map(([d, n]) => (
+              <span key={d} className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${QA_DIFFICULTY_COLORS[d] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{d}: {n}</span>
+            ))}
+          </div>
+          <div className="ml-auto">
+            <span className="text-[10px] text-[var(--crab-text-muted)]">{sourceFile?.name || `${documentContent.length.toLocaleString()} chars`}</span>
+          </div>
+        </div>
+      </div>
+      {instructionPairs.length > 0 ? (
+        <ScrollArea className="h-[540px] pr-1">
+          <div className="space-y-2">
+            {instructionPairs.map(pair => (
+              <InstructionPairRow key={pair.id} pair={pair} onDelete={() => removeInstructionPair(pair.id)} />
+            ))}
+          </div>
+        </ScrollArea>
+      ) : (
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
+          <CrawdAnim type="thinking" size={80} className="mb-3" />
+          <p className="text-sm">No instruction pairs yet. Go back to Step 1 and generate them.</p>
+        </div>
+      )}
+      {instructionPairs.length > 0 && (
+        <Button onClick={onNext} className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2">
+          Continue to Export <ChevronRight size={14} />
+        </Button>
+      )}
+    </div>
+  )
+}
+
+function InstructionPairRow({ pair, onDelete }: { pair: InstructionPair; onDelete: () => void }) {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <div className="border border-[var(--crab-border-strong)] rounded-xl overflow-hidden">
+      <div className="flex items-center gap-3 px-4 py-3 bg-[var(--crab-bg-secondary)] cursor-pointer hover:bg-[var(--crab-bg-hover)] transition-colors" onClick={() => setExpanded(e => !e)}>
+        <button onClick={e => { e.stopPropagation(); setExpanded(v => !v) }} className="text-[var(--crab-text-muted)] shrink-0">{expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}</button>
+        <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${QA_DIFFICULTY_COLORS[pair.difficulty] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{pair.difficulty}</span>
+        <span className="text-[10px] bg-purple-900/40 text-purple-300 px-1.5 py-0.5 rounded font-medium shrink-0">{pair.constraints.length} constraints</span>
+        <span className="flex-1 text-xs text-[var(--crab-text)] truncate">{pair.instruction}</span>
+        <button onClick={e => { e.stopPropagation(); onDelete() }} className="text-[var(--crab-text-muted)] hover:text-red-500 transition-colors shrink-0 ml-1"><Trash2 size={13} /></button>
+      </div>
+      {expanded && (
+        <div className="px-4 py-3 bg-[var(--crab-bg-tertiary)] space-y-3 border-t border-[var(--crab-border)]">
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Instruction</span>
+            <p className="text-xs text-[var(--crab-text-secondary)]">{pair.instruction}</p>
+          </div>
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Constraints</span>
+            <ul className="space-y-0.5">
+              {pair.constraints.map((c, i) => (
+                <li key={i} className="flex items-start gap-1.5 text-xs text-[var(--crab-text-secondary)]">
+                  <Check size={10} className="text-purple-400 mt-0.5 shrink-0" />
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Reference Answer</span>
+            <p className="text-xs text-[var(--crab-text-secondary)]">{pair.reference}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Step 2 (Safety mode): Review Safety Cases ─────────────────────────
+
+const ATTACK_TYPE_COLORS: Record<string, string> = {
+  normal:           'bg-emerald-900/40 text-emerald-300',
+  jailbreak:        'bg-red-900/40 text-red-300',
+  prompt_injection: 'bg-orange-900/40 text-orange-300',
+  pii_extraction:   'bg-amber-900/40 text-amber-300',
+  out_of_scope:     'bg-gray-800 text-gray-400',
+}
+
+const EXPECTED_BEHAVIOR_COLORS: Record<string, string> = {
+  comply:  'bg-emerald-900/40 text-emerald-300',
+  refuse:  'bg-red-900/40 text-red-300',
+  clarify: 'bg-sky-900/40 text-sky-300',
+}
+
+function Step2SafetyReview({ onNext }: { onNext: () => void }) {
+  const { safetyCases, removeSafetyCase, sourceFile, documentContent } = useTaskGeneratorStore()
+  const byType = safetyCases.reduce<Record<string, number>>((acc, c) => {
+    acc[c.attack_type] = (acc[c.attack_type] || 0) + 1; return acc
+  }, {})
+  const byBehavior = safetyCases.reduce<Record<string, number>>((acc, c) => {
+    acc[c.expected_behavior] = (acc[c.expected_behavior] || 0) + 1; return acc
+  }, {})
+
+  return (
+    <div className="space-y-5">
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
+        <div className="flex flex-wrap items-center gap-4">
+          <div>
+            <span className="text-xl font-semibold text-[var(--crab-text)]">{safetyCases.length}</span>
+            <span className="text-xs text-[var(--crab-text-secondary)] ml-1.5">safety cases</span>
+          </div>
+          <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
+          <div className="flex items-center gap-1.5">
+            {Object.entries(byType).map(([t, n]) => (
+              <span key={t} className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${ATTACK_TYPE_COLORS[t] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{t.replace(/_/g, ' ')}: {n}</span>
+            ))}
+          </div>
+          <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
+          <div className="flex items-center gap-1.5">
+            {Object.entries(byBehavior).map(([b, n]) => (
+              <span key={b} className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${EXPECTED_BEHAVIOR_COLORS[b] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{b}: {n}</span>
+            ))}
+          </div>
+          <div className="ml-auto">
+            <span className="text-[10px] text-[var(--crab-text-muted)]">{sourceFile?.name || `${documentContent.length.toLocaleString()} chars`}</span>
+          </div>
+        </div>
+      </div>
+      {safetyCases.length > 0 ? (
+        <ScrollArea className="h-[540px] pr-1">
+          <div className="space-y-2">
+            {safetyCases.map(c => (
+              <SafetyCaseRow key={c.id} safetyCase={c} onDelete={() => removeSafetyCase(c.id)} />
+            ))}
+          </div>
+        </ScrollArea>
+      ) : (
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
+          <CrawdAnim type="thinking" size={80} className="mb-3" />
+          <p className="text-sm">No safety cases yet. Go back to Step 1 and generate them.</p>
+        </div>
+      )}
+      {safetyCases.length > 0 && (
+        <Button onClick={onNext} className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2">
+          Continue to Export <ChevronRight size={14} />
+        </Button>
+      )}
+    </div>
+  )
+}
+
+function SafetyCaseRow({ safetyCase, onDelete }: { safetyCase: SafetyCase; onDelete: () => void }) {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <div className="border border-[var(--crab-border-strong)] rounded-xl overflow-hidden">
+      <div className="flex items-center gap-3 px-4 py-3 bg-[var(--crab-bg-secondary)] cursor-pointer hover:bg-[var(--crab-bg-hover)] transition-colors" onClick={() => setExpanded(e => !e)}>
+        <button onClick={e => { e.stopPropagation(); setExpanded(v => !v) }} className="text-[var(--crab-text-muted)] shrink-0">{expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}</button>
+        <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${ATTACK_TYPE_COLORS[safetyCase.attack_type] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{safetyCase.attack_type.replace(/_/g, ' ')}</span>
+        <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${EXPECTED_BEHAVIOR_COLORS[safetyCase.expected_behavior] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{safetyCase.expected_behavior}</span>
+        <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${QA_DIFFICULTY_COLORS[safetyCase.difficulty] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{safetyCase.difficulty}</span>
+        <span className="flex-1 text-xs text-[var(--crab-text)] truncate">{safetyCase.input}</span>
+        <button onClick={e => { e.stopPropagation(); onDelete() }} className="text-[var(--crab-text-muted)] hover:text-red-500 transition-colors shrink-0 ml-1"><Trash2 size={13} /></button>
+      </div>
+      {expanded && (
+        <div className="px-4 py-3 bg-[var(--crab-bg-tertiary)] space-y-3 border-t border-[var(--crab-border)]">
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Input</span>
+            <p className="text-xs text-[var(--crab-text-secondary)]">{safetyCase.input}</p>
+          </div>
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Expected Behavior</span>
+            <p className="text-xs text-[var(--crab-text-secondary)]">{safetyCase.reference}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Step 2 (Summarization mode): Review Summarization Pairs ──────────
+
+function Step2SummarizationReview({ onNext }: { onNext: () => void }) {
+  const { summarizationPairs, removeSummarizationPair, sourceFile, documentContent } = useTaskGeneratorStore()
+  const byDiff = summarizationPairs.reduce<Record<string, number>>((acc, p) => {
+    acc[p.difficulty] = (acc[p.difficulty] || 0) + 1; return acc
+  }, {})
+
+  return (
+    <div className="space-y-5">
+      <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-4">
+        <div className="flex flex-wrap items-center gap-4">
+          <div>
+            <span className="text-xl font-semibold text-[var(--crab-text)]">{summarizationPairs.length}</span>
+            <span className="text-xs text-[var(--crab-text-secondary)] ml-1.5">summarization pairs</span>
+          </div>
+          <div className="w-px h-4 bg-[var(--crab-bg-tertiary)] self-center" />
+          <div className="flex items-center gap-1.5">
+            {Object.entries(byDiff).map(([d, n]) => (
+              <span key={d} className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${QA_DIFFICULTY_COLORS[d] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{d}: {n}</span>
+            ))}
+          </div>
+          <div className="ml-auto">
+            <span className="text-[10px] text-[var(--crab-text-muted)]">{sourceFile?.name || `${documentContent.length.toLocaleString()} chars`}</span>
+          </div>
+        </div>
+      </div>
+      {summarizationPairs.length > 0 ? (
+        <ScrollArea className="h-[540px] pr-1">
+          <div className="space-y-2">
+            {summarizationPairs.map(pair => (
+              <SummarizationPairRow key={pair.id} pair={pair} onDelete={() => removeSummarizationPair(pair.id)} />
+            ))}
+          </div>
+        </ScrollArea>
+      ) : (
+        <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-10 text-center text-[var(--crab-text-muted)]">
+          <CrawdAnim type="thinking" size={80} className="mb-3" />
+          <p className="text-sm">No summarization pairs yet. Go back to Step 1 and generate them.</p>
+        </div>
+      )}
+      {summarizationPairs.length > 0 && (
+        <Button onClick={onNext} className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-2">
+          Continue to Export <ChevronRight size={14} />
+        </Button>
+      )}
+    </div>
+  )
+}
+
+function SummarizationPairRow({ pair, onDelete }: { pair: SummarizationPair; onDelete: () => void }) {
+  const [expanded, setExpanded] = useState(false)
+  return (
+    <div className="border border-[var(--crab-border-strong)] rounded-xl overflow-hidden">
+      <div className="flex items-center gap-3 px-4 py-3 bg-[var(--crab-bg-secondary)] cursor-pointer hover:bg-[var(--crab-bg-hover)] transition-colors" onClick={() => setExpanded(e => !e)}>
+        <button onClick={e => { e.stopPropagation(); setExpanded(v => !v) }} className="text-[var(--crab-text-muted)] shrink-0">{expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}</button>
+        <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium shrink-0 ${QA_DIFFICULTY_COLORS[pair.difficulty] || 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-muted)]'}`}>{pair.difficulty}</span>
+        {pair.max_words && <span className="text-[10px] bg-emerald-900/40 text-emerald-300 px-1.5 py-0.5 rounded font-medium shrink-0">max {pair.max_words}w</span>}
+        <span className="flex-1 text-xs text-[var(--crab-text)] truncate">{pair.instruction}</span>
+        <span className="text-[10px] text-[var(--crab-text-muted)] shrink-0">{pair.key_facts.length} facts</span>
+        <button onClick={e => { e.stopPropagation(); onDelete() }} className="text-[var(--crab-text-muted)] hover:text-red-500 transition-colors shrink-0 ml-1"><Trash2 size={13} /></button>
+      </div>
+      {expanded && (
+        <div className="px-4 py-3 bg-[var(--crab-bg-tertiary)] space-y-3 border-t border-[var(--crab-border)]">
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Instruction</span>
+            <p className="text-xs text-[var(--crab-text-secondary)]">{pair.instruction}</p>
+          </div>
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Source Text (snippet)</span>
+            <p className="text-[10px] text-[var(--crab-text-muted)] font-mono bg-[var(--crab-bg-secondary)] rounded p-2 line-clamp-3">
+              {pair.source_text.slice(0, 300)}{pair.source_text.length > 300 ? '…' : ''}
+            </p>
+          </div>
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Reference Summary</span>
+            <p className="text-xs text-[var(--crab-text-secondary)]">{pair.reference}</p>
+          </div>
+          <div>
+            <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wide block mb-1">Key Facts to Cover</span>
+            <ul className="space-y-0.5">
+              {pair.key_facts.map((f, i) => (
+                <li key={i} className="flex items-start gap-1.5 text-xs text-[var(--crab-text-secondary)]">
+                  <Check size={10} className="text-emerald-500 mt-0.5 shrink-0" />{f}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
     </div>
@@ -1682,6 +2298,11 @@ function Step4Generate() {
     qaPairs,
     detectedTaskType,
     sourceFile,
+    // New task types
+    multiTurnPairs,
+    instructionPairs,
+    safetyCases,
+    summarizationPairs,
   } = useTaskGeneratorStore()
 
   const [baseUrl, setBaseUrl] = useState('https://api.openai.com/v1')
@@ -1855,6 +2476,132 @@ function Step4Generate() {
       return
     }
 
+    // ── Multi-turn mode ───────────────────────────────────────────────────
+    if (detectedTaskType === 'multi_turn') {
+      if (multiTurnPairs.length === 0) { toast.error('No multi-turn pairs to send'); return }
+      const filename = sourceFile?.name ?? 'document'
+      const records = multiTurnPairs.map(p => ({
+        id: p.id,
+        input: p.final_input,
+        output: '',
+        reference: p.reference,
+        conversation_history: p.conversation_history,
+        metadata: { test_aspect: p.test_aspect, difficulty: p.difficulty, tags: p.tags },
+      }))
+      const dataset = {
+        id: crypto.randomUUID(),
+        filename: `multi-turn-${Date.now()}.json`,
+        uploadedAt: new Date().toISOString(),
+        metadata: {
+          task_name: `Multi-turn Conv. — ${filename}`,
+          task_type: 'multi_turn',
+          description: `Multi-turn conversation dataset (${multiTurnPairs.length} pairs)`,
+          gt_metrics: ['context_retention', 'consistency_score'],
+          created_date: new Date().toISOString(),
+          sampled_records: multiTurnPairs.length,
+        },
+        data: records,
+      }
+      addDataset(dataset)
+      toast.success(`Sent ${multiTurnPairs.length} multi-turn pairs to Run Eval`)
+      router.push('/run')
+      return
+    }
+
+    // ── Instruction Following mode ────────────────────────────────────────
+    if (detectedTaskType === 'instruction_following') {
+      if (instructionPairs.length === 0) { toast.error('No instruction pairs to send'); return }
+      const filename = sourceFile?.name ?? 'document'
+      const records = instructionPairs.map(p => ({
+        id: p.id,
+        input: p.instruction,
+        output: '',
+        reference: p.reference,
+        metadata: { constraints: p.constraints, difficulty: p.difficulty, tags: p.tags },
+      }))
+      const dataset = {
+        id: crypto.randomUUID(),
+        filename: `instruction-${Date.now()}.json`,
+        uploadedAt: new Date().toISOString(),
+        metadata: {
+          task_name: `Instruction Follow. — ${filename}`,
+          task_type: 'instruction_following',
+          description: `Instruction-following dataset (${instructionPairs.length} pairs)`,
+          gt_metrics: ['instruction_adherence', 'token_f1'],
+          created_date: new Date().toISOString(),
+          sampled_records: instructionPairs.length,
+        },
+        data: records,
+      }
+      addDataset(dataset)
+      toast.success(`Sent ${instructionPairs.length} instruction pairs to Run Eval`)
+      router.push('/run')
+      return
+    }
+
+    // ── Safety / Guardrail mode ───────────────────────────────────────────
+    if (detectedTaskType === 'safety') {
+      if (safetyCases.length === 0) { toast.error('No safety cases to send'); return }
+      const filename = sourceFile?.name ?? 'document'
+      const records = safetyCases.map(c => ({
+        id: c.id,
+        input: c.input,
+        output: '',
+        reference: c.reference,
+        metadata: { attack_type: c.attack_type, expected_behavior: c.expected_behavior, difficulty: c.difficulty, tags: c.tags },
+      }))
+      const dataset = {
+        id: crypto.randomUUID(),
+        filename: `safety-${Date.now()}.json`,
+        uploadedAt: new Date().toISOString(),
+        metadata: {
+          task_name: `Safety — ${filename}`,
+          task_type: 'safety',
+          description: `Safety/guardrail dataset (${safetyCases.length} cases)`,
+          gt_metrics: ['refusal_accuracy'],
+          created_date: new Date().toISOString(),
+          sampled_records: safetyCases.length,
+        },
+        data: records,
+      }
+      addDataset(dataset)
+      toast.success(`Sent ${safetyCases.length} safety cases to Run Eval`)
+      router.push('/run')
+      return
+    }
+
+    // ── Summarization mode ────────────────────────────────────────────────
+    if (detectedTaskType === 'summarization') {
+      if (summarizationPairs.length === 0) { toast.error('No summarization pairs to send'); return }
+      const filename = sourceFile?.name ?? 'document'
+      const records = summarizationPairs.map(p => ({
+        id: p.id,
+        input: p.instruction,
+        output: '',
+        reference: p.reference,
+        context: p.source_text,   // source_text injected as system-level context
+        metadata: { key_facts: p.key_facts, max_words: p.max_words, difficulty: p.difficulty, tags: p.tags },
+      }))
+      const dataset = {
+        id: crypto.randomUUID(),
+        filename: `summarization-${Date.now()}.json`,
+        uploadedAt: new Date().toISOString(),
+        metadata: {
+          task_name: `Summarization — ${filename}`,
+          task_type: 'summarization',
+          description: `Summarization dataset (${summarizationPairs.length} pairs)`,
+          gt_metrics: ['rouge_l', 'faithfulness', 'coverage_score'],
+          created_date: new Date().toISOString(),
+          sampled_records: summarizationPairs.length,
+        },
+        data: records,
+      }
+      addDataset(dataset)
+      toast.success(`Sent ${summarizationPairs.length} summarization pairs to Run Eval`)
+      router.push('/run')
+      return
+    }
+
     // ── Tool-calling / agent mode (original path) ─────────────────────
     if (generatedTasks.length === 0) { toast.error('No generated tasks to send'); return }
 
@@ -1981,6 +2728,102 @@ function Step4Generate() {
         </div>
       )}
 
+      {/* ── Multi-turn mode: export panel ─────────────────── */}
+      {detectedTaskType === 'multi_turn' && (
+        <div className="bg-[var(--crab-bg-secondary)] border border-sky-700/40 rounded-xl p-5 space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-semibold text-[var(--crab-text)]">Multi-turn Conversation Dataset</span>
+            <span className="text-[10px] bg-sky-900/40 text-sky-300 border border-sky-700/40 px-2 py-0.5 rounded font-medium">
+              {multiTurnPairs.length} pairs ready
+            </span>
+          </div>
+          <p className="text-xs text-[var(--crab-text-muted)]">
+            Metrics: <span className="font-medium text-[var(--crab-text-secondary)]">context_retention · consistency_score</span>
+            <span className="ml-2 text-[var(--crab-text-muted)]">(LLM-as-judge — requires judge model)</span>
+          </p>
+          <Button
+            onClick={handleSendToRunEval}
+            disabled={multiTurnPairs.length === 0}
+            className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-1.5"
+          >
+            <Play size={13} />
+            Send to Run Eval ({multiTurnPairs.length} pairs)
+          </Button>
+        </div>
+      )}
+
+      {/* ── Instruction Following mode: export panel ─────── */}
+      {detectedTaskType === 'instruction_following' && (
+        <div className="bg-[var(--crab-bg-secondary)] border border-purple-700/40 rounded-xl p-5 space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-semibold text-[var(--crab-text)]">Instruction Following Dataset</span>
+            <span className="text-[10px] bg-purple-900/40 text-purple-300 border border-purple-700/40 px-2 py-0.5 rounded font-medium">
+              {instructionPairs.length} pairs ready
+            </span>
+          </div>
+          <p className="text-xs text-[var(--crab-text-muted)]">
+            Metrics: <span className="font-medium text-[var(--crab-text-secondary)]">instruction_adherence · token_f1</span>
+            <span className="ml-2 text-[var(--crab-text-muted)]">(instruction_adherence: LLM-as-judge per constraint)</span>
+          </p>
+          <Button
+            onClick={handleSendToRunEval}
+            disabled={instructionPairs.length === 0}
+            className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-1.5"
+          >
+            <Play size={13} />
+            Send to Run Eval ({instructionPairs.length} pairs)
+          </Button>
+        </div>
+      )}
+
+      {/* ── Safety / Guardrail mode: export panel ─────────── */}
+      {detectedTaskType === 'safety' && (
+        <div className="bg-[var(--crab-bg-secondary)] border border-red-700/40 rounded-xl p-5 space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-semibold text-[var(--crab-text)]">Safety / Guardrail Dataset</span>
+            <span className="text-[10px] bg-red-900/40 text-red-300 border border-red-700/40 px-2 py-0.5 rounded font-medium">
+              {safetyCases.length} cases ready
+            </span>
+          </div>
+          <p className="text-xs text-[var(--crab-text-muted)]">
+            Metrics: <span className="font-medium text-[var(--crab-text-secondary)]">refusal_accuracy</span>
+            <span className="ml-2 text-[var(--crab-text-muted)]">(programmatic — no judge model needed)</span>
+          </p>
+          <Button
+            onClick={handleSendToRunEval}
+            disabled={safetyCases.length === 0}
+            className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-1.5"
+          >
+            <Play size={13} />
+            Send to Run Eval ({safetyCases.length} cases)
+          </Button>
+        </div>
+      )}
+
+      {/* ── Summarization mode: export panel ──────────────── */}
+      {detectedTaskType === 'summarization' && (
+        <div className="bg-[var(--crab-bg-secondary)] border border-emerald-700/40 rounded-xl p-5 space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-semibold text-[var(--crab-text)]">Summarization Dataset</span>
+            <span className="text-[10px] bg-emerald-900/40 text-emerald-300 border border-emerald-700/40 px-2 py-0.5 rounded font-medium">
+              {summarizationPairs.length} pairs ready
+            </span>
+          </div>
+          <p className="text-xs text-[var(--crab-text-muted)]">
+            Metrics: <span className="font-medium text-[var(--crab-text-secondary)]">rouge_l · faithfulness · coverage_score</span>
+            <span className="ml-2 text-[var(--crab-text-muted)]">(rouge_l: programmatic · faithfulness/coverage_score: LLM judge)</span>
+          </p>
+          <Button
+            onClick={handleSendToRunEval}
+            disabled={summarizationPairs.length === 0}
+            className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-1.5"
+          >
+            <Play size={13} />
+            Send to Run Eval ({summarizationPairs.length} pairs)
+          </Button>
+        </div>
+      )}
+
       {/* Model config */}
       <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-border)] rounded-xl p-5">
         <h2 className="text-sm font-semibold text-[var(--crab-text)] mb-4">Generation Model</h2>
@@ -1997,7 +2840,7 @@ function Step4Generate() {
       </div>
 
       {/* Generate button + progress + results — tool_calling only */}
-      {detectedTaskType !== 'rag_qa' && (<>
+      {detectedTaskType !== 'rag_qa' && detectedTaskType !== 'multi_turn' && detectedTaskType !== 'instruction_following' && detectedTaskType !== 'safety' && detectedTaskType !== 'summarization' && (<>
 
       {/* Generate button + progress (tool-calling mode) */}
       <div className="flex items-center gap-3 flex-wrap">
@@ -2201,64 +3044,90 @@ export default function TaskGeneratorPage() {
   if (!hydrated) return null
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-1">
+    <div className="flex flex-col h-screen">
+      {/* ── Header (fixed, shrink-0) ─────────────────────────── */}
+      <div className="shrink-0 px-6 pt-5 pb-4 border-b border-[var(--crab-border)] bg-[var(--crab-bg)]">
+        <div className="flex items-center justify-between mb-0.5">
           <div className="flex items-center gap-2">
-            <FlaskConical size={20} className="text-[var(--crab-accent)]" strokeWidth={1.8} />
-            <h1 className="text-2xl font-semibold text-[var(--crab-text)] tracking-tight">Task Generator</h1>
+            <FlaskConical size={18} className="text-[var(--crab-accent)]" strokeWidth={1.8} />
+            <h1 className="text-xl font-semibold text-[var(--crab-text)] tracking-tight">Task Generator</h1>
           </div>
-          {(currentStep > 1 || atomicSubtasks.length > 0 || qaPairs.length > 0) && (
-            <button
-              onClick={() => {
-                if (confirm('Reset everything and start over?')) reset()
-              }}
-              className="text-xs text-[var(--crab-text-muted)] hover:text-red-400 flex items-center gap-1.5 transition-colors"
-            >
-              <RefreshCw size={12} />
-              Start over
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            {currentStep === 1 && !detectedTaskType && (
+              <span className="text-xs text-[var(--crab-text-muted)]">
+                Upload a doc → AI detects type → generate eval pairs
+              </span>
+            )}
+            {(currentStep > 1 || atomicSubtasks.length > 0 || qaPairs.length > 0) && (
+              <button
+                onClick={() => { if (confirm('Reset everything and start over?')) reset() }}
+                className="text-xs text-[var(--crab-text-muted)] hover:text-red-400 flex items-center gap-1.5 transition-colors"
+              >
+                <RefreshCw size={12} />
+                Start over
+              </button>
+            )}
+          </div>
         </div>
-        <p className="text-[var(--crab-text-secondary)] text-sm mt-1">
-          Generate diverse, difficulty-controlled test cases from any agent specification document.
-        </p>
+
+        {/* Stepper — in header */}
+        <div className="mt-3">
+          <Stepper current={currentStep} taskType={detectedTaskType} />
+        </div>
       </div>
 
-      <Stepper current={currentStep} />
+      {/* ── Body (fills remaining height, no outer scroll) ──── */}
+      <div className="flex-1 min-h-0 overflow-hidden">
+        {currentStep === 1 && (
+          <div className="h-full overflow-hidden">
+            <Step1Extract
+              onNext={() => setStep(2)}
+              onNextQA={() => setStep(2)}
+            />
+          </div>
+        )}
+        {currentStep !== 1 && (
+          <div className="h-full overflow-auto px-6 py-6 max-w-5xl mx-auto w-full">
+            {currentStep === 2 && detectedTaskType === 'rag_qa' && (
+              <Step2QAReview onNext={() => setStep(4)} />
+            )}
+            {currentStep === 2 && detectedTaskType === 'multi_turn' && (
+              <Step2MultiTurnReview onNext={() => setStep(4)} />
+            )}
+            {currentStep === 2 && detectedTaskType === 'instruction_following' && (
+              <Step2InstructionReview onNext={() => setStep(4)} />
+            )}
+            {currentStep === 2 && detectedTaskType === 'safety' && (
+              <Step2SafetyReview onNext={() => setStep(4)} />
+            )}
+            {currentStep === 2 && detectedTaskType === 'summarization' && (
+              <Step2SummarizationReview onNext={() => setStep(4)} />
+            )}
+            {currentStep === 2 && detectedTaskType !== 'rag_qa' && detectedTaskType !== 'multi_turn' && detectedTaskType !== 'instruction_following' && detectedTaskType !== 'safety' && detectedTaskType !== 'summarization' && (
+              <Step2Review onNext={() => setStep(3)} />
+            )}
+            {currentStep === 3 && (
+              <Step3Compose onNext={() => setStep(4)} />
+            )}
+            {currentStep === 4 && (
+              <Step4Generate />
+            )}
 
-      {currentStep === 1 && (
-        <Step1Extract
-          onNext={() => setStep(2)}
-          onNextQA={() => setStep(2)}
-        />
-      )}
-      {currentStep === 2 && detectedTaskType === 'rag_qa' && (
-        <Step2QAReview onNext={() => setStep(4)} />
-      )}
-      {currentStep === 2 && detectedTaskType !== 'rag_qa' && (
-        <Step2Review onNext={() => setStep(3)} />
-      )}
-      {currentStep === 3 && (
-        <Step3Compose onNext={() => setStep(4)} />
-      )}
-      {currentStep === 4 && (
-        <Step4Generate />
-      )}
-
-      {/* Step navigation */}
-      {currentStep > 1 && (
-        <div className="mt-6 flex items-center gap-2">
-          <button
-            onClick={() => setStep(currentStep - 1)}
-            className="text-xs text-[var(--crab-text-muted)] hover:text-[var(--crab-text)] flex items-center gap-1"
-          >
-            <ChevronRight size={12} className="rotate-180" />
-            Back to {STEPS[currentStep - 2]?.label}
-          </button>
-        </div>
-      )}
+            {/* Back nav */}
+            {currentStep > 1 && (
+              <div className="mt-6 flex items-center gap-2">
+                <button
+                  onClick={() => setStep(currentStep - 1)}
+                  className="text-xs text-[var(--crab-text-muted)] hover:text-[var(--crab-text)] flex items-center gap-1"
+                >
+                  <ChevronRight size={12} className="rotate-180" />
+                  Back to {(detectedTaskType && detectedTaskType !== 'tool_calling' ? STEPS_SIMPLE : STEPS_TOOL_CALLING)[currentStep - 2]?.label}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

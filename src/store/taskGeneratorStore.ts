@@ -8,6 +8,10 @@ import type {
   ComposeOptions,
   TaskSetStats,
   QAPair,
+  MultiTurnPair,
+  InstructionPair,
+  SafetyCase,
+  SummarizationPair,
 } from '@/types'
 
 interface TaskGeneratorState {
@@ -26,11 +30,29 @@ interface TaskGeneratorState {
   generateProgress: { done: number; total: number }
   stats: TaskSetStats | null
 
-  // QA/RAG mode
-  detectedTaskType: 'tool_calling' | 'rag_qa' | null
+  // Task type detection — extended to 6 types
+  detectedTaskType: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'instruction_following' | 'safety' | 'summarization' | null
   isDetecting: boolean
+
+  // QA/RAG mode
   qaPairs: QAPair[]
   qaProgress: { done: number; total: number }
+
+  // Multi-turn Conversation mode
+  multiTurnPairs: MultiTurnPair[]
+  multiTurnProgress: { done: number; total: number }
+
+  // Instruction Following mode
+  instructionPairs: InstructionPair[]
+  instructionProgress: { done: number; total: number }
+
+  // Safety / Guardrail mode
+  safetyCases: SafetyCase[]
+  safetyProgress: { done: number; total: number }
+
+  // Summarization mode
+  summarizationPairs: SummarizationPair[]
+  summarizationProgress: { done: number; total: number }
 
   // Actions
   setStep: (step: number) => void
@@ -50,13 +72,41 @@ interface TaskGeneratorState {
   setIsGenerating: (v: boolean) => void
   setGenerateProgress: (p: { done: number; total: number }) => void
   setStats: (s: TaskSetStats) => void
-  // QA/RAG actions
-  setDetectedTaskType: (t: 'tool_calling' | 'rag_qa' | null) => void
+
+  // Detection actions
+  setDetectedTaskType: (t: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'instruction_following' | 'safety' | 'summarization' | null) => void
   setIsDetecting: (v: boolean) => void
+
+  // QA/RAG actions
   setQAPairs: (pairs: QAPair[]) => void
   updateQAPair: (id: string, patch: Partial<QAPair>) => void
   removeQAPair: (id: string) => void
   setQAProgress: (p: { done: number; total: number }) => void
+
+  // Multi-turn actions
+  setMultiTurnPairs: (pairs: MultiTurnPair[]) => void
+  updateMultiTurnPair: (id: string, patch: Partial<MultiTurnPair>) => void
+  removeMultiTurnPair: (id: string) => void
+  setMultiTurnProgress: (p: { done: number; total: number }) => void
+
+  // Instruction Following actions
+  setInstructionPairs: (pairs: InstructionPair[]) => void
+  updateInstructionPair: (id: string, patch: Partial<InstructionPair>) => void
+  removeInstructionPair: (id: string) => void
+  setInstructionProgress: (p: { done: number; total: number }) => void
+
+  // Safety actions
+  setSafetyCases: (cases: SafetyCase[]) => void
+  updateSafetyCase: (id: string, patch: Partial<SafetyCase>) => void
+  removeSafetyCase: (id: string) => void
+  setSafetyProgress: (p: { done: number; total: number }) => void
+
+  // Summarization actions
+  setSummarizationPairs: (pairs: SummarizationPair[]) => void
+  updateSummarizationPair: (id: string, patch: Partial<SummarizationPair>) => void
+  removeSummarizationPair: (id: string) => void
+  setSummarizationProgress: (p: { done: number; total: number }) => void
+
   reset: () => void
 }
 
@@ -87,12 +137,31 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
       generateProgress: { done: 0, total: 0 },
       stats: null,
 
-      // QA/RAG mode initial state
+      // Detection initial state
       detectedTaskType: null,
       isDetecting: false,
+
+      // QA/RAG mode initial state
       qaPairs: [],
       qaProgress: { done: 0, total: 0 },
 
+      // Multi-turn initial state
+      multiTurnPairs: [],
+      multiTurnProgress: { done: 0, total: 0 },
+
+      // Instruction Following initial state
+      instructionPairs: [],
+      instructionProgress: { done: 0, total: 0 },
+
+      // Safety initial state
+      safetyCases: [],
+      safetyProgress: { done: 0, total: 0 },
+
+      // Summarization initial state
+      summarizationPairs: [],
+      summarizationProgress: { done: 0, total: 0 },
+
+      // ── Basic actions
       setStep: (step) => set({ currentStep: step }),
       setDocumentContent: (c) => set({ documentContent: c }),
       setDetectedLanguage: (l) => set({ detectedLanguage: l }),
@@ -121,9 +190,11 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
       setGenerateProgress: (p) => set({ generateProgress: p }),
       setStats: (s) => set({ stats: s }),
 
-      // QA/RAG actions
+      // ── Detection actions
       setDetectedTaskType: (t) => set({ detectedTaskType: t }),
       setIsDetecting: (v) => set({ isDetecting: v }),
+
+      // ── QA/RAG actions
       setQAPairs: (pairs) => set({ qaPairs: pairs }),
       updateQAPair: (id, patch) =>
         set((st) => ({
@@ -132,6 +203,46 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
       removeQAPair: (id) =>
         set((st) => ({ qaPairs: st.qaPairs.filter((p) => p.id !== id) })),
       setQAProgress: (p) => set({ qaProgress: p }),
+
+      // ── Multi-turn actions
+      setMultiTurnPairs: (pairs) => set({ multiTurnPairs: pairs }),
+      updateMultiTurnPair: (id, patch) =>
+        set((st) => ({
+          multiTurnPairs: st.multiTurnPairs.map((p) => (p.id === id ? { ...p, ...patch } : p)),
+        })),
+      removeMultiTurnPair: (id) =>
+        set((st) => ({ multiTurnPairs: st.multiTurnPairs.filter((p) => p.id !== id) })),
+      setMultiTurnProgress: (p) => set({ multiTurnProgress: p }),
+
+      // ── Instruction Following actions
+      setInstructionPairs: (pairs) => set({ instructionPairs: pairs }),
+      updateInstructionPair: (id, patch) =>
+        set((st) => ({
+          instructionPairs: st.instructionPairs.map((p) => (p.id === id ? { ...p, ...patch } : p)),
+        })),
+      removeInstructionPair: (id) =>
+        set((st) => ({ instructionPairs: st.instructionPairs.filter((p) => p.id !== id) })),
+      setInstructionProgress: (p) => set({ instructionProgress: p }),
+
+      // ── Safety actions
+      setSafetyCases: (cases) => set({ safetyCases: cases }),
+      updateSafetyCase: (id, patch) =>
+        set((st) => ({
+          safetyCases: st.safetyCases.map((c) => (c.id === id ? { ...c, ...patch } : c)),
+        })),
+      removeSafetyCase: (id) =>
+        set((st) => ({ safetyCases: st.safetyCases.filter((c) => c.id !== id) })),
+      setSafetyProgress: (p) => set({ safetyProgress: p }),
+
+      // ── Summarization actions
+      setSummarizationPairs: (pairs) => set({ summarizationPairs: pairs }),
+      updateSummarizationPair: (id, patch) =>
+        set((st) => ({
+          summarizationPairs: st.summarizationPairs.map((p) => (p.id === id ? { ...p, ...patch } : p)),
+        })),
+      removeSummarizationPair: (id) =>
+        set((st) => ({ summarizationPairs: st.summarizationPairs.filter((p) => p.id !== id) })),
+      setSummarizationProgress: (p) => set({ summarizationProgress: p }),
 
       reset: () =>
         set({
@@ -151,6 +262,14 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
           isDetecting: false,
           qaPairs: [],
           qaProgress: { done: 0, total: 0 },
+          multiTurnPairs: [],
+          multiTurnProgress: { done: 0, total: 0 },
+          instructionPairs: [],
+          instructionProgress: { done: 0, total: 0 },
+          safetyCases: [],
+          safetyProgress: { done: 0, total: 0 },
+          summarizationPairs: [],
+          summarizationProgress: { done: 0, total: 0 },
         }),
     }),
     {

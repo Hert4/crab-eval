@@ -40,6 +40,7 @@ export interface DatasetMetadata {
   created_date?: string
   sampled_records?: number
   samples_with_reference?: number
+  customAttributes?: Record<string, string>
   [key: string]: unknown
 }
 
@@ -85,6 +86,7 @@ export interface RecordLog {
   scores: Record<string, number>
   error?: string
   durationMs?: number
+  metadata?: Record<string, unknown>
 }
 
 export interface TaskRunResult {
@@ -209,9 +211,18 @@ export interface TaskSet {
   compositeTasks: CompositeTask[]
   generatedTasks: GeneratedTask[]
   stats: TaskSetStats
-  // QA/RAG mode fields
-  detectedTaskType?: 'tool_calling' | 'rag_qa'
+  // task type detection
+  detectedTaskType?: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'instruction_following' | 'safety' | 'summarization'
+  // QA/RAG mode
   qaPairs?: QAPair[]
+  // Multi-turn mode
+  multiTurnPairs?: MultiTurnPair[]
+  // Instruction following mode
+  instructionPairs?: InstructionPair[]
+  // Safety / Guardrail mode
+  safetyCases?: SafetyCase[]
+  // Summarization mode
+  summarizationPairs?: SummarizationPair[]
 }
 
 // ──────────────────────────────────────────────
@@ -227,6 +238,67 @@ export interface QAPair {
   context: string           // đoạn chunk chứa câu trả lời (inject vào system message)
   difficulty: 'easy' | 'medium' | 'hard'
   intent: QAIntent
+  tags: string[]
+}
+
+// ──────────────────────────────────────────────
+// Multi-turn Conversation types
+// ──────────────────────────────────────────────
+
+export type MultiTurnAspect = 'context_retention' | 'consistency' | 'update_tracking'
+
+export interface MultiTurnPair {
+  id: string
+  conversation_history: ConversationTurn[]  // các turn trước (role + content)
+  final_input: string                        // câu hỏi/yêu cầu cuối để test model
+  reference: string                          // expected answer/behavior
+  test_aspect: MultiTurnAspect
+  difficulty: 'easy' | 'medium' | 'hard'
+  tags: string[]
+}
+
+// ──────────────────────────────────────────────
+// Instruction Following types
+// ──────────────────────────────────────────────
+
+export interface InstructionPair {
+  id: string
+  instruction: string        // prompt với ràng buộc (input gửi cho model)
+  reference: string          // mô tả đầu ra đúng
+  constraints: string[]      // danh sách ràng buộc cụ thể để judge check
+  difficulty: 'easy' | 'medium' | 'hard'
+  tags: string[]
+}
+
+// ──────────────────────────────────────────────
+// Safety / Guardrail types
+// ──────────────────────────────────────────────
+
+export type AttackType = 'jailbreak' | 'prompt_injection' | 'pii_extraction' | 'out_of_scope' | 'normal'
+export type ExpectedBehavior = 'refuse' | 'comply' | 'clarify'
+
+export interface SafetyCase {
+  id: string
+  input: string                        // prompt (adversarial hoặc bình thường)
+  attack_type: AttackType
+  expected_behavior: ExpectedBehavior
+  reference: string                    // mô tả hành vi đúng mong đợi
+  difficulty: 'easy' | 'medium' | 'hard'
+  tags: string[]
+}
+
+// ──────────────────────────────────────────────
+// Summarization types
+// ──────────────────────────────────────────────
+
+export interface SummarizationPair {
+  id: string
+  source_text: string        // đoạn văn bản nguồn cần tóm tắt (sẽ là context)
+  instruction: string        // yêu cầu tóm tắt có thể có ràng buộc (input)
+  reference: string          // tóm tắt mẫu (ground truth)
+  key_facts: string[]        // các sự kiện/thông tin quan trọng phải có trong tóm tắt
+  max_words?: number         // ràng buộc độ dài nếu có
+  difficulty: 'easy' | 'medium' | 'hard'
   tags: string[]
 }
 
@@ -260,4 +332,31 @@ export interface LeaderboardEntry {
   model: string
   date: string
   tasks: Record<string, Record<string, number>>
+}
+
+// ──────────────────────────────────────────────
+// Post-eval Analysis types (LangSmith-inspired)
+// ──────────────────────────────────────────────
+
+export interface MetricBreakdownBucket {
+  label: string
+  count: number
+  avgScores: Record<string, number>
+}
+
+export interface TaskAnalysis {
+  taskName: string
+  taskType: string
+  metrics: string[]
+  totalLogs: number
+  byDifficulty: MetricBreakdownBucket[]
+  byIntent: MetricBreakdownBucket[]
+  byTag: MetricBreakdownBucket[]
+}
+
+export interface RunAnalysis {
+  runId: string
+  model: string
+  date: string
+  tasks: TaskAnalysis[]
 }

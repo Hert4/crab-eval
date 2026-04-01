@@ -1,13 +1,14 @@
 'use client'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { Dataset, DataRecord } from '@/types'
+import { Dataset, DataRecord, DatasetMetadata } from '@/types'
 
 interface DatasetsState {
   datasets: Dataset[]
   addDataset: (d: Dataset) => void
   removeDataset: (id: string) => void
   updateRecord: (datasetId: string, recordId: string, patch: Partial<DataRecord>) => void
+  updateDatasetMetadata: (datasetId: string, patch: Partial<DatasetMetadata>) => void
   mergeGT: (datasetId: string, gtMap: Record<string, string>) => void
   clearAll: () => void
 }
@@ -84,6 +85,13 @@ export const useDatasetsStore = create<DatasetsState>()(
           ),
         })),
 
+      updateDatasetMetadata: (datasetId, patch) =>
+        set((state) => ({
+          datasets: state.datasets.map(d =>
+            d.id !== datasetId ? d : { ...d, metadata: { ...d.metadata, ...patch } }
+          ),
+        })),
+
       mergeGT: (datasetId, gtMap) =>
         set((state) => ({
           datasets: state.datasets.map(d =>
@@ -108,17 +116,27 @@ export const useDatasetsStore = create<DatasetsState>()(
       partialize: (state) => ({
         datasets: state.datasets.map(d => ({
           ...d,
-          data: d.data.map(r => ({
-            id: r.id,
-            input: r.input,
-            output: '',
-            reference: r.reference,
-            // context: truncate to 4000 chars to stay within quota
-            // (system prompts are typically <2000 chars — this is safe)
-            ...(r.context ? { context: (r.context as string).slice(0, 4000) } : {}),
-            // tools: keep as-is (JSON schema definitions, not large)
-            ...(r.tools ? { tools: r.tools } : {}),
-          })),
+          data: d.data.map(r => {
+            // Persist only small scalar metadata keys — skip large fields
+            const { difficulty, intent, tags, test_aspect, attack_type, expected_behavior } =
+              (r.metadata ?? {}) as Record<string, unknown>
+            const slimMeta = Object.fromEntries(
+              Object.entries({ difficulty, intent, tags, test_aspect, attack_type, expected_behavior })
+                .filter(([, v]) => v !== undefined)
+            )
+            return {
+              id: r.id,
+              input: r.input,
+              output: '',
+              reference: r.reference,
+              // context: truncate to 4000 chars to stay within quota
+              ...(r.context ? { context: (r.context as string).slice(0, 4000) } : {}),
+              // tools: keep as-is (JSON schema definitions, not large)
+              ...(r.tools ? { tools: r.tools } : {}),
+              // metadata: only small well-known scalar keys
+              ...(Object.keys(slimMeta).length > 0 ? { metadata: slimMeta } : {}),
+            }
+          }),
         })),
       }),
     }

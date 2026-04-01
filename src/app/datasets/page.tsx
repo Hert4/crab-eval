@@ -8,8 +8,9 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { toast } from 'sonner'
-import { Upload, Trash2, Eye, Download, Merge, FileJson, AlertCircle, FolderOpen, Loader2 } from 'lucide-react'
+import { Upload, Trash2, Eye, Download, Merge, FileJson, AlertCircle, FolderOpen, Loader2, SlidersHorizontal } from 'lucide-react'
 import { CrawdAnim } from '@/components/ui/CrawdAnim'
+import { DatasetAttributesModal } from '@/components/ui/DatasetAttributesModal'
 
 function trunc(s: string, n = 80) {
   if (!s) return '—'
@@ -30,11 +31,12 @@ function parseDataset(filename: string, raw: unknown): Dataset | null {
 }
 
 export default function DatasetsPage() {
-  const { datasets, addDataset, removeDataset, mergeGT } = useDatasetsStore()
+  const { datasets, addDataset, removeDataset, mergeGT, updateDatasetMetadata } = useDatasetsStore()
   const [hydrated, setHydrated] = useState(false)
   const [preview, setPreview] = useState<Dataset | null>(null)
   const [mergeTarget, setMergeTarget] = useState<string | null>(null)
   const [loadingFolder, setLoadingFolder] = useState(false)
+  const [editingAttrsId, setEditingAttrsId] = useState<string | null>(null)
 
   useEffect(() => { setHydrated(true) }, [])
 
@@ -141,7 +143,7 @@ export default function DatasetsPage() {
           <div>
             <h1 className="text-2xl font-semibold text-[var(--crab-text)] tracking-tight">Datasets</h1>
             <p className="text-[var(--crab-text-secondary)] text-sm mt-1">
-              Upload benchmark JSON files. Each file must have <code className="bg-[var(--crab-bg-tertiary)] px-1 rounded text-xs">metadata</code> and <code className="bg-[var(--crab-bg-tertiary)] px-1 rounded text-xs">data</code> fields.
+              Upload or generate benchmark JSON files to use in evaluation runs.
             </p>
           </div>
           <Button
@@ -181,9 +183,29 @@ export default function DatasetsPage() {
 
       {/* Dataset list */}
       {datasets.length === 0 ? (
-        <div className="text-center py-16 text-[var(--crab-text-muted)]">
-          <CrawdAnim type="sleeping" size={80} className="mb-3" />
-          <p className="text-sm">No datasets yet. Upload some files above.</p>
+        <div className="text-center py-12 text-[var(--crab-text-muted)]">
+          <CrawdAnim type="sleeping" size={80} className="mb-4" />
+          <p className="text-sm font-medium text-[var(--crab-text-secondary)] mb-1">No datasets yet</p>
+          <p className="text-xs text-[var(--crab-text-muted)] mb-6">
+            Drag &amp; drop benchmark JSON files above, or generate one automatically.
+          </p>
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <a
+              href="/task-generator"
+              className="flex items-center gap-1.5 text-xs text-[var(--crab-accent)] bg-[var(--crab-accent-light)] border border-[var(--crab-accent-medium)] px-3 py-1.5 rounded-lg hover:bg-[var(--crab-accent-medium)] transition-colors"
+            >
+              Generate from document
+            </a>
+            <span className="text-[var(--crab-text-muted)] text-xs">or</span>
+            <button
+              onClick={loadFromFolder}
+              disabled={loadingFolder}
+              className="flex items-center gap-1.5 text-xs text-[var(--crab-text-secondary)] border border-[var(--crab-border-strong)] px-3 py-1.5 rounded-lg hover:bg-[var(--crab-bg-hover)] transition-colors disabled:opacity-50"
+            >
+              {loadingFolder ? <Loader2 size={11} className="animate-spin" /> : <FolderOpen size={11} />}
+              Load sample datasets
+            </button>
+          </div>
         </div>
       ) : (
         <div className="space-y-3">
@@ -239,6 +261,17 @@ export default function DatasetsPage() {
                       ))}
                     </div>
                   ) : null}
+
+                  {/* Custom attribute pills */}
+                  {ds.metadata.customAttributes && Object.keys(ds.metadata.customAttributes).length > 0 && (
+                    <div className="flex gap-1 mt-1.5 flex-wrap">
+                      {Object.entries(ds.metadata.customAttributes).map(([k, v]) => (
+                        <span key={k} className="text-[10px] px-2 py-0.5 bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] rounded-full border border-[var(--crab-border-subtle)]">
+                          {k}: {v}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Actions */}
@@ -269,6 +302,15 @@ export default function DatasetsPage() {
                     title="Merge GT from JSON"
                   >
                     <Merge size={14} />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="h-8 w-8 p-0 text-[var(--crab-text-muted)] hover:text-[var(--crab-accent)] hover:bg-[var(--crab-accent-light)]"
+                    onClick={() => setEditingAttrsId(ds.id)}
+                    title="Edit custom attributes"
+                  >
+                    <SlidersHorizontal size={14} />
                   </Button>
                   <Button
                     size="sm"
@@ -363,6 +405,17 @@ export default function DatasetsPage() {
           </label>
         </DialogContent>
       </Dialog>
+
+      {/* Custom Attributes modal */}
+      <DatasetAttributesModal
+        dataset={datasets.find(d => d.id === editingAttrsId) ?? null}
+        onClose={() => setEditingAttrsId(null)}
+        onSave={(datasetId, attrs) => {
+          updateDatasetMetadata(datasetId, { customAttributes: attrs })
+          setEditingAttrsId(null)
+          toast.success('Custom attributes saved')
+        }}
+      />
     </div>
   )
 }
