@@ -20,6 +20,7 @@ export interface EvalConfig {
     model: string
     enabled: boolean
   }
+  concurrency?: number
 }
 
 export interface EvalProgress {
@@ -73,6 +74,30 @@ async function chatCompletionWithRetry(
   throw lastError
 }
 
+// ── Concurrency semaphore (p-limit style, no external dep) ───────────
+function makeSemaphore(limit: number) {
+  let active = 0
+  const queue: Array<() => void> = []
+
+  function schedule() {
+    while (active < limit && queue.length > 0) {
+      active++
+      queue.shift()!()
+    }
+  }
+
+  return function acquire<T>(fn: () => Promise<T>): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      queue.push(() => {
+        fn()
+          .then(resolve, reject)
+          .finally(() => { active--; schedule() })
+      })
+      schedule()
+    })
+  }
+}
+
 // ── Module-level runner (survives page navigation) ───────────────────
 let _runningPromise: Promise<void> | null = null
 
@@ -111,6 +136,183 @@ export function stopEval() {
   _runningPromise = null
 }
 
+// ── Per-record processing args/result ───────────────────────────────
+interface ProcessRecordArgs {
+  record: DataRecord
+  di: number
+  ri: number
+  datasetLength: number
+  datasets: Dataset[]
+  taskName: string
+  metrics: string[]
+  targetOpenAI: OpenAIConfig
+  judgeOpenAI: OpenAIConfig
+  config: EvalConfig
+  abortSignal: AbortSignal
+}
+
+interface ProcessRecordResult {
+  log: RecordLog
+  scores: Record<string, number>
+  error: boolean
+}
+
+async function processRecord({
+  record, di, ri, datasetLength, datasets, taskName, metrics,
+  targetOpenAI, judgeOpenAI, config, abortSignal,
+}: ProcessRecordArgs): Promise<ProcessRecordResult> {
+  const s = useEvalSessionStore.getState()
+  s.updateProgress({
+    datasetIndex: di,
+    datasetTotal: datasets.length,
+    datasetName: taskName,
+    recordIndex: ri,
+    recordTotal: datasetLength,
+    currentId: record.id,
+    status: 'running',
+  })
+
+  const t0 = Date.now()
+  let output = ''
+  let gotToolCalls: RecordLog['tool_calls'] = []
+  let error: string | undefined
+
+  try {
+    const messages = buildMessages(record, config.targetConfig.systemPrompt)
+    const tools = record.tools as OpenAITool[] | undefined
+    const res = await chatCompletionWithRetry(targetOpenAI, messages, abortSignal, tools)
+    const choice = res.choices?.[0]
+    output = choice?.message?.content || ''
+    gotToolCalls = choice?.message?.tool_calls?.map(tc => ({
+      type: tc.type,
+      function: { name: tc.function.name, arguments: tc.function.arguments },
+    })) || []
+  } catch (e) {
+    if (e instanceof DOMException && e.name === 'AbortError') throw e
+    error = String(e)
+  }
+
+  const recordForMetrics = { ...record, tool_calls: gotToolCalls }
+  const scores = computeMetrics(recordForMetrics, output, metrics)
+
+  // LLM-as-judge — all judge calls for this record run in parallel
+  if (config.judgeConfig.enabled && !abortSignal.aborted) {
+    const judgePromises: Array<Promise<[string, number | null]>> = []
+
+    if (metrics.includes('faithfulness') && record.context) {
+      judgePromises.push(
+        judgeScore(judgeOpenAI, `Context: ${record.context}\n\nAnswer: ${output}\n\nRate faithfulness 1-10 (integer only):`, abortSignal)
+          .then(v => ['faithfulness', v] as [string, number | null])
+      )
+    }
+    if (metrics.includes('answer_relevancy')) {
+      judgePromises.push(
+        judgeScore(judgeOpenAI, `Question: ${record.input}\n\nAnswer: ${output}\n\nRate relevancy 1-10 (integer only):`, abortSignal)
+          .then(v => ['answer_relevancy', v] as [string, number | null])
+      )
+    }
+    if (metrics.includes('criteria_score') && record.reference) {
+      const criteria = record.reference.split('\n').map(s => s.trim()).filter(Boolean)
+      if (criteria.length > 0) {
+        judgePromises.push(
+          criteriaJudgeScore(judgeOpenAI, record.input, output, gotToolCalls, criteria, abortSignal, record.tools as OpenAITool[] | undefined)
+            .then(v => ['criteria_score', v] as [string, number | null])
+        )
+      }
+    }
+    if (metrics.includes('context_retention') && record.conversation_history?.length) {
+      const historyText = record.conversation_history
+        .map(t => {
+          const role = t.role || (t.user ? 'user' : 'assistant')
+          const content = t.content || t.user || t.bot || ''
+          return `${role}: ${content}`
+        }).join('\n')
+      judgePromises.push(
+        judgeScore(judgeOpenAI, `Conversation history:\n${historyText}\n\nFinal question: ${record.input}\n\nModel answer: ${output}\n\nDoes the model correctly use or reference information from the conversation history? Rate 1-10 (10=excellent context use, 1=ignored context):`, abortSignal)
+          .then(v => ['context_retention', v] as [string, number | null])
+      )
+    }
+    if (metrics.includes('consistency_score') && record.conversation_history?.length) {
+      const historyText = record.conversation_history
+        .map(t => {
+          const role = t.role || (t.user ? 'user' : 'assistant')
+          const content = t.content || t.user || t.bot || ''
+          return `${role}: ${content}`
+        }).join('\n')
+      judgePromises.push(
+        judgeScore(judgeOpenAI, `Conversation history:\n${historyText}\n\nModel answer: ${output}\n\nDoes the model's answer contradict or conflict with anything in the conversation history? Rate 1-10 (10=fully consistent with no contradictions, 1=major contradictions):`, abortSignal)
+          .then(v => ['consistency_score', v] as [string, number | null])
+      )
+    }
+    if (metrics.includes('instruction_adherence') && record.metadata?.constraints) {
+      const constraints = record.metadata.constraints as string[]
+      if (Array.isArray(constraints) && constraints.length > 0) {
+        judgePromises.push(
+          passFailJudgeScore(
+            judgeOpenAI,
+            `Instruction given to model:\n"""\n${record.input}\n"""\n\nModel output:\n"""\n${output}\n"""\n\nEvaluate whether the output satisfies each constraint below.\nFor each constraint, answer only "pass" or "fail".\n\nConstraints:\n${constraints.map((c, i) => `${i + 1}. ${c}`).join('\n')}\n\nRespond with ONLY a JSON array of "pass"/"fail" values, one per constraint, in order.\nExample for 3 constraints: ["pass", "fail", "pass"]\nNo explanation. No markdown.`,
+            constraints.length,
+            abortSignal
+          ).then(v => ['instruction_adherence', v] as [string, number | null])
+        )
+      }
+    }
+    if (metrics.includes('coverage_score') && record.metadata?.key_facts) {
+      const keyFacts = record.metadata.key_facts as string[]
+      if (Array.isArray(keyFacts) && keyFacts.length > 0) {
+        judgePromises.push(
+          passFailJudgeScore(
+            judgeOpenAI,
+            `Model summary:\n"""\n${output}\n"""\n\nCheck whether each key fact below is present (explicitly or implicitly) in the summary.\nFor each fact, answer only "pass" (present) or "fail" (missing).\n\nKey facts:\n${keyFacts.map((f, i) => `${i + 1}. ${f}`).join('\n')}\n\nRespond with ONLY a JSON array of "pass"/"fail" values, one per fact, in order.\nExample for 3 facts: ["pass", "fail", "pass"]\nNo explanation. No markdown.`,
+            keyFacts.length,
+            abortSignal
+          ).then(v => ['coverage_score', v] as [string, number | null])
+        )
+      }
+    }
+    if (metrics.includes('faithfulness') && !record.context && record.metadata?.source_text) {
+      judgePromises.push(
+        judgeScore(judgeOpenAI, `Source text: ${String(record.metadata.source_text)}\n\nSummary: ${output}\n\nRate how faithful the summary is to the source text (no hallucinations or unsupported claims) 1-10 (integer only):`, abortSignal)
+          .then(v => ['faithfulness', v] as [string, number | null])
+      )
+    }
+
+    // All judge metrics for this record run concurrently
+    const judgeResults = await Promise.all(judgePromises)
+    for (const [metricName, score] of judgeResults) {
+      if (score !== null) scores[metricName] = score
+    }
+  }
+
+  const log: RecordLog = {
+    id: record.id,
+    status: error ? 'error' : 'done',
+    input: record.input,
+    reference: record.reference,
+    output,
+    tool_calls: gotToolCalls,
+    scores,
+    error,
+    durationMs: Date.now() - t0,
+    ...(record.metadata ? { metadata: record.metadata } : {}),
+  }
+
+  const s2 = useEvalSessionStore.getState()
+  s2.appendLog(log)
+  s2.updateProgress({
+    datasetIndex: di,
+    datasetTotal: datasets.length,
+    datasetName: taskName,
+    recordIndex: ri + 1,
+    recordTotal: datasetLength,
+    currentId: record.id,
+    status: error ? 'error' : 'done',
+    log,
+  })
+
+  return { log, scores, error: !!error }
+}
+
 // ── Internal eval pipeline ───────────────────────────────────────────
 async function _runEval(
   datasets: Dataset[],
@@ -144,6 +346,9 @@ async function _runEval(
   const totalRecords = useEvalSessionStore.getState().totalRecords ||
     datasets.reduce((s, d) => s + d.data.length, 0)
 
+  const concurrencyLimit = Math.max(1, Math.min(10, config.concurrency ?? 3))
+  const acquire = makeSemaphore(concurrencyLimit)
+
   for (let di = 0; di < datasets.length; di++) {
     if (abortSignal.aborted) break
 
@@ -153,179 +358,34 @@ async function _runEval(
     const logs: RecordLog[] = []
     const perRecordScores: Record<string, number>[] = []
 
-    for (let ri = 0; ri < dataset.data.length; ri++) {
-      if (abortSignal.aborted) break
+    const recordPromises = dataset.data.map((record, ri) =>
+      acquire(async () => {
+        if (abortSignal.aborted) return null
 
-      const record = dataset.data[ri]
-      const s = useEvalSessionStore.getState()
+        const result = await processRecord({
+          record, di, ri,
+          datasetLength: dataset.data.length,
+          datasets, taskName, metrics,
+          targetOpenAI, judgeOpenAI, config, abortSignal,
+        })
 
-      s.updateProgress({
-        datasetIndex: di,
-        datasetTotal: datasets.length,
-        datasetName: taskName,
-        recordIndex: ri,
-        recordTotal: dataset.data.length,
-        currentId: record.id,
-        status: 'running',
+        // JS is single-threaded — ++ between awaits is atomic
+        processedTotal++
+        useEvalSessionStore.getState().setOverallProgress(
+          Math.round((processedTotal / totalRecords) * 100)
+        )
+        return result
       })
+    )
 
-      const t0 = Date.now()
-      let output = ''
-      let gotToolCalls: RecordLog['tool_calls'] = []
-      let error: string | undefined
+    // Wait for all records in this dataset (in parallel, up to concurrencyLimit)
+    const results = await Promise.all(recordPromises)
 
-      try {
-        const messages = buildMessages(record, config.targetConfig.systemPrompt)
-        const tools = record.tools as OpenAITool[] | undefined
-        const res = await chatCompletionWithRetry(targetOpenAI, messages, abortSignal, tools)
-        const choice = res.choices?.[0]
-        output = choice?.message?.content || ''
-        gotToolCalls = choice?.message?.tool_calls?.map(tc => ({
-          type: tc.type,
-          function: { name: tc.function.name, arguments: tc.function.arguments },
-        })) || []
-      } catch (e) {
-        if (e instanceof DOMException && e.name === 'AbortError') throw e
-        error = String(e)
-      }
-
-      const recordForMetrics = { ...record, tool_calls: gotToolCalls }
-      const scores = computeMetrics(recordForMetrics, output, metrics)
-
-      // LLM-as-judge
-      if (config.judgeConfig.enabled && !abortSignal.aborted) {
-        if (metrics.includes('faithfulness') && record.context) {
-          const score = await judgeScore(
-            judgeOpenAI,
-            `Context: ${record.context}\n\nAnswer: ${output}\n\nRate faithfulness 1-10 (integer only):`,
-            abortSignal
-          )
-          if (score !== null) scores['faithfulness'] = score
-        }
-        if (metrics.includes('answer_relevancy')) {
-          const score = await judgeScore(
-            judgeOpenAI,
-            `Question: ${record.input}\n\nAnswer: ${output}\n\nRate relevancy 1-10 (integer only):`,
-            abortSignal
-          )
-          if (score !== null) scores['answer_relevancy'] = score
-        }
-        if (metrics.includes('criteria_score') && record.reference) {
-          const criteria = record.reference
-            .split('\n')
-            .map(s => s.trim())
-            .filter(Boolean)
-          if (criteria.length > 0) {
-            const score = await criteriaJudgeScore(
-              judgeOpenAI,
-              record.input,
-              output,
-              gotToolCalls,
-              criteria,
-              abortSignal,
-              record.tools as OpenAITool[] | undefined
-            )
-            if (score !== null) scores['criteria_score'] = score
-          }
-        }
-        // ── Multi-turn metrics ───────────────────────────────────────────
-        if (metrics.includes('context_retention') && record.conversation_history?.length) {
-          const historyText = record.conversation_history
-            .map(t => {
-              const role = t.role || (t.user ? 'user' : 'assistant')
-              const content = t.content || t.user || t.bot || ''
-              return `${role}: ${content}`
-            })
-            .join('\n')
-          const score = await judgeScore(
-            judgeOpenAI,
-            `Conversation history:\n${historyText}\n\nFinal question: ${record.input}\n\nModel answer: ${output}\n\nDoes the model correctly use or reference information from the conversation history? Rate 1-10 (10=excellent context use, 1=ignored context):`,
-            abortSignal
-          )
-          if (score !== null) scores['context_retention'] = score
-        }
-        if (metrics.includes('consistency_score') && record.conversation_history?.length) {
-          const historyText = record.conversation_history
-            .map(t => {
-              const role = t.role || (t.user ? 'user' : 'assistant')
-              const content = t.content || t.user || t.bot || ''
-              return `${role}: ${content}`
-            })
-            .join('\n')
-          const score = await judgeScore(
-            judgeOpenAI,
-            `Conversation history:\n${historyText}\n\nModel answer: ${output}\n\nDoes the model's answer contradict or conflict with anything in the conversation history? Rate 1-10 (10=fully consistent with no contradictions, 1=major contradictions):`,
-            abortSignal
-          )
-          if (score !== null) scores['consistency_score'] = score
-        }
-        // ── Instruction Following metrics ────────────────────────────────
-        if (metrics.includes('instruction_adherence') && record.metadata?.constraints) {
-          const constraints = record.metadata.constraints as string[]
-          if (Array.isArray(constraints) && constraints.length > 0) {
-            const score = await passFailJudgeScore(
-              judgeOpenAI,
-              `Instruction given to model:\n"""\n${record.input}\n"""\n\nModel output:\n"""\n${output}\n"""\n\nEvaluate whether the output satisfies each constraint below.\nFor each constraint, answer only "pass" or "fail".\n\nConstraints:\n${constraints.map((c, i) => `${i + 1}. ${c}`).join('\n')}\n\nRespond with ONLY a JSON array of "pass"/"fail" values, one per constraint, in order.\nExample for 3 constraints: ["pass", "fail", "pass"]\nNo explanation. No markdown.`,
-              constraints.length,
-              abortSignal
-            )
-            if (score !== null) scores['instruction_adherence'] = score
-          }
-        }
-        // ── Summarization metrics ────────────────────────────────────────
-        if (metrics.includes('coverage_score') && record.metadata?.key_facts) {
-          const keyFacts = record.metadata.key_facts as string[]
-          if (Array.isArray(keyFacts) && keyFacts.length > 0) {
-            const score = await passFailJudgeScore(
-              judgeOpenAI,
-              `Model summary:\n"""\n${output}\n"""\n\nCheck whether each key fact below is present (explicitly or implicitly) in the summary.\nFor each fact, answer only "pass" (present) or "fail" (missing).\n\nKey facts:\n${keyFacts.map((f, i) => `${i + 1}. ${f}`).join('\n')}\n\nRespond with ONLY a JSON array of "pass"/"fail" values, one per fact, in order.\nExample for 3 facts: ["pass", "fail", "pass"]\nNo explanation. No markdown.`,
-              keyFacts.length,
-              abortSignal
-            )
-            if (score !== null) scores['coverage_score'] = score
-          }
-        }
-        // ── Faithfulness for summarization (reuse same judge) ────────────
-        if (metrics.includes('faithfulness') && !record.context && record.metadata?.source_text) {
-          const score = await judgeScore(
-            judgeOpenAI,
-            `Source text: ${String(record.metadata.source_text)}\n\nSummary: ${output}\n\nRate how faithful the summary is to the source text (no hallucinations or unsupported claims) 1-10 (integer only):`,
-            abortSignal
-          )
-          if (score !== null) scores['faithfulness'] = score
-        }
-      }
-
-      const log: RecordLog = {
-        id: record.id,
-        status: error ? 'error' : 'done',
-        input: record.input,
-        reference: record.reference,
-        output,
-        tool_calls: gotToolCalls,
-        scores,
-        error,
-        durationMs: Date.now() - t0,
-        ...(record.metadata ? { metadata: record.metadata } : {}),
-      }
-
-      logs.push(log)
-      if (!error) perRecordScores.push(scores)
-      processedTotal++
-
-      const s2 = useEvalSessionStore.getState()
-      s2.appendLog(log)
-      s2.updateProgress({
-        datasetIndex: di,
-        datasetTotal: datasets.length,
-        datasetName: taskName,
-        recordIndex: ri + 1,
-        recordTotal: dataset.data.length,
-        currentId: record.id,
-        status: error ? 'error' : 'done',
-        log,
-      })
-      s2.setOverallProgress(Math.round((processedTotal / totalRecords) * 100))
+    // Collect logs in original dataset order
+    for (const result of results) {
+      if (result === null) continue
+      logs.push(result.log)
+      if (!result.error) perRecordScores.push(result.scores)
     }
 
     const avgScore = avgScores(perRecordScores)
@@ -382,7 +442,7 @@ function buildMessages(
   systemPromptOverride: string
 ): OpenAIMessage[] {
   const messages: OpenAIMessage[] = []
-  const systemContent = systemPromptOverride || record.context || ''
+  const systemContent = systemPromptOverride || record.system_prompt || record.context || ''
   if (systemContent) messages.push({ role: 'system', content: systemContent })
 
   if (record.conversation_history?.length) {

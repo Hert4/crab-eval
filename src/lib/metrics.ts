@@ -15,9 +15,36 @@ export function exactMatch(output: string, reference: string): number {
 }
 
 // ─── Accuracy (same as exact match for classification) ────
+// Dùng cho classification tasks (intent routing, intent classification)
+// Hỗ trợ:
+//   - Exact match sau normalize
+//   - Label xuất hiện standalone trong output dài (model không tuân follow format)
+//   - Reference "unknown": chấp nhận output không chứa label số hợp lệ (1-7)
+//     hoặc chứa các từ đồng nghĩa tiếng Việt/English của "không xác định"
 export function accuracy(output: string, reference: string): number {
   if (!reference) return 0
-  return normalize(output.trim()) === normalize(reference.trim()) ? 100 : 0
+  const normOut = normalize(output.trim())
+  const normRef = normalize(reference.trim())
+  if (normOut === normRef) return 100
+
+  // Special case: reference là "unknown" — model có thể trả về dạng tiếng Việt
+  if (normRef === 'unknown') {
+    // Nếu output không chứa action number hợp lệ (1-7) standalone → coi là "unknown"
+    const hasActionNumber = /(?:^|\s)[1-7](?:\s|$)/.test(normOut)
+    if (!hasActionNumber) return 100
+    // Hoặc output chứa các keyword đồng nghĩa "không xác định"
+    const unknownKeywords = [
+      'không xác định', 'không có hành động', 'không nhận diện',
+      'không phát hiện', 'no action', 'không hỗ trợ', 'không thể xác định',
+    ]
+    if (unknownKeywords.some(kw => normOut.includes(normalize(kw)))) return 100
+    return 0
+  }
+
+  // Fallback: check xem reference label có xuất hiện standalone trong output không
+  const escaped = normRef.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const pattern = new RegExp(`(?:^|\\s)${escaped}(?:\\s|$)`)
+  return pattern.test(normOut) ? 100 : 0
 }
 
 // ─── Token F1 (unigram overlap) ─────────────────
@@ -171,15 +198,16 @@ export function toolCallExact(
     if (got.name !== exp.name) return 0
 
     // All required param keys must be present in got arguments
-    // Key comparison is case-insensitive to avoid penalizing models that use
-    // different casing conventions (e.g. CandidateID vs candidateId vs candidate_id)
+    // Key comparison is normalized: strip underscores + lowercase to handle
+    // CandidateID vs candidate_id vs candidateId vs candidate_i_d etc.
     try {
       const expArgs = JSON.parse(exp.arguments || '{}')
       const gotArgs = JSON.parse(got.arguments || '{}')
       const expKeys = Object.keys(expArgs)
-      const gotKeysLower = new Set(Object.keys(gotArgs).map(k => k.toLowerCase()))
-      // Every expected key must appear in the actual call (case-insensitive)
-      const allKeysPresent = expKeys.every(k => gotKeysLower.has(k.toLowerCase()))
+      const normalizeKey = (k: string) => k.toLowerCase().replace(/_/g, '')
+      const gotKeysNorm = new Set(Object.keys(gotArgs).map(normalizeKey))
+      // Every expected key must appear in the actual call (normalized)
+      const allKeysPresent = expKeys.every(k => gotKeysNorm.has(normalizeKey(k)))
       if (!allKeysPresent) return 0
     } catch {
       return 0
@@ -231,6 +259,53 @@ export function criteriaScore(): number {
   return 0  // computed by LLM judge in evalRunner, not here
 }
 
+// ─── List Match (set recall — order-insensitive) ─────────────────────
+// Dùng cho ranking/recommendation tasks: output và reference đều là
+// JSON array of objects với 1 key string (vd: [{ProductCode: "X"}, ...])
+// hoặc plain string list (1 item per line).
+// Score = |intersection| / |reference| * 100  (recall)
+export function listMatch(output: string, reference: string): number {
+  if (!output || !reference) return 0
+
+  function extractItems(s: string): string[] {
+    s = s.trim()
+    // Strip markdown code fences: ```json ... ``` or ``` ... ```
+    s = s.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+    // Try JSON parse
+    try {
+      const parsed = JSON.parse(s)
+      if (Array.isArray(parsed)) {
+        // Direct array: [{ProductCode:"X"}, ...] hoặc ["X", "Y"]
+        return parsed.map(item => {
+          if (typeof item === 'string') return item.trim().toLowerCase()
+          // object → lấy value của key đầu tiên
+          const vals = Object.values(item as Record<string, unknown>)
+          return String(vals[0] ?? '').trim().toLowerCase()
+        }).filter(Boolean)
+      }
+      if (parsed && typeof parsed === 'object') {
+        // Wrapper object: {"A": [{B: "X"}, ...]} — lấy value đầu tiên là array
+        const firstVal = Object.values(parsed as Record<string, unknown>)[0]
+        if (Array.isArray(firstVal)) {
+          return firstVal.map(item => {
+            if (typeof item === 'string') return item.trim().toLowerCase()
+            const vals = Object.values(item as Record<string, unknown>)
+            return String(vals[0] ?? '').trim().toLowerCase()
+          }).filter(Boolean)
+        }
+      }
+    } catch { /* not JSON */ }
+    // Fallback: 1 item per line (trim + lowercase)
+    return s.split('\n').map(l => l.trim().toLowerCase()).filter(Boolean)
+  }
+
+  const outItems = new Set(extractItems(output))
+  const refItems = extractItems(reference)
+  if (!refItems.length) return 0
+  const matched = refItems.filter(r => outItems.has(r)).length
+  return (matched / refItems.length) * 100
+}
+
 // ─── Dispatcher ─────────────────────────────────
 export interface DataRecordForMetrics {
   output: string
@@ -275,6 +350,9 @@ export function computeMetrics(
         break
       case 'tool_call_exact':
         scores[metric] = toolCallExact(record.tool_calls, record.expected_tool_calls)
+        break
+      case 'list_match':
+        scores[metric] = listMatch(newOutput, ref)
         break
       // Programmatic safety metric
       case 'refusal_accuracy': {

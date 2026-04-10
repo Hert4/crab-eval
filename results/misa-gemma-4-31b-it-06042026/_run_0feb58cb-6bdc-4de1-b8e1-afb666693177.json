@@ -1,0 +1,12 @@
+{
+  "runId": "0feb58cb-6bdc-4de1-b8e1-afb666693177",
+  "model": "misa-gemma-4-31b-it-06042026",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 09:55:18",
+  "durationMs": 125120,
+  "tasks": {
+    "Task Generator — 4/6/2026": {
+      "tool_call_exact": 66.93
+    }
+  }
+}

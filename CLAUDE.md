@@ -368,3 +368,7 @@ LLM generates tasks+expected_outcomes (1 time, frozen) → Code verifies determi
 | `hybrid` | 70% prog + 30% quality | Default — balanced |
 | `programmatic` | 100% prog | Fully deterministic, binary |
 | `judge_only` | 100% judge | Legacy LLM scoring |
+
+
+### IMPORTANT: 
+Always update `CLAUDE.md `

@@ -8,6 +8,7 @@ export interface DataRecord {
   output: string
   reference: string
   context?: string | null
+  system_prompt?: string | null   // per-record system prompt (tool-calling datasets)
   metadata?: Record<string, unknown>
   tool_calls?: ToolCall[]
   expected_tool_calls?: ToolCall[]

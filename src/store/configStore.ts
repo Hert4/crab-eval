@@ -9,6 +9,7 @@ interface ConfigState {
   targetMaxTokens: number
   targetTemperature: number
   targetSystemPrompt: string
+  concurrency: number
 
   // Judge model (for LLM-as-judge)
   judgeBaseUrl: string
@@ -27,6 +28,7 @@ export const useConfigStore = create<ConfigState>()(
       targetMaxTokens: 2048,
       targetTemperature: 0.0,
       targetSystemPrompt: '',
+      concurrency: 3,
 
       judgeBaseUrl: 'https://api.openai.com/v1',
       judgeModel: 'gpt-4o',

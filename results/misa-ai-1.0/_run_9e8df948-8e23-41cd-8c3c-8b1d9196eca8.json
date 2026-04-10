@@ -1,0 +1,12 @@
+{
+  "runId": "9e8df948-8e23-41cd-8c3c-8b1d9196eca8",
+  "model": "misa-ai-1.0",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 08:01:29",
+  "durationMs": 137183,
+  "tasks": {
+    "makt_forecast": {
+      "list_match": 87.24
+    }
+  }
+}

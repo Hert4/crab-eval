@@ -1,0 +1,12 @@
+{
+  "runId": "db8ef879-870c-4628-8545-036119aad1f4",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 04:57:55",
+  "durationMs": 110486,
+  "tasks": {
+    "htkh_intent_routing": {
+      "accuracy": 66.88
+    }
+  }
+}

@@ -15,8 +15,7 @@
     "script": "convert_raw_to_benchmark.py (HTKH)",
     "gt_task_type": "qa",
     "gt_metrics": [
-      "accuracy",
-      "token_f1"
+      "accuracy"
     ],
     "gt_generated_date": "2026-03-13 16:48:00",
     "gt_model": "gpt-5.2"
@@ -37,7 +36,8 @@
         "is_error": false,
         "processing_ms": 266.8805,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0002",
@@ -54,7 +54,8 @@
         "is_error": false,
         "processing_ms": 347.8948,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0003",
@@ -71,7 +72,8 @@
         "is_error": false,
         "processing_ms": 406.3083,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0004",
@@ -88,7 +90,8 @@
         "is_error": false,
         "processing_ms": 2092.2753,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0005",
@@ -105,7 +108,8 @@
         "is_error": false,
         "processing_ms": 353.059,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0006",
@@ -122,7 +126,8 @@
         "is_error": false,
         "processing_ms": 371.3938,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0007",
@@ -139,7 +144,8 @@
         "is_error": false,
         "processing_ms": 535.4212,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0008",
@@ -156,7 +162,8 @@
         "is_error": false,
         "processing_ms": 540.5621,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0009",
@@ -173,7 +180,8 @@
         "is_error": false,
         "processing_ms": 473.918,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0010",
@@ -190,7 +198,8 @@
         "is_error": false,
         "processing_ms": 2059.0024,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0011",
@@ -207,7 +216,8 @@
         "is_error": false,
         "processing_ms": 494.7954,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0012",
@@ -224,7 +234,8 @@
         "is_error": false,
         "processing_ms": 413.2344,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0013",
@@ -241,7 +252,8 @@
         "is_error": false,
         "processing_ms": 2073.043,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0014",
@@ -258,7 +270,8 @@
         "is_error": false,
         "processing_ms": 736.9349,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0015",
@@ -275,7 +288,8 @@
         "is_error": false,
         "processing_ms": 428.2125,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0016",
@@ -292,7 +306,8 @@
         "is_error": false,
         "processing_ms": 1165.7441,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0017",
@@ -309,7 +324,8 @@
         "is_error": false,
         "processing_ms": 445.1772,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0018",
@@ -326,7 +342,8 @@
         "is_error": false,
         "processing_ms": 2094.8174,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0019",
@@ -343,7 +360,8 @@
         "is_error": false,
         "processing_ms": 421.2634,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0020",
@@ -360,7 +378,8 @@
         "is_error": false,
         "processing_ms": 660.7706,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0021",
@@ -377,7 +396,8 @@
         "is_error": false,
         "processing_ms": 507.0019,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0022",
@@ -394,7 +414,8 @@
         "is_error": false,
         "processing_ms": 326.3536,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0023",
@@ -411,7 +432,8 @@
         "is_error": false,
         "processing_ms": 353.489,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0024",
@@ -428,7 +450,8 @@
         "is_error": false,
         "processing_ms": 1600.1642,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0025",
@@ -445,7 +468,8 @@
         "is_error": false,
         "processing_ms": 3079.3695,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0026",
@@ -462,7 +486,8 @@
         "is_error": false,
         "processing_ms": 377.864,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0027",
@@ -479,7 +504,8 @@
         "is_error": false,
         "processing_ms": 1376.1883,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0028",
@@ -496,7 +522,8 @@
         "is_error": false,
         "processing_ms": 1254.0187,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0029",
@@ -513,7 +540,8 @@
         "is_error": false,
         "processing_ms": 519.052,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0030",
@@ -530,7 +558,8 @@
         "is_error": false,
         "processing_ms": 272.4733,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0031",
@@ -547,7 +576,8 @@
         "is_error": false,
         "processing_ms": 324.1918,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0032",
@@ -564,7 +594,8 @@
         "is_error": false,
         "processing_ms": 331.8415,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0033",
@@ -581,7 +612,8 @@
         "is_error": false,
         "processing_ms": 514.7385,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0034",
@@ -598,7 +630,8 @@
         "is_error": false,
         "processing_ms": 612.765,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0035",
@@ -615,7 +648,8 @@
         "is_error": false,
         "processing_ms": 1429.5922,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0036",
@@ -632,7 +666,8 @@
         "is_error": false,
         "processing_ms": 3402.4005,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0037",
@@ -649,7 +684,8 @@
         "is_error": false,
         "processing_ms": 635.547,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0038",
@@ -666,7 +702,8 @@
         "is_error": false,
         "processing_ms": 347.7538,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0039",
@@ -683,7 +720,8 @@
         "is_error": false,
         "processing_ms": 4320.2015,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0040",
@@ -700,7 +738,8 @@
         "is_error": false,
         "processing_ms": 410.3391,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0041",
@@ -717,7 +756,8 @@
         "is_error": false,
         "processing_ms": 852.1614,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0042",
@@ -734,7 +774,8 @@
         "is_error": false,
         "processing_ms": 448.9666,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0043",
@@ -751,7 +792,8 @@
         "is_error": false,
         "processing_ms": 1362.2127,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0044",
@@ -768,7 +810,8 @@
         "is_error": false,
         "processing_ms": 394.8326,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0045",
@@ -785,7 +828,8 @@
         "is_error": false,
         "processing_ms": 1045.8191,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0046",
@@ -802,7 +846,8 @@
         "is_error": false,
         "processing_ms": 649.5991,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0047",
@@ -819,7 +864,8 @@
         "is_error": false,
         "processing_ms": 1421.24,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0048",
@@ -836,7 +882,8 @@
         "is_error": false,
         "processing_ms": 663.24,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0049",
@@ -853,7 +900,8 @@
         "is_error": false,
         "processing_ms": 398.1013,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0050",
@@ -870,7 +918,8 @@
         "is_error": false,
         "processing_ms": 384.8039,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0051",
@@ -887,7 +936,8 @@
         "is_error": false,
         "processing_ms": 414.1619,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0052",
@@ -904,7 +954,8 @@
         "is_error": false,
         "processing_ms": 394.9797,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0053",
@@ -921,7 +972,8 @@
         "is_error": false,
         "processing_ms": 566.4958,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0054",
@@ -938,7 +990,8 @@
         "is_error": false,
         "processing_ms": 733.2601,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0055",
@@ -955,7 +1008,8 @@
         "is_error": false,
         "processing_ms": 560.7071,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0056",
@@ -972,7 +1026,8 @@
         "is_error": false,
         "processing_ms": 1562.5648,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0057",
@@ -989,7 +1044,8 @@
         "is_error": false,
         "processing_ms": 3642.8544,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0058",
@@ -1006,7 +1062,8 @@
         "is_error": false,
         "processing_ms": 336.3614,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0059",
@@ -1023,7 +1080,8 @@
         "is_error": false,
         "processing_ms": 531.0623,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0060",
@@ -1040,7 +1098,8 @@
         "is_error": false,
         "processing_ms": 1151.4642,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0061",
@@ -1057,7 +1116,8 @@
         "is_error": false,
         "processing_ms": 493.559,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0062",
@@ -1074,7 +1134,8 @@
         "is_error": false,
         "processing_ms": 385.0892,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0063",
@@ -1091,7 +1152,8 @@
         "is_error": false,
         "processing_ms": 2513.5845,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0064",
@@ -1108,7 +1170,8 @@
         "is_error": false,
         "processing_ms": 948.8696,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0065",
@@ -1125,7 +1188,8 @@
         "is_error": false,
         "processing_ms": 662.6242,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0066",
@@ -1142,7 +1206,8 @@
         "is_error": false,
         "processing_ms": 400.4682,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0067",
@@ -1159,7 +1224,8 @@
         "is_error": false,
         "processing_ms": 418.2855,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0068",
@@ -1176,7 +1242,8 @@
         "is_error": false,
         "processing_ms": 991.4933,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0069",
@@ -1193,7 +1260,8 @@
         "is_error": false,
         "processing_ms": 399.9127,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0070",
@@ -1210,7 +1278,8 @@
         "is_error": false,
         "processing_ms": 1339.3285,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0071",
@@ -1227,7 +1296,8 @@
         "is_error": false,
         "processing_ms": 359.6906,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0072",
@@ -1244,7 +1314,8 @@
         "is_error": false,
         "processing_ms": 2885.7515,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0073",
@@ -1261,7 +1332,8 @@
         "is_error": false,
         "processing_ms": 441.1183,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0074",
@@ -1278,7 +1350,8 @@
         "is_error": false,
         "processing_ms": 2273.9521,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0075",
@@ -1295,7 +1368,8 @@
         "is_error": false,
         "processing_ms": 474.0376,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0076",
@@ -1312,7 +1386,8 @@
         "is_error": false,
         "processing_ms": 893.4145,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0077",
@@ -1329,7 +1404,8 @@
         "is_error": false,
         "processing_ms": 399.2246,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0078",
@@ -1346,7 +1422,8 @@
         "is_error": false,
         "processing_ms": 412.8634,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0079",
@@ -1363,7 +1440,8 @@
         "is_error": false,
         "processing_ms": 359.3528,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0080",
@@ -1380,7 +1458,8 @@
         "is_error": false,
         "processing_ms": 386.6579,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0081",
@@ -1397,7 +1476,8 @@
         "is_error": false,
         "processing_ms": 648.5164,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0082",
@@ -1414,7 +1494,8 @@
         "is_error": false,
         "processing_ms": 341.562,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0083",
@@ -1431,7 +1512,8 @@
         "is_error": false,
         "processing_ms": 1579.5376,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0084",
@@ -1448,7 +1530,8 @@
         "is_error": false,
         "processing_ms": 804.8986,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0085",
@@ -1465,7 +1548,8 @@
         "is_error": false,
         "processing_ms": 335.3409,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0086",
@@ -1482,7 +1566,8 @@
         "is_error": false,
         "processing_ms": 817.4446,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0087",
@@ -1499,7 +1584,8 @@
         "is_error": false,
         "processing_ms": 677.1729,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0088",
@@ -1516,7 +1602,8 @@
         "is_error": false,
         "processing_ms": 946.4417,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0089",
@@ -1533,7 +1620,8 @@
         "is_error": false,
         "processing_ms": 502.3054,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0090",
@@ -1550,7 +1638,8 @@
         "is_error": false,
         "processing_ms": 431.4877,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0091",
@@ -1567,7 +1656,8 @@
         "is_error": false,
         "processing_ms": 1424.6898,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0092",
@@ -1584,7 +1674,8 @@
         "is_error": false,
         "processing_ms": 1977.3483,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0093",
@@ -1601,7 +1692,8 @@
         "is_error": false,
         "processing_ms": 1117.5423,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0094",
@@ -1618,7 +1710,8 @@
         "is_error": false,
         "processing_ms": 792.4395,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0095",
@@ -1635,7 +1728,8 @@
         "is_error": false,
         "processing_ms": 927.78,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0096",
@@ -1652,7 +1746,8 @@
         "is_error": false,
         "processing_ms": 321.3333,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0097",
@@ -1669,7 +1764,8 @@
         "is_error": false,
         "processing_ms": 367.8426,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0098",
@@ -1686,7 +1782,8 @@
         "is_error": false,
         "processing_ms": 411.3637,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0099",
@@ -1703,7 +1800,8 @@
         "is_error": false,
         "processing_ms": 808.6765,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0100",
@@ -1720,7 +1818,8 @@
         "is_error": false,
         "processing_ms": 1409.0829,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0101",
@@ -1737,7 +1836,8 @@
         "is_error": false,
         "processing_ms": 548.8353,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0102",
@@ -1754,7 +1854,8 @@
         "is_error": false,
         "processing_ms": 430.1599,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0103",
@@ -1771,7 +1872,8 @@
         "is_error": false,
         "processing_ms": 503.61,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0104",
@@ -1788,7 +1890,8 @@
         "is_error": false,
         "processing_ms": 491.7587,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0105",
@@ -1805,7 +1908,8 @@
         "is_error": false,
         "processing_ms": 347.8979,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0106",
@@ -1822,7 +1926,8 @@
         "is_error": false,
         "processing_ms": 300.2902,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0107",
@@ -1839,7 +1944,8 @@
         "is_error": false,
         "processing_ms": 1284.7594,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0108",
@@ -1856,7 +1962,8 @@
         "is_error": false,
         "processing_ms": 1241.0924,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0109",
@@ -1873,7 +1980,8 @@
         "is_error": false,
         "processing_ms": 325.3797,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0110",
@@ -1890,7 +1998,8 @@
         "is_error": false,
         "processing_ms": 1644.3058,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0111",
@@ -1907,7 +2016,8 @@
         "is_error": false,
         "processing_ms": 342.7256,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0112",
@@ -1924,7 +2034,8 @@
         "is_error": false,
         "processing_ms": 503.9122,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0113",
@@ -1941,7 +2052,8 @@
         "is_error": false,
         "processing_ms": 872.6207,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0114",
@@ -1958,7 +2070,8 @@
         "is_error": false,
         "processing_ms": 484.2317,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0115",
@@ -1975,7 +2088,8 @@
         "is_error": false,
         "processing_ms": 1133.2728,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0116",
@@ -1992,7 +2106,8 @@
         "is_error": false,
         "processing_ms": 539.9473,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0117",
@@ -2009,7 +2124,8 @@
         "is_error": false,
         "processing_ms": 411.1165,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0118",
@@ -2026,7 +2142,8 @@
         "is_error": false,
         "processing_ms": 373.9214,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0119",
@@ -2043,7 +2160,8 @@
         "is_error": false,
         "processing_ms": 1016.9404,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0120",
@@ -2060,7 +2178,8 @@
         "is_error": false,
         "processing_ms": 313.2811,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0121",
@@ -2077,7 +2196,8 @@
         "is_error": false,
         "processing_ms": 407.1065,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0122",
@@ -2094,7 +2214,8 @@
         "is_error": false,
         "processing_ms": 380.9202,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0123",
@@ -2111,7 +2232,8 @@
         "is_error": false,
         "processing_ms": 896.8986,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0124",
@@ -2128,7 +2250,8 @@
         "is_error": false,
         "processing_ms": 655.8019,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0125",
@@ -2145,7 +2268,8 @@
         "is_error": false,
         "processing_ms": 1024.9961,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0126",
@@ -2162,7 +2286,8 @@
         "is_error": false,
         "processing_ms": 304.4833,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0127",
@@ -2179,7 +2304,8 @@
         "is_error": false,
         "processing_ms": 1479.6092,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0128",
@@ -2196,7 +2322,8 @@
         "is_error": false,
         "processing_ms": 403.8783,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0129",
@@ -2213,7 +2340,8 @@
         "is_error": false,
         "processing_ms": 523.1298,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0130",
@@ -2230,7 +2358,8 @@
         "is_error": false,
         "processing_ms": 622.8705,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0131",
@@ -2247,7 +2376,8 @@
         "is_error": false,
         "processing_ms": 403.3354,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0132",
@@ -2264,7 +2394,8 @@
         "is_error": false,
         "processing_ms": 451.3631,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0133",
@@ -2281,7 +2412,8 @@
         "is_error": false,
         "processing_ms": 342.3614,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0134",
@@ -2298,7 +2430,8 @@
         "is_error": false,
         "processing_ms": 370.3902,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0135",
@@ -2315,7 +2448,8 @@
         "is_error": false,
         "processing_ms": 260.2869,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0136",
@@ -2332,7 +2466,8 @@
         "is_error": false,
         "processing_ms": 417.891,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0137",
@@ -2349,7 +2484,8 @@
         "is_error": false,
         "processing_ms": 730.3714,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0138",
@@ -2366,7 +2502,8 @@
         "is_error": false,
         "processing_ms": 803.1747,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0139",
@@ -2383,7 +2520,8 @@
         "is_error": false,
         "processing_ms": 961.088,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0140",
@@ -2400,7 +2538,8 @@
         "is_error": false,
         "processing_ms": 455.799,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0141",
@@ -2417,7 +2556,8 @@
         "is_error": false,
         "processing_ms": 455.6392,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0142",
@@ -2434,7 +2574,8 @@
         "is_error": false,
         "processing_ms": 4527.3328,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0143",
@@ -2451,7 +2592,8 @@
         "is_error": false,
         "processing_ms": 705.7317,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0144",
@@ -2468,7 +2610,8 @@
         "is_error": false,
         "processing_ms": 703.0674,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0145",
@@ -2485,7 +2628,8 @@
         "is_error": false,
         "processing_ms": 370.6149,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0146",
@@ -2502,7 +2646,8 @@
         "is_error": false,
         "processing_ms": 2451.4294,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0147",
@@ -2519,7 +2664,8 @@
         "is_error": false,
         "processing_ms": 463.3799,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0148",
@@ -2536,7 +2682,8 @@
         "is_error": false,
         "processing_ms": 395.4583,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0149",
@@ -2553,7 +2700,8 @@
         "is_error": false,
         "processing_ms": 462.43,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     },
     {
       "id": "htkh_intent_classification_0150",
@@ -2570,7 +2718,8 @@
         "is_error": false,
         "processing_ms": 770.4384,
         "source": "htkh"
-      }
+      },
+      "system_prompt": "Bạn là hệ thống phân loại intent cho chatbot hỗ trợ khách hàng phần mềm MISA.\n\nPhân loại tin nhắn của khách hàng thành MỘT trong 2 nhãn sau:\n- request_human_handoff: khách hàng muốn gặp/gọi nhân viên tư vấn trực tiếp, yêu cầu được liên hệ qua điện thoại, hoặc muốn chuyển sang người thật\n- others: tất cả các trường hợp còn lại (câu hỏi kỹ thuật, hỏi về tính năng, báo lỗi, yêu cầu hướng dẫn, v.v.)\n\nCHỈ trả về đúng 1 nhãn, không giải thích, không thêm ký tự nào khác."
     }
   ]
 }

@@ -1,0 +1,2790 @@
+{
+  "runId": "db8ef879-870c-4628-8545-036119aad1f4",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 04:57:55",
+  "taskName": "htkh_intent_routing",
+  "taskType": "qa",
+  "description": "HTKH — Route intent: rag_answer / human_handoff / clarify / chitchat",
+  "numSamples": 154,
+  "metrics": [
+    "accuracy"
+  ],
+  "scores": {
+    "accuracy": 66.88
+  },
+  "logs": [
+    {
+      "id": "htkh_intent_routing_0001",
+      "status": "done",
+      "input": "c lọc thì báo k có dữ liệu",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1646,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1278.5441,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0002",
+      "status": "done",
+      "input": "0364785721",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 993,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1002.7342,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0003",
+      "status": "done",
+      "input": "0987482396",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 786,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1207.3941,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0004",
+      "status": "done",
+      "input": "xem giúp mình lỗi kg ký đc hóa đơn\nhttp://misajscamisapp.misa.vn.local/support/api/file/api/files/image/5001?fileID=dc1605b8-f072-4269-9f9c-4cb06273fd26.png&tenantCode=misa&ispreview=true",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 720,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2799.1852,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0005",
+      "status": "done",
+      "input": "0976827437 - số của chị",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 718,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 993.3268,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0006",
+      "status": "done",
+      "input": "Em ơi, hôm trước chị có phản hồi đến bên em về phần bảng tính lương của bên chị ko lên thông tin khi trả lương nhưng bên em có phản hồi lại là bên em hiện đang chưa có giải pháp khắc phục thì chị thấy câu trả lời vẫn chưa thuyết phục em ạ. Vì đây không phải là phát sinh mới mà bảng tính lương này bê",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 650,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2613.5641,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0007",
+      "status": "done",
+      "input": "0374510040",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 605,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 801.5187,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0008",
+      "status": "done",
+      "input": "đó là Sếp m ạ, mình có đổi 0938 935 762 mình là kế toán ạ",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 587,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1794.3634,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0009",
+      "status": "done",
+      "input": "ĐÚng em nhé",
+      "reference": "chitchat",
+      "output": "chitchat",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 713,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1228.3423,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0010",
+      "status": "done",
+      "input": "báo cáo tổng hợp lãi lỗ theo công trình của c nó bị lệch giữa. tổng chi phí phát sinh + chi phí quản lý khi chưa kết xuất lãi lỗ thì tổng hai khoản này có phải =  cột lãi lỗ ko e",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 689,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1683.6239,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0011",
+      "status": "done",
+      "input": "EM ơi, hôm trước có bạn mã số DN02-1388 - Vũ lan Anh có hỗ trợ chị biểu B01/BCQT , nhưng nay chị mở F01/BCQT thì lại thấy số liệu ko đúng. Chị nhờ em báo bạn ý hỗ trợ lại cho chị với nhé",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 632,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1251.8597,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0012",
+      "status": "done",
+      "input": "http://misajscamisapp.misa.vn.local/support/api/file/api/files/image/5001?fileID=b862fc75-7a94-4f2a-8db5-56ea42c14c2e.png&tenantCode=misa&ispreview=true",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 621,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1570.1049,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0013",
+      "status": "done",
+      "input": "đúng ạ",
+      "reference": "rag_answer",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 651,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1541.341,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0014",
+      "status": "done",
+      "input": "tôi không làm được",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 996,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2498.6697,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0015",
+      "status": "done",
+      "input": "Cả sáng C chưa làm được",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 685,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1130.7153,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0016",
+      "status": "done",
+      "input": "Cách 2 là xuất 1 hóa đơn chiết khấu thương mại riêng nên theo luật giá trị hóa đơn ko được ghi số âm\nhttp://misajscamisapp.misa.vn.local/support/api/file/api/files/image/5001?fileID=8f98b5b4-9bb6-4ae8-8ea2-4f9c418bf020.png&tenantCode=misa&ispreview=true",
+      "reference": "rag_answer",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 601,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3232.562,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0017",
+      "status": "done",
+      "input": "chị cần ultra xử lý vấn đề em ơi\nmisa sme 2023 tờ khai QT TTNDN chị kết xuất xml, nhập vào HTKK báo lỗi cấu trúc xml ko hợp lệ\nchị đang dùng bản cao nhất r á\nbên e cho chị link dowload về\nchị đã làm theo nhưng vẫn báo lỗi cấu trúc xml ko hợp lệ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 746,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1578.4698,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0018",
+      "status": "done",
+      "input": "mình cso pancake ddeerr lấy dữ liệu bán hàng về, phần mềm kế toán là misa amis, xuất hóa đơn là misa einvoice, mình muốn misa einvoice tự đống đồng bộ dữ liệu từ tiktok + shoppe để xuất hóa đơn, không phải xuất hóa đơn thủ ccoong ạ",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 685,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 898.8961,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0019",
+      "status": "done",
+      "input": "bên mình tính giá thành bằng ễcl\nvà hàng xuất ra sản xuất rất nhiều, xong ko dùng hết nhập trả lại cũng nhiều\nnếu bây giờ mà dùng tay để nhập từng mã cho từng phiếu vậy rất mất thười gian\nbạn xem có cách nào hỗ trợ mình không ?\nbạn có thể cho mình số điện thoại để mình gọi nhé",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 690,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1066.7395,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0020",
+      "status": "done",
+      "input": "ok",
+      "reference": "human_handoff",
+      "output": "chitchat",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 737,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 934.5692,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0021",
+      "status": "done",
+      "input": "Anh không thực hiện được, anh cần có sự hỗ trợ trực tiếp của nhân viên Misa",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 655,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3123.3618,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0022",
+      "status": "done",
+      "input": "Bạn hỗ trợ tôi qua ultra nữa",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 654,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1526.0782,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0023",
+      "status": "done",
+      "input": "ok em",
+      "reference": "chitchat",
+      "output": "chitchat",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 657,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 914.1727,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0024",
+      "status": "done",
+      "input": "ĐÚNG RỒI",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 617,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 870.9811,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0025",
+      "status": "done",
+      "input": "dạ đúng r ạ",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 669,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1220.736,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0026",
+      "status": "done",
+      "input": "Chị sử dụng PM kết toán misa, pm quản lý hđ đầu vào, chị thấy hđ đầu vào khách hàng đã gửi vào mail cty, nhưng pm kế toán chưa nhận được, đồng bộ trên pm hóa đơn cũng không thấy hđ. hôm qua có bạn vào xem giúp hôm nay pm cũng chưa tải được hđ về, trong khi đó mail cty sáng giờ nhận được 3 tờ hđ",
+      "reference": "human_handoff",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 680,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1296.1889,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0027",
+      "status": "done",
+      "input": "có cách nào mình nhập số dư 421 tách ra 421 kp thường xuyên, 421 nguồn khác để số liệu đúng hiện tại k ạ",
+      "reference": "rag_answer",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 595,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1213.9447,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0028",
+      "status": "done",
+      "input": "uh đúng rồi",
+      "reference": "rag_answer",
+      "output": "chitchat",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 597,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 856.6286,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0029",
+      "status": "done",
+      "input": "0986666540",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 703,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 885.2322,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0030",
+      "status": "done",
+      "input": "Nhưng giờ tìm nhanh ko tắt đc\nKo bào được hệ thống\nvào",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 679,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1078.4515,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0031",
+      "status": "done",
+      "input": "e gọi c số 0974686496 của kế toán",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 594,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2050.1836,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0032",
+      "status": "done",
+      "input": "https://app3.meinvoice.vn/v3/hoa-don\nhttp://misajscamisapp.misa.vn.local/support/api/file/api/files/image/5001?fileID=9193ed75-5e7e-4924-afeb-4737aaaec435.png&tenantCode=misa&ispreview=true",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1033,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1267.553,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0033",
+      "status": "done",
+      "input": "đúng e",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 648,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 891.602,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0034",
+      "status": "done",
+      "input": "đúng rồi",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 674,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1695.4007,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0035",
+      "status": "done",
+      "input": "giờ c cần người hỗ trợ\nhttp://misajscamisapp.misa.vn.local/support/api/file/api/files/image/5001?fileID=cceaa797-0c7a-46f3-9c11-9f062e41f87f.png&tenantCode=misa&ispreview=true",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 998,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1227.3321,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0036",
+      "status": "done",
+      "input": "ko alfm dc",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 834,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2546.2515,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0037",
+      "status": "done",
+      "input": "đúng",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 683,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2400.2637,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0038",
+      "status": "done",
+      "input": "đã kiểm tra hết rồi, số dư USD vẫn còn, sai là do bút toán chênh lệch tỷ giá phần mềm bị sai",
+      "reference": "clarify",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 711,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2300.5257,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0039",
+      "status": "done",
+      "input": "gửi hình phía trêb\ntrên",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 707,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2416.173,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0040",
+      "status": "done",
+      "input": "nói rồi mà hỏi hoài vậy",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 638,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1583.3825,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0041",
+      "status": "done",
+      "input": "0354024996 b",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 674,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1738.4607,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0042",
+      "status": "done",
+      "input": "Đúng rồi",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 831,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2916.5539,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0043",
+      "status": "done",
+      "input": "làm sao để cập nhật trạng thái đã hoàn thnahf",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 694,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 4136.2345,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0044",
+      "status": "done",
+      "input": "bạn có utra đc ko",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 718,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1505.4904,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0045",
+      "status": "done",
+      "input": "đúng rồi e",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 687,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1607.4747,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0046",
+      "status": "done",
+      "input": "chị xem ở phần quản lý tài nguyên còn lại",
+      "reference": "rag_answer",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 601,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1508.6957,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0047",
+      "status": "done",
+      "input": "rồi\ngặp nhân viên nhé\n0387675067",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 713,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1116.0707,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0048",
+      "status": "done",
+      "input": "thánks",
+      "reference": "chitchat",
+      "output": "chitchat",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 927,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1297.174,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0049",
+      "status": "done",
+      "input": "mình không làm việc với chatbot. mất thời gian",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 729,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1060.0879,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0050",
+      "status": "done",
+      "input": "lúc nào cũng nhắn thế mà chị chờ 2 tiếng rồi ko thấy ai gọi",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 681,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1789.0806,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0051",
+      "status": "done",
+      "input": "số đt 0975811030",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 720,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1830.235,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0052",
+      "status": "done",
+      "input": "0799958990",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 668,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2536.6642,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0053",
+      "status": "done",
+      "input": "Có",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 818,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1102.5234,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0054",
+      "status": "done",
+      "input": "nhắn chán chê rồi. xong bảo gọi để hỗ trợ mà mãi chưa thấy",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 703,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1026.8752,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0055",
+      "status": "done",
+      "input": "ĐÚNG",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 623,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 677.5923,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0056",
+      "status": "done",
+      "input": "đăng ký mới thì k được\nhttp://misajscamisapp.misa.vn.local/support/api/file/api/files/image/5001?fileID=d6c3ca32-91bf-42d8-b810-0e6838d14377.png&tenantCode=misa&ispreview=true",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 652,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1255.2049,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0057",
+      "status": "done",
+      "input": "0978349093",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 616,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2230.6566,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0058",
+      "status": "done",
+      "input": "ĐÃ LÀM THEO TẤT CẢ HƯỚNG DẪN NHƯNG KO ĐƯỢC, CẦN HỖ TRỢ GẤP",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 762,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1230.3864,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0059",
+      "status": "done",
+      "input": "cho tôi gặp tư vấn viên không tôi sẽ bỏ misa chuyển sang bên khác",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 704,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1344.7539,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0060",
+      "status": "done",
+      "input": "Tôi muốn gặp nhân viên tư vấn",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 690,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1624.8037,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0061",
+      "status": "done",
+      "input": "ban vua ho tro chi nhung chua dc",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 598,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2079.0697,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0062",
+      "status": "done",
+      "input": "Tài liệu xác thực đối với hình thức chấm công linh động",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 582,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1071.6852,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0063",
+      "status": "done",
+      "input": "ko chị muôn xin số để phản ánh chât luong dịch vụ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 672,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 4784.2617,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0064",
+      "status": "done",
+      "input": "Cho nhân viên hỗ trợ qua utra giúp em ạ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1216,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3673.121,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0065",
+      "status": "done",
+      "input": "biểu F01-01 BCQT theo phụ lục của chị ko hiển thị số\nluc nẫy chị nhắn rồi á\n0918776443",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 584,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2250.0127,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0066",
+      "status": "done",
+      "input": "đr ạ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 716,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1089.3215,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0067",
+      "status": "done",
+      "input": "đúng rồi b",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 855,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1209.2264,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0068",
+      "status": "done",
+      "input": "hỗ trợ mình kiểm tra báo cáo tài chính, bảng cân đối tài khoản, sổ sách kế toán cần quyết toán năm đúng chưa ạ để in ra đi quyết toán ạ\nmình nhờ hộ trợ 1 tuần rồi ạ chưa đến lượt ạ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 627,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1308.2322,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0069",
+      "status": "done",
+      "input": "cho số bạn kinh doanh",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 694,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1354.0012,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0070",
+      "status": "done",
+      "input": "mà chưa có ai",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 651,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1160.518,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0071",
+      "status": "done",
+      "input": "ở trong phần mềm CRm mục thống kê nhanh của đơn hàng",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 704,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1423.8595,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0072",
+      "status": "done",
+      "input": "0868913896, gọi cho mình vào 13h30 chiều, giờ mình nghỉ trưa rồi",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 700,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2204.8692,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0073",
+      "status": "done",
+      "input": "Đúng",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 703,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1140.6163,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0074",
+      "status": "done",
+      "input": "Gặp CSKH ngay",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 801,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1505.8848,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0075",
+      "status": "done",
+      "input": "Đúng đố ĐT nhá",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 618,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1250.1214,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0076",
+      "status": "done",
+      "input": "Toàn bộ hàng hóa mất hết luôn ạ",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 607,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1153.1425,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0077",
+      "status": "done",
+      "input": "phải",
+      "reference": "human_handoff",
+      "output": "chitchat",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 672,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 813.0161,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0078",
+      "status": "done",
+      "input": "k xem dk",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 653,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1071.8357,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0079",
+      "status": "done",
+      "input": "nhập số liệu để lên biểu mẫu số 59: tình hình thực hiện dự toán của các nhiệm vụ chuyển sang năm sau",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 759,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2951.5167,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0080",
+      "status": "done",
+      "input": "mục chọn \" mã hàng \" không hiện ra các mã để mình chọn xuất bán . sl x đg = TT",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 780,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2361.0446,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0081",
+      "status": "done",
+      "input": "NHẬP KHẨU",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 686,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3168.3917,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0082",
+      "status": "done",
+      "input": "thui",
+      "reference": "human_handoff",
+      "output": "chitchat",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 603,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2350.2107,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0083",
+      "status": "done",
+      "input": "Điện thoại",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 693,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2306.8871,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0084",
+      "status": "done",
+      "input": "đúng em",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 709,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1728.698,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0085",
+      "status": "done",
+      "input": "MÌNH CẦN HỖ TRỢ TRỰC TIẾP",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 718,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 856.2338,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0086",
+      "status": "done",
+      "input": "1/1/2025-31/12/2025\nđồng bộ về ASP\nchị thử nhiều rồi mà ko được cho kỹ thuật hỗ trợ chị",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 653,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 842.194,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0087",
+      "status": "done",
+      "input": "asp\nhttp://misajscamisapp.misa.vn.local/support/api/file/api/files/image/5001?fileID=ed69e53b-7559-47ea-bb7e-870b2e381c7c.png&tenantCode=misa&ispreview=true",
+      "reference": "rag_answer",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 607,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1138.8976,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0088",
+      "status": "done",
+      "input": "0988819060",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 744,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1517.7374,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0089",
+      "status": "done",
+      "input": "sáng bạn hỗ trợ mi sa cop đè dữ liệu từ máy trạm sang maysd chủ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 616,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3593.867,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0090",
+      "status": "done",
+      "input": "BẠN HỎI NHÙI QUÁ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1015,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1641.446,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0091",
+      "status": "done",
+      "input": "đứng rồi",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 700,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2939.2588,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0092",
+      "status": "done",
+      "input": "không có đồng bộ ạ",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 664,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 5324.8171,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0093",
+      "status": "done",
+      "input": "bạn có thể bắt tay chỉ viecj dc ko",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 753,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 8083.7878,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0094",
+      "status": "done",
+      "input": "đừng nhắn al nữa\nutra giúp chị với nha",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 690,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1424.2565,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0095",
+      "status": "done",
+      "input": "Nên mình nhờ bên bạn utra giúp mình",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 629,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2438.9937,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0096",
+      "status": "done",
+      "input": "Vâng",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 622,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1905.3959,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0097",
+      "status": "done",
+      "input": "chứ chị làm theo em hd",
+      "reference": "clarify",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 685,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2588.6353,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0098",
+      "status": "done",
+      "input": "thiết lập đúng phương pháp tính giá vốn mình không thấy chức năng này\nnhà nhân viên hỗ trợ giúp mình\nhttp://misajscamisapp.misa.vn.local/support/api/file/api/files/image/5001?fileID=5e50f813-0a40-46c9-b8c3-6c2b881bd7c1.png&tenantCode=misa&ispreview=true",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 730,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2643.3048,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0099",
+      "status": "done",
+      "input": "cho c giá gia hạn MISA SME 1 năm, và 2 năm",
+      "reference": "human_handoff",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 589,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3118.6073,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0100",
+      "status": "done",
+      "input": "hỗ trợ mình gấp nhé\nsdt 0382 561 726 \n ID 201033871\npass 63110",
+      "reference": "clarify",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 676,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3618.6241,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0101",
+      "status": "done",
+      "input": "chị muốn em hỗ trợ giúp chị qua utrab",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 700,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 4107.2206,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0102",
+      "status": "done",
+      "input": "Liên hệ giúp t vào số 0975308693",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 725,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1057.3523,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0103",
+      "status": "done",
+      "input": "trl trên đây đi",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 649,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 5409.2355,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0104",
+      "status": "done",
+      "input": "chị đang k in đc chúng từ thu tiền gủi\n0942535457",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 729,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3035.1518,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0105",
+      "status": "done",
+      "input": "0921256117",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 979,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 909.9188,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0106",
+      "status": "done",
+      "input": "e ơi có cách nào chuyển phân bổ chi phí trả trước từ theo tháng thành theo quý ko",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 691,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3079.3355,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0107",
+      "status": "done",
+      "input": "0937917667",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 957,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3733.4638,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0108",
+      "status": "done",
+      "input": "thành phẩm là chi phi bán hàng hay làgiá vốn hàng bán",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 688,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3618.2426,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0109",
+      "status": "done",
+      "input": "0962082154",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 607,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 970.9483,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0110",
+      "status": "done",
+      "input": "Vấn đề vừa chát",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 697,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2691.1362,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0111",
+      "status": "done",
+      "input": "ultraview giúp mình",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 726,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 4880.49,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0112",
+      "status": "done",
+      "input": "109 701 724",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 603,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3413.9757,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0113",
+      "status": "done",
+      "input": "Hủy lệnh tính giá xuất kho đang thực hiện",
+      "reference": "rag_answer",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 571,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3721.8749,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0114",
+      "status": "done",
+      "input": "c nhấn chuột phải trên hoá đơn cần thay thế vô lập hoá đơn mà nó ko ra tên của hàng hoias đó",
+      "reference": "rag_answer",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 714,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1401.4745,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0115",
+      "status": "done",
+      "input": "tài khoản tôi sử dụng là email",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 633,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1545.5775,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0116",
+      "status": "done",
+      "input": "tôi đang thao tác trên máy tính",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 747,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 730.9222,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0117",
+      "status": "done",
+      "input": "THÔNG TIN TRÊN HỒ SƠ EM ƠI",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 944,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3634.0545,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0118",
+      "status": "done",
+      "input": "không đúng\nfile dữ liệu như nhau\ncách làm cũng như nhau\ntaaij sao hôm qua không bị lỗi nay lại bị",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 595,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1929.9149,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0119",
+      "status": "done",
+      "input": "Đúng ạ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 746,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1838.2106,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0120",
+      "status": "done",
+      "input": "Ko có lý do gì, chỉ tìm hiểu để biết thôi",
+      "reference": "rag_answer",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 660,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3624.7934,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0121",
+      "status": "done",
+      "input": "đã tắt tường lửa, uac, check mạng vẫn chưa kết nối được\nchuyển kỹ thuật\n0972667734\n0972667734",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 688,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1420.2787,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0122",
+      "status": "done",
+      "input": "số thuế quyết toán phải nộp nhảy sai chứ k phải số kê khai sai\nsai do pm tính toán",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 732,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 6690.8119,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0123",
+      "status": "done",
+      "input": "phần mềm tự động trừ",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 699,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 5296.629,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0124",
+      "status": "done",
+      "input": "0977632315",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 671,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 4310.8083,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0125",
+      "status": "done",
+      "input": "liên hệ tổng đài viên",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 608,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3727.862,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0126",
+      "status": "done",
+      "input": "Nãy chị có nhờ hỗ trợ misa có gọi lại mà chị có việc đột xuất ra ngoài ko nge máy nên nhờ bên em hỗ trợ lại giúp chị",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 667,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1305.3584,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0127",
+      "status": "done",
+      "input": "pgdusng rồi ạ\nđúng rồi ạ",
+      "reference": "rag_answer",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 583,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 6014.4349,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0128",
+      "status": "done",
+      "input": "pgdusng rồi ạ",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 663,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1162.9851,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0129",
+      "status": "done",
+      "input": "có ạ",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 694,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2112.8054,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0130",
+      "status": "done",
+      "input": "vấn đề chưa được hỗ trợ",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 597,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 5213.3185,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0131",
+      "status": "done",
+      "input": "muốn tải báo cáo tài chính file XML nộp cho tổng kiểm kê vào sđâu",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 578,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2032.6653,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0132",
+      "status": "done",
+      "input": "nhờ nhân viên hỗ trợ trực tiếp",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 732,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2510.274,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0133",
+      "status": "done",
+      "input": "đt đúng rồi",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 862,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1078.4219,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0134",
+      "status": "done",
+      "input": "Cách gộp kho",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 715,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2057.9506,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0135",
+      "status": "done",
+      "input": "VẬY BẠN KHÔNG GIẢI QUYẾT ĐC\nHỎI HOÀI\nVẬY KHÔNG CẦN NỮA",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 781,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2255.8081,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0136",
+      "status": "done",
+      "input": "đúng rồi em",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 826,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 4892.5642,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0137",
+      "status": "done",
+      "input": "0903367766",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 786,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1295.7623,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0138",
+      "status": "done",
+      "input": "không hiển thị nút thự viện mẫu",
+      "reference": "clarify",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 748,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2461.5339,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0139",
+      "status": "done",
+      "input": "uh",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 629,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2149.4815,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0140",
+      "status": "done",
+      "input": "hay để c gọi tổng đaig\nok",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 686,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1461.1411,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0141",
+      "status": "done",
+      "input": "vui lòng gọi 0979111717 do đã làm nhưng không được",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 646,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2166.8929,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0142",
+      "status": "done",
+      "input": "hay để c gọi tổng đaig",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 729,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1347.735,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0143",
+      "status": "done",
+      "input": "chị đã ktra theo của e ròi\nko dc\nngày từ đầu rồi mà\ncả buổi sáng ko giải quyết dc\nmà ko cho tư vấn viên liên hệ",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 629,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1862.8403,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0144",
+      "status": "done",
+      "input": "đã làm theo hướng dẫn nhưng không được",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 717,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1105.8207,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0145",
+      "status": "done",
+      "input": "0963055623",
+      "reference": "human_handoff",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 644,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1539.689,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0146",
+      "status": "done",
+      "input": "vào ultra giúp c nhé",
+      "reference": "clarify",
+      "output": "clarify",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 635,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1133.8059,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0147",
+      "status": "done",
+      "input": "đã nói ko có nút chuyển chi phí mà\nlỗi chụp đó ko thấy hả",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 675,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3598.4551,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0148",
+      "status": "done",
+      "input": "dạ đúng ạ",
+      "reference": "clarify",
+      "output": "chitchat",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 703,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1818.706,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0149",
+      "status": "done",
+      "input": "đang hỗ trợ nhé",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 625,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2022.2624,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0150",
+      "status": "done",
+      "input": "nảy bạn kia xử lý gúp mình rồi mà mình có sửa lại báo cáo nên giờ mình muốn nhờ tải xml của bctc ạ",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 714,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 4336.4742,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0151",
+      "status": "done",
+      "input": "gộp mã kho",
+      "reference": "clarify",
+      "output": "rag_answer",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1002,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1989.6415,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0152",
+      "status": "done",
+      "input": "báo nhân viên hỗ trợ mình gấp với",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 824,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 2162.6494,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0153",
+      "status": "done",
+      "input": "tài khoản đã phát sinh\nxin cho gạp nhân viên hỗ trợ\nsố điện thoại 0906876428",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1076,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 1286.0534,
+        "source": "htkh"
+      }
+    },
+    {
+      "id": "htkh_intent_routing_0154",
+      "status": "done",
+      "input": "vẫn ko đc em ơi\nnhờ kỹ thuật xử lý giúp mình",
+      "reference": "human_handoff",
+      "output": "human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1177,
+      "metadata": {
+        "task": "intent_routing",
+        "is_error": false,
+        "processing_ms": 3222.4399,
+        "source": "htkh"
+      }
+    }
+  ]
+}

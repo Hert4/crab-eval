@@ -1,16 +1,15 @@
 'use client'
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useResultsStore } from '@/store/resultsStore'
 import { RunResult, TaskGroup } from '@/types'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
   ResponsiveContainer, Tooltip, Cell, LabelList,
 } from 'recharts'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
-import { Trophy, Trash2, Search, BarChart2, LayoutGrid, List, TrendingUp, FolderOpen, Loader2, GitMerge, Microscope } from 'lucide-react'
+import { Trash2, Search, BarChart2, LayoutGrid, List, TrendingUp, FolderOpen, Loader2, Microscope } from 'lucide-react'
 import Link from 'next/link'
 import { CrawdAnim } from '@/components/ui/CrawdAnim'
 import { AnalysisBreakdown } from '@/components/ui/AnalysisBreakdown'
@@ -92,7 +91,7 @@ function getActiveGroups(runs: RunResult[]): TaskGroup[] {
   return [...base, { id: 'other', label: 'Other', tasks: unclassified }]
 }
 
-// ── Merge runs with same model name → keep best single run (highest global avg) ──
+// ── Merge runs with same model name → combine all tasks, keep best score per task ──
 function runGlobalAvg(r: RunResult): number {
   const tasks = r.tasks || {}
   const scores: number[] = []
@@ -107,37 +106,23 @@ function runGlobalAvg(r: RunResult): number {
   return scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 0
 }
 
-function mergeRunsByModel(runs: RunResult[]): RunResult[] {
+// ── Latest run per model — gộp tasks từ tất cả runs, metadata từ run mới nhất ──
+function latestRunPerModel(runs: RunResult[]): RunResult[] {
   const byModel = new Map<string, RunResult>()
-  for (const r of runs) {
+  // Sort cũ → mới để run mới nhất được xử lý sau (ghi đè metadata)
+  const sorted = [...runs].sort((a, b) => a.date < b.date ? -1 : 1)
+  for (const r of sorted) {
     const existing = byModel.get(r.model)
-    if (!existing || runGlobalAvg(r) > runGlobalAvg(existing)) {
-      byModel.set(r.model, r)
+    if (!existing) {
+      byModel.set(r.model, { ...r, tasks: { ...r.tasks } })
+    } else {
+      // Gộp tasks từ tất cả runs (mỗi task lấy lần chạy gần nhất)
+      const mergedTasks = { ...existing.tasks, ...r.tasks }
+      // Metadata (date, runId, etc.) từ run mới nhất
+      byModel.set(r.model, { ...r, tasks: mergedTasks })
     }
   }
   return [...byModel.values()]
-}
-
-// ── Compute variance stats across multiple runs for same model ────────
-interface ModelStats {
-  count: number
-  min: number
-  max: number
-  std: number
-}
-
-function computeModelStats(runs: RunResult[], model: string, activeGroups: Set<string>, allGroups: TaskGroup[]): ModelStats | null {
-  const modelRuns = runs.filter(r => r.model === model)
-  if (modelRuns.length < 2) return null
-  const scores = modelRuns.map(r => getGlobalAvg(r, activeGroups, allGroups))
-  const mean = scores.reduce((a, b) => a + b, 0) / scores.length
-  const variance = scores.reduce((sum, s) => sum + Math.pow(s - mean, 2), 0) / scores.length
-  return {
-    count: scores.length,
-    min: Math.min(...scores),
-    max: Math.max(...scores),
-    std: Math.sqrt(variance),
-  }
 }
 
 // ── Rank badge ───────────────────────────────────────────────────────
@@ -182,7 +167,6 @@ export default function LeaderboardPage() {
   const [sortAsc, setSortAsc] = useState(false)
   const [activeGroupIds, setActiveGroupIds] = useState<Set<string>>(new Set())
   const [loadingDisk, setLoadingDisk] = useState(false)
-  const [mergeMode, setMergeMode] = useState(false)  // false = statistical view (all runs shown); true = optimistic best-run-per-model
   const [activeTab, setActiveTab] = useState<'leaderboard' | 'analysis'>('leaderboard')
   const [selectedRunId, setSelectedRunId] = useState<string | null>(null)
   const [analysis, setAnalysis] = useState<RunAnalysis | null>(null)
@@ -190,11 +174,8 @@ export default function LeaderboardPage() {
 
   useEffect(() => { setHydrated(true) }, [])
 
-  // Effective runs: merged per-model or raw per-run
-  const effectiveRuns = useMemo(() =>
-    mergeMode ? mergeRunsByModel(runs) : runs,
-    [runs, mergeMode]
-  )
+  // Latest run per model — gộp tasks từ tất cả runs, lấy data từ run mới nhất
+  const effectiveRuns = useMemo(() => latestRunPerModel(runs), [runs])
 
   const activeGroups = useMemo(() => getActiveGroups(effectiveRuns), [effectiveRuns])
 
@@ -424,15 +405,6 @@ export default function LeaderboardPage() {
         </Button>
         <Button
           size="sm"
-          variant={mergeMode ? 'default' : 'outline'}
-          onClick={() => setMergeMode(v => !v)}
-          title={mergeMode ? 'Optimistic view: chỉ lấy run tốt nhất mỗi model (không dùng để so sánh chính thức) — click để xem tất cả runs' : 'Statistical view: hiện tất cả runs, đây là chế độ mặc định và công bằng — click để chuyển sang best-run'}
-          className={`h-8 text-xs gap-1.5 ${mergeMode ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]' : 'border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)]'}`}
-        >
-          <GitMerge size={12} /> {mergeMode ? 'Best run / model (optimistic)' : 'All runs (statistical view)'}
-        </Button>
-        <Button
-          size="sm"
           variant={showBars ? 'default' : 'outline'}
           onClick={() => setShowBars(v => !v)}
           className={`h-8 text-xs gap-1.5 ${showBars ? 'bg-[var(--crab-accent)] text-[var(--crab-text)]' : 'border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)]'}`}
@@ -530,13 +502,7 @@ export default function LeaderboardPage() {
       {activeTab === 'leaderboard' && (<>
       <div className="grid grid-cols-4 gap-3 mb-6">
         {[
-          {
-            label: mergeMode ? 'Models' : 'Runs',
-            value: mergeMode
-              ? `${effectiveRuns.length}${runs.length !== effectiveRuns.length ? ` (${runs.length} runs)` : ''}`
-              : runs.length,
-            note: mergeMode && runs.length !== effectiveRuns.length ? 'best run/model' : undefined,
-          },
+          { label: 'Models', value: effectiveRuns.length },
           { label: 'Groups active', value: `${activeGroupIds.size} / ${activeGroups.length}` },
           { label: 'Tasks', value: allTasks.length },
           { label: 'Top Model', value: topModel?.model || '—', color: '#c96442' },
@@ -546,9 +512,6 @@ export default function LeaderboardPage() {
             <div className="text-lg font-bold mt-0.5 text-[var(--crab-text)]" style={'color' in s && s.color ? { color: s.color as string, fontSize: '14px' } : {}}>
               {s.value}
             </div>
-            {'note' in s && s.note && (
-              <div className="text-[9px] text-[var(--crab-accent)] mt-0.5">{s.note as string}</div>
-            )}
           </div>
         ))}
       </div>
@@ -574,12 +537,22 @@ export default function LeaderboardPage() {
             <TrendingUp size={16} className="text-[var(--crab-text-muted)]" />
             Hiệu suất theo nhóm tác vụ
           </h2>
-          <div className="grid grid-cols-2 xl:grid-cols-4 gap-3">
-            {activeGroups.filter(g => activeGroupIds.has(g.id)).map(group => {
+          {(() => {
+            const visibleGroups = activeGroups.filter(g => activeGroupIds.has(g.id))
+            const count = visibleGroups.length
+            const gridClass = count <= 2
+              ? 'grid grid-cols-2 gap-3'
+              : count === 3
+              ? 'grid grid-cols-3 gap-3'
+              : 'grid grid-cols-2 xl:grid-cols-4 gap-3'
+            return (
+          <div className={gridClass}>
+            {visibleGroups.map(group => {
+              // Build barData keeping the original run index so colors stay consistent with the legend
               const barData = filtered.slice(0, 8).map((r, i) => {
                 const v = getGroupAvg(r, group)
                 return v !== null ? { model: r.model, value: parseFloat(v.toFixed(2)), color: modelColor(i) } : null
-              }).filter(Boolean) as { model: string; value: number; color: string }[]
+              }).filter((d): d is { model: string; value: number; color: string } => d !== null)
 
               if (!barData.length) return null
 
@@ -637,6 +610,8 @@ export default function LeaderboardPage() {
               )
             })}
           </div>
+            )
+          })()}
         </div>
       )}
 
@@ -652,9 +627,6 @@ export default function LeaderboardPage() {
                     <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)] w-10">#</th>
                     <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)]">Model</th>
                     <ThCell col="global">Global Avg</ThCell>
-                    {!mergeMode && runs.some(r => runs.filter(x => x.model === r.model).length >= 2) && (
-                      <th className="text-right py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)] whitespace-nowrap">95% CI</th>
-                    )}
                     {activeGroups.filter(g => activeGroupIds.has(g.id)).map(g => (
                       <ThCell key={g.id} col={`g|${g.id}`}>{g.label}</ThCell>
                     ))}
@@ -667,9 +639,6 @@ export default function LeaderboardPage() {
                     <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)] w-10">#</th>
                     <th className="text-left py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)]">Model</th>
                     <ThCell col="global">Global Avg</ThCell>
-                    {!mergeMode && runs.some(r => runs.filter(x => x.model === r.model).length >= 2) && (
-                      <th className="text-right py-2.5 px-3 text-[10px] uppercase tracking-wider text-[var(--crab-text-muted)] whitespace-nowrap">95% CI</th>
-                    )}
                     {allTasks.map(t => (
                       <ThCell key={t} col={t}>{taskShort(t)}</ThCell>
                     ))}
@@ -698,22 +667,6 @@ export default function LeaderboardPage() {
                             · judge: {r.judgeModel}
                           </span>
                         )}
-                        {!mergeMode && (() => {
-                          const sameModel = runs.filter(x => x.model === r.model)
-                          if (sameModel.length > 1) {
-                            const idx2 = sameModel.findIndex(x => x.runId === r.runId) + 1
-                            return <span className="ml-1.5 text-[var(--crab-accent)] font-medium">run #{idx2}</span>
-                          }
-                        })()}
-                        {mergeMode && (() => {
-                          const stats = computeModelStats(runs, r.model, activeGroupIds, activeGroups)
-                          if (!stats) return null
-                          return (
-                            <span className="ml-1.5 text-[var(--crab-text-muted)]" title={`${stats.count} runs — min ${stats.min.toFixed(1)}% / max ${stats.max.toFixed(1)}% / std ±${stats.std.toFixed(1)}%`}>
-                              {stats.count} runs · ±{stats.std.toFixed(1)}%
-                            </span>
-                          )
-                        })()}
                       </div>
                     </td>
                     <td className={`text-right py-2.5 px-3 font-mono font-bold text-sm ${isTopGlobal ? 'text-[var(--crab-accent)]' : 'text-[var(--crab-text)]'}`}>

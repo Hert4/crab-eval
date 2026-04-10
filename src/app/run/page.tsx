@@ -79,6 +79,7 @@ export default function RunPage() {
         model: config.judgeModel,
         enabled: config.judgeEnabled,
       },
+      concurrency: config.concurrency,
     }
     await startEval(selectedDatasets, evalConfig)
     toast.success('Evaluation started — you can navigate away and come back.')

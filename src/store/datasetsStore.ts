@@ -110,6 +110,8 @@ export const useDatasetsStore = create<DatasetsState>()(
     }),
     {
       name: 'eval.datasets',
+      version: 6,  // bump khi thay đổi partialize schema — tự clear data cũ
+      migrate: () => ({ datasets: [] }),  // data cũ thiếu expected_tool_calls → clear, user re-upload
       storage: quotaSafeStorage,
       // Only persist metadata + record IDs/inputs/references.
       // context & output are large and can be rebuilt — don't persist them.
@@ -131,8 +133,14 @@ export const useDatasetsStore = create<DatasetsState>()(
               reference: r.reference,
               // context: truncate to 4000 chars to stay within quota
               ...(r.context ? { context: (r.context as string).slice(0, 4000) } : {}),
+              // system_prompt: per-record system prompt (tool-calling datasets)
+              ...(r.system_prompt ? { system_prompt: r.system_prompt } : {}),
               // tools: keep as-is (JSON schema definitions, not large)
               ...(r.tools ? { tools: r.tools } : {}),
+              // expected_tool_calls: ground truth for tool-calling metrics — MUST persist
+              ...(r.expected_tool_calls ? { expected_tool_calls: r.expected_tool_calls } : {}),
+              // conversation_history: needed for multi-turn eval
+              ...(r.conversation_history ? { conversation_history: r.conversation_history } : {}),
               // metadata: only small well-known scalar keys
               ...(Object.keys(slimMeta).length > 0 ? { metadata: slimMeta } : {}),
             }

@@ -1,0 +1,12 @@
+{
+  "runId": "c2c8b8fd-9a7c-49fa-ae62-d1fb70eabf61",
+  "model": "misa-ai-1.1",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 08:09:58",
+  "durationMs": 165603,
+  "tasks": {
+    "crm_intent_analysis": {
+      "accuracy": 64.91
+    }
+  }
+}

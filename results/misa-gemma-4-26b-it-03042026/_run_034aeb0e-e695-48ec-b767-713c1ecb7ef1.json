@@ -1,0 +1,12 @@
+{
+  "runId": "034aeb0e-e695-48ec-b767-713c1ecb7ef1",
+  "model": "misa-gemma-4-26b-it-03042026",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 04:02:45",
+  "durationMs": 142746,
+  "tasks": {
+    "crm_recommendation": {
+      "list_match": 58.67
+    }
+  }
+}

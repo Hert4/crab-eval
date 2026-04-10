@@ -1,0 +1,2385 @@
+{
+  "runId": "94bc1910-8681-4a39-bb59-cd144ac4916e",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 09:59:05",
+  "taskName": "Task Generator — 4/6/2026",
+  "taskType": "agent_eval",
+  "description": "Generated task set (127 tasks, Vietnamese)",
+  "numSamples": 127,
+  "metrics": [
+    "criteria_score",
+    "tool_call_exact"
+  ],
+  "scores": {
+    "tool_call_exact": 75.59
+  },
+  "logs": [
+    {
+      "id": "gt_ct_1775468400041_1",
+      "status": "done",
+      "input": "Xin chào, tôi muốn tra cứu các ứng viên có tên \"Tran Thi B\" trong đợt tuyển dụng \"Kỹ sư phần mềm\". Vui lòng cung cấp danh sách kết quả.",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the tool call arguments when the user supplies a recruitment_name\nAgent asks for clarification when candidate_name is missing\nAgent's call to get_candidates includes all required arguments: CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Tran Thi B\",\"recruitment_name\":\"Kỹ sư phần mềm\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2018
+    },
+    {
+      "id": "gt_ct_1775468400042_2",
+      "status": "done",
+      "input": "Mình muốn xem ai có tên Nguyễn Văn A đang ứng tuyển nhé, có thể cho mình danh sách không?",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the tool call arguments when the user supplies a recruitment_name\nAgent asks for clarification when candidate_name is missing\nAgent's call to get_candidates includes all required arguments: CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Nguyễn Văn A\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1313
+    },
+    {
+      "id": "gt_ct_1775468400042_3",
+      "status": "done",
+      "input": "Please calculate the fit scores for candidates 101, 102, 103, 200, and 205 against recruitment posting ID 55.",
+      "reference": "Agent calls get_multiple_candidates_fit_score with CandidateIDs set to the provided list\nAgent calls get_multiple_candidates_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification if any required input is missing\nAgent's call to get_multiple_candidates_fit_score includes all required arguments: CandidateIDs, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\":\"101,102,103,200,205\",\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1503
+    },
+    {
+      "id": "gt_ct_1775468400042_4",
+      "status": "done",
+      "input": "Could you give me the fit scores for candidates 101, 102, and 103? I’ll provide the recruitment ID later.",
+      "reference": "Agent asks the user for the missing required information (candidate_ids, recruitment_id) before proceeding\nAgent does NOT call get_multiple_candidates_fit_score without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Sure, please provide the recruitment ID so I can evaluate the fit scores for candidates 101, 102, and 103.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1424
+    },
+    {
+      "id": "gt_ct_1775468400042_5",
+      "status": "done",
+      "input": "I’d like to see the fit scores for candidates 101,102,103,200,205 with recruitment ID 55, but I’m not sure if the IDs are correct.",
+      "reference": "Agent calls get_multiple_candidates_fit_score with CandidateIDs set to the provided list\nAgent calls get_multiple_candidates_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification if any required input is missing\nAgent's call to get_multiple_candidates_fit_score includes all required arguments: CandidateIDs, RecruitmentID",
+      "output": "To assist you accurately, I will first check if the candidate IDs 101, 102, 103, 200, and 205 exist in the system. Then, I will retrieve the fit scores for those candidates against recruitment ID 55. Let me verify the candidate IDs first.",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\": \"101\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\": \"102\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\": \"103\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\": \"200\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\": \"205\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 2770
+    },
+    {
+      "id": "gt_ct_1775468400042_6",
+      "status": "done",
+      "input": "Mình muốn biết điểm phù hợp của các ứng viên 101,102,103,200,205 cho vị trí tuyển dụng có ID là 55 nhé.",
+      "reference": "Agent calls get_multiple_candidates_fit_score with CandidateIDs set to the provided list\nAgent calls get_multiple_candidates_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification if any required input is missing\nAgent's call to get_multiple_candidates_fit_score includes all required arguments: CandidateIDs, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\":\"101,102,103,200,205\",\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1283
+    },
+    {
+      "id": "gt_ct_1775468400043_7",
+      "status": "done",
+      "input": "Bạn có thể cho mình biết điểm phù hợp của các ứng viên 101, 102, 103 với tin tuyển dụng 55 không? Mình chưa chắc cần cung cấp thêm gì nữa.",
+      "reference": "Agent asks the user for the missing required information (candidate_ids, recruitment_id) before proceeding\nAgent does NOT call get_multiple_candidates_fit_score without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\":\"101,102,103\",\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1409
+    },
+    {
+      "id": "gt_ct_1775468400043_8",
+      "status": "done",
+      "input": "Bạn tính điểm phù hợp cho các ứng viên 101, 102, 103 với tin tuyển dụng nào đó nhé?",
+      "reference": "Agent calls get_multiple_candidates_fit_score with CandidateIDs set to the provided list\nAgent calls get_multiple_candidates_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification if any required input is missing\nAgent's call to get_multiple_candidates_fit_score includes all required arguments: CandidateIDs, RecruitmentID",
+      "output": "Bạn vui lòng cung cấp cho tôi tên hoặc ID của tin tuyển dụng mà bạn muốn tính điểm phù hợp cho các ứng viên 101, 102, 103 được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1393
+    },
+    {
+      "id": "gt_ct_1775468400043_9",
+      "status": "done",
+      "input": "Please retrieve the fit score for candidate 101 against recruitment posting 55.",
+      "reference": "Agent calls get_candidate_fit_score with CandidateID set to the provided candidate_id\nAgent calls get_candidate_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification when a required input is missing\nAgent's call to get_candidate_fit_score includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\":101,\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1498
+    },
+    {
+      "id": "gt_ct_1775468400043_10",
+      "status": "done",
+      "input": "Could you provide the fit score for candidate 202? I think the recruitment ID is 78.",
+      "reference": "Agent asks the user for the missing required information (candidate_id, recruitment_id) before proceeding\nAgent does NOT call get_candidate_fit_score without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\":202,\"recruitment_id\":78}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1026
+    },
+    {
+      "id": "gt_ct_1775468400043_11",
+      "status": "done",
+      "input": "What's the fit score for candidate 101? Which posting should I use?",
+      "reference": "Agent calls get_candidate_fit_score with CandidateID set to the provided candidate_id\nAgent calls get_candidate_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification when a required input is missing\nAgent's call to get_candidate_fit_score includes all required arguments: CandidateID, RecruitmentID",
+      "output": "To provide the fit score for candidate 101, I need to know the specific recruitment posting (job posting) you want to evaluate the candidate against. Could you please provide the name or ID of the recruitment posting?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1655
+    },
+    {
+      "id": "gt_ct_1775468400043_12",
+      "status": "done",
+      "input": "Bạn cho mình điểm phù hợp của ứng viên 202 với tin tuyển dụng 78 nhé?",
+      "reference": "Agent calls get_candidate_fit_score with CandidateID set to the provided candidate_id\nAgent calls get_candidate_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification when a required input is missing\nAgent's call to get_candidate_fit_score includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\":202,\"recruitment_id\":78}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1308
+    },
+    {
+      "id": "gt_ct_1775468400043_13",
+      "status": "done",
+      "input": "Bạn có thể cho mình biết điểm phù hợp của ứng viên 101 cho tin tuyển dụng 55 không?",
+      "reference": "Agent asks the user for the missing required information (candidate_id, recruitment_id) before proceeding\nAgent does NOT call get_candidate_fit_score without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\":101,\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1107
+    },
+    {
+      "id": "gt_ct_1775468400043_14",
+      "status": "done",
+      "input": "Bạn tính được điểm phù hợp cho ứng viên và tin tuyển dụng không?",
+      "reference": "Agent calls get_candidate_fit_score with CandidateID set to the provided candidate_id\nAgent calls get_candidate_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification when a required input is missing\nAgent's call to get_candidate_fit_score includes all required arguments: CandidateID, RecruitmentID",
+      "output": "Vâng, tôi có thể giúp bạn tính điểm phù hợp giữa ứng viên và tin tuyển dụng. Bạn vui lòng cung cấp cho tôi tên hoặc ID của ứng viên và tên hoặc ID của tin tuyển dụng mà bạn muốn đánh giá điểm phù hợp nhé.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1576
+    },
+    {
+      "id": "gt_ct_1775468400043_15",
+      "status": "done",
+      "input": "Lấy danh sách các ứng viên có ít nhất 5 năm kinh nghiệm Java và đang ở vòng 2 của tin QC‑T1‑2026.",
+      "reference": "Agent calls get_candidates_for_evaluation with Query set to the provided nl_query\nAgent asks for clarification if nl_query is not provided\nAgent's call to get_candidates_for_evaluation includes all required arguments: Query",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"recruitment_name\":\"QC-T1-2026\",\"candidate_name\":\"\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1108
+    },
+    {
+      "id": "gt_ct_1775468400043_16",
+      "status": "done",
+      "input": "Cho mình danh sách ứng viên có kinh nghiệm Java 5 năm và đã qua vòng 2 của tin QC‑T1‑2026 nhé.",
+      "reference": "Agent calls get_candidates_for_evaluation with Query set to the provided nl_query\nAgent asks for clarification if nl_query is not provided\nAgent's call to get_candidates_for_evaluation includes all required arguments: Query",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"\",\"recruitment_name\":\"QC-T1-2026\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1070
+    },
+    {
+      "id": "gt_ct_1775468400043_17",
+      "status": "done",
+      "input": "Lấy chi tiết mẫu email có ID là 12 để tôi có thể xem và chỉnh sửa.",
+      "reference": "Agent calls get_email with EmailID set to the provided email_id\nAgent asks for clarification when email_id is missing\nAgent's call to get_email includes all required arguments: EmailID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_email",
+            "arguments": "{\"email_id\":12}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1035
+    },
+    {
+      "id": "gt_ct_1775468400043_18",
+      "status": "done",
+      "input": "Bạn có thể cho mình xem mẫu email số 45 không?",
+      "reference": "Agent calls get_email with EmailID set to the provided email_id\nAgent asks for clarification when email_id is missing\nAgent's call to get_email includes all required arguments: EmailID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_email",
+            "arguments": "{\"email_id\":45}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1554
+    },
+    {
+      "id": "gt_ct_1775468400043_19",
+      "status": "done",
+      "input": "Tôi cần bạn tạo bộ câu hỏi phỏng vấn cho ứng viên có ID 12345 trong quy trình tuyển dụng ID 987. Vui lòng đề xuất các câu hỏi chính và phụ dựa trên yêu cầu công việc và hồ sơ cá nhân của ứng viên.",
+      "reference": "Agent calls get_data_for_gen_interview_question with CandidateID set to the provided candidate_id\nAgent includes RecruitmentID in the tool call arguments when the user specifies a job posting\nAgent does not call any other tool before get_data_for_gen_interview_question\nAgent's call to get_data_for_gen_interview_question includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_data_for_gen_interview_question",
+            "arguments": "{\"candidate_id\":12345,\"recruitment_id\":987}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1245
+    },
+    {
+      "id": "gt_ct_1775468400043_20",
+      "status": "done",
+      "input": "Bạn có thể tạo câu hỏi phỏng vấn cho ứng viên ID 12345 không? Đây là quy trình tuyển dụng liên quan.",
+      "reference": "Agent asks the user for the missing required information (candidate_id, recruitment_id) before proceeding\nAgent does NOT call get_data_for_gen_interview_question without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Để tạo câu hỏi phỏng vấn cho ứng viên ID 12345, tôi cần biết ID hoặc tên của quy trình tuyển dụng liên quan mà ứng viên này tham gia. Bạn có thể cung cấp thông tin đó cho tôi được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1429
+    },
+    {
+      "id": "gt_ct_1775468400043_21",
+      "status": "done",
+      "input": "Xin tạo câu hỏi phỏng vấn cho ứng viên 12345, tôi không chắc recruitment ID là bao nhiêu, có thể dùng dữ liệu hiện có không?",
+      "reference": "Agent calls get_data_for_gen_interview_question with CandidateID set to the provided candidate_id\nAgent includes RecruitmentID in the tool call arguments when the user specifies a job posting\nAgent does not call any other tool before get_data_for_gen_interview_question\nAgent's call to get_data_for_gen_interview_question includes all required arguments: CandidateID, RecruitmentID",
+      "output": "Bạn vui lòng cung cấp thêm thông tin về tên tin tuyển dụng hoặc vị trí tuyển dụng mà ứng viên 12345 ứng tuyển để tôi có thể tìm kiếm recruitment ID tương ứng và tạo câu hỏi phỏng vấn cho bạn nhé.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1405
+    },
+    {
+      "id": "gt_ct_1775468400043_22",
+      "status": "done",
+      "input": "Mình muốn có một vài câu hỏi phỏng vấn cho người này, ID của anh ấy là 12345 và vị trí tuyển dụng là 987. Bạn giúp mình nhé!",
+      "reference": "Agent calls get_data_for_gen_interview_question with CandidateID set to the provided candidate_id\nAgent includes RecruitmentID in the tool call arguments when the user specifies a job posting\nAgent does not call any other tool before get_data_for_gen_interview_question\nAgent's call to get_data_for_gen_interview_question includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_data_for_gen_interview_question",
+            "arguments": "{\"candidate_id\":12345,\"recruitment_id\":987}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1241
+    },
+    {
+      "id": "gt_ct_1775468400043_23",
+      "status": "done",
+      "input": "Bạn có thể giúp mình tạo câu hỏi cho một ứng viên không? ID của anh ấy là 12345.",
+      "reference": "Agent asks the user for the missing required information (candidate_id, recruitment_id) before proceeding\nAgent does NOT call get_data_for_gen_interview_question without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Bạn vui lòng cho biết tên tin tuyển dụng hoặc ID tin tuyển dụng mà ứng viên này ứng tuyển để mình có thể tạo câu hỏi phỏng vấn phù hợp nhé?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1577
+    },
+    {
+      "id": "gt_ct_1775468400043_24",
+      "status": "done",
+      "input": "Bạn có thể đưa ra câu hỏi phỏng vấn cho người này không? Mình chỉ nhớ ID là 12345, còn gì nữa thì không chắc.",
+      "reference": "Agent calls get_data_for_gen_interview_question with CandidateID set to the provided candidate_id\nAgent includes RecruitmentID in the tool call arguments when the user specifies a job posting\nAgent does not call any other tool before get_data_for_gen_interview_question\nAgent's call to get_data_for_gen_interview_question includes all required arguments: CandidateID, RecruitmentID",
+      "output": "Để tôi có thể giúp bạn tạo câu hỏi phỏng vấn cho ứng viên với ID 12345, bạn vui lòng cung cấp thêm thông tin về tên tin tuyển dụng hoặc ID tin tuyển dụng mà ứng viên này ứng tuyển được không? Thông tin này sẽ giúp tôi tạo câu hỏi phù hợp hơn.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1544
+    },
+    {
+      "id": "gt_ct_1775468400043_25",
+      "status": "done",
+      "input": "Xin vui lòng liệt kê tất cả các ứng viên có tên Nguyễn Văn A, kèm theo thông tin tuyển dụng nếu có tên tuyển dụng là \"Kỹ sư Phần mềm\".",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the call only when the user supplies recruitment_name\nAgent does not request clarification for missing required inputs\nAgent's call to get_candidates includes all required arguments: CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Nguyễn Văn A\",\"recruitment_name\":\"Kỹ sư Phần mềm\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1277
+    },
+    {
+      "id": "gt_ct_1775468400043_26",
+      "status": "done",
+      "input": "Mình muốn xem danh sách người có tên Nguyễn Văn A, có thể kèm tên tuyển dụng nếu biết nhé.",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the call only when the user supplies recruitment_name\nAgent does not request clarification for missing required inputs\nAgent's call to get_candidates includes all required arguments: CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Nguyễn Văn A\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1081
+    },
+    {
+      "id": "gt_ct_1775468400043_27",
+      "status": "done",
+      "input": "Vui lòng in ra danh sách các câu hỏi phỏng vấn cho ứng viên Trần Thị B trong tuyển dụng \"Kỹ sư Backend\":\nCâu hỏi chính: \"What motivates you?\", \"Describe a challenging project you led.\";\nCâu hỏi phụ: \"How do you handle tight deadlines?\", \"What are your salary expectations?\".",
+      "reference": "Agent calls function_recruitment_print_interview_question with Primary set to the provided primary_questions\nAgent includes Secondary, RecruitmentName, and CandidateName arguments exactly as supplied by the user\nAgent does not call any other tool before the print function\nAgent's call to function_recruitment_print_interview_question includes all required arguments: Primary, Secondary, RecruitmentName, CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "function_recruitment_print_interview_question",
+            "arguments": "{\"primary\":[\"What motivates you?\",\"Describe a challenging project you led.\"],\"secondary\":[\"How do you handle tight deadlines?\",\"What are your salary expectations?\"],\"recruitment_name\":\"Kỹ sư Backend\",\"candidate_name\":\"Trần Thị B\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1508
+    },
+    {
+      "id": "gt_ct_1775468400043_28",
+      "status": "done",
+      "input": "Xin in danh sách câu hỏi phỏng vấn cho Trần Thị B (tuyển dụng Kỹ sư Backend) với các câu hỏi chính: \"What motivates you?\", \"Describe a challenging project you led.\".",
+      "reference": "Agent asks the user for the missing required information (primary_questions, secondary_questions, recruitment_name) before proceeding\nAgent does NOT call function_recruitment_print_interview_question without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\": \"Trần Thị B\", \"recruitment_name\": \"Kỹ sư Backend\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment",
+            "arguments": "{\"recruitment_name\": \"Kỹ sư Backend\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1302
+    },
+    {
+      "id": "gt_ct_1775468400044_29",
+      "status": "done",
+      "input": "Bạn có thể in danh sách câu hỏi phỏng vấn cho Trần Thị B (Kỹ sư Backend) không? Câu hỏi chính: \"What motivates you?\", \"Describe a challenging project you led.\"; câu hỏi phụ: \"How do you handle tight deadlines?\", \"What are your salary expectations?\".",
+      "reference": "Agent calls function_recruitment_print_interview_question with Primary set to the provided primary_questions\nAgent includes Secondary, RecruitmentName, and CandidateName arguments exactly as supplied by the user\nAgent does not call any other tool before the print function\nAgent's call to function_recruitment_print_interview_question includes all required arguments: Primary, Secondary, RecruitmentName, CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "function_recruitment_print_interview_question",
+            "arguments": "{\"primary\":[\"What motivates you?\",\"Describe a challenging project you led.\"],\"secondary\":[\"How do you handle tight deadlines?\",\"What are your salary expectations?\"],\"recruitment_name\":\"Kỹ sư Backend\",\"candidate_name\":\"Trần Thị B\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1541
+    },
+    {
+      "id": "gt_ct_1775468400044_30",
+      "status": "done",
+      "input": "Bạn có thể giúp mình in các câu hỏi phỏng vấn cho Trần Thị B (tuyển dụng Kỹ sư Backend) không? Câu hỏi chính: \"What motivates you?\" và \"Describe a challenging project you led.\"; câu hỏi phụ: \"How do you handle tight deadlines?\" và \"What are your salary expectations?\".",
+      "reference": "Agent calls function_recruitment_print_interview_question with Primary set to the provided primary_questions\nAgent includes Secondary, RecruitmentName, and CandidateName arguments exactly as supplied by the user\nAgent does not call any other tool before the print function\nAgent's call to function_recruitment_print_interview_question includes all required arguments: Primary, Secondary, RecruitmentName, CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Trần Thị B\",\"recruitment_name\":\"Kỹ sư Backend\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1113
+    },
+    {
+      "id": "gt_ct_1775468400044_31",
+      "status": "done",
+      "input": "Bạn có thể in cho mình danh sách câu hỏi phỏng vấn không? Tôi muốn có câu hỏi chính như \"What motivates you?\" và \"Describe a challenging project you led.\" và câu hỏi phụ như \"How do you handle tight deadlines?\" cho vị trí Kỹ sư Backend, ứng viên là Trần Thị B.",
+      "reference": "Agent asks the user for the missing required information (primary_questions, secondary_questions, recruitment_name) before proceeding\nAgent does NOT call function_recruitment_print_interview_question without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "function_recruitment_print_interview_question",
+            "arguments": "{\"primary\":[\"What motivates you?\",\"Describe a challenging project you led.\"],\"secondary\":[\"How do you handle tight deadlines?\"],\"recruitment_name\":\"Kỹ sư Backend\",\"candidate_name\":\"Trần Thị B.\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1507
+    },
+    {
+      "id": "gt_ct_1775468400044_32",
+      "status": "done",
+      "input": "Bạn có thể chuẩn bị một bản in các câu hỏi phỏng vấn không? Tôi muốn bao gồm một số câu hỏi chính và phụ, nhưng tôi không chắc mình đã liệt kê hết. Đối với vị trí Kỹ sư Backend và ứng viên Trần Thị B, có thể dùng những câu hỏi như What motivates you? và một vài câu hỏi khác nữa không?",
+      "reference": "Agent calls function_recruitment_print_interview_question with Primary set to the provided primary_questions\nAgent includes Secondary, RecruitmentName, and CandidateName arguments exactly as supplied by the user\nAgent does not call any other tool before the print function\nAgent's call to function_recruitment_print_interview_question includes all required arguments: Primary, Secondary, RecruitmentName, CandidateName",
+      "output": "Để chuẩn bị bản in các câu hỏi phỏng vấn cho vị trí Kỹ sư Backend với ứng viên Trần Thị B, tôi có thể giúp bạn tổng hợp các câu hỏi chính và phụ. Bạn có thể cho tôi biết thêm một số câu hỏi phụ bạn muốn thêm vào, hoặc tôi có thể đề xuất thêm các câu hỏi phù hợp cho vị trí này?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1720
+    },
+    {
+      "id": "gt_ct_1775468400044_33",
+      "status": "done",
+      "input": "Lưu mẫu email sau: loại email = 1; nội dung: \"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\"; tiêu đề: \"Lời mời phỏng vấn vị trí Kỹ sư Frontend\"; tên mẫu: \"Mẫu mời phỏng vấn Frontend\".",
+      "reference": "Agent calls function_recruitment_save_email_template with EmailType, ContentEmail, TitleEmail, and EmailTemplateName set to the provided values\nAgent includes EmailID only when the user supplies email_id\nAgent asks for clarification if any required field is missing\nAgent's call to function_recruitment_save_email_template includes all required arguments: EmailType, ContentEmail, TitleEmail, EmailTemplateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "function_recruitment_save_email_template",
+            "arguments": "{\"email_type\":1,\"content_email\":\"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\",\"title_email\":\"Lời mời phỏng vấn vị trí Kỹ sư Frontend\",\"email_template_name\":\"Mẫu mời phỏng vấn Frontend\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1697
+    },
+    {
+      "id": "gt_ct_1775468400044_34",
+      "status": "done",
+      "input": "Lưu mẫu email cho tôi: loại email là 1, nội dung \"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\", tiêu đề \"Lời mời phỏng vấn vị trí Kỹ sư Frontend\". Tên mẫu là \"Mẫu mời phỏng vấn Frontend\".",
+      "reference": "Agent asks the user for the missing required information (email_type, content_email, title_email) before proceeding\nAgent does NOT call function_recruitment_save_email_template without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "function_recruitment_save_email_template",
+            "arguments": "{\"email_type\":1,\"content_email\":\"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\",\"title_email\":\"Lời mời phỏng vấn vị trí Kỹ sư Frontend\",\"email_template_name\":\"Mẫu mời phỏng vấn Frontend\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1676
+    },
+    {
+      "id": "gt_ct_1775468400044_35",
+      "status": "done",
+      "input": "Bạn có thể lưu mẫu email này không? Loại email là 1, nội dung là \"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\", tiêu đề là \"Lời mời phỏng vấn vị trí Kỹ sư Frontend\", và tên mẫu là \"Mẫu mời phỏng vấn Frontend\". Tôi không chắc mình đã cung cấp đủ thông tin chưa.",
+      "reference": "Agent calls function_recruitment_save_email_template with EmailType, ContentEmail, TitleEmail, and EmailTemplateName set to the provided values\nAgent includes EmailID only when the user supplies email_id\nAgent asks for clarification if any required field is missing\nAgent's call to function_recruitment_save_email_template includes all required arguments: EmailType, ContentEmail, TitleEmail, EmailTemplateName",
+      "output": "Bạn đã cung cấp đầy đủ thông tin để lưu mẫu email rồi ạ. Tôi sẽ tiến hành lưu mẫu email với các thông tin bạn đã cho.",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "function_recruitment_save_email_template",
+            "arguments": "{\"email_type\":1,\"content_email\":\"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\",\"title_email\":\"Lời mời phỏng vấn vị trí Kỹ sư Frontend\",\"email_template_name\":\"Mẫu mời phỏng vấn Frontend\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 2286
+    },
+    {
+      "id": "gt_ct_1775468400044_37",
+      "status": "done",
+      "input": "Bạn có thể lưu lại mẫu email này không? Tiêu đề là \"Lời mời phỏng vấn vị trí Kỹ sư Frontend\", nội dung là \"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\" và tôi muốn đặt tên mẫu là \"Mẫu mời phỏng vấn Frontend\". Loại email là 1 nhé.",
+      "reference": "Agent asks the user for the missing required information (email_type, content_email, title_email) before proceeding\nAgent does NOT call function_recruitment_save_email_template without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "function_recruitment_save_email_template",
+            "arguments": "{\"email_type\":1,\"content_email\":\"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\",\"title_email\":\"Lời mời phỏng vấn vị trí Kỹ sư Frontend\",\"email_template_name\":\"Mẫu mời phỏng vấn Frontend\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1682
+    },
+    {
+      "id": "gt_ct_1775468400044_38",
+      "status": "done",
+      "input": "Lưu mẫu email cho mình nhé, tiêu đề là Lời mời phỏng vấn vị trí Kỹ sư Frontend, nội dung là Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn..., tên mẫu Mẫu mời phỏng vấn Frontend và loại email là 1.",
+      "reference": "Agent calls function_recruitment_save_email_template with EmailType, ContentEmail, TitleEmail, and EmailTemplateName set to the provided values\nAgent includes EmailID only when the user supplies email_id\nAgent asks for clarification if any required field is missing\nAgent's call to function_recruitment_save_email_template includes all required arguments: EmailType, ContentEmail, TitleEmail, EmailTemplateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "function_recruitment_save_email_template",
+            "arguments": "{\"email_type\":1,\"content_email\":\"Kính gửi Anh/Chị, chúng tôi rất vui mừng mời bạn tham gia phỏng vấn...\",\"title_email\":\"Lời mời phỏng vấn vị trí Kỹ sư Frontend\",\"email_template_name\":\"Mẫu mời phỏng vấn Frontend\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1707
+    },
+    {
+      "id": "gt_ct_1775468400044_39",
+      "status": "done",
+      "input": "Please provide a concise summary of candidate CV with ID 54321, focusing on their technical skills and recent project experience.",
+      "reference": "Agent calls get_cv_content with CandidateID set to the provided candidate_id\nAgent does not call any other tool before get_cv_content\nAgent proceeds to generate a summary after receiving the CV content (simulated by the LLM)\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\":54321}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1404
+    },
+    {
+      "id": "gt_ct_1775468400044_40",
+      "status": "done",
+      "input": "Bạn có thể tóm tắt nhanh CV của ứng viên có mã 54321 không? Muốn biết chung chung về họ thôi.",
+      "reference": "Agent calls get_cv_content with CandidateID set to the provided candidate_id\nAgent does not call any other tool before get_cv_content\nAgent proceeds to generate a summary after receiving the CV content (simulated by the LLM)\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\":54321}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1067
+    },
+    {
+      "id": "gt_ct_1775468400044_41",
+      "status": "done",
+      "input": "Translate the CV of candidate ID 67890 into English, please.",
+      "reference": "Agent calls get_cv_content with CandidateID set to the provided candidate_id\nAgent includes the target_language in its internal prompt for translation (no extra tool needed)\nAgent asks for clarification if target_language is missing\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\":67890}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1445
+    },
+    {
+      "id": "gt_ct_1775468400044_42",
+      "status": "done",
+      "input": "Dịch CV của ứng viên 67890 sang tiếng Anh giúp mình nhé.",
+      "reference": "Agent asks the user for the missing required information (candidate_id, target_language) before proceeding\nAgent does NOT call get_cv_content without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\":67890}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1235
+    },
+    {
+      "id": "gt_ct_1775468400044_43",
+      "status": "done",
+      "input": "Bạn có thể dịch CV của ứng viên 67890 sang tiếng Anh được không?",
+      "reference": "Agent calls get_cv_content with CandidateID set to the provided candidate_id\nAgent includes the target_language in its internal prompt for translation (no extra tool needed)\nAgent asks for clarification if target_language is missing\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\":67890}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1179
+    },
+    {
+      "id": "gt_ct_1775468400044_44",
+      "status": "done",
+      "input": "Mình muốn dịch CV của ứng viên 67890 sang tiếng Anh, làm ơn giúp nhé!",
+      "reference": "Agent calls get_cv_content with CandidateID set to the provided candidate_id\nAgent includes the target_language in its internal prompt for translation (no extra tool needed)\nAgent asks for clarification if target_language is missing\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\":67890}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1424
+    },
+    {
+      "id": "gt_ct_1775468400044_45",
+      "status": "done",
+      "input": "Bạn giúp mình dịch CV của ứng viên 67890 nhé?",
+      "reference": "Agent asks the user for the missing required information (candidate_id, target_language) before proceeding\nAgent does NOT call get_cv_content without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Bạn vui lòng cho biết tên ứng viên hoặc tên tin tuyển dụng liên quan để tôi có thể tìm đúng ứng viên với ID 67890 và tiến hành dịch CV cho bạn nhé?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1328
+    },
+    {
+      "id": "gt_ct_1775468400044_46",
+      "status": "done",
+      "input": "Mình có CV của một ứng viên, muốn dịch sang tiếng Anh, có thể giúp không?",
+      "reference": "Agent calls get_cv_content with CandidateID set to the provided candidate_id\nAgent includes the target_language in its internal prompt for translation (no extra tool needed)\nAgent asks for clarification if target_language is missing\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "Bạn vui lòng cung cấp cho tôi tên ứng viên hoặc gửi nội dung CV để tôi có thể hỗ trợ dịch sang tiếng Anh nhé?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1723
+    },
+    {
+      "id": "gt_ct_1775468400044_47",
+      "status": "done",
+      "input": "Tìm cho tôi ứng viên tên Lê Thị C và tạo danh sách câu hỏi phỏng vấn cho cô ấy.",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the first tool call only when recruitment_name is supplied\nAgent extracts CandidateID and RecruitmentID from the first tool's (simulated) response and passes them to get_data_for_gen_interview_question\nAgent calls get_data_for_gen_interview_question after get_candidates\nAgent's call to get_candidates includes all required arguments: CandidateName\nAgent's call to get_data_for_gen_interview_question includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Lê Thị C\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1004
+    },
+    {
+      "id": "gt_ct_1775468400044_48",
+      "status": "done",
+      "input": "Bạn có thể tìm ứng viên tên Lê Thị C và đưa ra một vài câu hỏi phỏng vấn không?",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the first tool call only when recruitment_name is supplied\nAgent extracts CandidateID and RecruitmentID from the first tool's (simulated) response and passes them to get_data_for_gen_interview_question\nAgent calls get_data_for_gen_interview_question after get_candidates\nAgent's call to get_candidates includes all required arguments: CandidateName\nAgent's call to get_data_for_gen_interview_question includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Lê Thị C\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1047
+    },
+    {
+      "id": "gt_ct_1775468400044_49",
+      "status": "done",
+      "input": "Kính gửi Anh/Chị, chúng tôi rất vui mừng thông báo rằng vị trí Kỹ sư Frontend đã được mở. Vui lòng xem chi tiết và phản hồi sớm. Thân gửi, Phòng tuyển dụng.",
+      "reference": "Agent calls function_recruitment_use_email_content with ContentEmail set to the value provided by the user\nAgent includes the required argument ContentEmail in the function call\nAgent declines and explains if the user does not provide any email content\nAgent's call to function_recruitment_use_email_content includes all required arguments: ContentEmail",
+      "output": "Bạn muốn tôi giúp soạn email thông báo về việc mở vị trí Kỹ sư Frontend, hay bạn cần hỗ trợ gì thêm liên quan đến vị trí này? Xin vui lòng cho biết cụ thể hơn để tôi hỗ trợ bạn tốt nhất.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1687
+    },
+    {
+      "id": "gt_ct_1775468400044_50",
+      "status": "done",
+      "input": "Mình muốn gửi email cho người nộp hồ sơ, nội dung là: Thân gửi, cảm ơn bạn đã nộp hồ sơ cho vị trí Chuyên viên Marketing. Hy vọng sớm có tin tốt. Cảm ơn!",
+      "reference": "Agent calls function_recruitment_use_email_content with ContentEmail set to the value provided by the user\nAgent includes the required argument ContentEmail in the function call\nAgent declines and explains if the user does not provide any email content\nAgent's call to function_recruitment_use_email_content includes all required arguments: ContentEmail",
+      "output": "Bạn muốn gửi email này cho ứng viên nào và cho vị trí tuyển dụng cụ thể nào? Bạn có muốn tôi giúp bạn soạn thảo email theo nội dung bạn cung cấp không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1397
+    },
+    {
+      "id": "gt_ct_1775468400044_51",
+      "status": "done",
+      "input": "Lấy thông tin chi tiết của bài đăng tuyển \"Kỹ sư phần mềm Backend\".",
+      "reference": "Agent calls get_recruitment with RecruitmentName set to the provided name\nAgent includes the required argument RecruitmentName in the POST body\nAgent's call to get_recruitment includes all required arguments: RecruitmentName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment",
+            "arguments": "{\"recruitment_name\":\"Kỹ sư phần mềm Backend\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1215
+    },
+    {
+      "id": "gt_ct_1775468400044_52",
+      "status": "done",
+      "input": "Mình muốn xem thông tin của vị trí \"Chuyên viên Marketing\" trong hệ thống tuyển dụng.",
+      "reference": "Agent calls get_recruitment with RecruitmentName set to the provided name\nAgent includes the required argument RecruitmentName in the POST body\nAgent's call to get_recruitment includes all required arguments: RecruitmentName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment",
+            "arguments": "{\"recruitment_name\":\"Chuyên viên Marketing\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1180
+    },
+    {
+      "id": "gt_ct_1775468400044_53",
+      "status": "done",
+      "input": "So sánh số liệu tuyển dụng giữa giai đoạn 2024-01-01 đến 2024-01-31 và 2024-02-01 đến 2024-02-28.",
+      "reference": "Agent calls recruitment_comparison with all four date arguments set to the values provided by the user\nAgent includes each required argument in the POST body\nAgent's call to recruitment_comparison includes all required arguments: FromDate1, ToDate1, FromDate2, ToDate2",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_comparison",
+            "arguments": "{\"from_date1\":\"2024-01-01\",\"to_date1\":\"2024-01-31\",\"from_date2\":\"2024-02-01\",\"to_date2\":\"2024-02-28\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1525
+    },
+    {
+      "id": "gt_ct_1775468400044_54",
+      "status": "done",
+      "input": "Vui lòng so sánh số liệu tuyển dụng từ 2024-04-01 đến 2024-04-30 với khoảng thời gian 2024-05-01 đến 2024-05-31.",
+      "reference": "Agent asks the user for the missing required information (FromDate1, ToDate1, FromDate2) before proceeding\nAgent does NOT call recruitment_comparison without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_comparison",
+            "arguments": "{\"from_date1\":\"2024-04-01\",\"to_date1\":\"2024-04-30\",\"from_date2\":\"2024-05-01\",\"to_date2\":\"2024-05-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2209
+    },
+    {
+      "id": "gt_ct_1775468400044_55",
+      "status": "done",
+      "input": "Bạn có thể so sánh các chỉ số tuyển dụng cho hai khoảng thời gian, nhưng tôi không chắc chắn nên đưa ngày nào vào; có thể dùng khoảng thời gian gần đây nhất?",
+      "reference": "Agent calls recruitment_comparison with all four date arguments set to the values provided by the user\nAgent includes each required argument in the POST body\nAgent's call to recruitment_comparison includes all required arguments: FromDate1, ToDate1, FromDate2, ToDate2",
+      "output": "Bạn vui lòng cho tôi biết khoảng thời gian gần đây nhất mà bạn muốn so sánh, ví dụ như từ ngày nào đến ngày nào? Hoặc nếu bạn muốn, tôi có thể gợi ý một khoảng thời gian phổ biến như 1 tháng gần nhất hoặc 3 tháng gần nhất để so sánh. Bạn muốn chọn cách nào?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1516
+    },
+    {
+      "id": "gt_ct_1775468400044_56",
+      "status": "done",
+      "input": "Bạn có thể so sánh chỉ số tuyển dụng giữa 01/01/2024 - 31/01/2024 và 01/02/2024 - 28/02/2024 không?",
+      "reference": "Agent calls recruitment_comparison with all four date arguments set to the values provided by the user\nAgent includes each required argument in the POST body\nAgent's call to recruitment_comparison includes all required arguments: FromDate1, ToDate1, FromDate2, ToDate2",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_comparison",
+            "arguments": "{\"from_date1\":\"2024-01-01\",\"to_date1\":\"2024-01-31\",\"from_date2\":\"2024-02-01\",\"to_date2\":\"2024-02-28\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1562
+    },
+    {
+      "id": "gt_ct_1775468400044_57",
+      "status": "done",
+      "input": "Bạn có thể so sánh số liệu tuyển dụng cho tháng 1/2024 và tháng 2/2024?",
+      "reference": "Agent asks the user for the missing required information (FromDate1, ToDate1, FromDate2) before proceeding\nAgent does NOT call recruitment_comparison without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Để thực hiện so sánh số liệu tuyển dụng cho tháng 1/2024 và tháng 2/2024, tôi cần biết bạn muốn so sánh số liệu tuyển dụng của toàn công ty hay của một phòng ban hoặc vị trí tuyển dụng cụ thể nào không? Bạn vui lòng cung cấp thêm thông tin để tôi hỗ trợ chính xác hơn.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1619
+    },
+    {
+      "id": "gt_ct_1775468400044_58",
+      "status": "done",
+      "input": "Bạn có thể so sánh các chỉ số tuyển dụng cho các khoảng thời gian gần đây không?",
+      "reference": "Agent calls recruitment_comparison with all four date arguments set to the values provided by the user\nAgent includes each required argument in the POST body\nAgent's call to recruitment_comparison includes all required arguments: FromDate1, ToDate1, FromDate2, ToDate2",
+      "output": "Để tôi có thể giúp bạn so sánh các chỉ số tuyển dụng cho các khoảng thời gian gần đây, bạn vui lòng cung cấp cho tôi các thông tin sau:\n1. Khoảng thời gian đầu tiên (ngày bắt đầu và ngày kết thúc).\n2. Khoảng thời gian thứ hai (ngày bắt đầu và ngày kết thúc).\n\nBạn có thể cho tôi biết các khoảng thời gian cụ thể mà bạn muốn so sánh không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2178
+    },
+    {
+      "id": "gt_ct_1775468400044_59",
+      "status": "done",
+      "input": "Xin báo cáo số lượng ứng viên theo ngày cho vị trí tuyển dụng ID 1023 trong khoảng thời gian từ 2024-03-01 đến 2024-03-31.",
+      "reference": "Agent calls get_candidate_by_time_by_recruitment with RecruitmentID, FromDate, and ToDate set to the user‑provided values\nAgent includes all required arguments in the POST body\nAgent's call to get_candidate_by_time_by_recruitment includes all required arguments: RecruitmentID, FromDate, ToDate",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_by_time_by_recruitment",
+            "arguments": "{\"recruitment_id\":1023,\"from_date\":\"2024-03-01\",\"to_date\":\"2024-03-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1420
+    },
+    {
+      "id": "gt_ct_1775468400044_60",
+      "status": "done",
+      "input": "Xin báo cáo số lượng ứng viên theo ngày cho vị trí tuyển dụng ID 2045 trong tháng 3/2024.",
+      "reference": "Agent asks the user for the missing required information (RecruitmentID, FromDate, ToDate) before proceeding\nAgent does NOT call get_candidate_by_time_by_recruitment without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_by_time_by_recruitment",
+            "arguments": "{\"recruitment_id\":2045,\"from_date\":\"2024-03-01\",\"to_date\":\"2024-03-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1431
+    },
+    {
+      "id": "gt_ct_1775468400044_61",
+      "status": "done",
+      "input": "Xin vui lòng cung cấp báo cáo số lượng ứng viên theo ngày cho tin tuyển dụng ID 2045, trong khoảng thời gian từ 2024-03-01 đến 2024-03-31.",
+      "reference": "Agent calls get_candidate_by_time_by_recruitment with RecruitmentID, FromDate, and ToDate set to the user‑provided values\nAgent includes all required arguments in the POST body\nAgent's call to get_candidate_by_time_by_recruitment includes all required arguments: RecruitmentID, FromDate, ToDate",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_by_time_by_recruitment",
+            "arguments": "{\"recruitment_id\":2045,\"from_date\":\"2024-03-01\",\"to_date\":\"2024-03-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1349
+    },
+    {
+      "id": "gt_ct_1775468400044_62",
+      "status": "done",
+      "input": "Bạn có thể cho mình báo cáo số lượng ứng viên mỗi ngày cho tin tuyển dụng 1023 trong khoảng từ 2024-03-01 đến 2024-03-31 không?",
+      "reference": "Agent calls get_candidate_by_time_by_recruitment with RecruitmentID, FromDate, and ToDate set to the user‑provided values\nAgent includes all required arguments in the POST body\nAgent's call to get_candidate_by_time_by_recruitment includes all required arguments: RecruitmentID, FromDate, ToDate",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_by_time_by_recruitment",
+            "arguments": "{\"recruitment_id\":1023,\"from_date\":\"2024-03-01\",\"to_date\":\"2024-03-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1281
+    },
+    {
+      "id": "gt_ct_1775468400044_63",
+      "status": "done",
+      "input": "Cho mình báo cáo số lượng ứng viên theo ngày cho tin tuyển dụng 1501 nhé.",
+      "reference": "Agent asks the user for the missing required information (RecruitmentID, FromDate, ToDate) before proceeding\nAgent does NOT call get_candidate_by_time_by_recruitment without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_by_time_by_recruitment",
+            "arguments": "{\"recruitment_id\":1501,\"from_date\":\"2023-01-01\",\"to_date\":\"2023-12-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1679
+    },
+    {
+      "id": "gt_ct_1775468400044_64",
+      "status": "done",
+      "input": "Bạn có thể cho mình biết bao nhiêu người nộp đơn mỗi ngày cho tin tuyển dụng 2045 không?",
+      "reference": "Agent calls get_candidate_by_time_by_recruitment with RecruitmentID, FromDate, and ToDate set to the user‑provided values\nAgent includes all required arguments in the POST body\nAgent's call to get_candidate_by_time_by_recruitment includes all required arguments: RecruitmentID, FromDate, ToDate",
+      "output": "Bạn vui lòng cho mình biết khoảng thời gian cụ thể (ngày bắt đầu và ngày kết thúc) mà bạn muốn xem số lượng người nộp đơn mỗi ngày cho tin tuyển dụng 2045 được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1700
+    },
+    {
+      "id": "gt_ct_1775468400044_65",
+      "status": "done",
+      "input": "Xin cung cấp tổng quan chi tiết về tin tuyển dụng ID 1789.",
+      "reference": "Agent calls recruitment_post_overview with RecruitmentID set to the provided ID\nAgent includes the required argument RecruitmentID in the POST body\nAgent's call to recruitment_post_overview includes all required arguments: RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment",
+            "arguments": "{\"recruitment_name\":\"1789\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1003
+    },
+    {
+      "id": "gt_ct_1775468400044_66",
+      "status": "done",
+      "input": "Bạn có thể cho mình xem tổng quan của tin tuyển dụng 1501 không?",
+      "reference": "Agent calls recruitment_post_overview with RecruitmentID set to the provided ID\nAgent includes the required argument RecruitmentID in the POST body\nAgent's call to recruitment_post_overview includes all required arguments: RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_post_overview",
+            "arguments": "{\"recruitment_id\":1501}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1113
+    },
+    {
+      "id": "gt_ct_1775468400044_67",
+      "status": "done",
+      "input": "Xin vui lòng cung cấp báo cáo tổng quan về hoạt động tuyển dụng toàn công ty trong khoảng thời gian từ 2024-01-01 đến 2024-01-31.",
+      "reference": "Agent calls get_recruitment_overview with FromDate and ToDate set to the user‑provided dates\nAgent includes both required arguments in the POST body\nAgent's call to get_recruitment_overview includes all required arguments: FromDate, ToDate",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_overview",
+            "arguments": "{\"from_date\":\"2024-01-01\",\"to_date\":\"2024-01-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1243
+    },
+    {
+      "id": "gt_ct_1775468400044_68",
+      "status": "done",
+      "input": "Cho tôi báo cáo tổng quan tuyển dụng công ty trong tháng 1 năm 2024.",
+      "reference": "Agent asks the user for the missing required information (FromDate, ToDate) before proceeding\nAgent does NOT call get_recruitment_overview without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_overview",
+            "arguments": "{\"from_date\":\"2024-01-01\",\"to_date\":\"2024-01-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1194
+    },
+    {
+      "id": "gt_ct_1775468400044_69",
+      "status": "done",
+      "input": "Tôi cần báo cáo tuyển dụng cho công ty, từ ngày 1/1/2024 đến 31/1/2024, hoặc bất kỳ khoảng thời gian nào gần đó.",
+      "reference": "Agent calls get_recruitment_overview with FromDate and ToDate set to the user‑provided dates\nAgent includes both required arguments in the POST body\nAgent's call to get_recruitment_overview includes all required arguments: FromDate, ToDate",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_overview",
+            "arguments": "{\"from_date\":\"2024-01-01\",\"to_date\":\"2024-01-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1247
+    },
+    {
+      "id": "gt_ct_1775468400044_70",
+      "status": "done",
+      "input": "Hey, mình muốn biết tổng số người mới được tuyển trong công ty từ 01‑01‑2024 tới 31‑01‑2024, có thể làm được không?",
+      "reference": "Agent calls get_recruitment_overview with FromDate and ToDate set to the user‑provided dates\nAgent includes both required arguments in the POST body\nAgent's call to get_recruitment_overview includes all required arguments: FromDate, ToDate",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_overview",
+            "arguments": "{\"from_date\":\"2024-01-01\",\"to_date\":\"2024-01-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1347
+    },
+    {
+      "id": "gt_ct_1775468400044_71",
+      "status": "done",
+      "input": "Bạn có thể cho mình báo cáo tuyển dụng công ty trong tháng 1 không?",
+      "reference": "Agent asks the user for the missing required information (FromDate, ToDate) before proceeding\nAgent does NOT call get_recruitment_overview without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Bạn vui lòng cho mình biết năm cụ thể bạn muốn xem báo cáo tuyển dụng công ty trong tháng 1 nhé?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1092
+    },
+    {
+      "id": "gt_ct_1775468400044_72",
+      "status": "done",
+      "input": "Cho mình báo cáo tuyển dụng công ty từ đầu năm tới bây giờ nhé, hoặc bất kỳ thời gian nào gần đây.",
+      "reference": "Agent calls get_recruitment_overview with FromDate and ToDate set to the user‑provided dates\nAgent includes both required arguments in the POST body\nAgent's call to get_recruitment_overview includes all required arguments: FromDate, ToDate",
+      "output": "Bạn muốn báo cáo tuyển dụng công ty từ đầu năm đến hiện tại theo ngày cụ thể nào không? Hoặc bạn có thể cho tôi khoảng thời gian gần đây mà bạn muốn xem báo cáo?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1490
+    },
+    {
+      "id": "gt_ct_1775468400044_73",
+      "status": "done",
+      "input": "Xin vui lòng cung cấp báo cáo tuyển dụng cho Phòng Kỹ thuật từ ngày 2024-02-01 đến 2024-02-28.",
+      "reference": "Agent calls recruitment_by_department with FromDate, ToDate, and DepartmentName set to the values supplied by the user\nAgent includes all three required arguments in the POST body\nAgent's call to recruitment_by_department includes all required arguments: FromDate, ToDate, DepartmentName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_by_department",
+            "arguments": "{\"from_date\":\"2024-02-01\",\"to_date\":\"2024-02-28\",\"department_name\":\"Phòng Kỹ thuật\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1436
+    },
+    {
+      "id": "gt_ct_1775468400044_74",
+      "status": "done",
+      "input": "Tôi muốn xem báo cáo tuyển dụng của Phòng Nhân sự trong tháng 2 năm 2024.",
+      "reference": "Agent asks the user for the missing required information (FromDate, ToDate, DepartmentName) before proceeding\nAgent does NOT call recruitment_by_department without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_by_department",
+            "arguments": "{\"from_date\":\"2024-02-01\",\"to_date\":\"2024-02-29\",\"department_name\":\"Phòng Nhân sự\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1432
+    },
+    {
+      "id": "gt_ct_1775468400044_75",
+      "status": "done",
+      "input": "Bạn có thể đưa ra thống kê tuyển dụng cho phòng kỹ thuật từ đầu tháng tới cuối tháng?",
+      "reference": "Agent calls recruitment_by_department with FromDate, ToDate, and DepartmentName set to the values supplied by the user\nAgent includes all three required arguments in the POST body\nAgent's call to recruitment_by_department includes all required arguments: FromDate, ToDate, DepartmentName",
+      "output": "Để tôi có thể giúp bạn thống kê tuyển dụng cho phòng kỹ thuật từ đầu tháng tới cuối tháng, bạn vui lòng cho biết cụ thể khoảng thời gian bạn muốn thống kê (ví dụ: từ ngày nào đến ngày nào) được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1430
+    },
+    {
+      "id": "gt_ct_1775468400044_76",
+      "status": "done",
+      "input": "Cho mình báo cáo tuyển dụng của Phòng Kỹ thuật từ 1/2/2024 đến 28/2/2024 nhé.",
+      "reference": "Agent calls recruitment_by_department with FromDate, ToDate, and DepartmentName set to the values supplied by the user\nAgent includes all three required arguments in the POST body\nAgent's call to recruitment_by_department includes all required arguments: FromDate, ToDate, DepartmentName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_by_department",
+            "arguments": "{\"from_date\":\"2024-02-01\",\"to_date\":\"2024-02-28\",\"department_name\":\"Phòng Kỹ thuật\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1219
+    },
+    {
+      "id": "gt_ct_1775468400044_77",
+      "status": "done",
+      "input": "Mình muốn biết báo cáo tuyển dụng của phòng nhân sự tháng 2.",
+      "reference": "Agent asks the user for the missing required information (FromDate, ToDate, DepartmentName) before proceeding\nAgent does NOT call recruitment_by_department without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Bạn vui lòng cho mình biết rõ hơn về khoảng thời gian cụ thể bạn muốn xem báo cáo tuyển dụng của phòng nhân sự trong tháng 2, ví dụ từ ngày nào đến ngày nào?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1318
+    },
+    {
+      "id": "gt_ct_1775468400044_78",
+      "status": "done",
+      "input": "Bạn có thể đưa cho mình báo cáo tuyển dụng của phòng kỹ thuật trong khoảng thời gian này không?",
+      "reference": "Agent calls recruitment_by_department with FromDate, ToDate, and DepartmentName set to the values supplied by the user\nAgent includes all three required arguments in the POST body\nAgent's call to recruitment_by_department includes all required arguments: FromDate, ToDate, DepartmentName",
+      "output": "Bạn vui lòng cho mình biết khoảng thời gian cụ thể mà bạn muốn lấy báo cáo tuyển dụng của phòng kỹ thuật nhé? (ví dụ: từ ngày nào đến ngày nào)",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1291
+    },
+    {
+      "id": "gt_ct_1775468400044_79",
+      "status": "done",
+      "input": "Xin vui lòng tạo báo cáo tuyển dụng cho vị trí Kỹ sư phần mềm, thời gian từ 2024-01-01 đến 2024-01-31.",
+      "reference": "Agent calls recruitment_by_position with JobPositionName set to the provided name\nAgent includes FromDate and ToDate in the tool call arguments\nAgent uses POST method as defined for the tool\nAgent does not include any extra arguments not defined in the tool schema\nAgent's call to recruitment_by_position includes all required arguments: JobPositionName, FromDate, ToDate",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_by_position",
+            "arguments": "{\"job_position_name\":\"Kỹ sư phần mềm\",\"from_date\":\"2024-01-01\",\"to_date\":\"2024-01-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1223
+    },
+    {
+      "id": "gt_ct_1775468400044_80",
+      "status": "done",
+      "input": "Bạn có thể tạo báo cáo tuyển dụng cho vị trí Chuyên viên nhân sự, từ ngày 2024-07-01 tới 2024-07-31 không?",
+      "reference": "Agent asks the user for the missing required information (JobPositionName, FromDate, ToDate) before proceeding\nAgent does NOT call recruitment_by_position without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_by_position",
+            "arguments": "{\"job_position_name\":\"Chuyên viên nhân sự\",\"from_date\":\"2024-07-01\",\"to_date\":\"2024-07-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1290
+    },
+    {
+      "id": "gt_ct_1775468400044_81",
+      "status": "done",
+      "input": "Tôi cần báo cáo tuyển dụng cho vị trí Kỹ sư phần mềm, thời gian từ đầu tháng tới cuối tháng.",
+      "reference": "Agent calls recruitment_by_position with JobPositionName set to the provided name\nAgent includes FromDate and ToDate in the tool call arguments\nAgent uses POST method as defined for the tool\nAgent does not include any extra arguments not defined in the tool schema\nAgent's call to recruitment_by_position includes all required arguments: JobPositionName, FromDate, ToDate",
+      "output": "Bạn vui lòng cho biết cụ thể thời gian bắt đầu và kết thúc của tháng bạn muốn báo cáo để tôi có thể chuẩn bị báo cáo tuyển dụng cho vị trí Kỹ sư phần mềm chính xác hơn? Ví dụ: từ ngày 01/06/2024 đến 30/06/2024.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1591
+    },
+    {
+      "id": "gt_ct_1775468400044_82",
+      "status": "done",
+      "input": "Bạn làm ơn giúp mình làm báo cáo tuyển dụng cho vị trí Kỹ sư phần mềm, từ ngày 01/01/2024 tới 31/01/2024 nhé.",
+      "reference": "Agent calls recruitment_by_position with JobPositionName set to the provided name\nAgent includes FromDate and ToDate in the tool call arguments\nAgent uses POST method as defined for the tool\nAgent does not include any extra arguments not defined in the tool schema\nAgent's call to recruitment_by_position includes all required arguments: JobPositionName, FromDate, ToDate",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "recruitment_by_position",
+            "arguments": "{\"job_position_name\":\"Kỹ sư phần mềm\",\"from_date\":\"2024-01-01\",\"to_date\":\"2024-01-31\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1295
+    },
+    {
+      "id": "gt_ct_1775468400044_83",
+      "status": "done",
+      "input": "Bạn có thể làm báo cáo tuyển dụng cho vị trí Chuyên viên nhân sự không?",
+      "reference": "Agent asks the user for the missing required information (JobPositionName, FromDate, ToDate) before proceeding\nAgent does NOT call recruitment_by_position without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Để làm báo cáo tuyển dụng cho vị trí Chuyên viên nhân sự, bạn vui lòng cung cấp thêm thông tin về khoảng thời gian bạn muốn báo cáo (ví dụ: từ ngày nào đến ngày nào) để tôi có thể tổng hợp dữ liệu chính xác cho bạn.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1501
+    },
+    {
+      "id": "gt_ct_1775468400044_84",
+      "status": "done",
+      "input": "Bạn có thể làm báo cáo tuyển dụng cho vị trí Kỹ sư phần mềm không, thời gian là tháng này?",
+      "reference": "Agent calls recruitment_by_position with JobPositionName set to the provided name\nAgent includes FromDate and ToDate in the tool call arguments\nAgent uses POST method as defined for the tool\nAgent does not include any extra arguments not defined in the tool schema\nAgent's call to recruitment_by_position includes all required arguments: JobPositionName, FromDate, ToDate",
+      "output": "Để làm báo cáo tuyển dụng cho vị trí Kỹ sư phần mềm trong tháng này, tôi cần biết rõ khoảng thời gian cụ thể bạn muốn báo cáo, ví dụ từ ngày nào đến ngày nào trong tháng này? Bạn có thể cung cấp khoảng thời gian bắt đầu và kết thúc cho báo cáo được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2636
+    },
+    {
+      "id": "gt_ct_1775468400044_85",
+      "status": "done",
+      "input": "Xin hãy liệt kê lịch phỏng vấn của các ứng viên trong khoảng thời gian từ 2024-08-01 đến 2024-08-31, loại lịch là 1 và phạm vi là 2.",
+      "reference": "Agent calls get_schedule with FromDate, ToDate, ScheduleType and Scope set to user values\nAgent includes all required arguments in the POST body\nAgent does not request optional arguments that are not defined\nAgent's call to get_schedule includes all required arguments: FromDate, ToDate, ScheduleType, Scope",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_schedule",
+            "arguments": "{\"from_date\":\"2024-08-01\",\"to_date\":\"2024-08-31\",\"schedule_type\":1,\"scope\":2}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1671
+    },
+    {
+      "id": "gt_ct_1775468400044_86",
+      "status": "done",
+      "input": "Tôi cần danh sách lịch phỏng vấn từ 2024-09-15 tới 2024-09-30, loại lịch là 4.",
+      "reference": "Agent asks the user for the missing required information (FromDate, ToDate, ScheduleType) before proceeding\nAgent does NOT call get_schedule without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_schedule",
+            "arguments": "{\"from_date\":\"2024-09-15\",\"to_date\":\"2024-09-30\",\"schedule_type\":4,\"scope\":4}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1235
+    },
+    {
+      "id": "gt_ct_1775468400044_87",
+      "status": "done",
+      "input": "Bạn có thể cho mình lịch phỏng vấn trong tháng tới không?",
+      "reference": "Agent calls get_schedule with FromDate, ToDate, ScheduleType and Scope set to user values\nAgent includes all required arguments in the POST body\nAgent does not request optional arguments that are not defined\nAgent's call to get_schedule includes all required arguments: FromDate, ToDate, ScheduleType, Scope",
+      "output": "Bạn vui lòng cho mình biết khoảng thời gian cụ thể của \"tháng tới\" bạn muốn xem lịch phỏng vấn, ví dụ từ ngày nào đến ngày nào? Và bạn muốn xem lịch phỏng vấn loại nào (phỏng vấn trực tiếp, phỏng vấn trực tuyến, thi tuyển, đánh giá học việc, tiếp nhận thử việc, v.v.)? Bạn cũng muốn xem lịch của ai hoặc phạm vi xem lịch (lịch bạn tạo, lịch bạn tham gia, toàn bộ công ty)?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2300
+    },
+    {
+      "id": "gt_ct_1775468400044_88",
+      "status": "done",
+      "input": "Mình muốn biết lịch phỏng vấn của các ứng viên từ 01-08-2024 tới 31-08-2024, loại là 1 và phạm vi là 2 nhé.",
+      "reference": "Agent calls get_schedule with FromDate, ToDate, ScheduleType and Scope set to user values\nAgent includes all required arguments in the POST body\nAgent does not request optional arguments that are not defined\nAgent's call to get_schedule includes all required arguments: FromDate, ToDate, ScheduleType, Scope",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_schedule",
+            "arguments": "{\"from_date\":\"2024-08-01\",\"to_date\":\"2024-08-31\",\"schedule_type\":1,\"scope\":2}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2360
+    },
+    {
+      "id": "gt_ct_1775468400044_89",
+      "status": "done",
+      "input": "Bạn có thể đưa lịch phỏng vấn từ 15/09/2024 tới 30/09/2024 không?",
+      "reference": "Agent asks the user for the missing required information (FromDate, ToDate, ScheduleType) before proceeding\nAgent does NOT call get_schedule without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Bạn muốn xem lịch phỏng vấn trong khoảng thời gian từ 15/09/2024 đến 30/09/2024 thuộc loại lịch phỏng vấn nào? (Ví dụ: phỏng vấn trực tiếp, bài thi, phỏng vấn trực tuyến ngoài ứng dụng, thi tuyển trực tuyến, đánh giá học việc, tiếp nhận thử việc) Và bạn muốn xem lịch theo phạm vi nào? (Ví dụ: lịch bạn tạo, lịch bạn tham gia, lịch của bạn gồm bạn tạo + bạn tham gia, toàn bộ lịch công ty)",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2061
+    },
+    {
+      "id": "gt_ct_1775468400044_90",
+      "status": "done",
+      "input": "Cho mình lịch phỏng vấn sắp tới nhé.",
+      "reference": "Agent calls get_schedule with FromDate, ToDate, ScheduleType and Scope set to user values\nAgent includes all required arguments in the POST body\nAgent does not request optional arguments that are not defined\nAgent's call to get_schedule includes all required arguments: FromDate, ToDate, ScheduleType, Scope",
+      "output": "Bạn vui lòng cho mình biết khoảng thời gian bạn muốn xem lịch phỏng vấn sắp tới, loại lịch phỏng vấn (ví dụ: phỏng vấn trực tiếp, phỏng vấn trực tuyến, bài thi, thi tuyển trực tuyến, đánh giá học việc, tiếp nhận thử việc) và phạm vi lịch (ví dụ: lịch bạn tạo, lịch bạn tham gia, toàn bộ lịch công ty) để mình có thể hỗ trợ bạn tốt hơn nhé?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2007
+    },
+    {
+      "id": "gt_ct_1775468400044_91",
+      "status": "done",
+      "input": "Xin vui lòng cung cấp danh sách thành viên hội đồng phỏng vấn cho lịch phỏng vấn có CandidateScheduleID là 12345 và CandidateID là 1001.",
+      "reference": "Agent calls get_recruitment_board with CandidateScheduleID and CandidateID set to the provided numbers\nAgent includes both required arguments in the request body\nAgent's call to get_recruitment_board includes all required arguments: CandidateScheduleID, CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_board",
+            "arguments": "{\"candidate_schedule_id\":12345,\"candidate_id\":1001}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1178
+    },
+    {
+      "id": "gt_ct_1775468400044_92",
+      "status": "done",
+      "input": "Bạn có thể lấy danh sách hội đồng phỏng vấn cho CandidateScheduleID 67890 không?",
+      "reference": "Agent asks the user for the missing required information (CandidateScheduleID, CandidateID) before proceeding\nAgent does NOT call get_recruitment_board without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Để lấy danh sách hội đồng phỏng vấn, tôi cần thêm ID ứng viên (candidate_id) tương ứng với CandidateScheduleID 67890. Bạn có thể cung cấp ID ứng viên được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1534
+    },
+    {
+      "id": "gt_ct_1775468400045_93",
+      "status": "done",
+      "input": "Cho tôi danh sách hội đồng phỏng vấn cho lịch 12345.",
+      "reference": "Agent calls get_recruitment_board with CandidateScheduleID and CandidateID set to the provided numbers\nAgent includes both required arguments in the request body\nAgent's call to get_recruitment_board includes all required arguments: CandidateScheduleID, CandidateID",
+      "output": "Để cung cấp danh sách hội đồng phỏng vấn cho lịch 12345, tôi cần thêm thông tin về ID ứng viên liên quan đến lịch phỏng vấn này. Bạn vui lòng cung cấp ID ứng viên được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1533
+    },
+    {
+      "id": "gt_ct_1775468400045_94",
+      "status": "done",
+      "input": "Bạn có thể cho mình biết ai đang trong hội đồng phỏng vấn cho lịch 67890 và ứng viên 2002 không?",
+      "reference": "Agent calls get_recruitment_board with CandidateScheduleID and CandidateID set to the provided numbers\nAgent includes both required arguments in the request body\nAgent's call to get_recruitment_board includes all required arguments: CandidateScheduleID, CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_board",
+            "arguments": "{\"candidate_schedule_id\":67890,\"candidate_id\":2002}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1156
+    },
+    {
+      "id": "gt_ct_1775468400045_95",
+      "status": "done",
+      "input": "Bạn có thể cho mình danh sách hội đồng phỏng vấn cho lịch 12345 không?",
+      "reference": "Agent asks the user for the missing required information (CandidateScheduleID, CandidateID) before proceeding\nAgent does NOT call get_recruitment_board without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Để hỗ trợ bạn lấy danh sách hội đồng phỏng vấn cho lịch 12345, mình cần thêm thông tin về ID ứng viên liên quan đến lịch phỏng vấn này. Bạn vui lòng cung cấp ID ứng viên được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1556
+    },
+    {
+      "id": "gt_ct_1775468400045_96",
+      "status": "done",
+      "input": "Bạn có thể cho mình biết hội đồng phỏng vấn cho lịch này không?",
+      "reference": "Agent calls get_recruitment_board with CandidateScheduleID and CandidateID set to the provided numbers\nAgent includes both required arguments in the request body\nAgent's call to get_recruitment_board includes all required arguments: CandidateScheduleID, CandidateID",
+      "output": "Bạn vui lòng cung cấp cho mình ID định danh của lịch phỏng vấn và ID định danh của ứng viên liên quan đến lịch phỏng vấn đó được không? Mình cần thông tin này để tra cứu hội đồng phỏng vấn chính xác cho bạn.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1426
+    },
+    {
+      "id": "gt_ct_1775468400045_97",
+      "status": "done",
+      "input": "Tôi muốn xem nội dung CV của ứng viên có ID là 2002. Vui lòng trả về file CV gốc.",
+      "reference": "Agent calls get_cv_content with CandidateID set to the provided number\nAgent includes the required argument in the POST body\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\":2002}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1039
+    },
+    {
+      "id": "gt_ct_1775468400045_98",
+      "status": "done",
+      "input": "Bạn có thể mở CV của người có mã số 1001 được không?",
+      "reference": "Agent calls get_cv_content with CandidateID set to the provided number\nAgent includes the required argument in the POST body\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\":1001}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1127
+    },
+    {
+      "id": "gt_ct_1775468400046_99",
+      "status": "done",
+      "input": "Tôi cần tìm ứng viên tên Nguyễn Văn A và sau đó xem CV của anh ấy (ID 1001).",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the tool call arguments when the user supplies a recruitment_name\nAgent asks for clarification when candidate_name is missing\nAgent's call to get_candidates includes all required arguments: CandidateName\nAgent calls get_cv_content with CandidateID set to the provided number\nAgent includes the required argument in the POST body\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\": \"Nguyễn Văn A\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\": 1001}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1397
+    },
+    {
+      "id": "gt_ct_1775468400048_100",
+      "status": "done",
+      "input": "Tìm cho tôi ứng viên tên Trần Thị B và cho biết danh sách, sau đó tôi sẽ xem CV của người đó.",
+      "reference": "Agent asks the user for the missing required information (candidate_name, CandidateID) before proceeding\nAgent does NOT call get_candidates without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Trần Thị B\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1121
+    },
+    {
+      "id": "gt_ct_1775468400048_101",
+      "status": "done",
+      "input": "Tôi muốn xem CV của ứng viên có tên Lê Thị C, nhưng chưa biết ID của họ.",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the tool call arguments when the user supplies a recruitment_name\nAgent asks for clarification when candidate_name is missing\nAgent's call to get_candidates includes all required arguments: CandidateName\nAgent calls get_cv_content with CandidateID set to the provided number\nAgent includes the required argument in the POST body\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Lê Thị C\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1055
+    },
+    {
+      "id": "gt_ct_1775468400048_102",
+      "status": "done",
+      "input": "Bạn có thể tìm người tên Nguyễn Thị D không? Nếu có, mình muốn xem CV của người đó (ID 2002).",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the tool call arguments when the user supplies a recruitment_name\nAgent asks for clarification when candidate_name is missing\nAgent's call to get_candidates includes all required arguments: CandidateName\nAgent calls get_cv_content with CandidateID set to the provided number\nAgent includes the required argument in the POST body\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\": \"Nguyễn Thị D\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_cv_content",
+            "arguments": "{\"candidate_id\": 2002}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1500
+    },
+    {
+      "id": "gt_ct_1775468400048_103",
+      "status": "done",
+      "input": "Bạn có thể giúp mình tìm ứng viên tên Nguyễn Văn A không? Mình muốn xem CV của người này nhưng không nhớ ID của họ.",
+      "reference": "Agent asks the user for the missing required information (candidate_name, CandidateID) before proceeding\nAgent does NOT call get_candidates without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Nguyễn Văn A\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1040
+    },
+    {
+      "id": "gt_ct_1775468400048_104",
+      "status": "done",
+      "input": "Mình muốn tìm ứng viên có tên Lê Thị C và xem CV của họ. Ở đâu có thể lấy được CV?",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the tool call arguments when the user supplies a recruitment_name\nAgent asks for clarification when candidate_name is missing\nAgent's call to get_candidates includes all required arguments: CandidateName\nAgent calls get_cv_content with CandidateID set to the provided number\nAgent includes the required argument in the POST body\nAgent's call to get_cv_content includes all required arguments: CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Lê Thị C\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1061
+    },
+    {
+      "id": "gt_ct_1775468400048_105",
+      "status": "done",
+      "input": "Xin hãy liệt kê lịch phỏng vấn từ 2024-08-01 đến 2024-08-31, loại lịch 1, phạm vi 2. Sau đó, cho tôi biết thành viên hội đồng phỏng vấn cho lịch có CandidateScheduleID 12345 và CandidateID 1001.",
+      "reference": "Agent calls get_schedule with FromDate, ToDate, ScheduleType and Scope set to user values\nAgent includes all required arguments in the POST body\nAgent does not request optional arguments that are not defined\nAgent's call to get_schedule includes all required arguments: FromDate, ToDate, ScheduleType, Scope\nAgent calls get_recruitment_board with CandidateScheduleID and CandidateID set to the provided numbers\nAgent includes both required arguments in the request body\nAgent's call to get_recruitment_board includes all required arguments: CandidateScheduleID, CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_schedule",
+            "arguments": "{\"from_date\": \"2024-08-01\", \"to_date\": \"2024-08-31\", \"schedule_type\": 1, \"scope\": 2}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_board",
+            "arguments": "{\"candidate_schedule_id\": 12345, \"candidate_id\": 1001}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1771
+    },
+    {
+      "id": "gt_ct_1775468400048_106",
+      "status": "done",
+      "input": "Mình muốn xem lịch phỏng vấn từ 2024-08-01 đến 2024-08-31, loại 1, phạm vi 2. Sau đó, cho mình biết thành viên hội đồng cho lịch có CandidateScheduleID 12345.",
+      "reference": "Agent asks the user for the missing required information (FromDate, ToDate, ScheduleType) before proceeding\nAgent does NOT call get_schedule without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_schedule",
+            "arguments": "{\"from_date\": \"2024-08-01\", \"to_date\": \"2024-08-31\", \"schedule_type\": 1, \"scope\": 2}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_board",
+            "arguments": "{\"candidate_schedule_id\": 12345, \"candidate_id\": 0}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1917
+    },
+    {
+      "id": "gt_ct_1775468400048_107",
+      "status": "done",
+      "input": "Bạn có thể đưa ra lịch phỏng vấn trong khoảng thời gian 2024-08-01 tới 2024-08-31, loại 1, phạm vi 2 không? Và mình muốn biết hội đồng phỏng vấn cho CandidateScheduleID 12345 và CandidateID 1001.",
+      "reference": "Agent calls get_schedule with FromDate, ToDate, ScheduleType and Scope set to user values\nAgent includes all required arguments in the POST body\nAgent does not request optional arguments that are not defined\nAgent's call to get_schedule includes all required arguments: FromDate, ToDate, ScheduleType, Scope\nAgent calls get_recruitment_board with CandidateScheduleID and CandidateID set to the provided numbers\nAgent includes both required arguments in the request body\nAgent's call to get_recruitment_board includes all required arguments: CandidateScheduleID, CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_schedule",
+            "arguments": "{\"from_date\": \"2024-08-01\", \"to_date\": \"2024-08-31\", \"schedule_type\": 1, \"scope\": 2}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_board",
+            "arguments": "{\"candidate_schedule_id\": 12345, \"candidate_id\": 1001}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1619
+    },
+    {
+      "id": "gt_ct_1775468400048_108",
+      "status": "done",
+      "input": "Bạn có thể liệt kê lịch phỏng vấn từ 2024-08-01 đến 2024-08-31, loại 1, phạm vi 2 không? Sau đó mình muốn xem thành viên hội đồng cho CandidateScheduleID 12345 và CandidateID 1001.",
+      "reference": "Agent calls get_schedule with FromDate, ToDate, ScheduleType and Scope set to user values\nAgent includes all required arguments in the POST body\nAgent does not request optional arguments that are not defined\nAgent's call to get_schedule includes all required arguments: FromDate, ToDate, ScheduleType, Scope\nAgent calls get_recruitment_board with CandidateScheduleID and CandidateID set to the provided numbers\nAgent includes both required arguments in the request body\nAgent's call to get_recruitment_board includes all required arguments: CandidateScheduleID, CandidateID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_schedule",
+            "arguments": "{\"from_date\": \"2024-08-01\", \"to_date\": \"2024-08-31\", \"schedule_type\": 1, \"scope\": 2}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_board",
+            "arguments": "{\"candidate_schedule_id\": 12345, \"candidate_id\": 1001}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2161
+    },
+    {
+      "id": "gt_ct_1775468400048_109",
+      "status": "done",
+      "input": "Bạn có thể cho mình danh sách các lịch phỏng vấn từ 01/08/2024 tới 31/08/2024 không? Mình cần loại lịch 1 và phạm vi 2. Sau khi có danh sách, mình muốn xem thành viên hội đồng phỏng vấn cho lịch có ID 12345 và ứng viên 1001.",
+      "reference": "Agent asks the user for the missing required information (FromDate, ToDate, ScheduleType) before proceeding\nAgent does NOT call get_schedule without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_schedule",
+            "arguments": "{\"from_date\": \"2024-08-01\", \"to_date\": \"2024-08-31\", \"schedule_type\": 1, \"scope\": 2}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_recruitment_board",
+            "arguments": "{\"candidate_schedule_id\": 12345, \"candidate_id\": 1001}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1791
+    },
+    {
+      "id": "gt_ct_1775468400048_110",
+      "status": "done",
+      "input": "Bạn giúp mình lấy lịch phỏng vấn trong khoảng thời gian nào đó nhé, từ 15/09/2024 tới 30/09/2024, loại lịch và phạm vi mình không chắc, chỉ biết muốn xem thành viên hội đồng cho một lịch nào đó. Cũng muốn biết ai trong hội đồng cho lịch này.",
+      "reference": "Agent calls get_schedule with FromDate, ToDate, ScheduleType and Scope set to user values\nAgent includes all required arguments in the POST body\nAgent does not request optional arguments that are not defined\nAgent's call to get_schedule includes all required arguments: FromDate, ToDate, ScheduleType, Scope\nAgent calls get_recruitment_board with CandidateScheduleID and CandidateID set to the provided numbers\nAgent includes both required arguments in the request body\nAgent's call to get_recruitment_board includes all required arguments: CandidateScheduleID, CandidateID",
+      "output": "Để giúp bạn lấy lịch phỏng vấn trong khoảng thời gian từ 15/09/2024 tới 30/09/2024, mình cần bạn cung cấp thêm thông tin về loại lịch phỏng vấn bạn muốn xem (ví dụ: phỏng vấn trực tiếp, bài thi, phỏng vấn trực tuyến, thi tuyển trực tuyến, đánh giá học việc, tiếp nhận thử việc) và phạm vi xem lịch (ví dụ: lịch bạn tạo, lịch bạn tham gia, lịch của bạn gồm cả tạo và tham gia, hoặc toàn bộ lịch công ty).\n\nNgoài ra, để xem thành viên hội đồng cho một lịch phỏng vấn cụ thể, mình cần ID định danh của lịch phỏng vấn đó và ID ứng viên liên quan.\n\nBạn có thể cung cấp thêm các thông tin này được không?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 2721
+    },
+    {
+      "id": "gt_ct_1775468400048_111",
+      "status": "done",
+      "input": "Bạn giúp mình tìm các hồ sơ ứng viên tên Nguyễn Văn A không? Không có thêm thông tin nào khác.",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the tool call arguments when the user supplies a recruitment_name\nAgent asks for clarification when candidate_name is missing\nAgent's call to get_candidates includes all required arguments: CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Nguyễn Văn A\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1212
+    },
+    {
+      "id": "gt_ct_1775468400048_112",
+      "status": "done",
+      "input": "Mình muốn biết điểm phù hợp cho các ứng viên có ID 101, 102, 103 với vị trí tuyển dụng ID 55.",
+      "reference": "Agent calls get_multiple_candidates_fit_score with CandidateIDs set to the provided list\nAgent calls get_multiple_candidates_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification if any required input is missing\nAgent's call to get_multiple_candidates_fit_score includes all required arguments: CandidateIDs, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\":\"101,102,103\",\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1415
+    },
+    {
+      "id": "gt_ct_1775468400048_113",
+      "status": "done",
+      "input": "Bạn cho mình điểm phù hợp của ứng viên 202 cho vị trí tuyển dụng 78 được không?",
+      "reference": "Agent calls get_candidate_fit_score with CandidateID set to the provided candidate_id\nAgent calls get_candidate_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification when a required input is missing\nAgent's call to get_candidate_fit_score includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\":202,\"recruitment_id\":78}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1429
+    },
+    {
+      "id": "gt_ct_1775468400048_114",
+      "status": "done",
+      "input": "Bạn tìm cho mình các ứng viên tên Trần Thị B nhé, nhưng mình không chắc là nào trong hệ thống.",
+      "reference": "Agent recognizes the ambiguity and asks the user to clarify which specific entity they mean\nAgent does not blindly call get_candidates with the ambiguous input",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Trần Thị B\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1347
+    },
+    {
+      "id": "gt_ct_1775468400048_115",
+      "status": "done",
+      "input": "Bạn có thể tìm các ứng viên mà đang ở vòng 2 của tin tuyển dụng QC‑T1‑2026 không? Mình cũng muốn biết những người có kinh nghiệm Java ít nhất 5 năm.",
+      "reference": "Agent recognizes the ambiguity and asks the user to clarify which specific entity they mean\nAgent does not blindly call get_candidates_for_evaluation with the ambiguous input",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"recruitment_name\":\"QC-T1-2026\",\"candidate_name\":\"\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1554
+    },
+    {
+      "id": "gt_ct_1775468400048_116",
+      "status": "done",
+      "input": "Cho mình danh sách các ứng viên tên Nguyễn Văn A nhé, nếu có trong tin tuyển dụng nào thì cũng cho biết luôn.",
+      "reference": "Agent recognizes the ambiguity and asks the user to clarify which specific entity they mean\nAgent does not blindly call get_candidates with the ambiguous input",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Nguyễn Văn A\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1058
+    },
+    {
+      "id": "gt_ct_1775468400048_117",
+      "status": "done",
+      "input": "Bạn giúp mình tính điểm phù hợp cho các ứng viên 101, 102, 103 với tin tuyển dụng 55 được không?",
+      "reference": "Agent asks the user for the missing required information (candidate_ids, recruitment_id) before proceeding\nAgent does NOT call get_multiple_candidates_fit_score without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\":\"101,102,103\",\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1142
+    },
+    {
+      "id": "gt_ct_1775468400048_118",
+      "status": "done",
+      "input": "Bạn tính điểm fit cho ứng viên 202 với tin 78 giúp mình nhé.",
+      "reference": "Agent asks the user for the missing required information (candidate_id, recruitment_id) before proceeding\nAgent does NOT call get_candidate_fit_score without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\":202,\"recruitment_id\":78}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1172
+    },
+    {
+      "id": "gt_ct_1775468400048_119",
+      "status": "done",
+      "input": "Bạn đề xuất câu hỏi phỏng vấn cho ứng viên 12345 nhé.",
+      "reference": "Agent asks the user for the missing required information (candidate_id, recruitment_id) before proceeding\nAgent does NOT call get_data_for_gen_interview_question without the required inputs\nAgent response is a clarification question, not a tool call",
+      "output": "Để đề xuất câu hỏi phỏng vấn cho ứng viên, tôi cần biết tên tin tuyển dụng hoặc ID tin tuyển dụng mà ứng viên 12345 đã ứng tuyển. Bạn vui lòng cung cấp thêm thông tin này nhé?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1909
+    },
+    {
+      "id": "gt_ct_1775468400048_120",
+      "status": "done",
+      "input": "Bạn tính điểm phù hợp cho các ứng viên 101;102;103;200;205 cho tin 55 giúp mình nhé.",
+      "reference": "Agent calls get_multiple_candidates_fit_score with CandidateIDs set to the provided list\nAgent calls get_multiple_candidates_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification if any required input is missing\nAgent's call to get_multiple_candidates_fit_score includes all required arguments: CandidateIDs, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\":\"101,102,103,200,205\",\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1189
+    },
+    {
+      "id": "gt_ct_1775468400048_121",
+      "status": "done",
+      "input": "Bạn có thể cho mình điểm phù hợp của ứng viên 101 với tin tuyển dụng 55 không? Mình nhập sai định dạng rồi, nhưng hy vọng vẫn chạy được.",
+      "reference": "Agent calls get_candidate_fit_score with CandidateID set to the provided candidate_id\nAgent calls get_candidate_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification when a required input is missing\nAgent's call to get_candidate_fit_score includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\":101,\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1142
+    },
+    {
+      "id": "gt_ct_1775468400048_122",
+      "status": "done",
+      "input": "Lấy thông tin mẫu email có ID là 12 nhé, mình nhập hơi lộn xộn nhưng vẫn muốn xem chi tiết.",
+      "reference": "Agent calls get_email with EmailID set to the provided email_id\nAgent asks for clarification when email_id is missing\nAgent's call to get_email includes all required arguments: EmailID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_email",
+            "arguments": "{\"email_id\":12}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1220
+    },
+    {
+      "id": "gt_ct_1775468400048_123",
+      "status": "done",
+      "input": "Tìm cho mình danh sách các ứng viên tên Nguyễn Văn A nhé, và nếu có thể lọc theo vị trí tuyển dụng 'Kỹ sư phần mềm'.",
+      "reference": "Agent declines to perform the request and explains it is outside its capabilities\nAgent does not attempt to call any tool",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Nguyễn Văn A\",\"recruitment_name\":\"Kỹ sư phần mềm\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1244
+    },
+    {
+      "id": "gt_ct_1775468400048_124",
+      "status": "done",
+      "input": "Cho mình điểm fit cho các ứng viên 101,102,103 với tin tuyển dụng 55 nhé.",
+      "reference": "Agent declines to perform the request and explains it is outside its capabilities\nAgent does not attempt to call any tool",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\":\"101,102,103\",\"recruitment_id\":55}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1245
+    },
+    {
+      "id": "gt_ct_1775468400048_125",
+      "status": "done",
+      "input": "Bạn có thể tính điểm fit cho ứng viên 202 cho tin tuyển dụng 78 không?",
+      "reference": "Agent declines to perform the request and explains it is outside its capabilities\nAgent does not attempt to call any tool",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\":202,\"recruitment_id\":78}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1238
+    },
+    {
+      "id": "gt_ct_1775468400048_126",
+      "status": "done",
+      "input": "Tìm cho mình các ứng viên tên Nguyễn Văn A nhưng chỉ cho mình những người không tham gia tin tuyển dụng nào cả.",
+      "reference": "Agent calls get_candidates with CandidateName set to the provided candidate_name\nAgent includes RecruitmentName in the tool call arguments when the user supplies a recruitment_name\nAgent asks for clarification when candidate_name is missing\nAgent's call to get_candidates includes all required arguments: CandidateName",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidates",
+            "arguments": "{\"candidate_name\":\"Nguyễn Văn A\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1066
+    },
+    {
+      "id": "gt_ct_1775468400048_127",
+      "status": "done",
+      "input": "Bạn có thể cho mình biết điểm phù hợp của các ứng viên 101, 102, 103, 200 và 205 cho vị trí tuyển dụng 55 không? Thực ra mình cũng muốn biết điểm cho vị trí 102 nữa, được không?",
+      "reference": "Agent calls get_multiple_candidates_fit_score with CandidateIDs set to the provided list\nAgent calls get_multiple_candidates_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification if any required input is missing\nAgent's call to get_multiple_candidates_fit_score includes all required arguments: CandidateIDs, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\": \"101,102,103,200,205\", \"recruitment_id\": 55}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_multiple_candidates_fit_score",
+            "arguments": "{\"candidate_i_ds\": \"101,102,103,200,205\", \"recruitment_id\": 102}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 0
+      },
+      "durationMs": 1726
+    },
+    {
+      "id": "gt_ct_1775468400048_128",
+      "status": "done",
+      "input": "Bạn có thể tính điểm phù hợp cho ứng viên 101 với tin tuyển dụng 55 không? Mình cũng muốn biết điểm cho ứng viên 202 với tin 78 nữa, được không?",
+      "reference": "Agent calls get_candidate_fit_score with CandidateID set to the provided candidate_id\nAgent calls get_candidate_fit_score with RecruitmentID set to the provided recruitment_id\nAgent asks for clarification when a required input is missing\nAgent's call to get_candidate_fit_score includes all required arguments: CandidateID, RecruitmentID",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\": 101, \"recruitment_id\": 55}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "get_candidate_fit_score",
+            "arguments": "{\"candidate_id\": 202, \"recruitment_id\": 78}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact": 100
+      },
+      "durationMs": 1658
+    }
+  ]
+}

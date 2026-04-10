@@ -225,6 +225,20 @@ export default function ConfigPage() {
                     onChange={e => config.setTarget({ targetSystemPrompt: e.target.value })}
                     className={`${inputCls} resize-none`} placeholder="Optional — overrides record.context if set" />
                 </div>
+
+                <div>
+                  <Label>Concurrency</Label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={10}
+                    step={1}
+                    value={config.concurrency}
+                    onChange={e => config.setTarget({ concurrency: Math.max(1, Math.min(10, Number(e.target.value))) })}
+                    className={inputCls}
+                  />
+                  <Hint>Records processed in parallel (1 = sequential, max 10). Higher is faster but increases API load.</Hint>
+                </div>
               </div>
             </div>
 

@@ -1,0 +1,13 @@
+{
+  "runId": "15e58900-fe3f-4a35-afbd-28cf28035e45",
+  "model": "misa-gemma-4-31b-it-06042026",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 04:50:09",
+  "durationMs": 31191,
+  "tasks": {
+    "htkh_intent_routing": {
+      "accuracy": 59.74,
+      "token_f1": 59.74
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "runId": "5a732932-de1c-4500-9c7c-750ad66666f1",
+  "model": "misa-ai-1.0",
+  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
+  "date": "2026-04-06 05:46:50",
+  "durationMs": 1780846,
+  "tasks": {
+    "ava_tool_calling": {
+      "ast_accuracy": 79.18,
+      "task_success_rate": 78.57
+    },
+    "crm_intent_analysis": {
+      "exact_match": 81.82,
+      "token_f1": 90.55
+    },
+    "crm_recommendation": {
+      "list_match": 61.49
+    },
+    "crmmisa_dashboard": {
+      "token_f1": 50.08
+    },
+    "htkh_intent_classification": {
+      "accuracy": 89.33
+    },
+    "htkh_intent_routing": {
+      "accuracy": 57.79
+    },
+    "htkh_rag_qa": {
+      "rouge": 20.08,
+      "token_f1": 33.42,
+      "faithfulness": 88.6,
+      "answer_relevancy": 89.93
+    },
+    "makt_forecast": {
+      "exact_match": 0,
+      "token_f1": 6.9
+    }
+  }
+}
