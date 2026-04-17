@@ -116,8 +116,11 @@ function latestRunPerModel(runs: RunResult[]): RunResult[] {
     if (!existing) {
       byModel.set(r.model, { ...r, tasks: { ...r.tasks } })
     } else {
-      // Gộp tasks từ tất cả runs (mỗi task lấy lần chạy gần nhất)
-      const mergedTasks = { ...existing.tasks, ...r.tasks }
+      // Gộp tasks từ tất cả runs — merge ở metric level để không mất judge scores từ run cũ
+      const mergedTasks = { ...existing.tasks }
+      for (const [task, metrics] of Object.entries(r.tasks || {})) {
+        mergedTasks[task] = { ...(mergedTasks[task] || {}), ...metrics }
+      }
       // Metadata (date, runId, etc.) từ run mới nhất
       byModel.set(r.model, { ...r, tasks: mergedTasks })
     }

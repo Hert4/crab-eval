@@ -16,7 +16,9 @@
     },
     "htkh_rag_qa": {
       "rouge": 40.7,
-      "token_f1": 58.8
+      "token_f1": 58.8,
+      "faithfulness": 80.0,
+      "answer_relevancy": 86.6
     },
     "makt_forecast": {
       "list_match": 89.6

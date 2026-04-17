@@ -72,6 +72,8 @@ export async function chatCompletion(
       b.temperature = config.temperature
     }
     if (tools?.length) { b.tools = tools; b.tool_choice = 'auto' }
+    // Disable thinking mode for Qwen3-style models that return content=null with reasoning field
+    b.chat_template_kwargs = { enable_thinking: false }
     return b
   }
 
@@ -110,6 +112,13 @@ export async function chatCompletion(
   if (!json || !Array.isArray(json.choices) || json.choices.length === 0) {
     const detail = json?.error?.message || json?.message || JSON.stringify(json).slice(0, 200)
     throw new Error(`Invalid API response (no choices): ${detail}`)
+  }
+
+  // Qwen3 thinking mode fallback: content=null but response is in reasoning field
+  for (const choice of json.choices ?? []) {
+    if (choice.message?.content === null && (choice.message as Record<string, unknown>).reasoning) {
+      choice.message.content = (choice.message as Record<string, unknown>).reasoning as string
+    }
   }
 
   return json as OpenAIResponse

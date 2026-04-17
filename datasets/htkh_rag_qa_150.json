@@ -19,7 +19,6 @@
     "gt_metrics": [
       "faithfulness",
       "answer_relevancy",
-      "rouge",
       "token_f1"
     ],
     "gt_generated_date": "2026-03-13 16:52:01",

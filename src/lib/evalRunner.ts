@@ -200,8 +200,11 @@ async function processRecord({
     const judgePromises: Array<Promise<[string, number | null]>> = []
 
     if (metrics.includes('faithfulness') && record.context) {
+      const faithfulnessPrompt = record.reference
+        ? `Context: ${record.context}\n\nReference answer: ${record.reference}\n\nModel answer: ${output}\n\nRate faithfulness 1-10: does the model answer stay grounded in the context and align with the reference answer? (integer only):`
+        : `Context: ${record.context}\n\nAnswer: ${output}\n\nRate faithfulness 1-10 (integer only):`
       judgePromises.push(
-        judgeScore(judgeOpenAI, `Context: ${record.context}\n\nAnswer: ${output}\n\nRate faithfulness 1-10 (integer only):`, abortSignal)
+        judgeScore(judgeOpenAI, faithfulnessPrompt, abortSignal)
           .then(v => ['faithfulness', v] as [string, number | null])
       )
     }
