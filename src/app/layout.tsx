@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={dmSans.variable}>
-      <body className="h-screen overflow-hidden bg-[var(--crab-bg)] font-sans antialiased text-[var(--crab-text)]">
+    <html lang="en" className={dmSans.variable} suppressHydrationWarning>
+      <body className="h-screen overflow-hidden bg-[var(--crab-bg)] font-sans antialiased text-[var(--crab-text)]" suppressHydrationWarning>
         <div className="flex h-screen">
           <Sidebar />
           <main className="flex-1 min-w-0 overflow-auto" suppressHydrationWarning>

@@ -214,6 +214,15 @@ async function processRecord({
           .then(v => ['answer_relevancy', v] as [string, number | null])
       )
     }
+    if (metrics.includes('answer_correctness') && record.reference) {
+      judgePromises.push(
+        judgeScore(
+          judgeOpenAI,
+          `Question: ${record.input}\n\nReference answer: ${record.reference}\n\nModel answer: ${output}\n\nRate how well the model answer aligns with the reference answer in content and factual correctness, 1-10 (10=fully aligned/equivalent, 5=partially correct, 1=completely wrong or missing). Accept semantically equivalent phrasing, different valid alternatives, and different ordering. Integer only:`,
+          abortSignal
+        ).then(v => ['answer_correctness', v] as [string, number | null])
+      )
+    }
     if (metrics.includes('criteria_score') && record.reference) {
       const criteria = record.reference.split('\n').map(s => s.trim()).filter(Boolean)
       if (criteria.length > 0) {

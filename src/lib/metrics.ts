@@ -373,6 +373,7 @@ export function computeMetrics(
       // faithfulness & answer_relevancy are LLM-as-judge — handled by evalRunner
       case 'faithfulness':
       case 'answer_relevancy':
+      case 'answer_correctness':
       // criteria_score is LLM-as-judge — handled by evalRunner
       case 'criteria_score':
       // New LLM judge metrics — handled by evalRunner

@@ -20,7 +20,8 @@
     },
     "gt_metrics": [
       "ast_accuracy",
-      "task_success_rate"
+      "task_success_rate",
+      "tool_call_exact"
     ],
     "agent_name": "Mai Linh",
     "app_code": "recruitment",

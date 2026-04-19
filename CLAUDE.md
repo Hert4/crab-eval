@@ -241,8 +241,9 @@ EvalRunner đọc `dataset.metadata.gt_metrics` để quyết định metric nà
 | `task_success_rate` | tool calling (name match only) |
 | `tool_call_exact` | tool calling (binary: đúng tool + đủ required keys) |
 | `criteria_score` | tool calling LLM judge (assertion criteria) |
-| `faithfulness` | QA/RAG LLM judge (answer grounded in context) |
-| `answer_relevancy` | QA/RAG LLM judge (answer relevant to question) |
+| `faithfulness` | QA/RAG LLM judge (answer grounded in context) — **chỉ fire khi record có `context` hoặc `metadata.source_text`** |
+| `answer_relevancy` | QA/RAG LLM judge (answer relevant to question) — không cần context/reference |
+| `answer_correctness` | LLM judge so output vs reference (không cần context). Dùng cho analysis/recommendation/forecast — chấp nhận semantic equivalence + alternative valid answers |
 
 ## visualEvalRunner.ts — simulation engine
 
