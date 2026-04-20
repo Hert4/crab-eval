@@ -228,6 +228,16 @@ EvalRunner đọc `dataset.metadata.gt_metrics` để quyết định metric nà
 - `faithfulness`, `answer_relevancy` → gọi judge model
 - `tool_call_exact`, `criteria_score` → cần `expected_tool_calls`
 
+## Multi-model eval (parallel)
+
+`startEval(datasets, config: EvalConfig)` nhận `EvalConfig.targets: EvalTarget[]` — chạy **song song** tất cả target qua `Promise.allSettled`. Mỗi target có semaphore riêng với cùng `concurrency`. Judge + datasets dùng chung. Mỗi target tạo 1 `RunResult` + runId riêng, post `/api/results` độc lập → leaderboard thấy N row.
+
+- `EvalTarget` phải tự chứa `apiKey` (runner **không** gọi `getApiKey` nữa — page giải mã từ `agent.apiKeyName` hoặc `'target_api_key'` trước khi gọi)
+- `evalSessionStore.runs: Record<modelId, ModelRunSlot>` — mỗi slot có logs/progress/overallProgress/isDone riêng; top-level `isRunning`/`isDone`/`overallProgress` là aggregate (Sidebar vẫn dùng được)
+- Run page `/run`: panel "Target Models" tick chọn nhiều Agent; 0 agent → fallback Config target (`modelId='default'`). Phải có API key cho mọi target đã chọn, UI check trước khi submit.
+- Abort: 1 controller chung → Stop abort mọi target cùng lúc.
+- Cảnh báo tải: `N targets × concurrency` request song song tối đa.
+
 ## Metrics (client-side, không cần server)
 
 | Metric | Dùng cho |

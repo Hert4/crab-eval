@@ -1,5 +1,5 @@
 import { Dataset, DataRecord, RecordLog, RunResult, TaskRunResult } from '@/types'
-import { chatCompletion, OpenAIConfig, OpenAIMessage, OpenAITool, getApiKey } from './openai'
+import { chatCompletion, OpenAIConfig, OpenAIMessage, OpenAITool } from './openai'
 import { computeMetrics, avgScores } from './metrics'
 import {
   useEvalSessionStore,
@@ -7,18 +7,25 @@ import {
   abortEval,
 } from '@/store/evalSessionStore'
 
+// ── Public types ─────────────────────────────────────────────────────
+export interface EvalTarget {
+  modelId: string          // slot key (agent id hoặc 'default')
+  modelName: string        // display name
+  baseUrl: string
+  model: string
+  maxTokens: number
+  temperature: number
+  apiKey: string
+  systemPrompt: string
+}
+
 export interface EvalConfig {
-  targetConfig: {
-    baseUrl: string
-    model: string
-    maxTokens: number
-    temperature: number
-    systemPrompt: string
-  }
+  targets: EvalTarget[]
   judgeConfig: {
     baseUrl: string
     model: string
     enabled: boolean
+    apiKey: string
   }
   concurrency?: number
 }
@@ -33,8 +40,6 @@ export interface EvalProgress {
   status: 'running' | 'done' | 'error'
   log?: RecordLog
 }
-
-export type ProgressCallback = (p: EvalProgress) => void
 
 // ── Retry wrapper (5 attempts, exponential backoff) ──────────────────
 const MAX_RETRIES = 5
@@ -110,14 +115,21 @@ export async function startEval(
   config: EvalConfig
 ): Promise<void> {
   if (_runningPromise) return
+  if (!config.targets.length) {
+    useEvalSessionStore.getState().setError('No target models selected')
+    return
+  }
 
   const store = useEvalSessionStore.getState()
-  const totalRecords = datasets.reduce((s, d) => s + d.data.length, 0)
-  store.startSession(totalRecords)
+  const totalRecordsPerModel = datasets.reduce((s, d) => s + d.data.length, 0)
+  store.startSession(
+    config.targets.map(t => ({ modelId: t.modelId, modelName: t.modelName, model: t.model })),
+    totalRecordsPerModel
+  )
 
   const controller = getEvalController()
 
-  _runningPromise = _runEval(datasets, config, controller.signal)
+  _runningPromise = _runAllTargets(datasets, config, controller.signal)
     .catch((e) => {
       if (e instanceof DOMException && e.name === 'AbortError') {
         useEvalSessionStore.getState().stopSession()
@@ -138,6 +150,7 @@ export function stopEval() {
 
 // ── Per-record processing args/result ───────────────────────────────
 interface ProcessRecordArgs {
+  modelId: string
   record: DataRecord
   di: number
   ri: number
@@ -146,8 +159,9 @@ interface ProcessRecordArgs {
   taskName: string
   metrics: string[]
   targetOpenAI: OpenAIConfig
+  targetSystemPrompt: string
   judgeOpenAI: OpenAIConfig
-  config: EvalConfig
+  judgeEnabled: boolean
   abortSignal: AbortSignal
 }
 
@@ -158,11 +172,11 @@ interface ProcessRecordResult {
 }
 
 async function processRecord({
-  record, di, ri, datasetLength, datasets, taskName, metrics,
-  targetOpenAI, judgeOpenAI, config, abortSignal,
+  modelId, record, di, ri, datasetLength, datasets, taskName, metrics,
+  targetOpenAI, targetSystemPrompt, judgeOpenAI, judgeEnabled, abortSignal,
 }: ProcessRecordArgs): Promise<ProcessRecordResult> {
   const s = useEvalSessionStore.getState()
-  s.updateProgress({
+  s.updateProgress(modelId, {
     datasetIndex: di,
     datasetTotal: datasets.length,
     datasetName: taskName,
@@ -178,7 +192,7 @@ async function processRecord({
   let error: string | undefined
 
   try {
-    const messages = buildMessages(record, config.targetConfig.systemPrompt)
+    const messages = buildMessages(record, targetSystemPrompt)
     const tools = record.tools as OpenAITool[] | undefined
     const res = await chatCompletionWithRetry(targetOpenAI, messages, abortSignal, tools)
     const choice = res.choices?.[0]
@@ -196,7 +210,7 @@ async function processRecord({
   const scores = computeMetrics(recordForMetrics, output, metrics)
 
   // LLM-as-judge — all judge calls for this record run in parallel
-  if (config.judgeConfig.enabled && !abortSignal.aborted) {
+  if (judgeEnabled && !abortSignal.aborted) {
     const judgePromises: Array<Promise<[string, number | null]>> = []
 
     if (metrics.includes('faithfulness') && record.context) {
@@ -310,8 +324,8 @@ async function processRecord({
   }
 
   const s2 = useEvalSessionStore.getState()
-  s2.appendLog(log)
-  s2.updateProgress({
+  s2.appendLog(modelId, log)
+  s2.updateProgress(modelId, {
     datasetIndex: di,
     datasetTotal: datasets.length,
     datasetName: taskName,
@@ -325,28 +339,51 @@ async function processRecord({
   return { log, scores, error: !!error }
 }
 
-// ── Internal eval pipeline ───────────────────────────────────────────
-async function _runEval(
+// ── Run all targets in parallel ──────────────────────────────────────
+async function _runAllTargets(
   datasets: Dataset[],
   config: EvalConfig,
   abortSignal: AbortSignal
 ): Promise<void> {
-  const targetApiKey = getApiKey('target_api_key')
-  const judgeApiKey = getApiKey('judge_api_key')
-
-  const targetOpenAI: OpenAIConfig = {
-    baseUrl: config.targetConfig.baseUrl,
-    apiKey: targetApiKey,
-    model: config.targetConfig.model,
-    maxTokens: config.targetConfig.maxTokens,
-    temperature: config.targetConfig.temperature,
-  }
-
   const judgeOpenAI: OpenAIConfig = {
     baseUrl: config.judgeConfig.baseUrl,
-    apiKey: judgeApiKey,
+    apiKey: config.judgeConfig.apiKey,
     model: config.judgeConfig.model,
     temperature: 0,   // deterministic judge — no randomness
+  }
+
+  const concurrencyLimit = Math.max(1, Math.min(10, config.concurrency ?? 3))
+
+  // Each target gets its own semaphore but shares the abort signal + judge
+  const targetPromises = config.targets.map(target =>
+    _runEvalForTarget(target, datasets, judgeOpenAI, config.judgeConfig.enabled, concurrencyLimit, abortSignal)
+      .catch((e) => {
+        if (e instanceof DOMException && e.name === 'AbortError') throw e
+        useEvalSessionStore.getState().setModelError(target.modelId, String(e))
+      })
+  )
+
+  await Promise.allSettled(targetPromises)
+
+  // If aborted, propagate so the outer handler marks the session stopped
+  if (abortSignal.aborted) throw new DOMException('Aborted', 'AbortError')
+}
+
+// ── Single-target eval pipeline ──────────────────────────────────────
+async function _runEvalForTarget(
+  target: EvalTarget,
+  datasets: Dataset[],
+  judgeOpenAI: OpenAIConfig,
+  judgeEnabled: boolean,
+  concurrencyLimit: number,
+  abortSignal: AbortSignal
+): Promise<void> {
+  const targetOpenAI: OpenAIConfig = {
+    baseUrl: target.baseUrl,
+    apiKey: target.apiKey,
+    model: target.model,
+    maxTokens: target.maxTokens,
+    temperature: target.temperature,
   }
 
   const runId = crypto.randomUUID()
@@ -355,10 +392,8 @@ async function _runEval(
   const taskScores: Record<string, Record<string, number>> = {}
 
   let processedTotal = 0
-  const totalRecords = useEvalSessionStore.getState().totalRecords ||
-    datasets.reduce((s, d) => s + d.data.length, 0)
+  const totalRecords = datasets.reduce((s, d) => s + d.data.length, 0)
 
-  const concurrencyLimit = Math.max(1, Math.min(10, config.concurrency ?? 3))
   const acquire = makeSemaphore(concurrencyLimit)
 
   for (let di = 0; di < datasets.length; di++) {
@@ -375,25 +410,28 @@ async function _runEval(
         if (abortSignal.aborted) return null
 
         const result = await processRecord({
+          modelId: target.modelId,
           record, di, ri,
           datasetLength: dataset.data.length,
           datasets, taskName, metrics,
-          targetOpenAI, judgeOpenAI, config, abortSignal,
+          targetOpenAI,
+          targetSystemPrompt: target.systemPrompt,
+          judgeOpenAI,
+          judgeEnabled,
+          abortSignal,
         })
 
-        // JS is single-threaded — ++ between awaits is atomic
         processedTotal++
         useEvalSessionStore.getState().setOverallProgress(
+          target.modelId,
           Math.round((processedTotal / totalRecords) * 100)
         )
         return result
       })
     )
 
-    // Wait for all records in this dataset (in parallel, up to concurrencyLimit)
     const results = await Promise.all(recordPromises)
 
-    // Collect logs in original dataset order
     for (const result of results) {
       if (result === null) continue
       logs.push(result.log)
@@ -413,39 +451,38 @@ async function _runEval(
     taskScores[taskName] = avgScore
   }
 
-  if (!abortSignal.aborted) {
-    const result: RunResult = {
-      runId,
-      model: config.targetConfig.model,
-      baseUrl: config.targetConfig.baseUrl,
-      date: new Date().toISOString().replace('T', ' ').slice(0, 19),
-      durationMs: Date.now() - startTime,
-      tasks: taskScores,
-      taskDetails: taskResults,
-      // store judge identity so results are reproducible
-      ...(config.judgeConfig?.enabled && {
-        judgeModel: config.judgeConfig.model,
-        judgeBaseUrl: config.judgeConfig.baseUrl,
-      }),
-    }
+  if (abortSignal.aborted) return
 
-    // Save to localStorage (strips taskDetails to avoid quota issues)
-    const { useResultsStore } = await import('@/store/resultsStore')
-    useResultsStore.getState().upsertRun(result)
-
-    // Save to disk: results/<model>/<task>.json
-    try {
-      await fetch('/api/results', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(result),
-      })
-    } catch (e) {
-      console.warn('[evalRunner] Failed to save results to disk:', e)
-    }
-
-    useEvalSessionStore.getState().setDone()
+  const result: RunResult = {
+    runId,
+    model: target.model,
+    baseUrl: target.baseUrl,
+    date: new Date().toISOString().replace('T', ' ').slice(0, 19),
+    durationMs: Date.now() - startTime,
+    tasks: taskScores,
+    taskDetails: taskResults,
+    ...(judgeEnabled && {
+      judgeModel: judgeOpenAI.model,
+      judgeBaseUrl: judgeOpenAI.baseUrl,
+    }),
   }
+
+  // Save to localStorage (strips taskDetails to avoid quota issues)
+  const { useResultsStore } = await import('@/store/resultsStore')
+  useResultsStore.getState().upsertRun(result)
+
+  // Save to disk: results/<model>/<task>.json
+  try {
+    await fetch('/api/results', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(result),
+    })
+  } catch (e) {
+    console.warn('[evalRunner] Failed to save results to disk:', e)
+  }
+
+  useEvalSessionStore.getState().setModelDone(target.modelId)
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────

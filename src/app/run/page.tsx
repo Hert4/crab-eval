@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useDatasetsStore } from '@/store/datasetsStore'
 import { useConfigStore } from '@/store/configStore'
 import { useAgentsStore } from '@/store/agentsStore'
@@ -7,10 +7,11 @@ import { useEvalSessionStore } from '@/store/evalSessionStore'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { toast } from 'sonner'
-import { startEval, stopEval, EvalConfig } from '@/lib/evalRunner'
+import { startEval, stopEval, EvalConfig, EvalTarget } from '@/lib/evalRunner'
+import { getApiKey } from '@/lib/openai'
 import {
   Play, Square, CheckCircle2, XCircle, Loader2, Trophy,
-  AlertCircle, RefreshCw, Trash2, Settings, Database, ChevronRight,
+  AlertCircle, RefreshCw, Trash2, Settings, Database, ChevronRight, Users,
 } from 'lucide-react'
 import { CrawdAnim } from '@/components/ui/CrawdAnim'
 import { FailurePatternsPanel } from '@/components/ui/FailurePatternsPanel'
@@ -25,7 +26,8 @@ export default function RunPage() {
   const [hydrated, setHydrated] = useState(false)
 
   const {
-    isRunning, isDone, progress, logs, overallProgress, errorMessage, reset,
+    isRunning, isDone, overallProgress, errorMessage, reset,
+    runs, runOrder,
   } = useEvalSessionStore()
 
   useEffect(() => { setHydrated(true) }, [])
@@ -40,16 +42,41 @@ export default function RunPage() {
     })
   }, [datasets])
 
+  const [selectedAgentIds, setSelectedAgentIds] = useState<Set<string>>(new Set())
+  useEffect(() => {
+    setSelectedAgentIds(prev => {
+      const next = new Set(prev)
+      next.forEach(id => { if (!agents.find(a => a.id === id)) next.delete(id) })
+      return next
+    })
+  }, [agents])
+
   const selectedDatasets = datasets.filter(d => selectedIds.has(d.id))
+  const selectedAgents = agents.filter(a => selectedAgentIds.has(a.id))
   const totalRecords = selectedDatasets.reduce((s, d) => s + d.data.length, 0)
-  const hasConfig = !!(config.targetBaseUrl && config.targetModel)
-  const canRun = selectedDatasets.length > 0 && hasConfig
+
+  const hasDefaultTarget = !!(config.targetBaseUrl && config.targetModel)
+  const effectiveModelCount = selectedAgents.length > 0 ? selectedAgents.length : (hasDefaultTarget ? 1 : 0)
+  const canRun = selectedDatasets.length > 0 && effectiveModelCount > 0
+
+  // ── Tab state — which model's log is visible ──────────────────────
+  const [activeTab, setActiveTab] = useState<string | null>(null)
+  useEffect(() => {
+    if (runOrder.length > 0 && (!activeTab || !runOrder.includes(activeTab))) {
+      setActiveTab(runOrder[0])
+    }
+    if (runOrder.length === 0) setActiveTab(null)
+  }, [runOrder, activeTab])
+
+  const activeSlot = activeTab ? runs[activeTab] : null
+  const activeLogs = activeSlot?.logs ?? []
+  const doneLogs = activeLogs.filter(l => l.status === 'done').length
+  const errorLogs = activeLogs.filter(l => l.status === 'error').length
 
   const logScrollRef = useRef<HTMLDivElement>(null)
   const [highlightedPatternId, setHighlightedPatternId] = useState<string | null>(null)
   const [highlightedIds, setHighlightedIds] = useState<Set<string> | null>(null)
 
-  // Reset highlights when starting a new run
   useEffect(() => {
     if (!isDone && !isRunning) {
       setHighlightedPatternId(null)
@@ -61,28 +88,67 @@ export default function RunPage() {
     const el = logScrollRef.current
     const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 120
     if (nearBottom || isRunning) el.scrollTop = el.scrollHeight
-  }, [logs.length, isRunning])
+  }, [activeLogs.length, isRunning])
 
   const handleRun = async () => {
     if (!selectedDatasets.length) { toast.error('Select at least one dataset'); return }
-    if (!hasConfig) { toast.error('Configure target model first'); return }
-    const evalConfig: EvalConfig = {
-      targetConfig: {
+
+    // Build targets
+    const targets: EvalTarget[] = []
+    const missingKeys: string[] = []
+
+    if (selectedAgents.length > 0) {
+      for (const a of selectedAgents) {
+        const apiKey = getApiKey(a.apiKeyName)
+        if (!apiKey) missingKeys.push(a.name)
+        targets.push({
+          modelId: a.id,
+          modelName: a.name,
+          baseUrl: a.baseUrl,
+          model: a.model,
+          maxTokens: a.maxTokens,
+          temperature: a.temperature,
+          apiKey,
+          systemPrompt: config.targetSystemPrompt,
+        })
+      }
+    } else {
+      if (!hasDefaultTarget) { toast.error('Configure target model first'); return }
+      const apiKey = getApiKey('target_api_key')
+      if (!apiKey) missingKeys.push('Default target (Config)')
+      targets.push({
+        modelId: 'default',
+        modelName: 'Target (from Config)',
         baseUrl: config.targetBaseUrl,
         model: config.targetModel,
         maxTokens: config.targetMaxTokens,
         temperature: config.targetTemperature,
+        apiKey,
         systemPrompt: config.targetSystemPrompt,
-      },
+      })
+    }
+
+    if (missingKeys.length > 0) {
+      toast.error(`Missing API key for: ${missingKeys.join(', ')}`)
+      return
+    }
+
+    const evalConfig: EvalConfig = {
+      targets,
       judgeConfig: {
         baseUrl: config.judgeBaseUrl,
         model: config.judgeModel,
         enabled: config.judgeEnabled,
+        apiKey: getApiKey('judge_api_key'),
       },
       concurrency: config.concurrency,
     }
     await startEval(selectedDatasets, evalConfig)
-    toast.success('Evaluation started — you can navigate away and come back.')
+    toast.success(
+      targets.length === 1
+        ? 'Evaluation started — you can navigate away and come back.'
+        : `Evaluation started on ${targets.length} models in parallel.`
+    )
   }
 
   const handleStop = () => { stopEval(); toast('Eval stopped') }
@@ -94,27 +160,53 @@ export default function RunPage() {
       return next
     })
   }
+  const toggleAgent = (id: string) => {
+    setSelectedAgentIds(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
 
   useEffect(() => {
     if (errorMessage) toast.error(`Eval failed: ${errorMessage}`)
   }, [errorMessage])
 
-  if (!hydrated) return null
+  const progressLabel = useMemo(() => {
+    if (!isRunning) return null
+    if (runOrder.length === 0) return 'Starting…'
+    const running = runOrder.map(id => runs[id]).filter(s => s?.isRunning)
+    if (running.length === 0) return 'Finishing…'
+    if (running.length === 1 && running[0].progress) {
+      const p = running[0].progress
+      return (
+        <>
+          <span className="font-medium text-[var(--crab-text)]">{running[0].modelName}</span>
+          <span className="text-[var(--crab-text-muted)]">
+            {' · '}{p.datasetName} · dataset {p.datasetIndex + 1}/{p.datasetTotal} · record {p.recordIndex}/{p.recordTotal}
+          </span>
+        </>
+      )
+    }
+    return (
+      <span className="text-[var(--crab-text-muted)]">
+        Running <span className="font-medium text-[var(--crab-text)]">{running.length}</span> model{running.length !== 1 ? 's' : ''} in parallel
+      </span>
+    )
+  }, [isRunning, runOrder, runs])
 
-  const doneLogs = logs.filter(l => l.status === 'done').length
-  const errorLogs = logs.filter(l => l.status === 'error').length
+  if (!hydrated) return null
 
   return (
     <div className="flex flex-col h-screen">
 
       {/* ── Header ──────────────────────────────────────────── */}
       <div className="shrink-0 border-b border-[var(--crab-border)] bg-[var(--crab-bg)]">
-        {/* Top bar */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4">
           <div>
             <h1 className="text-xl font-semibold text-[var(--crab-text)] tracking-tight">Run Evaluation</h1>
             <p className="text-[var(--crab-text-muted)] text-xs mt-0.5">
-              Select datasets on the left, then run against your configured model.
+              Pick target models and datasets, then run. Multiple models run in parallel.
             </p>
           </div>
 
@@ -147,22 +239,14 @@ export default function RunPage() {
           </div>
         </div>
 
-        {/* Progress bar — only when running or done */}
         {(isRunning || isDone) && (
           <div className="px-6 pb-4">
             <div className="flex items-center justify-between mb-1.5">
               <span className="text-xs text-[var(--crab-text-muted)]">
-                {isRunning ? (
-                  progress ? (
-                    <>
-                      <span className="font-medium text-[var(--crab-text)]">{progress.datasetName}</span>
-                      <span className="text-[var(--crab-text-muted)]"> · dataset {progress.datasetIndex + 1}/{progress.datasetTotal} · record {progress.recordIndex}/{progress.recordTotal}</span>
-                    </>
-                  ) : 'Starting…'
-                ) : (
+                {isRunning ? progressLabel : (
                   <span className="text-emerald-400 font-medium flex items-center gap-1.5">
                     <CheckCircle2 size={12} />
-                    Complete — {doneLogs} done{errorLogs > 0 ? `, ${errorLogs} errors` : ''}
+                    Complete — {runOrder.length} model{runOrder.length !== 1 ? 's' : ''} finished
                   </span>
                 )}
               </span>
@@ -176,52 +260,101 @@ export default function RunPage() {
       {/* ── Body ────────────────────────────────────────────── */}
       <div className="flex-1 min-h-0 flex">
 
-        {/* ── LEFT: Dataset picker ─────────────────────────── */}
+        {/* ── LEFT: Target + Dataset picker ─────────────────── */}
         <div className="w-72 shrink-0 flex flex-col border-r border-[var(--crab-border)] bg-[var(--crab-bg-secondary)]">
 
-          {/* Model summary card */}
-          <div className="shrink-0 mx-3 mt-3 mb-2 rounded-xl border border-[var(--crab-border)] bg-[var(--crab-bg)] px-4 py-3">
-            <div className="flex items-center justify-between mb-2">
+          {/* Target Models section */}
+          <div className="shrink-0 mx-3 mt-3 mb-2 rounded-xl border border-[var(--crab-border)] bg-[var(--crab-bg)] overflow-hidden">
+            <div className="flex items-center justify-between px-4 pt-3 pb-2">
               <span className="text-[11px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wider flex items-center gap-1.5">
-                <Settings size={11} /> Target Model
+                <Users size={11} /> Target Models
               </span>
-              <Link href="/config" className="text-[10px] text-[var(--crab-text-muted)] hover:text-[var(--crab-accent)] transition-colors">
-                Edit
-              </Link>
+              {agents.length > 0 && (
+                <div className="flex gap-2">
+                  <button onClick={() => setSelectedAgentIds(new Set(agents.map(a => a.id)))}
+                    className="text-[10px] text-[var(--crab-text-muted)] hover:text-[var(--crab-accent)] transition-colors">All</button>
+                  <button onClick={() => setSelectedAgentIds(new Set())}
+                    className="text-[10px] text-[var(--crab-text-muted)] hover:text-[var(--crab-text)] transition-colors">None</button>
+                </div>
+              )}
             </div>
-            {hasConfig ? (
-              <div className="space-y-1">
-                {(() => {
-                  const agent = agents.find(a => a.model === config.targetModel && a.baseUrl === config.targetBaseUrl)
-                  return agent ? (
+
+            {agents.length === 0 ? (
+              // No agents → show default-target fallback
+              <div className="px-4 pb-3 space-y-1.5">
+                {hasDefaultTarget ? (
+                  <>
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] text-[var(--crab-text-muted)]">Agent</span>
-                      <span className="text-[11px] font-medium text-[var(--crab-accent)] truncate max-w-[140px]">{agent.name}</span>
+                      <span className="text-[11px] text-[var(--crab-text-muted)]">Using Config</span>
+                      <span className="text-[11px] font-semibold text-[var(--crab-text)] truncate max-w-[140px]">{config.targetModel}</span>
                     </div>
-                  ) : null
-                })()}
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-[var(--crab-text-muted)]">Model</span>
-                  <span className="text-[11px] font-semibold text-[var(--crab-text)] truncate max-w-[140px]">{config.targetModel}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-[var(--crab-text-muted)]">Temp</span>
-                  <span className="text-[11px] text-[var(--crab-text)]">{config.targetTemperature}</span>
-                </div>
-                {config.judgeEnabled && config.judgeModel && (
-                  <div className="flex items-center justify-between pt-1 mt-1 border-t border-[var(--crab-border-subtle)]">
-                    <span className="text-[11px] text-[var(--crab-text-muted)]">Judge</span>
-                    <span className="text-[11px] font-medium text-[var(--crab-accent)] truncate max-w-[140px]">{config.judgeModel}</span>
-                  </div>
+                    <Link href="/agents" className="block text-[10px] text-[var(--crab-accent)] hover:underline">
+                      + Add agents for multi-model runs
+                    </Link>
+                  </>
+                ) : (
+                  <Link href="/config" className="flex items-center gap-1.5 text-xs text-[var(--crab-accent)] hover:underline">
+                    <AlertCircle size={12} />
+                    Configure model first
+                    <ChevronRight size={11} />
+                  </Link>
                 )}
               </div>
             ) : (
-              <Link href="/config" className="flex items-center gap-1.5 text-xs text-[var(--crab-accent)] hover:underline">
-                <AlertCircle size={12} />
-                Configure model first
-                <ChevronRight size={11} />
-              </Link>
+              <div className="max-h-48 overflow-y-auto px-2 pb-2">
+                {agents.map(a => {
+                  const checked = selectedAgentIds.has(a.id)
+                  const slot = runs[a.id]
+                  return (
+                    <div key={a.id}
+                      onClick={() => !isRunning && toggleAgent(a.id)}
+                      className={`group relative flex items-center gap-2 px-2.5 py-2 rounded-lg cursor-pointer transition-all ${
+                        checked
+                          ? 'bg-[var(--crab-accent-light)] border border-[var(--crab-accent-medium)]'
+                          : 'hover:bg-[var(--crab-bg-hover)] border border-transparent'
+                      } ${isRunning ? 'pointer-events-none opacity-60' : ''}`}
+                    >
+                      <div className={`w-3.5 h-3.5 rounded-md shrink-0 border-2 flex items-center justify-center transition-all ${
+                        checked
+                          ? 'bg-[var(--crab-accent)] border-[var(--crab-accent)]'
+                          : 'border-[var(--crab-border-strong)]'
+                      }`}>
+                        {checked && <CheckCircle2 size={9} className="text-[var(--crab-text)]" strokeWidth={3} />}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-[11px] font-medium text-[var(--crab-text)] truncate leading-tight">{a.name}</div>
+                        <div className="text-[9.5px] text-[var(--crab-text-muted)] truncate">{a.model}</div>
+                      </div>
+                      {slot && (isRunning || isDone) && (
+                        <span className="text-[9px] font-mono tabular-nums shrink-0" style={{
+                          color: slot.errorMessage ? '#f87171'
+                            : slot.isDone ? '#8fba7a'
+                            : 'var(--crab-accent)',
+                        }}>
+                          {slot.overallProgress}%
+                        </span>
+                      )}
+                    </div>
+                  )
+                })}
+                {selectedAgentIds.size === 0 && hasDefaultTarget && (
+                  <div className="mt-1 px-2.5 py-1.5 text-[10px] text-[var(--crab-text-muted)] italic">
+                    None selected → fallback to Config target (<span className="text-[var(--crab-text-secondary)] font-mono">{config.targetModel}</span>)
+                  </div>
+                )}
+              </div>
             )}
+
+            {/* Judge + concurrency summary */}
+            <div className="border-t border-[var(--crab-border-subtle)] px-4 py-2 bg-[var(--crab-bg-secondary)]/50 text-[10px] text-[var(--crab-text-muted)] flex items-center justify-between">
+              <span className="flex items-center gap-1.5">
+                <Settings size={9} />
+                <Link href="/config" className="hover:text-[var(--crab-accent)] transition-colors">
+                  {config.judgeEnabled ? <>Judge: <span className="text-[var(--crab-text-secondary)] font-mono">{config.judgeModel}</span></> : 'Judge: off'}
+                </Link>
+              </span>
+              <span>concurrency <span className="font-mono text-[var(--crab-text-secondary)]">{config.concurrency}</span></span>
+            </div>
           </div>
 
           {/* Dataset list header */}
@@ -237,7 +370,7 @@ export default function RunPage() {
             </div>
           </div>
 
-          {/* Dataset list — scrollable */}
+          {/* Dataset list */}
           <div className="flex-1 min-h-0 overflow-y-auto px-3">
             {datasets.length === 0 ? (
               <div className="py-8 text-center space-y-3">
@@ -304,15 +437,17 @@ export default function RunPage() {
             )}
           </div>
 
-          {/* Footer — selection summary + run button */}
+          {/* Footer */}
           <div className="shrink-0 border-t border-[var(--crab-border)] p-3 space-y-2">
             {datasets.length > 0 && (
               <div className="flex items-center justify-between text-[11px] text-[var(--crab-text-muted)] px-1">
                 <span>
-                  <span className="font-semibold text-[var(--crab-text)]">{selectedDatasets.length}</span> datasets selected
+                  <span className="font-semibold text-[var(--crab-text)]">{effectiveModelCount}</span> model{effectiveModelCount !== 1 ? 's' : ''}
+                  {' × '}
+                  <span className="font-semibold text-[var(--crab-text)]">{selectedDatasets.length}</span> dataset{selectedDatasets.length !== 1 ? 's' : ''}
                 </span>
                 <span>
-                  <span className="font-semibold text-[var(--crab-text)]">{totalRecords}</span> records
+                  ≈ <span className="font-semibold text-[var(--crab-text)]">{effectiveModelCount * totalRecords}</span> calls
                 </span>
               </div>
             )}
@@ -349,20 +484,27 @@ export default function RunPage() {
 
         {/* ── RIGHT: Live log ──────────────────────────────── */}
         <div className="flex-1 min-w-0 flex flex-col bg-[var(--crab-bg)]">
-          {logs.length === 0 && !isRunning ? (
+          {runOrder.length === 0 && !isRunning ? (
 
             /* Empty state */
             <div className="flex-1 flex flex-col items-center justify-center gap-4 text-[var(--crab-text-muted)]">
               <CrawdAnim type="sleeping" size={96} />
-              {!hasConfig ? (
+              {effectiveModelCount === 0 ? (
                 <div className="text-center space-y-2">
-                  <p className="text-sm font-medium text-[var(--crab-text)]">Model not configured</p>
-                  <p className="text-xs">Set up your target model before running.</p>
-                  <Link href="/config">
-                    <Button size="sm" className="mt-2 bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-1.5">
-                      <Settings size={13} /> Go to Config
-                    </Button>
-                  </Link>
+                  <p className="text-sm font-medium text-[var(--crab-text)]">No target model</p>
+                  <p className="text-xs">Pick an Agent or configure the default target.</p>
+                  <div className="flex items-center justify-center gap-2 mt-2">
+                    <Link href="/agents">
+                      <Button size="sm" variant="outline" className="border-[var(--crab-border-strong)] text-[var(--crab-text-secondary)] flex items-center gap-1.5">
+                        <Users size={13} /> Agents
+                      </Button>
+                    </Link>
+                    <Link href="/config">
+                      <Button size="sm" className="bg-[var(--crab-accent)] text-[var(--crab-text)] hover:bg-[var(--crab-accent-hover)] flex items-center gap-1.5">
+                        <Settings size={13} /> Config
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               ) : datasets.length === 0 ? (
                 <div className="text-center space-y-2">
@@ -378,7 +520,7 @@ export default function RunPage() {
                 <div className="text-center space-y-1">
                   <p className="text-sm font-medium text-[var(--crab-text)]">Ready to run</p>
                   <p className="text-xs">
-                    {selectedDatasets.length} dataset{selectedDatasets.length !== 1 ? 's' : ''} selected · {totalRecords} records
+                    {effectiveModelCount} model{effectiveModelCount !== 1 ? 's' : ''} · {selectedDatasets.length} dataset{selectedDatasets.length !== 1 ? 's' : ''} · {totalRecords} records
                   </p>
                 </div>
               )}
@@ -386,10 +528,43 @@ export default function RunPage() {
 
           ) : (
             <>
+              {/* Tab bar — one tab per model */}
+              {runOrder.length > 1 && (
+                <div className="shrink-0 flex items-center gap-0 border-b border-[var(--crab-border)] bg-[var(--crab-bg-secondary)] px-3 overflow-x-auto">
+                  {runOrder.map(id => {
+                    const slot = runs[id]
+                    if (!slot) return null
+                    const active = activeTab === id
+                    const statusColor = slot.errorMessage ? '#f87171'
+                      : slot.isDone ? '#8fba7a'
+                      : slot.isRunning ? 'var(--crab-accent)'
+                      : 'var(--crab-text-muted)'
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => setActiveTab(id)}
+                        className={`shrink-0 flex items-center gap-2 px-3 py-2 text-[11px] border-b-2 transition-all ${
+                          active
+                            ? 'border-[var(--crab-accent)] text-[var(--crab-text)]'
+                            : 'border-transparent text-[var(--crab-text-muted)] hover:text-[var(--crab-text)]'
+                        }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: statusColor }} />
+                        <span className="font-medium truncate max-w-[160px]">{slot.modelName}</span>
+                        <span className="font-mono tabular-nums text-[10px] text-[var(--crab-text-muted)]">{slot.overallProgress}%</span>
+                        {slot.isRunning && <Loader2 size={10} className="animate-spin text-[var(--crab-accent)]" />}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+
               {/* Log header */}
               <div className="shrink-0 px-5 py-3 border-b border-[var(--crab-border)] bg-[var(--crab-bg-secondary)] flex items-center gap-3">
-                <h3 className="text-xs font-semibold text-[var(--crab-text)]">Results log</h3>
-                <span className="text-[10px] text-[var(--crab-text-muted)] bg-[var(--crab-bg-tertiary)] px-2 py-0.5 rounded-full tabular-nums">{logs.length}</span>
+                <h3 className="text-xs font-semibold text-[var(--crab-text)]">
+                  {activeSlot ? activeSlot.modelName : 'Results log'}
+                </h3>
+                <span className="text-[10px] text-[var(--crab-text-muted)] bg-[var(--crab-bg-tertiary)] px-2 py-0.5 rounded-full tabular-nums">{activeLogs.length}</span>
                 {doneLogs > 0 && (
                   <span className="text-[10px] text-emerald-400 flex items-center gap-1">
                     <CheckCircle2 size={10} /> {doneLogs} done
@@ -400,7 +575,12 @@ export default function RunPage() {
                     <XCircle size={10} /> {errorLogs} errors
                   </span>
                 )}
-                {isRunning && <Loader2 size={11} className="animate-spin text-[var(--crab-accent)] ml-auto" />}
+                {activeSlot?.errorMessage && (
+                  <span className="text-[10px] text-red-400 flex items-center gap-1 truncate">
+                    <AlertCircle size={10} /> {activeSlot.errorMessage}
+                  </span>
+                )}
+                {activeSlot?.isRunning && <Loader2 size={11} className="animate-spin text-[var(--crab-accent)] ml-auto" />}
               </div>
 
               {/* Column headers */}
@@ -412,10 +592,10 @@ export default function RunPage() {
                 <span className="text-[10px] font-semibold text-[var(--crab-text-muted)] uppercase tracking-wider text-right">Time</span>
               </div>
 
-              {/* Scrollable log rows */}
+              {/* Log rows */}
               <div ref={logScrollRef} className="flex-1 overflow-y-auto">
                 <div className="divide-y divide-[var(--crab-border-subtle)]">
-                  {logs.map((l, i) => {
+                  {activeLogs.map((l, i) => {
                     const isHighlighted = highlightedIds !== null && highlightedIds.has(l.id)
                     const isDimmed = highlightedIds !== null && !highlightedIds.has(l.id)
                     return (
@@ -427,18 +607,12 @@ export default function RunPage() {
                         opacity: isDimmed ? 0.3 : 1,
                       }}
                     >
-
-                      {/* Status */}
                       <div className="shrink-0 flex items-center justify-center">
                         {l.status === 'running' && <Loader2 size={12} className="animate-spin text-[var(--crab-accent)]" />}
                         {l.status === 'done'    && <CheckCircle2 size={12} className="text-emerald-400" />}
                         {l.status === 'error'   && <XCircle size={12} className="text-red-400" />}
                       </div>
-
-                      {/* ID */}
                       <span className="font-mono text-[11px] text-[var(--crab-text-muted)] truncate">{l.id}</span>
-
-                      {/* Output */}
                       <span className="text-[11px] truncate text-[var(--crab-text-secondary)]">
                         {l.error
                           ? <span className="text-red-400 flex items-center gap-1"><AlertCircle size={10} />{l.error}</span>
@@ -447,8 +621,6 @@ export default function RunPage() {
                             : l.output || <span className="text-[var(--crab-text-muted)] italic">—</span>
                         }
                       </span>
-
-                      {/* Scores — only show when status is done */}
                       <div className="flex gap-1 shrink-0 justify-end">
                         {l.status === 'done' && Object.entries(l.scores).map(([k, v]) => (
                           <span key={k} title={k} className={`text-[10px] px-2 py-0.5 rounded-md font-mono font-semibold ${
@@ -463,8 +635,6 @@ export default function RunPage() {
                           <span className="text-[10px] text-[var(--crab-text-muted)] italic">scoring…</span>
                         )}
                       </div>
-
-                      {/* Duration */}
                       <span className="text-[10px] text-[var(--crab-text-muted)] tabular-nums text-right shrink-0">
                         {l.durationMs !== undefined ? `${l.durationMs}ms` : ''}
                       </span>
@@ -474,10 +644,9 @@ export default function RunPage() {
                 </div>
               </div>
 
-              {/* Failure patterns — shown when eval is done */}
-              {isDone && (
+              {isDone && activeLogs.length > 0 && (
                 <FailurePatternsPanel
-                  logs={logs}
+                  logs={activeLogs}
                   highlightedPatternId={highlightedPatternId}
                   onHighlight={(ids, patternId) => {
                     setHighlightedIds(ids)
