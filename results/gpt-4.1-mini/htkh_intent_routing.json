@@ -1,8 +1,8 @@
 {
-  "runId": "db8ef879-870c-4628-8545-036119aad1f4",
+  "runId": "e669a9c8-96f8-4099-bc43-627c2307d2f7",
   "model": "gpt-4.1-mini",
-  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
-  "date": "2026-04-06 04:57:55",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 08:21:35",
   "taskName": "htkh_intent_routing",
   "taskType": "qa",
   "description": "HTKH — Route intent: rag_answer / human_handoff / clarify / chitchat",
@@ -11,7 +11,7 @@
     "accuracy"
   ],
   "scores": {
-    "accuracy": 66.88
+    "accuracy": 68.18
   },
   "logs": [
     {
@@ -24,13 +24,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1646,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1278.5441,
-        "source": "htkh"
-      }
+      "durationMs": 1097
     },
     {
       "id": "htkh_intent_routing_0002",
@@ -42,13 +36,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 993,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1002.7342,
-        "source": "htkh"
-      }
+      "durationMs": 802
     },
     {
       "id": "htkh_intent_routing_0003",
@@ -60,13 +48,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 786,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1207.3941,
-        "source": "htkh"
-      }
+      "durationMs": 1018
     },
     {
       "id": "htkh_intent_routing_0004",
@@ -78,13 +60,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 720,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2799.1852,
-        "source": "htkh"
-      }
+      "durationMs": 542
     },
     {
       "id": "htkh_intent_routing_0005",
@@ -96,13 +72,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 718,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 993.3268,
-        "source": "htkh"
-      }
+      "durationMs": 590
     },
     {
       "id": "htkh_intent_routing_0006",
@@ -114,13 +84,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 650,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2613.5641,
-        "source": "htkh"
-      }
+      "durationMs": 598
     },
     {
       "id": "htkh_intent_routing_0007",
@@ -132,13 +96,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 605,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 801.5187,
-        "source": "htkh"
-      }
+      "durationMs": 610
     },
     {
       "id": "htkh_intent_routing_0008",
@@ -150,13 +108,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 587,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1794.3634,
-        "source": "htkh"
-      }
+      "durationMs": 596
     },
     {
       "id": "htkh_intent_routing_0009",
@@ -168,13 +120,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 713,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1228.3423,
-        "source": "htkh"
-      }
+      "durationMs": 624
     },
     {
       "id": "htkh_intent_routing_0010",
@@ -186,13 +132,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 689,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1683.6239,
-        "source": "htkh"
-      }
+      "durationMs": 681
     },
     {
       "id": "htkh_intent_routing_0011",
@@ -204,13 +144,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 632,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1251.8597,
-        "source": "htkh"
-      }
+      "durationMs": 585
     },
     {
       "id": "htkh_intent_routing_0012",
@@ -222,13 +156,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 621,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1570.1049,
-        "source": "htkh"
-      }
+      "durationMs": 579
     },
     {
       "id": "htkh_intent_routing_0013",
@@ -240,13 +168,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 651,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1541.341,
-        "source": "htkh"
-      }
+      "durationMs": 579
     },
     {
       "id": "htkh_intent_routing_0014",
@@ -258,13 +180,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 996,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2498.6697,
-        "source": "htkh"
-      }
+      "durationMs": 587
     },
     {
       "id": "htkh_intent_routing_0015",
@@ -276,13 +192,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 685,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1130.7153,
-        "source": "htkh"
-      }
+      "durationMs": 656
     },
     {
       "id": "htkh_intent_routing_0016",
@@ -294,13 +204,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 601,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3232.562,
-        "source": "htkh"
-      }
+      "durationMs": 748
     },
     {
       "id": "htkh_intent_routing_0017",
@@ -312,13 +216,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 746,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1578.4698,
-        "source": "htkh"
-      }
+      "durationMs": 843
     },
     {
       "id": "htkh_intent_routing_0018",
@@ -330,13 +228,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 685,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 898.8961,
-        "source": "htkh"
-      }
+      "durationMs": 799
     },
     {
       "id": "htkh_intent_routing_0019",
@@ -348,13 +240,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 690,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1066.7395,
-        "source": "htkh"
-      }
+      "durationMs": 1241
     },
     {
       "id": "htkh_intent_routing_0020",
@@ -366,13 +252,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 737,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 934.5692,
-        "source": "htkh"
-      }
+      "durationMs": 651
     },
     {
       "id": "htkh_intent_routing_0021",
@@ -384,13 +264,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 655,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3123.3618,
-        "source": "htkh"
-      }
+      "durationMs": 614
     },
     {
       "id": "htkh_intent_routing_0022",
@@ -402,13 +276,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 654,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1526.0782,
-        "source": "htkh"
-      }
+      "durationMs": 778
     },
     {
       "id": "htkh_intent_routing_0023",
@@ -420,13 +288,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 657,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 914.1727,
-        "source": "htkh"
-      }
+      "durationMs": 568
     },
     {
       "id": "htkh_intent_routing_0024",
@@ -438,13 +300,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 617,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 870.9811,
-        "source": "htkh"
-      }
+      "durationMs": 593
     },
     {
       "id": "htkh_intent_routing_0025",
@@ -456,13 +312,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 669,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1220.736,
-        "source": "htkh"
-      }
+      "durationMs": 619
     },
     {
       "id": "htkh_intent_routing_0026",
@@ -474,13 +324,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 680,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1296.1889,
-        "source": "htkh"
-      }
+      "durationMs": 771
     },
     {
       "id": "htkh_intent_routing_0027",
@@ -492,31 +336,19 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 595,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1213.9447,
-        "source": "htkh"
-      }
+      "durationMs": 716
     },
     {
       "id": "htkh_intent_routing_0028",
       "status": "done",
       "input": "uh đúng rồi",
       "reference": "rag_answer",
-      "output": "chitchat",
+      "output": "rag_answer",
       "tool_calls": [],
       "scores": {
-        "accuracy": 0
+        "accuracy": 100
       },
-      "durationMs": 597,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 856.6286,
-        "source": "htkh"
-      }
+      "durationMs": 613
     },
     {
       "id": "htkh_intent_routing_0029",
@@ -528,31 +360,19 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 703,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 885.2322,
-        "source": "htkh"
-      }
+      "durationMs": 624
     },
     {
       "id": "htkh_intent_routing_0030",
       "status": "done",
       "input": "Nhưng giờ tìm nhanh ko tắt đc\nKo bào được hệ thống\nvào",
       "reference": "clarify",
-      "output": "rag_answer",
+      "output": "clarify",
       "tool_calls": [],
       "scores": {
-        "accuracy": 0
+        "accuracy": 100
       },
-      "durationMs": 679,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1078.4515,
-        "source": "htkh"
-      }
+      "durationMs": 599
     },
     {
       "id": "htkh_intent_routing_0031",
@@ -564,13 +384,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 594,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2050.1836,
-        "source": "htkh"
-      }
+      "durationMs": 586
     },
     {
       "id": "htkh_intent_routing_0032",
@@ -582,13 +396,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1033,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1267.553,
-        "source": "htkh"
-      }
+      "durationMs": 556
     },
     {
       "id": "htkh_intent_routing_0033",
@@ -600,13 +408,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 648,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 891.602,
-        "source": "htkh"
-      }
+      "durationMs": 555
     },
     {
       "id": "htkh_intent_routing_0034",
@@ -618,13 +420,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 674,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1695.4007,
-        "source": "htkh"
-      }
+      "durationMs": 561
     },
     {
       "id": "htkh_intent_routing_0035",
@@ -636,13 +432,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 998,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1227.3321,
-        "source": "htkh"
-      }
+      "durationMs": 593
     },
     {
       "id": "htkh_intent_routing_0036",
@@ -654,13 +444,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 834,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2546.2515,
-        "source": "htkh"
-      }
+      "durationMs": 582
     },
     {
       "id": "htkh_intent_routing_0037",
@@ -672,13 +456,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 683,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2400.2637,
-        "source": "htkh"
-      }
+      "durationMs": 793
     },
     {
       "id": "htkh_intent_routing_0038",
@@ -690,13 +468,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 711,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2300.5257,
-        "source": "htkh"
-      }
+      "durationMs": 586
     },
     {
       "id": "htkh_intent_routing_0039",
@@ -708,13 +480,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 707,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2416.173,
-        "source": "htkh"
-      }
+      "durationMs": 560
     },
     {
       "id": "htkh_intent_routing_0040",
@@ -726,13 +492,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 638,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1583.3825,
-        "source": "htkh"
-      }
+      "durationMs": 606
     },
     {
       "id": "htkh_intent_routing_0041",
@@ -744,13 +504,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 674,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1738.4607,
-        "source": "htkh"
-      }
+      "durationMs": 590
     },
     {
       "id": "htkh_intent_routing_0042",
@@ -762,13 +516,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 831,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2916.5539,
-        "source": "htkh"
-      }
+      "durationMs": 785
     },
     {
       "id": "htkh_intent_routing_0043",
@@ -780,13 +528,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 694,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 4136.2345,
-        "source": "htkh"
-      }
+      "durationMs": 618
     },
     {
       "id": "htkh_intent_routing_0044",
@@ -798,13 +540,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 718,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1505.4904,
-        "source": "htkh"
-      }
+      "durationMs": 611
     },
     {
       "id": "htkh_intent_routing_0045",
@@ -816,13 +552,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 687,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1607.4747,
-        "source": "htkh"
-      }
+      "durationMs": 1194
     },
     {
       "id": "htkh_intent_routing_0046",
@@ -834,13 +564,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 601,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1508.6957,
-        "source": "htkh"
-      }
+      "durationMs": 576
     },
     {
       "id": "htkh_intent_routing_0047",
@@ -852,13 +576,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 713,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1116.0707,
-        "source": "htkh"
-      }
+      "durationMs": 1103
     },
     {
       "id": "htkh_intent_routing_0048",
@@ -870,13 +588,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 927,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1297.174,
-        "source": "htkh"
-      }
+      "durationMs": 623
     },
     {
       "id": "htkh_intent_routing_0049",
@@ -888,13 +600,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 729,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1060.0879,
-        "source": "htkh"
-      }
+      "durationMs": 610
     },
     {
       "id": "htkh_intent_routing_0050",
@@ -906,13 +612,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 681,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1789.0806,
-        "source": "htkh"
-      }
+      "durationMs": 653
     },
     {
       "id": "htkh_intent_routing_0051",
@@ -924,13 +624,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 720,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1830.235,
-        "source": "htkh"
-      }
+      "durationMs": 692
     },
     {
       "id": "htkh_intent_routing_0052",
@@ -942,13 +636,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 668,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2536.6642,
-        "source": "htkh"
-      }
+      "durationMs": 623
     },
     {
       "id": "htkh_intent_routing_0053",
@@ -960,13 +648,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 818,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1102.5234,
-        "source": "htkh"
-      }
+      "durationMs": 929
     },
     {
       "id": "htkh_intent_routing_0054",
@@ -978,13 +660,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 703,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1026.8752,
-        "source": "htkh"
-      }
+      "durationMs": 729
     },
     {
       "id": "htkh_intent_routing_0055",
@@ -996,13 +672,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 623,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 677.5923,
-        "source": "htkh"
-      }
+      "durationMs": 636
     },
     {
       "id": "htkh_intent_routing_0056",
@@ -1014,13 +684,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 652,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1255.2049,
-        "source": "htkh"
-      }
+      "durationMs": 614
     },
     {
       "id": "htkh_intent_routing_0057",
@@ -1032,13 +696,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 616,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2230.6566,
-        "source": "htkh"
-      }
+      "durationMs": 748
     },
     {
       "id": "htkh_intent_routing_0058",
@@ -1050,13 +708,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 762,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1230.3864,
-        "source": "htkh"
-      }
+      "durationMs": 613
     },
     {
       "id": "htkh_intent_routing_0059",
@@ -1068,13 +720,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 704,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1344.7539,
-        "source": "htkh"
-      }
+      "durationMs": 595
     },
     {
       "id": "htkh_intent_routing_0060",
@@ -1086,13 +732,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 690,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1624.8037,
-        "source": "htkh"
-      }
+      "durationMs": 601
     },
     {
       "id": "htkh_intent_routing_0061",
@@ -1104,13 +744,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 598,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2079.0697,
-        "source": "htkh"
-      }
+      "durationMs": 580
     },
     {
       "id": "htkh_intent_routing_0062",
@@ -1122,13 +756,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 582,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1071.6852,
-        "source": "htkh"
-      }
+      "durationMs": 641
     },
     {
       "id": "htkh_intent_routing_0063",
@@ -1140,13 +768,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 672,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 4784.2617,
-        "source": "htkh"
-      }
+      "durationMs": 709
     },
     {
       "id": "htkh_intent_routing_0064",
@@ -1158,13 +780,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1216,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3673.121,
-        "source": "htkh"
-      }
+      "durationMs": 739
     },
     {
       "id": "htkh_intent_routing_0065",
@@ -1176,13 +792,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 584,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2250.0127,
-        "source": "htkh"
-      }
+      "durationMs": 631
     },
     {
       "id": "htkh_intent_routing_0066",
@@ -1194,13 +804,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 716,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1089.3215,
-        "source": "htkh"
-      }
+      "durationMs": 620
     },
     {
       "id": "htkh_intent_routing_0067",
@@ -1212,13 +816,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 855,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1209.2264,
-        "source": "htkh"
-      }
+      "durationMs": 696
     },
     {
       "id": "htkh_intent_routing_0068",
@@ -1230,13 +828,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 627,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1308.2322,
-        "source": "htkh"
-      }
+      "durationMs": 585
     },
     {
       "id": "htkh_intent_routing_0069",
@@ -1248,13 +840,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 694,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1354.0012,
-        "source": "htkh"
-      }
+      "durationMs": 616
     },
     {
       "id": "htkh_intent_routing_0070",
@@ -1266,13 +852,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 651,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1160.518,
-        "source": "htkh"
-      }
+      "durationMs": 733
     },
     {
       "id": "htkh_intent_routing_0071",
@@ -1284,13 +864,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 704,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1423.8595,
-        "source": "htkh"
-      }
+      "durationMs": 990
     },
     {
       "id": "htkh_intent_routing_0072",
@@ -1302,13 +876,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 700,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2204.8692,
-        "source": "htkh"
-      }
+      "durationMs": 633
     },
     {
       "id": "htkh_intent_routing_0073",
@@ -1320,13 +888,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 703,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1140.6163,
-        "source": "htkh"
-      }
+      "durationMs": 773
     },
     {
       "id": "htkh_intent_routing_0074",
@@ -1338,13 +900,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 801,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1505.8848,
-        "source": "htkh"
-      }
+      "durationMs": 603
     },
     {
       "id": "htkh_intent_routing_0075",
@@ -1356,13 +912,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 618,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1250.1214,
-        "source": "htkh"
-      }
+      "durationMs": 686
     },
     {
       "id": "htkh_intent_routing_0076",
@@ -1374,13 +924,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 607,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1153.1425,
-        "source": "htkh"
-      }
+      "durationMs": 698
     },
     {
       "id": "htkh_intent_routing_0077",
@@ -1392,13 +936,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 672,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 813.0161,
-        "source": "htkh"
-      }
+      "durationMs": 605
     },
     {
       "id": "htkh_intent_routing_0078",
@@ -1410,13 +948,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 653,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1071.8357,
-        "source": "htkh"
-      }
+      "durationMs": 531
     },
     {
       "id": "htkh_intent_routing_0079",
@@ -1428,13 +960,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 759,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2951.5167,
-        "source": "htkh"
-      }
+      "durationMs": 593
     },
     {
       "id": "htkh_intent_routing_0080",
@@ -1446,13 +972,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 780,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2361.0446,
-        "source": "htkh"
-      }
+      "durationMs": 608
     },
     {
       "id": "htkh_intent_routing_0081",
@@ -1464,13 +984,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 686,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3168.3917,
-        "source": "htkh"
-      }
+      "durationMs": 578
     },
     {
       "id": "htkh_intent_routing_0082",
@@ -1482,13 +996,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 603,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2350.2107,
-        "source": "htkh"
-      }
+      "durationMs": 590
     },
     {
       "id": "htkh_intent_routing_0083",
@@ -1500,13 +1008,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 693,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2306.8871,
-        "source": "htkh"
-      }
+      "durationMs": 540
     },
     {
       "id": "htkh_intent_routing_0084",
@@ -1518,13 +1020,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 709,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1728.698,
-        "source": "htkh"
-      }
+      "durationMs": 1026
     },
     {
       "id": "htkh_intent_routing_0085",
@@ -1536,13 +1032,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 718,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 856.2338,
-        "source": "htkh"
-      }
+      "durationMs": 506
     },
     {
       "id": "htkh_intent_routing_0086",
@@ -1554,13 +1044,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 653,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 842.194,
-        "source": "htkh"
-      }
+      "durationMs": 640
     },
     {
       "id": "htkh_intent_routing_0087",
@@ -1572,13 +1056,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 607,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1138.8976,
-        "source": "htkh"
-      }
+      "durationMs": 606
     },
     {
       "id": "htkh_intent_routing_0088",
@@ -1590,13 +1068,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 744,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1517.7374,
-        "source": "htkh"
-      }
+      "durationMs": 566
     },
     {
       "id": "htkh_intent_routing_0089",
@@ -1608,13 +1080,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 616,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3593.867,
-        "source": "htkh"
-      }
+      "durationMs": 584
     },
     {
       "id": "htkh_intent_routing_0090",
@@ -1626,13 +1092,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1015,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1641.446,
-        "source": "htkh"
-      }
+      "durationMs": 598
     },
     {
       "id": "htkh_intent_routing_0091",
@@ -1644,13 +1104,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 700,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2939.2588,
-        "source": "htkh"
-      }
+      "durationMs": 744
     },
     {
       "id": "htkh_intent_routing_0092",
@@ -1662,13 +1116,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 664,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 5324.8171,
-        "source": "htkh"
-      }
+      "durationMs": 750
     },
     {
       "id": "htkh_intent_routing_0093",
@@ -1680,13 +1128,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 753,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 8083.7878,
-        "source": "htkh"
-      }
+      "durationMs": 625
     },
     {
       "id": "htkh_intent_routing_0094",
@@ -1698,13 +1140,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 690,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1424.2565,
-        "source": "htkh"
-      }
+      "durationMs": 637
     },
     {
       "id": "htkh_intent_routing_0095",
@@ -1716,13 +1152,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 629,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2438.9937,
-        "source": "htkh"
-      }
+      "durationMs": 666
     },
     {
       "id": "htkh_intent_routing_0096",
@@ -1734,13 +1164,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 622,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1905.3959,
-        "source": "htkh"
-      }
+      "durationMs": 629
     },
     {
       "id": "htkh_intent_routing_0097",
@@ -1752,13 +1176,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 685,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2588.6353,
-        "source": "htkh"
-      }
+      "durationMs": 578
     },
     {
       "id": "htkh_intent_routing_0098",
@@ -1770,13 +1188,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 730,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2643.3048,
-        "source": "htkh"
-      }
+      "durationMs": 722
     },
     {
       "id": "htkh_intent_routing_0099",
@@ -1788,13 +1200,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 589,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3118.6073,
-        "source": "htkh"
-      }
+      "durationMs": 654
     },
     {
       "id": "htkh_intent_routing_0100",
@@ -1806,13 +1212,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 676,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3618.6241,
-        "source": "htkh"
-      }
+      "durationMs": 799
     },
     {
       "id": "htkh_intent_routing_0101",
@@ -1824,13 +1224,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 700,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 4107.2206,
-        "source": "htkh"
-      }
+      "durationMs": 697
     },
     {
       "id": "htkh_intent_routing_0102",
@@ -1842,13 +1236,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 725,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1057.3523,
-        "source": "htkh"
-      }
+      "durationMs": 625
     },
     {
       "id": "htkh_intent_routing_0103",
@@ -1860,13 +1248,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 649,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 5409.2355,
-        "source": "htkh"
-      }
+      "durationMs": 582
     },
     {
       "id": "htkh_intent_routing_0104",
@@ -1878,13 +1260,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 729,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3035.1518,
-        "source": "htkh"
-      }
+      "durationMs": 664
     },
     {
       "id": "htkh_intent_routing_0105",
@@ -1896,13 +1272,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 979,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 909.9188,
-        "source": "htkh"
-      }
+      "durationMs": 604
     },
     {
       "id": "htkh_intent_routing_0106",
@@ -1914,13 +1284,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 691,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3079.3355,
-        "source": "htkh"
-      }
+      "durationMs": 658
     },
     {
       "id": "htkh_intent_routing_0107",
@@ -1932,13 +1296,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 957,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3733.4638,
-        "source": "htkh"
-      }
+      "durationMs": 758
     },
     {
       "id": "htkh_intent_routing_0108",
@@ -1950,13 +1308,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 688,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3618.2426,
-        "source": "htkh"
-      }
+      "durationMs": 733
     },
     {
       "id": "htkh_intent_routing_0109",
@@ -1968,13 +1320,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 607,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 970.9483,
-        "source": "htkh"
-      }
+      "durationMs": 810
     },
     {
       "id": "htkh_intent_routing_0110",
@@ -1986,13 +1332,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 697,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2691.1362,
-        "source": "htkh"
-      }
+      "durationMs": 568
     },
     {
       "id": "htkh_intent_routing_0111",
@@ -2004,13 +1344,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 726,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 4880.49,
-        "source": "htkh"
-      }
+      "durationMs": 576
     },
     {
       "id": "htkh_intent_routing_0112",
@@ -2022,13 +1356,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 603,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3413.9757,
-        "source": "htkh"
-      }
+      "durationMs": 628
     },
     {
       "id": "htkh_intent_routing_0113",
@@ -2040,13 +1368,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 571,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3721.8749,
-        "source": "htkh"
-      }
+      "durationMs": 556
     },
     {
       "id": "htkh_intent_routing_0114",
@@ -2058,13 +1380,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 714,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1401.4745,
-        "source": "htkh"
-      }
+      "durationMs": 540
     },
     {
       "id": "htkh_intent_routing_0115",
@@ -2076,13 +1392,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 633,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1545.5775,
-        "source": "htkh"
-      }
+      "durationMs": 574
     },
     {
       "id": "htkh_intent_routing_0116",
@@ -2094,13 +1404,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 747,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 730.9222,
-        "source": "htkh"
-      }
+      "durationMs": 573
     },
     {
       "id": "htkh_intent_routing_0117",
@@ -2112,13 +1416,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 944,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3634.0545,
-        "source": "htkh"
-      }
+      "durationMs": 604
     },
     {
       "id": "htkh_intent_routing_0118",
@@ -2130,13 +1428,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 595,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1929.9149,
-        "source": "htkh"
-      }
+      "durationMs": 562
     },
     {
       "id": "htkh_intent_routing_0119",
@@ -2148,13 +1440,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 746,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1838.2106,
-        "source": "htkh"
-      }
+      "durationMs": 878
     },
     {
       "id": "htkh_intent_routing_0120",
@@ -2166,13 +1452,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 660,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3624.7934,
-        "source": "htkh"
-      }
+      "durationMs": 766
     },
     {
       "id": "htkh_intent_routing_0121",
@@ -2184,13 +1464,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 688,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1420.2787,
-        "source": "htkh"
-      }
+      "durationMs": 599
     },
     {
       "id": "htkh_intent_routing_0122",
@@ -2202,13 +1476,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 732,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 6690.8119,
-        "source": "htkh"
-      }
+      "durationMs": 1224
     },
     {
       "id": "htkh_intent_routing_0123",
@@ -2220,13 +1488,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 699,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 5296.629,
-        "source": "htkh"
-      }
+      "durationMs": 668
     },
     {
       "id": "htkh_intent_routing_0124",
@@ -2238,13 +1500,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 671,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 4310.8083,
-        "source": "htkh"
-      }
+      "durationMs": 869
     },
     {
       "id": "htkh_intent_routing_0125",
@@ -2256,13 +1512,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 608,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3727.862,
-        "source": "htkh"
-      }
+      "durationMs": 1608
     },
     {
       "id": "htkh_intent_routing_0126",
@@ -2274,13 +1524,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 667,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1305.3584,
-        "source": "htkh"
-      }
+      "durationMs": 621
     },
     {
       "id": "htkh_intent_routing_0127",
@@ -2292,13 +1536,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 583,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 6014.4349,
-        "source": "htkh"
-      }
+      "durationMs": 639
     },
     {
       "id": "htkh_intent_routing_0128",
@@ -2310,13 +1548,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 663,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1162.9851,
-        "source": "htkh"
-      }
+      "durationMs": 896
     },
     {
       "id": "htkh_intent_routing_0129",
@@ -2328,13 +1560,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 694,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2112.8054,
-        "source": "htkh"
-      }
+      "durationMs": 719
     },
     {
       "id": "htkh_intent_routing_0130",
@@ -2346,13 +1572,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 597,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 5213.3185,
-        "source": "htkh"
-      }
+      "durationMs": 585
     },
     {
       "id": "htkh_intent_routing_0131",
@@ -2364,13 +1584,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 578,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2032.6653,
-        "source": "htkh"
-      }
+      "durationMs": 659
     },
     {
       "id": "htkh_intent_routing_0132",
@@ -2382,13 +1596,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 732,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2510.274,
-        "source": "htkh"
-      }
+      "durationMs": 599
     },
     {
       "id": "htkh_intent_routing_0133",
@@ -2400,13 +1608,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 862,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1078.4219,
-        "source": "htkh"
-      }
+      "durationMs": 644
     },
     {
       "id": "htkh_intent_routing_0134",
@@ -2418,13 +1620,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 715,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2057.9506,
-        "source": "htkh"
-      }
+      "durationMs": 798
     },
     {
       "id": "htkh_intent_routing_0135",
@@ -2436,13 +1632,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 781,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2255.8081,
-        "source": "htkh"
-      }
+      "durationMs": 981
     },
     {
       "id": "htkh_intent_routing_0136",
@@ -2454,13 +1644,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 826,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 4892.5642,
-        "source": "htkh"
-      }
+      "durationMs": 604
     },
     {
       "id": "htkh_intent_routing_0137",
@@ -2472,31 +1656,19 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 786,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1295.7623,
-        "source": "htkh"
-      }
+      "durationMs": 700
     },
     {
       "id": "htkh_intent_routing_0138",
       "status": "done",
       "input": "không hiển thị nút thự viện mẫu",
       "reference": "clarify",
-      "output": "human_handoff",
+      "output": "rag_answer",
       "tool_calls": [],
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 748,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2461.5339,
-        "source": "htkh"
-      }
+      "durationMs": 663
     },
     {
       "id": "htkh_intent_routing_0139",
@@ -2508,13 +1680,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 629,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2149.4815,
-        "source": "htkh"
-      }
+      "durationMs": 576
     },
     {
       "id": "htkh_intent_routing_0140",
@@ -2526,13 +1692,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 686,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1461.1411,
-        "source": "htkh"
-      }
+      "durationMs": 750
     },
     {
       "id": "htkh_intent_routing_0141",
@@ -2544,13 +1704,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 646,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2166.8929,
-        "source": "htkh"
-      }
+      "durationMs": 967
     },
     {
       "id": "htkh_intent_routing_0142",
@@ -2562,13 +1716,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 729,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1347.735,
-        "source": "htkh"
-      }
+      "durationMs": 1052
     },
     {
       "id": "htkh_intent_routing_0143",
@@ -2580,13 +1728,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 629,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1862.8403,
-        "source": "htkh"
-      }
+      "durationMs": 660
     },
     {
       "id": "htkh_intent_routing_0144",
@@ -2598,13 +1740,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 717,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1105.8207,
-        "source": "htkh"
-      }
+      "durationMs": 785
     },
     {
       "id": "htkh_intent_routing_0145",
@@ -2616,13 +1752,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 644,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1539.689,
-        "source": "htkh"
-      }
+      "durationMs": 920
     },
     {
       "id": "htkh_intent_routing_0146",
@@ -2634,13 +1764,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 635,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1133.8059,
-        "source": "htkh"
-      }
+      "durationMs": 900
     },
     {
       "id": "htkh_intent_routing_0147",
@@ -2652,13 +1776,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 675,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3598.4551,
-        "source": "htkh"
-      }
+      "durationMs": 764
     },
     {
       "id": "htkh_intent_routing_0148",
@@ -2670,13 +1788,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 703,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1818.706,
-        "source": "htkh"
-      }
+      "durationMs": 724
     },
     {
       "id": "htkh_intent_routing_0149",
@@ -2688,13 +1800,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 625,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2022.2624,
-        "source": "htkh"
-      }
+      "durationMs": 870
     },
     {
       "id": "htkh_intent_routing_0150",
@@ -2706,13 +1812,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 714,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 4336.4742,
-        "source": "htkh"
-      }
+      "durationMs": 585
     },
     {
       "id": "htkh_intent_routing_0151",
@@ -2724,13 +1824,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1002,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1989.6415,
-        "source": "htkh"
-      }
+      "durationMs": 1235
     },
     {
       "id": "htkh_intent_routing_0152",
@@ -2742,13 +1836,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 824,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 2162.6494,
-        "source": "htkh"
-      }
+      "durationMs": 557
     },
     {
       "id": "htkh_intent_routing_0153",
@@ -2760,13 +1848,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1076,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 1286.0534,
-        "source": "htkh"
-      }
+      "durationMs": 585
     },
     {
       "id": "htkh_intent_routing_0154",
@@ -2778,13 +1860,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1177,
-      "metadata": {
-        "task": "intent_routing",
-        "is_error": false,
-        "processing_ms": 3222.4399,
-        "source": "htkh"
-      }
+      "durationMs": 1241
     }
   ]
 }

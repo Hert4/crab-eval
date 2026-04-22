@@ -18,8 +18,7 @@
     "gt_task_type": "rag",
     "gt_metrics": [
       "faithfulness",
-      "answer_relevancy",
-      "token_f1"
+      "answer_relevancy"
     ],
     "gt_generated_date": "2026-03-13 16:52:01",
     "gt_model": "gpt-5.2"

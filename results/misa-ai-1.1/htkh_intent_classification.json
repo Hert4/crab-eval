@@ -1,8 +1,8 @@
 {
-  "runId": "3ebfc1bd-96f3-4882-acc2-4835ee9d3523",
+  "runId": "93adae52-5717-41b4-9abf-4fa477e0d2b8",
   "model": "misa-ai-1.1",
-  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
-  "date": "2026-04-06 07:47:22",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:45:34",
   "taskName": "htkh_intent_classification",
   "taskType": "qa",
   "description": "HTKH — Phân loại intent: request_human_handoff vs others",
@@ -11,7 +11,7 @@
     "accuracy"
   ],
   "scores": {
-    "accuracy": 94.67
+    "accuracy": 95.33
   },
   "logs": [
     {
@@ -24,7 +24,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 479
+      "durationMs": 962
     },
     {
       "id": "htkh_intent_classification_0002",
@@ -36,7 +36,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 431
+      "durationMs": 559
     },
     {
       "id": "htkh_intent_classification_0003",
@@ -48,7 +48,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 454
+      "durationMs": 1195
     },
     {
       "id": "htkh_intent_classification_0004",
@@ -60,7 +60,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 336
+      "durationMs": 923
     },
     {
       "id": "htkh_intent_classification_0005",
@@ -72,7 +72,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 503
+      "durationMs": 936
     },
     {
       "id": "htkh_intent_classification_0006",
@@ -84,7 +84,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 475
+      "durationMs": 859
     },
     {
       "id": "htkh_intent_classification_0007",
@@ -96,7 +96,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 466
+      "durationMs": 793
     },
     {
       "id": "htkh_intent_classification_0008",
@@ -108,7 +108,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 393
+      "durationMs": 1207
     },
     {
       "id": "htkh_intent_classification_0009",
@@ -120,7 +120,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 324
+      "durationMs": 1180
     },
     {
       "id": "htkh_intent_classification_0010",
@@ -132,7 +132,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 418
+      "durationMs": 1160
     },
     {
       "id": "htkh_intent_classification_0011",
@@ -144,7 +144,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 441
+      "durationMs": 928
     },
     {
       "id": "htkh_intent_classification_0012",
@@ -156,7 +156,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 387
+      "durationMs": 1506
     },
     {
       "id": "htkh_intent_classification_0013",
@@ -168,7 +168,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 311
+      "durationMs": 1093
     },
     {
       "id": "htkh_intent_classification_0014",
@@ -180,7 +180,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 391
+      "durationMs": 1687
     },
     {
       "id": "htkh_intent_classification_0015",
@@ -192,7 +192,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 421
+      "durationMs": 1143
     },
     {
       "id": "htkh_intent_classification_0016",
@@ -204,7 +204,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 475
+      "durationMs": 1531
     },
     {
       "id": "htkh_intent_classification_0017",
@@ -216,7 +216,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 354
+      "durationMs": 1085
     },
     {
       "id": "htkh_intent_classification_0018",
@@ -228,7 +228,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 398
+      "durationMs": 1476
     },
     {
       "id": "htkh_intent_classification_0019",
@@ -240,7 +240,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 345
+      "durationMs": 1148
     },
     {
       "id": "htkh_intent_classification_0020",
@@ -252,7 +252,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 346
+      "durationMs": 1107
     },
     {
       "id": "htkh_intent_classification_0021",
@@ -264,7 +264,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 473
+      "durationMs": 1321
     },
     {
       "id": "htkh_intent_classification_0022",
@@ -276,7 +276,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 368
+      "durationMs": 988
     },
     {
       "id": "htkh_intent_classification_0023",
@@ -288,7 +288,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 295
+      "durationMs": 1128
     },
     {
       "id": "htkh_intent_classification_0024",
@@ -300,7 +300,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 342
+      "durationMs": 1160
     },
     {
       "id": "htkh_intent_classification_0025",
@@ -312,7 +312,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 340
+      "durationMs": 1149
     },
     {
       "id": "htkh_intent_classification_0026",
@@ -324,7 +324,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 418
+      "durationMs": 1417
     },
     {
       "id": "htkh_intent_classification_0027",
@@ -336,7 +336,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 573
+      "durationMs": 1197
     },
     {
       "id": "htkh_intent_classification_0028",
@@ -348,7 +348,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 466
+      "durationMs": 1424
     },
     {
       "id": "htkh_intent_classification_0029",
@@ -360,7 +360,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 466
+      "durationMs": 881
     },
     {
       "id": "htkh_intent_classification_0030",
@@ -372,7 +372,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 470
+      "durationMs": 1142
     },
     {
       "id": "htkh_intent_classification_0031",
@@ -384,7 +384,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 418
+      "durationMs": 1379
     },
     {
       "id": "htkh_intent_classification_0032",
@@ -396,7 +396,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 420
+      "durationMs": 1542
     },
     {
       "id": "htkh_intent_classification_0033",
@@ -408,7 +408,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 222
+      "durationMs": 1107
     },
     {
       "id": "htkh_intent_classification_0034",
@@ -420,7 +420,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 392
+      "durationMs": 694
     },
     {
       "id": "htkh_intent_classification_0035",
@@ -432,7 +432,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 261
+      "durationMs": 914
     },
     {
       "id": "htkh_intent_classification_0036",
@@ -444,7 +444,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 487
+      "durationMs": 923
     },
     {
       "id": "htkh_intent_classification_0037",
@@ -456,7 +456,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 341
+      "durationMs": 1146
     },
     {
       "id": "htkh_intent_classification_0038",
@@ -468,7 +468,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 329
+      "durationMs": 1130
     },
     {
       "id": "htkh_intent_classification_0039",
@@ -480,7 +480,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 227
+      "durationMs": 1165
     },
     {
       "id": "htkh_intent_classification_0040",
@@ -492,7 +492,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 327
+      "durationMs": 938
     },
     {
       "id": "htkh_intent_classification_0041",
@@ -504,7 +504,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 238
+      "durationMs": 1132
     },
     {
       "id": "htkh_intent_classification_0042",
@@ -516,7 +516,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 293
+      "durationMs": 1332
     },
     {
       "id": "htkh_intent_classification_0043",
@@ -528,7 +528,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 333
+      "durationMs": 1445
     },
     {
       "id": "htkh_intent_classification_0044",
@@ -540,7 +540,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 334
+      "durationMs": 1636
     },
     {
       "id": "htkh_intent_classification_0045",
@@ -552,7 +552,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 239
+      "durationMs": 1591
     },
     {
       "id": "htkh_intent_classification_0046",
@@ -564,7 +564,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 401
+      "durationMs": 1158
     },
     {
       "id": "htkh_intent_classification_0047",
@@ -576,7 +576,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 216
+      "durationMs": 1403
     },
     {
       "id": "htkh_intent_classification_0048",
@@ -588,7 +588,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 397
+      "durationMs": 1237
     },
     {
       "id": "htkh_intent_classification_0049",
@@ -600,7 +600,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 246
+      "durationMs": 1254
     },
     {
       "id": "htkh_intent_classification_0050",
@@ -612,7 +612,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 306
+      "durationMs": 922
     },
     {
       "id": "htkh_intent_classification_0051",
@@ -624,7 +624,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 639
+      "durationMs": 974
     },
     {
       "id": "htkh_intent_classification_0052",
@@ -636,7 +636,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 503
+      "durationMs": 1134
     },
     {
       "id": "htkh_intent_classification_0053",
@@ -648,7 +648,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 424
+      "durationMs": 1169
     },
     {
       "id": "htkh_intent_classification_0054",
@@ -660,7 +660,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 253
+      "durationMs": 1568
     },
     {
       "id": "htkh_intent_classification_0055",
@@ -672,7 +672,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 322
+      "durationMs": 1181
     },
     {
       "id": "htkh_intent_classification_0056",
@@ -684,7 +684,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 341
+      "durationMs": 1121
     },
     {
       "id": "htkh_intent_classification_0057",
@@ -696,7 +696,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 305
+      "durationMs": 1180
     },
     {
       "id": "htkh_intent_classification_0058",
@@ -708,19 +708,19 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 673
+      "durationMs": 1431
     },
     {
       "id": "htkh_intent_classification_0059",
       "status": "done",
       "input": "Chị đang đầu ra",
       "reference": "others",
-      "output": "request_human_handoff",
+      "output": "others",
       "tool_calls": [],
       "scores": {
-        "accuracy": 0
+        "accuracy": 100
       },
-      "durationMs": 276
+      "durationMs": 1178
     },
     {
       "id": "htkh_intent_classification_0060",
@@ -732,7 +732,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 639
+      "durationMs": 938
     },
     {
       "id": "htkh_intent_classification_0061",
@@ -744,7 +744,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 476
+      "durationMs": 918
     },
     {
       "id": "htkh_intent_classification_0062",
@@ -756,7 +756,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 298
+      "durationMs": 984
     },
     {
       "id": "htkh_intent_classification_0063",
@@ -768,7 +768,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 308
+      "durationMs": 1149
     },
     {
       "id": "htkh_intent_classification_0064",
@@ -780,7 +780,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 243
+      "durationMs": 1650
     },
     {
       "id": "htkh_intent_classification_0065",
@@ -792,7 +792,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 695
+      "durationMs": 1183
     },
     {
       "id": "htkh_intent_classification_0066",
@@ -804,7 +804,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 627
+      "durationMs": 1177
     },
     {
       "id": "htkh_intent_classification_0067",
@@ -816,7 +816,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 424
+      "durationMs": 692
     },
     {
       "id": "htkh_intent_classification_0068",
@@ -828,7 +828,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 503
+      "durationMs": 542
     },
     {
       "id": "htkh_intent_classification_0069",
@@ -840,7 +840,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 400
+      "durationMs": 1163
     },
     {
       "id": "htkh_intent_classification_0070",
@@ -852,7 +852,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 762
+      "durationMs": 1142
     },
     {
       "id": "htkh_intent_classification_0071",
@@ -864,7 +864,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 225
+      "durationMs": 1350
     },
     {
       "id": "htkh_intent_classification_0072",
@@ -876,7 +876,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 622
+      "durationMs": 1700
     },
     {
       "id": "htkh_intent_classification_0073",
@@ -888,7 +888,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 627
+      "durationMs": 1560
     },
     {
       "id": "htkh_intent_classification_0074",
@@ -900,7 +900,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 235
+      "durationMs": 654
     },
     {
       "id": "htkh_intent_classification_0075",
@@ -912,7 +912,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 234
+      "durationMs": 1002
     },
     {
       "id": "htkh_intent_classification_0076",
@@ -924,7 +924,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 260
+      "durationMs": 1164
     },
     {
       "id": "htkh_intent_classification_0077",
@@ -936,7 +936,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 257
+      "durationMs": 1217
     },
     {
       "id": "htkh_intent_classification_0078",
@@ -948,7 +948,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 454
+      "durationMs": 989
     },
     {
       "id": "htkh_intent_classification_0079",
@@ -960,7 +960,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 831
+      "durationMs": 963
     },
     {
       "id": "htkh_intent_classification_0080",
@@ -972,7 +972,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 281
+      "durationMs": 1698
     },
     {
       "id": "htkh_intent_classification_0081",
@@ -984,7 +984,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 795
+      "durationMs": 1191
     },
     {
       "id": "htkh_intent_classification_0082",
@@ -996,7 +996,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 400
+      "durationMs": 1331
     },
     {
       "id": "htkh_intent_classification_0083",
@@ -1008,7 +1008,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 364
+      "durationMs": 2465
     },
     {
       "id": "htkh_intent_classification_0084",
@@ -1020,7 +1020,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 459
+      "durationMs": 1393
     },
     {
       "id": "htkh_intent_classification_0085",
@@ -1032,7 +1032,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 407
+      "durationMs": 1445
     },
     {
       "id": "htkh_intent_classification_0086",
@@ -1044,7 +1044,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 762
+      "durationMs": 722
     },
     {
       "id": "htkh_intent_classification_0087",
@@ -1056,7 +1056,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 762
+      "durationMs": 714
     },
     {
       "id": "htkh_intent_classification_0088",
@@ -1068,7 +1068,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 655
+      "durationMs": 568
     },
     {
       "id": "htkh_intent_classification_0089",
@@ -1080,7 +1080,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 478
+      "durationMs": 1413
     },
     {
       "id": "htkh_intent_classification_0090",
@@ -1092,7 +1092,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 541
+      "durationMs": 1594
     },
     {
       "id": "htkh_intent_classification_0091",
@@ -1104,7 +1104,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 233
+      "durationMs": 2036
     },
     {
       "id": "htkh_intent_classification_0092",
@@ -1116,7 +1116,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 238
+      "durationMs": 1191
     },
     {
       "id": "htkh_intent_classification_0093",
@@ -1128,7 +1128,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 579
+      "durationMs": 1194
     },
     {
       "id": "htkh_intent_classification_0094",
@@ -1140,7 +1140,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 583
+      "durationMs": 1003
     },
     {
       "id": "htkh_intent_classification_0095",
@@ -1152,7 +1152,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 403
+      "durationMs": 1234
     },
     {
       "id": "htkh_intent_classification_0096",
@@ -1164,7 +1164,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 229
+      "durationMs": 1223
     },
     {
       "id": "htkh_intent_classification_0097",
@@ -1176,7 +1176,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 426
+      "durationMs": 1445
     },
     {
       "id": "htkh_intent_classification_0098",
@@ -1188,7 +1188,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 236
+      "durationMs": 1353
     },
     {
       "id": "htkh_intent_classification_0099",
@@ -1200,7 +1200,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 234
+      "durationMs": 1229
     },
     {
       "id": "htkh_intent_classification_0100",
@@ -1212,7 +1212,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 435
+      "durationMs": 1018
     },
     {
       "id": "htkh_intent_classification_0101",
@@ -1224,7 +1224,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 301
+      "durationMs": 1254
     },
     {
       "id": "htkh_intent_classification_0102",
@@ -1236,7 +1236,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 401
+      "durationMs": 1237
     },
     {
       "id": "htkh_intent_classification_0103",
@@ -1248,7 +1248,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 432
+      "durationMs": 1421
     },
     {
       "id": "htkh_intent_classification_0104",
@@ -1260,7 +1260,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 354
+      "durationMs": 1591
     },
     {
       "id": "htkh_intent_classification_0105",
@@ -1272,7 +1272,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 236
+      "durationMs": 1564
     },
     {
       "id": "htkh_intent_classification_0106",
@@ -1284,7 +1284,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 417
+      "durationMs": 956
     },
     {
       "id": "htkh_intent_classification_0107",
@@ -1296,7 +1296,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 474
+      "durationMs": 561
     },
     {
       "id": "htkh_intent_classification_0108",
@@ -1308,7 +1308,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 403
+      "durationMs": 726
     },
     {
       "id": "htkh_intent_classification_0109",
@@ -1320,7 +1320,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 440
+      "durationMs": 1378
     },
     {
       "id": "htkh_intent_classification_0110",
@@ -1332,7 +1332,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 365
+      "durationMs": 1263
     },
     {
       "id": "htkh_intent_classification_0111",
@@ -1344,7 +1344,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 590
+      "durationMs": 1463
     },
     {
       "id": "htkh_intent_classification_0112",
@@ -1356,7 +1356,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 474
+      "durationMs": 1221
     },
     {
       "id": "htkh_intent_classification_0113",
@@ -1368,7 +1368,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 344
+      "durationMs": 1455
     },
     {
       "id": "htkh_intent_classification_0114",
@@ -1380,7 +1380,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 237
+      "durationMs": 1439
     },
     {
       "id": "htkh_intent_classification_0115",
@@ -1392,7 +1392,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 399
+      "durationMs": 1184
     },
     {
       "id": "htkh_intent_classification_0116",
@@ -1404,7 +1404,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 239
+      "durationMs": 995
     },
     {
       "id": "htkh_intent_classification_0117",
@@ -1416,7 +1416,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 211
+      "durationMs": 785
     },
     {
       "id": "htkh_intent_classification_0118",
@@ -1428,7 +1428,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 430
+      "durationMs": 818
     },
     {
       "id": "htkh_intent_classification_0119",
@@ -1440,7 +1440,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 262
+      "durationMs": 924
     },
     {
       "id": "htkh_intent_classification_0120",
@@ -1452,7 +1452,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 403
+      "durationMs": 1200
     },
     {
       "id": "htkh_intent_classification_0121",
@@ -1464,7 +1464,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 231
+      "durationMs": 1221
     },
     {
       "id": "htkh_intent_classification_0122",
@@ -1476,7 +1476,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 318
+      "durationMs": 1480
     },
     {
       "id": "htkh_intent_classification_0123",
@@ -1488,7 +1488,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 310
+      "durationMs": 1662
     },
     {
       "id": "htkh_intent_classification_0124",
@@ -1500,7 +1500,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 313
+      "durationMs": 1256
     },
     {
       "id": "htkh_intent_classification_0125",
@@ -1512,7 +1512,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 350
+      "durationMs": 890
     },
     {
       "id": "htkh_intent_classification_0126",
@@ -1524,7 +1524,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 260
+      "durationMs": 794
     },
     {
       "id": "htkh_intent_classification_0127",
@@ -1536,7 +1536,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 697
+      "durationMs": 787
     },
     {
       "id": "htkh_intent_classification_0128",
@@ -1548,7 +1548,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 610
+      "durationMs": 586
     },
     {
       "id": "htkh_intent_classification_0129",
@@ -1560,7 +1560,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 369
+      "durationMs": 1225
     },
     {
       "id": "htkh_intent_classification_0130",
@@ -1572,7 +1572,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 404
+      "durationMs": 1935
     },
     {
       "id": "htkh_intent_classification_0131",
@@ -1584,7 +1584,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 480
+      "durationMs": 1432
     },
     {
       "id": "htkh_intent_classification_0132",
@@ -1596,7 +1596,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1250
+      "durationMs": 1713
     },
     {
       "id": "htkh_intent_classification_0133",
@@ -1608,7 +1608,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1288
+      "durationMs": 1264
     },
     {
       "id": "htkh_intent_classification_0134",
@@ -1620,7 +1620,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1102
+      "durationMs": 1450
     },
     {
       "id": "htkh_intent_classification_0135",
@@ -1632,7 +1632,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1162
+      "durationMs": 1901
     },
     {
       "id": "htkh_intent_classification_0136",
@@ -1644,7 +1644,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 263
+      "durationMs": 966
     },
     {
       "id": "htkh_intent_classification_0137",
@@ -1656,7 +1656,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 418
+      "durationMs": 991
     },
     {
       "id": "htkh_intent_classification_0138",
@@ -1668,7 +1668,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 405
+      "durationMs": 596
     },
     {
       "id": "htkh_intent_classification_0139",
@@ -1680,7 +1680,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 221
+      "durationMs": 757
     },
     {
       "id": "htkh_intent_classification_0140",
@@ -1692,7 +1692,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 295
+      "durationMs": 1290
     },
     {
       "id": "htkh_intent_classification_0141",
@@ -1704,7 +1704,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 311
+      "durationMs": 2321
     },
     {
       "id": "htkh_intent_classification_0142",
@@ -1716,7 +1716,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 380
+      "durationMs": 2161
     },
     {
       "id": "htkh_intent_classification_0143",
@@ -1728,7 +1728,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 272
+      "durationMs": 1767
     },
     {
       "id": "htkh_intent_classification_0144",
@@ -1740,7 +1740,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 299
+      "durationMs": 1013
     },
     {
       "id": "htkh_intent_classification_0145",
@@ -1752,7 +1752,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 306
+      "durationMs": 1045
     },
     {
       "id": "htkh_intent_classification_0146",
@@ -1764,7 +1764,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 363
+      "durationMs": 986
     },
     {
       "id": "htkh_intent_classification_0147",
@@ -1776,7 +1776,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 346
+      "durationMs": 952
     },
     {
       "id": "htkh_intent_classification_0148",
@@ -1788,7 +1788,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 313
+      "durationMs": 1010
     },
     {
       "id": "htkh_intent_classification_0149",
@@ -1800,7 +1800,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 300
+      "durationMs": 1198
     },
     {
       "id": "htkh_intent_classification_0150",
@@ -1812,7 +1812,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 232
+      "durationMs": 1514
     }
   ]
 }

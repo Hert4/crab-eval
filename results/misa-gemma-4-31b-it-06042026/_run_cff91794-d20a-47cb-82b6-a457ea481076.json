@@ -1,0 +1,31 @@
+{
+  "runId": "cff91794-d20a-47cb-82b6-a457ea481076",
+  "model": "misa-gemma-4-31b-it-06042026",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 03:11:45",
+  "durationMs": 835674,
+  "tasks": {
+    "ava_tool_calling": {
+      "ast_accuracy": 90.14,
+      "task_success_rate": 89.8
+    },
+    "crm_intent_analysis": {
+      "accuracy": 56.14
+    },
+    "crm_recommendation": {
+      "list_match": 70.8
+    },
+    "crmmisa_dashboard": {
+      "token_f1": 49.78
+    },
+    "htkh_intent_classification": {
+      "accuracy": 98
+    },
+    "htkh_intent_routing": {
+      "accuracy": 60.39
+    },
+    "makt_forecast": {
+      "list_match": 91.07
+    }
+  }
+}

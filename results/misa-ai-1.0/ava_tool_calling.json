@@ -1,19 +1,19 @@
 {
-  "runId": "5a732932-de1c-4500-9c7c-750ad66666f1",
+  "runId": "572ff5b1-9537-49a8-b0b7-52db6360238d",
   "model": "misa-ai-1.0",
-  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
-  "date": "2026-04-06 05:46:50",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:09:47",
   "taskName": "ava_tool_calling",
   "taskType": "tool_calling",
   "description": "AVA chatbot — Tool calling: đánh giá gọi đúng hàm và hoàn thành task",
-  "numSamples": 98,
+  "numSamples": 92,
   "metrics": [
     "ast_accuracy",
     "task_success_rate"
   ],
   "scores": {
-    "ast_accuracy": 79.18,
-    "task_success_rate": 78.57
+    "ast_accuracy": 76.96,
+    "task_success_rate": 76.09
   },
   "logs": [
     {
@@ -35,15 +35,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 382,
-      "metadata": {
-        "source_message_id": "81da7d42-806c-44a0-bf64-00ddaf2de858",
-        "turn_index": 6,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 491
     },
     {
       "id": "tool_calling_002",
@@ -64,15 +56,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 301,
-      "metadata": {
-        "source_message_id": "3c37e7f6-c021-4020-9c32-b93a241ec7a3",
-        "turn_index": 11,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 642
     },
     {
       "id": "tool_calling_003",
@@ -93,36 +77,20 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 364,
-      "metadata": {
-        "source_message_id": "e4aa8a42-c9c5-4995-a14a-599ae1e11ecb",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 759
     },
     {
       "id": "tool_calling_004",
       "status": "done",
       "input": "Sứ mệnh, tầm nhìn của công ty MISA là gì?",
       "reference": "Sứ mệnh của Công ty Cổ phần MISA là phát triển các nền tảng, phần mềm và dịch vụ công nghệ thông tin để thay đổi ngành kinh tế và giúp khách hàng thực hiện công việc theo phương thức mới, năng suất và hiệu quả hơn. Điều này nhằm thúc đẩy sự phát triển của đất nước và các quốc gia trên thế giới.",
-      "output": "Sứ mệnh và tầm nhìn của Công ty Cổ phần MISA là những nền tảng cốt lõi định hướng phát triển bền vững và dẫn đầu thị trường công nghệ tại Việt Nam và khu vực:\n\n### **Sứ mệnh**:  \n> *“Giúp doanh nghiệp Việt Nam làm chủ công nghệ, nâng cao năng lực cạnh tranh và phát triển bền vững.”*\n\nMISA luôn nỗ lực cung cấp các giải pháp phần mềm quản lý hiện đại, dễ sử dụng và phù hợp với thực tiễn doanh nghiệp Việt, từ đó giúp các doanh nghiệp – dù lớn hay nhỏ – đều có thể ứng dụng công nghệ một cách hiệu quả, tối ưu hóa quy trình và tăng trưởng bền vững.\n\n### **Tầm nhìn**:  \n> *“Trở thành công ty công nghệ hàng đầu tại Việt Nam và khu vực Đông Nam Á, tiên phong trong việc số hóa doanh nghiệp.”*\n\nMISA hướng đến việc không chỉ là nhà cung cấp phần mềm, mà còn là đối tác chiến lược đồng hành cùng doanh nghiệp trong hành trình chuyển đổi số, xây dựng nền tảng số vững chắc để vươn ra thị trường quốc tế.\n\nVới sứ mệnh và tầm nhìn rõ ràng, MISA không ngừng đổi mới, sáng tạo và cam kết mang lại giá trị thực tiễn cao nhất cho khách hàng – từ doanh nghiệp nhỏ đến tập đoàn lớn.",
+      "output": "Sứ mệnh và tầm nhìn của Công ty Cổ phần MISA là những nền tảng cốt lõi định hướng phát triển bền vững và dẫn đầu thị trường công nghệ tại Việt Nam và khu vực:\n\n### **Sứ mệnh**:  \n> *“Giúp doanh nghiệp Việt Nam phát triển bền vững thông qua giải pháp công nghệ số tiên tiến.”*\n\nMISA cam kết đồng hành cùng các doanh nghiệp – từ doanh nghiệp nhỏ đến tập đoàn lớn – bằng cách cung cấp những phần mềm quản lý hiện đại, dễ sử dụng và tối ưu chi phí, giúp họ nâng cao hiệu quả hoạt động, giảm thiểu rủi ro và tăng trưởng bền vững trong thời đại số.\n\n### **Tầm nhìn**:  \n> *“Trở thành công ty công nghệ số hàng đầu tại Việt Nam và khu vực Đông Nam Á, tiên phong trong việc số hóa doanh nghiệp.”*\n\nMISA hướng đến việc không chỉ là nhà cung cấp phần mềm, mà còn là đối tác chiến lược trong hành trình chuyển đổi số của doanh nghiệp, với mục tiêu phủ sóng rộng khắp và trở thành lựa chọn số 1 của hàng triệu doanh nghiệp trong khu vực.\n\nVới sứ mệnh và tầm nhìn rõ ràng, MISA luôn nỗ lực đổi mới, sáng tạo và đặt khách hàng làm trung tâm – để mỗi doanh nghiệp Việt đều có thể “sống khỏe” trong kỷ nguyên số.",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 62948,
-      "metadata": {
-        "source_message_id": "ccfecdb4-2f6d-4158-b419-c15bc57f26dd",
-        "turn_index": 26,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 2666
     },
     {
       "id": "tool_calling_005",
@@ -135,15 +103,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 549,
-      "metadata": {
-        "source_message_id": "435c1edf-3aea-470b-8f30-5f70c298cfe4",
-        "turn_index": 5,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 719
     },
     {
       "id": "tool_calling_006",
@@ -164,15 +124,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 403,
-      "metadata": {
-        "source_message_id": "d7123062-fbbc-4d82-ba1e-a5195fa2994e",
-        "turn_index": 24,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 507
     },
     {
       "id": "tool_calling_007",
@@ -193,15 +145,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 393,
-      "metadata": {
-        "source_message_id": "95fd64bf-6181-4a10-820a-85fca97f4274",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 348
     },
     {
       "id": "tool_calling_008",
@@ -222,15 +166,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 463,
-      "metadata": {
-        "source_message_id": "f01532d6-8156-4bbf-b883-812e27afde3c",
-        "turn_index": 18,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 322
     },
     {
       "id": "tool_calling_009",
@@ -243,7 +179,7 @@
           "type": "function",
           "function": {
             "name": "google_search",
-            "arguments": "{\"query\": \"phim kinh dị mới ra mắt năm 2024\"}"
+            "arguments": "{\"query\": \"phim kinh dị mới ra mắt năm 2024 gần đây\"}"
           }
         }
       ],
@@ -251,15 +187,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 320,
-      "metadata": {
-        "source_message_id": "a86e194a-7ba5-4248-b23b-d884dfa649b9",
-        "turn_index": 1,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 558
     },
     {
       "id": "tool_calling_010",
@@ -280,15 +208,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 371,
-      "metadata": {
-        "source_message_id": "cc7aba59-a0f8-454e-8425-8861990630c7",
-        "turn_index": 1,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 342
     },
     {
       "id": "tool_calling_011",
@@ -309,15 +229,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 301,
-      "metadata": {
-        "source_message_id": "3f4e7f9a-5406-45df-aec7-ad58352a36ae",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 541
     },
     {
       "id": "tool_calling_012",
@@ -338,15 +250,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 311,
-      "metadata": {
-        "source_message_id": "f15ba178-a3a2-4625-8421-79a3244fd71b",
-        "turn_index": 11,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 451
     },
     {
       "id": "tool_calling_013",
@@ -359,36 +263,20 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 435,
-      "metadata": {
-        "source_message_id": "cf3a55c5-3509-4201-96e4-c876e206f84b",
-        "turn_index": 23,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 939
     },
     {
       "id": "tool_calling_014",
       "status": "done",
       "input": "Giá cổ phiếu REE hôm nay thế nào?",
       "reference": "Em xin lỗi, hiện tại em không có thông tin về giá cổ phiếu REE ngày hôm nay. Anh có thể kiểm tra trên các trang web tài chính hoặc liên hệ với công ty chứng khoán để biết thêm chi tiết.",
-      "output": "Tôi không thể cung cấp thông tin về giá cổ phiếu REE hoặc các loại cổ phiếu khác vì đây không phải là lĩnh vực chuyên môn của MISA. Tôi chỉ có thể hỗ trợ bạn với các thông tin liên quan đến công ty MISA, phần mềm quản lý doanh nghiệp, hoặc các chính sách nội bộ.\n\nNếu anh cần tra cứu giá cổ phiếu, anh có thể tham khảo các trang thông tin tài chính uy tín như Vietnam Stock Exchange (HOSE), Bloomberg, hoặc các ứng dụng chứng khoán như VNDIRECT, SSI, v.v.\n\nChúc anh một ngày làm việc hiệu quả! [[ava@close#_]]",
+      "output": "Em xin lỗi, nhưng MISA không cung cấp thông tin về giá cổ phiếu của các công ty khác như REE. Em chỉ có thể hỗ trợ anh với các thông tin liên quan đến MISA JSC và sản phẩm của chúng tôi.\n\nNếu anh cần tra cứu giá cổ phiếu REE, anh có thể tham khảo các trang tài chính uy tín như Vietnam Stock Exchange, CafeF, hoặc Bloomberg.\n\nChúc anh một ngày làm việc hiệu quả! [[ava@close#_]]",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 802,
-      "metadata": {
-        "source_message_id": "caa2ebc9-e34d-4ff2-aa2f-821ecb57ffb5",
-        "turn_index": 22,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1887
     },
     {
       "id": "tool_calling_015",
@@ -409,15 +297,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 304,
-      "metadata": {
-        "source_message_id": "e928bb81-733f-4553-995a-b25cc96337e1",
-        "turn_index": 6,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 323
     },
     {
       "id": "tool_calling_016",
@@ -438,15 +318,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 293,
-      "metadata": {
-        "source_message_id": "0ef7f8a7-59b0-4625-8c6b-f74f4cb704d1",
-        "turn_index": 27,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 356
     },
     {
       "id": "tool_calling_017",
@@ -467,15 +339,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 364,
-      "metadata": {
-        "source_message_id": "a06128f4-cd57-4f80-ab4e-37830de02d9c",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 452
     },
     {
       "id": "tool_calling_018",
@@ -496,65 +360,33 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 382,
-      "metadata": {
-        "source_message_id": "2f7b7900-c66d-4a0d-a510-45c3e8766c04",
-        "turn_index": 25,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 612
     },
     {
       "id": "tool_calling_019",
       "status": "done",
       "input": "Quy trình mua hàng của công ty ra sao?",
       "reference": "Xin lỗi anh, hiện tại em không tìm thấy thông tin về quy trình mua hàng của công ty. Anh có thể liên hệ trực tiếp với bộ phận mua hàng hoặc quản lý để được hỗ trợ chi tiết hơn. Nếu anh cần thêm thông tin gì khác, em sẵn sàng giúp đỡ!",
-      "output": "Chính sách và quy trình mua hàng của MISA JSC được xây dựng nhằm đảm bảo tính minh bạch, hiệu quả và tuân thủ các tiêu chuẩn nội bộ. Dưới đây là quy trình mua hàng tiêu chuẩn:\n\n1. **Xác định nhu cầu mua hàng**  \n   - Bộ phận có nhu cầu (như IT, hành chính, kinh doanh...) lập yêu cầu mua hàng (YCMH) trên hệ thống nội bộ, ghi rõ:  \n     - Tên hàng hóa/dịch vụ  \n     - Số lượng, thông số kỹ thuật  \n     - Mục đích sử dụng  \n     - Dự kiến ngân sách  \n\n2. **Phê duyệt yêu cầu**  \n   - YCMH được gửi đến người quản lý trực tiếp để phê duyệt.  \n   - Nếu giá trị vượt ngưỡng quy định (tùy theo loại tài sản), yêu cầu sẽ được chuyển lên cấp quản lý cao hơn (Phòng Tài chính – Kế toán hoặc Ban Giám đốc).\n\n3. **Tìm kiếm và so sánh nhà cung cấp**  \n   - Phòng Mua hàng sẽ tìm ít nhất 03 nhà cung cấp tiềm năng (ưu tiên nhà cung cấp đã được phê duyệt trong danh sách nhà cung cấp uy tín của công ty).  \n   - So sánh về: giá cả, chất lượng, thời gian giao hàng, chính sách bảo hành và dịch vụ hậu mãi.  \n   - Ưu tiên sử dụng các sản phẩm/dịch vụ của MISA hoặc đối tác chiến lược.\n\n4. **Lập và phê duyệt đơn đặt hàng**  \n   - Sau khi chọn nhà cung cấp, Phòng Mua hàng lập Đơn đặt hàng (PO) và gửi qua hệ thống.  \n   - PO được phê duyệt bởi:  \n     - Trưởng phòng Mua hàng  \n     - Trưởng phòng Tài chính – Kế toán (xác nhận ngân sách)  \n\n5. **Tiến hành mua hàng và nhận hàng**  \n   - Nhà cung cấp giao hàng theo đúng cam kết.  \n   - Bộ phận yêu cầu kiểm tra, xác nhận chất lượng và số lượng.  \n   - Lập biên bản nghiệm thu (có chữ ký của người nhận và người kiểm tra).\n\n6. **Thanh toán**  \n   - Phòng Tài chính – Kế toán đối chiếu:  \n     - Đơn đặt hàng (PO)  \n     - Biên bản nghiệm thu  \n     - Hóa đơn GTGT hợp lệ  \n   - Sau khi xác nhận đầy đủ, tiến hành thanh toán theo đúng điều khoản hợp đồng (thường trong vòng 15–30 ngày).\n\n7. **Lưu trữ hồ sơ**  \n   - Toàn bộ hồ sơ mua hàng được lưu trữ điện tử trên hệ thống, đảm bảo truy xuất nguồn gốc và kiểm toán.\n\n> 💡 *Lưu ý: Mọi giao dịch mua hàng đều phải tuân thủ nguyên tắc “Không mua từ người thân trong gia đình” và “Không nhận quà biếu từ nhà cung cấp” theo quy định đạo đức kinh doanh của MISA.*\n\nAnh cần bản hướng dẫn chi tiết hoặc mẫu biểu mẫu nào không ạ?",
+      "output": "Chính sách và quy trình mua hàng của MISA JSC được xây dựng nhằm đảm bảo tính minh bạch, hiệu quả và tối ưu chi phí. Dưới đây là quy trình tiêu chuẩn:\n\n1. **Xác định nhu cầu mua hàng**  \n   - Bộ phận có nhu cầu (như IT, hành chính, kinh doanh...) lập yêu cầu mua hàng (YCMH) trên hệ thống nội bộ, ghi rõ: tên hàng hóa/dịch vụ, số lượng, mục đích sử dụng, ngân sách dự kiến và đề xuất nhà cung cấp (nếu có).\n\n2. **Duyệt yêu cầu**  \n   - YCMH được gửi đến người quản lý trực tiếp để phê duyệt.  \n   - Với các khoản chi > 50 triệu VNĐ, cần thêm sự phê duyệt của Trưởng phòng Tài chính – Kế toán và Giám đốc điều hành.\n\n3. **Tìm kiếm và so sánh nhà cung cấp**  \n   - Phòng Mua hàng sẽ tìm ít nhất 3 nhà cung cấp có năng lực, uy tín và báo giá cạnh tranh.  \n   - Ưu tiên nhà cung cấp đã được MISA phê duyệt trong danh sách nhà cung cấp chiến lược.\n\n4. **Ký hợp đồng và đặt hàng**  \n   - Sau khi chọn nhà cung cấp, phòng Mua hàng soạn thảo hợp đồng (theo mẫu chuẩn công ty), gửi qua hệ thống ký điện tử.  \n   - Sau khi ký, đơn hàng chính thức được gửi đến nhà cung cấp.\n\n5. **Nhận hàng và nghiệm thu**  \n   - Hàng hóa/dịch vụ được giao đến, bộ phận yêu cầu kiểm tra chất lượng và xác nhận nghiệm thu trên hệ thống.  \n   - Nếu không đạt yêu cầu, sẽ tiến hành xử lý khiếu nại hoặc đổi trả theo quy định hợp đồng.\n\n6. **Thanh toán**  \n   - Phòng Kế toán căn cứ vào hóa đơn, biên bản nghiệm thu và hợp đồng để thực hiện thanh toán theo điều khoản đã thỏa thuận (thường là 30–60 ngày sau khi nhận hàng).\n\n> 💡 *Lưu ý: Mọi giao dịch mua hàng đều phải tuân thủ nguyên tắc “Không mua từ người thân”, “Không nhận quà biếu từ nhà cung cấp” và “Không chi tiêu vượt ngân sách” – theo Sổ tay Văn hóa Doanh nghiệp MISA.*\n\nAnh cần bản PDF hoặc mẫu biểu mẫu YCMH để tham khảo không ạ?",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 3329,
-      "metadata": {
-        "source_message_id": "44a8a8d2-3366-49af-bf84-7bfccdb1e58b",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 3513
     },
     {
       "id": "tool_calling_020",
       "status": "done",
       "input": "Tìm hiểu về ẩm thực Ý cho mình.",
       "reference": "Ẩm thực Ý nổi tiếng với sự đa dạng và phong phú, mang đậm nét đặc trưng của vùng biển Địa Trung Hải. Dưới đây là một số món ăn nổi tiếng trong ẩm thực Ý mà bạn nên thử:\n\n1. **Bolognese**: Một loại nước sốt làm từ thịt có nguồn gốc từ Bologna, thường được ăn kèm với tagliatelle hoặc lasagne.\n\n2. **Pizza**: Món ăn phổ biến nhất trên thế giới, với nhiều loại như Margherita, Marinara, Quattro Stagioni, và Siciliana.\n\n3. **Mì Ý - Spaghetti**: Món mì dài và mỏng, có thể được chế biến với nhiều loại sốt khác nhau như Aglio Olio, Bolognese, và Carbonara.\n\n4. **Lasagne**: Món ăn làm từ nhiều lớp mì ống phẳng và rộng với nước sốt thịt, rau và pho mát.\n\n5. **Gnocchi**: Bánh bao nhỏ và dày, thường được làm từ khoai tây và pho mát.\n\n6. **Risotto**: Món cơm Ý cổ điển, được chế biến với nhiều loại nước dùng thịt, cá hoặc rau.\n\n7. **Ravioli**: Mì ống có hình vuông với nhân, thay đổi theo từng vùng.\n\n8. **Tagliatelle**: Mì Ý truyền thống có hình dạng của những dải băng dài và dẹt.\n\n9. **Pappardelle**: Mì sợi rộng, dẹt và dày, thường được ăn với nước sốt thịt gà hoặc thịt bò.\n\n10. **Fettuccine**: Mì ống kiểu ruy băng, đi kèm với nhiều loại sốt khác nhau.\n\nNgoài ra, Ý còn nổi tiếng với các món tráng miệng như Tiramisu, Panna Cotta, và Gelato. Ẩm thực Ý không chỉ là về mì và pizza, mà còn có rất nhiều món ăn và món tráng miệng ngon miệng khác đến từ đất nước này.",
-      "output": "",
-      "tool_calls": [
-        {
-          "type": "function",
-          "function": {
-            "name": "GoogleSearch",
-            "arguments": "{\"query\": \"ẩm thực Ý đặc trưng các món ăn truyền thống\"}"
-          }
-        }
-      ],
+      "output": "Em xin phép cung cấp thông tin về ẩm thực Ý — một trong những nền ẩm thực nổi bật và được yêu thích nhất thế giới, với sự phong phú về hương vị, nguyên liệu tươi ngon và truyền thống lâu đời.\n\n### **Đặc điểm nổi bật của ẩm thực Ý**\nẨm thực Ý được xây dựng trên nền tảng **đơn giản nhưng tinh tế**: sử dụng ít nguyên liệu nhưng chọn lọc kỹ lưỡng, nhấn mạnh vào chất lượng tự nhiên của thực phẩm. Người Ý thường nói:  \n> *\"Một món ăn ngon không cần nhiều gia vị — chỉ cần nguyên liệu tốt và cách chế biến đúng.\"*\n\n### **Các món ăn tiêu biểu**\n1. **Pasta**  \n   - Là biểu tượng của ẩm thực Ý, với hàng trăm loại hình dạng như spaghetti, penne, fusilli, ravioli...  \n   - Thường được nấu với sốt làm từ cà chua tươi, dầu ô liu, tỏi, thảo mộc và phô mai Parmigiano Reggiano.  \n   - Ví dụ: Spaghetti Carbonara, Bolognese, Aglio e Olio.\n\n2. **Pizza**  \n   - Nổi tiếng nhất là **Pizza Margherita** — làm từ cà chua, phô mai mozzarella, và húng quế, tượng trưng cho ba màu cờ Ý.  \n   - Được nướng trong lò gỗ với nhiệt độ cao, tạo lớp vỏ giòn, nhân mềm mịn.\n\n3. **Risotto**  \n   - Cơm nấu theo phong cách Ý, dùng gạo Arborio hoặc Carnaroli, hầm từ từ với nước dùng, bơ, rượu trắng và phô mai.  \n   - Món phổ biến: Risotto alla Milanese (có nghệ tây, màu vàng óng).\n\n4. **Osso Buco**  \n   - Món thịt bò hầm chậm với gân, rau củ và trắng, thường ăn kèm với risotto.\n\n5. **Dolci (món tráng miệng)**  \n   - Tiramisu: cà phê, mascarpone, bánh quy ladyfinger.  \n   - Cannoli: vỏ bánh chiên giòn, nhân phô mai ngọt, rắc sô cô la và hạt dẻ.  \n   - Gelato: kem Ý, ít béo hơn kem thông thường, hương vị tự nhiên.\n\n### **Nguyên liệu cốt lõi**\n- **Dầu ô liu nguyên chất** — dùng thay mỡ, bơ.  \n- **Cà chua tươi** — đặc biệt là từ vùng Campania.  \n- **Phô mai** — Parmigiano Reggiano, Mozzarella di Bufala, Ricotta.  \n- **Rượu vang Ý** — như Chianti, Barolo, Prosecco.  \n- **Bột mì và gạo đặc sản** — dùng làm pasta và risotto.\n\n### **Văn hóa ẩm thực**\n- Người Ý coi bữa ăn là thời gian sum họp gia đình, thường kéo dài hàng giờ.  \n- Không dùng phô mai với hải sản (trừ một vài ngoại lệ).  \n- Không uống cappuccino sau bữa trưa — chỉ uống vào buổi sáng.\n\nẨm thực Ý không chỉ là ăn — đó là **lối sống**, là sự tôn vinh thiên nhiên và truyền thống. Nếu anh có dịp đến Ý, đừng quên thưởng thức một bữa tối chậm rãi, với bánh mì nướng, rượu vang và tiếng cười rộn rã!\n\n[[ava@close#_]]",
+      "tool_calls": [],
       "scores": {
-        "ast_accuracy": 80,
-        "task_success_rate": 100
+        "ast_accuracy": 0,
+        "task_success_rate": 0
       },
-      "durationMs": 321,
-      "metadata": {
-        "source_message_id": "9d093632-9404-40dc-9ce1-8f3dc6b99e5a",
-        "turn_index": 17,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 4888
     },
     {
       "id": "tool_calling_021",
@@ -575,36 +407,20 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 298,
-      "metadata": {
-        "source_message_id": "d95edf3d-37e4-44e9-84f4-e768bb0ce464",
-        "turn_index": 5,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 406
     },
     {
       "id": "tool_calling_022",
       "status": "done",
       "input": "Chính sách đối ngoại của Việt Nam có thay đổi gì đáng chú ý trong tháng này không?",
       "reference": "Trong tháng 3 năm 2025, chính sách đối ngoại của Việt Nam có một số thay đổi đáng chú ý:\n\n1. **Nâng cấp quan hệ với Indonesia và Singapore**: Tổng Bí thư Tô Lâm đã có chuyến thăm cấp Nhà nước tới Indonesia và Singapore, trong đó hai bên đã nhất trí nâng cấp quan hệ lên Đối tác Chiến lược toàn diện. Đây là bước tiến quan trọng, đưa Việt Nam trở thành Đối tác Chiến lược toàn diện đầu tiên của Indonesia và Singapore trong ASEAN.\n\n2. **Tham gia tích cực vào ASEAN**: Tổng Bí thư Tô Lâm khẳng định ASEAN là trụ cột quan trọng trong chính sách đối ngoại của Việt Nam. Việt Nam cam kết đóng góp tích cực vào các công việc chung của ASEAN, với mục tiêu phát triển và hội nhập sâu rộng hơn.\n\n3. **Miễn thị thực nhập cảnh**: Chính phủ Việt Nam đã ban hành Nghị quyết miễn thị thực cho công dân của 12 nước, bao gồm Đức, Pháp, Italia, Tây Ban Nha, Anh, Nga, Nhật Bản, Hàn Quốc, Đan Mạch, Thụy Điển, Na Uy và Phần Lan. Chính sách này có hiệu lực từ ngày 15/3/2025 đến hết ngày 14/3/2028.\n\nNhững thay đổi này cho thấy Việt Nam đang nỗ lực mở rộng quan hệ đối ngoại và tăng cường hợp tác quốc tế, đặc biệt là trong khu vực ASEAN.",
-      "output": "Tính đến hiện tại, không có thông tin chính thức nào về sự thay đổi đáng chú ý trong chính sách đối ngoại của Việt Nam trong tháng 3 năm 2025. Việt Nam vẫn tiếp tục duy trì đường lối đối ngoại độc lập, tự chủ, đa phương hóa, đa dạng hóa, tích cực và chủ động hội nhập quốc tế, lấy lợi ích quốc gia - dân tộc làm nền tảng.\n\nCác hoạt động đối ngoại gần đây tập trung vào việc củng cố quan hệ với các đối tác chiến lược, đối tác toàn diện và thúc đẩy hợp tác trong các diễn đàn đa phương như ASEAN, Liên Hợp Quốc, APEC... Tuy nhiên, chưa có thông báo chính thức nào từ Bộ Ngoại giao hoặc các cơ quan chức năng về điều chỉnh chính sách trong tháng này.\n\nEm sẽ tiếp tục theo dõi và cập nhật nếu có thông tin mới ạ.",
+      "output": "Tính đến hiện tại, không có thông tin chính thức nào về sự thay đổi đáng chú ý trong chính sách đối ngoại của Việt Nam trong tháng 3 năm 2025. Việt Nam vẫn tiếp tục duy trì đường lối đối ngoại độc lập, tự chủ, đa phương hóa, đa dạng hóa, tích cực và chủ động hội nhập quốc tế, lấy lợi ích quốc gia - dân tộc làm nền tảng.\n\nCác hoạt động ngoại giao gần đây tập trung vào việc củng cố quan hệ với các đối tác chiến lược và toàn diện, đặc biệt là trong bối cảnh Việt Nam đang đảm nhiệm vai trò Chủ tịch ASEAN 2025 và ứng cử vào Hội đồng Nhân quyền Liên Hợp Quốc nhiệm kỳ 2026–2028.\n\nNếu có thông tin mới từ các cơ quan nhà nước như Bộ Ngoại giao hoặc Văn phòng Chính phủ, em sẽ cập nhật ngay ạ.\n\n[[ava@close#_]]",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 1058,
-      "metadata": {
-        "source_message_id": "338a3155-8024-4d19-bf8f-acc90a1d32ec",
-        "turn_index": 13,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1334
     },
     {
       "id": "tool_calling_023",
@@ -625,15 +441,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 465,
-      "metadata": {
-        "source_message_id": "e2b84d49-58ce-40b5-a3c9-4ef037380bc8",
-        "turn_index": 29,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 311
     },
     {
       "id": "tool_calling_024",
@@ -646,15 +454,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 959,
-      "metadata": {
-        "source_message_id": "1ae33a79-2868-4152-8684-952a35dbaddd",
-        "turn_index": 21,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1214
     },
     {
       "id": "tool_calling_025",
@@ -675,15 +475,7 @@
         "ast_accuracy": 80,
         "task_success_rate": 100
       },
-      "durationMs": 363,
-      "metadata": {
-        "source_message_id": "01e424a4-e770-4ab9-85ec-b7bd2230bf1c",
-        "turn_index": 25,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 313
     },
     {
       "id": "tool_calling_026",
@@ -704,15 +496,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 300,
-      "metadata": {
-        "source_message_id": "3a7a1169-0739-49ed-be7f-9b629da2a17d",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 389
     },
     {
       "id": "tool_calling_027",
@@ -725,7 +509,7 @@
           "type": "function",
           "function": {
             "name": "GoogleSearch",
-            "arguments": "{\"query\": \"giá xăng dầu hôm nay 05/01/2025 Việt Nam\", \"day_restrict\": 0}"
+            "arguments": "{\"query\": \"giá xăng dầu hôm nay 05/01/2025\", \"day_restrict\": 0}"
           }
         }
       ],
@@ -733,15 +517,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 414,
-      "metadata": {
-        "source_message_id": "5ce0e02b-267f-4f41-8c25-2e6ec55e93c2",
-        "turn_index": 1,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 537
     },
     {
       "id": "tool_calling_028",
@@ -762,15 +538,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 301,
-      "metadata": {
-        "source_message_id": "c77d58c2-1e35-4fa4-bc65-62265d8aa083",
-        "turn_index": 32,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 394
     },
     {
       "id": "tool_calling_029",
@@ -791,15 +559,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 345,
-      "metadata": {
-        "source_message_id": "adfc39e1-cb07-423e-bb8e-20aa5a06275b",
-        "turn_index": 7,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 326
     },
     {
       "id": "tool_calling_030",
@@ -820,15 +580,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 294,
-      "metadata": {
-        "source_message_id": "aa1cd76c-7bdd-4308-a9a4-4aaa4c97e91c",
-        "turn_index": 18,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 267
     },
     {
       "id": "tool_calling_031",
@@ -849,15 +601,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 289,
-      "metadata": {
-        "source_message_id": "57133748-413b-48a8-b179-4da47323caa8",
-        "turn_index": 30,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 242
     },
     {
       "id": "tool_calling_032",
@@ -878,15 +622,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 288,
-      "metadata": {
-        "source_message_id": "96e40c8b-72bb-4c09-926b-2e9f1637759f",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 293
     },
     {
       "id": "tool_calling_033",
@@ -907,15 +643,7 @@
         "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 313,
-      "metadata": {
-        "source_message_id": "1084a461-37ee-4bfb-ae59-e63ed440d4e4",
-        "turn_index": 5,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 413
     },
     {
       "id": "tool_calling_034",
@@ -936,15 +664,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 316,
-      "metadata": {
-        "source_message_id": "aa1cd76c-7bdd-4308-a9a4-4aaa4c97e91c",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 351
     },
     {
       "id": "tool_calling_035",
@@ -965,15 +685,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 497,
-      "metadata": {
-        "source_message_id": "fe591f72-9865-4f67-88bd-e8feef225264",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 443
     },
     {
       "id": "tool_calling_036",
@@ -994,15 +706,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 338,
-      "metadata": {
-        "source_message_id": "b39396ab-693d-4116-b596-6e2913e21e5d",
-        "turn_index": 32,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 373
     },
     {
       "id": "tool_calling_037",
@@ -1023,36 +727,20 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 330,
-      "metadata": {
-        "source_message_id": "550c27d7-69b5-4464-90fd-709fd7751e30",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 409
     },
     {
       "id": "tool_calling_038",
       "status": "done",
       "input": "Có truyền thuyết hiện đại nào về ma cà rồng ở Việt Nam không?",
       "reference": "Ở Việt Nam, truyền thuyết về ma cà rồng thường xuất hiện dưới dạng những câu chuyện dân gian và lời đồn thổi, đặc biệt là ở các vùng núi xa xôi. Một trong những câu chuyện nổi tiếng là về dòng họ Xa ở xã Xuân Đài, huyện Tân Sơn, Phú Thọ. Theo lời đồn, dòng họ này có khả năng biến thành ma cà rồng vào ban đêm để hút máu động vật và thậm chí là con người. Tuy nhiên, những câu chuyện này chủ yếu là do truyền miệng và không có bằng chứng xác thực.\n\nNhững câu chuyện về ma cà rồng ở Việt Nam thường được kể lại như một phần của văn hóa dân gian, và thường được dùng để dọa trẻ con hoặc làm câu chuyện giải trí trong các buổi họp mặt gia đình. Dù vậy, chúng vẫn tạo ra sự tò mò và đôi khi là nỗi sợ hãi trong cộng đồng.",
-      "output": "Hiện tại, không có truyền thuyết hiện đại nào được ghi nhận rộng rãi hoặc chính thống về ma cà rồng trong văn hóa dân gian Việt Nam. Truyền thuyết về sinh vật hút máu như ma cà rồng chủ yếu xuất phát từ văn hóa phương Tây, đặc biệt là từ châu Âu, và được du nhập vào Việt Nam qua phim ảnh, tiểu thuyết và truyền thông hiện đại.\n\nTuy nhiên, trong folklore Việt Nam, có một số sinh vật siêu nhiên có nét tương đồng với ma cà rồng, ví dụ:\n\n- **Ma dại** hoặc **ma đói**: Những linh hồn không được siêu thoát, thường xuất hiện vào ban đêm, hút sinh khí hoặc máu của người sống để duy trì sự tồn tại.\n- **Hồn ma hút tinh khí**: Trong một số truyện dân gian hoặc phim ảnh Việt Nam hiện đại, có những nhân vật ma quái hút sinh lực hoặc máu người để trường sinh, nhưng chúng thường được gọi là “ma” hoặc “yêu tinh” chứ không gọi là “ma cà rồng”.\n\nNhững hình ảnh ma cà rồng trong văn hóa đại chúng Việt Nam ngày nay (như trong phim, truyện tranh, tiểu thuyết) đều là sản phẩm của sự giao thoa văn hóa, không có nguồn gốc bản địa.\n\nNếu anh muốn, em có thể tìm hiểu thêm về các sinh vật siêu nhiên thuần Việt như “ma nữ tóc dài”, “hồn lơ lửng”, hay “cô hồn” – những hình tượng đậm chất dân gian Việt Nam hơn ạ.",
+      "output": "Hiện nay, không có truyền thuyết hiện đại nào được ghi nhận rộng rãi hoặc mang tính văn hóa dân gian đặc trưng về ma cà rồng ở Việt Nam, bởi vì ma cà rồng là sản phẩm của thần thoại phương Tây, đặc biệt là từ châu Âu.  \n\nTuy nhiên, trong văn hóa dân gian Việt Nam, có những sinh vật siêu nhiên tương tự ma cà rồng về mặt hành vi — ví dụ như **“ma đói”** hay **“vong hồn hút sinh khí”**. Những linh hồn này thường xuất hiện trong các câu chuyện dân gian, đặc biệt là ở vùng nông thôn, nơi người ta tin rằng những người chết bất đắc kỳ tử, không được thờ cúng đầy đủ, có thể quay về hút sinh khí hoặc máu của người sống để duy trì sự tồn tại.  \n\nMột số câu chuyện hiện đại trong văn học hoặc phim ảnh Việt Nam (như phim *“Ma Lớn”*, *“Chuyện Ma Nhà Cũ”*) đã pha trộn yếu tố ma cà rồng phương Tây với tín ngưỡng dân gian Việt Nam, tạo nên những phiên bản “ma cà rồng Việt” — ví dụ như một cô gái trẻ có thể biến thành quỷ hút máu vào ban đêm, nhưng lại bị ám ảnh bởi nỗi đau mất con hoặc bị phản bội.  \n\nNhững câu chuyện này không phải là truyền thuyết cổ, mà là sự sáng tạo hiện đại kết hợp giữa văn hóa phương Tây và tâm linh bản địa — phản ánh sự giao thoa văn hóa trong thời đại toàn cầu hóa.  \n\nEm thấy đó, dù không có “ma cà rồng” theo kiểu Dracula, nhưng người Việt vẫn có cách riêng để kể chuyện về những điều kinh dị, đầy nỗi buồn và sự ám ảnh — chỉ là nó được gói gọn trong nỗi đau của người sống, chứ không phải trong những chiếc răng nanh dài.",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 2057,
-      "metadata": {
-        "source_message_id": "85cdafd7-41e1-401b-8051-0f795a4bacbf",
-        "turn_index": 13,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 4529
     },
     {
       "id": "tool_calling_039",
@@ -1073,15 +761,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 316,
-      "metadata": {
-        "source_message_id": "e03c8f4b-27f8-4025-8905-91ea556a2f2f",
-        "turn_index": 9,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 286
     },
     {
       "id": "tool_calling_040",
@@ -1102,15 +782,7 @@
         "ast_accuracy": 80,
         "task_success_rate": 100
       },
-      "durationMs": 335,
-      "metadata": {
-        "source_message_id": "adfc39e1-cb07-423e-bb8e-20aa5a06275b",
-        "turn_index": 3,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 388
     },
     {
       "id": "tool_calling_041",
@@ -1131,57 +803,33 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 296,
-      "metadata": {
-        "source_message_id": "b3c093d1-3e24-4348-a8e3-7f2e5a31929b",
-        "turn_index": 15,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 365
     },
     {
       "id": "tool_calling_042",
       "status": "done",
       "input": "Tôi nghe nói học nghề điện lạnh cũng khá hot, bạn có thông tin gì về ngành này không?",
       "reference": "Ngành điện lạnh hiện nay đang có nhu cầu nhân lực cao và mang lại nhiều cơ hội việc làm hấp dẫn. Với sự gia tăng của các thiết bị điện lạnh trong cuộc sống hàng ngày, việc học nghề điện lạnh trở thành một lựa chọn hấp dẫn cho nhiều bạn trẻ. Dưới đây là một số thông tin về ngành này:\n\n1. **Cơ hội việc làm**: Ngành điện lạnh cung cấp nhiều vị trí việc làm như thợ điện lạnh, kỹ thuật viên điện lạnh, chuyên viên điện lạnh, và quản lý kỹ thuật điện lạnh. Các công việc này thường liên quan đến lắp đặt, bảo trì, và sửa chữa các hệ thống điện lạnh trong các tòa nhà, trung tâm thương mại, và các công ty.\n\n2. **Nhu cầu nhân lực**: Ngành điện lạnh đang thiếu hụt nhân lực, với tỷ lệ cung – cầu chỉ khoảng 30%. Điều này có nghĩa là có nhiều cơ hội việc làm và thăng tiến cho những ai theo đuổi ngành này.\n\n3. **Thu nhập và phát triển**: Nghề điện lạnh không chỉ mang lại thu nhập ổn định và cao, mà còn giúp phát triển kỹ năng, kiến thức và sáng tạo trong công việc. Bạn sẽ có cơ hội làm việc với nhiều khách hàng khác nhau và học hỏi từ những người có chuyên môn trong ngành.\n\n4. **Kỹ năng cần thiết**: Công việc trong ngành điện lạnh đòi hỏi kiến thức chuyên môn về các hệ thống điện lạnh, kỹ năng kỹ thuật, khả năng phân tích và giải quyết vấn đề, kỹ năng giao tiếp, và khả năng làm việc độc lập cũng như theo nhóm.\n\nVới những thông tin trên, ngành điện lạnh là một lựa chọn hứa hẹn cho những ai muốn theo đuổi sự nghiệp trong lĩnh vực này.",
-      "output": "Dạ, ngành điện lạnh hiện nay đang rất “hot” và có nhu cầu nhân lực cao trên toàn quốc, đặc biệt là trong bối cảnh khí hậu ngày càng nóng lên và nhu cầu sử dụng điều hòa, tủ lạnh, hệ thống làm lạnh công nghiệp tăng mạnh.\n\n### **Cơ hội việc làm sau khi học nghề điện lạnh:**\n- Làm kỹ thuật viên tại các trung tâm bảo hành, sửa chữa điều hòa, tủ lạnh của các thương hiệu lớn như Panasonic, Daikin, LG, Samsung, v.v.\n- Làm việc tại các công ty thi công, lắp đặt hệ thống lạnh cho nhà xưởng, siêu thị, bệnh viện, nhà hàng.\n- Tự mở gara sửa chữa điện lạnh nhỏ hoặc làm việc tự do theo hợp đồng.\n- Cơ hội xuất khẩu lao động sang các nước có nhu cầu cao như Nhật Bản, Hàn Quốc, Đài Loan…\n\n### **Ưu điểm của ngành điện lạnh:**\n- **Không cần bằng đại học** – chỉ cần học nghề chuyên sâu và có tay nghề là có thể làm việc ngay.\n- **Thu nhập ổn định**, thậm chí cao nếu có kinh nghiệm và kỹ năng tốt (từ 8 – 15 triệu/tháng, có thể cao hơn nếu làm tự do hoặc ở các thành phố lớn).\n- **Công việc linh hoạt** – có thể làm theo ca, theo dự án, hoặc tự do.\n- **Ít bị thay thế bởi công nghệ** – vì vẫn cần con người để chẩn đoán, sửa chữa và bảo trì.\n\n### **Lời khuyên từ em:**\nAnh nên chọn các trường nghề có **hợp tác với doanh nghiệp**, được trang bị đầy đủ thiết bị thực hành, và có chương trình đào tạo cập nhật công nghệ mới (như điều hòa inverter, gas R32, hệ thống lạnh công nghiệp…). Một số trung tâm đào tạo uy tín thường có cam kết giới thiệu việc làm sau tốt nghiệp – anh nên tìm hiểu kỹ phần này.\n\nNếu anh thích làm việc với tay, thích thách thức và không ngại đi lại, thì điện lạnh là một lựa chọn rất đáng cân nhắc ạ.",
+      "output": "Dạ, ngành điện lạnh hiện nay đang rất “hot” và có nhu cầu nhân lực cao trên toàn quốc, đặc biệt là ở các thành phố lớn và khu vực công nghiệp. Đây là ngành thiết yếu vì mọi gia đình, doanh nghiệp, nhà xưởng, siêu thị, bệnh viện… đều cần hệ thống điều hòa, tủ lạnh, máy lạnh công nghiệp, hệ thống lạnh bảo quản thực phẩm…\n\n### **Tại sao học nghề điện lạnh là lựa chọn tốt?**\n\n- **Cơ hội việc làm rộng mở**: Sau khi tốt nghiệp, anh có thể làm việc tại các trung tâm bảo trì, công ty cơ điện lạnh, siêu thị, nhà máy, hoặc tự mở gara sửa chữa nhỏ. Nhiều bạn trẻ sau khi học nghề đã tự lập nghiệp thành công.\n  \n- **Thu nhập ổn định và tăng theo kinh nghiệm**: Mức lương khởi điểm thường từ 6 – 8 triệu đồng/tháng, và nếu có tay nghề cao, làm việc tại các công ty lớn hoặc nhận dịch vụ sửa chữa ngoài giờ, thu nhập có thể lên tới 12 – 20 triệu đồng/tháng.\n\n- **Không cần bằng đại học**: Học nghề điện lạnh không yêu cầu bằng cấp cao, chỉ cần có chứng chỉ nghề, tay nghề vững và thái độ làm việc nghiêm túc là đã có thể xin việc.\n\n- **Công việc linh hoạt**: Có thể làm theo giờ hành chính, hoặc nhận việc tự do theo hợp đồng, rất phù hợp với người muốn chủ động thời gian.\n\n### **Cần học những gì?**\n- Lắp đặt, bảo trì, sửa chữa điều hòa, tủ lạnh, máy lạnh công nghiệp.\n- Hiểu biết về hệ thống gas, điện, mạch điều khiển.\n- Sử dụng dụng cụ chuyên dụng và thiết bị chẩn đoán hiện đại.\n- An toàn lao động và bảo vệ môi trường (đặc biệt là xử lý gas lạnh đúng quy định).\n\n### **Lưu ý quan trọng:**\nNên chọn các **trường nghề uy tín**, có trang thiết bị thực hành hiện đại và liên kết với doanh nghiệp để thực tập và giới thiệu việc làm. MISA JSC tuy không đào tạo nghề, nhưng em biết rằng các trung tâm đào tạo nghề chất lượng cao thường có chương trình học thực hành lên đến 70% – giúp học viên tự tin ra trường ngay từ khi còn ngồi trên ghế học.\n\nAnh có muốn em tìm giúp danh sách các trung tâm đào tạo nghề điện lạnh uy tín tại khu vực anh sinh sống không ạ?",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 2495,
-      "metadata": {
-        "source_message_id": "f9fd3129-772b-40e8-9a43-ce297359469a",
-        "turn_index": 7,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 6606
     },
     {
       "id": "tool_calling_043",
       "status": "done",
       "input": "Quy trình mua hàng ở công ty mình ra sao?",
       "reference": "Xin lỗi anh Cường, hiện tại em không tìm thấy thông tin về quy trình mua hàng của công ty MISA. Anh có thể liên hệ trực tiếp với bộ phận mua hàng hoặc phòng ban liên quan để được hỗ trợ chi tiết hơn. Nếu anh cần thêm thông tin gì khác, em sẵn sàng giúp đỡ!",
-      "output": "Chính sách và quy trình mua hàng tại MISA được thực hiện theo nguyên tắc minh bạch, hiệu quả và tuân thủ nghiêm ngặt các quy định nội bộ. Dưới đây là quy trình tiêu chuẩn:\n\n1. **Xác định nhu cầu mua hàng**  \n   - Người có nhu cầu (bộ phận, dự án) gửi yêu cầu mua hàng qua hệ thống ERP hoặc form điện tử, ghi rõ:  \n     - Tên hàng hóa/dịch vụ  \n     - Số lượng, thông số kỹ thuật  \n     - Mục đích sử dụng  \n     - Dự kiến thời gian cần nhận hàng  \n\n2. **Duyệt yêu cầu**  \n   - Yêu cầu được gửi đến người quản lý trực tiếp để phê duyệt.  \n   - Với các khoản chi > 50 triệu đồng, cần thêm sự đồng thuận của Trưởng phòng Tài chính – Kế toán và Giám đốc điều hành.\n\n3. **Tìm kiếm và so sánh nhà cung cấp**  \n   - Phòng Kinh doanh & Mua hàng sẽ tìm ít nhất 3 nhà cung cấp tiềm năng (ưu tiên đối tác đã được MISA phê duyệt).  \n   - Đánh giá dựa trên: chất lượng, giá cả, thời gian giao hàng, chính sách bảo hành và uy tín.  \n   - **Lưu ý:** Không được ký hợp đồng với nhà cung cấp chưa được MISA thẩm định.\n\n4. **Lập và phê duyệt hợp đồng**  \n   - Sau khi chọn nhà cung cấp, phòng Mua hàng soạn hợp đồng theo mẫu chuẩn của công ty.  \n   - Hợp đồng được gửi qua hệ thống để ký điện tử bởi:  \n     - Người yêu cầu  \n     - Trưởng phòng Tài chính – Kế toán  \n     - Trưởng phòng Pháp chế  \n\n5. **Thực hiện mua hàng và thanh toán**  \n   - Sau khi hợp đồng có hiệu lực, nhà cung cấp giao hàng và xuất hóa đơn.  \n   - Phòng Kế toán kiểm tra:  \n     - Hóa đơn hợp lệ  \n     - Phiếu giao nhận có chữ ký xác nhận  \n     - Phù hợp với hợp đồng  \n   - Thanh toán theo điều khoản hợp đồng (thường là 30 ngày sau khi nhận hàng và hóa đơn hợp lệ).\n\n6. **Lưu trữ hồ sơ**  \n   - Toàn bộ hồ sơ mua hàng (yêu cầu, hợp đồng, hóa đơn, phiếu giao nhận) được lưu trữ điện tử trên hệ thống ERP, tối thiểu 7 năm.\n\n👉 **Lưu ý đặc biệt:**  \n- MISA luôn ưu tiên sử dụng các sản phẩm, dịch vụ nội địa, đặc biệt là sản phẩm của chính MISA (như MISA SME.NET, MISA AMIS...) để tối ưu chi phí và tích hợp hệ thống.  \n- Mọi hành vi mua hàng không tuân thủ quy trình sẽ bị xử lý theo quy định kỷ luật công ty.\n\nAnh Cường cần bản hướng dẫn chi tiết hoặc mẫu form yêu cầu mua hàng không ạ?",
+      "output": "Chính sách và quy trình mua hàng tại MISA JSC được thiết kế minh bạch, hiệu quả và đảm bảo chất lượng sản phẩm, dịch vụ phục vụ tốt nhất cho hoạt động kinh doanh. Dưới đây là quy trình tiêu chuẩn:\n\n---\n\n### **Quy trình mua hàng tại MISA JSC**\n\n#### **Bước 1: Xác định nhu cầu mua hàng**\n- Người có nhu cầu (bộ phận sử dụng) gửi yêu cầu mua hàng qua hệ thống **MISA SME.NET** hoặc form điện tử nội bộ, ghi rõ:\n  - Tên hàng hóa/dịch vụ\n  - Số lượng, thông số kỹ thuật\n  - Mục đích sử dụng\n  - Dự kiến thời gian cần nhận hàng\n\n#### **Bước 2: Phê duyệt yêu cầu**\n- Trưởng bộ phận hoặc người được ủy quyền sẽ phê duyệt yêu cầu dựa trên ngân sách và tính cấp thiết.\n- Nếu giá trị đơn hàng > 50 triệu VNĐ, cần thêm sự phê duyệt của **Phòng Tài chính – Kế toán** và **Ban Giám đốc**.\n\n#### **Bước 3: Lập kế hoạch mua hàng & so sánh nhà cung cấp**\n- Phòng Kinh doanh hoặc Phòng Hành chính – Nhân sự (tùy loại hàng) sẽ:\n  - Tìm kiếm ít nhất **3 nhà cung cấp** có uy tín, đáp ứng tiêu chuẩn chất lượng của MISA.\n  - So sánh giá, điều khoản thanh toán, thời gian giao hàng, chính sách bảo hành.\n  - Ưu tiên nhà cung cấp đã có hợp đồng hợp tác lâu dài và được đánh giá cao về dịch vụ.\n\n#### **Bước 4: Chọn nhà cung cấp & ký hợp đồng**\n- Sau khi lựa chọn nhà cung cấp phù hợp, sẽ lập **Hợp đồng mua hàng** hoặc **Phiếu đặt hàng** theo mẫu chuẩn của công ty.\n- Hợp đồng phải được ký bởi người có thẩm quyền và lưu trữ điện tử trong hệ thống.\n\n#### **Bước 5: Nhận hàng & kiểm tra chất lượng**\n- Khi hàng về, bộ phận nhận hàng kiểm tra:\n  - Số lượng, chủng loại, tình trạng sản phẩm\n  - Đúng thông số kỹ thuật đã yêu cầu\n- Nếu phát hiện sai sót, lập biên bản và thông báo ngay cho nhà cung cấp để xử lý.\n\n#### **Bước 6: Thanh toán**\n- Sau khi nhận hàng và kiểm tra thành công, bộ phận Tài chính – Kế toán sẽ:\n  - Đối chiếu với hóa đơn và hợp đồng\n  - Thực hiện thanh toán theo điều khoản đã thỏa thuận (trả trước, trả sau, hoặc trả chậm)\n  - Lưu trữ đầy đủ chứng từ để phục vụ kiểm toán nội bộ.\n\n---\n\n✅ **Lưu ý quan trọng:**\n- **Tuyệt đối không** mua hàng ngoài quy trình hoặc từ nhà cung cấp không được phê duyệt.\n- Mọi giao dịch mua hàng đều phải có **hóa đơn VAT** và được lưu trữ điện tử trong hệ thống MISA.\n- MISA luôn ưu tiên các nhà cung cấp trong nước, có cam kết về chất lượng và dịch vụ hậu mãi tốt nhất.\n\nAnh Cường cần bản PDF hoặc mẫu biểu mẫu quy trình này để tham khảo không ạ?",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 3403,
-      "metadata": {
-        "source_message_id": "09527160-b63a-456e-821d-780d41745580",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 8632
     },
     {
       "id": "tool_calling_044",
@@ -1202,22 +850,14 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 299,
-      "metadata": {
-        "source_message_id": "96ad7a7f-c2cc-4d7d-9a25-192a6b4082cb",
-        "turn_index": 7,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 299
     },
     {
       "id": "tool_calling_045",
       "status": "done",
       "input": "Quy định về tăng lương của công ty?",
       "reference": "Quy định về tăng lương tại MISA JSC như sau:\n\n1. **Kỳ xem xét tăng lương:** MISA có 2 kỳ review đãi ngộ vào tháng 4 và tháng 10 hàng năm. Trong mỗi kỳ, dựa vào năng suất của từng cán bộ nhân viên (CBNV), mức lương hiện tại so với mặt bằng chung của thị trường và quỹ lương cho việc điều chỉnh, Ban lãnh đạo sẽ xem xét để xác định mức tăng cho từng CBNV.\n\n2. **Điều kiện để được tăng lương:** Để được tăng lương, CBNV cần làm tốt công việc của mình để có năng suất tốt và nhiều tháng được đánh giá đạt yêu cầu.\n\n3. **Thời điểm áp dụng:** Mức đãi ngộ điều chỉnh sẽ được áp dụng vào kỳ lương tháng 4 và tháng 10.\n\nChị có thể tham khảo thêm chi tiết tại quy trình xem xét lại chế độ đãi ngộ tại [đây](https://misajsc.amis.vn/Notes/3342?pageid=66556).",
-      "output": "Để cung cấp thông tin chính xác về quy định tăng lương tại MISA JSC, em sẽ tra cứu thêm thông tin từ nguồn nội bộ. Chị vui lòng chờ em một chút nhé!",
+      "output": "",
       "tool_calls": [
         {
           "type": "function",
@@ -1231,15 +871,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 488,
-      "metadata": {
-        "source_message_id": "a9a5dd2f-197a-4d92-9d09-63a42645cb21",
-        "turn_index": 26,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 539
     },
     {
       "id": "tool_calling_046",
@@ -1260,15 +892,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 522,
-      "metadata": {
-        "source_message_id": "3063c5af-0a36-4c67-8386-f37869bc110d",
-        "turn_index": 5,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 347
     },
     {
       "id": "tool_calling_047",
@@ -1289,15 +913,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 287,
-      "metadata": {
-        "source_message_id": "9bc08622-ca13-43ed-b440-5b4f5e9efd75",
-        "turn_index": 5,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 301
     },
     {
       "id": "tool_calling_048",
@@ -1318,36 +934,20 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 303,
-      "metadata": {
-        "source_message_id": "ef38667e-5347-489c-845f-224d62766255",
-        "turn_index": 26,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 416
     },
     {
       "id": "tool_calling_049",
       "status": "done",
       "input": "Quy trình xin nghỉ phép ốm đau ra sao?",
       "reference": "Quy trình xin nghỉ phép ốm đau tại MISA như sau:\n\n1. Nhân viên nghỉ ốm hoặc nghỉ con ốm cần làm đơn xin nghỉ ốm trên hệ thống AMIS.HRM để gửi tới các cấp xem xét, phê duyệt theo thẩm quyền duyệt nghỉ phép. Các cấp phê duyệt chậm nhất 01 ngày sau khi nhận được đề nghị duyệt đơn xin nghỉ ốm hoặc nghỉ con ốm.\n\n2. Trường hợp nghỉ ốm hoặc nghỉ con ốm từ 14 ngày làm việc trở lên trong tháng:\n   - HR VP/TT có trách nhiệm khai báo và thực hiện các thủ tục giảm bảo hiểm của nhân viên theo luật BHXH Việt Nam tại thời điểm nghỉ.\n   - Xin ý kiến Giám đốc VP/TT/Chánh VP/Giám đốc Khối dự án về việc thu hồi tài sản, tài nguyên CNTT, tài nguyên TTDL, tài nguyên mã nguồn của nhân viên nghỉ ốm hoặc nghỉ con ốm.\n   - Trường hợp Giám đốc VP/TT/Chánh VP/Giám đốc Khối dự án yêu cầu thu hồi tài sản, tài nguyên CNTT, tài nguyên mã nguồn của nhân viên thì cần gửi yêu cầu tới bộ phận quản lý tài sản, tài nguyên CNTT, tài nguyên TTDL, tài nguyên mã nguồn theo các quy trình thu hồi tài sản, thu hồi/tạm dừng tài nguyên CNTT, thu hồi/tạm dừng tài nguyên TTDL, thu hồi tài nguyên mã nguồn phần mềm.\n\n3. Giám đốc VP/TT/Chánh VP/Giám đốc Khối dự án xem xét về năng lực, thâm niên, tính cam kết của người nghỉ ốm hoặc nghỉ con ốm để đưa ra quyết định về việc có thu hồi tài sản, tài nguyên CNTT, tài nguyên TTDL, tài nguyên mã nguồn không. Nếu thấy có khả năng không quay lại làm việc nữa thì cần yêu cầu thu hồi ngay.\n\nChị có thể tham khảo thêm chi tiết tại link sau: [Quy trình nghỉ ốm](https://misajsc.amis.vn/Notes/3342?pageid=661898).",
-      "output": "Chính sách và quy trình xin nghỉ phép ốm đau tại MISA được quy định như sau:\n\n- Nhân viên có thể xin nghỉ phép ốm đau khi bị ốm, tai nạn hoặc phải đi khám chữa bệnh theo chỉ định của cơ sở y tế có thẩm quyền.\n- Để xin nghỉ phép ốm đau, nhân viên cần thực hiện các bước sau:\n\n  1. **Thông báo ngay** cho quản lý trực tiếp qua email hoặc hệ thống nội bộ (MISA HR) trong vòng 24 giờ kể từ khi bắt đầu nghỉ.\n  2. **Nộp giấy tờ chứng minh**: Trong vòng 3 ngày làm việc kể từ ngày trở lại, nhân viên phải nộp bản sao giấy nghỉ ốm do cơ sở y tế cấp (có dấu xác nhận).\n  3. **Hệ thống tự động ghi nhận**: Sau khi quản lý phê duyệt và nhân viên nộp đầy đủ giấy tờ, hệ thống HR sẽ tự động cập nhật số ngày nghỉ ốm vào sổ lương và bảo hiểm xã hội.\n\n- **Số ngày nghỉ ốm được hưởng lương** phụ thuộc vào thời gian đóng bảo hiểm xã hội:\n  - Dưới 15 năm đóng BHXH: Tối đa 30 ngày/năm.\n  - Từ 15 năm đến dưới 30 năm đóng BHXH: Tối đa 40 ngày/năm.\n  - Từ 30 năm trở lên đóng BHXH: Tối đa 60 ngày/năm.\n\n> 💡 *Lưu ý: Nếu nghỉ ốm không có giấy tờ hợp lệ, ngày nghỉ sẽ được tính là nghỉ không phép.*\n\nNếu chị cần hỗ trợ tạo yêu cầu nghỉ ốm trên hệ thống MISA HR, em có thể hướng dẫn chi tiết nhé!",
+      "output": "Chào Chị Minh Anh,\n\nEm xin cung cấp quy trình xin nghỉ phép ốm đau tại MISA như sau:\n\n1. **Thông báo ngay khi bị ốm**:  \n   Chị vui lòng thông báo ngay cho quản lý trực tiếp và bộ phận Nhân sự qua email hoặc hệ thống nội bộ (MISA HR) về việc nghỉ ốm đau, kèm theo lý do và thời gian dự kiến nghỉ.\n\n2. **Cung cấp giấy tờ y tế**:  \n   - Nếu nghỉ từ 03 ngày làm việc trở lên, Chị cần nộp **giấy xác nhận nghỉ ốm** do cơ sở y tế có thẩm quyền cấp (có dấu đỏ và chữ ký của bác sĩ).  \n   - Giấy tờ này có thể gửi qua email hoặc tải lên hệ thống MISA HR theo hướng dẫn.\n\n3. **Hệ thống tự động cập nhật**:  \n   Sau khi bộ phận Nhân sự xác nhận giấy tờ, hệ thống sẽ tự động cập nhật số ngày nghỉ ốm vào sổ lương và báo cáo chấm công.\n\n4. **Chế độ lương khi nghỉ ốm**:  \n   - Chị sẽ được hưởng **75% mức lương đóng bảo hiểm xã hội** theo quy định của pháp luật.  \n   - Thời gian nghỉ tối đa trong năm được tính theo số ngày đóng BHXH và quy định tại Luật Bảo hiểm Xã hội.\n\n5. **Lưu ý quan trọng**:  \n   - Không được tự ý nghỉ không có giấy tờ y tế, vì sẽ bị tính là nghỉ không phép.  \n   - Nếu ốm kéo dài trên 30 ngày, Chị cần liên hệ với Nhân sự để được hỗ trợ thêm.\n\nChị cần em hỗ trợ gửi mẫu email thông báo nghỉ ốm hay hướng dẫn cách tải giấy tờ lên hệ thống MISA HR không ạ? Em sẵn sàng giúp Chị bất kỳ lúc nào! 😊",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 1796,
-      "metadata": {
-        "source_message_id": "c326d552-8428-4c56-8631-294fc184c671",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 5708
     },
     {
       "id": "tool_calling_050",
@@ -1360,7 +960,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\": \"quy trình mua hàng ở công ty MISA\"}"
+            "arguments": "{\"query\": \"quy trình mua hàng công ty MISA\"}"
           }
         }
       ],
@@ -1368,15 +968,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 314,
-      "metadata": {
-        "source_message_id": "3616aa64-7674-40b4-85d0-d66d9331cf1b",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 795
     },
     {
       "id": "tool_calling_051",
@@ -1397,15 +989,7 @@
         "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 460,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206243",
-        "tools_used": [
-          "quick_actions_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 479
     },
     {
       "id": "tool_calling_052",
@@ -1426,15 +1010,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 363,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206249",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 412
     },
     {
       "id": "tool_calling_053",
@@ -1455,15 +1031,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 361,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206249",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 353
     },
     {
       "id": "tool_calling_054",
@@ -1484,15 +1052,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 432,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 438
     },
     {
       "id": "tool_calling_055",
@@ -1513,15 +1073,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 373,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 323
     },
     {
       "id": "tool_calling_056",
@@ -1542,15 +1094,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 425,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 405
     },
     {
       "id": "tool_calling_057",
@@ -1571,15 +1115,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 369,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206176",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 477
     },
     {
       "id": "tool_calling_058",
@@ -1600,15 +1136,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 375,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206232",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 370
     },
     {
       "id": "tool_calling_059",
@@ -1629,15 +1157,7 @@
         "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 365,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206232",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 458
     },
     {
       "id": "tool_calling_060",
@@ -1658,57 +1178,33 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 429,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206199",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 535
     },
     {
       "id": "tool_calling_061",
       "status": "done",
       "input": "điều chỉnh thống kê các hoạt động",
       "reference": "Để điều chỉnh thống kê các hoạt động, chị vui lòng xác định rõ loại hoạt động và báo cáo cần điều chỉnh. Nếu chị cần hướng dẫn chi tiết trên phần mềm MISA, vui lòng liên hệ bộ phận support để được hỗ trợ cụ thể theo từng nghiệp vụ.",
-      "output": "Chào chị Huệ,  \n\nEm hiểu chị muốn **điều chỉnh thống kê các hoạt động** — có thể là để cập nhật, điều chỉnh dữ liệu báo cáo hoặc thay đổi cách hiển thị số liệu cho phù hợp với nhu cầu quản lý.  \n\nĐể em hỗ trợ chị chính xác nhất, chị vui lòng cho biết:  \n👉 **Chị muốn điều chỉnh thống kê cho hoạt động nào?**  \nVí dụ:  \n- Tình hình sử dụng ngân sách  \n- Số dư tiền mặt, tiền gửi  \n- Thực hiện kế hoạch ngân sách  \n- Hoặc một loại báo cáo khác?  \n\nChị chỉ cần nói rõ mục tiêu, em sẽ giúp chị điều chỉnh và hiển thị lại thống kê một cách nhanh chóng và chính xác nhất.  \n\nEm chờ thông tin từ chị ạ!",
+      "output": "Chào chị Huệ,  \n\nEm hiểu chị muốn **điều chỉnh thống kê các hoạt động** — có thể là để cập nhật, điều chỉnh dữ liệu báo cáo hoặc thay đổi cách hiển thị số liệu cho phù hợp với nhu cầu quản lý.  \n\nĐể em hỗ trợ chị chính xác nhất, chị vui lòng cho biết:  \n👉 **Chị muốn điều chỉnh thống kê về hoạt động nào?**  \n(Ví dụ: tình hình sử dụng ngân sách, số dư tiền mặt, thực hiện dự toán, hay các hoạt động thanh toán như lương, điện, nước...)  \n\nChỉ cần nói rõ mục tiêu, em sẽ giúp chị điều chỉnh và cập nhật ngay lập tức!",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 1088,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206198",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1736
     },
     {
       "id": "tool_calling_062",
       "status": "done",
       "input": "điều chỉnh ở thống kê hoạt động lên báo cáo tài chính",
       "reference": "Để điều chỉnh số liệu từ thống kê hoạt động lên báo cáo tài chính, anh/chị cần rà soát lại các bút toán liên quan và thực hiện các bút toán điều chỉnh (nếu cần) trên phần mềm kế toán. Nếu cần hướng dẫn chi tiết theo từng trường hợp cụ thể, anh/chị vui lòng liên hệ bộ phận support của MISA để được hỗ trợ trực tiếp.",
-      "output": "Chị Huệ thân mến,  \n\nEm hiểu chị muốn **điều chỉnh dữ liệu từ thống kê hoạt động để chuyển thành báo cáo tài chính**.  \n\nTuy nhiên, trong hệ thống MISA, **thống kê hoạt động** và **báo cáo tài chính** là hai nhóm báo cáo khác nhau, có cấu trúc và mục đích riêng:  \n- **Thống kê hoạt động**: tập trung vào các chỉ số vận hành như chi phí, doanh thu theo bộ phận, dự toán thực hiện…  \n- **Báo cáo tài chính**: bao gồm Bảng cân đối kế toán, Báo cáo kết quả hoạt động kinh doanh, Báo cáo lưu chuyển tiền tệ… – được lập theo chuẩn mực kế toán và có tính pháp lý.  \n\n👉 **Không thể “điều chỉnh” trực tiếp thống kê hoạt động để biến thành báo cáo tài chính**, vì chúng khác nhau về nội dung, công thức tính và nguồn dữ liệu.  \n\nTuy nhiên, em có thể giúp chị:  \n✅ **Hiển thị báo cáo tài chính đầy đủ và chính xác nhất** theo chuẩn MISA – được xây dựng từ dữ liệu kế toán gốc, đảm bảo tính hợp lệ và tối ưu nhất thị trường.  \n\nChị vui lòng xác nhận:  \n**Chị muốn xem báo cáo tài chính nào?**  \n(Ví dụ: Báo cáo kết quả hoạt động kinh doanh, Bảng cân đối kế toán, hay Báo cáo lưu chuyển tiền tệ?)  \n\nEm sẽ lập tức sinh báo cáo cho chị ngay!",
+      "output": "Chào chị Huệ,  \n\nEm hiểu chị muốn **điều chỉnh dữ liệu từ thống kê hoạt động để chuyển thành báo cáo tài chính**.  \n\nTuy nhiên, trong hệ thống MISA, **thống kê hoạt động** và **báo cáo tài chính** là hai nhóm báo cáo có cấu trúc và mục đích khác nhau:  \n- **Thống kê hoạt động**: tập trung vào các chỉ số vận hành như chi phí, doanh thu theo bộ phận, dự toán thực hiện…  \n- **Báo cáo tài chính**: bao gồm Bảng cân đối kế toán, Báo cáo kết quả hoạt động kinh doanh, Báo cáo lưu chuyển tiền tệ… – được lập theo chuẩn mực kế toán và có yêu cầu về tính hợp lệ, hợp pháp cao.  \n\n👉 **Không thể “điều chỉnh” trực tiếp thống kê hoạt động để biến thành báo cáo tài chính**, vì chúng khác nhau về nguồn dữ liệu, công thức tính và quy trình tổng hợp.  \n\nTuy nhiên, em có thể giúp chị:  \n✅ **Hiển thị báo cáo tài chính đầy đủ và chính xác nhất** theo chuẩn kế toán Việt Nam – do MISA tự động sinh từ dữ liệu kế toán đã nhập.  \n✅ **So sánh dữ liệu thống kê hoạt động với báo cáo tài chính** để chị có cái nhìn tổng thể.  \n\nChị vui lòng xác nhận:  \n👉 Chị muốn **xem báo cáo tài chính** nào? (Ví dụ: Báo cáo kết quả hoạt động kinh doanh, Bảng cân đối kế toán, v.v.)  \nEm sẽ ngay lập tức sinh báo cáo cho chị – đảm bảo **chính xác, đầy đủ và chuẩn mực nhất thị trường**.  \n\nChị chỉ cần nói tên báo cáo, em sẽ làm ngay ạ!",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 1918,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206198",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 5134
     },
     {
       "id": "tool_calling_063",
@@ -1729,15 +1225,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 393,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206168",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 323
     },
     {
       "id": "tool_calling_064",
@@ -1758,15 +1246,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 395,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206142",
-        "tools_used": [
-          "quick_actions_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 436
     },
     {
       "id": "tool_calling_065",
@@ -1787,15 +1267,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 519,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 650
     },
     {
       "id": "tool_calling_066",
@@ -1816,15 +1288,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 557,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 575
     },
     {
       "id": "tool_calling_067",
@@ -1845,15 +1309,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 540,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 535
     },
     {
       "id": "tool_calling_068",
@@ -1866,7 +1322,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_transfer_tien_nuoc",
-            "arguments": "{\"description_bu_plan\": \"thanh toán tiền nước tháng 5 cho ban quản lý\", \"bank_account\": \"123456789 tại Vietcombank\"}"
+            "arguments": "{\"description_bu_plan\": \"tiền nước tháng 5 cho ban quản lý\", \"bank_account\": \"123456789 tại Vietcombank\"}"
           }
         }
       ],
@@ -1874,15 +1330,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 500,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1222
     },
     {
       "id": "tool_calling_069",
@@ -1903,15 +1351,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 545,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 800
     },
     {
       "id": "tool_calling_070",
@@ -1932,15 +1372,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 519,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 750
     },
     {
       "id": "tool_calling_071",
@@ -1961,15 +1393,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 585,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 707
     },
     {
       "id": "tool_calling_072",
@@ -1990,15 +1414,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 585,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1005
     },
     {
       "id": "tool_calling_073",
@@ -2019,15 +1435,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 665,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1303
     },
     {
       "id": "tool_calling_074",
@@ -2048,15 +1456,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 454,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1055
     },
     {
       "id": "tool_calling_075",
@@ -2077,15 +1477,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 478,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 871
     },
     {
       "id": "tool_calling_076",
@@ -2098,7 +1490,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_salary",
-            "arguments": "{\"description_bu_plan\": \"lương tháng 7\", \"bank_account\": \"1122334455\"}"
+            "arguments": "{\"description_bu_plan\": \"lương tháng 7 cho toàn công ty\", \"bank_account\": \"1122334455\"}"
           }
         }
       ],
@@ -2106,15 +1498,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 453,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 806
     },
     {
       "id": "tool_calling_077",
@@ -2135,15 +1519,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 591,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 901
     },
     {
       "id": "tool_calling_078",
@@ -2164,15 +1540,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 541,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 677
     },
     {
       "id": "tool_calling_079",
@@ -2193,15 +1561,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 440,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 561
     },
     {
       "id": "tool_calling_080",
@@ -2222,189 +1582,91 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 16347,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 409
     },
     {
       "id": "tool_calling_081",
-      "status": "done",
+      "status": "error",
       "input": "Thêm khách hàng mới tên là Công ty TNHH Thương mại Hải Đăng, mã KH0023, địa chỉ 45 Nguyễn Văn Linh, Đà Nẵng.",
       "reference": "Đã thêm khách hàng Công ty TNHH Thương mại Hải Đăng với mã KH0023.",
       "output": "",
-      "tool_calls": [
-        {
-          "type": "function",
-          "function": {
-            "name": "add_customer_vendor",
-            "arguments": "{\"taxCode_or_objectName\": \"Công ty TNHH Thương mại Hải Đăng\", \"objectCode\": \"KH0023\", \"address\": \"45 Nguyễn Văn Linh, Đà Nẵng\"}"
-          }
-        }
-      ],
+      "tool_calls": [],
       "scores": {
-        "ast_accuracy": 100,
-        "task_success_rate": 100
+        "ast_accuracy": 0,
+        "task_success_rate": 0
       },
-      "durationMs": 466,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "error": "Error: API error 429: {\"success\":false,\"message\":\"Rate limit exceeded for model. Try again in 16 seconds.\",\"type\":\"rate_limit_error\",\"code\":\"too_many_requests\",\"timestamp\":\"2026-04-20T04:02:26.2661166Z\",\"details\":{\"violated\":\"ConsumerModel\",\"retry_after\":16,\"consumer_global\":{\"rpm\":{\"current\":135,\"limit\":null},\"tpm\":{\"current\":315565,\"limit\":null}},\"consumer_model\":{\"rpm\":{\"current\":80,\"limit\":200},\"tpm\":{\"current\":210680,\"limit\":200000}}}}",
+      "durationMs": 15114
     },
     {
       "id": "tool_calling_082",
-      "status": "done",
+      "status": "error",
       "input": "Tạo mới nhà cung cấp có mã NCC1005, tên là Công ty Xây dựng Minh Phát, địa chỉ: 99 Lê Duẩn, Hà Nội.",
       "reference": "Nhà cung cấp Công ty Xây dựng Minh Phát đã được thêm với mã NCC1005.",
       "output": "",
-      "tool_calls": [
-        {
-          "type": "function",
-          "function": {
-            "name": "add_customer_vendor",
-            "arguments": "{\"taxCode_or_objectName\": \"Công ty Xây dựng Minh Phát\", \"objectCode\": \"NCC1005\", \"address\": \"99 Lê Duẩn, Hà Nội\"}"
-          }
-        }
-      ],
+      "tool_calls": [],
       "scores": {
-        "ast_accuracy": 100,
-        "task_success_rate": 100
+        "ast_accuracy": 0,
+        "task_success_rate": 0
       },
-      "durationMs": 466,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "error": "Error: API error 429: {\"success\":false,\"message\":\"Rate limit exceeded for model. Try again in 16 seconds.\",\"type\":\"rate_limit_error\",\"code\":\"too_many_requests\",\"timestamp\":\"2026-04-20T04:02:26.4666776Z\",\"details\":{\"violated\":\"ConsumerModel\",\"retry_after\":16,\"consumer_global\":{\"rpm\":{\"current\":136,\"limit\":null},\"tpm\":{\"current\":320250,\"limit\":null}},\"consumer_model\":{\"rpm\":{\"current\":80,\"limit\":200},\"tpm\":{\"current\":210680,\"limit\":200000}}}}",
+      "durationMs": 15162
     },
     {
       "id": "tool_calling_083",
-      "status": "done",
+      "status": "error",
       "input": "Thêm khách hàng có mã KH0008, tên Nguyễn Văn An, địa chỉ 12A Trần Phú, TP. Vinh.",
       "reference": "Đã thêm khách hàng Nguyễn Văn An với mã KH0008.",
       "output": "",
-      "tool_calls": [
-        {
-          "type": "function",
-          "function": {
-            "name": "add_customer_vendor",
-            "arguments": "{\"taxCode_or_objectName\": \"Nguyễn Văn An\", \"objectCode\": \"KH0008\", \"address\": \"12A Trần Phú, TP. Vinh\"}"
-          }
-        }
-      ],
+      "tool_calls": [],
       "scores": {
-        "ast_accuracy": 100,
-        "task_success_rate": 100
+        "ast_accuracy": 0,
+        "task_success_rate": 0
       },
-      "durationMs": 468,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "error": "Error: API error 429: {\"success\":false,\"message\":\"Rate limit exceeded for model. Try again in 16 seconds.\",\"type\":\"rate_limit_error\",\"code\":\"too_many_requests\",\"timestamp\":\"2026-04-20T04:02:26.7173579Z\",\"details\":{\"violated\":\"ConsumerModel\",\"retry_after\":16,\"consumer_global\":{\"rpm\":{\"current\":136,\"limit\":null},\"tpm\":{\"current\":320250,\"limit\":null}},\"consumer_model\":{\"rpm\":{\"current\":80,\"limit\":200},\"tpm\":{\"current\":210680,\"limit\":200000}}}}",
+      "durationMs": 15125
     },
     {
       "id": "tool_calling_084",
-      "status": "done",
+      "status": "error",
       "input": "Tôi muốn thêm đối tượng nhà cung cấp: Công ty TNHH An Phước, mã NCC301, địa chỉ: 88 Nguyễn Trãi, Quận 1, TP.HCM.",
       "reference": "Đã thêm nhà cung cấp Công ty TNHH An Phước với mã NCC301.",
       "output": "",
-      "tool_calls": [
-        {
-          "type": "function",
-          "function": {
-            "name": "add_customer_vendor",
-            "arguments": "{\"taxCode_or_objectName\": \"Công ty TNHH An Phước\", \"objectCode\": \"NCC301\", \"address\": \"88 Nguyễn Trãi, Quận 1, TP.HCM\"}"
-          }
-        }
-      ],
+      "tool_calls": [],
       "scores": {
-        "ast_accuracy": 100,
-        "task_success_rate": 100
+        "ast_accuracy": 0,
+        "task_success_rate": 0
       },
-      "durationMs": 474,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "error": "Error: API error 429: {\"success\":false,\"message\":\"Rate limit exceeded for model. Try again in 1 seconds.\",\"type\":\"rate_limit_error\",\"code\":\"too_many_requests\",\"timestamp\":\"2026-04-20T04:02:41.6049441Z\",\"details\":{\"violated\":\"ConsumerModel\",\"retry_after\":1,\"consumer_global\":{\"rpm\":{\"current\":152,\"limit\":null},\"tpm\":{\"current\":395608,\"limit\":null}},\"consumer_model\":{\"rpm\":{\"current\":80,\"limit\":200},\"tpm\":{\"current\":210680,\"limit\":200000}}}}",
+      "durationMs": 15251
     },
     {
       "id": "tool_calling_085",
-      "status": "done",
+      "status": "error",
       "input": "Xem tiến độ thực hiện kế hoạch ngân sách năm nay",
       "reference": "Dưới đây là tiến độ thực hiện kế hoạch ngân sách năm nay.",
       "output": "",
-      "tool_calls": [
-        {
-          "type": "function",
-          "function": {
-            "name": "show_budget_plan_implementation",
-            "arguments": "{}"
-          }
-        }
-      ],
+      "tool_calls": [],
       "scores": {
-        "ast_accuracy": 100,
-        "task_success_rate": 100
+        "ast_accuracy": 0,
+        "task_success_rate": 0
       },
-      "durationMs": 416,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "error": "Error: API error 429: {\"success\":false,\"message\":\"Rate limit exceeded for model. Try again in 1 seconds.\",\"type\":\"rate_limit_error\",\"code\":\"too_many_requests\",\"timestamp\":\"2026-04-20T04:02:41.7832545Z\",\"details\":{\"violated\":\"ConsumerModel\",\"retry_after\":1,\"consumer_global\":{\"rpm\":{\"current\":152,\"limit\":null},\"tpm\":{\"current\":395608,\"limit\":null}},\"consumer_model\":{\"rpm\":{\"current\":80,\"limit\":200},\"tpm\":{\"current\":210680,\"limit\":200000}}}}",
+      "durationMs": 15228
     },
     {
       "id": "tool_calling_086",
-      "status": "done",
+      "status": "error",
       "input": "Cho tôi biết tình hình giải ngân theo kế hoạch",
       "reference": "Đây là tình hình giải ngân theo kế hoạch ngân sách của đơn vị.",
       "output": "",
-      "tool_calls": [
-        {
-          "type": "function",
-          "function": {
-            "name": "show_budget_plan_implementation",
-            "arguments": "{}"
-          }
-        }
-      ],
+      "tool_calls": [],
       "scores": {
-        "ast_accuracy": 100,
-        "task_success_rate": 100
+        "ast_accuracy": 0,
+        "task_success_rate": 0
       },
-      "durationMs": 350,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "error": "Error: API error 429: {\"success\":false,\"message\":\"Rate limit exceeded for model. Try again in 1 seconds.\",\"type\":\"rate_limit_error\",\"code\":\"too_many_requests\",\"timestamp\":\"2026-04-20T04:02:42.0716718Z\",\"details\":{\"violated\":\"ConsumerModel\",\"retry_after\":1,\"consumer_global\":{\"rpm\":{\"current\":153,\"limit\":null},\"tpm\":{\"current\":400308,\"limit\":null}},\"consumer_model\":{\"rpm\":{\"current\":80,\"limit\":200},\"tpm\":{\"current\":210680,\"limit\":200000}}}}",
+      "durationMs": 15319
     },
     {
       "id": "tool_calling_087",
@@ -2425,15 +1687,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 402,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1364
     },
     {
       "id": "tool_calling_088",
@@ -2454,15 +1708,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 350,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1448
     },
     {
       "id": "tool_calling_089",
@@ -2483,15 +1729,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 339,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1672
     },
     {
       "id": "tool_calling_090",
@@ -2512,15 +1750,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 343,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 381
     },
     {
       "id": "tool_calling_091",
@@ -2541,15 +1771,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 434,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 555
     },
     {
       "id": "tool_calling_092",
@@ -2570,15 +1792,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 373,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 311
     },
     {
       "id": "tool_calling_093",
@@ -2599,15 +1813,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 355,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 454
     },
     {
       "id": "tool_calling_094",
@@ -2628,36 +1834,20 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 548,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 525
     },
     {
       "id": "tool_calling_095",
       "status": "done",
       "input": "Làm sao chỉnh sửa chứng từ kế toán đã ghi sổ trên phần mềm?",
       "reference": "Bạn cần bỏ ghi sổ chứng từ, sau đó mới chỉnh sửa được nội dung.",
-      "output": "Chị Thư thân mến, em xin phép được hướng dẫn chị về việc chỉnh sửa chứng từ kế toán đã ghi sổ trên phần mềm MISA.\n\nTheo quy định kế toán chuẩn và hệ thống phần mềm MISA, **chứng từ đã ghi sổ không được phép chỉnh sửa trực tiếp** để đảm bảo tính minh bạch, trung thực và tuân thủ pháp luật về kế toán. Tuy nhiên, chị có thể thực hiện các thao tác sau để điều chỉnh:\n\n1. **Hủy ghi sổ** chứng từ cần chỉnh sửa → sau đó **chỉnh sửa nội dung** → rồi **ghi sổ lại**.\n2. Hoặc tạo **chứng từ điều chỉnh** (chứng từ bù trừ) để ghi nhận sự thay đổi, giữ nguyên chứng từ gốc.\n\n👉 Để thực hiện thao tác này, chị vui lòng cho em biết:\n- **Loại chứng từ** cần chỉnh sửa (ví dụ: chứng từ chi tiền, thu tiền, nhập kho, v.v.)  \n- **Ngày chứng từ** và **số chứng từ** (nếu có)\n\nEm sẽ hướng dẫn chi tiết từng bước theo đúng loại chứng từ chị đang sử dụng ạ.",
+      "output": "Chị Thư thân mến, em xin phép được hỗ trợ chị về việc chỉnh sửa chứng từ kế toán đã ghi sổ.\n\nTheo quy định của phần mềm MISA, chứng từ đã ghi sổ **không thể chỉnh sửa trực tiếp** để đảm bảo tính minh bạch, trung thực và tuân thủ chuẩn mực kế toán. Tuy nhiên, chị có thể thực hiện theo các bước sau để điều chỉnh:\n\n1. **Hủy ghi sổ** chứng từ cần chỉnh sửa →  \n2. **Chỉnh sửa nội dung** chứng từ →  \n3. **Ghi sổ lại** chứng từ đã sửa.\n\nChị vui lòng cho em biết:  \n- Mã chứng từ cần chỉnh sửa là gì?  \n- Chị muốn sửa nội dung nào (ví dụ: tài khoản, số tiền, đối tượng, diễn giải...)?\n\nEm sẽ hướng dẫn chi tiết từng bước theo giao diện phần mềm MISA để chị thực hiện chính xác và an toàn ạ.",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 1290,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1716
     },
     {
       "id": "tool_calling_096",
@@ -2678,15 +1868,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 355,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 502
     },
     {
       "id": "tool_calling_097",
@@ -2707,15 +1889,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 372,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 694
     },
     {
       "id": "tool_calling_098",
@@ -2736,15 +1910,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 331,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 454
     }
   ]
 }

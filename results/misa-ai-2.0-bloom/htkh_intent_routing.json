@@ -1,8 +1,8 @@
 {
-  "runId": "c089e25f-42a8-4405-bc42-fbfa2c32ea88",
+  "runId": "d661333f-2f00-4aca-b487-7d8b471bc138",
   "model": "misa-ai-2.0-bloom",
-  "baseUrl": "https://test-aiservice.misa.com.vn/llm-gateway/v1",
-  "date": "2026-04-17 10:28:12",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:31:49",
   "taskName": "htkh_intent_routing",
   "taskType": "qa",
   "description": "HTKH — Route intent: rag_answer / human_handoff / clarify / chitchat",
@@ -24,7 +24,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 180
+      "durationMs": 339
     },
     {
       "id": "htkh_intent_routing_0002",
@@ -36,7 +36,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 219
+      "durationMs": 443
     },
     {
       "id": "htkh_intent_routing_0003",
@@ -48,7 +48,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 261
+      "durationMs": 537
     },
     {
       "id": "htkh_intent_routing_0004",
@@ -60,7 +60,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 164
+      "durationMs": 357
     },
     {
       "id": "htkh_intent_routing_0005",
@@ -72,7 +72,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 271
+      "durationMs": 369
     },
     {
       "id": "htkh_intent_routing_0006",
@@ -84,7 +84,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 157
+      "durationMs": 374
     },
     {
       "id": "htkh_intent_routing_0007",
@@ -96,7 +96,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 261
+      "durationMs": 2046
     },
     {
       "id": "htkh_intent_routing_0008",
@@ -108,7 +108,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 151
+      "durationMs": 2068
     },
     {
       "id": "htkh_intent_routing_0009",
@@ -120,7 +120,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 363
+      "durationMs": 2066
     },
     {
       "id": "htkh_intent_routing_0010",
@@ -132,7 +132,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 207
+      "durationMs": 674
     },
     {
       "id": "htkh_intent_routing_0011",
@@ -144,7 +144,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 240
+      "durationMs": 790
     },
     {
       "id": "htkh_intent_routing_0012",
@@ -156,7 +156,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 301
+      "durationMs": 884
     },
     {
       "id": "htkh_intent_routing_0013",
@@ -168,19 +168,19 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 401
+      "durationMs": 372
     },
     {
       "id": "htkh_intent_routing_0014",
       "status": "done",
       "input": "tôi không làm được",
       "reference": "clarify",
-      "output": "human_handoff",
+      "output": "rag_answer",
       "tool_calls": [],
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 323
+      "durationMs": 321
     },
     {
       "id": "htkh_intent_routing_0015",
@@ -192,7 +192,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 254
+      "durationMs": 556
     },
     {
       "id": "htkh_intent_routing_0016",
@@ -204,7 +204,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 259
+      "durationMs": 691
     },
     {
       "id": "htkh_intent_routing_0017",
@@ -216,7 +216,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 252
+      "durationMs": 688
     },
     {
       "id": "htkh_intent_routing_0018",
@@ -228,7 +228,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 186
+      "durationMs": 510
     },
     {
       "id": "htkh_intent_routing_0019",
@@ -240,7 +240,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 309
+      "durationMs": 512
     },
     {
       "id": "htkh_intent_routing_0020",
@@ -252,7 +252,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 264
+      "durationMs": 560
     },
     {
       "id": "htkh_intent_routing_0021",
@@ -264,7 +264,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 309
+      "durationMs": 1038
     },
     {
       "id": "htkh_intent_routing_0022",
@@ -276,7 +276,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 276
+      "durationMs": 1370
     },
     {
       "id": "htkh_intent_routing_0023",
@@ -288,7 +288,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 293
+      "durationMs": 998
     },
     {
       "id": "htkh_intent_routing_0024",
@@ -300,7 +300,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 187
+      "durationMs": 489
     },
     {
       "id": "htkh_intent_routing_0025",
@@ -312,7 +312,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 185
+      "durationMs": 576
     },
     {
       "id": "htkh_intent_routing_0026",
@@ -324,7 +324,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 180
+      "durationMs": 533
     },
     {
       "id": "htkh_intent_routing_0027",
@@ -336,7 +336,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 212
+      "durationMs": 526
     },
     {
       "id": "htkh_intent_routing_0028",
@@ -348,7 +348,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 218
+      "durationMs": 666
     },
     {
       "id": "htkh_intent_routing_0029",
@@ -360,7 +360,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 326
+      "durationMs": 662
     },
     {
       "id": "htkh_intent_routing_0030",
@@ -372,7 +372,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 151
+      "durationMs": 677
     },
     {
       "id": "htkh_intent_routing_0031",
@@ -384,7 +384,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 493
+      "durationMs": 1397
     },
     {
       "id": "htkh_intent_routing_0032",
@@ -396,7 +396,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 415
+      "durationMs": 1387
     },
     {
       "id": "htkh_intent_routing_0033",
@@ -408,7 +408,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 208
+      "durationMs": 1324
     },
     {
       "id": "htkh_intent_routing_0034",
@@ -420,7 +420,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1141
+      "durationMs": 2457
     },
     {
       "id": "htkh_intent_routing_0035",
@@ -432,7 +432,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2962
+      "durationMs": 2578
     },
     {
       "id": "htkh_intent_routing_0036",
@@ -444,7 +444,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1937
+      "durationMs": 2579
     },
     {
       "id": "htkh_intent_routing_0037",
@@ -456,19 +456,19 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1504
+      "durationMs": 354
     },
     {
       "id": "htkh_intent_routing_0038",
       "status": "done",
       "input": "đã kiểm tra hết rồi, số dư USD vẫn còn, sai là do bút toán chênh lệch tỷ giá phần mềm bị sai",
       "reference": "clarify",
-      "output": "Dạ vâng, để hỗ trợ chính xác nhất cho trường hợp này, em xin phép chuyển anh sang bộ phận Hỗ trợ kỹ thuật chuyên sâu (Technical Support) để họ kiểm tra trực tiếp vào dữ liệu và cấu hình phần mềm của anh. Anh vui lòng để lại số điện thoại hoặc email liên hệ để bộ phận kỹ thuật có thể kết nối và hỗ trợ anh ngay ạ.",
+      "output": "Dạ vâng, để hỗ trợ chính xác nhất cho trường hợp này, em xin phép chuyển anh sang bộ phận Hỗ trợ kỹ thuật chuyên sâu (Technical Support) để họ kiểm tra trực tiếp vào dữ liệu và cấu hình phần mềm của anh. Anh vui lòng cho em xin số điện thoại để bộ phận kỹ thuật có thể liên hệ lại hỗ trợ trực tiếp ạ.",
       "tool_calls": [],
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2153
+      "durationMs": 1728
     },
     {
       "id": "htkh_intent_routing_0039",
@@ -480,7 +480,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1079
+      "durationMs": 1736
     },
     {
       "id": "htkh_intent_routing_0040",
@@ -492,7 +492,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1336
+      "durationMs": 1963
     },
     {
       "id": "htkh_intent_routing_0041",
@@ -504,7 +504,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1429
+      "durationMs": 609
     },
     {
       "id": "htkh_intent_routing_0042",
@@ -516,7 +516,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2151
+      "durationMs": 640
     },
     {
       "id": "htkh_intent_routing_0043",
@@ -528,7 +528,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2033
+      "durationMs": 894
     },
     {
       "id": "htkh_intent_routing_0044",
@@ -540,7 +540,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1286
+      "durationMs": 740
     },
     {
       "id": "htkh_intent_routing_0045",
@@ -552,7 +552,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1196
+      "durationMs": 871
     },
     {
       "id": "htkh_intent_routing_0046",
@@ -564,7 +564,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1909
+      "durationMs": 645
     },
     {
       "id": "htkh_intent_routing_0047",
@@ -576,7 +576,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1493
+      "durationMs": 565
     },
     {
       "id": "htkh_intent_routing_0048",
@@ -588,7 +588,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2021
+      "durationMs": 528
     },
     {
       "id": "htkh_intent_routing_0049",
@@ -600,7 +600,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2029
+      "durationMs": 392
     },
     {
       "id": "htkh_intent_routing_0050",
@@ -612,7 +612,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2376
+      "durationMs": 526
     },
     {
       "id": "htkh_intent_routing_0051",
@@ -624,7 +624,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2588
+      "durationMs": 510
     },
     {
       "id": "htkh_intent_routing_0052",
@@ -636,7 +636,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 3048
+      "durationMs": 408
     },
     {
       "id": "htkh_intent_routing_0053",
@@ -648,7 +648,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2931
+      "durationMs": 454
     },
     {
       "id": "htkh_intent_routing_0054",
@@ -660,7 +660,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2385
+      "durationMs": 461
     },
     {
       "id": "htkh_intent_routing_0055",
@@ -672,7 +672,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2990
+      "durationMs": 932
     },
     {
       "id": "htkh_intent_routing_0056",
@@ -684,7 +684,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2742
+      "durationMs": 890
     },
     {
       "id": "htkh_intent_routing_0057",
@@ -696,7 +696,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1344
+      "durationMs": 878
     },
     {
       "id": "htkh_intent_routing_0058",
@@ -708,7 +708,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1893
+      "durationMs": 575
     },
     {
       "id": "htkh_intent_routing_0059",
@@ -720,7 +720,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1285
+      "durationMs": 718
     },
     {
       "id": "htkh_intent_routing_0060",
@@ -732,7 +732,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1406
+      "durationMs": 712
     },
     {
       "id": "htkh_intent_routing_0061",
@@ -744,7 +744,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2070
+      "durationMs": 750
     },
     {
       "id": "htkh_intent_routing_0062",
@@ -756,7 +756,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2308
+      "durationMs": 686
     },
     {
       "id": "htkh_intent_routing_0063",
@@ -768,7 +768,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2503
+      "durationMs": 818
     },
     {
       "id": "htkh_intent_routing_0064",
@@ -780,7 +780,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 3072
+      "durationMs": 493
     },
     {
       "id": "htkh_intent_routing_0065",
@@ -792,7 +792,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2106
+      "durationMs": 403
     },
     {
       "id": "htkh_intent_routing_0066",
@@ -804,7 +804,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2104
+      "durationMs": 370
     },
     {
       "id": "htkh_intent_routing_0067",
@@ -816,7 +816,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1542
+      "durationMs": 1099
     },
     {
       "id": "htkh_intent_routing_0068",
@@ -828,7 +828,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1973
+      "durationMs": 1093
     },
     {
       "id": "htkh_intent_routing_0069",
@@ -840,7 +840,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1974
+      "durationMs": 1088
     },
     {
       "id": "htkh_intent_routing_0070",
@@ -852,7 +852,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2143
+      "durationMs": 696
     },
     {
       "id": "htkh_intent_routing_0071",
@@ -864,7 +864,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1690
+      "durationMs": 823
     },
     {
       "id": "htkh_intent_routing_0072",
@@ -876,7 +876,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2055
+      "durationMs": 814
     },
     {
       "id": "htkh_intent_routing_0073",
@@ -888,7 +888,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2050
+      "durationMs": 362
     },
     {
       "id": "htkh_intent_routing_0074",
@@ -900,7 +900,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1501
+      "durationMs": 370
     },
     {
       "id": "htkh_intent_routing_0075",
@@ -912,7 +912,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1920
+      "durationMs": 372
     },
     {
       "id": "htkh_intent_routing_0076",
@@ -924,7 +924,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2020
+      "durationMs": 1213
     },
     {
       "id": "htkh_intent_routing_0077",
@@ -936,7 +936,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2102
+      "durationMs": 1212
     },
     {
       "id": "htkh_intent_routing_0078",
@@ -948,7 +948,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2009
+      "durationMs": 1208
     },
     {
       "id": "htkh_intent_routing_0079",
@@ -960,7 +960,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2032
+      "durationMs": 2038
     },
     {
       "id": "htkh_intent_routing_0080",
@@ -972,7 +972,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2192
+      "durationMs": 2051
     },
     {
       "id": "htkh_intent_routing_0081",
@@ -984,7 +984,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2265
+      "durationMs": 2062
     },
     {
       "id": "htkh_intent_routing_0082",
@@ -996,7 +996,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2151
+      "durationMs": 686
     },
     {
       "id": "htkh_intent_routing_0083",
@@ -1008,7 +1008,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2067
+      "durationMs": 825
     },
     {
       "id": "htkh_intent_routing_0084",
@@ -1020,7 +1020,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1850
+      "durationMs": 810
     },
     {
       "id": "htkh_intent_routing_0085",
@@ -1032,7 +1032,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1830
+      "durationMs": 648
     },
     {
       "id": "htkh_intent_routing_0086",
@@ -1044,7 +1044,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1375
+      "durationMs": 617
     },
     {
       "id": "htkh_intent_routing_0087",
@@ -1056,7 +1056,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1987
+      "durationMs": 616
     },
     {
       "id": "htkh_intent_routing_0088",
@@ -1068,7 +1068,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1999
+      "durationMs": 617
     },
     {
       "id": "htkh_intent_routing_0089",
@@ -1080,7 +1080,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2178
+      "durationMs": 862
     },
     {
       "id": "htkh_intent_routing_0090",
@@ -1092,7 +1092,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2315
+      "durationMs": 675
     },
     {
       "id": "htkh_intent_routing_0091",
@@ -1104,7 +1104,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 3033
+      "durationMs": 780
     },
     {
       "id": "htkh_intent_routing_0092",
@@ -1116,7 +1116,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2577
+      "durationMs": 546
     },
     {
       "id": "htkh_intent_routing_0093",
@@ -1128,7 +1128,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2300
+      "durationMs": 652
     },
     {
       "id": "htkh_intent_routing_0094",
@@ -1140,7 +1140,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2059
+      "durationMs": 362
     },
     {
       "id": "htkh_intent_routing_0095",
@@ -1152,7 +1152,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1518
+      "durationMs": 356
     },
     {
       "id": "htkh_intent_routing_0096",
@@ -1164,7 +1164,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1645
+      "durationMs": 1881
     },
     {
       "id": "htkh_intent_routing_0097",
@@ -1176,7 +1176,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2279
+      "durationMs": 2095
     },
     {
       "id": "htkh_intent_routing_0098",
@@ -1188,7 +1188,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2114
+      "durationMs": 1878
     },
     {
       "id": "htkh_intent_routing_0099",
@@ -1200,7 +1200,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1392
+      "durationMs": 471
     },
     {
       "id": "htkh_intent_routing_0100",
@@ -1212,7 +1212,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1569
+      "durationMs": 353
     },
     {
       "id": "htkh_intent_routing_0101",
@@ -1224,7 +1224,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2087
+      "durationMs": 363
     },
     {
       "id": "htkh_intent_routing_0102",
@@ -1236,7 +1236,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1433
+      "durationMs": 645
     },
     {
       "id": "htkh_intent_routing_0103",
@@ -1248,7 +1248,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1366
+      "durationMs": 653
     },
     {
       "id": "htkh_intent_routing_0104",
@@ -1260,7 +1260,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2135
+      "durationMs": 720
     },
     {
       "id": "htkh_intent_routing_0105",
@@ -1272,7 +1272,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2110
+      "durationMs": 417
     },
     {
       "id": "htkh_intent_routing_0106",
@@ -1284,7 +1284,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1373
+      "durationMs": 665
     },
     {
       "id": "htkh_intent_routing_0107",
@@ -1296,7 +1296,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1182
+      "durationMs": 526
     },
     {
       "id": "htkh_intent_routing_0108",
@@ -1308,7 +1308,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1187
+      "durationMs": 524
     },
     {
       "id": "htkh_intent_routing_0109",
@@ -1320,7 +1320,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1358
+      "durationMs": 372
     },
     {
       "id": "htkh_intent_routing_0110",
@@ -1332,7 +1332,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1940
+      "durationMs": 367
     },
     {
       "id": "htkh_intent_routing_0111",
@@ -1344,7 +1344,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1456
+      "durationMs": 377
     },
     {
       "id": "htkh_intent_routing_0112",
@@ -1356,7 +1356,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2045
+      "durationMs": 1563
     },
     {
       "id": "htkh_intent_routing_0113",
@@ -1368,7 +1368,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2259
+      "durationMs": 1822
     },
     {
       "id": "htkh_intent_routing_0114",
@@ -1380,7 +1380,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2265
+      "durationMs": 1510
     },
     {
       "id": "htkh_intent_routing_0115",
@@ -1392,7 +1392,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2142
+      "durationMs": 417
     },
     {
       "id": "htkh_intent_routing_0116",
@@ -1404,7 +1404,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2208
+      "durationMs": 563
     },
     {
       "id": "htkh_intent_routing_0117",
@@ -1416,7 +1416,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2063
+      "durationMs": 606
     },
     {
       "id": "htkh_intent_routing_0118",
@@ -1428,7 +1428,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1363
+      "durationMs": 588
     },
     {
       "id": "htkh_intent_routing_0119",
@@ -1440,7 +1440,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1423
+      "durationMs": 1014
     },
     {
       "id": "htkh_intent_routing_0120",
@@ -1452,7 +1452,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2068
+      "durationMs": 982
     },
     {
       "id": "htkh_intent_routing_0121",
@@ -1464,7 +1464,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2056
+      "durationMs": 960
     },
     {
       "id": "htkh_intent_routing_0122",
@@ -1476,7 +1476,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2094
+      "durationMs": 365
     },
     {
       "id": "htkh_intent_routing_0123",
@@ -1488,7 +1488,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1976
+      "durationMs": 430
     },
     {
       "id": "htkh_intent_routing_0124",
@@ -1500,7 +1500,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1858
+      "durationMs": 400
     },
     {
       "id": "htkh_intent_routing_0125",
@@ -1512,7 +1512,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1296
+      "durationMs": 319
     },
     {
       "id": "htkh_intent_routing_0126",
@@ -1524,7 +1524,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1776
+      "durationMs": 378
     },
     {
       "id": "htkh_intent_routing_0127",
@@ -1536,7 +1536,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1225
+      "durationMs": 397
     },
     {
       "id": "htkh_intent_routing_0128",
@@ -1548,7 +1548,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1374
+      "durationMs": 251
     },
     {
       "id": "htkh_intent_routing_0129",
@@ -1560,7 +1560,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2173
+      "durationMs": 237
     },
     {
       "id": "htkh_intent_routing_0130",
@@ -1572,7 +1572,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2321
+      "durationMs": 366
     },
     {
       "id": "htkh_intent_routing_0131",
@@ -1584,7 +1584,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2003
+      "durationMs": 382
     },
     {
       "id": "htkh_intent_routing_0132",
@@ -1596,7 +1596,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1319
+      "durationMs": 753
     },
     {
       "id": "htkh_intent_routing_0133",
@@ -1608,7 +1608,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1407
+      "durationMs": 642
     },
     {
       "id": "htkh_intent_routing_0134",
@@ -1620,7 +1620,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1978
+      "durationMs": 639
     },
     {
       "id": "htkh_intent_routing_0135",
@@ -1632,7 +1632,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1303
+      "durationMs": 1272
     },
     {
       "id": "htkh_intent_routing_0136",
@@ -1644,7 +1644,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1930
+      "durationMs": 1278
     },
     {
       "id": "htkh_intent_routing_0137",
@@ -1656,7 +1656,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2069
+      "durationMs": 1291
     },
     {
       "id": "htkh_intent_routing_0138",
@@ -1668,7 +1668,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1432
+      "durationMs": 421
     },
     {
       "id": "htkh_intent_routing_0139",
@@ -1680,7 +1680,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2017
+      "durationMs": 436
     },
     {
       "id": "htkh_intent_routing_0140",
@@ -1692,7 +1692,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2269
+      "durationMs": 645
     },
     {
       "id": "htkh_intent_routing_0141",
@@ -1704,7 +1704,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2281
+      "durationMs": 789
     },
     {
       "id": "htkh_intent_routing_0142",
@@ -1716,7 +1716,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2102
+      "durationMs": 730
     },
     {
       "id": "htkh_intent_routing_0143",
@@ -1728,7 +1728,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2197
+      "durationMs": 542
     },
     {
       "id": "htkh_intent_routing_0144",
@@ -1740,7 +1740,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1489
+      "durationMs": 580
     },
     {
       "id": "htkh_intent_routing_0145",
@@ -1752,7 +1752,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1623
+      "durationMs": 573
     },
     {
       "id": "htkh_intent_routing_0146",
@@ -1764,7 +1764,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2138
+      "durationMs": 555
     },
     {
       "id": "htkh_intent_routing_0147",
@@ -1776,7 +1776,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2023
+      "durationMs": 467
     },
     {
       "id": "htkh_intent_routing_0148",
@@ -1788,7 +1788,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1386
+      "durationMs": 468
     },
     {
       "id": "htkh_intent_routing_0149",
@@ -1800,7 +1800,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 2045
+      "durationMs": 467
     },
     {
       "id": "htkh_intent_routing_0150",
@@ -1812,7 +1812,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1967
+      "durationMs": 1562
     },
     {
       "id": "htkh_intent_routing_0151",
@@ -1824,7 +1824,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1398
+      "durationMs": 1572
     },
     {
       "id": "htkh_intent_routing_0152",
@@ -1836,7 +1836,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1522
+      "durationMs": 1447
     },
     {
       "id": "htkh_intent_routing_0153",
@@ -1848,7 +1848,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1383
+      "durationMs": 448
     },
     {
       "id": "htkh_intent_routing_0154",
@@ -1860,7 +1860,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 1317
+      "durationMs": 410
     }
   ]
 }

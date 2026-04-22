@@ -1,8 +1,8 @@
 {
-  "runId": "45e0d0db-85b0-41f6-b3cd-91432af43f54",
+  "runId": "cff91794-d20a-47cb-82b6-a457ea481076",
   "model": "misa-gemma-4-31b-it-06042026",
-  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
-  "date": "2026-04-06 05:16:27",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 03:11:45",
   "taskName": "htkh_intent_classification",
   "taskType": "qa",
   "description": "HTKH — Phân loại intent: request_human_handoff vs others",
@@ -24,17 +24,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 188,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 266.8805,
-        "source": "htkh"
-      }
+      "durationMs": 276
     },
     {
       "id": "htkh_intent_classification_0002",
@@ -46,17 +36,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 347.8948,
-        "source": "htkh"
-      }
+      "durationMs": 477
     },
     {
       "id": "htkh_intent_classification_0003",
@@ -68,17 +48,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 157,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 406.3083,
-        "source": "htkh"
-      }
+      "durationMs": 731
     },
     {
       "id": "htkh_intent_classification_0004",
@@ -90,17 +60,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 162,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 2092.2753,
-        "source": "htkh"
-      }
+      "durationMs": 539
     },
     {
       "id": "htkh_intent_classification_0005",
@@ -112,17 +72,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 161,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 353.059,
-        "source": "htkh"
-      }
+      "durationMs": 726
     },
     {
       "id": "htkh_intent_classification_0006",
@@ -134,17 +84,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 160,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 371.3938,
-        "source": "htkh"
-      }
+      "durationMs": 732
     },
     {
       "id": "htkh_intent_classification_0007",
@@ -156,17 +96,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 153,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 535.4212,
-        "source": "htkh"
-      }
+      "durationMs": 515
     },
     {
       "id": "htkh_intent_classification_0008",
@@ -178,17 +108,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 146,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 540.5621,
-        "source": "htkh"
-      }
+      "durationMs": 492
     },
     {
       "id": "htkh_intent_classification_0009",
@@ -200,17 +120,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 148,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 473.918,
-        "source": "htkh"
-      }
+      "durationMs": 820
     },
     {
       "id": "htkh_intent_classification_0010",
@@ -222,17 +132,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 160,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 2059.0024,
-        "source": "htkh"
-      }
+      "durationMs": 1131
     },
     {
       "id": "htkh_intent_classification_0011",
@@ -244,17 +144,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 154,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 494.7954,
-        "source": "htkh"
-      }
+      "durationMs": 1229
     },
     {
       "id": "htkh_intent_classification_0012",
@@ -266,17 +156,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 153,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 413.2344,
-        "source": "htkh"
-      }
+      "durationMs": 975
     },
     {
       "id": "htkh_intent_classification_0013",
@@ -288,17 +168,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 163,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 2073.043,
-        "source": "htkh"
-      }
+      "durationMs": 756
     },
     {
       "id": "htkh_intent_classification_0014",
@@ -310,17 +180,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 155,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 736.9349,
-        "source": "htkh"
-      }
+      "durationMs": 860
     },
     {
       "id": "htkh_intent_classification_0015",
@@ -332,17 +192,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 202,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 428.2125,
-        "source": "htkh"
-      }
+      "durationMs": 1900
     },
     {
       "id": "htkh_intent_classification_0016",
@@ -354,17 +204,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1165.7441,
-        "source": "htkh"
-      }
+      "durationMs": 2340
     },
     {
       "id": "htkh_intent_classification_0017",
@@ -376,17 +216,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 158,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 445.1772,
-        "source": "htkh"
-      }
+      "durationMs": 2372
     },
     {
       "id": "htkh_intent_classification_0018",
@@ -398,17 +228,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 371,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 2094.8174,
-        "source": "htkh"
-      }
+      "durationMs": 1349
     },
     {
       "id": "htkh_intent_classification_0019",
@@ -420,17 +240,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 421.2634,
-        "source": "htkh"
-      }
+      "durationMs": 737
     },
     {
       "id": "htkh_intent_classification_0020",
@@ -442,17 +252,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 157,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 660.7706,
-        "source": "htkh"
-      }
+      "durationMs": 741
     },
     {
       "id": "htkh_intent_classification_0021",
@@ -464,17 +264,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 145,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 507.0019,
-        "source": "htkh"
-      }
+      "durationMs": 1068
     },
     {
       "id": "htkh_intent_classification_0022",
@@ -486,17 +276,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 326.3536,
-        "source": "htkh"
-      }
+      "durationMs": 1593
     },
     {
       "id": "htkh_intent_classification_0023",
@@ -508,17 +288,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 178,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 353.489,
-        "source": "htkh"
-      }
+      "durationMs": 1295
     },
     {
       "id": "htkh_intent_classification_0024",
@@ -530,17 +300,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 147,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1600.1642,
-        "source": "htkh"
-      }
+      "durationMs": 1143
     },
     {
       "id": "htkh_intent_classification_0025",
@@ -552,17 +312,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 206,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 3079.3695,
-        "source": "htkh"
-      }
+      "durationMs": 910
     },
     {
       "id": "htkh_intent_classification_0026",
@@ -574,17 +324,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 206,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 377.864,
-        "source": "htkh"
-      }
+      "durationMs": 912
     },
     {
       "id": "htkh_intent_classification_0027",
@@ -596,17 +336,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 209,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1376.1883,
-        "source": "htkh"
-      }
+      "durationMs": 943
     },
     {
       "id": "htkh_intent_classification_0028",
@@ -618,17 +348,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 179,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1254.0187,
-        "source": "htkh"
-      }
+      "durationMs": 979
     },
     {
       "id": "htkh_intent_classification_0029",
@@ -640,17 +360,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 163,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 519.052,
-        "source": "htkh"
-      }
+      "durationMs": 1060
     },
     {
       "id": "htkh_intent_classification_0030",
@@ -662,17 +372,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 155,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 272.4733,
-        "source": "htkh"
-      }
+      "durationMs": 1532
     },
     {
       "id": "htkh_intent_classification_0031",
@@ -684,17 +384,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 162,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 324.1918,
-        "source": "htkh"
-      }
+      "durationMs": 1124
     },
     {
       "id": "htkh_intent_classification_0032",
@@ -706,17 +396,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 331.8415,
-        "source": "htkh"
-      }
+      "durationMs": 1782
     },
     {
       "id": "htkh_intent_classification_0033",
@@ -728,17 +408,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 146,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 514.7385,
-        "source": "htkh"
-      }
+      "durationMs": 1504
     },
     {
       "id": "htkh_intent_classification_0034",
@@ -750,17 +420,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 164,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 612.765,
-        "source": "htkh"
-      }
+      "durationMs": 1910
     },
     {
       "id": "htkh_intent_classification_0035",
@@ -772,17 +432,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1429.5922,
-        "source": "htkh"
-      }
+      "durationMs": 1671
     },
     {
       "id": "htkh_intent_classification_0036",
@@ -794,17 +444,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 161,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 3402.4005,
-        "source": "htkh"
-      }
+      "durationMs": 1319
     },
     {
       "id": "htkh_intent_classification_0037",
@@ -816,17 +456,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 148,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 635.547,
-        "source": "htkh"
-      }
+      "durationMs": 1564
     },
     {
       "id": "htkh_intent_classification_0038",
@@ -838,17 +468,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 347.7538,
-        "source": "htkh"
-      }
+      "durationMs": 1993
     },
     {
       "id": "htkh_intent_classification_0039",
@@ -860,17 +480,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 148,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 4320.2015,
-        "source": "htkh"
-      }
+      "durationMs": 2177
     },
     {
       "id": "htkh_intent_classification_0040",
@@ -882,17 +492,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 146,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 410.3391,
-        "source": "htkh"
-      }
+      "durationMs": 2292
     },
     {
       "id": "htkh_intent_classification_0041",
@@ -904,17 +504,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 158,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 852.1614,
-        "source": "htkh"
-      }
+      "durationMs": 2069
     },
     {
       "id": "htkh_intent_classification_0042",
@@ -926,17 +516,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 196,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 448.9666,
-        "source": "htkh"
-      }
+      "durationMs": 1798
     },
     {
       "id": "htkh_intent_classification_0043",
@@ -948,17 +528,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1362.2127,
-        "source": "htkh"
-      }
+      "durationMs": 2030
     },
     {
       "id": "htkh_intent_classification_0044",
@@ -970,17 +540,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 161,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 394.8326,
-        "source": "htkh"
-      }
+      "durationMs": 1582
     },
     {
       "id": "htkh_intent_classification_0045",
@@ -992,17 +552,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 146,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1045.8191,
-        "source": "htkh"
-      }
+      "durationMs": 1202
     },
     {
       "id": "htkh_intent_classification_0046",
@@ -1014,17 +564,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 165,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 649.5991,
-        "source": "htkh"
-      }
+      "durationMs": 1007
     },
     {
       "id": "htkh_intent_classification_0047",
@@ -1036,17 +576,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 166,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1421.24,
-        "source": "htkh"
-      }
+      "durationMs": 911
     },
     {
       "id": "htkh_intent_classification_0048",
@@ -1058,17 +588,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 270,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 663.24,
-        "source": "htkh"
-      }
+      "durationMs": 1271
     },
     {
       "id": "htkh_intent_classification_0049",
@@ -1080,17 +600,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 398.1013,
-        "source": "htkh"
-      }
+      "durationMs": 1666
     },
     {
       "id": "htkh_intent_classification_0050",
@@ -1102,17 +612,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 384.8039,
-        "source": "htkh"
-      }
+      "durationMs": 2426
     },
     {
       "id": "htkh_intent_classification_0051",
@@ -1124,17 +624,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 213,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 414.1619,
-        "source": "htkh"
-      }
+      "durationMs": 2152
     },
     {
       "id": "htkh_intent_classification_0052",
@@ -1146,17 +636,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 394.9797,
-        "source": "htkh"
-      }
+      "durationMs": 2129
     },
     {
       "id": "htkh_intent_classification_0053",
@@ -1168,17 +648,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 755,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 566.4958,
-        "source": "htkh"
-      }
+      "durationMs": 1731
     },
     {
       "id": "htkh_intent_classification_0054",
@@ -1190,17 +660,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 144,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 733.2601,
-        "source": "htkh"
-      }
+      "durationMs": 1878
     },
     {
       "id": "htkh_intent_classification_0055",
@@ -1212,17 +672,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 560.7071,
-        "source": "htkh"
-      }
+      "durationMs": 1392
     },
     {
       "id": "htkh_intent_classification_0056",
@@ -1234,17 +684,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 186,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1562.5648,
-        "source": "htkh"
-      }
+      "durationMs": 1573
     },
     {
       "id": "htkh_intent_classification_0057",
@@ -1256,17 +696,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 3642.8544,
-        "source": "htkh"
-      }
+      "durationMs": 1795
     },
     {
       "id": "htkh_intent_classification_0058",
@@ -1278,17 +708,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 158,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 336.3614,
-        "source": "htkh"
-      }
+      "durationMs": 1758
     },
     {
       "id": "htkh_intent_classification_0059",
@@ -1300,17 +720,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 171,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 531.0623,
-        "source": "htkh"
-      }
+      "durationMs": 1402
     },
     {
       "id": "htkh_intent_classification_0060",
@@ -1322,17 +732,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 209,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1151.4642,
-        "source": "htkh"
-      }
+      "durationMs": 1415
     },
     {
       "id": "htkh_intent_classification_0061",
@@ -1344,17 +744,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 204,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 493.559,
-        "source": "htkh"
-      }
+      "durationMs": 1639
     },
     {
       "id": "htkh_intent_classification_0062",
@@ -1366,17 +756,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 147,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 385.0892,
-        "source": "htkh"
-      }
+      "durationMs": 1383
     },
     {
       "id": "htkh_intent_classification_0063",
@@ -1388,17 +768,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 2513.5845,
-        "source": "htkh"
-      }
+      "durationMs": 1390
     },
     {
       "id": "htkh_intent_classification_0064",
@@ -1410,17 +780,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 148,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 948.8696,
-        "source": "htkh"
-      }
+      "durationMs": 1330
     },
     {
       "id": "htkh_intent_classification_0065",
@@ -1432,17 +792,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 162,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 662.6242,
-        "source": "htkh"
-      }
+      "durationMs": 1361
     },
     {
       "id": "htkh_intent_classification_0066",
@@ -1454,17 +804,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 157,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 400.4682,
-        "source": "htkh"
-      }
+      "durationMs": 1748
     },
     {
       "id": "htkh_intent_classification_0067",
@@ -1476,17 +816,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 418.2855,
-        "source": "htkh"
-      }
+      "durationMs": 2411
     },
     {
       "id": "htkh_intent_classification_0068",
@@ -1498,17 +828,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 153,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 991.4933,
-        "source": "htkh"
-      }
+      "durationMs": 3646
     },
     {
       "id": "htkh_intent_classification_0069",
@@ -1520,17 +840,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 399.9127,
-        "source": "htkh"
-      }
+      "durationMs": 3389
     },
     {
       "id": "htkh_intent_classification_0070",
@@ -1542,17 +852,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 146,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1339.3285,
-        "source": "htkh"
-      }
+      "durationMs": 3104
     },
     {
       "id": "htkh_intent_classification_0071",
@@ -1564,17 +864,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 359.6906,
-        "source": "htkh"
-      }
+      "durationMs": 2770
     },
     {
       "id": "htkh_intent_classification_0072",
@@ -1586,17 +876,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 160,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 2885.7515,
-        "source": "htkh"
-      }
+      "durationMs": 2675
     },
     {
       "id": "htkh_intent_classification_0073",
@@ -1608,17 +888,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 441.1183,
-        "source": "htkh"
-      }
+      "durationMs": 2194
     },
     {
       "id": "htkh_intent_classification_0074",
@@ -1630,17 +900,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 209,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 2273.9521,
-        "source": "htkh"
-      }
+      "durationMs": 2058
     },
     {
       "id": "htkh_intent_classification_0075",
@@ -1652,17 +912,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 153,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 474.0376,
-        "source": "htkh"
-      }
+      "durationMs": 1834
     },
     {
       "id": "htkh_intent_classification_0076",
@@ -1674,17 +924,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 145,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 893.4145,
-        "source": "htkh"
-      }
+      "durationMs": 1369
     },
     {
       "id": "htkh_intent_classification_0077",
@@ -1696,17 +936,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 172,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 399.2246,
-        "source": "htkh"
-      }
+      "durationMs": 1311
     },
     {
       "id": "htkh_intent_classification_0078",
@@ -1718,17 +948,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 171,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 412.8634,
-        "source": "htkh"
-      }
+      "durationMs": 817
     },
     {
       "id": "htkh_intent_classification_0079",
@@ -1740,17 +960,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 359.3528,
-        "source": "htkh"
-      }
+      "durationMs": 791
     },
     {
       "id": "htkh_intent_classification_0080",
@@ -1762,17 +972,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 148,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 386.6579,
-        "source": "htkh"
-      }
+      "durationMs": 656
     },
     {
       "id": "htkh_intent_classification_0081",
@@ -1784,17 +984,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 648.5164,
-        "source": "htkh"
-      }
+      "durationMs": 1051
     },
     {
       "id": "htkh_intent_classification_0082",
@@ -1806,17 +996,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 341.562,
-        "source": "htkh"
-      }
+      "durationMs": 1151
     },
     {
       "id": "htkh_intent_classification_0083",
@@ -1828,17 +1008,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 156,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1579.5376,
-        "source": "htkh"
-      }
+      "durationMs": 1190
     },
     {
       "id": "htkh_intent_classification_0084",
@@ -1850,17 +1020,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 804.8986,
-        "source": "htkh"
-      }
+      "durationMs": 933
     },
     {
       "id": "htkh_intent_classification_0085",
@@ -1872,17 +1032,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 153,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 335.3409,
-        "source": "htkh"
-      }
+      "durationMs": 708
     },
     {
       "id": "htkh_intent_classification_0086",
@@ -1894,17 +1044,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 166,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 817.4446,
-        "source": "htkh"
-      }
+      "durationMs": 802
     },
     {
       "id": "htkh_intent_classification_0087",
@@ -1916,17 +1056,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 171,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 677.1729,
-        "source": "htkh"
-      }
+      "durationMs": 1201
     },
     {
       "id": "htkh_intent_classification_0088",
@@ -1938,17 +1068,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 190,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 946.4417,
-        "source": "htkh"
-      }
+      "durationMs": 1387
     },
     {
       "id": "htkh_intent_classification_0089",
@@ -1960,17 +1080,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 179,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 502.3054,
-        "source": "htkh"
-      }
+      "durationMs": 1245
     },
     {
       "id": "htkh_intent_classification_0090",
@@ -1982,17 +1092,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 155,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 431.4877,
-        "source": "htkh"
-      }
+      "durationMs": 714
     },
     {
       "id": "htkh_intent_classification_0091",
@@ -2004,17 +1104,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1424.6898,
-        "source": "htkh"
-      }
+      "durationMs": 835
     },
     {
       "id": "htkh_intent_classification_0092",
@@ -2026,17 +1116,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 145,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1977.3483,
-        "source": "htkh"
-      }
+      "durationMs": 804
     },
     {
       "id": "htkh_intent_classification_0093",
@@ -2048,17 +1128,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1117.5423,
-        "source": "htkh"
-      }
+      "durationMs": 989
     },
     {
       "id": "htkh_intent_classification_0094",
@@ -2070,17 +1140,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 792.4395,
-        "source": "htkh"
-      }
+      "durationMs": 994
     },
     {
       "id": "htkh_intent_classification_0095",
@@ -2092,17 +1152,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 179,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 927.78,
-        "source": "htkh"
-      }
+      "durationMs": 985
     },
     {
       "id": "htkh_intent_classification_0096",
@@ -2114,17 +1164,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 165,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 321.3333,
-        "source": "htkh"
-      }
+      "durationMs": 829
     },
     {
       "id": "htkh_intent_classification_0097",
@@ -2136,17 +1176,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 142,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 367.8426,
-        "source": "htkh"
-      }
+      "durationMs": 949
     },
     {
       "id": "htkh_intent_classification_0098",
@@ -2158,17 +1188,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 153,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 411.3637,
-        "source": "htkh"
-      }
+      "durationMs": 955
     },
     {
       "id": "htkh_intent_classification_0099",
@@ -2180,17 +1200,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 162,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 808.6765,
-        "source": "htkh"
-      }
+      "durationMs": 965
     },
     {
       "id": "htkh_intent_classification_0100",
@@ -2202,17 +1212,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 169,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1409.0829,
-        "source": "htkh"
-      }
+      "durationMs": 955
     },
     {
       "id": "htkh_intent_classification_0101",
@@ -2224,17 +1224,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 159,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 548.8353,
-        "source": "htkh"
-      }
+      "durationMs": 944
     },
     {
       "id": "htkh_intent_classification_0102",
@@ -2246,17 +1236,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 430.1599,
-        "source": "htkh"
-      }
+      "durationMs": 606
     },
     {
       "id": "htkh_intent_classification_0103",
@@ -2268,17 +1248,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 153,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 503.61,
-        "source": "htkh"
-      }
+      "durationMs": 740
     },
     {
       "id": "htkh_intent_classification_0104",
@@ -2290,17 +1260,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 491.7587,
-        "source": "htkh"
-      }
+      "durationMs": 749
     },
     {
       "id": "htkh_intent_classification_0105",
@@ -2312,17 +1272,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 347.8979,
-        "source": "htkh"
-      }
+      "durationMs": 641
     },
     {
       "id": "htkh_intent_classification_0106",
@@ -2334,17 +1284,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 189,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 300.2902,
-        "source": "htkh"
-      }
+      "durationMs": 638
     },
     {
       "id": "htkh_intent_classification_0107",
@@ -2356,17 +1296,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 222,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1284.7594,
-        "source": "htkh"
-      }
+      "durationMs": 750
     },
     {
       "id": "htkh_intent_classification_0108",
@@ -2378,17 +1308,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 156,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1241.0924,
-        "source": "htkh"
-      }
+      "durationMs": 736
     },
     {
       "id": "htkh_intent_classification_0109",
@@ -2400,17 +1320,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 145,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 325.3797,
-        "source": "htkh"
-      }
+      "durationMs": 802
     },
     {
       "id": "htkh_intent_classification_0110",
@@ -2422,17 +1332,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1644.3058,
-        "source": "htkh"
-      }
+      "durationMs": 948
     },
     {
       "id": "htkh_intent_classification_0111",
@@ -2444,17 +1344,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 342.7256,
-        "source": "htkh"
-      }
+      "durationMs": 963
     },
     {
       "id": "htkh_intent_classification_0112",
@@ -2466,17 +1356,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 154,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 503.9122,
-        "source": "htkh"
-      }
+      "durationMs": 648
     },
     {
       "id": "htkh_intent_classification_0113",
@@ -2488,17 +1368,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 872.6207,
-        "source": "htkh"
-      }
+      "durationMs": 776
     },
     {
       "id": "htkh_intent_classification_0114",
@@ -2510,17 +1380,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 158,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 484.2317,
-        "source": "htkh"
-      }
+      "durationMs": 971
     },
     {
       "id": "htkh_intent_classification_0115",
@@ -2532,17 +1392,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1133.2728,
-        "source": "htkh"
-      }
+      "durationMs": 960
     },
     {
       "id": "htkh_intent_classification_0116",
@@ -2554,17 +1404,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 205,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 539.9473,
-        "source": "htkh"
-      }
+      "durationMs": 1165
     },
     {
       "id": "htkh_intent_classification_0117",
@@ -2576,17 +1416,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 155,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 411.1165,
-        "source": "htkh"
-      }
+      "durationMs": 1138
     },
     {
       "id": "htkh_intent_classification_0118",
@@ -2598,17 +1428,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 158,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 373.9214,
-        "source": "htkh"
-      }
+      "durationMs": 1115
     },
     {
       "id": "htkh_intent_classification_0119",
@@ -2620,17 +1440,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 159,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1016.9404,
-        "source": "htkh"
-      }
+      "durationMs": 928
     },
     {
       "id": "htkh_intent_classification_0120",
@@ -2642,17 +1452,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 313.2811,
-        "source": "htkh"
-      }
+      "durationMs": 614
     },
     {
       "id": "htkh_intent_classification_0121",
@@ -2664,17 +1464,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 152,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 407.1065,
-        "source": "htkh"
-      }
+      "durationMs": 593
     },
     {
       "id": "htkh_intent_classification_0122",
@@ -2686,17 +1476,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 167,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 380.9202,
-        "source": "htkh"
-      }
+      "durationMs": 765
     },
     {
       "id": "htkh_intent_classification_0123",
@@ -2708,17 +1488,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 166,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 896.8986,
-        "source": "htkh"
-      }
+      "durationMs": 820
     },
     {
       "id": "htkh_intent_classification_0124",
@@ -2730,17 +1500,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 213,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 655.8019,
-        "source": "htkh"
-      }
+      "durationMs": 720
     },
     {
       "id": "htkh_intent_classification_0125",
@@ -2752,17 +1512,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 176,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1024.9961,
-        "source": "htkh"
-      }
+      "durationMs": 1012
     },
     {
       "id": "htkh_intent_classification_0126",
@@ -2774,17 +1524,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 170,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 304.4833,
-        "source": "htkh"
-      }
+      "durationMs": 1022
     },
     {
       "id": "htkh_intent_classification_0127",
@@ -2796,17 +1536,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 146,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 1479.6092,
-        "source": "htkh"
-      }
+      "durationMs": 1073
     },
     {
       "id": "htkh_intent_classification_0128",
@@ -2818,17 +1548,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 403.8783,
-        "source": "htkh"
-      }
+      "durationMs": 1051
     },
     {
       "id": "htkh_intent_classification_0129",
@@ -2840,17 +1560,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 523.1298,
-        "source": "htkh"
-      }
+      "durationMs": 955
     },
     {
       "id": "htkh_intent_classification_0130",
@@ -2862,17 +1572,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 622.8705,
-        "source": "htkh"
-      }
+      "durationMs": 1132
     },
     {
       "id": "htkh_intent_classification_0131",
@@ -2884,17 +1584,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 182,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 403.3354,
-        "source": "htkh"
-      }
+      "durationMs": 950
     },
     {
       "id": "htkh_intent_classification_0132",
@@ -2906,17 +1596,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 147,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 451.3631,
-        "source": "htkh"
-      }
+      "durationMs": 834
     },
     {
       "id": "htkh_intent_classification_0133",
@@ -2928,17 +1608,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 342.3614,
-        "source": "htkh"
-      }
+      "durationMs": 970
     },
     {
       "id": "htkh_intent_classification_0134",
@@ -2950,17 +1620,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 149,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 370.3902,
-        "source": "htkh"
-      }
+      "durationMs": 971
     },
     {
       "id": "htkh_intent_classification_0135",
@@ -2972,17 +1632,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 260.2869,
-        "source": "htkh"
-      }
+      "durationMs": 838
     },
     {
       "id": "htkh_intent_classification_0136",
@@ -2994,17 +1644,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 159,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 417.891,
-        "source": "htkh"
-      }
+      "durationMs": 757
     },
     {
       "id": "htkh_intent_classification_0137",
@@ -3016,17 +1656,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 181,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 730.3714,
-        "source": "htkh"
-      }
+      "durationMs": 757
     },
     {
       "id": "htkh_intent_classification_0138",
@@ -3038,17 +1668,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 142,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 803.1747,
-        "source": "htkh"
-      }
+      "durationMs": 634
     },
     {
       "id": "htkh_intent_classification_0139",
@@ -3060,17 +1680,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 961.088,
-        "source": "htkh"
-      }
+      "durationMs": 936
     },
     {
       "id": "htkh_intent_classification_0140",
@@ -3082,17 +1692,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 157,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 455.799,
-        "source": "htkh"
-      }
+      "durationMs": 914
     },
     {
       "id": "htkh_intent_classification_0141",
@@ -3104,17 +1704,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 455.6392,
-        "source": "htkh"
-      }
+      "durationMs": 1234
     },
     {
       "id": "htkh_intent_classification_0142",
@@ -3126,17 +1716,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 4527.3328,
-        "source": "htkh"
-      }
+      "durationMs": 971
     },
     {
       "id": "htkh_intent_classification_0143",
@@ -3148,17 +1728,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 170,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 705.7317,
-        "source": "htkh"
-      }
+      "durationMs": 975
     },
     {
       "id": "htkh_intent_classification_0144",
@@ -3170,17 +1740,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 209,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 703.0674,
-        "source": "htkh"
-      }
+      "durationMs": 641
     },
     {
       "id": "htkh_intent_classification_0145",
@@ -3192,17 +1752,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 150,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 370.6149,
-        "source": "htkh"
-      }
+      "durationMs": 741
     },
     {
       "id": "htkh_intent_classification_0146",
@@ -3214,17 +1764,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 2451.4294,
-        "source": "htkh"
-      }
+      "durationMs": 745
     },
     {
       "id": "htkh_intent_classification_0147",
@@ -3236,17 +1776,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 151,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 463.3799,
-        "source": "htkh"
-      }
+      "durationMs": 607
     },
     {
       "id": "htkh_intent_classification_0148",
@@ -3258,17 +1788,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 140,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 395.4583,
-        "source": "htkh"
-      }
+      "durationMs": 700
     },
     {
       "id": "htkh_intent_classification_0149",
@@ -3280,17 +1800,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 158,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 462.43,
-        "source": "htkh"
-      }
+      "durationMs": 800
     },
     {
       "id": "htkh_intent_classification_0150",
@@ -3302,17 +1812,7 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 160,
-      "metadata": {
-        "task": "intent_classification",
-        "label_schema": [
-          "request_human_handoff",
-          "others"
-        ],
-        "is_error": false,
-        "processing_ms": 770.4384,
-        "source": "htkh"
-      }
+      "durationMs": 697
     }
   ]
 }

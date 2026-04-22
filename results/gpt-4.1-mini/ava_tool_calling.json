@@ -1,8 +1,8 @@
 {
-  "runId": "0c2f0cb3-67f4-4a5b-9448-c3e98fe17103",
+  "runId": "707b1913-75ef-4c27-84f4-beb52424788d",
   "model": "gpt-4.1-mini",
-  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
-  "date": "2026-04-06 03:09:04",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:59:26",
   "taskName": "ava_tool_calling",
   "taskType": "tool_calling",
   "description": "AVA chatbot — Tool calling: đánh giá gọi đúng hàm và hoàn thành task",
@@ -12,8 +12,8 @@
     "task_success_rate"
   ],
   "scores": {
-    "ast_accuracy": 89.39,
-    "task_success_rate": 88.78
+    "ast_accuracy": 91.5,
+    "task_success_rate": 89.8
   },
   "logs": [
     {
@@ -27,7 +27,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"chính sách nghỉ phép của công ty, số ngày phép một năm, nghỉ không lương\"}"
+            "arguments": "{\"query\":\"chính sách nghỉ phép của công ty MISA\"}"
           }
         }
       ],
@@ -35,15 +35,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1104,
-      "metadata": {
-        "source_message_id": "81da7d42-806c-44a0-bf64-00ddaf2de858",
-        "turn_index": 6,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 4050
     },
     {
       "id": "tool_calling_002",
@@ -56,7 +48,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"chủ tịch công ty\"}"
+            "arguments": "{\"query\":\"chủ tịch công ty MISA\"}"
           }
         }
       ],
@@ -64,15 +56,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 978,
-      "metadata": {
-        "source_message_id": "3c37e7f6-c021-4020-9c32-b93a241ec7a3",
-        "turn_index": 11,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1480
     },
     {
       "id": "tool_calling_003",
@@ -85,14 +69,14 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"giá vàng hôm nay\"}"
+            "arguments": "{\"query\": \"giá vàng ngày 30/11/2025\"}"
           }
         },
         {
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"thời tiết hôm nay\"}"
+            "arguments": "{\"query\": \"thời tiết ngày 30/11/2025\"}"
           }
         }
       ],
@@ -100,15 +84,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1472,
-      "metadata": {
-        "source_message_id": "e4aa8a42-c9c5-4995-a14a-599ae1e11ecb",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 1352
     },
     {
       "id": "tool_calling_004",
@@ -121,14 +97,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\": \"Sứ mệnh của công ty MISA\"}"
-          }
-        },
-        {
-          "type": "function",
-          "function": {
-            "name": "MISASearchKnowledge",
-            "arguments": "{\"query\": \"Tầm nhìn của công ty MISA\"}"
+            "arguments": "{\"query\":\"Sứ mệnh và tầm nhìn của công ty MISA\"}"
           }
         }
       ],
@@ -136,15 +105,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 2184,
-      "metadata": {
-        "source_message_id": "ccfecdb4-2f6d-4158-b419-c15bc57f26dd",
-        "turn_index": 26,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1910
     },
     {
       "id": "tool_calling_005",
@@ -157,7 +118,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"mối quan hệ giữa vật chất và ý thức theo quan điểm Mác Lênin\"}"
+            "arguments": "{\"query\":\"mối quan hệ giữa vật chất và ý thức theo quan điểm triết học Mác Lênin\"}"
           }
         }
       ],
@@ -165,15 +126,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 964,
-      "metadata": {
-        "source_message_id": "435c1edf-3aea-470b-8f30-5f70c298cfe4",
-        "turn_index": 5,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 2611
     },
     {
       "id": "tool_calling_006",
@@ -186,7 +139,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"lịch nghỉ lễ của công ty trong năm nay\"}"
+            "arguments": "{\"query\":\"lịch nghỉ lễ của công ty MISA năm 2024\"}"
           }
         }
       ],
@@ -194,15 +147,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1028,
-      "metadata": {
-        "source_message_id": "d7123062-fbbc-4d82-ba1e-a5195fa2994e",
-        "turn_index": 24,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 991
     },
     {
       "id": "tool_calling_007",
@@ -223,15 +168,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1081,
-      "metadata": {
-        "source_message_id": "95fd64bf-6181-4a10-820a-85fca97f4274",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1489
     },
     {
       "id": "tool_calling_008",
@@ -244,14 +181,7 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"giá vàng tháng này\"}"
-          }
-        },
-        {
-          "type": "function",
-          "function": {
-            "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"thời tiết tháng này\"}"
+            "arguments": "{\"query\":\"giá vàng và thời tiết tháng 12 năm 2024 tại Việt Nam\"}"
           }
         }
       ],
@@ -259,15 +189,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1106,
-      "metadata": {
-        "source_message_id": "f01532d6-8156-4bbf-b883-812e27afde3c",
-        "turn_index": 18,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1065
     },
     {
       "id": "tool_calling_009",
@@ -280,7 +202,7 @@
           "type": "function",
           "function": {
             "name": "google_search",
-            "arguments": "{\"query\":\"new horror movies 2024\"}"
+            "arguments": "{\"query\":\"phim kinh dị mới ra mắt gần đây 2024\"}"
           }
         }
       ],
@@ -288,15 +210,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1122,
-      "metadata": {
-        "source_message_id": "a86e194a-7ba5-4248-b23b-d884dfa649b9",
-        "turn_index": 1,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 980
     },
     {
       "id": "tool_calling_010",
@@ -309,7 +223,7 @@
           "type": "function",
           "function": {
             "name": "google_search",
-            "arguments": "{\"query\":\"tình hình kinh tế Việt Nam mới nhất 2024\"}"
+            "arguments": "{\"query\":\"tình hình kinh tế Việt Nam mới nhất tháng 4 năm 2024\"}"
           }
         }
       ],
@@ -317,15 +231,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 912,
-      "metadata": {
-        "source_message_id": "cc7aba59-a0f8-454e-8425-8861990630c7",
-        "turn_index": 1,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 912
     },
     {
       "id": "tool_calling_011",
@@ -353,15 +259,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1138,
-      "metadata": {
-        "source_message_id": "3f4e7f9a-5406-45df-aec7-ad58352a36ae",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 3252
     },
     {
       "id": "tool_calling_012",
@@ -389,15 +287,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1172,
-      "metadata": {
-        "source_message_id": "f15ba178-a3a2-4625-8421-79a3244fd71b",
-        "turn_index": 11,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 2558
     },
     {
       "id": "tool_calling_013",
@@ -410,7 +300,7 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"giá vàng tại Sài Gòn\"}"
+            "arguments": "{\"query\": \"giá vàng hiện tại tại Sài Gòn\"}"
           }
         },
         {
@@ -425,15 +315,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1230,
-      "metadata": {
-        "source_message_id": "cf3a55c5-3509-4201-96e4-c876e206f84b",
-        "turn_index": 23,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1526
     },
     {
       "id": "tool_calling_014",
@@ -445,24 +327,16 @@
         {
           "type": "function",
           "function": {
-            "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"giá cổ phiếu REE hôm nay\"}"
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\":\"giá cổ phiếu REE ngày 06/05/2025\"}"
           }
         }
       ],
       "scores": {
-        "ast_accuracy": 40,
-        "task_success_rate": 0
+        "ast_accuracy": 100,
+        "task_success_rate": 100
       },
-      "durationMs": 852,
-      "metadata": {
-        "source_message_id": "caa2ebc9-e34d-4ff2-aa2f-821ecb57ffb5",
-        "turn_index": 22,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1023
     },
     {
       "id": "tool_calling_015",
@@ -475,7 +349,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"chính sách nghỉ phép của công ty\"}"
+            "arguments": "{\"query\":\"chính sách nghỉ phép của công ty MISA\"}"
           }
         }
       ],
@@ -483,15 +357,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 915,
-      "metadata": {
-        "source_message_id": "e928bb81-733f-4553-995a-b25cc96337e1",
-        "turn_index": 6,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 921
     },
     {
       "id": "tool_calling_016",
@@ -504,7 +370,14 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"London\"}"
+            "arguments": "{\"query\": \"giá vàng tại London\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\": \"thời tiết tại London\"}"
           }
         }
       ],
@@ -512,15 +385,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1128,
-      "metadata": {
-        "source_message_id": "0ef7f8a7-59b0-4625-8c6b-f74f4cb704d1",
-        "turn_index": 27,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1356
     },
     {
       "id": "tool_calling_017",
@@ -533,14 +398,14 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"giá vàng tại Sài Gòn thứ 5\"}"
+            "arguments": "{\"query\": \"giá vàng ngày thứ 5 tuần này tại Sài Gòn\"}"
           }
         },
         {
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"thời tiết tại Sài Gòn thứ 5\"}"
+            "arguments": "{\"query\": \"thời tiết ngày thứ 5 tuần này tại Sài Gòn\"}"
           }
         }
       ],
@@ -548,15 +413,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1280,
-      "metadata": {
-        "source_message_id": "a06128f4-cd57-4f80-ab4e-37830de02d9c",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 1230
     },
     {
       "id": "tool_calling_018",
@@ -569,7 +426,14 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\":\"giá vàng và thời tiết ở Đà Nẵng 23 ngày nữa\"}"
+            "arguments": "{\"query\": \"giá vàng ngày 25/02/2024\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\": \"thời tiết Đà Nẵng ngày 25/02/2024\"}"
           }
         }
       ],
@@ -577,15 +441,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1060,
-      "metadata": {
-        "source_message_id": "2f7b7900-c66d-4a0d-a510-45c3e8766c04",
-        "turn_index": 25,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1246
     },
     {
       "id": "tool_calling_019",
@@ -598,7 +454,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"quy trình mua hàng của công ty\"}"
+            "arguments": "{\"query\":\"quy trình mua hàng của công ty MISA\"}"
           }
         }
       ],
@@ -606,15 +462,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 913,
-      "metadata": {
-        "source_message_id": "44a8a8d2-3366-49af-bf84-7bfccdb1e58b",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 877
     },
     {
       "id": "tool_calling_020",
@@ -635,15 +483,7 @@
         "ast_accuracy": 20,
         "task_success_rate": 0
       },
-      "durationMs": 1555,
-      "metadata": {
-        "source_message_id": "9d093632-9404-40dc-9ce1-8f3dc6b99e5a",
-        "turn_index": 17,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 748
     },
     {
       "id": "tool_calling_021",
@@ -656,7 +496,7 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\":\"thời tiết Hà Nội hôm nay\"}"
+            "arguments": "{\"query\":\"thời tiết Hà Nội ngày 19/11/2025\"}"
           }
         }
       ],
@@ -664,15 +504,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1246,
-      "metadata": {
-        "source_message_id": "d95edf3d-37e4-44e9-84f4-e768bb0ce464",
-        "turn_index": 5,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 905
     },
     {
       "id": "tool_calling_022",
@@ -685,7 +517,7 @@
           "type": "function",
           "function": {
             "name": "GoogleSearch",
-            "arguments": "{\"query\":\"chính sách đối ngoại của Việt Nam tháng 4 năm 2024\",\"day_restrict\":30}"
+            "arguments": "{\"query\":\"chính sách đối ngoại của Việt Nam tháng 3 năm 2025\",\"day_restrict\":7}"
           }
         }
       ],
@@ -693,15 +525,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1356,
-      "metadata": {
-        "source_message_id": "338a3155-8024-4d19-bf8f-acc90a1d32ec",
-        "turn_index": 13,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 937
     },
     {
       "id": "tool_calling_023",
@@ -722,15 +546,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1307,
-      "metadata": {
-        "source_message_id": "e2b84d49-58ce-40b5-a3c9-4ef037380bc8",
-        "turn_index": 29,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 802
     },
     {
       "id": "tool_calling_024",
@@ -743,14 +559,14 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"giá vàng ngày mốt\"}"
+            "arguments": "{\"query\": \"giá vàng ngày 02/06/2025 tại Hà Nội\"}"
           }
         },
         {
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"thời tiết ngày mốt\"}"
+            "arguments": "{\"query\": \"thời tiết ngày 02/06/2025 tại Hà Nội, Đà Nẵng, Hồ Chí Minh\"}"
           }
         }
       ],
@@ -758,15 +574,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1368,
-      "metadata": {
-        "source_message_id": "1ae33a79-2868-4152-8684-952a35dbaddd",
-        "turn_index": 21,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1450
     },
     {
       "id": "tool_calling_025",
@@ -787,15 +595,7 @@
         "ast_accuracy": 20,
         "task_success_rate": 0
       },
-      "durationMs": 1281,
-      "metadata": {
-        "source_message_id": "01e424a4-e770-4ab9-85ec-b7bd2230bf1c",
-        "turn_index": 25,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 876
     },
     {
       "id": "tool_calling_026",
@@ -816,15 +616,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1292,
-      "metadata": {
-        "source_message_id": "3a7a1169-0739-49ed-be7f-9b629da2a17d",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1259
     },
     {
       "id": "tool_calling_027",
@@ -845,15 +637,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1397,
-      "metadata": {
-        "source_message_id": "5ce0e02b-267f-4f41-8c25-2e6ec55e93c2",
-        "turn_index": 1,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 796
     },
     {
       "id": "tool_calling_028",
@@ -866,7 +650,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"thông tin liên hệ công ty\"}"
+            "arguments": "{\"query\":\"thông tin liên hệ công ty MISA\"}"
           }
         }
       ],
@@ -874,15 +658,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 938,
-      "metadata": {
-        "source_message_id": "c77d58c2-1e35-4fa4-bc65-62265d8aa083",
-        "turn_index": 32,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1230
     },
     {
       "id": "tool_calling_029",
@@ -895,7 +671,7 @@
           "type": "function",
           "function": {
             "name": "GoogleSearch",
-            "arguments": "{\"query\":\"most discussed political philosophy in the world 2025\",\"day_restrict\":30}"
+            "arguments": "{\"query\":\"triết lý chính trị đang được thảo luận nhiều nhất hiện nay trên thế giới\",\"day_restrict\":7}"
           }
         }
       ],
@@ -903,15 +679,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1007,
-      "metadata": {
-        "source_message_id": "adfc39e1-cb07-423e-bb8e-20aa5a06275b",
-        "turn_index": 7,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 810
     },
     {
       "id": "tool_calling_030",
@@ -924,7 +692,7 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"giá vàng\"}"
+            "arguments": "{\"query\": \"giá vàng hiện tại\"}"
           }
         },
         {
@@ -939,15 +707,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1255,
-      "metadata": {
-        "source_message_id": "aa1cd76c-7bdd-4308-a9a4-4aaa4c97e91c",
-        "turn_index": 18,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 1100
     },
     {
       "id": "tool_calling_031",
@@ -968,15 +728,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1383,
-      "metadata": {
-        "source_message_id": "57133748-413b-48a8-b179-4da47323caa8",
-        "turn_index": 30,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 5992
     },
     {
       "id": "tool_calling_032",
@@ -1004,36 +756,28 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 2169,
-      "metadata": {
-        "source_message_id": "96e40c8b-72bb-4c09-926b-2e9f1637759f",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 1032
     },
     {
       "id": "tool_calling_033",
       "status": "done",
       "input": "Học máy được ứng dụng trong thương mại điện tử như thế nào?",
       "reference": "Học máy được ứng dụng rộng rãi trong thương mại điện tử để cải thiện hiệu quả hoạt động và tối ưu hóa trải nghiệm khách hàng. Dưới đây là một số ứng dụng cụ thể:\n\n1. **Cá nhân hóa trải nghiệm khách hàng**: Học máy giúp phân tích dữ liệu người dùng để đưa ra các đề xuất sản phẩm phù hợp, từ đó tăng cường sự tương tác và hài lòng của khách hàng.\n\n2. **Tự động hóa và tối ưu hóa quy trình kinh doanh**: Học máy giúp tự động hóa các quy trình phức tạp như quản lý chuỗi cung ứng, tối ưu hóa tồn kho, và dự đoán nhu cầu sản phẩm.\n\n3. **Phân tích dữ liệu và dự đoán hành vi khách hàng**: Học máy phân tích dữ liệu để dự đoán xu hướng mua sắm và hành vi của khách hàng, từ đó giúp doanh nghiệp đưa ra các quyết định chiến lược chính xác hơn.\n\n4. **Chatbots và trợ lý ảo**: Sử dụng học máy để phát triển chatbots và trợ lý ảo, giúp cải thiện dịch vụ khách hàng và hỗ trợ người dùng 24/7.\n\n5. **Tối ưu hóa tìm kiếm và đề xuất sản phẩm**: Học máy cải thiện khả năng tìm kiếm và đề xuất sản phẩm trên các nền tảng thương mại điện tử, giúp khách hàng dễ dàng tìm thấy sản phẩm họ cần.\n\n6. **Marketing tự động và quảng cáo mục tiêu**: Học máy giúp tối ưu hóa chi phí quảng cáo và tăng hiệu quả chiến dịch marketing thông qua việc xác định đối tượng khách hàng mục tiêu và thời điểm triển khai quảng cáo.\n\nNhững ứng dụng này không chỉ giúp doanh nghiệp thương mại điện tử tăng cường năng lực cạnh tranh mà còn tạo ra những mô hình kinh doanh mới và tối ưu hóa nguồn lực.",
-      "output": "Học máy được ứng dụng rộng rãi trong thương mại điện tử để cải thiện trải nghiệm người dùng, tối ưu hóa hoạt động kinh doanh và tăng doanh thu. Dưới đây là một số ứng dụng phổ biến:\n\n1. **Hệ thống gợi ý sản phẩm (Recommendation Systems)**: Dựa trên lịch sử mua hàng, hành vi duyệt web và sở thích của khách hàng, học máy giúp đề xuất các sản phẩm phù hợp, tăng khả năng mua hàng.\n\n2. **Phân tích hành vi khách hàng**: Học máy giúp phân tích dữ liệu khách hàng để hiểu rõ hơn về nhu cầu, thói quen và xu hướng tiêu dùng, từ đó cá nhân hóa chiến lược marketing.\n\n3. **Dự đoán nhu cầu và quản lý tồn kho**: Thuật toán học máy dự đoán xu hướng mua hàng trong tương lai, giúp doanh nghiệp quản lý tồn kho hiệu quả, tránh thiếu hoặc thừa hàng.\n\n4. **Phát hiện gian lận (Fraud Detection)**: Học máy giúp nhận diện các giao dịch bất thường hoặc gian lận trong thanh toán, bảo vệ an toàn cho cả người bán và người mua.\n\n5. **Tự động hóa dịch vụ khách hàng**: Chatbot và trợ lý ảo sử dụng học máy để trả lời câu hỏi, hỗ trợ khách hàng 24/7, nâng cao chất lượng dịch vụ.\n\n6. **Tối ưu hóa giá cả (Dynamic Pricing)**: Thuật toán học máy phân tích thị trường, đối thủ cạnh tranh và hành vi khách hàng để điều chỉnh giá sản phẩm một cách linh hoạt, tối đa hóa lợi nhuận.\n\nNhờ các ứng dụng này, học máy giúp các doanh nghiệp thương mại điện tử hoạt động hiệu quả hơn và tạo ra trải nghiệm mua sắm tốt hơn cho khách hàng.",
-      "tool_calls": [],
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"ứng dụng học máy trong thương mại điện tử\"}"
+          }
+        }
+      ],
       "scores": {
-        "ast_accuracy": 0,
+        "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 3549,
-      "metadata": {
-        "source_message_id": "1084a461-37ee-4bfb-ae59-e63ed440d4e4",
-        "turn_index": 5,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 836
     },
     {
       "id": "tool_calling_034",
@@ -1054,15 +798,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1323,
-      "metadata": {
-        "source_message_id": "aa1cd76c-7bdd-4308-a9a4-4aaa4c97e91c",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1300
     },
     {
       "id": "tool_calling_035",
@@ -1075,14 +811,14 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"giá vàng hôm nay\"}"
+            "arguments": "{\"query\": \"giá vàng ngày 18/03/2024\"}"
           }
         },
         {
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"thời tiết hôm nay\"}"
+            "arguments": "{\"query\": \"thời tiết ngày 18/03/2024\"}"
           }
         }
       ],
@@ -1090,15 +826,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1723,
-      "metadata": {
-        "source_message_id": "fe591f72-9865-4f67-88bd-e8feef225264",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 1068
     },
     {
       "id": "tool_calling_036",
@@ -1119,15 +847,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1442,
-      "metadata": {
-        "source_message_id": "b39396ab-693d-4116-b596-6e2913e21e5d",
-        "turn_index": 32,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1272
     },
     {
       "id": "tool_calling_037",
@@ -1140,7 +860,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"sản phẩm MISA AMIS HRM\"}"
+            "arguments": "{\"query\":\"MISA AMIS HRM\"}"
           }
         }
       ],
@@ -1148,15 +868,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1459,
-      "metadata": {
-        "source_message_id": "550c27d7-69b5-4464-90fd-709fd7751e30",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1268
     },
     {
       "id": "tool_calling_038",
@@ -1177,15 +889,7 @@
         "ast_accuracy": 20,
         "task_success_rate": 0
       },
-      "durationMs": 1406,
-      "metadata": {
-        "source_message_id": "85cdafd7-41e1-401b-8051-0f795a4bacbf",
-        "turn_index": 13,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1526
     },
     {
       "id": "tool_calling_039",
@@ -1198,7 +902,7 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\":\"thời tiết Hà Nội quý 1\"}"
+            "arguments": "{\"query\":\"thời tiết Hà Nội quý 1 năm 2025\"}"
           }
         }
       ],
@@ -1206,15 +910,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1313,
-      "metadata": {
-        "source_message_id": "e03c8f4b-27f8-4025-8905-91ea556a2f2f",
-        "turn_index": 9,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 968
     },
     {
       "id": "tool_calling_040",
@@ -1227,23 +923,15 @@
           "type": "function",
           "function": {
             "name": "GoogleSearch",
-            "arguments": "{\"query\":\"number of popular programming languages in 2024\"}"
+            "arguments": "{\"query\":\"số lượng ngôn ngữ lập trình phổ biến hiện nay\",\"day_restrict\":7}"
           }
         }
       ],
       "scores": {
-        "ast_accuracy": 80,
+        "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1372,
-      "metadata": {
-        "source_message_id": "adfc39e1-cb07-423e-bb8e-20aa5a06275b",
-        "turn_index": 3,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1440
     },
     {
       "id": "tool_calling_041",
@@ -1256,7 +944,7 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\":\"thời tiết hôm nay ở Hồ Chí Minh\"}"
+            "arguments": "{\"query\":\"thời tiết hôm nay tại thành phố Hồ Chí Minh\"}"
           }
         }
       ],
@@ -1264,36 +952,28 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1548,
-      "metadata": {
-        "source_message_id": "b3c093d1-3e24-4348-a8e3-7f2e5a31929b",
-        "turn_index": 15,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 891
     },
     {
       "id": "tool_calling_042",
       "status": "done",
       "input": "Tôi nghe nói học nghề điện lạnh cũng khá hot, bạn có thông tin gì về ngành này không?",
       "reference": "Ngành điện lạnh hiện nay đang có nhu cầu nhân lực cao và mang lại nhiều cơ hội việc làm hấp dẫn. Với sự gia tăng của các thiết bị điện lạnh trong cuộc sống hàng ngày, việc học nghề điện lạnh trở thành một lựa chọn hấp dẫn cho nhiều bạn trẻ. Dưới đây là một số thông tin về ngành này:\n\n1. **Cơ hội việc làm**: Ngành điện lạnh cung cấp nhiều vị trí việc làm như thợ điện lạnh, kỹ thuật viên điện lạnh, chuyên viên điện lạnh, và quản lý kỹ thuật điện lạnh. Các công việc này thường liên quan đến lắp đặt, bảo trì, và sửa chữa các hệ thống điện lạnh trong các tòa nhà, trung tâm thương mại, và các công ty.\n\n2. **Nhu cầu nhân lực**: Ngành điện lạnh đang thiếu hụt nhân lực, với tỷ lệ cung – cầu chỉ khoảng 30%. Điều này có nghĩa là có nhiều cơ hội việc làm và thăng tiến cho những ai theo đuổi ngành này.\n\n3. **Thu nhập và phát triển**: Nghề điện lạnh không chỉ mang lại thu nhập ổn định và cao, mà còn giúp phát triển kỹ năng, kiến thức và sáng tạo trong công việc. Bạn sẽ có cơ hội làm việc với nhiều khách hàng khác nhau và học hỏi từ những người có chuyên môn trong ngành.\n\n4. **Kỹ năng cần thiết**: Công việc trong ngành điện lạnh đòi hỏi kiến thức chuyên môn về các hệ thống điện lạnh, kỹ năng kỹ thuật, khả năng phân tích và giải quyết vấn đề, kỹ năng giao tiếp, và khả năng làm việc độc lập cũng như theo nhóm.\n\nVới những thông tin trên, ngành điện lạnh là một lựa chọn hứa hẹn cho những ai muốn theo đuổi sự nghiệp trong lĩnh vực này.",
-      "output": "Ngành điện lạnh hiện đang là một trong những ngành nghề \"hot\" và có nhu cầu tuyển dụng cao trên thị trường lao động. Với sự phát triển của các thiết bị điện lạnh như điều hòa, tủ lạnh, máy giặt, và các hệ thống làm lạnh công nghiệp, nhu cầu về kỹ thuật viên điện lạnh ngày càng tăng.\n\nHọc nghề điện lạnh giúp bạn có kỹ năng thực hành tốt, từ lắp đặt, bảo trì đến sửa chữa các thiết bị điện lạnh. Sau khi ra trường, bạn có thể làm việc tại các công ty điện lạnh, các trung tâm bảo hành, hoặc tự mở dịch vụ sửa chữa điện lạnh.\n\nNgoài ra, ngành này cũng có cơ hội thăng tiến và phát triển nghề nghiệp nếu bạn không ngừng học hỏi và cập nhật công nghệ mới. Nếu bạn thích làm việc với thiết bị điện tử, kỹ thuật và có khả năng giải quyết vấn đề, ngành điện lạnh là lựa chọn rất phù hợp.",
-      "tool_calls": [],
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"ngành học nghề điện lạnh\"}"
+          }
+        }
+      ],
       "scores": {
-        "ast_accuracy": 0,
+        "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 3798,
-      "metadata": {
-        "source_message_id": "f9fd3129-772b-40e8-9a43-ce297359469a",
-        "turn_index": 7,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 908
     },
     {
       "id": "tool_calling_043",
@@ -1306,7 +986,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"quy trình mua hàng\"}"
+            "arguments": "{\"query\":\"quy trình mua hàng tại công ty MISA\"}"
           }
         }
       ],
@@ -1314,15 +994,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1384,
-      "metadata": {
-        "source_message_id": "09527160-b63a-456e-821d-780d41745580",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 876
     },
     {
       "id": "tool_calling_044",
@@ -1335,7 +1007,7 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\":\"thời tiết Hà Nội hôm nay\"}"
+            "arguments": "{\"query\":\"thời tiết Hà Nội ngày 25/02/2024\"}"
           }
         }
       ],
@@ -1343,15 +1015,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1434,
-      "metadata": {
-        "source_message_id": "96ad7a7f-c2cc-4d7d-9a25-192a6b4082cb",
-        "turn_index": 7,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 834
     },
     {
       "id": "tool_calling_045",
@@ -1372,15 +1036,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1326,
-      "metadata": {
-        "source_message_id": "a9a5dd2f-197a-4d92-9d09-63a42645cb21",
-        "turn_index": 26,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1017
     },
     {
       "id": "tool_calling_046",
@@ -1393,23 +1049,15 @@
           "type": "function",
           "function": {
             "name": "GoogleSearch",
-            "arguments": "{\"query\":\"giá xăng dầu quý 2 năm 2024\"}"
+            "arguments": "{\"query\":\"giá xăng dầu quý 1 năm 2025 tại Việt Nam\",\"day_restrict\":90}"
           }
         }
       ],
       "scores": {
-        "ast_accuracy": 80,
+        "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1401,
-      "metadata": {
-        "source_message_id": "3063c5af-0a36-4c67-8386-f37869bc110d",
-        "turn_index": 5,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 882
     },
     {
       "id": "tool_calling_047",
@@ -1430,15 +1078,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 949,
-      "metadata": {
-        "source_message_id": "9bc08622-ca13-43ed-b440-5b4f5e9efd75",
-        "turn_index": 5,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1271
     },
     {
       "id": "tool_calling_048",
@@ -1466,15 +1106,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1604,
-      "metadata": {
-        "source_message_id": "ef38667e-5347-489c-845f-224d62766255",
-        "turn_index": 26,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 1246
     },
     {
       "id": "tool_calling_049",
@@ -1487,7 +1119,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"quy trình xin nghỉ phép ốm đau\"}"
+            "arguments": "{\"query\":\"quy trình xin nghỉ phép ốm đau tại MISA\"}"
           }
         }
       ],
@@ -1495,15 +1127,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1016,
-      "metadata": {
-        "source_message_id": "c326d552-8428-4c56-8631-294fc184c671",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1036
     },
     {
       "id": "tool_calling_050",
@@ -1516,7 +1140,7 @@
           "type": "function",
           "function": {
             "name": "MISASearchKnowledge",
-            "arguments": "{\"query\":\"quy trình mua hàng\"}"
+            "arguments": "{\"query\":\"quy trình mua hàng tại công ty MISA JSC\"}"
           }
         }
       ],
@@ -1524,36 +1148,20 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1276,
-      "metadata": {
-        "source_message_id": "3616aa64-7674-40b4-85d0-d66d9331cf1b",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1157
     },
     {
       "id": "tool_calling_051",
       "status": "done",
       "input": "giúp tôi lên bút toán chuyển tiền học phí sang tài khoản tiền gửi",
       "reference": "Bút toán chuyển tiền học phí sang tài khoản tiền gửi:\n\nNợ TK 112 - Tiền gửi ngân hàng  \nCó TK 111 - Tiền mặt (hoặc TK 131 - Phải thu của khách hàng, nếu chuyển từ công nợ học phí)\n\nNếu cần hướng dẫn chi tiết trên phần mềm, vui lòng liên hệ bộ phận support của MISA để được hỗ trợ.",
-      "output": "Để giúp bạn lên bút toán chuyển tiền học phí sang tài khoản tiền gửi, tôi cần biết thêm một số thông tin sau:\n\n1. Số tiền học phí cần chuyển là bao nhiêu?\n2. Tài khoản tiền gửi bạn muốn chuyển vào là tài khoản nào (mã tài khoản hoặc tên tài khoản)?\n3. Có cần ghi chú hoặc diễn giải gì đặc biệt cho bút toán này không?\n\nBạn vui lòng cung cấp thêm thông tin để tôi hỗ trợ bạn chính xác hơn.",
+      "output": "Chị vui lòng cho em biết thêm một số thông tin sau để em hỗ trợ chị lên bút toán chuyển tiền học phí sang tài khoản tiền gửi chính xác hơn:  \n- Diễn giải bút toán (nếu chị muốn ghi rõ nội dung)  \n- Tài khoản ngân hàng sử dụng để chuyển tiền (nếu có)  \n\nChị có thể cung cấp giúp em nhé? Nếu chưa có thông tin cụ thể, em sẽ để trống và hệ thống sẽ tự động sinh mặc định cho chị.",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 1406,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206243",
-        "tools_used": [
-          "quick_actions_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 4622
     },
     {
       "id": "tool_calling_052",
@@ -1574,15 +1182,7 @@
         "ast_accuracy": 86.66666666666667,
         "task_success_rate": 100
       },
-      "durationMs": 1287,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206249",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1101
     },
     {
       "id": "tool_calling_053",
@@ -1603,15 +1203,7 @@
         "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 1243,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206249",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1150
     },
     {
       "id": "tool_calling_054",
@@ -1632,15 +1224,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 980,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 927
     },
     {
       "id": "tool_calling_055",
@@ -1661,15 +1245,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 946,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 2696
     },
     {
       "id": "tool_calling_056",
@@ -1690,15 +1266,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 800,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 811
     },
     {
       "id": "tool_calling_057",
@@ -1719,15 +1287,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1001,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206176",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 740
     },
     {
       "id": "tool_calling_058",
@@ -1748,15 +1308,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1242,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206232",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 931
     },
     {
       "id": "tool_calling_059",
@@ -1777,15 +1329,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1474,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206232",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 869
     },
     {
       "id": "tool_calling_060",
@@ -1797,24 +1341,16 @@
         {
           "type": "function",
           "function": {
-            "name": "software_support_help",
-            "arguments": "{}"
+            "name": "search_documents",
+            "arguments": "{\"query\":\"hướng dẫn nhập số dư đầu kỳ\",\"original_message\":\"Hướng dẫn cách nhập số dư đầu kỳ\"}"
           }
         }
       ],
       "scores": {
-        "ast_accuracy": 100,
-        "task_success_rate": 100
+        "ast_accuracy": 40,
+        "task_success_rate": 0
       },
-      "durationMs": 758,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206199",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1126
     },
     {
       "id": "tool_calling_061",
@@ -1835,36 +1371,20 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 848,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206198",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 904
     },
     {
       "id": "tool_calling_062",
       "status": "done",
       "input": "điều chỉnh ở thống kê hoạt động lên báo cáo tài chính",
       "reference": "Để điều chỉnh số liệu từ thống kê hoạt động lên báo cáo tài chính, anh/chị cần rà soát lại các bút toán liên quan và thực hiện các bút toán điều chỉnh (nếu cần) trên phần mềm kế toán. Nếu cần hướng dẫn chi tiết theo từng trường hợp cụ thể, anh/chị vui lòng liên hệ bộ phận support của MISA để được hỗ trợ trực tiếp.",
-      "output": "Chị Huệ muốn điều chỉnh phần thống kê các hoạt động để phản ánh chính xác hơn trên báo cáo tài chính đúng không ạ?  \n\nĐể hỗ trợ chị tốt nhất, chị có thể cho em biết thêm:  \n- Chị muốn điều chỉnh loại hoạt động nào trong báo cáo tài chính? (ví dụ: doanh thu, chi phí, tài sản, nợ phải trả...)  \n- Hay chị muốn điều chỉnh cách tổng hợp, phân loại số liệu trong phần thống kê hoạt động?  \n- Chị đang sử dụng phần mềm kế toán nào hoặc có mẫu báo cáo tài chính cụ thể nào cần điều chỉnh không ạ?  \n\nEm sẽ hướng dẫn chị cách thực hiện hoặc hỗ trợ thao tác trên phần mềm nếu chị cần nhé!",
+      "output": "Chị Huệ thân mến, để hỗ trợ chị điều chỉnh thống kê các hoạt động liên quan đến báo cáo tài chính, em muốn hỏi thêm một chút để hiểu rõ hơn:  \n\n- Chị muốn điều chỉnh loại thống kê nào trong báo cáo tài chính? (ví dụ: doanh thu, chi phí, tài sản, nợ phải trả, hay các khoản mục cụ thể khác)  \n- Chị muốn điều chỉnh theo kỳ báo cáo nào? (tháng, quý, năm)  \n- Chị muốn xem báo cáo tài chính hiện tại hay muốn chỉnh sửa số liệu để cập nhật lại báo cáo?  \n\nNếu chị cho em thêm thông tin cụ thể, em sẽ giúp chị nhanh chóng và chính xác hơn ạ!",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 2807,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206198",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1840
     },
     {
       "id": "tool_calling_063",
@@ -1885,15 +1405,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 934,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206168",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 910
     },
     {
       "id": "tool_calling_064",
@@ -1914,15 +1426,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 796,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206142",
-        "tools_used": [
-          "quick_actions_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 725
     },
     {
       "id": "tool_calling_065",
@@ -1943,15 +1447,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1195,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1017
     },
     {
       "id": "tool_calling_066",
@@ -1964,7 +1460,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_transfer_tien_dien",
-            "arguments": "{\"description_bu_plan\":\"thanh toán hóa đơn điện cho văn phòng\",\"bank_account\":\"12110000999999\"}"
+            "arguments": "{\"description_bu_plan\":\"chuyển khoản thanh toán hóa đơn điện cho văn phòng\",\"bank_account\":\"12110000999999\"}"
           }
         }
       ],
@@ -1972,15 +1468,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1005,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1128
     },
     {
       "id": "tool_calling_067",
@@ -2001,15 +1489,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 973,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 844
     },
     {
       "id": "tool_calling_068",
@@ -2022,7 +1502,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_transfer_tien_nuoc",
-            "arguments": "{\"description_bu_plan\":\"tiền nước tháng 5\",\"bank_account\":\"123456789 tại Vietcombank\"}"
+            "arguments": "{\"description_bu_plan\":\"tiền nước tháng 5 cho ban quản lý\",\"bank_account\":\"123456789 tại Vietcombank\"}"
           }
         }
       ],
@@ -2030,15 +1510,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 970,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1031
     },
     {
       "id": "tool_calling_069",
@@ -2059,15 +1531,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1078,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 950
     },
     {
       "id": "tool_calling_070",
@@ -2080,7 +1544,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_transfer_tien_nuoc",
-            "arguments": "{\"description_bu_plan\":\"chi trả hóa đơn nước tháng 6/2024\",\"bank_account\":\"111222333\"}"
+            "arguments": "{\"description_bu_plan\":\"chi trả hóa đơn nước tháng 6/2024\",\"bank_account\":\"Agribank số 111222333\"}"
           }
         }
       ],
@@ -2088,15 +1552,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 993,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1037
     },
     {
       "id": "tool_calling_071",
@@ -2109,7 +1565,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_transfer_tien_dien_thoai",
-            "arguments": "{\"description_bu_plan\":\"cước điện thoại tháng 5\",\"bank_account\":\"11210000012345\"}"
+            "arguments": "{\"description_bu_plan\":\"cước điện thoại tháng 5 cho số máy phòng Kế toán\",\"bank_account\":\"11210000012345\"}"
           }
         }
       ],
@@ -2117,15 +1573,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1023,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1019
     },
     {
       "id": "tool_calling_072",
@@ -2138,7 +1586,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_transfer_tien_dien_thoai",
-            "arguments": "{\"description_bu_plan\":\"tiền điện thoại văn phòng\",\"bank_account\":\"21510000009876\"}"
+            "arguments": "{\"description_bu_plan\":\"trả tiền điện thoại văn phòng\",\"bank_account\":\"21510000009876\"}"
           }
         }
       ],
@@ -2146,15 +1594,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 935,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1125
     },
     {
       "id": "tool_calling_073",
@@ -2167,7 +1607,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_transfer_tien_dien_thoai",
-            "arguments": "{\"description_bu_plan\":\"cước điện thoại tháng 6/2024 phòng Hành chính\",\"bank_account\":\"10201000054321\"}"
+            "arguments": "{\"description_bu_plan\":\"cước điện thoại tháng 6/2024\",\"bank_account\":\"10201000054321\"}"
           }
         }
       ],
@@ -2175,15 +1615,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1028,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1072
     },
     {
       "id": "tool_calling_074",
@@ -2204,15 +1636,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 932,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1718
     },
     {
       "id": "tool_calling_075",
@@ -2225,7 +1649,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_salary",
-            "arguments": "{\"description_bu_plan\":\"Thanh toán lương quý 2/2024 cho bộ phận Hành chính\",\"bank_account\":\"987654321\"}"
+            "arguments": "{\"description_bu_plan\":\"Thanh toán lương quý 2 năm 2024 cho bộ phận Hành chính\",\"bank_account\":\"987654321 BIDV\"}"
           }
         }
       ],
@@ -2233,15 +1657,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1435,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1030
     },
     {
       "id": "tool_calling_076",
@@ -2262,15 +1678,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1031,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1407
     },
     {
       "id": "tool_calling_077",
@@ -2283,7 +1691,7 @@
           "type": "function",
           "function": {
             "name": "generate_bu_salary",
-            "arguments": "{\"description_bu_plan\":\"rút dự toán chuyển khoản lương cho khối giáo viên tháng 5\",\"bank_account\":\"5566778899\"}"
+            "arguments": "{\"description_bu_plan\":\"rút dự toán chuyển khoản lương cho khối giáo viên tháng 5\",\"bank_account\":\"5566778899 tại VietinBank\"}"
           }
         }
       ],
@@ -2291,15 +1699,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1222,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 993
     },
     {
       "id": "tool_calling_078",
@@ -2320,15 +1720,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1552,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 928
     },
     {
       "id": "tool_calling_079",
@@ -2349,15 +1741,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 956,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 950
     },
     {
       "id": "tool_calling_080",
@@ -2378,15 +1762,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1054,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 947
     },
     {
       "id": "tool_calling_081",
@@ -2407,15 +1783,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1668,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1210
     },
     {
       "id": "tool_calling_082",
@@ -2436,15 +1804,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1078,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1010
     },
     {
       "id": "tool_calling_083",
@@ -2465,15 +1825,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1057,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 999
     },
     {
       "id": "tool_calling_084",
@@ -2494,15 +1846,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1257,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1032
     },
     {
       "id": "tool_calling_085",
@@ -2523,15 +1867,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 736,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 706
     },
     {
       "id": "tool_calling_086",
@@ -2552,15 +1888,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 952,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 711
     },
     {
       "id": "tool_calling_087",
@@ -2581,15 +1909,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1002,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 697
     },
     {
       "id": "tool_calling_088",
@@ -2610,15 +1930,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 958,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 672
     },
     {
       "id": "tool_calling_089",
@@ -2639,15 +1951,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1353,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 729
     },
     {
       "id": "tool_calling_090",
@@ -2668,15 +1972,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 683,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 936
     },
     {
       "id": "tool_calling_091",
@@ -2697,15 +1993,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 733,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 777
     },
     {
       "id": "tool_calling_092",
@@ -2726,15 +2014,7 @@
         "ast_accuracy": 86.66666666666667,
         "task_success_rate": 100
       },
-      "durationMs": 1047,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1247
     },
     {
       "id": "tool_calling_093",
@@ -2755,15 +2035,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 736,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 978
     },
     {
       "id": "tool_calling_094",
@@ -2784,15 +2056,7 @@
         "ast_accuracy": 86.66666666666667,
         "task_success_rate": 100
       },
-      "durationMs": 1009,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 946
     },
     {
       "id": "tool_calling_095",
@@ -2804,24 +2068,16 @@
         {
           "type": "function",
           "function": {
-            "name": "software_support_help",
-            "arguments": "{}"
+            "name": "search_documents",
+            "arguments": "{\"query\":\"chỉnh sửa chứng từ kế toán đã ghi sổ\",\"original_message\":\"Làm sao chỉnh sửa chứng từ kế toán đã ghi sổ trên phần mềm?\"}"
           }
         }
       ],
       "scores": {
-        "ast_accuracy": 0,
-        "task_success_rate": 0
+        "ast_accuracy": 86.66666666666667,
+        "task_success_rate": 100
       },
-      "durationMs": 690,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1058
     },
     {
       "id": "tool_calling_096",
@@ -2842,15 +2098,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 935,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1328
     },
     {
       "id": "tool_calling_097",
@@ -2871,15 +2119,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 998,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 799
     },
     {
       "id": "tool_calling_098",
@@ -2900,15 +2140,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 781,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 920
     }
   ]
 }

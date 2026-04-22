@@ -1,8 +1,8 @@
 {
-  "runId": "fad7d065-ead5-416c-a023-f1702651dcc4",
+  "runId": "cff91794-d20a-47cb-82b6-a457ea481076",
   "model": "misa-gemma-4-31b-it-06042026",
-  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
-  "date": "2026-04-06 03:52:01",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 03:11:45",
   "taskName": "ava_tool_calling",
   "taskType": "tool_calling",
   "description": "AVA chatbot — Tool calling: đánh giá gọi đúng hàm và hoàn thành task",
@@ -35,15 +35,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 502,
-      "metadata": {
-        "source_message_id": "81da7d42-806c-44a0-bf64-00ddaf2de858",
-        "turn_index": 6,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 710
     },
     {
       "id": "tool_calling_002",
@@ -64,15 +56,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 439,
-      "metadata": {
-        "source_message_id": "3c37e7f6-c021-4020-9c32-b93a241ec7a3",
-        "turn_index": 11,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 690
     },
     {
       "id": "tool_calling_003",
@@ -93,15 +77,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 576,
-      "metadata": {
-        "source_message_id": "e4aa8a42-c9c5-4995-a14a-599ae1e11ecb",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 774
     },
     {
       "id": "tool_calling_004",
@@ -122,15 +98,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 429,
-      "metadata": {
-        "source_message_id": "ccfecdb4-2f6d-4158-b419-c15bc57f26dd",
-        "turn_index": 26,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 758
     },
     {
       "id": "tool_calling_005",
@@ -151,15 +119,7 @@
         "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 604,
-      "metadata": {
-        "source_message_id": "435c1edf-3aea-470b-8f30-5f70c298cfe4",
-        "turn_index": 5,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 939
     },
     {
       "id": "tool_calling_006",
@@ -180,15 +140,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 574,
-      "metadata": {
-        "source_message_id": "d7123062-fbbc-4d82-ba1e-a5195fa2994e",
-        "turn_index": 24,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 792
     },
     {
       "id": "tool_calling_007",
@@ -209,15 +161,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 609,
-      "metadata": {
-        "source_message_id": "95fd64bf-6181-4a10-820a-85fca97f4274",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 912
     },
     {
       "id": "tool_calling_008",
@@ -238,15 +182,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 613,
-      "metadata": {
-        "source_message_id": "f01532d6-8156-4bbf-b883-812e27afde3c",
-        "turn_index": 18,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 704
     },
     {
       "id": "tool_calling_009",
@@ -267,15 +203,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 549,
-      "metadata": {
-        "source_message_id": "a86e194a-7ba5-4248-b23b-d884dfa649b9",
-        "turn_index": 1,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 538
     },
     {
       "id": "tool_calling_010",
@@ -296,15 +224,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 562,
-      "metadata": {
-        "source_message_id": "cc7aba59-a0f8-454e-8425-8861990630c7",
-        "turn_index": 1,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 660
     },
     {
       "id": "tool_calling_011",
@@ -325,15 +245,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 615,
-      "metadata": {
-        "source_message_id": "3f4e7f9a-5406-45df-aec7-ad58352a36ae",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 667
     },
     {
       "id": "tool_calling_012",
@@ -354,15 +266,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 549,
-      "metadata": {
-        "source_message_id": "f15ba178-a3a2-4625-8421-79a3244fd71b",
-        "turn_index": 11,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 474
     },
     {
       "id": "tool_calling_013",
@@ -383,15 +287,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 567,
-      "metadata": {
-        "source_message_id": "cf3a55c5-3509-4201-96e4-c876e206f84b",
-        "turn_index": 23,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 874
     },
     {
       "id": "tool_calling_014",
@@ -412,15 +308,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 502,
-      "metadata": {
-        "source_message_id": "caa2ebc9-e34d-4ff2-aa2f-821ecb57ffb5",
-        "turn_index": 22,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 568
     },
     {
       "id": "tool_calling_015",
@@ -441,15 +329,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 530,
-      "metadata": {
-        "source_message_id": "e928bb81-733f-4553-995a-b25cc96337e1",
-        "turn_index": 6,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 772
     },
     {
       "id": "tool_calling_016",
@@ -470,15 +350,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 499,
-      "metadata": {
-        "source_message_id": "0ef7f8a7-59b0-4625-8c6b-f74f4cb704d1",
-        "turn_index": 27,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 570
     },
     {
       "id": "tool_calling_017",
@@ -499,15 +371,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 685,
-      "metadata": {
-        "source_message_id": "a06128f4-cd57-4f80-ab4e-37830de02d9c",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 795
     },
     {
       "id": "tool_calling_018",
@@ -528,15 +392,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 680,
-      "metadata": {
-        "source_message_id": "2f7b7900-c66d-4a0d-a510-45c3e8766c04",
-        "turn_index": 25,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 797
     },
     {
       "id": "tool_calling_019",
@@ -557,15 +413,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 524,
-      "metadata": {
-        "source_message_id": "44a8a8d2-3366-49af-bf84-7bfccdb1e58b",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 643
     },
     {
       "id": "tool_calling_020",
@@ -586,15 +434,7 @@
         "ast_accuracy": 80,
         "task_success_rate": 100
       },
-      "durationMs": 492,
-      "metadata": {
-        "source_message_id": "9d093632-9404-40dc-9ce1-8f3dc6b99e5a",
-        "turn_index": 17,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 591
     },
     {
       "id": "tool_calling_021",
@@ -615,15 +455,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 622,
-      "metadata": {
-        "source_message_id": "d95edf3d-37e4-44e9-84f4-e768bb0ce464",
-        "turn_index": 5,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 857
     },
     {
       "id": "tool_calling_022",
@@ -644,15 +476,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 750,
-      "metadata": {
-        "source_message_id": "338a3155-8024-4d19-bf8f-acc90a1d32ec",
-        "turn_index": 13,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 819
     },
     {
       "id": "tool_calling_023",
@@ -673,15 +497,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 592,
-      "metadata": {
-        "source_message_id": "e2b84d49-58ce-40b5-a3c9-4ef037380bc8",
-        "turn_index": 29,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 584
     },
     {
       "id": "tool_calling_024",
@@ -702,15 +518,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 656,
-      "metadata": {
-        "source_message_id": "1ae33a79-2868-4152-8684-952a35dbaddd",
-        "turn_index": 21,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 782
     },
     {
       "id": "tool_calling_025",
@@ -731,15 +539,7 @@
         "ast_accuracy": 80,
         "task_success_rate": 100
       },
-      "durationMs": 591,
-      "metadata": {
-        "source_message_id": "01e424a4-e770-4ab9-85ec-b7bd2230bf1c",
-        "turn_index": 25,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 691
     },
     {
       "id": "tool_calling_026",
@@ -760,15 +560,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 528,
-      "metadata": {
-        "source_message_id": "3a7a1169-0739-49ed-be7f-9b629da2a17d",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 734
     },
     {
       "id": "tool_calling_027",
@@ -789,15 +581,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 677,
-      "metadata": {
-        "source_message_id": "5ce0e02b-267f-4f41-8c25-2e6ec55e93c2",
-        "turn_index": 1,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 809
     },
     {
       "id": "tool_calling_028",
@@ -818,15 +602,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 522,
-      "metadata": {
-        "source_message_id": "c77d58c2-1e35-4fa4-bc65-62265d8aa083",
-        "turn_index": 32,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 557
     },
     {
       "id": "tool_calling_029",
@@ -847,15 +623,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 738,
-      "metadata": {
-        "source_message_id": "adfc39e1-cb07-423e-bb8e-20aa5a06275b",
-        "turn_index": 7,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 841
     },
     {
       "id": "tool_calling_030",
@@ -876,15 +644,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 570,
-      "metadata": {
-        "source_message_id": "aa1cd76c-7bdd-4308-a9a4-4aaa4c97e91c",
-        "turn_index": 18,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 549
     },
     {
       "id": "tool_calling_031",
@@ -905,15 +665,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 620,
-      "metadata": {
-        "source_message_id": "57133748-413b-48a8-b179-4da47323caa8",
-        "turn_index": 30,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 634
     },
     {
       "id": "tool_calling_032",
@@ -934,15 +686,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 629,
-      "metadata": {
-        "source_message_id": "96e40c8b-72bb-4c09-926b-2e9f1637759f",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 683
     },
     {
       "id": "tool_calling_033",
@@ -955,15 +699,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 5961,
-      "metadata": {
-        "source_message_id": "1084a461-37ee-4bfb-ae59-e63ed440d4e4",
-        "turn_index": 5,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 7137
     },
     {
       "id": "tool_calling_034",
@@ -984,15 +720,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 471,
-      "metadata": {
-        "source_message_id": "aa1cd76c-7bdd-4308-a9a4-4aaa4c97e91c",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 470
     },
     {
       "id": "tool_calling_035",
@@ -1013,15 +741,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 624,
-      "metadata": {
-        "source_message_id": "fe591f72-9865-4f67-88bd-e8feef225264",
-        "turn_index": 1,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 841
     },
     {
       "id": "tool_calling_036",
@@ -1042,15 +762,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 529,
-      "metadata": {
-        "source_message_id": "b39396ab-693d-4116-b596-6e2913e21e5d",
-        "turn_index": 32,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 739
     },
     {
       "id": "tool_calling_037",
@@ -1071,15 +783,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 593,
-      "metadata": {
-        "source_message_id": "550c27d7-69b5-4464-90fd-709fd7751e30",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 756
     },
     {
       "id": "tool_calling_038",
@@ -1100,15 +804,7 @@
         "ast_accuracy": 80,
         "task_success_rate": 100
       },
-      "durationMs": 582,
-      "metadata": {
-        "source_message_id": "85cdafd7-41e1-401b-8051-0f795a4bacbf",
-        "turn_index": 13,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 863
     },
     {
       "id": "tool_calling_039",
@@ -1129,15 +825,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 584,
-      "metadata": {
-        "source_message_id": "e03c8f4b-27f8-4025-8905-91ea556a2f2f",
-        "turn_index": 9,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 557
     },
     {
       "id": "tool_calling_040",
@@ -1158,15 +846,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 568,
-      "metadata": {
-        "source_message_id": "adfc39e1-cb07-423e-bb8e-20aa5a06275b",
-        "turn_index": 3,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 591
     },
     {
       "id": "tool_calling_041",
@@ -1179,7 +859,7 @@
           "type": "function",
           "function": {
             "name": "GetGoldAndWeather",
-            "arguments": "{\"query\": \"thời tiết hôm nay tại TP.HCM ngày 14/06/2025\"}"
+            "arguments": "{\"query\": \"thời tiết hôm nay tại TP.HCM\"}"
           }
         }
       ],
@@ -1187,36 +867,20 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 653,
-      "metadata": {
-        "source_message_id": "b3c093d1-3e24-4348-a8e3-7f2e5a31929b",
-        "turn_index": 15,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 567
     },
     {
       "id": "tool_calling_042",
       "status": "done",
       "input": "Tôi nghe nói học nghề điện lạnh cũng khá hot, bạn có thông tin gì về ngành này không?",
       "reference": "Ngành điện lạnh hiện nay đang có nhu cầu nhân lực cao và mang lại nhiều cơ hội việc làm hấp dẫn. Với sự gia tăng của các thiết bị điện lạnh trong cuộc sống hàng ngày, việc học nghề điện lạnh trở thành một lựa chọn hấp dẫn cho nhiều bạn trẻ. Dưới đây là một số thông tin về ngành này:\n\n1. **Cơ hội việc làm**: Ngành điện lạnh cung cấp nhiều vị trí việc làm như thợ điện lạnh, kỹ thuật viên điện lạnh, chuyên viên điện lạnh, và quản lý kỹ thuật điện lạnh. Các công việc này thường liên quan đến lắp đặt, bảo trì, và sửa chữa các hệ thống điện lạnh trong các tòa nhà, trung tâm thương mại, và các công ty.\n\n2. **Nhu cầu nhân lực**: Ngành điện lạnh đang thiếu hụt nhân lực, với tỷ lệ cung – cầu chỉ khoảng 30%. Điều này có nghĩa là có nhiều cơ hội việc làm và thăng tiến cho những ai theo đuổi ngành này.\n\n3. **Thu nhập và phát triển**: Nghề điện lạnh không chỉ mang lại thu nhập ổn định và cao, mà còn giúp phát triển kỹ năng, kiến thức và sáng tạo trong công việc. Bạn sẽ có cơ hội làm việc với nhiều khách hàng khác nhau và học hỏi từ những người có chuyên môn trong ngành.\n\n4. **Kỹ năng cần thiết**: Công việc trong ngành điện lạnh đòi hỏi kiến thức chuyên môn về các hệ thống điện lạnh, kỹ năng kỹ thuật, khả năng phân tích và giải quyết vấn đề, kỹ năng giao tiếp, và khả năng làm việc độc lập cũng như theo nhóm.\n\nVới những thông tin trên, ngành điện lạnh là một lựa chọn hứa hẹn cho những ai muốn theo đuổi sự nghiệp trong lĩnh vực này.",
-      "output": "Ngành điện lạnh hiện nay thực sự rất \"hot\" và là một lựa chọn nghề nghiệp đầy tiềm năng, thưa anh Hiển. Em xin chia sẻ một số thông tin chi tiết để anh tham khảo ạ:\n\n**1. Đặc điểm của ngành:**\nNgành điện lạnh tập trung vào việc lắp đặt, vận hành, bảo trì và sửa chữa các thiết bị làm lạnh và điều hòa không khí như: máy lạnh, tủ lạnh, máy giặt, kho lạnh, hệ thống điều hòa trung tâm trong các tòa nhà...\n\n**2. Cơ hội việc làm:**\nCơ hội việc làm của ngành này rất rộng mở vì:\n* **Nhu cầu thị trường cao:** Với khí hậu nóng ẩm tại Việt Nam, các thiết bị điện lạnh gần như là thiết bị thiết yếu trong mỗi gia đình và doanh nghiệp.\n* **Đa dạng hình thức làm việc:** Anh có thể làm việc cho các trung tâm bảo hành của các hãng điện tử lớn, các công ty xây dựng, lắp đặt hệ thống điện lạnh công nghiệp, hoặc tự mở cửa hàng sửa chữa riêng tại nhà.\n\n**3. Những yêu cầu cơ bản:**\nĐể thành công với nghề này, anh cần:\n* **Sự tỉ mỉ và cẩn thận:** Vì làm việc trực tiếp với hệ thống điện và gas, sự chính xác là yếu tố quan trọng nhất để đảm bảo an toàn.\n* **Sức khỏe tốt:** Công việc thường đòi hỏi phải di chuyển nhiều, leo trèo hoặc làm việc trong môi trường nóng bức.\n* **Khả năng tư duy kỹ thuật:** Biết cách đọc bản vẽ kỹ thuật và chẩn đoán lỗi của thiết bị.\n\nSo với ngành sửa chữa ô tô mà anh quan tâm trước đó, ngành điện lạnh thường có thời gian đào tạo ngắn hơn và anh có thể dễ dàng khởi nghiệp tự do hơn. Tuy nhiên, cả hai đều là những nghề kỹ thuật thực tế và có thu nhập ổn định nếu anh vững tay nghề ạ.",
+      "output": "Ngành điện lạnh hiện nay thực sự rất \"hot\" và là một lựa chọn nghề nghiệp đầy tiềm năng, thưa anh Hiển. Em xin chia sẻ một số thông tin chi tiết để anh tham khảo ạ:\n\n**1. Đặc điểm của ngành:**\nNgành điện lạnh tập trung vào việc lắp đặt, vận hành, bảo trì và sửa chữa các thiết bị làm lạnh và điều hòa không khí như: máy lạnh, tủ lạnh, máy giặt, kho lạnh, hệ thống điều hòa trung tâm trong các tòa nhà...\n\n**2. Cơ hội việc làm:**\nCơ hội việc làm của ngành này rất rộng mở vì:\n* **Nhu cầu thị trường cao:** Với khí hậu nóng ẩm tại Việt Nam, các thiết bị làm mát gần như là thiết bị thiết yếu trong mỗi gia đình và doanh nghiệp.\n* **Đa dạng môi trường làm việc:** Anh có thể làm việc tại các trung tâm bảo hành của các hãng điện tử lớn, các công ty xây dựng, lắp đặt hệ thống điện lạnh cho công trình, hoặc tự mở cửa hàng sửa chữa riêng cho mình.\n\n**3. Những yêu cầu cơ bản:**\nĐể thành công trong nghề này, anh cần:\n* **Sự tỉ mỉ và cẩn thận:** Vì làm việc trực tiếp với hệ thống điện và gas, sự chính xác là yếu tố quan trọng nhất để đảm bảo an toàn.\n* **Sức khỏe tốt:** Công việc thường đòi hỏi phải di chuyển nhiều, leo trèo hoặc làm việc trong môi trường nóng bức.\n* **Khả năng tư duy kỹ thuật:** Biết cách đọc bản vẽ kỹ thuật và chẩn đoán lỗi của thiết bị.\n\nSo với ngành sửa chữa ô tô mà anh quan tâm trước đó, ngành điện lạnh thường có thời gian đào tạo ngắn hơn và anh có thể dễ dàng khởi nghiệp tự do hơn. Tuy nhiên, cả hai đều là những nghề kỹ thuật thực tế và có thu nhập ổn định nếu anh vững tay nghề ạ.",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 5213,
-      "metadata": {
-        "source_message_id": "f9fd3129-772b-40e8-9a43-ce297359469a",
-        "turn_index": 7,
-        "tools_used": [
-          "google_search"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 7079
     },
     {
       "id": "tool_calling_043",
@@ -1237,15 +901,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 522,
-      "metadata": {
-        "source_message_id": "09527160-b63a-456e-821d-780d41745580",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 448
     },
     {
       "id": "tool_calling_044",
@@ -1266,15 +922,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 650,
-      "metadata": {
-        "source_message_id": "96ad7a7f-c2cc-4d7d-9a25-192a6b4082cb",
-        "turn_index": 7,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 588
     },
     {
       "id": "tool_calling_045",
@@ -1295,15 +943,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 516,
-      "metadata": {
-        "source_message_id": "a9a5dd2f-197a-4d92-9d09-63a42645cb21",
-        "turn_index": 26,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 527
     },
     {
       "id": "tool_calling_046",
@@ -1324,15 +964,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 721,
-      "metadata": {
-        "source_message_id": "3063c5af-0a36-4c67-8386-f37869bc110d",
-        "turn_index": 5,
-        "tools_used": [
-          "GoogleSearch"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 649
     },
     {
       "id": "tool_calling_047",
@@ -1353,15 +985,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 595,
-      "metadata": {
-        "source_message_id": "9bc08622-ca13-43ed-b440-5b4f5e9efd75",
-        "turn_index": 5,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 552
     },
     {
       "id": "tool_calling_048",
@@ -1382,15 +1006,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 525,
-      "metadata": {
-        "source_message_id": "ef38667e-5347-489c-845f-224d62766255",
-        "turn_index": 26,
-        "tools_used": [
-          "GetGoldAndWeather"
-        ],
-        "num_tool_calls": 2
-      }
+      "durationMs": 475
     },
     {
       "id": "tool_calling_049",
@@ -1411,15 +1027,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 539,
-      "metadata": {
-        "source_message_id": "c326d552-8428-4c56-8631-294fc184c671",
-        "turn_index": 10,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 574
     },
     {
       "id": "tool_calling_050",
@@ -1440,15 +1048,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 509,
-      "metadata": {
-        "source_message_id": "3616aa64-7674-40b4-85d0-d66d9331cf1b",
-        "turn_index": 14,
-        "tools_used": [
-          "MISASearchKnowledge"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 486
     },
     {
       "id": "tool_calling_051",
@@ -1469,15 +1069,7 @@
         "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 643,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206243",
-        "tools_used": [
-          "quick_actions_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 915
     },
     {
       "id": "tool_calling_052",
@@ -1498,15 +1090,7 @@
         "ast_accuracy": 86.66666666666667,
         "task_success_rate": 100
       },
-      "durationMs": 1261,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206249",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1802
     },
     {
       "id": "tool_calling_053",
@@ -1527,15 +1111,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 355,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206249",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 276
     },
     {
       "id": "tool_calling_054",
@@ -1556,15 +1132,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 643,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 832
     },
     {
       "id": "tool_calling_055",
@@ -1585,15 +1153,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 363,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 302
     },
     {
       "id": "tool_calling_056",
@@ -1614,15 +1174,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 362,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206224",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 320
     },
     {
       "id": "tool_calling_057",
@@ -1643,15 +1195,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 686,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206176",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 849
     },
     {
       "id": "tool_calling_058",
@@ -1672,15 +1216,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 665,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206232",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 994
     },
     {
       "id": "tool_calling_059",
@@ -1701,15 +1237,7 @@
         "ast_accuracy": 40,
         "task_success_rate": 0
       },
-      "durationMs": 342,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206232",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 749
     },
     {
       "id": "tool_calling_060",
@@ -1730,36 +1258,20 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 660,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206199",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1032
     },
     {
       "id": "tool_calling_061",
       "status": "done",
       "input": "điều chỉnh thống kê các hoạt động",
       "reference": "Để điều chỉnh thống kê các hoạt động, chị vui lòng xác định rõ loại hoạt động và báo cáo cần điều chỉnh. Nếu chị cần hướng dẫn chi tiết trên phần mềm MISA, vui lòng liên hệ bộ phận support để được hỗ trợ cụ thể theo từng nghiệp vụ.",
-      "output": "Chào chị Huệ, em hiểu là chị đang muốn điều chỉnh hoặc xem lại phần thống kê các hoạt động.\n\nĐể em có thể hỗ trợ chị một cách chính xác nhất, chị vui lòng cho em biết chị đang muốn điều chỉnh thống kê trong trường hợp nào dưới đây ạ:\n\n1. **Điều chỉnh số liệu trong một báo cáo/biểu đồ cụ thể:** Chị muốn thay đổi tiêu chí lọc, khoảng thời gian hoặc chỉnh sửa dữ liệu đầu vào để kết quả thống kê thay đổi?\n2. **Thay đổi cách hiển thị thống kê:** Chị muốn chuyển từ dạng bảng sang biểu đồ hoặc thay đổi loại biểu đồ để dễ theo dõi hơn?\n3. **Hướng dẫn thao tác điều chỉnh:** Chị cần em hướng dẫn các bước thực hiện điều chỉnh thống kê trên phần mềm?\n\nNếu chị đang muốn xem lại các báo cáo thống kê hiện có để tìm điểm cần điều chỉnh, em có thể hiển thị **Menu Báo cáo và Dashboard** để chị dễ dàng lựa chọn ạ. Chị xác nhận giúp em nhé!",
+      "output": "Chào chị Huệ, em hiểu là chị đang muốn điều chỉnh hoặc xem lại phần thống kê các hoạt động.\n\nĐể em có thể hỗ trợ chị một cách chính xác nhất, chị vui lòng cho em biết chị đang muốn điều chỉnh thống kê trong trường hợp nào dưới đây ạ:\n\n1. **Điều chỉnh số liệu trong một báo cáo/biểu đồ cụ thể:** Chị muốn thay đổi tiêu chí lọc, khoảng thời gian hoặc chỉnh sửa dữ liệu đầu vào để kết quả thống kê thay đổi?\n2. **Thay đổi cách hiển thị thống kê:** Chị muốn chuyển từ dạng bảng sang biểu đồ hoặc thay đổi loại biểu đồ để dễ theo dõi hơn?\n3. **Hướng dẫn thao tác trên phần mềm:** Chị cần em hướng dẫn các bước để thực hiện việc điều chỉnh thống kê này trên phần mềm của MISA?\n\nNếu chị đang muốn xem lại các báo cáo thống kê hiện có để tìm điểm cần điều chỉnh, em có thể hiển thị **Menu Báo cáo và Dashboard** cho chị xem ngay ạ. Chị xác nhận giúp em nhé!",
       "tool_calls": [],
       "scores": {
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 3330,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206198",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 4752
     },
     {
       "id": "tool_calling_062",
@@ -1780,15 +1292,7 @@
         "ast_accuracy": 86.66666666666667,
         "task_success_rate": 100
       },
-      "durationMs": 844,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206198",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1640
     },
     {
       "id": "tool_calling_063",
@@ -1809,15 +1313,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 658,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206168",
-        "tools_used": [
-          "reports_dashboard_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 533
     },
     {
       "id": "tool_calling_064",
@@ -1838,15 +1334,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 673,
-      "metadata": {
-        "source": "conversations.json",
-        "source_conv_id": "206142",
-        "tools_used": [
-          "quick_actions_menu"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 838
     },
     {
       "id": "tool_calling_065",
@@ -1867,15 +1355,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1188,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1567
     },
     {
       "id": "tool_calling_066",
@@ -1896,15 +1376,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 905,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 903
     },
     {
       "id": "tool_calling_067",
@@ -1925,15 +1397,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 936,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 960
     },
     {
       "id": "tool_calling_068",
@@ -1954,15 +1418,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 990,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1088
     },
     {
       "id": "tool_calling_069",
@@ -1983,15 +1439,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1067,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1084
     },
     {
       "id": "tool_calling_070",
@@ -2012,15 +1460,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 922,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_nuoc",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_nuoc",
-        "tools_used": [
-          "generate_bu_transfer_tien_nuoc"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 974
     },
     {
       "id": "tool_calling_071",
@@ -2041,15 +1481,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1040,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 970
     },
     {
       "id": "tool_calling_072",
@@ -2070,15 +1502,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 927,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 915
     },
     {
       "id": "tool_calling_073",
@@ -2099,15 +1523,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1045,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_transfer_tien_dien_thoai",
-        "source_conv_id": "synthetic_generate_bu_transfer_tien_dien_thoai",
-        "tools_used": [
-          "generate_bu_transfer_tien_dien_thoai"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1099
     },
     {
       "id": "tool_calling_074",
@@ -2128,15 +1544,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 923,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 814
     },
     {
       "id": "tool_calling_075",
@@ -2157,15 +1565,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 919,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1012
     },
     {
       "id": "tool_calling_076",
@@ -2186,15 +1586,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 904,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1041
     },
     {
       "id": "tool_calling_077",
@@ -2215,15 +1607,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 893,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_salary",
-        "source_conv_id": "synthetic_generate_bu_salary",
-        "tools_used": [
-          "generate_bu_salary"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 986
     },
     {
       "id": "tool_calling_078",
@@ -2244,15 +1628,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 782,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 771
     },
     {
       "id": "tool_calling_079",
@@ -2273,15 +1649,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 770,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 817
     },
     {
       "id": "tool_calling_080",
@@ -2302,15 +1670,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 755,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_generate_bu_insurance",
-        "source_conv_id": "synthetic_generate_bu_insurance",
-        "tools_used": [
-          "generate_bu_insurance"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 837
     },
     {
       "id": "tool_calling_081",
@@ -2331,15 +1691,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 942,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1049
     },
     {
       "id": "tool_calling_082",
@@ -2360,15 +1712,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 902,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1067
     },
     {
       "id": "tool_calling_083",
@@ -2389,15 +1733,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 894,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1068
     },
     {
       "id": "tool_calling_084",
@@ -2418,15 +1754,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 1010,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_add_customer_vendor",
-        "source_conv_id": "synthetic_add_customer_vendor",
-        "tools_used": [
-          "add_customer_vendor"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 1135
     },
     {
       "id": "tool_calling_085",
@@ -2447,15 +1775,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 420,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 328
     },
     {
       "id": "tool_calling_086",
@@ -2476,15 +1796,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 362,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 319
     },
     {
       "id": "tool_calling_087",
@@ -2505,15 +1817,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 367,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 295
     },
     {
       "id": "tool_calling_088",
@@ -2534,15 +1838,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 359,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_budget_plan_implementation",
-        "source_conv_id": "synthetic_show_budget_plan_implementation",
-        "tools_used": [
-          "show_budget_plan_implementation"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 430
     },
     {
       "id": "tool_calling_089",
@@ -2563,15 +1859,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 366,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 623
     },
     {
       "id": "tool_calling_090",
@@ -2592,15 +1880,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 419,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 585
     },
     {
       "id": "tool_calling_091",
@@ -2621,15 +1901,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 399,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_show_cash_balance_deposit",
-        "source_conv_id": "synthetic_show_cash_balance_deposit",
-        "tools_used": [
-          "show_cash_balance_deposit"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 546
     },
     {
       "id": "tool_calling_092",
@@ -2650,15 +1922,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 328,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 416
     },
     {
       "id": "tool_calling_093",
@@ -2679,15 +1943,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 309,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 501
     },
     {
       "id": "tool_calling_094",
@@ -2708,15 +1964,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 427,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 509
     },
     {
       "id": "tool_calling_095",
@@ -2737,15 +1985,7 @@
         "ast_accuracy": 0,
         "task_success_rate": 0
       },
-      "durationMs": 368,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_search_documents",
-        "source_conv_id": "synthetic_search_documents",
-        "tools_used": [
-          "search_documents"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 316
     },
     {
       "id": "tool_calling_096",
@@ -2766,15 +2006,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 335,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 302
     },
     {
       "id": "tool_calling_097",
@@ -2795,15 +2027,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 313,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 241
     },
     {
       "id": "tool_calling_098",
@@ -2824,15 +2048,7 @@
         "ast_accuracy": 100,
         "task_success_rate": 100
       },
-      "durationMs": 352,
-      "metadata": {
-        "source": "synthetic_gpt41_synthetic_software_support_help",
-        "source_conv_id": "synthetic_software_support_help",
-        "tools_used": [
-          "software_support_help"
-        ],
-        "num_tool_calls": 1
-      }
+      "durationMs": 298
     }
   ]
 }

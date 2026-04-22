@@ -1,8 +1,8 @@
 {
-  "runId": "56bff2f8-0e42-43c8-8555-773131f5f14e",
+  "runId": "572ff5b1-9537-49a8-b0b7-52db6360238d",
   "model": "misa-ai-1.0",
-  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
-  "date": "2026-04-06 07:55:12",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:09:47",
   "taskName": "crm_intent_analysis",
   "taskType": "qa",
   "description": "CRM intent analysis — phân tích hành động người dùng với đơn hàng",
@@ -19,154 +19,84 @@
       "status": "done",
       "input": "f",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có yêu cầu rõ ràng để phân tích. Vui lòng cung cấp nội dung cụ thể liên quan đến đơn hàng, hàng hóa, khách hàng hoặc báo giá để tôi có thể hỗ trợ bạn chính xác.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 554,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R7TR:00000032",
-        "application": "crmkh",
-        "processing_time_ms": 771.5453,
-        "created_at": "2026-03-02T04:26:30+00:00",
-        "prompt_tokens": 3069,
-        "completion_tokens": 1,
-        "total_tokens": 3070
-      }
+      "durationMs": 920
     },
     {
       "id": "crm_intent_analysis_0002",
       "status": "done",
       "input": "ckdh",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động rõ ràng.\n\n**Phân tích:**  \n\"Từ khóa 'ckdh' là viết tắt không rõ ràng trong ngữ cảnh hiện tại. Có thể là:  \n- CKDH = Chiết khấu đơn hàng?  \n- Nhưng không có động từ hành động (thêm, xóa, cập nhật, sắp xếp...)  \n- Không đề cập đến đối tượng cụ thể (hàng hóa, khách hàng, báo giá, đơn hàng cha...)  \n- Không đủ thông tin để xác định trường cần cập nhật hoặc hành động cần thực hiện.\"\n\n→ **Kết luận:** Không thuộc bất kỳ hành động nào trong danh sách hỗ trợ.\n\n**Đáp án:** Không xác định (không trả về số 1-7)  \n**Gợi ý người dùng:** Vui lòng cung cấp câu đầy đủ, ví dụ: *\"Cập nhật chiết khấu đơn hàng thành 5%\"* hoặc *\"Thêm hàng hóa với chiết khấu 10%\"* để được hỗ trợ chính xác.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 526,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE3JV97:00000055",
-        "application": "crmkh",
-        "processing_time_ms": 759.7131,
-        "created_at": "2026-03-02T04:25:27+00:00",
-        "prompt_tokens": 3188,
-        "completion_tokens": 1,
-        "total_tokens": 3189
-      }
+      "durationMs": 2187
     },
     {
       "id": "crm_intent_analysis_0003",
       "status": "done",
       "input": "Cập nhật Kho của tất cả hàng hóa thành Q7",
       "reference": "2",
-      "output": "2",
+      "output": "**Hành động: 2 - Cập nhật trường**\n\n**Giải thích:**\n- Hành động chính: **\"Cập nhật\"** → phù hợp với hành động loại 2 (cập nhật trường).\n- Trường được cập nhật: **\"Kho\"** → nằm trong danh sách các trường được hỗ trợ (có trong danh sách trường của hành động 2).\n- Đối tượng: **\"tất cả hàng hóa\"** trong đơn hàng → tức là cập nhật trường **Kho** cho tất cả các dòng hàng hóa trong đơn hàng hiện tại.\n- Không có từ khóa \"thêm\", \"tạo\", nên không phải hành động 1.\n- Không đề cập đến khách hàng, báo giá, đơn hàng cha → không vi phạm quy tắc loại trừ.\n\n→ **Kết luận: Hành động 2 (Cập nhật trường)**\n\n✅ **Đáp án: 2**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 480,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QNE1H63:0000003C",
-        "application": "crmkh",
-        "processing_time_ms": 629.1027,
-        "created_at": "2026-03-02T04:24:25+00:00",
-        "prompt_tokens": 3313,
-        "completion_tokens": 1,
-        "total_tokens": 3314
-      }
+      "durationMs": 1896
     },
     {
       "id": "crm_intent_analysis_0004",
       "status": "done",
       "input": "Cập nhật Kho của tất cả hàng hóa thành HCM",
       "reference": "2",
-      "output": "2",
+      "output": "**Hành động: 2 - Cập nhật trường**\n\n**Giải thích:**\n- Hành động người dùng yêu cầu: **\"Cập nhật Kho của tất cả hàng hóa thành HCM\"**\n- Từ khóa \"cập nhật\" → phù hợp với hành động **\"2 - Cập nhật trường\"**\n- Trường được cập nhật: **Kho** (thuộc danh sách trường được hỗ trợ trong hành động 2)\n- Đối tượng: **tất cả hàng hóa trong đơn hàng** → đây là cập nhật trường ở cấp hàng hóa (chi tiết đơn hàng), không phải thêm/xóa đơn hàng hay khách hàng\n- Không có từ khóa \"thêm\", \"tạo\", \"xóa\" → không phải hành động 1\n- Không đề cập đến đối tượng khác như khách hàng, báo giá → nên hiểu là hành động trên **đơn hàng**\n\n✅ **Kết luận: Hành động là \"2\" - Cập nhật trường (Kho)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 576,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REPVD5Q:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 772.1221,
-        "created_at": "2026-03-02T04:20:14+00:00",
-        "prompt_tokens": 3313,
-        "completion_tokens": 1,
-        "total_tokens": 3314
-      }
+      "durationMs": 2454
     },
     {
       "id": "crm_intent_analysis_0005",
       "status": "done",
       "input": "Cập nhật Kho của tất cả hàng hóa thành HCm",
       "reference": "2",
-      "output": "2",
+      "output": "**Hành động: 2 - Cập nhật trường**\n\n**Lý do phân tích:**\n- Hành động chính: **\"Cập nhật\"** → phù hợp với hành động 2 (cập nhật trường).\n- Đối tượng cập nhật: **\"Kho\"** → là một trong các trường được liệt kê trong danh sách trường hỗ trợ cho hành động 2.\n- Phạm vi: **\"của tất cả hàng hóa\"** → tức là cập nhật trường **Kho** trên tất cả các dòng hàng hóa trong đơn hàng.\n- Không có từ khóa \"thêm\", \"tạo\", \"xóa\" → không phải hành động 1.\n- Không đề cập đến khách hàng, báo giá, đơn hàng cha → không vi phạm quy tắc loại trừ.\n\n→ **Kết luận: Hành động 2 (Cập nhật trường)** là chính xác.\n\n✅ **Đáp án: `2`**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 602,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE3JV9S:0000001B",
-        "application": "crmkh",
-        "processing_time_ms": 1487.2334,
-        "created_at": "2026-03-02T04:17:07+00:00",
-        "prompt_tokens": 3313,
-        "completion_tokens": 1,
-        "total_tokens": 3314
-      }
+      "durationMs": 1593
     },
     {
       "id": "crm_intent_analysis_0006",
       "status": "done",
       "input": "vivumed",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng, vì văn bản \"vivumed\" không chứa từ khóa liên quan đến các hành động được hỗ trợ (thêm, xóa, sắp xếp, cập nhật khách hàng/báo giá/đơn hàng cha/trường đơn hàng...).\n\n**Kết quả: Không có hành động nào (không khớp với bất kỳ mã hành động nào từ 1 đến 7).**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 461,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RDNAQJF:00000044",
-        "application": "crmkh",
-        "processing_time_ms": 627.6464,
-        "created_at": "2026-03-02T04:07:27+00:00",
-        "prompt_tokens": 3163,
-        "completion_tokens": 1,
-        "total_tokens": 3164
-      }
+      "durationMs": 1039
     },
     {
       "id": "crm_intent_analysis_0007",
       "status": "done",
       "input": "omega",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng, sản phẩm, khách hàng, báo giá hoặc đơn hàng cha dựa trên từ khóa \"omega\".\n\n- \"Omega\" không phải là từ khóa chỉ hành động (thêm, xóa, cập nhật, sắp xếp,...)\n- Không đề cập đến hàng hóa, đơn hàng, khách hàng, báo giá hay đơn hàng cha theo ngữ cảnh nghiệp vụ\n- Không có đủ thông tin để xác định mục đích người dùng\n\n👉 **Kết luận: Không có hành động nào được xác định.**  \n**Mã hành động: Không xác định**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 493,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RAEJJMB:00000004",
-        "application": "crmkh",
-        "processing_time_ms": 675.5922,
-        "created_at": "2026-03-02T04:06:30+00:00",
-        "prompt_tokens": 3145,
-        "completion_tokens": 1,
-        "total_tokens": 3146
-      }
+      "durationMs": 1049
     },
     {
       "id": "crm_intent_analysis_0008",
@@ -178,61 +108,31 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 604,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9GF5VC:00000020",
-        "application": "crmkh",
-        "processing_time_ms": 1110.3206,
-        "created_at": "2026-03-02T04:04:54+00:00",
-        "prompt_tokens": 1336,
-        "completion_tokens": 39,
-        "total_tokens": 1375
-      }
+      "durationMs": 353
     },
     {
       "id": "crm_intent_analysis_0009",
       "status": "done",
       "input": "anh",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện.\n\n**Lý do:**  \nTừ “anh” không chứa bất kỳ từ khóa liên quan đến hành động với **đơn hàng** (thêm, cập nhật, sửa, thay đổi...) hoặc đối tượng cụ thể nào (sản phẩm, số lượng, giá, v.v.). Đây chỉ là một từ xưng hô, không mang thông tin nghiệp vụ.\n\n👉 **Kết luận:** Không có hành động nào được yêu cầu. Vui lòng cung cấp câu lệnh rõ ràng hơn, ví dụ:  \n- “Thêm sản phẩm A”  \n- “Cập nhật số lượng thành 5”  \n- “Sửa địa chỉ giao hàng”  \n\nĐể mình hỗ trợ chính xác nhé!",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 393,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R7NM:00000005",
-        "application": "crmkh",
-        "processing_time_ms": 642.8718,
-        "created_at": "2026-03-02T03:57:55+00:00",
-        "prompt_tokens": 2845,
-        "completion_tokens": 1,
-        "total_tokens": 2846
-      }
+      "durationMs": 1185
     },
     {
       "id": "crm_intent_analysis_0010",
       "status": "done",
       "input": "hộp đèn",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Lý do:**  \nChỉ đề cập đến “hộp đèn” – đây là tên hàng hóa, nhưng **không có từ khóa hành động** (như: thêm, cập nhật, sửa, xóa...) và **không có thông tin nào yêu cầu thao tác với đơn hàng**.\n\n→ Theo quy tắc mặc định: *Nếu không đề cập rõ hành động → không có hành động nào cần thực hiện.*\n\n**Kết luận:**  \n**Không có hành động (không trả về 1 hoặc 2)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 407,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO6K80R:00000040",
-        "application": "crmkh",
-        "processing_time_ms": 605.8462,
-        "created_at": "2026-03-02T03:53:57+00:00",
-        "prompt_tokens": 3060,
-        "completion_tokens": 1,
-        "total_tokens": 3061
-      }
+      "durationMs": 930
     },
     {
       "id": "crm_intent_analysis_0011",
@@ -244,105 +144,55 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1983,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE1A7QF:00000010",
-        "application": "crmkh",
-        "processing_time_ms": 1783.1741,
-        "created_at": "2026-03-02T03:52:20+00:00",
-        "prompt_tokens": 1399,
-        "completion_tokens": 97,
-        "total_tokens": 1496
-      }
+      "durationMs": 1000
     },
     {
       "id": "crm_intent_analysis_0012",
       "status": "done",
       "input": ".",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có nội dung để phân tích. Vui lòng cung cấp văn bản cần phân tích hành động với ĐƠN HÀNG.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 373,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO51J7G:00000049",
-        "application": "crmkh",
-        "processing_time_ms": 644.0569,
-        "created_at": "2026-03-02T03:51:49+00:00",
-        "prompt_tokens": 3166,
-        "completion_tokens": 1,
-        "total_tokens": 3167
-      }
+      "durationMs": 524
     },
     {
       "id": "crm_intent_analysis_0013",
       "status": "done",
       "input": "Thêm đơn hàng cho khách hàng 014 TRẦN BA, với các hàng hoá:\n- Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\n- Phí vận chuyển\n- Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\n- Hóa chất trợ lắng (PAC) Trung Quốc\n- Keo ốp lát gạch Hanteco\nThêm đơn hàng cho khách hàng 014 TRẦN BA, với các hàng hoá:\n- Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\n- Phí vận chuyển\n- Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\n- Hóa chất trợ lắng (PAC) Trung Quốc\n- Keo ốp lát gạch Hanteco",
       "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Keo ốp lát gạch Hanteco\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Keo ốp lát gạch Hanteco\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
-      "output": "{\n  \"products\": []\n}",
+      "output": "{\n  \"products\": [\n    {\n      \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Keo ốp lát gạch Hanteco\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
       "tool_calls": [],
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 516,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QJMT6LI:00000033",
-        "application": "crmkh",
-        "processing_time_ms": 5222.8837,
-        "created_at": "2026-03-02T03:48:32+00:00",
-        "prompt_tokens": 1731,
-        "completion_tokens": 481,
-        "total_tokens": 2212
-      }
+      "durationMs": 1679
     },
     {
       "id": "crm_intent_analysis_0014",
       "status": "done",
       "input": "Thái Trường Anh",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với ĐƠN HÀNG.\n\n**Lý do:**  \nChuỗi \"Thái Trường Anh\" chỉ là một tên người, không chứa bất kỳ từ khóa nào liên quan đến các hành động được hỗ trợ (thêm, xóa, sắp xếp, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường đơn hàng).  \n\nKhông có ngữ cảnh nào cho thấy đây là yêu cầu cập nhật khách hàng, báo giá, hay bất kỳ trường nào trong đơn hàng.\n\n👉 **Kết quả: Không có hành động nào được xác định.**  \n**Mã hành động: Không có (không khớp với bất kỳ trường hợp nào)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 471,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O138:0000001F",
-        "application": "crmkh",
-        "processing_time_ms": 632.9882,
-        "created_at": "2026-03-02T03:47:32+00:00",
-        "prompt_tokens": 3184,
-        "completion_tokens": 1,
-        "total_tokens": 3185
-      }
+      "durationMs": 1322
     },
     {
       "id": "crm_intent_analysis_0015",
       "status": "done",
       "input": "anh kiệt",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Giải thích:**  \nCâu \"anh kiệt\" không chứa bất kỳ từ khóa nào liên quan đến hành động với **đơn hàng** (như: thêm, cập nhật, sửa, thay đổi...) và cũng không đề cập đến bất kỳ trường nào trong đơn hàng hay hàng hóa. Đây chỉ là một cách gọi tên người, không có ngữ cảnh nghiệp vụ.\n\n→ **Kết luận: Không có hành động nào cần thực hiện.**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 289,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R7BG:00000080",
-        "application": "crmkh",
-        "processing_time_ms": 708.7484,
-        "created_at": "2026-03-02T03:45:21+00:00",
-        "prompt_tokens": 2847,
-        "completion_tokens": 1,
-        "total_tokens": 2848
-      }
+      "durationMs": 1039
     },
     {
       "id": "crm_intent_analysis_0016",
@@ -354,17 +204,7 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 833,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUQI7G:0000007F",
-        "application": "crmkh",
-        "processing_time_ms": 1077.6189,
-        "created_at": "2026-03-02T03:36:07+00:00",
-        "prompt_tokens": 1333,
-        "completion_tokens": 39,
-        "total_tokens": 1372
-      }
+      "durationMs": 448
     },
     {
       "id": "crm_intent_analysis_0017",
@@ -376,149 +216,79 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 1249,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QNE1GCD:000000D7",
-        "application": "crmkh",
-        "processing_time_ms": 1893.195,
-        "created_at": "2026-03-02T03:35:38+00:00",
-        "prompt_tokens": 755,
-        "completion_tokens": 95,
-        "total_tokens": 850
-      }
+      "durationMs": 657
     },
     {
       "id": "crm_intent_analysis_0018",
       "status": "done",
       "input": "CÔNG TY TNHH U-LI (VN)",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào với đơn hàng được đề cập.\n\n**Lý do:**  \nChỉ cung cấp tên công ty \"CÔNG TY TNHH U-LI (VN)\" mà không có bất kỳ từ khóa nào liên quan đến hành động: thêm, xóa, cập nhật, sắp xếp, hoặc bất kỳ trường nào của đơn hàng. Không có ngữ cảnh nào cho thấy đây là hành động cập nhật khách hàng, báo giá, đơn hàng cha, hay thao tác với hàng hóa.\n\n→ **Kết luận: Không xác định được hành động nào cần thực hiện.**  \n**Mã hành động: Không có (không thuộc các trường hợp hỗ trợ)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 380,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM1498:0000001F",
-        "application": "crmkh",
-        "processing_time_ms": 719.5858,
-        "created_at": "2026-03-02T03:32:24+00:00",
-        "prompt_tokens": 3191,
-        "completion_tokens": 1,
-        "total_tokens": 3192
-      }
+      "durationMs": 1032
     },
     {
       "id": "crm_intent_analysis_0019",
       "status": "done",
       "input": "tôi muốn liên kết thông tin sang Viettel Post",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Hành động: **Không thuộc các hành động được hỗ trợ** (không phải thêm hoặc cập nhật đơn hàng)\n\n**Giải thích:**\n\n- Câu nói: *\"tôi muốn liên kết thông tin sang Viettel Post\"*  \n→ Đây là yêu cầu **liên kết với hệ thống bên ngoài** (Viettel Post), không phải hành động **thêm hàng hóa** hay **cập nhật trường** trong đơn hàng theo định nghĩa trong quy tắc.\n\n- Các hành động được hỗ trợ chỉ bao gồm:\n  - **1**: Thêm hàng hóa mới vào đơn hàng\n  - **2**: Cập nhật các trường thuộc về đơn hàng hoặc chi tiết hàng hóa trong đơn hàng\n\n- “Liên kết thông tin sang Viettel Post” là hành động **tích hợp hệ thống**, **gửi dữ liệu ra ngoài**, hoặc **cập nhật trạng thái vận chuyển** — nhưng **không phải là một trường trong danh sách trường được hỗ trợ** của hành động 2, và cũng không phải thêm hàng hóa.\n\n→ Do đó, **không có hành động nào trong danh sách 1 hoặc 2 phù hợp**.\n\n**Kết luận:**  \n**Không xác định được hành động (không hỗ trợ)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 309,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO4OL7I:0000000E",
-        "application": "crmkh",
-        "processing_time_ms": 666.676,
-        "created_at": "2026-03-02T03:32:07+00:00",
-        "prompt_tokens": 3118,
-        "completion_tokens": 1,
-        "total_tokens": 3119
-      }
+      "durationMs": 1819
     },
     {
       "id": "crm_intent_analysis_0020",
       "status": "done",
       "input": "bình hút lộc màu trắng h22",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào với đơn hàng được xác định.\n\n**Lý do:**  \nCâu \"bình hút lộc màu trắng h22\" chỉ là một **mô tả sản phẩm**, không chứa bất kỳ từ khóa hành động nào như: thêm, xóa, cập nhật, sắp xếp, đổi khách hàng, thay báo giá, thay đơn hàng cha,...  \n\n→ Không có hành động nào thuộc các loại \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\" được kích hoạt.\n\n**Kết luận:**  \n**Không có hành động (không trả về số nào)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 357,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RD2BBDT:0000001F",
-        "application": "crmkh",
-        "processing_time_ms": 686.0673,
-        "created_at": "2026-03-02T03:32:06+00:00",
-        "prompt_tokens": 3153,
-        "completion_tokens": 1,
-        "total_tokens": 3154
-      }
+      "durationMs": 1078
     },
     {
       "id": "crm_intent_analysis_0021",
       "status": "done",
       "input": "born fire",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng, hàng hóa, khách hàng, hoặc báo giá từ nội dung \"born fire\".  \nKhông có từ khóa liên quan đến các hành động được hỗ trợ.\n\n**Kết quả: Không có hành động (không trả về số nào)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 274,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QMFUVIU:00000063",
-        "application": "crmkh",
-        "processing_time_ms": 622.6313,
-        "created_at": "2026-03-02T03:29:41+00:00",
-        "prompt_tokens": 3182,
-        "completion_tokens": 1,
-        "total_tokens": 3183
-      }
+      "durationMs": 488
     },
     {
       "id": "crm_intent_analysis_0022",
       "status": "done",
       "input": "Kha Thanh Điền",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào với đơn hàng được xác định.\n\n**Lý do:**  \nChuỗi văn bản \"Kha Thanh Điền\" chỉ là một tên người (có thể là tên khách hàng, nhân viên hoặc người liên quan), nhưng **không chứa bất kỳ từ khóa hành động nào** (như: thêm, cập nhật, sửa, xóa...) và **không đề cập đến đơn hàng, sản phẩm, hàng hóa hay bất kỳ trường nào trong đơn hàng**.\n\nTheo quy tắc mặc định:  \n→ Nếu không đề cập rõ đối tượng **và không có hành động**, thì **không có hành động nào được kích hoạt**.\n\n**Kết luận:**  \n✅ **Không có hành động nào (không trả về 1 hoặc 2)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 354,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO0N5O1:00000025",
-        "application": "crmkh",
-        "processing_time_ms": 905.9031,
-        "created_at": "2026-03-02T03:24:24+00:00",
-        "prompt_tokens": 3095,
-        "completion_tokens": 1,
-        "total_tokens": 3096
-      }
+      "durationMs": 2232
     },
     {
       "id": "crm_intent_analysis_0023",
       "status": "done",
       "input": "in cảnh việt nam",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Tôi không thể thực hiện hành động nào với đơn hàng dựa trên yêu cầu \"in cảnh Việt Nam\" vì:\n\n- Yêu cầu này **không liên quan** đến bất kỳ hành động nào với **đơn hàng, hàng hóa, khách hàng, báo giá hoặc đơn hàng cha**.\n- Không có từ khóa nào trong danh sách hành động được hỗ trợ (thêm, xóa, sắp xếp, cập nhật...).\n- \"In cảnh Việt Nam\" là một yêu cầu mang tính hình ảnh hoặc văn hóa, không phải nghiệp vụ quản lý đơn hàng.\n\n👉 **Kết luận**: Không xác định được hành động nào cần thực hiện.  \n**Mã hành động**: Không áp dụng.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 445,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O0OF:00000036",
-        "application": "crmkh",
-        "processing_time_ms": 564.7279,
-        "created_at": "2026-03-02T03:21:28+00:00",
-        "prompt_tokens": 3218,
-        "completion_tokens": 1,
-        "total_tokens": 3219
-      }
+      "durationMs": 2307
     },
     {
       "id": "crm_intent_analysis_0024",
@@ -530,61 +300,31 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 344,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QJMT6CN:00000034",
-        "application": "crmkh",
-        "processing_time_ms": 1621.4936,
-        "created_at": "2026-03-02T03:21:17+00:00",
-        "prompt_tokens": 1337,
-        "completion_tokens": 51,
-        "total_tokens": 1388
-      }
+      "durationMs": 320
     },
     {
       "id": "crm_intent_analysis_0025",
       "status": "done",
       "input": "cúc huế",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên nội dung \"cúc huế\".  \n\n**Lý do:**  \n- Không chứa từ khóa liên quan đến các hành động hỗ trợ: thêm, xóa, sắp xếp, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường.  \n- \"Cúc huế\" có thể là tên sản phẩm, tên người, hoặc từ ngữ không liên quan đến nghiệp vụ đơn hàng.  \n\n👉 **Kết luận:** Không có hành động nào cần thực hiện.  \n**Mã hành động:** `0`",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 226,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUKEG4:000000B6",
-        "application": "crmkh",
-        "processing_time_ms": 621.5787,
-        "created_at": "2026-03-02T03:18:32+00:00",
-        "prompt_tokens": 3098,
-        "completion_tokens": 1,
-        "total_tokens": 3099
-      }
+      "durationMs": 1842
     },
     {
       "id": "crm_intent_analysis_0026",
       "status": "done",
       "input": "Jin",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên đầu vào \"Jin\". Vui lòng cung cấp thông tin rõ ràng hơn, ví dụ: thêm/xóa/sửa hàng hóa, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường nào đó trong đơn hàng.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 438,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52JP8:0000000D",
-        "application": "crmkh",
-        "processing_time_ms": 718.7897,
-        "created_at": "2026-03-02T03:09:10+00:00",
-        "prompt_tokens": 3027,
-        "completion_tokens": 1,
-        "total_tokens": 3028
-      }
+      "durationMs": 680
     },
     {
       "id": "crm_intent_analysis_0027",
@@ -596,369 +336,199 @@
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 2187,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QNE1GHL:00000005",
-        "application": "crmkh",
-        "processing_time_ms": 2745.6141,
-        "created_at": "2026-03-02T03:08:40+00:00",
-        "prompt_tokens": 1485,
-        "completion_tokens": 93,
-        "total_tokens": 1578
-      }
+      "durationMs": 651
     },
     {
       "id": "crm_intent_analysis_0028",
       "status": "done",
       "input": "10kg chả cá sợi\n8kg chả cá  tươi\nCập nhật Kho của tất cả hàng hóa thành HCM",
       "reference": "1, 2",
-      "output": "2",
+      "output": "Dựa trên phân tích theo quy tắc đã cho:\n\n---\n\n### **Phân tích hành động:**\n\n#### **1. \"10kg chả cá sợi\"**  \n→ Đây là **mô tả hàng hóa** với **số lượng (10kg)** và **tên hàng hóa (chả cá sợi)**.  \n→ **Không có từ khóa hành động** (thêm, cập nhật, xóa...) → **Không phải hành động**.  \n→ Đây là **dữ liệu đầu vào**, không phải yêu cầu xử lý.\n\n#### **2. \"8kg chả cá tươi\"**  \n→ Tương tự, chỉ là **mô tả hàng hóa** với số lượng và tên.  \n→ **Không có từ khóa hành động** → **Không phải hành động**.\n\n#### **3. \"Cập nhật Kho của tất cả hàng hóa thành HCM\"**  \n→ **Từ khóa hành động**: **\"Cập nhật\"** → ✅ **Hành động 2: Cập nhật trường**  \n→ **Trường được cập nhật**: **Kho** → ✅ Có trong danh sách trường được hỗ trợ  \n→ **Giá trị mới**: **HCM**  \n→ **Đối tượng**: **tất cả hàng hóa** trong đơn hàng → ✅ Hợp lệ (cập nhật trường Kho cho tất cả dòng hàng trong đơn)\n\n→ **Không có từ khóa \"thêm\"**, không liên quan đến khách hàng/báo giá → **Không vi phạm quy tắc loại trừ**\n\n---\n\n### ✅ **Kết luận hành động:**\n\n**Hành động duy nhất cần thực hiện:**\n\n> **\"2\" - Cập nhật trường**  \n> **Trường:** Kho  \n> **Giá trị mới:** HCM  \n> **Đối tượng:** Tất cả hàng hóa trong đơn hàng\n\n---\n\n### 📌 **Đáp án cuối cùng:**\n```\n2\n```",
       "tool_calls": [],
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 311,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52JNQ:00000013",
-        "application": "crmkh",
-        "processing_time_ms": 780.9055,
-        "created_at": "2026-03-02T03:08:16+00:00",
-        "prompt_tokens": 3330,
-        "completion_tokens": 1,
-        "total_tokens": 3331
-      }
+      "durationMs": 2753
     },
     {
       "id": "crm_intent_analysis_0029",
       "status": "done",
       "input": "g",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào được xác định vì nội dung không cung cấp thông tin rõ ràng để phân tích. Vui lòng cung cấp câu lệnh cụ thể liên quan đến đơn hàng, hàng hóa, khách hàng, báo giá hoặc đơn hàng cha để tôi có thể hỗ trợ bạn chính xác.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 254,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REIH7PQ:0000001E",
-        "application": "crmkh",
-        "processing_time_ms": 633.6643,
-        "created_at": "2026-03-02T03:07:21+00:00",
-        "prompt_tokens": 3158,
-        "completion_tokens": 1,
-        "total_tokens": 3159
-      }
+      "durationMs": 746
     },
     {
       "id": "crm_intent_analysis_0030",
       "status": "done",
       "input": "GITNĐ HUẾ",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Lý do:**  \n“GITNĐ HUẾ” không chứa bất kỳ từ khóa hành động nào liên quan đến **đơn hàng** (như: thêm, cập nhật, sửa, xóa, v.v.) và cũng không rõ là tên đơn hàng, mã đơn hàng, hay thông tin liên quan đến trường nào trong đơn hàng.  \n\n- Không có từ khóa hành động: *thêm, cập nhật, sửa, xóa, tạo, add, insert...*  \n- Không có từ khóa trường dữ liệu nào trong danh sách trường được hỗ trợ.  \n- “GITNĐ HUẾ” có thể là tên viết tắt, mã nội bộ, hoặc địa điểm — nhưng **không đủ thông tin để xác định hành động** theo quy tắc phân tích.\n\n👉 **Kết luận:** Không xác định được hành động nào cần thực hiện.  \n**Hành động trả về: _Không có hành động_**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 393,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H34F:00000002",
-        "application": "crmkh",
-        "processing_time_ms": 670.7001,
-        "created_at": "2026-03-02T03:07:17+00:00",
-        "prompt_tokens": 3079,
-        "completion_tokens": 1,
-        "total_tokens": 3080
-      }
+      "durationMs": 2405
     },
     {
       "id": "crm_intent_analysis_0031",
       "status": "done",
       "input": "ff",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào được xác định.  \nVui lòng cung cấp thông tin rõ ràng về hành động bạn muốn thực hiện với đơn hàng, hàng hóa, khách hàng hoặc báo giá.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 410,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QNE1GCD:00000025",
-        "application": "crmkh",
-        "processing_time_ms": 648.118,
-        "created_at": "2026-03-02T03:01:35+00:00",
-        "prompt_tokens": 3106,
-        "completion_tokens": 1,
-        "total_tokens": 3107
-      }
+      "durationMs": 712
     },
     {
       "id": "crm_intent_analysis_0032",
       "status": "done",
       "input": "VIP MAX",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với ĐƠN HÀNG.\n\n**Lý do:**  \n“VIP MAX” là một cụm từ không rõ nghĩa trong ngữ cảnh đơn hàng, không chứa từ khóa hành động (thêm, cập nhật, xóa...) và không đề cập đến bất kỳ trường nào của đơn hàng hay hàng hóa. Không có thông tin nào cho thấy đây là tên sản phẩm, mã đơn hàng, hay thuộc tính cần cập nhật.\n\n→ **Kết luận: Không có hành động hợp lệ nào được xác định.**  \n**Trả về: Không có hành động (empty)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 419,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QJMT66B:0000001B",
-        "application": "crmkh",
-        "processing_time_ms": 1336.3079,
-        "created_at": "2026-03-02T03:00:34+00:00",
-        "prompt_tokens": 3089,
-        "completion_tokens": 1,
-        "total_tokens": 3090
-      }
+      "durationMs": 1619
     },
     {
       "id": "crm_intent_analysis_0033",
       "status": "done",
       "input": "Kinh Bắc",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với ĐƠN HÀNG.\n\n**Lý do:**  \nTừ \"Kinh Bắc\" là một tên địa danh (có thể là tên khách hàng, địa chỉ, hoặc tên công ty), nhưng **không chứa từ khóa hành động** nào liên quan đến các thao tác được hỗ trợ (thêm, xóa, cập nhật, sắp xếp...).  \n\n- Không có từ khóa hành động như: *thêm, xóa, cập nhật, sửa, sắp xếp, đổi, chọn, gán...*  \n- Không rõ ràng việc \"Kinh Bắc\" là khách hàng, báo giá, đơn hàng cha hay hàng hóa → **không đủ cơ sở để xác định hành động** theo quy tắc.\n\n👉 **Kết luận: Không có hành động nào được xác định → Trả về rỗng hoặc yêu cầu làm rõ.**\n\n**Gợi ý phản hồi nếu cần:**  \n> \"Bạn muốn thực hiện hành động gì với 'Kinh Bắc'? Ví dụ: cập nhật khách hàng, thêm đơn hàng cho khách hàng Kinh Bắc, hay chọn báo giá Kinh Bắc?\"",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 419,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QNE1GEA:00000004",
-        "application": "crmkh",
-        "processing_time_ms": 649.8142,
-        "created_at": "2026-03-02T02:59:43+00:00",
-        "prompt_tokens": 3182,
-        "completion_tokens": 1,
-        "total_tokens": 3183
-      }
+      "durationMs": 2841
     },
     {
       "id": "crm_intent_analysis_0034",
       "status": "done",
       "input": "thiện an",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện với đơn hàng.\n\n**Lý do:**  \nTừ “thiện an” không chứa bất kỳ từ khóa hành động nào (như: thêm, cập nhật, sửa, xóa...) và cũng không chỉ rõ đối tượng là đơn hàng, sản phẩm, hay bất kỳ trường nào trong đơn hàng. Đây có thể là tên địa danh, tên khách hàng, hoặc thông tin không liên quan đến thao tác nghiệp vụ trong hệ thống CRM.\n\n👉 **Kết luận:** Không có hành động nào được yêu cầu → **Không trả về hành động nào (1 hoặc 2).**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 581,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQUHA:00000006",
-        "application": "crmkh",
-        "processing_time_ms": 635.2893,
-        "created_at": "2026-03-02T02:59:40+00:00",
-        "prompt_tokens": 3075,
-        "completion_tokens": 1,
-        "total_tokens": 3076
-      }
+      "durationMs": 1816
     },
     {
       "id": "crm_intent_analysis_0035",
       "status": "done",
       "input": "khiên",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Lý do:**  \nTừ “khiên” không phải là từ khóa liên quan đến hành động với **đơn hàng** (thêm, cập nhật, xóa...), cũng không chỉ đến bất kỳ trường nào trong danh sách trường đơn hàng, và không có ngữ cảnh nào cho thấy đây là yêu cầu xử lý đơn hàng hoặc hàng hóa.\n\n→ **Kết luận: Không có hành động nào cần thực hiện.**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 333,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3PB2F:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 4827.505,
-        "created_at": "2026-03-02T02:58:12+00:00",
-        "prompt_tokens": 3075,
-        "completion_tokens": 1,
-        "total_tokens": 3076
-      }
+      "durationMs": 1276
     },
     {
       "id": "crm_intent_analysis_0036",
       "status": "done",
       "input": "doanh khoa",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên đầu vào \"doanh khoa\".\n\n- Không có từ khóa liên quan đến các hành động được hỗ trợ: thêm, xóa, sắp xếp, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường.\n- \"Doanh khoa\" có thể là lỗi chính tả hoặc không liên quan đến nghiệp vụ đơn hàng.\n\n👉 **Kết luận: Không có hành động hợp lệ.**  \n**Mã hành động: Không xác định (không trả về 1-7)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 532,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REIH7J9:0000003A",
-        "application": "crmkh",
-        "processing_time_ms": 674.7171,
-        "created_at": "2026-03-02T02:58:03+00:00",
-        "prompt_tokens": 3097,
-        "completion_tokens": 1,
-        "total_tokens": 3098
-      }
+      "durationMs": 1300
     },
     {
       "id": "crm_intent_analysis_0037",
       "status": "done",
       "input": "fff",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện. Vui lòng cung cấp thông tin rõ ràng về yêu cầu liên quan đến đơn hàng, hàng hóa, khách hàng hoặc báo giá.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 506,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO505UN:0000001C",
-        "application": "crmkh",
-        "processing_time_ms": 578.1921,
-        "created_at": "2026-03-02T02:56:27+00:00",
-        "prompt_tokens": 3106,
-        "completion_tokens": 1,
-        "total_tokens": 3107
-      }
+      "durationMs": 701
     },
     {
       "id": "crm_intent_analysis_0038",
       "status": "done",
       "input": "Thêm đơn hàng cho khách hàng 1121-Chị Xuân 0936189933, với các hàng hoá:\n- Bệt liền Inax AC989\n- Nắp bệt Inax CF502 (AC989)\n- Bệt liền khối Viglacera V64\n- Vòi xịt nhựa Viglacera VG826\n- Tê khóa Viglacera VG853",
       "reference": "1,5",
-      "output": "5",
+      "output": "\"5\"",
       "tool_calls": [],
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 285,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE1A740:00000029",
-        "application": "crmkh",
-        "processing_time_ms": 1923.3553,
-        "created_at": "2026-03-02T02:54:53+00:00",
-        "prompt_tokens": 3229,
-        "completion_tokens": 3,
-        "total_tokens": 3232
-      }
+      "durationMs": 182
     },
     {
       "id": "crm_intent_analysis_0039",
       "status": "done",
       "input": "merinco",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện với đơn hàng.\n\nLý do:  \n- Văn bản \"merinco\" không chứa bất kỳ từ khóa hành động nào (như: thêm, cập nhật, sửa, xóa...)  \n- Cũng không đề cập đến bất kỳ trường dữ liệu nào của đơn hàng hay hàng hóa  \n- Không có ngữ cảnh rõ ràng để suy luận hành động\n\n→ **Kết luận: Không có hành động hợp lệ với đơn hàng.**  \n**Trả về: Không có hành động (empty)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 352,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9V0BBH:0000000D",
-        "application": "crmkh",
-        "processing_time_ms": 668.5117,
-        "created_at": "2026-03-02T02:54:14+00:00",
-        "prompt_tokens": 3075,
-        "completion_tokens": 1,
-        "total_tokens": 3076
-      }
+      "durationMs": 1078
     },
     {
       "id": "crm_intent_analysis_0040",
       "status": "done",
       "input": "Triển Long",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với ĐƠN HÀNG.\n\n\"Triển Long\" là một tên riêng, không chứa từ khóa liên quan đến bất kỳ hành động nào được hỗ trợ (thêm, xóa, sắp xếp, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường đơn hàng).\n\n→ **Kết quả: Không có hành động nào (không trả về số nào).**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 287,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H2T4:0000001B",
-        "application": "crmkh",
-        "processing_time_ms": 616.2408,
-        "created_at": "2026-03-02T02:52:28+00:00",
-        "prompt_tokens": 3182,
-        "completion_tokens": 1,
-        "total_tokens": 3183
-      }
+      "durationMs": 917
     },
     {
       "id": "crm_intent_analysis_0041",
       "status": "done",
       "input": "gdfgd",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện vì nội dung không chứa thông tin rõ ràng liên quan đến đơn hàng, hàng hóa, khách hàng, báo giá hoặc các trường dữ liệu trong đơn hàng.\n\nVui lòng cung cấp yêu cầu cụ thể hơn, ví dụ:\n- \"Thêm sản phẩm A\"\n- \"Xóa thuốc ho\"\n- \"Cập nhật khách hàng sang ABC\"\n- \"Sắp xếp theo giá\"\n\nMình sẵn sàng hỗ trợ khi bạn có thông tin rõ ràng!",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 302,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3PAVG:00000007",
-        "application": "crmkh",
-        "processing_time_ms": 645.8784,
-        "created_at": "2026-03-02T02:51:30+00:00",
-        "prompt_tokens": 3108,
-        "completion_tokens": 1,
-        "total_tokens": 3109
-      }
+      "durationMs": 734
     },
     {
       "id": "crm_intent_analysis_0042",
       "status": "done",
       "input": "sana",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện.  \nVui lòng cung cấp thông tin rõ ràng hơn về yêu cầu liên quan đến **đơn hàng**, **hàng hóa**, **khách hàng**, hoặc **báo giá**.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 334,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O0GI:00000006",
-        "application": "crmkh",
-        "processing_time_ms": 716.7186,
-        "created_at": "2026-03-02T02:50:39+00:00",
-        "prompt_tokens": 3163,
-        "completion_tokens": 1,
-        "total_tokens": 3164
-      }
+      "durationMs": 682
     },
     {
       "id": "crm_intent_analysis_0043",
       "status": "done",
       "input": "Thêm hàng hóa",
       "reference": "1",
-      "output": "1",
+      "output": "\"1\"",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 449,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REIH7K1:00000005",
-        "application": "crmkh",
-        "processing_time_ms": 692.3396,
-        "created_at": "2026-03-02T02:48:36+00:00",
-        "prompt_tokens": 3148,
-        "completion_tokens": 1,
-        "total_tokens": 3149
-      }
+      "durationMs": 349
     },
     {
       "id": "crm_intent_analysis_0044",
@@ -970,303 +540,163 @@
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 643,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RD2BANC:00000077",
-        "application": "crmkh",
-        "processing_time_ms": 1164.8512,
-        "created_at": "2026-03-02T02:48:35+00:00",
-        "prompt_tokens": 707,
-        "completion_tokens": 43,
-        "total_tokens": 750
-      }
+      "durationMs": 423
     },
     {
       "id": "crm_intent_analysis_0045",
       "status": "done",
       "input": "Gửi đơn hàng có kèm theo công nợ khách hàng cũ đó có được không",
       "reference": "5",
-      "output": "unknown",
+      "output": "Hành động: **\"2\" - Cập nhật trường**\n\n**Lý do phân tích:**\n\n- Người dùng nói: *\"Gửi đơn hàng có kèm theo công nợ khách hàng cũ đó có được không\"*\n- Câu này **không yêu cầu thêm/xóa/sắp xếp hàng hóa** → không phải hành động 1, 3, 4.\n- Câu này **không đề cập đến việc thay đổi báo giá** → không phải hành động 6.\n- Câu này **không đề cập đến đơn hàng cha** → không phải hành động 7.\n- Câu này **không yêu cầu thêm/cập nhật khách hàng** (dù có nhắc \"khách hàng cũ\", nhưng không nói \"đổi khách hàng\", \"thêm khách hàng là...\", mà chỉ nói \"công nợ khách hàng cũ\" → đây là **trạng thái công nợ**, thuộc **trường dữ liệu của đơn hàng**).\n- **\"Công nợ khách hàng\"** là một khái niệm liên quan đến **còn phải thu** hoặc **tình trạng thanh toán** — đây là **trường trong đơn hàng** (ví dụ: *Còn phải thu NT*, *Còn phải thu*, *Tình trạng thanh toán*...).\n- Người dùng đang **hỏi về khả năng gửi đơn hàng kèm theo công nợ cũ** → ngụ ý muốn **cập nhật trường liên quan đến công nợ** trong đơn hàng để phản ánh đúng tình trạng.\n\n→ Do đó, đây là hành động **cập nhật một trường trong đơn hàng** (cụ thể là các trường như *Còn phải thu*, *Tình trạng thanh toán*, *Thực thu*, v.v.) để giữ lại thông tin công nợ khách hàng cũ.\n\n✅ **Kết luận: Hành động là \"2\" - Cập nhật trường**",
       "tool_calls": [],
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 403,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R6UC:00000009",
-        "application": "crmkh",
-        "processing_time_ms": 747.457,
-        "created_at": "2026-03-02T02:48:11+00:00",
-        "prompt_tokens": 3168,
-        "completion_tokens": 1,
-        "total_tokens": 3169
-      }
+      "durationMs": 3302
     },
     {
       "id": "crm_intent_analysis_0046",
       "status": "done",
       "input": "a",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện vì nội dung \"a\" không chứa thông tin rõ ràng về đơn hàng, hàng hóa, khách hàng, báo giá hoặc các trường liên quan.\n\n👉 **Kết quả: Không có hành động (không khớp với bất kỳ mã hành động nào)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 420,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R6FFR28:00000051",
-        "application": "crmkh",
-        "processing_time_ms": 753.2914,
-        "created_at": "2026-03-02T02:48:06+00:00",
-        "prompt_tokens": 3154,
-        "completion_tokens": 1,
-        "total_tokens": 3155
-      }
+      "durationMs": 1027
     },
     {
       "id": "crm_intent_analysis_0047",
       "status": "done",
       "input": "ti hi cake",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên nội dung \"ti hi cake\".  \n\n- Không có từ khóa liên quan đến các hành động hỗ trợ: thêm, xóa, sắp xếp, cập nhật khách hàng/báo giá/đơn hàng cha, hoặc cập nhật trường.  \n- \"ti hi cake\" không liên quan đến đơn hàng, sản phẩm, khách hàng, báo giá hay bất kỳ trường nào trong đơn hàng.  \n\n👉 **Kết luận: Không có hành động hợp lệ.**  \n**Mã hành động: Không xác định (không thuộc các trường hợp hỗ trợ)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 663,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QM1LRPR:0000000A",
-        "application": "crmkh",
-        "processing_time_ms": 721.854,
-        "created_at": "2026-03-02T02:39:18+00:00",
-        "prompt_tokens": 3097,
-        "completion_tokens": 1,
-        "total_tokens": 3098
-      }
+      "durationMs": 1277
     },
     {
       "id": "crm_intent_analysis_0048",
       "status": "done",
       "input": "jin",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện với đơn hàng hoặc đối tượng liên quan. Vui lòng cung cấp thông tin rõ ràng hơn, ví dụ: thêm/xóa/sửa hàng hóa, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường nào trong đơn hàng.",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 416,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE3JU4I:00000047",
-        "application": "crmkh",
-        "processing_time_ms": 1035.2336,
-        "created_at": "2026-03-02T02:35:27+00:00",
-        "prompt_tokens": 3026,
-        "completion_tokens": 1,
-        "total_tokens": 3027
-      }
+      "durationMs": 483
     },
     {
       "id": "crm_intent_analysis_0049",
       "status": "done",
       "input": "v",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Lý do:** Văn bản chỉ chứa \"v\" — không chứa từ khóa liên quan đến đơn hàng, hàng hóa, khách hàng, báo giá, hay bất kỳ hành động nào trong danh sách hỗ trợ. Không đủ thông tin để xác định mục tiêu hoặc hành động cần thực hiện.\n\n👉 **Kết quả: Không có hành động (không trả về số nào).**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 503,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3PAP1:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 802.8138,
-        "created_at": "2026-03-02T02:34:13+00:00",
-        "prompt_tokens": 3069,
-        "completion_tokens": 1,
-        "total_tokens": 3070
-      }
+      "durationMs": 707
     },
     {
       "id": "crm_intent_analysis_0050",
       "status": "done",
       "input": "anh nhân",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng.\n\n**Lý do:**  \nCâu \"anh nhân\" không chứa từ khóa liên quan đến hành động với **đơn hàng** (như: thêm, cập nhật, sửa, xóa...), cũng không đề cập đến bất kỳ trường nào trong đơn hàng hay sản phẩm. Đây có thể là một phần tên người hoặc câu nói không đầy đủ, không mang nghĩa nghiệp vụ trong hệ thống CRM.\n\n👉 **Kết luận:** Không có hành động nào cần thực hiện.  \n**Trả về: (không có hành động)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 454,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE1A6UM:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 999.0115,
-        "created_at": "2026-03-02T02:30:00+00:00",
-        "prompt_tokens": 3092,
-        "completion_tokens": 1,
-        "total_tokens": 3093
-      }
+      "durationMs": 1210
     },
     {
       "id": "crm_intent_analysis_0051",
       "status": "done",
       "input": "hà văn tâm",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên đầu vào \"hà văn tâm\".\n\n- Không có từ khóa hành động (thêm, xóa, cập nhật, sắp xếp,...)\n- Không đề cập đến hàng hóa, đơn hàng, báo giá, khách hàng, đơn hàng cha theo ngữ cảnh nghiệp vụ\n- \"hà văn tâm\" có thể là tên người, nhưng không rõ là khách hàng, nhân viên, hay đối tượng khác — và **không có động từ hành động** đi kèm để xác định mục đích\n\n→ **Kết luận: Không có hành động nào được xác định.**\n\n**Mã hành động: (không xác định)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 395,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H2I0:00000031",
-        "application": "crmkh",
-        "processing_time_ms": 689.0983,
-        "created_at": "2026-03-02T02:26:52+00:00",
-        "prompt_tokens": 3188,
-        "completion_tokens": 1,
-        "total_tokens": 3189
-      }
+      "durationMs": 1300
     },
     {
       "id": "crm_intent_analysis_0052",
       "status": "done",
       "input": "Anh Nhân - Cty Cửu Long",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào với đơn hàng được xác định.\n\n**Lý do:**  \nCâu \"Anh Nhân - Cty Cửu Long\" chỉ cung cấp thông tin về **người liên hệ** và **công ty**, không chứa bất kỳ từ khóa hành động nào liên quan đến **đơn hàng** (như: thêm, cập nhật, xóa, sửa...), cũng không đề cập đến sản phẩm, hàng hóa, hay bất kỳ trường nào trong đơn hàng.\n\n→ **Kết luận: Không có hành động nào cần thực hiện.**  \n**Trả về: Không có hành động (empty)**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 286,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52J6M:00000029",
-        "application": "crmkh",
-        "processing_time_ms": 629.4277,
-        "created_at": "2026-03-02T02:26:50+00:00",
-        "prompt_tokens": 3100,
-        "completion_tokens": 1,
-        "total_tokens": 3101
-      }
+      "durationMs": 1125
     },
     {
       "id": "crm_intent_analysis_0053",
       "status": "done",
       "input": "đổi sang đơn vị tính thùng",
       "reference": "2",
-      "output": "2",
+      "output": "**Hành động: 2 - Cập nhật trường**\n\n**Lý do:**  \n- Hành động \"đổi sang đơn vị tính thùng\" là yêu cầu **cập nhật trường** `Đơn vị tính` trong đơn hàng.  \n- \"Đơn vị tính\" **không phải** là thuộc tính mặc định của hàng hóa mới (không thuộc nhóm loại trừ: Số lượng, Đơn giá, Diễn giải, Đơn vị tính).  \n→ Theo quy tắc: Khi có hành động \"cập nhật\" (dù không dùng từ \"cập nhật\" nhưng \"đổi sang\" là hành động thay đổi giá trị trường) + trường **không thuộc nhóm loại trừ** → **Hành động 2**.\n\n✅ **Kết quả:** `2`",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 544,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE1A6RK:0000000B",
-        "application": "crmkh",
-        "processing_time_ms": 736.6597,
-        "created_at": "2026-03-02T02:21:53+00:00",
-        "prompt_tokens": 3168,
-        "completion_tokens": 1,
-        "total_tokens": 3169
-      }
+      "durationMs": 1277
     },
     {
       "id": "crm_intent_analysis_0054",
       "status": "done",
       "input": "gel",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện.\n\n**Lý do:**  \nTừ “gel” chỉ là một từ chung chung (có thể là tên sản phẩm, chất liệu, hoặc từ viết tắt), nhưng **không chứa bất kỳ từ khóa hành động nào** (như: thêm, cập nhật, sửa, xóa...) và **không có ngữ cảnh rõ ràng** để xác định đây là đơn hàng, sản phẩm, hay đối tượng khác.\n\n👉 **Theo quy tắc mặc định:** Nếu không đề cập rõ hành động hoặc đối tượng, hệ thống không thể suy diễn.\n\n**Kết luận:**  \n✅ **Không có hành động nào được xác định.**  \nBạn vui lòng cung cấp câu rõ ràng hơn, ví dụ:  \n- “Thêm gel dưỡng da vào đơn hàng” → Hành động **1**  \n- “Cập nhật số lượng gel thành 10” → Hành động **2**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 659,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RD2BAD5:00000097",
-        "application": "crmkh",
-        "processing_time_ms": 595.4645,
-        "created_at": "2026-03-02T02:20:09+00:00",
-        "prompt_tokens": 3068,
-        "completion_tokens": 1,
-        "total_tokens": 3069
-      }
+      "durationMs": 1608
     },
     {
       "id": "crm_intent_analysis_0055",
       "status": "done",
       "input": "Thêm đơn hàng cho khách hàng 1121-Chị Xuân 0936189933, với các hàng hoá:\n- Vòi xịt nhựa Viglacera VG826\n- Chậu treo 1 lỗ Viglacera V23\n- Nắp thường Viglacera V1102\n- Nắp bệt Inax CF500VS (C/AC504, AC969, AC959)\n- Bệt liền khối Viglacera V823",
       "reference": "1,5",
-      "output": "5",
+      "output": "\"5\"",
       "tool_calls": [],
       "scores": {
         "accuracy": 0
       },
-      "durationMs": 578,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE1A6O8:0000002F",
-        "application": "crmkh",
-        "processing_time_ms": 767.2803,
-        "created_at": "2026-03-02T02:19:12+00:00",
-        "prompt_tokens": 3244,
-        "completion_tokens": 3,
-        "total_tokens": 3247
-      }
+      "durationMs": 213
     },
     {
       "id": "crm_intent_analysis_0056",
       "status": "done",
       "input": "cập nhật Kho HCM",
       "reference": "2",
-      "output": "2",
+      "output": "Hành động: **2 - Cập nhật trường**\n\n**Giải thích:**  \n- Câu lệnh: *\"cập nhật Kho HCM\"*  \n- Hành động \"cập nhật\" → phù hợp với hành động loại **2**  \n- \"Kho HCM\" là giá trị cần cập nhật cho trường **Kho** trong đơn hàng  \n- \"Kho\" nằm trong danh sách các trường được hỗ trợ cập nhật (theo danh sách trường đã cung cấp)  \n- Không có từ khóa nào chỉ đối tượng khác (khách hàng, báo giá...) → mặc định là hành động với **đơn hàng**\n\n✅ **Kết luận: Hành động 2 - Cập nhật trường \"Kho\" với giá trị \"HCM\"**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 612,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO505IQ:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 686.4976,
-        "created_at": "2026-03-02T02:18:51+00:00",
-        "prompt_tokens": 3307,
-        "completion_tokens": 1,
-        "total_tokens": 3308
-      }
+      "durationMs": 2230
     },
     {
       "id": "crm_intent_analysis_0057",
       "status": "done",
       "input": "Cty Tường Vỹ",
       "reference": "unknown",
-      "output": "unknown",
+      "output": "Không có hành động nào với đơn hàng được xác định.\n\n**Lý do:**  \nChuỗi văn bản \"Cty Tường Vỹ\" chỉ là tên một công ty, không chứa bất kỳ từ khóa hành động nào liên quan đến đơn hàng (như: thêm, cập nhật, sửa, xóa...), cũng không đề cập đến sản phẩm, hàng hóa, hay bất kỳ trường nào trong đơn hàng.\n\n→ **Kết luận: Không có hành động nào cần thực hiện.**",
       "tool_calls": [],
       "scores": {
         "accuracy": 100
       },
-      "durationMs": 233,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9V0AN7:0000008B",
-        "application": "crmkh",
-        "processing_time_ms": 692.7434,
-        "created_at": "2026-03-02T02:18:10+00:00",
-        "prompt_tokens": 3096,
-        "completion_tokens": 1,
-        "total_tokens": 3097
-      }
+      "durationMs": 1736
     }
   ]
 }

@@ -1,0 +1,702 @@
+{
+  "runId": "74be99c8-83e8-49d2-9865-ae87d831e9c8",
+  "model": "misa-gemma-4-26b-it-06042026",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 03:07:35",
+  "taskName": "crm_intent_analysis",
+  "taskType": "qa",
+  "description": "CRM intent analysis — phân tích hành động người dùng với đơn hàng",
+  "numSamples": 57,
+  "metrics": [
+    "accuracy"
+  ],
+  "scores": {
+    "accuracy": 56.14
+  },
+  "logs": [
+    {
+      "id": "crm_intent_analysis_0001",
+      "status": "done",
+      "input": "f",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Có vẻ như bạn đã nhập một ký tự chưa hoàn chỉnh. Vui lòng nhập yêu cầu cụ thể về việc xử lý **đơn hàng**, **hàng hóa**, **khách hàng** hoặc **báo giá** để tôi có thể hỗ trợ bạn chính xác nhất.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 832
+    },
+    {
+      "id": "crm_intent_analysis_0002",
+      "status": "done",
+      "input": "ckdh",
+      "reference": "unknown",
+      "output": "5",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 185
+    },
+    {
+      "id": "crm_intent_analysis_0003",
+      "status": "done",
+      "input": "Cập nhật Kho của tất cả hàng hóa thành Q7",
+      "reference": "2",
+      "output": "{\"action\": \"2\", \"field\": \"Kho\", \"value\": \"Q7\"}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 479
+    },
+    {
+      "id": "crm_intent_analysis_0004",
+      "status": "done",
+      "input": "Cập nhật Kho của tất cả hàng hóa thành HCM",
+      "reference": "2",
+      "output": "{\"action\": \"2\", \"field\": \"Kho\", \"value\": \"HCM\"}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 402
+    },
+    {
+      "id": "crm_intent_analysis_0005",
+      "status": "done",
+      "input": "Cập nhật Kho của tất cả hàng hóa thành HCm",
+      "reference": "2",
+      "output": "{\"action\": \"2\", \"field\": \"Kho\", \"value\": \"Hcm\"}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 349
+    },
+    {
+      "id": "crm_intent_analysis_0006",
+      "status": "done",
+      "input": "vivumed",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Hiện tại tôi chưa nhận diện được yêu cầu cụ thể nào từ nội dung \"vivumed\" của bạn.\n\nVui lòng cung cấp yêu cầu liên quan đến việc xử lý **đơn hàng** (như thêm hàng hóa, xóa hàng hóa, cập nhật khách hàng, báo giá, hoặc các thông tin khác trong đơn hàng) để tôi có thể hỗ trợ bạn một cách chính xác nhất.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1125
+    },
+    {
+      "id": "crm_intent_analysis_0007",
+      "status": "done",
+      "input": "omega",
+      "reference": "unknown",
+      "output": "Tôi không tìm thấy hành động nào liên quan đến đơn hàng trong nội dung bạn cung cấp. Vui lòng nhập yêu cầu cụ thể hơn (ví dụ: \"Thêm sản phẩm A\", \"Sửa ngày đặt hàng\", \"Xóa mặt hàng B\",...).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 838
+    },
+    {
+      "id": "crm_intent_analysis_0008",
+      "status": "done",
+      "input": "Sắp xếp tăng dần theo Mã hàng hóa",
+      "reference": "{\n  \"sort_criteria\": [\n    {\n      \"sort_field\": \"ProductCode\",\n      \"sort_order\": \"asc\",\n      \"priority\": 1\n    }\n  ]\n}",
+      "output": "```json\n{\n    \"sort_criteria\": [\n        {\n            \"sort_field\": \"ProductCode\",\n            \"sort_order\": \"asc\",\n            \"priority\": 1\n        }\n    ]\n}\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 886
+    },
+    {
+      "id": "crm_intent_analysis_0009",
+      "status": "done",
+      "input": "anh",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Bạn cần tôi hỗ trợ phân tích hành động liên quan đến **ĐƠN HÀNG** trong hệ thống CRM phải không?\n\nVui lòng nhập nội dung yêu cầu (ví dụ: *\"Thêm 5 sản phẩm A\"* hoặc *\"Cập nhật địa chỉ giao hàng\"*), tôi sẽ phân tích và trả về kết quả chính xác cho bạn.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1126
+    },
+    {
+      "id": "crm_intent_analysis_0010",
+      "status": "done",
+      "input": "hộp đèn",
+      "reference": "unknown",
+      "output": "{\"action\": \"1\", \"fields\": [\"Tên hàng hóa\"]}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 411
+    },
+    {
+      "id": "crm_intent_analysis_0011",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng CÔNG TY CỔ PHẦN SẢN XUẤT NỆM ĐẠI THÀNH, với các hàng hoá:\n- Quạt đứng công nghiệp NS-75 Plus\n- Quạt sàn công nghiệp FE-40\n- Chương trình khuyến mãi",
+      "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"Quạt đứng công nghiệp NS-75 Plus\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Quạt sàn công nghiệp FE-40\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Chương trình khuyến mãi\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "output": "```json\n{\n    \"products\": [\n        {\n            \"product_name\": \"Quạt đứng công nghiệp NS-75 Plus\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Quạt sàn công nghiệp FE-40\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Chương trình khuyến mãi\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        }\n    ]\n}\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1222
+    },
+    {
+      "id": "crm_intent_analysis_0012",
+      "status": "done",
+      "input": ".",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Tôi đã sẵn sàng hỗ trợ bạn phân tích các hành động liên quan đến đơn hàng.\n\nVui lòng nhập nội dung bạn muốn xử lý (ví dụ: *\"Thêm sản phẩm A\"*, *\"Cập nhật khách hàng là ABC\"*, *\"Sắp xếp theo giá\"*,...). Tôi sẽ phản hồi mã hành động tương ứng cho bạn.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1163
+    },
+    {
+      "id": "crm_intent_analysis_0013",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng 014 TRẦN BA, với các hàng hoá:\n- Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\n- Phí vận chuyển\n- Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\n- Hóa chất trợ lắng (PAC) Trung Quốc\n- Keo ốp lát gạch Hanteco\nThêm đơn hàng cho khách hàng 014 TRẦN BA, với các hàng hoá:\n- Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\n- Phí vận chuyển\n- Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\n- Hóa chất trợ lắng (PAC) Trung Quốc\n- Keo ốp lát gạch Hanteco",
+      "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Keo ốp lát gạch Hanteco\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Keo ốp lát gạch Hanteco\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "output": "```json\n{\n    \"products\": [\n        {\n            \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Phí vận chuyển\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Keo ốp lát gạch Hanteco\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Phí vận chuyển\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Keo ốp lát gạch Hanteco\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        }\n    ]\n}\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 4059
+    },
+    {
+      "id": "crm_intent_analysis_0014",
+      "status": "done",
+      "input": "Thái Trường Anh",
+      "reference": "unknown",
+      "output": "{\"action\": \"5\", \"target\": \"Thái Trường Anh\"}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 373
+    },
+    {
+      "id": "crm_intent_analysis_0015",
+      "status": "done",
+      "input": "anh kiệt",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0.\n\nHiện tại, câu lệnh **\"anh kiệt\"** của bạn chưa chứa các từ khóa hoặc thông tin để tôi có thể xác định hành động cụ thể với **ĐƠN HÀNG** (như thêm hàng hóa, cập nhật thông tin đơn hàng, v.v.).\n\nVui lòng cung cấp thêm thông tin hoặc yêu cầu cụ thể, ví dụ:\n- *\"Thêm sản phẩm A\"* (Hành động 1)\n- *\"Cập nhật người thực hiện thành anh Kiệt\"* (Hành động 2)",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1161
+    },
+    {
+      "id": "crm_intent_analysis_0016",
+      "status": "done",
+      "input": "Sắp xếp MÃ HÀNG",
+      "reference": "{\n  \"sort_criteria\": [\n    {\n      \"sort_field\": \"ProductCode\",\n      \"sort_order\": \"asc\",\n      \"priority\": 1\n    }\n  ]\n}",
+      "output": "```json\n{\n    \"sort_criteria\": [\n        {\n            \"sort_field\": \"ProductCode\",\n            \"sort_order\": \"asc\",\n            \"priority\": 1\n        }\n    ]\n}\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 491
+    },
+    {
+      "id": "crm_intent_analysis_0017",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH, với các hàng hoá:\n- Thanh nẹp góc giấy V50x50x5x1000mm\n- Thanh nẹp góc giấy V50x50x5x900mm\n- Thanh nẹp góc giấy V50x50x5x1100mm\n- Thanh nẹp góc giấy V50x50x5x1200mm\n- Thanh nẹp góc giấy V50x50x5x2000mm",
+      "reference": "{\n  \"updates\": [\n    {\n      \"field_name\": \"AccountID\",\n      \"new_value\": \"CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH\",\n      \"original_value\": \"CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH\",\n      \"update_all\": true\n    }\n  ]\n}",
+      "output": "```json\n{\n    \"updates\": [\n        {\n            \"field_name\": \"AccountID\",\n            \"new_value\": \"CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH\",\n            \"original_value\": \"CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH\",\n            \"update_all\": true\n        }\n    ]\n}\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 976
+    },
+    {
+      "id": "crm_intent_analysis_0018",
+      "status": "done",
+      "input": "CÔNG TY TNHH U-LI (VN)",
+      "reference": "unknown",
+      "output": "5",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 83
+    },
+    {
+      "id": "crm_intent_analysis_0019",
+      "status": "done",
+      "input": "tôi muốn liên kết thông tin sang Viettel Post",
+      "reference": "unknown",
+      "output": "{\"action\": [2], \"fields\": [\"Đơn vị vận chuyển\"]}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 216
+    },
+    {
+      "id": "crm_intent_analysis_0020",
+      "status": "done",
+      "input": "bình hút lộc màu trắng h22",
+      "reference": "unknown",
+      "output": "1",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 371
+    },
+    {
+      "id": "crm_intent_analysis_0021",
+      "status": "done",
+      "input": "born fire",
+      "reference": "unknown",
+      "output": "Tôi không tìm thấy hành động nào liên quan đến việc xử lý đơn hàng trong câu lệnh của bạn. Vui lòng cung cấp yêu cầu rõ ràng hơn (ví dụ: \"Thêm sản phẩm A\", \"Xóa hàng hóa B\", \"Cập nhật khách hàng\",...).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 491
+    },
+    {
+      "id": "crm_intent_analysis_0022",
+      "status": "done",
+      "input": "Kha Thanh Điền",
+      "reference": "unknown",
+      "output": "Không xác định được hành động với ĐƠN HÀNG. (Nội dung không chứa từ khóa hoặc thông tin liên quan đến việc thêm hoặc cập nhật đơn hàng/sản phẩm).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 376
+    },
+    {
+      "id": "crm_intent_analysis_0023",
+      "status": "done",
+      "input": "in cảnh việt nam",
+      "reference": "unknown",
+      "output": "Tôi không tìm thấy hành động nào liên quan đến việc quản lý đơn hàng trong câu nói của bạn. Vui lòng cung cấp yêu cầu cụ thể về việc thêm, xóa, cập nhật hoặc sắp xếp hàng hóa/đơn hàng.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 947
+    },
+    {
+      "id": "crm_intent_analysis_0024",
+      "status": "done",
+      "input": "ly bầu lùn quai C",
+      "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"ly bầu lùn quai C\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "output": "```json\n{\n    \"products\": [\n        {\n            \"product_name\": \"ly bầu lùn quai C\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        }\n    ]\n}\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 838
+    },
+    {
+      "id": "crm_intent_analysis_0025",
+      "status": "done",
+      "input": "cúc huế",
+      "reference": "unknown",
+      "output": "Không xác định được hành động.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 229
+    },
+    {
+      "id": "crm_intent_analysis_0026",
+      "status": "done",
+      "input": "Jin",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Hiện tại tôi chưa nhận được yêu cầu cụ thể nào về việc xử lý đơn hàng từ bạn.\n\nVui lòng nhập nội dung cần thực hiện (ví dụ: \"Thêm sản phẩm A\", \"Cập nhật khách hàng ABC\", \"Sắp xếp theo giá\",...) để tôi có thể hỗ trợ bạn phân tích hành động.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 689
+    },
+    {
+      "id": "crm_intent_analysis_0027",
+      "status": "done",
+      "input": "10kg chả cá sợi\n8kg chả cá tươi",
+      "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"chả cá sợi\",\n      \"quantity\": \"10\",\n      \"unit\": \"kg\",\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"chả cá tươi\",\n      \"quantity\": \"8\",\n      \"unit\": \"kg\",\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "output": "```json\n{\n    \"products\": [\n        {\n            \"product_name\": \"chả cá sợi\",\n            \"quantity\": \"10\",\n            \"unit\": \"kg\",\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"chả cá tươi\",\n            \"quantity\": \"8\",\n            \"unit\": \"kg\",\n            \"price\": null,\n            \"description\": null\n        }\n    ]\n}\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 974
+    },
+    {
+      "id": "crm_intent_analysis_0028",
+      "status": "done",
+      "input": "10kg chả cá sợi\n8kg chả cá  tươi\nCập nhật Kho của tất cả hàng hóa thành HCM",
+      "reference": "1, 2",
+      "output": "```json\n[\n  {\n    \"action\": \"1\",\n    \"fields\": {\n      \"product_name\": \"chả cá sợi\",\n      \"amount\": 10,\n      \"unit\": \"kg\"\n    }\n  },\n  {\n    \"action\": \"1\",\n    \"fields\": {\n      \"product_name\": \"chả cá tươi\",\n      \"amount\": 8,\n      \"unit\": \"kg\"\n    }\n  },\n  {\n    \"action\": \"2\",\n    \"fields\": {\n      \"Kho\": \"HCM\"\n    }\n  }\n]\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1209
+    },
+    {
+      "id": "crm_intent_analysis_0029",
+      "status": "done",
+      "input": "g",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Có vẻ như bạn vừa nhập một ký tự chưa hoàn chỉnh. Vui lòng nhập yêu cầu cụ thể về việc thêm, xóa, cập nhật hoặc sắp xếp hàng hóa, khách hàng, báo giá hoặc đơn hàng để tôi có thể hỗ trợ bạn nhé!",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 739
+    },
+    {
+      "id": "crm_intent_analysis_0030",
+      "status": "done",
+      "input": "GITNĐ HUẾ",
+      "reference": "unknown",
+      "output": "Không tìm thấy hành động nào liên quan đến ĐƠN HÀNG trong nội dung bạn cung cấp.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 359
+    },
+    {
+      "id": "crm_intent_analysis_0031",
+      "status": "done",
+      "input": "ff",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Hiện tại tôi chưa nhận được yêu cầu cụ thể nào từ bạn về việc xử lý đơn hàng.\n\nVui lòng nhập nội dung bạn muốn thực hiện (ví dụ: *\"Thêm sản phẩm A\"*, *\"Cập nhật khách hàng ABC\"*, *\"Sắp xếp theo giá\"*...) để tôi có thể hỗ trợ bạn phân tích hành động.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 760
+    },
+    {
+      "id": "crm_intent_analysis_0032",
+      "status": "done",
+      "input": "VIP MAX",
+      "reference": "unknown",
+      "output": "Không tìm thấy hành động nào liên quan đến ĐƠN HÀNG trong nội dung bạn cung cấp.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 250
+    },
+    {
+      "id": "crm_intent_analysis_0033",
+      "status": "done",
+      "input": "Kinh Bắc",
+      "reference": "unknown",
+      "output": "Do nội dung bạn cung cấp (\"Kinh Bắc\") không chứa các từ khóa hoặc hành động liên quan đến việc thêm, xóa, sắp xếp hàng hóa, cập nhật khách hàng, báo giá, đơn hàng cha hay các trường thông tin cụ thể trong đơn hàng, nên tôi không thể xác định được hành động cần thực hiện.\n\nVui lòng cung cấp yêu cầu rõ ràng hơn (Ví dụ: \"Thêm sản phẩm A\", \"Cập nhật khách hàng là Kinh Bắc\", \"Sắp xếp theo giá\",...).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 854
+    },
+    {
+      "id": "crm_intent_analysis_0034",
+      "status": "done",
+      "input": "thiện an",
+      "reference": "unknown",
+      "output": "Dựa trên yêu cầu của bạn, tôi không tìm thấy hành động nào liên quan đến việc **Thêm hàng hóa** hoặc **Cập nhật trường** của **ĐƠN HÀNG** trong câu lệnh \"thiện an\".\n\nVui lòng cung cấp thêm thông tin chi tiết về hành động bạn muốn thực hiện với đơn hàng (ví dụ: \"Thêm sản phẩm A\", \"Cập nhật ngày giao hàng là ngày mai\",...).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 757
+    },
+    {
+      "id": "crm_intent_analysis_0035",
+      "status": "done",
+      "input": "khiên",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Hiện tại tôi chưa nhận diện được yêu cầu cụ thể của bạn liên quan đến các hành động với **ĐƠN HÀNG**.\n\nVui lòng cung cấp nội dung cần xử lý (ví dụ: *\"Thêm sản phẩm A\"*, *\"Cập nhật ngày giao hàng\"*, *\"Thêm 5 chai thuốc\"*,...) để tôi có thể phân tích và thực hiện nhiệm vụ.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 962
+    },
+    {
+      "id": "crm_intent_analysis_0036",
+      "status": "done",
+      "input": "doanh khoa",
+      "reference": "unknown",
+      "output": "Tôi không tìm thấy hành động nào phù hợp với yêu cầu của bạn. Vui lòng cung cấp câu lệnh rõ ràng hơn (ví dụ: \"Thêm sản phẩm A\", \"Cập nhật khách hàng\", \"Sắp xếp hàng hóa\",...).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 446
+    },
+    {
+      "id": "crm_intent_analysis_0037",
+      "status": "done",
+      "input": "fff",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Hiện tại tôi chưa nhận được yêu cầu cụ thể nào từ bạn về việc xử lý đơn hàng.\n\nVui lòng nhập nội dung bạn muốn thực hiện (ví dụ: \"Thêm sản phẩm A\", \"Cập nhật khách hàng ABC\", \"Sắp xếp theo giá\",...) để tôi có thể hỗ trợ bạn phân tích hành động.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 710
+    },
+    {
+      "id": "crm_intent_analysis_0038",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng 1121-Chị Xuân 0936189933, với các hàng hoá:\n- Bệt liền Inax AC989\n- Nắp bệt Inax CF502 (AC989)\n- Bệt liền khối Viglacera V64\n- Vòi xịt nhựa Viglacera VG826\n- Tê khóa Viglacera VG853",
+      "reference": "1,5",
+      "output": "```json\n[\n  {\n    \"action\": \"5\",\n    \"content\": \"1121-Chị Xuân 0936189933\"\n  },\n  {\n    \"action\": \"1\",\n    \"content\": \"Bệt liền Inax AC989\"\n  },\n  {\n    \"action\": \"1\",\n    \"content\": \"Nắp bệt Inax CF502 (AC989)\"\n  },\n  {\n    \"action\": \"1\",\n    \"content\": \"Bệt liền khối Viglacera V64\"\n  },\n  {\n    \"action\": \"1\",\n    \"content\": \"Vòi xịt nhựa Viglacera VG826\"\n  },\n  {\n    \"action\": \"1\",\n    \"content\": \"Tê khóa Viglacera VG853\"\n  }\n]\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1690
+    },
+    {
+      "id": "crm_intent_analysis_0039",
+      "status": "done",
+      "input": "merinco",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0.\n\nHiện tại, nội dung bạn nhập là **\"merinco\"**. Đây là một từ đơn lẻ, không chứa các từ khóa hành động (như thêm, tạo, cập nhật...) và không chứa thông tin về các trường dữ liệu hay đối tượng (đơn hàng, sản phẩm...) để tôi có thể phân tích.\n\nVui lòng cung cấp câu lệnh đầy đủ hơn, ví dụ:\n* *\"Thêm sản phẩm Merinco\"* (Để thực hiện hành động thêm hàng hóa).\n* *\"Cập nhật khách hàng Merinco\"* (Để nhận diện đối tượng khác).\n* *\"Thêm 5 sản phẩm Merinco với đơn giá 100.000\"* (Để thực hiện hành động thêm hàng hóa).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1306
+    },
+    {
+      "id": "crm_intent_analysis_0040",
+      "status": "done",
+      "input": "Triển Long",
+      "reference": "unknown",
+      "output": "5",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 87
+    },
+    {
+      "id": "crm_intent_analysis_0041",
+      "status": "done",
+      "input": "gdfgd",
+      "reference": "unknown",
+      "output": "Tôi không nhận diện được hành động nào từ nội dung bạn cung cấp. Vui lòng nhập yêu cầu liên quan đến việc thêm, xóa, sắp xếp hàng hóa, hoặc cập nhật thông tin khách hàng, báo giá, đơn hàng.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 459
+    },
+    {
+      "id": "crm_intent_analysis_0042",
+      "status": "done",
+      "input": "sana",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Hiện tại tôi chưa hiểu yêu cầu của bạn. Vui lòng nhập nội dung cần xử lý liên quan đến đơn hàng, sản phẩm hoặc khách hàng để tôi có thể hỗ trợ bạn tốt nhất.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 697
+    },
+    {
+      "id": "crm_intent_analysis_0043",
+      "status": "done",
+      "input": "Thêm hàng hóa",
+      "reference": "1",
+      "output": "1",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 242
+    },
+    {
+      "id": "crm_intent_analysis_0044",
+      "status": "done",
+      "input": "Tôi lên đơn hàng gửi cho khách hàng",
+      "reference": "{\n  \"updates\": [\n    {\n      \"field_name\": \"AccountID\",\n      \"new_value\": null,\n      \"original_value\": null,\n      \"update_all\": true\n    }\n  ]\n}",
+      "output": "```json\n{\n    \"updates\": [\n        {\n            \"field_name\": \"AccountID\",\n            \"new_value\": null,\n            \"original_value\": null,\n            \"update_all\": true\n        }\n    ]\n}\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 605
+    },
+    {
+      "id": "crm_intent_analysis_0045",
+      "status": "done",
+      "input": "Gửi đơn hàng có kèm theo công nợ khách hàng cũ đó có được không",
+      "reference": "5",
+      "output": "5",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 147
+    },
+    {
+      "id": "crm_intent_analysis_0046",
+      "status": "done",
+      "input": "a",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Hiện tại tôi chưa nhận được yêu cầu cụ thể nào từ bạn. Vui lòng nhập nội dung liên quan đến việc xử lý đơn hàng (thêm, xóa, cập nhật hàng hóa, khách hàng, báo giá...) để tôi có thể hỗ trợ bạn nhé!",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 553
+    },
+    {
+      "id": "crm_intent_analysis_0047",
+      "status": "done",
+      "input": "ti hi cake",
+      "reference": "unknown",
+      "output": "{\"action\": \"1\"}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 141
+    },
+    {
+      "id": "crm_intent_analysis_0048",
+      "status": "done",
+      "input": "jin",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Hiện tại tôi chưa nhận được yêu cầu cụ thể nào về việc xử lý đơn hàng từ bạn.\n\nVui lòng nhập yêu cầu (ví dụ: \"Thêm sản phẩm A\", \"Cập nhật khách hàng ABC\", \"Sắp xếp theo giá\",...) để tôi có thể hỗ trợ bạn thực hiện các hành động với đơn hàng.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 901
+    },
+    {
+      "id": "crm_intent_analysis_0049",
+      "status": "done",
+      "input": "v",
+      "reference": "unknown",
+      "output": "Chào bạn, tôi là MISA AI 2.0. Có vẻ như bạn vừa gửi một ký tự chưa hoàn chỉnh. Bạn vui lòng nhập yêu cầu cụ thể về việc xử lý **đơn hàng**, **hàng hóa**, **khách hàng** hoặc **báo giá** để tôi có thể hỗ trợ bạn một cách chính xác nhất nhé!",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 954
+    },
+    {
+      "id": "crm_intent_analysis_0050",
+      "status": "done",
+      "input": "anh nhân",
+      "reference": "unknown",
+      "output": "Không tìm thấy hành động nào liên quan đến ĐƠN HÀNG trong nội dung bạn cung cấp.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 262
+    },
+    {
+      "id": "crm_intent_analysis_0051",
+      "status": "done",
+      "input": "hà văn tâm",
+      "reference": "unknown",
+      "output": "5",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 139
+    },
+    {
+      "id": "crm_intent_analysis_0052",
+      "status": "done",
+      "input": "Anh Nhân - Cty Cửu Long",
+      "reference": "unknown",
+      "output": "Không xác định được hành động với ĐƠN HÀNG. (Nội dung chỉ đề cập đến thông tin đối tượng/khách hàng).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 580
+    },
+    {
+      "id": "crm_intent_analysis_0053",
+      "status": "done",
+      "input": "đổi sang đơn vị tính thùng",
+      "reference": "2",
+      "output": "{\"action\": \"2\", \"fields\": [\"Đơn vị tính\"]}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 606
+    },
+    {
+      "id": "crm_intent_analysis_0054",
+      "status": "done",
+      "input": "gel",
+      "reference": "unknown",
+      "output": "{\"action\": [1], \"fields\": [\"gel\"]}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 564
+    },
+    {
+      "id": "crm_intent_analysis_0055",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng 1121-Chị Xuân 0936189933, với các hàng hoá:\n- Vòi xịt nhựa Viglacera VG826\n- Chậu treo 1 lỗ Viglacera V23\n- Nắp thường Viglacera V1102\n- Nắp bệt Inax CF500VS (C/AC504, AC969, AC959)\n- Bệt liền khối Viglacera V823",
+      "reference": "1,5",
+      "output": "{\"actions\": [\"5\", \"1\"]}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 474
+    },
+    {
+      "id": "crm_intent_analysis_0056",
+      "status": "done",
+      "input": "cập nhật Kho HCM",
+      "reference": "2",
+      "output": "{\"action\": \"2\", \"field\": \"Kho\"}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 640
+    },
+    {
+      "id": "crm_intent_analysis_0057",
+      "status": "done",
+      "input": "Cty Tường Vỹ",
+      "reference": "unknown",
+      "output": "Không xác định được hành động với ĐƠN HÀNG. (Nội dung chỉ đề cập đến tên đối tượng/khách hàng, không có hành động thêm hoặc cập nhật đơn hàng).",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 471
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "runId": "0108a43b-e847-4ada-af66-9ac39d73a8bd",
+  "model": "misa-gemma-4-31b-it-06042026",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 03:49:23",
+  "durationMs": 1652182,
+  "tasks": {
+    "htkh_rag_qa": {
+      "faithfulness": 85.8,
+      "answer_relevancy": 86.27
+    }
+  }
+}

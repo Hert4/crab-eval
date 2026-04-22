@@ -199,7 +199,226 @@
 
 ---
 
-## 3. Bảng xếp hạng tổng hợp
+## 3. Vấn đề nghiêm trọng: misa-ai-1.1-plus — JSON Format Failure
+
+### Tóm tắt
+
+**misa-ai-1.1-plus** chỉ đạt **14.8% trên task CRM Recommendation** — thấp hơn tất cả các model khác ít nhất 37 điểm phần trăm. Đây không phải lỗi hiểu ngữ nghĩa mà là **lỗi format output**: model từ chối trả về JSON theo yêu cầu và thay bằng phân tích dạng văn bản tự do.
+
+### Quy mô ảnh hưởng
+
+- **123/150 records** (82%) fail hoàn toàn vì output không parse được thành JSON
+- Chỉ **27/150 records** (18%) trả về đúng format
+
+### Ví dụ cụ thể
+
+**Yêu cầu (ground truth format):**
+```json
+["Phần mềm kế toán", "Phần mềm nhân sự", "Module báo cáo", "Dịch vụ tư vấn triển khai", "Gói bảo trì hệ thống"]
+```
+
+**Output của misa-ai-1.1-plus (thực tế):**
+```
+Dựa trên lịch sử giao dịch và thông tin khách hàng được cung cấp, tôi phân tích và đề xuất 
+top 5 sản phẩm/dịch vụ tiếp theo phù hợp nhất với nhu cầu của khách hàng này:
+
+1. **Phần mềm kế toán MISA SME** - Khách hàng hiện đang sử dụng phần mềm kế toán cơ bản, 
+   việc nâng cấp lên MISA SME sẽ giúp tối ưu hóa quy trình kế toán và báo cáo tài chính.
+
+2. **Module quản lý nhân sự** - Với quy mô nhân sự ngày càng tăng, giải pháp quản lý nhân sự 
+   tích hợp sẽ giúp doanh nghiệp tiết kiệm thời gian và chi phí...
+
+[tiếp tục thêm 3 mục nữa với giải thích dài]
+```
+
+**Tại sao xảy ra:** System prompt yêu cầu `Trả về dưới dạng JSON array`. misa-ai-1.1-plus có xu hướng "over-reason" — thay vì tuân thủ format, model tự phán đoán rằng giải thích chi tiết sẽ "hữu ích hơn" và bỏ qua format constraint.
+
+### So sánh với model khác trên cùng task
+
+| Model | Output format | List Match |
+|---|---|:---:|
+| misa-gemma-4-31b | JSON array đúng 100% | 70.7% |
+| gpt-4.1-mini | JSON array đúng 100% | 68.9% |
+| misa-ai-1.0-plus | JSON array đúng ~95% | 68.1% |
+| misa-ai-1.0 | JSON array đúng ~90% | 61.5% |
+| misa-gemma-4-26b | JSON array đúng ~88% | 58.7% |
+| **misa-ai-1.1** | JSON array đúng ~75% | 52.0% |
+| **misa-ai-1.1-plus** | **JSON array đúng ~18%** | **14.8%** |
+
+Đây là **regression rất nghiêm trọng** — misa-ai-1.1 (không có plus) cũng bị ảnh hưởng (52% vs 68% top) nhưng ở mức độ nhẹ hơn. misa-ai-1.1-plus bị lỗi trầm trọng hơn hẳn.
+
+### Ảnh hưởng đến production
+
+Bất kỳ downstream code nào gọi misa-ai-1.1-plus để sinh JSON structured output **sẽ fail với tỉ lệ cao (~82%)**. Không thể dùng model này cho pipeline có structured output requirement mà không có fallback parsing phức tạp.
+
+### Khuyến nghị
+
+1. **Ngắn hạn:** Không deploy misa-ai-1.1-plus cho use cases yêu cầu JSON output
+2. **Trung hạn:** Test với few-shot examples trong system prompt để ép format
+3. **Dài hạn:** Review quá trình instruction tuning của 1.1-plus — model có thể bị over-trained trên long-form reasoning, làm giảm instruction following cho format constraints
+
+---
+
+## 4. Model Behavior
+
+Phần này mô tả hành vi quan sát được khi đọc output thực tế — không chỉ dựa vào con số metric.
+
+---
+
+### 4.1 misa-ai-1.0-plus — Ngắn gọn, đúng format, ít "sáng tạo" ngoài yêu cầu
+
+**Đặc điểm nổi bật:** Tuân thủ format tốt nhất trong nhóm MISA. Khi yêu cầu JSON array, trả về JSON array. Khi yêu cầu số action, trả về số.
+
+**Điểm mạnh hành vi:**
+- Tool calling: lựa chọn function name chính xác, ít hallucinate tên function
+- Intent routing: phân tích context nhiều bước trước khi quyết định route — giải thích tại sao route đến agent X thay vì agent Y
+- Makt forecast: trả về đúng 5 item, không thêm commentary
+
+**Điểm yếu hành vi:**
+- Đôi khi quá ngắn gọn trong RAG QA — câu trả lời đúng nhưng thiếu ngữ cảnh, user cần hỏi thêm
+- Latency cao nhất (~2.1s) — model "suy nghĩ" lâu hơn trước khi respond
+
+**Ví dụ intent routing (điểm tốt):**
+```
+Input: "Tôi muốn hủy hợp đồng dịch vụ nhưng vẫn cần hỗ trợ kỹ thuật trong 3 tháng"
+Output: route → "Chăm sóc khách hàng" (không phải "Kinh doanh")
+Lý do đúng: câu hỏi ưu tiên giải quyết vấn đề hiện tại, không phải bán hàng
+```
+
+---
+
+### 4.2 misa-ai-1.1 — Over-explanation, kém instruction following
+
+**Đặc điểm nổi bật:** Model có xu hướng giải thích quá nhiều. Ngay cả khi prompt yêu cầu output ngắn gọn, model vẫn thêm preamble và justification dài.
+
+**Điểm yếu hành vi nghiêm trọng:**
+
+**1. Thêm disclaimer không cần thiết trong classification:**
+```
+Input: "Tôi cần báo lỗi phần mềm"
+Expected output: "Hỗ trợ kỹ thuật"
+Actual output: "Dựa trên nội dung yêu cầu của bạn, tôi nhận thấy đây là vấn đề liên quan 
+               đến kỹ thuật phần mềm. Vì vậy, câu trả lời phù hợp nhất là: Hỗ trợ kỹ thuật.
+               Tuy nhiên nếu vấn đề liên quan đến thanh toán, xin vui lòng..."
+```
+Metric `exact_match` fail vì output không match reference, dù semantic đúng.
+
+**2. JSON format drift:**
+Trên CRM recommendation, ~25% records trả về JSON có prefix như `"Đây là danh sách gợi ý: [...]"` thay vì array thuần — làm `list_match` parse fail một phần.
+
+**3. Intent routing bị ảnh hưởng bởi từ khóa surface-level:**
+Model hay bị mislead bởi từ khóa trong câu thay vì phân tích intent thực. Ví dụ: câu chứa từ "hóa đơn" → route về "Kế toán" dù context là hỏi về kỹ thuật xuất file.
+
+---
+
+### 4.3 misa-ai-1.1-plus — Over-reasoning, bỏ qua format hoàn toàn
+
+**Đặc điểm nổi bật:** Phiên bản cực đoan của misa-ai-1.1. Model "nghĩ" rằng câu trả lời dài, có phân tích sẽ tốt hơn — ngay cả khi prompt explicit yêu cầu format ngắn.
+
+**Pattern lặp lại trên CRM recommendation (123/150 records):**
+```
+Prompt: "Trả về JSON array gồm top 5 sản phẩm phù hợp nhất. Chỉ trả về array, không giải thích."
+Output: "Dựa trên phân tích lịch sử giao dịch và hành vi mua hàng của khách hàng, 
+        tôi đề xuất chiến lược cross-sell và upsell như sau:
+        
+        **Phân tích khách hàng:**
+        - Khách hàng thuộc phân khúc SME, doanh thu ~5 tỷ/năm
+        - Đã sử dụng: Kế toán cơ bản, CRM lite
+        ...
+        [200-400 từ tiếp theo]
+        
+        **Danh sách đề xuất:**
+        1. Phần mềm kế toán nâng cao — vì..."
+```
+
+Model không trả về array. JSON parser fail hoàn toàn.
+
+**Pattern trên task generator (14/127 records "no-call"):**
+
+Khi task generator yêu cầu model gọi tool, misa-ai-1.1-plus hỏi ngược lại user dù thông tin đã đủ:
+```
+Input: "Tạo hồ sơ tuyển dụng cho vị trí Kỹ sư phần mềm, lương 20-30 triệu"
+Expected: gọi create_job_posting(title="Kỹ sư phần mềm", salary_range="20-30 triệu")
+Actual: "Để tạo hồ sơ tuyển dụng chính xác, tôi cần thêm thông tin:
+         1. Mô tả công việc cụ thể là gì?
+         2. Yêu cầu kinh nghiệm bao nhiêu năm?
+         3. Địa điểm làm việc ở đâu?..."
+```
+Model đặt câu hỏi clarification khi ground-truth kỳ vọng model tự điền reasonable defaults.
+
+**Kết luận:** Behavior này là dấu hiệu của **over-training trên long-form reasoning** — model học cách "suy nghĩ thành tiếng" nhưng mất khả năng follow format constraint.
+
+---
+
+### 4.4 misa-gemma-4-31b — Quyết đoán, tuân thủ format, nhanh
+
+**Đặc điểm nổi bật:** Behavior "sạch" nhất trong benchmark. Output đúng format, đủ nội dung, không thừa.
+
+**Điểm mạnh hành vi:**
+- **Intent classification:** Không bao giờ thêm preamble — output là label thuần, `exact_match` pass 98%
+- **RAG QA:** Câu trả lời trực tiếp, dùng thông tin từ context tốt, ít hallucinate
+- **Tool calling:** Ít "no-call" nhất (2/127) — proactively gọi tool khi có đủ thông tin
+
+**Điểm yếu hành vi:**
+- **Argument key convention:** Nhất quán dùng `snake_case` trong khi dataset dùng `PascalCase` — lỗi này lặp lại 100% trên các model có cùng argument. Đây là **training data artifact**, không phải lỗi hiểu ngôn ngữ.
+- **Gọi tool khi thiếu thông tin:** Gemma fill reasonable defaults thay vì hỏi lại — hành vi tốt cho chatbot nhưng fail với GT kỳ vọng clarification
+
+**Ví dụ "quyết đoán" của Gemma (trade-off):**
+```
+Input: "Dịch CV của ứng viên 67890"
+Gemma: gọi get_cv_content(candidate_id=67890) → dịch luôn sang tiếng Anh (default)
+Expected GT: hỏi target_language trước
+```
+Từ góc độ UX: Gemma behavior tốt hơn cho chatbot thực. GT cần review lại với các case này.
+
+---
+
+### 4.5 misa-gemma-4-26b — Nhanh, ổn định, đôi khi "too literal"
+
+**Đặc điểm nổi bật:** Behavior rất giống 31b nhưng đôi khi quá literal với prompt — không suy luận thêm khi cần.
+
+**Điểm yếu hành vi:**
+- **Intent routing:** Kém hơn 31b vì ít "đọc ngữ cảnh" — phụ thuộc nhiều vào từ khóa surface
+- **RAG QA:** Câu trả lời đúng nhưng đôi khi quá ngắn, không khai thác hết context
+
+**Điểm mạnh hành vi:**
+- Latency thấp nhất (~500ms) — trong production, user ít có cảm giác "đang chờ"
+- Format compliance gần như hoàn hảo — không thêm text thừa
+
+---
+
+### 4.6 misa-ai-1.0 — Baseline: tốt cho classification, kém cho generation
+
+**Đặc điểm nổi bật:** Model đời đầu, behavior đơn giản và "thô". Tốt ở task phân loại ngắn, yếu ở task sinh văn bản dài.
+
+**Điểm yếu hành vi rõ nhất — RAG QA (ROUGE-L 20.1%):**
+```
+Input: "Cách xuất báo cáo thuế VAT trong MISA?"
+Context: [3 đoạn hướng dẫn chi tiết về menu Báo cáo > Thuế > VAT]
+Expected: hướng dẫn step-by-step từ context
+Actual: "Bạn có thể xuất báo cáo thuế VAT trong phần Báo cáo của phần mềm MISA."
+```
+Model hiểu câu hỏi và có context nhưng không khai thác — chỉ trả lời ở mức high-level. ROUGE thấp vì không dùng ngôn ngữ từ reference.
+
+Lưu ý: faithfulness score cao (88.6%) cho thấy model không hallucinate — chỉ trả lời quá cô đọng.
+
+---
+
+### 4.7 Tóm tắt pattern hành vi theo nhóm
+
+| Pattern | Model bị ảnh hưởng | Mức độ |
+|---|---|:---:|
+| **Over-explanation** (thêm preamble/justification) | misa-ai-1.1, misa-ai-1.1-plus | Cao |
+| **Format non-compliance** (bỏ JSON, trả prose) | misa-ai-1.1-plus | Nghiêm trọng |
+| **Clarification over-caution** (hỏi khi không cần) | misa-ai-1.1-plus | Cao |
+| **Surface keyword routing** (bỏ qua deep context) | misa-ai-1.1, misa-gemma-4-26b | Trung bình |
+| **Too-brief generation** (đúng nhưng thiếu chi tiết) | misa-ai-1.0 | Trung bình |
+| **Argument key convention** (snake vs PascalCase) | misa-gemma-4-31b, 26b | Thấp (fixable) |
+| **Proactive tool call** (fill defaults thay vì hỏi) | misa-gemma-4-31b, 26b | Trade-off |
+
+---
+
+## 6. Bảng xếp hạng tổng hợp
 
 > Trọng số: Tool Calling 30% · Understanding 25% · Generation 25% · Business Logic 20%
 
@@ -211,10 +430,13 @@
 | 4 misa-ai-1.1 | 77.9% | 70.7% | 37.2% | 70.7% | 67.1% |
 | 5 misa-gemma-4-26b | 73.5% | 78.1% | 42.3% | 58.7% | 66.0% |
 | 6 misa-ai-1.0 | 78.9% | 75.8% | 27.1% | 74.4% | 64.0% |
+| 7 misa-ai-1.1-plus | n/a | n/a | n/a | 14.8% | — |
+
+> misa-ai-1.1-plus chỉ được test trên task generator và CRM recommendation — không đủ tasks để xếp hạng tổng hợp.
 
 ---
 
-## 4. Insights chính
+## 7. Insights chính
 
 ### ✅ misa-ai-1.0-plus — Model tổng thể tốt nhất hiện tại
 Dẫn đầu ở **tool calling** và **intent routing** — hai task production-critical nhất. Không có điểm đặc biệt yếu. Phù hợp nhất cho production deployment ngắn hạn.
@@ -224,6 +446,9 @@ Kết quả đáng chú ý nhất: đạt **98% intent classification** (dẫn t
 
 ### ⚠️ misa-ai-1.1 — Regression so với 1.0-plus
 Đáng lo ngại: misa-ai-1.1 **không cải thiện** so với 1.0-plus ở hầu hết task, thậm chí kém rõ rệt ở intent routing (−15.8%) và CRM recommendation (−16.1%). Điểm mạnh duy nhất: latency thấp ở classification. Cần review quá trình training của 1.1.
+
+### 🚨 misa-ai-1.1-plus — Critical regression về instruction following
+Như đã phân tích ở mục 3, model này có lỗi nghiêm trọng về structured output. Điểm 14.8% CRM recommendation là chỉ báo của vấn đề lớn hơn trong instruction following.
 
 ### 📊 GPT-4.1-mini — Baseline ngoại ổn định
 Không có điểm yếu nào đủ rõ. Dẫn ở CRM intent và task generator. Tuy nhiên không vượt trội ở task nào để justify chi phí API so với MISA-hosted models về dài hạn.
@@ -242,7 +467,7 @@ Gemma 4-26b là lựa chọn tốt nhất về **speed/quality tradeoff** cho ta
 
 ---
 
-## 5. Khuyến nghị theo use case
+## 8. Khuyến nghị theo use case
 
 | Use case | Model đề xuất | Lý do |
 |---|---|---|
@@ -251,15 +476,17 @@ Gemma 4-26b là lựa chọn tốt nhất về **speed/quality tradeoff** cho ta
 | RAG QA / customer chatbot | **misa-gemma-4-31b** | Ngang GPT, nhanh hơn, faithfulness cao |
 | Sales/inventory forecast | **misa-ai-1.0-plus** | 89.6% list match |
 | Tất cả tasks, ưu tiên ổn định | **gpt-4.1-mini** | Không có điểm yếu rõ rệt |
+| **TRÁNH** structured JSON output | ~~misa-ai-1.1-plus~~ | 82% format failure rate |
 
 ---
 
-## 6. Cần test thêm
+## 9. Cần test thêm
 
 - **makt_forecast**: Chưa test Gemma 4 và GPT-4.1-mini
 - **crmmisa_dashboard**: Nên thêm LLM judge — token_f1 không đủ phân biệt (~50% tất cả models)
 - **htkh_rag_qa**: misa-ai-1.0-plus chưa có faithfulness/relevancy score
 - **Task Generator**: misa-ai-1.0 và misa-ai-1.0-plus chưa được test
+- **misa-ai-1.1-plus**: Cần test toàn bộ task suite để xác định phạm vi ảnh hưởng của format regression
 
 ---
 

@@ -1,8 +1,8 @@
 {
-  "runId": "81d38700-4365-4088-ab1a-d2b1ae58cee3",
+  "runId": "cff91794-d20a-47cb-82b6-a457ea481076",
   "model": "misa-gemma-4-31b-it-06042026",
-  "baseUrl": "https://plan-alias-deluxe-newman.trycloudflare.com/v1",
-  "date": "2026-04-06 03:59:22",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 03:11:45",
   "taskName": "crm_recommendation",
   "taskType": "qa",
   "description": "CRM product recommendation — gợi ý top 5 sản phẩm cho khách hàng",
@@ -11,7 +11,7 @@
     "list_match"
   ],
   "scores": {
-    "list_match": 70.67
+    "list_match": 70.8
   },
   "logs": [
     {
@@ -24,39 +24,19 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1609,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H3IT:00000013",
-        "application": "crmkh",
-        "processing_time_ms": 1660.3864,
-        "created_at": "2026-03-02T03:56:37+00:00",
-        "prompt_tokens": 1522,
-        "completion_tokens": 91,
-        "total_tokens": 1613
-      }
+      "durationMs": 2233
     },
     {
       "id": "crm_recommendation_0002",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n16/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- G8_XX_618XX - Vợt muỗi G8-618 - 6\n  + ProductID: 15400\n  + ProductCode: G8_XX_618XX\n  + Description: Vợt muỗi G8-618\n08/08/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- GN_Z030R_0.3 - GN - Ổ cắm nối Goneo 3 ổ cắm 2 chấu Z030R-0.3 - 5\n  + ProductID: 15792\n  + ProductCode: GN_Z030R_0.3\n  + Description: GN - Ổ cắm nối Goneo 3 ổ cắm 2 chấu Z030R-0.3\n- GN_V1080_5M - GN - Ổ cắm nối dài GONGNIU V1080; (5m,GNVN) - 5\n  + ProductID: 15782\n  + ProductCode: GN_V1080_5M\n  + Description: GN - Ổ cắm nối dài GONGNIU V1080; (5m,GNVN)\n19/08/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TRU_L01_30W_AV - Li Bigd - Bóng Led trụ nhôm T30,model T30-100/G01 ánh sáng vàng - 5\n  + ProductID: 15162\n  + ProductCode: TRU_L01_30W_AV\n  + Description: Li Bigd - Bóng Led trụ nhôm T30,model T30-100/G01 ánh sáng vàng\n25/08/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TRU_L01_50W_AV - Li Bigd - Bóng Led trụ nhôm T50,model T50-125/G01, ánh sáng vàng - 6\n  + ProductID: 15163\n  + ProductCode: TRU_L01_50W_AV\n  + Description: Li Bigd - Bóng Led trụ nhôm T50,model T50-125/G01, ánh sáng vàng\n- TRU_L01_40W_AT - Li Bigd - Bóng Led trụ nhôm T40,model T40-115/G01 - 12\n  + ProductID: 15158\n  + ProductCode: TRU_L01_40W_AT\n  + Description: Li Bigd - Bóng Led trụ nhôm T40,model T40-115/G01\n30/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- GN_Z030R_0.3_Đ - GN - Ổ cắm nối Goneo 3 ổ cắm 2 chấu Z030R-0.3 - BLACK - 3\n  + ProductID: 15793\n  + ProductCode: GN_Z030R_0.3_Đ\n  + Description: GN - Ổ cắm nối Goneo 3 ổ cắm 2 chấu Z030R-0.3 - BLACK\n- TM_DDDD_00050 - G8 Home - Phích nối âm - 30\n  + ProductID: 15358\n  + ProductCode: TM_DDDD_00050\n  + Description: G8 Home - Phích nối âm\n13/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- AT02_G01_09W_VV_AT - Đèn âm trần đế mỏng viền vàng 9w, model AT02.9W-90/G02, ánh sáng trắng - 10\n  + ProductID: 15228\n  + ProductCode: AT02_G01_09W_VV_AT\n  + Description: Đèn âm trần đế mỏng viền vàng 9w, model AT02.9W-90/G02, ánh sáng trắng\n21/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TRU_L01_50W_AT - Li Bigd - Bóng Led trụ nhôm T50,model T50-125/G01 - 18\n  + ProductID: 15159\n  + ProductCode: TRU_L01_50W_AT\n  + Description: Li Bigd - Bóng Led trụ nhôm T50,model T50-125/G01\n01/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- LIOB00024 - Pin lithium mã 18650 dung lượng 2200mAh - 10\n  + ProductID: 15442\n  + ProductCode: LIOB00024\n  + Description: Pin lithium mã 18650 dung lượng 2200mAh\n- TM_DDDD_00021 - G8 Home - Dây nguồn đa năng 2m - 10\n  + ProductID: 15329\n  + ProductCode: TM_DDDD_00021\n  + Description: G8 Home - Dây nguồn đa năng 2m\n- TM_DDDD_00006 - G8 Home - Bút Thử điện - 20\n  + ProductID: 15314\n  + ProductCode: TM_DDDD_00006\n  + Description: G8 Home - Bút Thử điện\n08/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- G8_XX_569XX - Đèn pin G8-569 - 3\n  + ProductID: 15398\n  + ProductCode: G8_XX_569XX\n  + Description: Đèn pin G8-569\n- TRU_L01_20W_AT - Li Bigd - Bóng Led trụ nhôm T20,model T20-80/G01 - 24\n  + ProductID: 15156\n  + ProductCode: TRU_L01_20W_AT\n  + Description: Li Bigd - Bóng Led trụ nhôm T20,model T20-80/G01\n17/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TM_DDDD_00048 - G8 Home - Phích cắm điện (10 chiếc/ dây) - 50\n  + ProductID: 15356\n  + ProductCode: TM_DDDD_00048\n  + Description: G8 Home - Phích cắm điện (10 chiếc/ dây)\n23/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TD01_100XX_03XX - Bóng Led tích điện TD100, model TD100-0.3AH/G01 (6 chiếc/ thùng hoặc 24 chiếc/ thùng) - 6\n  + ProductID: 15212\n  + ProductCode: TD01_100XX_03XX\n  + Description: Bóng Led tích điện TD100, model TD100-0.3AH/G01 (6 chiếc/ thùng hoặc 24 chiếc/ thùng)\n29/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- GN_N1330P_30L - GN - Ổ cắm nối dài GONGNIU N1330(P)- 30(L) (24 chiếc/ thùng) - 3\n  + ProductID: 15774\n  + ProductCode: GN_N1330P_30L\n  + Description: GN - Ổ cắm nối dài GONGNIU N1330(P)- 30(L) (24 chiếc/ thùng)\n- CP01_G01_100W_AT - Đèn Led chiếu pha 100w, model CP01-100W/G03, ánh sáng trắng (KT 280x230x69) (3 chiếc/ thùng) - 2\n  + ProductID: 15276\n  + ProductCode: CP01_G01_100W_AT\n  + Description: Đèn Led chiếu pha 100w, model CP01-100W/G03, ánh sáng trắng (KT 280x230x69) (3 chiếc/ thùng)\n- CP01_G01_50W_AV - Đèn Led chiếu pha 50w, model CP01-50W/G03, ánh sáng vàng (KT 230x178x43) (5 chiếc/ thùng) - 2\n  + ProductID: 15275\n  + ProductCode: CP01_G01_50W_AV\n  + Description: Đèn Led chiếu pha 50w, model CP01-50W/G03, ánh sáng vàng (KT 230x178x43) (5 chiếc/ thùng)\n06/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- GN_V3040_3M - GN - Ổ cắm nối dài GONGNIU V3040; (3m,GNVN) (26 chiếc/ thùng) - 3\n  + ProductID: 15783\n  + ProductCode: GN_V3040_3M\n  + Description: GN - Ổ cắm nối dài GONGNIU V3040; (3m,GNVN) (26 chiếc/ thùng)\n- TUYP_G01_60W_OV - Đèn Led Tuýp Oval 1.2m-60W, model OV 60W-1200/G04 (10 chiếc/ thùng) - 10\n  + ProductID: 15296\n  + ProductCode: TUYP_G01_60W_OV\n  + Description: Đèn Led Tuýp Oval 1.2m-60W, model OV 60W-1200/G04 (10 chiếc/ thùng)\n19/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- GN_GNTVN_10L6 - GN - Phích cắm Gongniu GNTVN-10L6 (300 c/T) - 10\n  + ProductID: 15808\n  + ProductCode: GN_GNTVN_10L6\n  + Description: GN - Phích cắm Gongniu GNTVN-10L6 (300 c/T)\n- TM_TAPE00019 - G8Home - Băng tan chống thấm PTFE 12mm*0.075mm*10m, màu trắng (100c/hộp - 5h/T) - 100\n  + ProductID: 15803\n  + ProductCode: TM_TAPE00019\n  + Description: G8Home - Băng tan chống thấm PTFE 12mm*0.075mm*10m, màu trắng (100c/hộp - 5h/T)\n- GN_V1080_3M - GN - Ổ cắm nối dài GONGNIU V1080; (3m,GNVN) (26 C/T) - 3\n  + ProductID: 15777\n  + ProductCode: GN_V1080_3M\n  + Description: GN - Ổ cắm nối dài GONGNIU V1080; (3m,GNVN) (26 C/T)\n- GN_V1040_30 - GN - Ổ cắm nối dài GONGNIU GNVN - V1040 - 30 (30 C/T) - 3\n  + ProductID: 15757\n  + ProductCode: GN_V1040_30\n  + Description: GN - Ổ cắm nối dài GONGNIU GNVN - V1040 - 30 (30 C/T)\n- TM_TAPE00018 - G8Home - Băng keo chống thấm 1mm*100mm*5m (18 cuộn/thùng) - 10\n  + ProductID: 15649\n  + ProductCode: TM_TAPE00018\n  + Description: G8Home - Băng keo chống thấm 1mm*100mm*5m (18 cuộn/thùng)\n- TM_TAPE00017 - G8Home - Băng keo chống thấm 1mm*50mm*5m (36 cuộn/thùng) - 10\n  + ProductID: 15648\n  + ProductCode: TM_TAPE00017\n  + Description: G8Home - Băng keo chống thấm 1mm*50mm*5m (36 cuộn/thùng)\n- G8_XX_626XX - Vợt muỗi G8-626 (4c/T) - 4\n  + ProductID: 15402\n  + ProductCode: G8_XX_626XX\n  + Description: Vợt muỗi G8-626 (4c/T)\n24/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TD01_125XX_045XX - Bóng LED tích điện TD125, mode TD125-0.45AH/G01 (6c/T hoặc 24c/T) - 6\n  + ProductID: 15213\n  + ProductCode: TD01_125XX_045XX\n  + Description: Bóng LED tích điện TD125, mode TD125-0.45AH/G01 (6c/T hoặc 24c/T)\n- TRU_L01_30W_AT - Li Bigd - Bóng Led trụ nhôm T30,model T30-100/G01 (12c/T hoặc 24c/T) - 24\n  + ProductID: 15157\n  + ProductCode: TRU_L01_30W_AT\n  + Description: Li Bigd - Bóng Led trụ nhôm T30,model T30-100/G01 (12c/T hoặc 24c/T)",
       "reference": "[{\"ProductCode\":\"TRU_L01_30W_AT\"},{\"ProductCode\":\"TD01_125XX_045XX\"},{\"ProductCode\":\"TRU_L01_20W_AT\"},{\"ProductCode\":\"TRU_L01_50W_AT\"},{\"ProductCode\":\"GN_V1080_3M\"}]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"TD01_125XX_045XX\"\n  },\n  {\n    \"ProductCode\": \"TRU_L01_30W_AT\"\n  },\n  {\n    \"ProductCode\": \"G8_XX_626XX\"\n  },\n  {\n    \"ProductCode\": \"TM_TAPE00019\"\n  },\n  {\n    \"ProductCode\": \"GN_V1040_30\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"TRU_L01_30W_AT\"\n  },\n  {\n    \"ProductCode\": \"TD01_125XX_045XX\"\n  },\n  {\n    \"ProductCode\": \"G8_XX_626XX\"\n  },\n  {\n    \"ProductCode\": \"TM_TAPE00019\"\n  },\n  {\n    \"ProductCode\": \"GN_V1040_30\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1872,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQVCK:00000015",
-        "application": "crmkh",
-        "processing_time_ms": 2464.6296,
-        "created_at": "2026-03-02T04:23:22+00:00",
-        "prompt_tokens": 3479,
-        "completion_tokens": 93,
-        "total_tokens": 3572
-      }
+      "durationMs": 2576
     },
     {
       "id": "crm_recommendation_0003",
@@ -68,17 +48,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2088,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QJMT68L:0000003F",
-        "application": "crmkh",
-        "processing_time_ms": 2056.6866,
-        "created_at": "2026-03-02T03:13:18+00:00",
-        "prompt_tokens": 1852,
-        "completion_tokens": 116,
-        "total_tokens": 1968
-      }
+      "durationMs": 2749
     },
     {
       "id": "crm_recommendation_0004",
@@ -90,17 +60,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1351,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REPVC90:00000076",
-        "application": "crmkh",
-        "processing_time_ms": 1554.2948,
-        "created_at": "2026-03-02T03:20:57+00:00",
-        "prompt_tokens": 1301,
-        "completion_tokens": 72,
-        "total_tokens": 1373
-      }
+      "durationMs": 2421
     },
     {
       "id": "crm_recommendation_0005",
@@ -112,17 +72,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2060,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQULG:00000055",
-        "application": "crmkh",
-        "processing_time_ms": 1729.0086,
-        "created_at": "2026-03-02T03:26:43+00:00",
-        "prompt_tokens": 3974,
-        "completion_tokens": 82,
-        "total_tokens": 4056
-      }
+      "durationMs": 3230
     },
     {
       "id": "crm_recommendation_0006",
@@ -134,17 +84,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2512,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9V0BTS:00000025",
-        "application": "crmkh",
-        "processing_time_ms": 1782.6394,
-        "created_at": "2026-03-02T03:48:54+00:00",
-        "prompt_tokens": 3433,
-        "completion_tokens": 120,
-        "total_tokens": 3553
-      }
+      "durationMs": 4019
     },
     {
       "id": "crm_recommendation_0007",
@@ -156,17 +96,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2192,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RAEJJCP:00000077",
-        "application": "crmkh",
-        "processing_time_ms": 2478.2135,
-        "created_at": "2026-03-02T03:59:05+00:00",
-        "prompt_tokens": 6079,
-        "completion_tokens": 80,
-        "total_tokens": 6159
-      }
+      "durationMs": 3404
     },
     {
       "id": "crm_recommendation_0008",
@@ -178,17 +108,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1935,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H3KC:0000001B",
-        "application": "crmkh",
-        "processing_time_ms": 1926.2146,
-        "created_at": "2026-03-02T04:03:36+00:00",
-        "prompt_tokens": 4177,
-        "completion_tokens": 79,
-        "total_tokens": 4256
-      }
+      "durationMs": 2407
     },
     {
       "id": "crm_recommendation_0009",
@@ -200,17 +120,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 2084,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RD2BAQG:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 2598.4834,
-        "created_at": "2026-03-02T02:35:58+00:00",
-        "prompt_tokens": 2973,
-        "completion_tokens": 101,
-        "total_tokens": 3074
-      }
+      "durationMs": 2884
     },
     {
       "id": "crm_recommendation_0010",
@@ -222,39 +132,19 @@
       "scores": {
         "list_match": 0
       },
-      "durationMs": 2608,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R7SO:00000025",
-        "application": "crmkh",
-        "processing_time_ms": 3938.9437,
-        "created_at": "2026-03-02T04:20:50+00:00",
-        "prompt_tokens": 2645,
-        "completion_tokens": 141,
-        "total_tokens": 2786
-      }
+      "durationMs": 3604
     },
     {
       "id": "crm_recommendation_0011",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n08/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1033 - Pin lưu trữ SMB 100AH Dạng treo tường - 4\n  + ProductID: 15185\n  + ProductCode: VM1033\n  + Description: Pin lưu trữ SMB 100AH Dạng treo tường\n18/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- HH000001 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 20kw mã hiệu : X3-NEO-20.0-LV - 1\n  + ProductID: 16459\n  + ProductCode: HH000001\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 20kw mã hiệu : X3-NEO-20.0-LV\n20/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1495 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 6kw mã hiệu : X1-HYB-6.0-LV - 1\n  + ProductID: 16549\n  + ProductCode: VM1495\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 6kw mã hiệu : X1-HYB-6.0-LV\n- VM1364 - Tấm pin năng lượng mặt trời Longi LR7-72 HVH 645W, hàng mới 100% - 18\n  + ProductID: 16417\n  + ProductCode: VM1364\n  + Description: Tấm pin năng lượng mặt trời Longi LR7-72 HVH 645W, hàng mới 100%\n- VM1131 - Dây DC LEADER 4.0 1500V - 400\n  + ProductID: 15498\n  + ProductCode: VM1131\n  + Description: Dây DC LEADER 4.0 1500V\n22/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1286 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 8kw mã hiệu : X1-lite-8.0-LV - 1\n  + ProductID: 16338\n  + ProductCode: VM1286\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 8kw mã hiệu : X1-lite-8.0-LV\n25/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1371 - Tấm pin năng lượng mặt trời Longi LR8-66 HGD 610W, hàng mới 100% - 16\n  + ProductID: 16424\n  + ProductCode: VM1371\n  + Description: Tấm pin năng lượng mặt trời Longi LR8-66 HGD 610W, hàng mới 100%\n13/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1287 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 10kw mã hiệu : X1-lite-10.0-LV - 1\n  + ProductID: 16339\n  + ProductCode: VM1287\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 10kw mã hiệu : X1-lite-10.0-LV\n22/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1408 - Tấm pin Năng lượng mặt trời Longi HIMO-X10,model: LR7- 72HVH- 640( 1 MẶT KÍNH) - 14\n  + ProductID: 16462\n  + ProductCode: VM1408\n  + Description: Tấm pin Năng lượng mặt trời Longi HIMO-X10,model: LR7- 72HVH- 640( 1 MẶT KÍNH)\n03/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1503 - Ắc quy điện bằng ION LITHIUM hiệu solax, Model: TSYS-TB-LD160, điện áp: 51.2V-314AH , dùng trong hệ thống điện năng lượng mặt trời,.Mới 100% - 1\n  + ProductID: 16557\n  + ProductCode: VM1503\n  + Description: Ắc quy điện bằng ION LITHIUM hiệu solax, Model: TSYS-TB-LD160, điện áp: 51.2V-314AH , dùng trong hệ thống điện năng lượng mặt trời,.Mới 100%\n- VM1502 - Tấm pin năng lượng mặt trời ASTRON 620w  2 mặt kính - 10\n  + ProductID: 16556\n  + ProductCode: VM1502\n  + Description: Tấm pin năng lượng mặt trời ASTRON 620w  2 mặt kính\n- VM1106 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 5kw mã hiệu : X1-HYB-5.0-LV - 1\n  + ProductID: 16157\n  + ProductCode: VM1106\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 5kw mã hiệu : X1-HYB-5.0-LV\n13/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1245 - Inverter lưu trữ solax 12kw 1 pha( X1- lite-12.0) - 5\n  + ProductID: 16296\n  + ProductCode: VM1245\n  + Description: Inverter lưu trữ solax 12kw 1 pha( X1- lite-12.0)\n22/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1493 - tấm pin năng lượng mặt trời LONGI 620w, model: LR8-66HGD-620M - 18\n  + ProductID: 16547\n  + ProductCode: VM1493\n  + Description: tấm pin năng lượng mặt trời LONGI 620w, model: LR8-66HGD-620M\n- VM0009 - Đấu nối MC4 - 10\n  + ProductID: 15309\n  + ProductCode: VM0009\n  + Description: Đấu nối MC4\n- VM0194 - KẸP CHỮ U 30X60 - 104\n  + ProductID: 15283\n  + ProductCode: VM0194\n  + Description: KẸP CHỮ U 30X60\n23/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1412 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 20kw mã hiệu : X3-NEO-20.0-LV - 1\n  + ProductID: 16466\n  + ProductCode: VM1412\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 20kw mã hiệu : X3-NEO-20.0-LV\n31/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1166 - INVERTER HÒA LƯỚI SOLAX 5KW( X1-BOOST-5.0) - 1\n  + ProductID: 15384\n  + ProductCode: VM1166\n  + Description: INVERTER HÒA LƯỚI SOLAX 5KW( X1-BOOST-5.0)\n02/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1107 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 6kw mã hiệu : X1-HYB-6.0-EU - 1\n  + ProductID: 15334\n  + ProductCode: VM1107\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 6kw mã hiệu : X1-HYB-6.0-EU\n07/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1365 - Tấm pin năng lượng mặt trời Longi LR8-66 HGD 615W, hàng mới 100% - 72\n  + ProductID: 16418\n  + ProductCode: VM1365\n  + Description: Tấm pin năng lượng mặt trời Longi LR8-66 HGD 615W, hàng mới 100%\n16/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1499 - Pin lưu trữ điện năng lượng mặt trời Dyness PowerBrick 51.2V 280Ah/14.336KWh - bảo hành 7 năm - 6\n  + ProductID: 16553\n  + ProductCode: VM1499\n  + Description: Pin lưu trữ điện năng lượng mặt trời Dyness PowerBrick 51.2V 280Ah/14.336KWh - bảo hành 7 năm\n31/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1303 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 15kw mã hiệu : X3-NEO-15.0-LV - 1\n  + ProductID: 16355\n  + ProductCode: VM1303\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 15kw mã hiệu : X3-NEO-15.0-LV\n01/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1308 - Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 10kw mã hiệu : X3-NEO-10.0-LV - 1\n  + ProductID: 16360\n  + ProductCode: VM1308\n  + Description: Máy biến đổi tĩnh điện Inverter dùng trong hệ thống điện năng lượng mặt trời solax loại 10kw mã hiệu : X3-NEO-10.0-LV\n09/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1418 - Tấm pin Năng lượng mặt trời Longi HIMO-X10,model: LR8- 66HVD- 640M( 2 MẶT KÍNH) - 108\n  + ProductID: 16472\n  + ProductCode: VM1418\n  + Description: Tấm pin Năng lượng mặt trời Longi HIMO-X10,model: LR8- 66HVD- 640M( 2 MẶT KÍNH)\n13/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1508 - METTER 3 PHA DTSU-CT hiệu solax - 1\n  + ProductID: 16562\n  + ProductCode: VM1508\n  + Description: METTER 3 PHA DTSU-CT hiệu solax\n03/03/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VM1525 - Tấm pin năng lượng mặt trời  AE công suất  620w - 720\n  + ProductID: 16579\n  + ProductCode: VM1525\n  + Description: Tấm pin năng lượng mặt trời  AE công suất  620w",
       "reference": "[\n  {\"ProductCode\":\"VM1525\"},\n  {\"ProductCode\":\"VM1418\"},\n  {\"ProductCode\":\"VM1508\"},\n  {\"ProductCode\":\"VM0009\"},\n  {\"ProductCode\":\"VM0194\"}\n]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"VM1418\"\n  },\n  {\n    \"ProductCode\": \"VM1365\"\n  },\n  {\n    \"ProductCode\": \"VM1499\"\n  },\n  {\n    \"ProductCode\": \"VM1308\"\n  },\n  {\n    \"ProductCode\": \"VM1303\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"VM1418\"\n  },\n  {\n    \"ProductCode\": \"VM1365\"\n  },\n  {\n    \"ProductCode\": \"VM1493\"\n  },\n  {\n    \"ProductCode\": \"VM1308\"\n  },\n  {\n    \"ProductCode\": \"VM1303\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
         "list_match": 20
       },
-      "durationMs": 1711,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RDNAQQF:0000001F",
-        "application": "crmkh",
-        "processing_time_ms": 1496.264,
-        "created_at": "2026-03-02T04:21:27+00:00",
-        "prompt_tokens": 3181,
-        "completion_tokens": 72,
-        "total_tokens": 3253
-      }
+      "durationMs": 2130
     },
     {
       "id": "crm_recommendation_0012",
@@ -266,17 +156,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1530,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QM1LSJT:00000029",
-        "application": "crmkh",
-        "processing_time_ms": 1384.8696,
-        "created_at": "2026-03-02T04:01:35+00:00",
-        "prompt_tokens": 1272,
-        "completion_tokens": 72,
-        "total_tokens": 1344
-      }
+      "durationMs": 2123
     },
     {
       "id": "crm_recommendation_0013",
@@ -288,17 +168,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2021,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O0T0:00000018",
-        "application": "crmkh",
-        "processing_time_ms": 2550.006,
-        "created_at": "2026-03-02T03:27:57+00:00",
-        "prompt_tokens": 2965,
-        "completion_tokens": 88,
-        "total_tokens": 3053
-      }
+      "durationMs": 2256
     },
     {
       "id": "crm_recommendation_0014",
@@ -310,17 +180,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1423,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H34C:00000052",
-        "application": "crmkh",
-        "processing_time_ms": 1783.0166,
-        "created_at": "2026-03-02T03:24:11+00:00",
-        "prompt_tokens": 791,
-        "completion_tokens": 72,
-        "total_tokens": 863
-      }
+      "durationMs": 2292
     },
     {
       "id": "crm_recommendation_0015",
@@ -332,17 +192,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2064,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM14P7:0000001A",
-        "application": "crmkh",
-        "processing_time_ms": 1757.0721,
-        "created_at": "2026-03-02T04:22:52+00:00",
-        "prompt_tokens": 2861,
-        "completion_tokens": 94,
-        "total_tokens": 2955
-      }
+      "durationMs": 2372
     },
     {
       "id": "crm_recommendation_0016",
@@ -354,17 +204,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1662,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM14BE:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 1305.5227,
-        "created_at": "2026-03-02T03:33:09+00:00",
-        "prompt_tokens": 1601,
-        "completion_tokens": 74,
-        "total_tokens": 1675
-      }
+      "durationMs": 2232
     },
     {
       "id": "crm_recommendation_0017",
@@ -376,39 +216,19 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2435,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQU7Q:0000000A",
-        "application": "crmkh",
-        "processing_time_ms": 2745.9631,
-        "created_at": "2026-03-02T02:36:26+00:00",
-        "prompt_tokens": 5173,
-        "completion_tokens": 98,
-        "total_tokens": 5271
-      }
+      "durationMs": 3097
     },
     {
       "id": "crm_recommendation_0018",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n06/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DUOGX - Đường xay Icing Sugar (0,5kg/túi) - 20\n  + ProductID: 16685\n  + ProductCode: DUOGX\n  + Description: Đường xay Icing Sugar (0,5kg/túi)\n- KEMNON5033 - Kem béo TV (Non dairy creamer - 454g x24) - 600\n  + ProductID: 15594\n  + ProductCode: KEMNON5033\n  + Description: Kem béo TV (Non dairy creamer - 454g x24)\n14/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- KEMTB31018 - Kem Whip Topping Base (907G x 12) - 60\n  + ProductID: 17644\n  + ProductCode: KEMTB31018\n  + Description: Kem Whip Topping Base (907G x 12)\n20/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- GPD07C.2.5 - Socola hạt chíp đen D07C(2,5kg/H) 4116152 - 5\n  + ProductID: 17610\n  + ProductCode: GPD07C.2.5\n  + Description: Socola hạt chíp đen D07C(2,5kg/H) 4116152\n30/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- GPD38B.1 - Socola hạt nút đen D38B 1kg 65% 4009153 - 2\n  + ProductID: 16410\n  + ProductCode: GPD38B.1\n  + Description: Socola hạt nút đen D38B 1kg 65% 4009153\n31/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TRATET01 - Set Tuyết Shan di trà - 1\n  + ProductID: 19475\n  + ProductCode: TRATET01\n  + Description: Set Tuyết Shan di trà\n- BACHS - Bộ ấm chén hoa sen kẻ vàng kim in logo (kèm hộp, túi) - 1\n  + ProductID: 19470\n  + ProductCode: BACHS\n  + Description: Bộ ấm chén hoa sen kẻ vàng kim in logo (kèm hộp, túi)\n06/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BOTCC280 - Bột Cacao Favorich 280-11 25kg/bao - 25\n  + ProductID: 17820\n  + ProductCode: BOTCC280\n  + Description: Bột Cacao Favorich 280-11 25kg/bao\n- GELATINEBD - Gelatine bột Đức 1kg - 10\n  + ProductID: 17402\n  + ProductCode: GELATINEBD\n  + Description: Gelatine bột Đức 1kg\n- KEMSOFT3470 - Kem Soft Blend (1kg x 12) - 60\n  + ProductID: 16079\n  + ProductCode: KEMSOFT3470\n  + Description: Kem Soft Blend (1kg x 12)\n11/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- HNLAT - Hạnh nhân lát 11.34kg/thùng - 23\n  + ProductID: 16376\n  + ProductCode: HNLAT\n  + Description: Hạnh nhân lát 11.34kg/thùng\n23/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BOT12427 - Bột trộn bánh chiffon Rich 12427 (12,5kg/bao) - 6\n  + ProductID: 15805\n  + ProductCode: BOT12427\n  + Description: Bột trộn bánh chiffon Rich 12427 (12,5kg/bao)\n- KEMGBL36142 - Kem Gold Label Whip Topping  (907gm x12) - 60\n  + ProductID: 15487\n  + ProductCode: KEMGBL36142\n  + Description: Kem Gold Label Whip Topping  (907gm x12)\n02/03/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BOTCHOICE13.1 - Bột mì Bakers' Choice 13 PE 1kg - 100\n  + ProductID: 17749\n  + ProductCode: BOTCHOICE13.1\n  + Description: Bột mì Bakers' Choice 13 PE 1kg\n- BOTCHOICE8.1 - Bột mì Bakers' Choice 08 PE 1kg - 100\n  + ProductID: 17248\n  + ProductCode: BOTCHOICE8.1\n  + Description: Bột mì Bakers' Choice 08 PE 1kg\n- BOTCHOICE11.1 - Bột mì Bakers' Choice 11 PE 1kg - 40\n  + ProductID: 15763\n  + ProductCode: BOTCHOICE11.1\n  + Description: Bột mì Bakers' Choice 11 PE 1kg",
       "reference": "[{\"ProductCode\":\"BOTCHOICE13.1\"},{\"ProductCode\":\"BOTCHOICE8.1\"},{\"ProductCode\":\"BOTCHOICE11.1\"},{\"ProductCode\":\"KEMGBL36142\"},{\"ProductCode\":\"BOT12427\"}]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"KEMNON5033\"\n  },\n  {\n    \"ProductCode\": \"KEMGBL36142\"\n  },\n  {\n    \"ProductCode\": \"KEMSOFT3470\"\n  },\n  {\n    \"ProductCode\": \"KEMTB31018\"\n  },\n  {\n    \"ProductCode\": \"BOTCC280\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"BOTCHOICE13.1\"\n  },\n  {\n    \"ProductCode\": \"BOTCHOICE8.1\"\n  },\n  {\n    \"ProductCode\": \"BOTCHOICE11.1\"\n  },\n  {\n    \"ProductCode\": \"KEMGBL36142\"\n  },\n  {\n    \"ProductCode\": \"BOT12427\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
-        "list_match": 20
+        "list_match": 100
       },
-      "durationMs": 1631,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52JUD:00000018",
-        "application": "crmkh",
-        "processing_time_ms": 1755.4939,
-        "created_at": "2026-03-02T03:27:30+00:00",
-        "prompt_tokens": 1644,
-        "completion_tokens": 84,
-        "total_tokens": 1728
-      }
+      "durationMs": 2648
     },
     {
       "id": "crm_recommendation_0019",
@@ -420,17 +240,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1422,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O044:0000004A",
-        "application": "crmkh",
-        "processing_time_ms": 1463.5318,
-        "created_at": "2026-03-02T02:29:35+00:00",
-        "prompt_tokens": 1371,
-        "completion_tokens": 67,
-        "total_tokens": 1438
-      }
+      "durationMs": 2162
     },
     {
       "id": "crm_recommendation_0020",
@@ -442,17 +252,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1781,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RDNAQ01:00000044",
-        "application": "crmkh",
-        "processing_time_ms": 2160.1716,
-        "created_at": "2026-03-02T03:12:23+00:00",
-        "prompt_tokens": 1287,
-        "completion_tokens": 91,
-        "total_tokens": 1378
-      }
+      "durationMs": 2154
     },
     {
       "id": "crm_recommendation_0021",
@@ -464,17 +264,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1695,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO506KQ:000000B2",
-        "application": "crmkh",
-        "processing_time_ms": 1817.8321,
-        "created_at": "2026-03-02T04:29:08+00:00",
-        "prompt_tokens": 2075,
-        "completion_tokens": 72,
-        "total_tokens": 2147
-      }
+      "durationMs": 2344
     },
     {
       "id": "crm_recommendation_0022",
@@ -486,17 +276,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1766,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REPVCLR:0000004D",
-        "application": "crmkh",
-        "processing_time_ms": 2064.6194,
-        "created_at": "2026-03-02T03:43:47+00:00",
-        "prompt_tokens": 2886,
-        "completion_tokens": 79,
-        "total_tokens": 2965
-      }
+      "durationMs": 2367
     },
     {
       "id": "crm_recommendation_0023",
@@ -508,17 +288,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1466,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQU7E:0000000D",
-        "application": "crmkh",
-        "processing_time_ms": 1887.2126,
-        "created_at": "2026-03-02T02:35:50+00:00",
-        "prompt_tokens": 1207,
-        "completion_tokens": 78,
-        "total_tokens": 1285
-      }
+      "durationMs": 1694
     },
     {
       "id": "crm_recommendation_0024",
@@ -530,17 +300,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1795,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QM1LRUG:00000023",
-        "application": "crmkh",
-        "processing_time_ms": 1788.798,
-        "created_at": "2026-03-02T02:56:17+00:00",
-        "prompt_tokens": 2262,
-        "completion_tokens": 88,
-        "total_tokens": 2350
-      }
+      "durationMs": 2142
     },
     {
       "id": "crm_recommendation_0025",
@@ -552,17 +312,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1465,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO5064D:0000002E",
-        "application": "crmkh",
-        "processing_time_ms": 1628.3651,
-        "created_at": "2026-03-02T03:12:26+00:00",
-        "prompt_tokens": 1385,
-        "completion_tokens": 81,
-        "total_tokens": 1466
-      }
+      "durationMs": 1774
     },
     {
       "id": "crm_recommendation_0026",
@@ -574,17 +324,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1683,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO598IS:00000052",
-        "application": "crmkh",
-        "processing_time_ms": 3381.1822,
-        "created_at": "2026-03-02T03:44:38+00:00",
-        "prompt_tokens": 2092,
-        "completion_tokens": 79,
-        "total_tokens": 2171
-      }
+      "durationMs": 3364
     },
     {
       "id": "crm_recommendation_0027",
@@ -596,17 +336,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1818,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QM1LSCV:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 1941.0641,
-        "created_at": "2026-03-02T03:29:02+00:00",
-        "prompt_tokens": 2711,
-        "completion_tokens": 86,
-        "total_tokens": 2797
-      }
+      "durationMs": 3208
     },
     {
       "id": "crm_recommendation_0028",
@@ -618,17 +348,7 @@
       "scores": {
         "list_match": 20
       },
-      "durationMs": 1579,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QJMT652:0000001C",
-        "application": "crmkh",
-        "processing_time_ms": 1512.9257,
-        "created_at": "2026-03-02T02:57:13+00:00",
-        "prompt_tokens": 3228,
-        "completion_tokens": 70,
-        "total_tokens": 3298
-      }
+      "durationMs": 2455
     },
     {
       "id": "crm_recommendation_0029",
@@ -640,17 +360,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2006,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9GF5U5:0000001C",
-        "application": "crmkh",
-        "processing_time_ms": 1956.0451,
-        "created_at": "2026-03-02T03:59:10+00:00",
-        "prompt_tokens": 4708,
-        "completion_tokens": 77,
-        "total_tokens": 4785
-      }
+      "durationMs": 2892
     },
     {
       "id": "crm_recommendation_0030",
@@ -662,17 +372,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1784,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUQIM5:00000029",
-        "application": "crmkh",
-        "processing_time_ms": 1681.4085,
-        "created_at": "2026-03-02T04:01:54+00:00",
-        "prompt_tokens": 1393,
-        "completion_tokens": 88,
-        "total_tokens": 1481
-      }
+      "durationMs": 3213
     },
     {
       "id": "crm_recommendation_0031",
@@ -684,17 +384,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 2027,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52IUN:00000112",
-        "application": "crmkh",
-        "processing_time_ms": 1863.2476,
-        "created_at": "2026-03-02T02:46:29+00:00",
-        "prompt_tokens": 3251,
-        "completion_tokens": 88,
-        "total_tokens": 3339
-      }
+      "durationMs": 3191
     },
     {
       "id": "crm_recommendation_0032",
@@ -706,17 +396,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1992,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUQIKQ:00000039",
-        "application": "crmkh",
-        "processing_time_ms": 2596.4841,
-        "created_at": "2026-03-02T04:00:47+00:00",
-        "prompt_tokens": 1461,
-        "completion_tokens": 97,
-        "total_tokens": 1558
-      }
+      "durationMs": 3421
     },
     {
       "id": "crm_recommendation_0033",
@@ -728,17 +408,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 2978,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52JIB:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 1879.7663,
-        "created_at": "2026-03-02T02:51:16+00:00",
-        "prompt_tokens": 8066,
-        "completion_tokens": 87,
-        "total_tokens": 8153
-      }
+      "durationMs": 3294
     },
     {
       "id": "crm_recommendation_0034",
@@ -750,17 +420,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1638,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O0GI:0000001D",
-        "application": "crmkh",
-        "processing_time_ms": 1444.7341,
-        "created_at": "2026-03-02T02:55:16+00:00",
-        "prompt_tokens": 2117,
-        "completion_tokens": 73,
-        "total_tokens": 2190
-      }
+      "durationMs": 2968
     },
     {
       "id": "crm_recommendation_0035",
@@ -772,17 +432,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1311,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RF41VAD:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 2176.4765,
-        "created_at": "2026-03-02T03:15:53+00:00",
-        "prompt_tokens": 848,
-        "completion_tokens": 75,
-        "total_tokens": 923
-      }
+      "durationMs": 2253
     },
     {
       "id": "crm_recommendation_0036",
@@ -794,17 +444,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1751,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RF41VRP:00000023",
-        "application": "crmkh",
-        "processing_time_ms": 3170.6637,
-        "created_at": "2026-03-02T04:16:54+00:00",
-        "prompt_tokens": 3607,
-        "completion_tokens": 80,
-        "total_tokens": 3687
-      }
+      "durationMs": 3586
     },
     {
       "id": "crm_recommendation_0037",
@@ -816,17 +456,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 2422,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO505J4:0000002C",
-        "application": "crmkh",
-        "processing_time_ms": 2939.2405,
-        "created_at": "2026-03-02T02:27:23+00:00",
-        "prompt_tokens": 5858,
-        "completion_tokens": 74,
-        "total_tokens": 5932
-      }
+      "durationMs": 3641
     },
     {
       "id": "crm_recommendation_0038",
@@ -838,17 +468,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1649,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM145Q:000000B9",
-        "application": "crmkh",
-        "processing_time_ms": 1567.3043,
-        "created_at": "2026-03-02T03:52:34+00:00",
-        "prompt_tokens": 897,
-        "completion_tokens": 73,
-        "total_tokens": 970
-      }
+      "durationMs": 2306
     },
     {
       "id": "crm_recommendation_0039",
@@ -860,17 +480,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2125,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUKEHJ:00000048",
-        "application": "crmkh",
-        "processing_time_ms": 1835.1684,
-        "created_at": "2026-03-02T02:46:50+00:00",
-        "prompt_tokens": 5591,
-        "completion_tokens": 82,
-        "total_tokens": 5673
-      }
+      "durationMs": 3054
     },
     {
       "id": "crm_recommendation_0040",
@@ -882,17 +492,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2400,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RD2BBKN:00000052",
-        "application": "crmkh",
-        "processing_time_ms": 2397.6472,
-        "created_at": "2026-03-02T04:06:13+00:00",
-        "prompt_tokens": 2120,
-        "completion_tokens": 137,
-        "total_tokens": 2257
-      }
+      "durationMs": 3458
     },
     {
       "id": "crm_recommendation_0041",
@@ -904,17 +504,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1794,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QJMT6BF:00000002",
-        "application": "crmkh",
-        "processing_time_ms": 1513.0918,
-        "created_at": "2026-03-02T03:08:08+00:00",
-        "prompt_tokens": 5179,
-        "completion_tokens": 67,
-        "total_tokens": 5246
-      }
+      "durationMs": 2554
     },
     {
       "id": "crm_recommendation_0042",
@@ -926,17 +516,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1664,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO0N5EM:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 1448.9462,
-        "created_at": "2026-03-02T02:50:42+00:00",
-        "prompt_tokens": 1701,
-        "completion_tokens": 76,
-        "total_tokens": 1777
-      }
+      "durationMs": 2405
     },
     {
       "id": "crm_recommendation_0043",
@@ -948,17 +528,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1927,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O10A:0000000D",
-        "application": "crmkh",
-        "processing_time_ms": 1870.9704,
-        "created_at": "2026-03-02T03:34:51+00:00",
-        "prompt_tokens": 1403,
-        "completion_tokens": 106,
-        "total_tokens": 1509
-      }
+      "durationMs": 2861
     },
     {
       "id": "crm_recommendation_0044",
@@ -970,17 +540,7 @@
       "scores": {
         "list_match": 0
       },
-      "durationMs": 2043,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO506MR:0000001E",
-        "application": "crmkh",
-        "processing_time_ms": 4539.1778,
-        "created_at": "2026-03-02T04:08:49+00:00",
-        "prompt_tokens": 5232,
-        "completion_tokens": 75,
-        "total_tokens": 5307
-      }
+      "durationMs": 2169
     },
     {
       "id": "crm_recommendation_0045",
@@ -992,17 +552,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1628,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3PBM0:00000068",
-        "application": "crmkh",
-        "processing_time_ms": 1506.3507,
-        "created_at": "2026-03-02T04:16:12+00:00",
-        "prompt_tokens": 2269,
-        "completion_tokens": 72,
-        "total_tokens": 2341
-      }
+      "durationMs": 2047
     },
     {
       "id": "crm_recommendation_0046",
@@ -1014,17 +564,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1770,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REIH82I:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 1802.686,
-        "created_at": "2026-03-02T03:25:29+00:00",
-        "prompt_tokens": 1852,
-        "completion_tokens": 92,
-        "total_tokens": 1944
-      }
+      "durationMs": 2182
     },
     {
       "id": "crm_recommendation_0047",
@@ -1036,17 +576,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1578,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52JOP:00000012",
-        "application": "crmkh",
-        "processing_time_ms": 1509.4687,
-        "created_at": "2026-03-02T03:09:13+00:00",
-        "prompt_tokens": 1282,
-        "completion_tokens": 72,
-        "total_tokens": 1354
-      }
+      "durationMs": 2073
     },
     {
       "id": "crm_recommendation_0048",
@@ -1058,17 +588,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1523,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUKFDR:00000040",
-        "application": "crmkh",
-        "processing_time_ms": 1643.1097,
-        "created_at": "2026-03-02T04:05:50+00:00",
-        "prompt_tokens": 1141,
-        "completion_tokens": 79,
-        "total_tokens": 1220
-      }
+      "durationMs": 1526
     },
     {
       "id": "crm_recommendation_0049",
@@ -1080,17 +600,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2009,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QJMT6DA:00000031",
-        "application": "crmkh",
-        "processing_time_ms": 2080.1084,
-        "created_at": "2026-03-02T03:24:07+00:00",
-        "prompt_tokens": 1119,
-        "completion_tokens": 104,
-        "total_tokens": 1223
-      }
+      "durationMs": 2541
     },
     {
       "id": "crm_recommendation_0050",
@@ -1102,17 +612,7 @@
       "scores": {
         "list_match": 20
       },
-      "durationMs": 1907,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REIH8CD:00000011",
-        "application": "crmkh",
-        "processing_time_ms": 2764.8262,
-        "created_at": "2026-03-02T03:59:32+00:00",
-        "prompt_tokens": 3893,
-        "completion_tokens": 81,
-        "total_tokens": 3974
-      }
+      "durationMs": 2490
     },
     {
       "id": "crm_recommendation_0051",
@@ -1124,17 +624,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2080,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RDNAPLE:00000048",
-        "application": "crmkh",
-        "processing_time_ms": 2060.1306,
-        "created_at": "2026-03-02T02:46:27+00:00",
-        "prompt_tokens": 2068,
-        "completion_tokens": 97,
-        "total_tokens": 2165
-      }
+      "durationMs": 2800
     },
     {
       "id": "crm_recommendation_0052",
@@ -1146,17 +636,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2080,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H34Q:00000015",
-        "application": "crmkh",
-        "processing_time_ms": 2237.2116,
-        "created_at": "2026-03-02T03:12:25+00:00",
-        "prompt_tokens": 5141,
-        "completion_tokens": 79,
-        "total_tokens": 5220
-      }
+      "durationMs": 2169
     },
     {
       "id": "crm_recommendation_0053",
@@ -1168,17 +648,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1490,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H2K3:00000018",
-        "application": "crmkh",
-        "processing_time_ms": 1373.6072,
-        "created_at": "2026-03-02T02:28:40+00:00",
-        "prompt_tokens": 1011,
-        "completion_tokens": 67,
-        "total_tokens": 1078
-      }
+      "durationMs": 1976
     },
     {
       "id": "crm_recommendation_0054",
@@ -1190,17 +660,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1512,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REPVC62:00000009",
-        "application": "crmkh",
-        "processing_time_ms": 1449.9804,
-        "created_at": "2026-03-02T02:50:01+00:00",
-        "prompt_tokens": 1035,
-        "completion_tokens": 86,
-        "total_tokens": 1121
-      }
+      "durationMs": 2710
     },
     {
       "id": "crm_recommendation_0055",
@@ -1212,17 +672,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1818,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUKFAP:00000006",
-        "application": "crmkh",
-        "processing_time_ms": 1922.0605,
-        "created_at": "2026-03-02T03:43:09+00:00",
-        "prompt_tokens": 1019,
-        "completion_tokens": 91,
-        "total_tokens": 1110
-      }
+      "durationMs": 3428
     },
     {
       "id": "crm_recommendation_0056",
@@ -1234,39 +684,19 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1794,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3PANF:00000060",
-        "application": "crmkh",
-        "processing_time_ms": 1654.7626,
-        "created_at": "2026-03-02T02:48:41+00:00",
-        "prompt_tokens": 5347,
-        "completion_tokens": 68,
-        "total_tokens": 5415
-      }
+      "durationMs": 2363
     },
     {
       "id": "crm_recommendation_0057",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n06/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 02MCTHP236GMX01 - Hộp mực HP 136A (W1360A) - M211d/dw/M236dw/sdw (Có chip) (G00939) - 2\n  + ProductID: 23954\n  + ProductCode: 02MCTHP236GMX01\n  + Description: Hộp mực HP 136A (W1360A) - M211d/dw/M236dw/sdw (Có chip) (G00939)\n- 11.00GMCH1006NO00 - Gạt mực HP 1005/1006/1505 (35A/36A/88A) (VC0589) - 20\n  + ProductID: 18939\n  + ProductCode: 11.00GMCH1006NO00\n  + Description: Gạt mực HP 1005/1006/1505 (35A/36A/88A) (VC0589)\n09/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 10.01DCTX2060CH00 - Cụm Drum Xerox DC IV2060/3060/3065, CT350922 - 1\n  + ProductID: 18703\n  + ProductCode: 10.01DCTX2060CH00\n  + Description: Cụm Drum Xerox DC IV2060/3060/3065, CT350922\n13/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 07MCTN2002MI00 - Mực Cartridge Canon NPG 59 -IR2002/2002N/2202N (G00864) - 1\n  + ProductID: 19641\n  + ProductCode: 07MCTN2002MI00\n  + Description: Mực Cartridge Canon NPG 59 -IR2002/2002N/2202N (G00864)\n14/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 02MCTHP351CECLU - Hộp mực HP CE311/CF351A (C)- HP CP1025/1025NW/M176N/177FW/M153/Canon LBP7010/7018 (G00450) - 1\n  + ProductID: 23812\n  + ProductCode: 02MCTHP351CECLU\n  + Description: Hộp mực HP CE311/CF351A (C)- HP CP1025/1025NW/M176N/177FW/M153/Canon LBP7010/7018 (G00450)\n- 02MCTHP353MECLU - Hộp mực HP CE313/CF353A (M)- HP CP1025/1025NW/M176N/177FW/M153/Canon LBP7010/7018 (G00490) - 1\n  + ProductID: 22164\n  + ProductCode: 02MCTHP353MECLU\n  + Description: Hộp mực HP CE313/CF353A (M)- HP CP1025/1025NW/M176N/177FW/M153/Canon LBP7010/7018 (G00490)\n- 02MCTHP350AECLU - Hộp mực HP CE310A/CF350A (BK)- HP CP1025/1025NW/M176N/177FW/M153/Canon LBP7010/7018 (G00416) - 1\n  + ProductID: 16974\n  + ProductCode: 02MCTHP350AECLU\n  + Description: Hộp mực HP CE310A/CF350A (BK)- HP CP1025/1025NW/M176N/177FW/M153/Canon LBP7010/7018 (G00416)\n- 02MCTHP352YECLU - Hộp mực HP CE312/CF352A (Y)- HP CP1025/1025NW/M176N/177FW/M153/Canon LBP7010/7018 (G00503) - 1\n  + ProductID: 16856\n  + ProductCode: 02MCTHP352YECLU\n  + Description: Hộp mực HP CE312/CF352A (Y)- HP CP1025/1025NW/M176N/177FW/M153/Canon LBP7010/7018 (G00503)\n15/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 02MCTHP252MECOU1 - Hộp mực đa năng Laser màu HP CF503A/CF403A/CRG045/CRG054 (Magenta) (G00320) - 2\n  + ProductID: 26601\n  + ProductCode: 02MCTHP252MECOU1\n  + Description: Hộp mực đa năng Laser màu HP CF503A/CF403A/CRG045/CRG054 (Magenta) (G00320)\n17/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 07MCTFT3503NM03 - Mực Cartridge Ricoh MP C3003/C3503/4003/C4503/5003/C5503/6003(Y)  (G00880) - 1\n  + ProductID: 26550\n  + ProductCode: 07MCTFT3503NM03\n  + Description: Mực Cartridge Ricoh MP C3003/C3503/4003/C4503/5003/C5503/6003(Y)  (G00880)\n- 07MCTFT3503NM01 - Mực Cartridge Ricoh MP C3003/C3503/4003/C4503/5003/C5503/6003 (C )  (G00881) - 1\n  + ProductID: 25076\n  + ProductCode: 07MCTFT3503NM01\n  + Description: Mực Cartridge Ricoh MP C3003/C3503/4003/C4503/5003/C5503/6003 (C )  (G00881)\n- 07MCTFT3503NM00 - Mực Cartridge Ricoh MP C3003/C3503/4003/C4503/5003/C5503/6003 (BK)   (G00862) - 1\n  + ProductID: 24321\n  + ProductCode: 07MCTFT3503NM00\n  + Description: Mực Cartridge Ricoh MP C3003/C3503/4003/C4503/5003/C5503/6003 (BK)   (G00862)\n- 07MCTFT3503NM02 - Mực Cartridge Ricoh MP C3003/C3503/4003/C4503/5003/C5503/6003 (M)  (G00878) - 1\n  + ProductID: 18795\n  + ProductCode: 07MCTFT3503NM02\n  + Description: Mực Cartridge Ricoh MP C3003/C3503/4003/C4503/5003/C5503/6003 (M)  (G00878)\n19/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 02MCTHM402MIT - Hộp mực HP26A -Pro M402n/M402d/M402dn/M402dw/M426 (G00325) - 5\n  + ProductID: 25051\n  + ProductCode: 02MCTHM402MIT\n  + Description: Hộp mực HP26A -Pro M402n/M402d/M402dn/M402dw/M426 (G00325)\n- 02MCTHM404MIT - Hộp mực HP CF276A -HP M404D/DN/N/DW/M428FDW/FDN (Không chip) (G00256) - 5\n  + ProductID: 24995\n  + ProductCode: 02MCTHM404MIT\n  + Description: Hộp mực HP CF276A -HP M404D/DN/N/DW/M428FDW/FDN (Không chip) (G00256)\n- 04TROH1010SG00 - Trống HP 1010/1020/Canon FX9 (12A/FX9) (G00627) - 20\n  + ProductID: 24051\n  + ProductCode: 04TROH1010SG00\n  + Description: Trống HP 1010/1020/Canon FX9 (12A/FX9) (G00627)\n- 02MCTHM127MIT - Hộp mực HPCF83A HP125/126/127/225/215 (G00393) - 5\n  + ProductID: 20541\n  + ProductCode: 02MCTHM127MIT\n  + Description: Hộp mực HPCF83A HP125/126/127/225/215 (G00393)\n- 04TROHM402SG00 - Trống HP 26A/76A/CF287A/CF289/M402dn (G00636) - 10\n  + ProductID: 19041\n  + ProductCode: 04TROHM402SG00\n  + Description: Trống HP 26A/76A/CF287A/CF289/M402dn (G00636)\n- 03MCIS1710CO80GC19MI11 - Mực chai Samsung-Ricoh ML1710/SP101S/HP107A (G01208) - 10\n  + ProductID: 18261\n  + ProductCode: 03MCIS1710CO80GC19MI11\n  + Description: Mực chai Samsung-Ricoh ML1710/SP101S/HP107A (G01208)\n- 02MCTHP236KOM01 - Hộp mực HP 136A (W1360A) - M211d/dw/M236dw/sdw (Có chip) (G00247) - 2\n  + ProductID: 17273\n  + ProductCode: 02MCTHP236KOM01\n  + Description: Hộp mực HP 136A (W1360A) - M211d/dw/M236dw/sdw (Có chip) (G00247)\n- 02MCTH1660MIT - Hộp mực HP78A( P1566/1660 printer) (G00740) - 3\n  + ProductID: 16366\n  + ProductCode: 02MCTH1660MIT\n  + Description: Hộp mực HP78A( P1566/1660 printer) (G00740)\n21/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 11.00GTUH1010NO00 - Gạt từ máy in HP 1010/12A/15A/49A (G00620) - 20\n  + ProductID: 28336\n  + ProductCode: 11.00GTUH1010NO00\n  + Description: Gạt từ máy in HP 1010/12A/15A/49A (G00620)\n- 10MNCE8050CH04 - Mưc nước Epson 057 Epson EcoTank L8050/L18050 (LC) - 1\n  + ProductID: 27216\n  + ProductCode: 10MNCE8050CH04\n  + Description: Mưc nước Epson 057 Epson EcoTank L8050/L18050 (LC)\n- 10MNCE8050CH02 - Mưc nước Epson 057 Epson EcoTank L8050/L18050 (M) - 1\n  + ProductID: 25121\n  + ProductCode: 10MNCE8050CH02\n  + Description: Mưc nước Epson 057 Epson EcoTank L8050/L18050 (M)\n- 10MNCE8050CH03 - Mưc nước Epson 057 Epson EcoTank L8050/L18050 (Y) - 1\n  + ProductID: 20399\n  + ProductCode: 10MNCE8050CH03\n  + Description: Mưc nước Epson 057 Epson EcoTank L8050/L18050 (Y)\n- 10MNCE8050CH01 - Mưc nước Epson 057 Epson EcoTank L8050/L18050 (C) - 1\n  + ProductID: 19543\n  + ProductCode: 10MNCE8050CH01\n  + Description: Mưc nước Epson 057 Epson EcoTank L8050/L18050 (C)\n- 10MNCE8050CH00 - Mưc nước Epson 057 Epson EcoTank L8050/L18050 (BK) - 1\n  + ProductID: 18397\n  + ProductCode: 10MNCE8050CH00\n  + Description: Mưc nước Epson 057 Epson EcoTank L8050/L18050 (BK)\n- 10MNCE8050CH05 - Mưc nước Epson 057 Epson EcoTank L8050/L18050 (LM) - 1\n  + ProductID: 17526\n  + ProductCode: 10MNCE8050CH05\n  + Description: Mưc nước Epson 057 Epson EcoTank L8050/L18050 (LM)\n23/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 10MCTT2385CH00 - Hộp mực Brother TN2385 (HL-L2320D/2321D/2720DW/2740DW/2520DW/2540DN) - 1\n  + ProductID: 18662\n  + ProductCode: 10MCTT2385CH00\n  + Description: Hộp mực Brother TN2385 (HL-L2320D/2321D/2720DW/2740DW/2520DW/2540DN)\n28/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 11.00MNCN1010UN03 - Hộp mực Canon GI 790 (Y)/G1000/2000/3000/6000 - 1\n  + ProductID: 26648\n  + ProductCode: 11.00MNCN1010UN03\n  + Description: Hộp mực Canon GI 790 (Y)/G1000/2000/3000/6000\n- 03MCIT2240WA80GC19MI09 - Mực chai Brother HL2240 (G01211) - 10\n  + ProductID: 25329\n  + ProductCode: 03MCIT2240WA80GC19MI09\n  + Description: Mực chai Brother HL2240 (G01211)\n- 02MCTNP243MIT - Hộp mực Canon 070 - Canon LBP 243dw/246dw (G00319) - 5\n  + ProductID: 25041\n  + ProductCode: 02MCTNP243MIT\n  + Description: Hộp mực Canon 070 - Canon LBP 243dw/246dw (G00319)\n- 02MCTH1010MIT - Hộp mực HP12A( 1010/1012/1015/1018/1022/1022n/1022nw) (G00261) - 3\n  + ProductID: 24408\n  + ProductCode: 02MCTH1010MIT\n  + Description: Hộp mực HP12A( 1010/1012/1015/1018/1022/1022n/1022nw) (G00261)\n- 11.00QUABSG - Bia Sài Gòn Lager Tết - 1\n  + ProductID: 23893\n  + ProductCode: 11.00QUABSG\n  + Description: Bia Sài Gòn Lager Tết\n- 11.00MNCN1010UN02 - Hộp mực Canon GI 790 (M)/G1000/2000/3000/6000 - 1\n  + ProductID: 22552\n  + ProductCode: 11.00MNCN1010UN02\n  + Description: Hộp mực Canon GI 790 (M)/G1000/2000/3000/6000\n- 11.00MNCN1010UN01 - Hộp mực Canon GI 790 (C)/G1000/2000/3000/6000 - 1\n  + ProductID: 21568\n  + ProductCode: 11.00MNCN1010UN01\n  + Description: Hộp mực Canon GI 790 (C)/G1000/2000/3000/6000\n- 04TROH1005SG00 - Trống HP 1005/1006/1505 (35A/36A/88A)/CF279/HP M12a/w/26a/w (G00625) - 10\n  + ProductID: 21492\n  + ProductCode: 04TROH1005SG00\n  + Description: Trống HP 1005/1006/1505 (35A/36A/88A)/CF279/HP M12a/w/26a/w (G00625)\n- 11.00MNCN1010UN00 - Hộp mực Canon GI 790 (BK)/G1000/2000/3000/6000 - 1\n  + ProductID: 20202\n  + ProductCode: 11.00MNCN1010UN00\n  + Description: Hộp mực Canon GI 790 (BK)/G1000/2000/3000/6000\n29/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 02MCTHP252CECOU1 - Hộp mực đa năng Laser màu HP CF501A/CF401A/CRG045/CRG054 (Cyan) (G00337) - 1\n  + ProductID: 21234\n  + ProductCode: 02MCTHP252CECOU1\n  + Description: Hộp mực đa năng Laser màu HP CF501A/CF401A/CRG045/CRG054 (Cyan) (G00337)\n- 02MCTHP252YECOU1 - Hộp mực đa năng Laser màu HP CF502A/CF402A/CRG045/CRG054 (Yellow) (G00317) - 1\n  + ProductID: 15160\n  + ProductCode: 02MCTHP252YECOU1\n  + Description: Hộp mực đa năng Laser màu HP CF502A/CF402A/CRG045/CRG054 (Yellow) (G00317)\n30/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 05MCIHM252FK40GC9M145-M - Mực chai HP 1025/1215/M154/180/254/284/252/452/477 (Màu Đỏ) (G01476) - 1\n  + ProductID: 23855\n  + ProductCode: 05MCIHM252FK40GC9M145-M\n  + Description: Mực chai HP 1025/1215/M154/180/254/284/252/452/477 (Màu Đỏ) (G01476)\n- 05MCIHM252FK40GC9M145-Y - Mực chai HP 1025/1215/M154/180/254/284/252/452/477 (Màu Vàng) (G01477) - 1\n  + ProductID: 19303\n  + ProductCode: 05MCIHM252FK40GC9M145-Y\n  + Description: Mực chai HP 1025/1215/M154/180/254/284/252/452/477 (Màu Vàng) (G01477)\n- 02MCTHP252AECOU1 - Hộp mực đa năng Laser màu HP CF500A/CF400A/CRG045/CRG054 (BK) (G00300) - 1\n  + ProductID: 17423\n  + ProductCode: 02MCTHP252AECOU1\n  + Description: Hộp mực đa năng Laser màu HP CF500A/CF400A/CRG045/CRG054 (BK) (G00300)\n- 05MCIHM252FK45GC9M145-K - Mực chai HP 1025/1215/M154/180/254/284/252/452/477 (Màu Đen) (G01478) - 1\n  + ProductID: 16068\n  + ProductCode: 05MCIHM252FK45GC9M145-K\n  + Description: Mực chai HP 1025/1215/M154/180/254/284/252/452/477 (Màu Đen) (G01478)\n- 05MCIHM252FK40GC9M145-C - Mực chai HP 1025/1215/M154/180/254/284/252/452/477 (Màu Xanh) (G01475) - 2\n  + ProductID: 15349\n  + ProductCode: 05MCIHM252FK40GC9M145-C\n  + Description: Mực chai HP 1025/1215/M154/180/254/284/252/452/477 (Màu Xanh) (G01475)\n05/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 10DCTTB022CH00 - Cụm trống Brother DR-B022, Brother HL B2000/2080/DCP-B7535DW/7715DW - 1\n  + ProductID: 21639\n  + ProductCode: 10DCTTB022CH00\n  + Description: Cụm trống Brother DR-B022, Brother HL B2000/2080/DCP-B7535DW/7715DW\n06/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 02MCTH1005MIT - Hộp mực HP35A/36A/85A( P1005/P1006/P1120W/1102,M1212/M1132) (G00737) - 1\n  + ProductID: 17847\n  + ProductCode: 02MCTH1005MIT\n  + Description: Hộp mực HP35A/36A/85A( P1005/P1006/P1120W/1102,M1212/M1132) (G00737)\n11/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 03MCIH1300EP130C24MK01 - Mực chai Siêu mịn HP 1320 (G01188) - 100\n  + ProductID: 22782\n  + ProductCode: 03MCIH1300EP130C24MK01\n  + Description: Mực chai Siêu mịn HP 1320 (G01188)\n26/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 02MCTHP438MIT - Hộp mực HP 335A (W1335A ) HP M438n/438dn/M440n/440dn (Có chip) (G00316) - 1\n  + ProductID: 16231\n  + ProductCode: 02MCTHP438MIT\n  + Description: Hộp mực HP 335A (W1335A ) HP M438n/438dn/M440n/440dn (Có chip) (G00316)\n27/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 02MCTH5200MIT - Hộp mực HP16A( 5200L HP5200/n/tn/dtn) (G00350) - 1\n  + ProductID: 19298\n  + ProductCode: 02MCTH5200MIT\n  + Description: Hộp mực HP16A( 5200L HP5200/n/tn/dtn) (G00350)",
       "reference": "[\n  {\n    \"ProductCode\": \"02MCTH1005MIT\"\n  },\n  {\n    \"ProductCode\": \"11.00GMCH1006NO00\"\n  },\n  {\n    \"ProductCode\": \"04TROH1005SG00\"\n  },\n  {\n    \"ProductCode\": \"02MCTH1010MIT\"\n  },\n  {\n    \"ProductCode\": \"11.00GTUH1010NO00\"\n  }\n]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"02MCTHM402MIT\"\n  },\n  {\n    \"ProductCode\": \"02MCTHM404MIT\"\n  },\n  {\n    \"ProductCode\": \"02MCTHM127MIT\"\n  },\n  {\n    \"ProductCode\": \"04TROH1010SG00\"\n  },\n  {\n    \"ProductCode\": \"03MCIS1710CO80GC19MI11\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"02MCTHM402MIT\"\n  },\n  {\n    \"ProductCode\": \"02MCTHM404MIT\"\n  },\n  {\n    \"ProductCode\": \"02MCTHM127MIT\"\n  },\n  {\n    \"ProductCode\": \"02MCTNP243MIT\"\n  },\n  {\n    \"ProductCode\": \"03MCIH1300EP130C24MK01\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
         "list_match": 0
       },
-      "durationMs": 2680,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO5985I:00000003",
-        "application": "crmkh",
-        "processing_time_ms": 1788.5095,
-        "created_at": "2026-03-02T02:52:26+00:00",
-        "prompt_tokens": 5947,
-        "completion_tokens": 98,
-        "total_tokens": 6045
-      }
+      "durationMs": 3143
     },
     {
       "id": "crm_recommendation_0058",
@@ -1278,17 +708,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 2005,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R7AN:00000046",
-        "application": "crmkh",
-        "processing_time_ms": 1660.2174,
-        "created_at": "2026-03-02T03:30:33+00:00",
-        "prompt_tokens": 4385,
-        "completion_tokens": 77,
-        "total_tokens": 4462
-      }
+      "durationMs": 2356
     },
     {
       "id": "crm_recommendation_0059",
@@ -1300,17 +720,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1547,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9GF5HI:00000004",
-        "application": "crmkh",
-        "processing_time_ms": 1900.3409,
-        "created_at": "2026-03-02T03:15:17+00:00",
-        "prompt_tokens": 974,
-        "completion_tokens": 93,
-        "total_tokens": 1067
-      }
+      "durationMs": 2059
     },
     {
       "id": "crm_recommendation_0060",
@@ -1322,39 +732,19 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1810,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQV7N:00000011",
-        "application": "crmkh",
-        "processing_time_ms": 1895.5729,
-        "created_at": "2026-03-02T04:08:17+00:00",
-        "prompt_tokens": 2189,
-        "completion_tokens": 75,
-        "total_tokens": 2264
-      }
+      "durationMs": 1915
     },
     {
       "id": "crm_recommendation_0061",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n02/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- NBAC-180-XA - N butyl 180 TEM MẶT CN - 900\n  + ProductID: 15901\n  + ProductCode: NBAC-180-XA\n  + Description: N butyl 180 TEM MẶT CN\n05/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- EBR-190-TW (N) - EBR 190 NHỰA  TW - 3\n  + ProductID: 15913\n  + ProductCode: EBR-190-TW (N)\n  + Description: EBR 190 NHỰA  TW\n08/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MEAC-190 (NEW) - Methy Nhập 190 CN - 6\n  + ProductID: 15917\n  + ProductCode: MEAC-190 (NEW)\n  + Description: Methy Nhập 190 CN\n12/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- EBR5-190 - EBR5 190 TW - 3\n  + ProductID: 15897\n  + ProductCode: EBR5-190\n  + Description: EBR5 190 TW\n16/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- METH-163 - Methanol 163 MALAY - 1\n  + ProductID: 15967\n  + ProductCode: METH-163\n  + Description: Methanol 163 MALAY\n17/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- ACE-160-HQ (TA) - ACetone  hàn 160 trang anh - 2\n  + ProductID: 15840\n  + ProductCode: ACE-160-HQ (TA)\n  + Description: ACetone  hàn 160 trang anh\n19/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BCS-188-Mal - BCS 188 MALAYSIA CŨ - 3\n  + ProductID: 15884\n  + ProductCode: BCS-188-Mal\n  + Description: BCS 188 MALAYSIA CŨ\n22/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- PMA99-200-TW (RE) PHUY LẺ - PMA - 163\n  + ProductID: 16065\n  + ProductCode: PMA99-200-TW (RE) PHUY LẺ\n  + Description: PMA\n26/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- EAC-180-MUI - ETHYL MÙI - 1\n  + ProductID: 15988\n  + ProductCode: EAC-180-MUI\n  + Description: ETHYL MÙI\n- NBAC-180-TQ - N butyl nhập 180 CN - 10\n  + ProductID: 15867\n  + ProductCode: NBAC-180-TQ\n  + Description: N butyl nhập 180 CN\n28/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MEAC-190 (RE) - Methy TEM MẶT - 5\n  + ProductID: 15823\n  + ProductCode: MEAC-190 (RE)\n  + Description: Methy TEM MẶT\n27/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BCS-185-TQ - BCS 185 china - 2\n  + ProductID: 15815\n  + ProductCode: BCS-185-TQ\n  + Description: BCS 185 china",
       "reference": "[\n  {\n    \"ProductCode\": \"BCS-185-TQ\"\n  },\n  {\n    \"ProductCode\": \"NBAC-180-XA\"\n  },\n  {\n    \"ProductCode\": \"PMA99-200-TW (RE) PHUY LẺ\"\n  },\n  {\n    \"ProductCode\": \"MEAC-190 (RE)\"\n  },\n  {\n    \"ProductCode\": \"NBAC-180-TQ\"\n  }\n]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"NBAC-180-XA\"\n  },\n  {\n    \"ProductCode\": \"PMA99-200-TW (RE) PHUY LẺ\"\n  },\n  {\n    \"ProductCode\": \"NBAC-180-TQ\"\n  },\n  {\n    \"ProductCode\": \"MEAC-190 (RE)\"\n  },\n  {\n    \"ProductCode\": \"BCS-185-TQ\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"NBAC-180-XA\"\n  },\n  {\n    \"ProductCode\": \"BCS-185-TQ\"\n  },\n  {\n    \"ProductCode\": \"MEAC-190 (RE)\"\n  },\n  {\n    \"ProductCode\": \"NBAC-180-TQ\"\n  },\n  {\n    \"ProductCode\": \"PMA99-200-TW (RE) PHUY LẺ\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1754,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQUUN:00000020",
-        "application": "crmkh",
-        "processing_time_ms": 2070.1857,
-        "created_at": "2026-03-02T03:41:12+00:00",
-        "prompt_tokens": 1325,
-        "completion_tokens": 96,
-        "total_tokens": 1421
-      }
+      "durationMs": 1820
     },
     {
       "id": "crm_recommendation_0062",
@@ -1366,17 +756,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1207,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52JNJ:00000053",
-        "application": "crmkh",
-        "processing_time_ms": 1384.8298,
-        "created_at": "2026-03-02T03:20:58+00:00",
-        "prompt_tokens": 837,
-        "completion_tokens": 67,
-        "total_tokens": 904
-      }
+      "durationMs": 1401
     },
     {
       "id": "crm_recommendation_0063",
@@ -1388,17 +768,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1474,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REIH86L:0000001D",
-        "application": "crmkh",
-        "processing_time_ms": 1732.2706,
-        "created_at": "2026-03-02T03:42:58+00:00",
-        "prompt_tokens": 1719,
-        "completion_tokens": 82,
-        "total_tokens": 1801
-      }
+      "durationMs": 2842
     },
     {
       "id": "crm_recommendation_0064",
@@ -1410,17 +780,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1910,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52J0O:00000087",
-        "application": "crmkh",
-        "processing_time_ms": 1880.6438,
-        "created_at": "2026-03-02T02:26:43+00:00",
-        "prompt_tokens": 3512,
-        "completion_tokens": 92,
-        "total_tokens": 3604
-      }
+      "durationMs": 3144
     },
     {
       "id": "crm_recommendation_0065",
@@ -1432,17 +792,7 @@
       "scores": {
         "list_match": 0
       },
-      "durationMs": 1999,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RF41USE:00000017",
-        "application": "crmkh",
-        "processing_time_ms": 2057.2882,
-        "created_at": "2026-03-02T02:46:36+00:00",
-        "prompt_tokens": 2888,
-        "completion_tokens": 87,
-        "total_tokens": 2975
-      }
+      "durationMs": 3136
     },
     {
       "id": "crm_recommendation_0066",
@@ -1454,17 +804,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1707,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52JMO:0000003E",
-        "application": "crmkh",
-        "processing_time_ms": 2055.885,
-        "created_at": "2026-03-02T03:14:37+00:00",
-        "prompt_tokens": 2515,
-        "completion_tokens": 78,
-        "total_tokens": 2593
-      }
+      "durationMs": 2580
     },
     {
       "id": "crm_recommendation_0067",
@@ -1476,17 +816,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1483,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO4OKVS:00000068",
-        "application": "crmkh",
-        "processing_time_ms": 1962.6373,
-        "created_at": "2026-03-02T03:27:40+00:00",
-        "prompt_tokens": 942,
-        "completion_tokens": 82,
-        "total_tokens": 1024
-      }
+      "durationMs": 2099
     },
     {
       "id": "crm_recommendation_0068",
@@ -1498,17 +828,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1918,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O0G6:00000041",
-        "application": "crmkh",
-        "processing_time_ms": 1727.2199,
-        "created_at": "2026-03-02T03:00:29+00:00",
-        "prompt_tokens": 2577,
-        "completion_tokens": 72,
-        "total_tokens": 2649
-      }
+      "durationMs": 2516
     },
     {
       "id": "crm_recommendation_0069",
@@ -1520,17 +840,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2184,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM14LT:0000001A",
-        "application": "crmkh",
-        "processing_time_ms": 2257.1468,
-        "created_at": "2026-03-02T04:12:53+00:00",
-        "prompt_tokens": 3415,
-        "completion_tokens": 97,
-        "total_tokens": 3512
-      }
+      "durationMs": 3183
     },
     {
       "id": "crm_recommendation_0070",
@@ -1542,39 +852,19 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1363,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R7AR:0000002A",
-        "application": "crmkh",
-        "processing_time_ms": 2726.3575,
-        "created_at": "2026-03-02T03:25:13+00:00",
-        "prompt_tokens": 1089,
-        "completion_tokens": 72,
-        "total_tokens": 1161
-      }
+      "durationMs": 2321
     },
     {
       "id": "crm_recommendation_0071",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n03/03/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_C70C30L - Cồn 70 độ can 30 lít - HÀNG DỄ VỠ-kiểm tra ngay khi nhận-Cảm ơn ! - 30\n  + ProductID: 32453\n  + ProductCode: MV_C70C30L\n  + Description: Cồn 70 độ can 30 lít - HÀNG DỄ VỠ-kiểm tra ngay khi nhận-Cảm ơn !\n- PAG_GT100-100_CT - Băng cá nhân y tế BẢN NHỎ Greetmed (h/100m-th/100h) - 100\n  + ProductID: 31507\n  + ProductCode: PAG_GT100-100_CT\n  + Description: Băng cá nhân y tế BẢN NHỎ Greetmed (h/100m-th/100h)\n27/03/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_MVNMPV - Mỏ vịt  MPV cỡ M (g/50-th/300 c) - 1800\n  + ProductID: 36148\n  + ProductCode: MV_MVNMPV\n  + Description: Mỏ vịt  MPV cỡ M (g/50-th/300 c)\n- MV_BT3\"23VN - Bơm tiêm sử dụng một lần 3ml/cc 23G x 1\" Vina (h/100c - th/3000c) - 15000\n  + ProductID: 34579\n  + ProductCode: MV_BT3\"23VN\n  + Description: Bơm tiêm sử dụng một lần 3ml/cc 23G x 1\" Vina (h/100c - th/3000c)\n- MV_GYT40*25 - Khăn giấy 40 cm x 25 cm (th/20kg) - 10\n  + ProductID: 29791\n  + ProductCode: MV_GYT40*25\n  + Description: Khăn giấy 40 cm x 25 cm (th/20kg)\n28/03/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_C70C20L - Cồn 70 độ can 20 lít - HÀNG DỄ VỠ-kiểm tra ngay khi nhận-Cảm ơn ! - 60\n  + ProductID: 35872\n  + ProductCode: MV_C70C20L\n  + Description: Cồn 70 độ can 20 lít - HÀNG DỄ VỠ-kiểm tra ngay khi nhận-Cảm ơn !\n12/04/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_GTTT - Gòn thấm 1kg Trung Tín (th/12g) - 12\n  + ProductID: 34766\n  + ProductCode: MV_GTTT\n  + Description: Gòn thấm 1kg Trung Tín (th/12g)\n26/05/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_SPA - Que xét nghiệm Spatula (h/100q-th/10h) - 1\n  + ProductID: 33832\n  + ProductCode: MV_SPA\n  + Description: Que xét nghiệm Spatula (h/100q-th/10h)\n06/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- PAG_GT128-100 - Que đè lưỡi gỗ chưa tiệt trùng Greetmed (h/100c-th/50h) - 50\n  + ProductID: 35603\n  + ProductCode: PAG_GT128-100\n  + Description: Que đè lưỡi gỗ chưa tiệt trùng Greetmed (h/100c-th/50h)\n07/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_ONPS16100 - Ống nghiệm 10ml có nắp có nhãn (g/150c - th/1500c) - 3000\n  + ProductID: 30888\n  + ProductCode: MV_ONPS16100\n  + Description: Ống nghiệm 10ml có nắp có nhãn (g/150c - th/1500c)\n29/07/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_HTM051549 - Ống nghiệm Edta K2 HTM 2ml nắp xanh dương, mous thấp (v/100ố-th/2400ố) - 15000\n  + ProductID: 34657\n  + ProductCode: MV_HTM051549\n  + Description: Ống nghiệm Edta K2 HTM 2ml nắp xanh dương, mous thấp (v/100ố-th/2400ố)\n- MV_DLGAS - Đè lưỡi gỗ USASEN (Chưa tiệt trùng) (h/100c-th/50h) - 100\n  + ProductID: 30634\n  + ProductCode: MV_DLGAS\n  + Description: Đè lưỡi gỗ USASEN (Chưa tiệt trùng) (h/100c-th/50h)\n09/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_BHKNAP1 - Bình nhựa, đựng kim tiêm đã qua sử dụng, 1.5 lít, An Phú (b/50c) - 30\n  + ProductID: 33014\n  + ProductCode: MV_BHKNAP1\n  + Description: Bình nhựa, đựng kim tiêm đã qua sử dụng, 1.5 lít, An Phú (b/50c)\n- MV_BCNTQG - Băng cá nhân TQ (h/100m- th/100h) - 300\n  + ProductID: 30673\n  + ProductCode: MV_BCNTQG\n  + Description: Băng cá nhân TQ (h/100m- th/100h)\n10/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MV_HTM051524 - Lọ nhựa đựng mẫu PS 55ml HTM nắp đỏ CÓ NHÃN (l/100lọ-b/500lọ) - 6500\n  + ProductID: 34456\n  + ProductCode: MV_HTM051524\n  + Description: Lọ nhựa đựng mẫu PS 55ml HTM nắp đỏ CÓ NHÃN (l/100lọ-b/500lọ)\n22/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- LICH-2026 - Lịch Xuân PA 2026 - KÍNH TẶNG - 1\n  + ProductID: 36957\n  + ProductCode: LICH-2026\n  + Description: Lịch Xuân PA 2026 - KÍNH TẶNG\n01/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- PAAB_1000010693 - Găng tay y tế có bột PA Malaysia, 5.0g 24cm, size S (h/50đ-th/10h) - 50\n  + ProductID: 32043\n  + ProductCode: PAAB_1000010693\n  + Description: Găng tay y tế có bột PA Malaysia, 5.0g 24cm, size S (h/50đ-th/10h)",
       "reference": "[\n  {\n    \"ProductCode\": \"MV_HTM051549\"\n  },\n  {\n    \"ProductCode\": \"MV_HTM051524\"\n  },\n  {\n    \"ProductCode\": \"MV_ONPS16100\"\n  },\n  {\n    \"ProductCode\": \"PAAB_1000010693\"\n  },\n  {\n    \"ProductCode\": \"MV_BT3\\\"23VN\"\n  }\n]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"MV_C70C30L\"\n  },\n  {\n    \"ProductCode\": \"PAG_GT100-100_CT\"\n  },\n  {\n    \"ProductCode\": \"MV_MVNMPV\"\n  },\n  {\n    \"ProductCode\": \"MV_BT3\\\"23VN\"\n  },\n  {\n    \"ProductCode\": \"MV_C70C20L\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"MV_C70C30L\"\n  },\n  {\n    \"ProductCode\": \"PAG_GT100-100_CT\"\n  },\n  {\n    \"ProductCode\": \"MV_C70C20L\"\n  },\n  {\n    \"ProductCode\": \"MV_MVNMPV\"\n  },\n  {\n    \"ProductCode\": \"MV_BT3\\\"23VN\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
         "list_match": 20
       },
-      "durationMs": 1826,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52KFC:00000017",
-        "application": "crmkh",
-        "processing_time_ms": 1634.5572,
-        "created_at": "2026-03-02T04:20:45+00:00",
-        "prompt_tokens": 2177,
-        "completion_tokens": 83,
-        "total_tokens": 2260
-      }
+      "durationMs": 3243
     },
     {
       "id": "crm_recommendation_0072",
@@ -1586,17 +876,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1388,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO51IQD:00000008",
-        "application": "crmkh",
-        "processing_time_ms": 2814.6692,
-        "created_at": "2026-03-02T03:02:17+00:00",
-        "prompt_tokens": 1627,
-        "completion_tokens": 68,
-        "total_tokens": 1695
-      }
+      "durationMs": 3046
     },
     {
       "id": "crm_recommendation_0073",
@@ -1608,17 +888,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1872,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM13KV:00000026",
-        "application": "crmkh",
-        "processing_time_ms": 1846.6855,
-        "created_at": "2026-03-02T02:41:04+00:00",
-        "prompt_tokens": 1100,
-        "completion_tokens": 87,
-        "total_tokens": 1187
-      }
+      "durationMs": 2560
     },
     {
       "id": "crm_recommendation_0074",
@@ -1630,17 +900,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2328,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QNE1GHL:00000021",
-        "application": "crmkh",
-        "processing_time_ms": 2190.7047,
-        "created_at": "2026-03-02T03:15:05+00:00",
-        "prompt_tokens": 5483,
-        "completion_tokens": 90,
-        "total_tokens": 5573
-      }
+      "durationMs": 2601
     },
     {
       "id": "crm_recommendation_0075",
@@ -1652,17 +912,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1650,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RAEJJJA:00000044",
-        "application": "crmkh",
-        "processing_time_ms": 1431.8234,
-        "created_at": "2026-03-02T04:09:47+00:00",
-        "prompt_tokens": 2288,
-        "completion_tokens": 70,
-        "total_tokens": 2358
-      }
+      "durationMs": 2454
     },
     {
       "id": "crm_recommendation_0076",
@@ -1674,17 +924,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2149,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R6FFRJP:0000004E",
-        "application": "crmkh",
-        "processing_time_ms": 2857.6497,
-        "created_at": "2026-03-02T03:30:07+00:00",
-        "prompt_tokens": 2773,
-        "completion_tokens": 101,
-        "total_tokens": 2874
-      }
+      "durationMs": 3071
     },
     {
       "id": "crm_recommendation_0077",
@@ -1696,17 +936,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2851,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM13US:0000000F",
-        "application": "crmkh",
-        "processing_time_ms": 2755.3304,
-        "created_at": "2026-03-02T03:02:32+00:00",
-        "prompt_tokens": 6693,
-        "completion_tokens": 109,
-        "total_tokens": 6802
-      }
+      "durationMs": 3138
     },
     {
       "id": "crm_recommendation_0078",
@@ -1718,17 +948,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1619,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R6FFROF:00000009",
-        "application": "crmkh",
-        "processing_time_ms": 1935.8845,
-        "created_at": "2026-03-02T03:29:45+00:00",
-        "prompt_tokens": 1601,
-        "completion_tokens": 94,
-        "total_tokens": 1695
-      }
+      "durationMs": 2440
     },
     {
       "id": "crm_recommendation_0079",
@@ -1740,17 +960,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1552,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9GF4RC:00000006",
-        "application": "crmkh",
-        "processing_time_ms": 1487.8291,
-        "created_at": "2026-03-02T02:18:17+00:00",
-        "prompt_tokens": 2495,
-        "completion_tokens": 72,
-        "total_tokens": 2567
-      }
+      "durationMs": 1869
     },
     {
       "id": "crm_recommendation_0080",
@@ -1762,17 +972,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1660,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUQHP9:0000003A",
-        "application": "crmkh",
-        "processing_time_ms": 1588.3774,
-        "created_at": "2026-03-02T02:42:20+00:00",
-        "prompt_tokens": 2409,
-        "completion_tokens": 75,
-        "total_tokens": 2484
-      }
+      "durationMs": 1845
     },
     {
       "id": "crm_recommendation_0081",
@@ -1784,17 +984,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1418,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQU4T:0000000B",
-        "application": "crmkh",
-        "processing_time_ms": 1375.003,
-        "created_at": "2026-03-02T02:27:30+00:00",
-        "prompt_tokens": 951,
-        "completion_tokens": 77,
-        "total_tokens": 1028
-      }
+      "durationMs": 1882
     },
     {
       "id": "crm_recommendation_0082",
@@ -1806,17 +996,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2081,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QM1LRVH:0000011A",
-        "application": "crmkh",
-        "processing_time_ms": 2091.818,
-        "created_at": "2026-03-02T03:48:11+00:00",
-        "prompt_tokens": 2311,
-        "completion_tokens": 118,
-        "total_tokens": 2429
-      }
+      "durationMs": 3360
     },
     {
       "id": "crm_recommendation_0083",
@@ -1828,17 +1008,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1709,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO0N5N5:0000000E",
-        "application": "crmkh",
-        "processing_time_ms": 1896.1701,
-        "created_at": "2026-03-02T03:15:49+00:00",
-        "prompt_tokens": 3162,
-        "completion_tokens": 78,
-        "total_tokens": 3240
-      }
+      "durationMs": 2440
     },
     {
       "id": "crm_recommendation_0084",
@@ -1850,17 +1020,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2576,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52K37:0000003E",
-        "application": "crmkh",
-        "processing_time_ms": 2060.941,
-        "created_at": "2026-03-02T03:48:54+00:00",
-        "prompt_tokens": 6137,
-        "completion_tokens": 124,
-        "total_tokens": 6261
-      }
+      "durationMs": 3189
     },
     {
       "id": "crm_recommendation_0085",
@@ -1872,17 +1032,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1621,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RF41VB3:0000000C",
-        "application": "crmkh",
-        "processing_time_ms": 3117.9612,
-        "created_at": "2026-03-02T03:20:24+00:00",
-        "prompt_tokens": 2921,
-        "completion_tokens": 71,
-        "total_tokens": 2992
-      }
+      "durationMs": 2252
     },
     {
       "id": "crm_recommendation_0086",
@@ -1894,39 +1044,19 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1803,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QM1LRTD:0000008B",
-        "application": "crmkh",
-        "processing_time_ms": 3226.6644,
-        "created_at": "2026-03-02T03:16:25+00:00",
-        "prompt_tokens": 3510,
-        "completion_tokens": 76,
-        "total_tokens": 3586
-      }
+      "durationMs": 2421
     },
     {
       "id": "crm_recommendation_0087",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n25/07/2024 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MATAM - Bồn tồn trữ sáp 10m3, thùng gia nhiệt nước nóng 3 m3 - 1\n  + ProductID: 15129\n  + ProductCode: MATAM\n  + Description: Bồn tồn trữ sáp 10m3, thùng gia nhiệt nước nóng 3 m3\n29/10/2024 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DDTS - Hóa chất tẩy sơn - 3000\n  + ProductID: 15139\n  + ProductCode: DDTS\n  + Description: Hóa chất tẩy sơn\n08/04/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DDPM - Hóa chất phòng mòn - 90\n  + ProductID: 15164\n  + ProductCode: DDPM\n  + Description: Hóa chất phòng mòn\n03/07/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- HT - Lắp đặt hệ thống bơm cấp sáp phòng pha mầu - 1\n  + ProductID: 15166\n  + ProductCode: HT\n  + Description: Lắp đặt hệ thống bơm cấp sáp phòng pha mầu\n01/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BDNH - Sửa chữa, bảo dưỡng nồi hơi điện 300kg - Nến Aroma - 1\n  + ProductID: 15140\n  + ProductCode: BDNH\n  + Description: Sửa chữa, bảo dưỡng nồi hơi điện 300kg - Nến Aroma\n23/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CCLD - Cung cấp, lắp đặt hệ thống cấp sáp xuống tầng 1 từ khu điều màu - 1\n  + ProductID: 15165\n  + ProductCode: CCLD\n  + Description: Cung cấp, lắp đặt hệ thống cấp sáp xuống tầng 1 từ khu điều màu",
       "reference": "[{\"ProductCode\":\"DDTS\"},{\"ProductCode\":\"DDPM\"},{\"ProductCode\":\"BDNH\"},{\"ProductCode\":\"CCLD\"},{\"ProductCode\":\"HT\"}]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"DDTS\"\n  },\n  {\n    \"ProductCode\": \"DDPM\"\n  },\n  {\n    \"ProductCode\": \"BDNH\"\n  },\n  {\n    \"ProductCode\": \"CCLD\"\n  },\n  {\n    \"ProductCode\": \"HT\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"DDTS\"\n  },\n  {\n    \"ProductCode\": \"DDPM\"\n  },\n  {\n    \"ProductCode\": \"BDNH\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
-        "list_match": 100
+        "list_match": 60
       },
-      "durationMs": 1220,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO505NE:0000000E",
-        "application": "crmkh",
-        "processing_time_ms": 1283.9224,
-        "created_at": "2026-03-02T02:34:25+00:00",
-        "prompt_tokens": 906,
-        "completion_tokens": 66,
-        "total_tokens": 972
-      }
+      "durationMs": 1304
     },
     {
       "id": "crm_recommendation_0088",
@@ -1938,17 +1068,7 @@
       "scores": {
         "list_match": 0
       },
-      "durationMs": 1726,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H2PV:00000004",
-        "application": "crmkh",
-        "processing_time_ms": 1496.4205,
-        "created_at": "2026-03-02T02:41:31+00:00",
-        "prompt_tokens": 2428,
-        "completion_tokens": 72,
-        "total_tokens": 2500
-      }
+      "durationMs": 2329
     },
     {
       "id": "crm_recommendation_0089",
@@ -1960,17 +1080,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1397,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R6S8:00000037",
-        "application": "crmkh",
-        "processing_time_ms": 1638.5169,
-        "created_at": "2026-03-02T02:50:40+00:00",
-        "prompt_tokens": 927,
-        "completion_tokens": 74,
-        "total_tokens": 1001
-      }
+      "durationMs": 1575
     },
     {
       "id": "crm_recommendation_0090",
@@ -1982,17 +1092,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1491,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUKF3K:00000020",
-        "application": "crmkh",
-        "processing_time_ms": 1462.9336,
-        "created_at": "2026-03-02T03:27:46+00:00",
-        "prompt_tokens": 1592,
-        "completion_tokens": 67,
-        "total_tokens": 1659
-      }
+      "durationMs": 1798
     },
     {
       "id": "crm_recommendation_0091",
@@ -2004,17 +1104,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1412,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R7K0:00000016",
-        "application": "crmkh",
-        "processing_time_ms": 1536.2075,
-        "created_at": "2026-03-02T03:49:14+00:00",
-        "prompt_tokens": 1347,
-        "completion_tokens": 77,
-        "total_tokens": 1424
-      }
+      "durationMs": 2002
     },
     {
       "id": "crm_recommendation_0092",
@@ -2026,17 +1116,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1434,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE1A6FB:000000C6",
-        "application": "crmkh",
-        "processing_time_ms": 2078.3018,
-        "created_at": "2026-03-02T02:19:22+00:00",
-        "prompt_tokens": 2353,
-        "completion_tokens": 69,
-        "total_tokens": 2422
-      }
+      "durationMs": 1493
     },
     {
       "id": "crm_recommendation_0093",
@@ -2048,17 +1128,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1984,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QMFV00D:00000031",
-        "application": "crmkh",
-        "processing_time_ms": 2459.3942,
-        "created_at": "2026-03-02T04:02:24+00:00",
-        "prompt_tokens": 1451,
-        "completion_tokens": 102,
-        "total_tokens": 1553
-      }
+      "durationMs": 2043
     },
     {
       "id": "crm_recommendation_0094",
@@ -2070,17 +1140,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1542,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUQIPL:00000037",
-        "application": "crmkh",
-        "processing_time_ms": 2072.0105,
-        "created_at": "2026-03-02T04:15:54+00:00",
-        "prompt_tokens": 1017,
-        "completion_tokens": 80,
-        "total_tokens": 1097
-      }
+      "durationMs": 2327
     },
     {
       "id": "crm_recommendation_0095",
@@ -2092,17 +1152,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1710,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RDNAQI7:00000023",
-        "application": "crmkh",
-        "processing_time_ms": 1578.289,
-        "created_at": "2026-03-02T03:57:09+00:00",
-        "prompt_tokens": 917,
-        "completion_tokens": 88,
-        "total_tokens": 1005
-      }
+      "durationMs": 2633
     },
     {
       "id": "crm_recommendation_0096",
@@ -2114,17 +1164,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 3140,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O138:00000014",
-        "application": "crmkh",
-        "processing_time_ms": 3470.3147,
-        "created_at": "2026-03-02T03:45:26+00:00",
-        "prompt_tokens": 6389,
-        "completion_tokens": 121,
-        "total_tokens": 6510
-      }
+      "durationMs": 3802
     },
     {
       "id": "crm_recommendation_0097",
@@ -2136,17 +1176,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1851,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE1A7AK:000000D9",
-        "application": "crmkh",
-        "processing_time_ms": 1524.4438,
-        "created_at": "2026-03-02T03:43:42+00:00",
-        "prompt_tokens": 1669,
-        "completion_tokens": 93,
-        "total_tokens": 1762
-      }
+      "durationMs": 2324
     },
     {
       "id": "crm_recommendation_0098",
@@ -2158,17 +1188,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1716,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R6FFR09:0000003D",
-        "application": "crmkh",
-        "processing_time_ms": 2323.5793,
-        "created_at": "2026-03-02T02:35:57+00:00",
-        "prompt_tokens": 1927,
-        "completion_tokens": 82,
-        "total_tokens": 2009
-      }
+      "durationMs": 2258
     },
     {
       "id": "crm_recommendation_0099",
@@ -2180,17 +1200,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2180,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO506EO:000000BC",
-        "application": "crmkh",
-        "processing_time_ms": 2668.2922,
-        "created_at": "2026-03-02T04:10:30+00:00",
-        "prompt_tokens": 2033,
-        "completion_tokens": 115,
-        "total_tokens": 2148
-      }
+      "durationMs": 3100
     },
     {
       "id": "crm_recommendation_0100",
@@ -2202,17 +1212,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1999,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QMFUV5K:00000028",
-        "application": "crmkh",
-        "processing_time_ms": 1897.2503,
-        "created_at": "2026-03-02T02:45:10+00:00",
-        "prompt_tokens": 3699,
-        "completion_tokens": 82,
-        "total_tokens": 3781
-      }
+      "durationMs": 2344
     },
     {
       "id": "crm_recommendation_0101",
@@ -2224,17 +1224,7 @@
       "scores": {
         "list_match": 20
       },
-      "durationMs": 1509,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE3JUBT:0000000A",
-        "application": "crmkh",
-        "processing_time_ms": 2268.2668,
-        "created_at": "2026-03-02T02:45:58+00:00",
-        "prompt_tokens": 2659,
-        "completion_tokens": 85,
-        "total_tokens": 2744
-      }
+      "durationMs": 1821
     },
     {
       "id": "crm_recommendation_0102",
@@ -2246,17 +1236,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1936,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O035:00000042",
-        "application": "crmkh",
-        "processing_time_ms": 1474.2996,
-        "created_at": "2026-03-02T02:25:07+00:00",
-        "prompt_tokens": 3931,
-        "completion_tokens": 67,
-        "total_tokens": 3998
-      }
+      "durationMs": 3198
     },
     {
       "id": "crm_recommendation_0103",
@@ -2268,17 +1248,7 @@
       "scores": {
         "list_match": 0
       },
-      "durationMs": 2741,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE3JUPQ:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 2884.6508,
-        "created_at": "2026-03-02T03:19:15+00:00",
-        "prompt_tokens": 7425,
-        "completion_tokens": 78,
-        "total_tokens": 7503
-      }
+      "durationMs": 3419
     },
     {
       "id": "crm_recommendation_0104",
@@ -2290,17 +1260,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2131,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RD2BBTT:0000002E",
-        "application": "crmkh",
-        "processing_time_ms": 2903.7898,
-        "created_at": "2026-03-02T04:27:39+00:00",
-        "prompt_tokens": 4315,
-        "completion_tokens": 93,
-        "total_tokens": 4408
-      }
+      "durationMs": 3287
     },
     {
       "id": "crm_recommendation_0105",
@@ -2312,39 +1272,19 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2059,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3H3CO:00000075",
-        "application": "crmkh",
-        "processing_time_ms": 1976.5379,
-        "created_at": "2026-03-02T03:55:41+00:00",
-        "prompt_tokens": 3086,
-        "completion_tokens": 106,
-        "total_tokens": 3192
-      }
+      "durationMs": 2783
     },
     {
       "id": "crm_recommendation_0106",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n14/09/2023 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- 01 - ghép hưng yên  - 1\n  + ProductID: 15450\n  + ProductCode: 01\n  + Description: ghép hưng yên \n08/05/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VT124 - Vòi gạt NN - 20\n  + ProductID: 15850\n  + ProductCode: VT124\n  + Description: Vòi gạt NN\n- VT90 - Nguồn Việt 1.2A - 25\n  + ProductID: 15757\n  + ProductCode: VT90\n  + Description: Nguồn Việt 1.2A\n- VT118 - Khẩu khóa nhựa - 30\n  + ProductID: 15731\n  + ProductCode: VT118\n  + Description: Khẩu khóa nhựa\n28/05/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VT299 - Cút cốc số 1  ( 13-10 ) Zen + NN - 20\n  + ProductID: 16002\n  + ProductCode: VT299\n  + Description: Cút cốc số 1  ( 13-10 ) Zen + NN\n- VT248 - Cút góc NN 10-6 - 20\n  + ProductID: 15951\n  + ProductCode: VT248\n  + Description: Cút góc NN 10-6\n- VT149 - Cút góc 13 -6 ZEN+NN - 20\n  + ProductID: 15860\n  + ProductCode: VT149\n  + Description: Cút góc 13 -6 ZEN+NN\n- VT145 - Cút góc NN dây 6 - 20\n  + ProductID: 15784\n  + ProductCode: VT145\n  + Description: Cút góc NN dây 6\n- VT152 - Cút bơm ZEN + NN - 20\n  + ProductID: 15779\n  + ProductCode: VT152\n  + Description: Cút bơm ZEN + NN\n- VT107 - Cút zen 21 - 20\n  + ProductID: 15754\n  + ProductCode: VT107\n  + Description: Cút zen 21\n29/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VT275 - Cốc trong OGANIC 10inch zen 13 - 5\n  + ProductID: 15978\n  + ProductCode: VT275\n  + Description: Cốc trong OGANIC 10inch zen 13\n- VT110 - Combo lọc chặn 20icnh zen 21 - 5\n  + ProductID: 15830\n  + ProductCode: VT110\n  + Description: Combo lọc chặn 20icnh zen 21\n- VT82 - Bơm GFP50 24V ZEN - 10\n  + ProductID: 15807\n  + ProductCode: VT82\n  + Description: Bơm GFP50 24V ZEN\n05/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VT121 - Van bình áp - 5\n  + ProductID: 15893\n  + ProductCode: VT121\n  + Description: Van bình áp\n- VT229 - Bình áp sắt TANKLIFE - 5\n  + ProductID: 15833\n  + ProductCode: VT229\n  + Description: Bình áp sắt TANKLIFE",
       "reference": "[\n  {\n    \"ProductCode\": \"VT82\"\n  },\n  {\n    \"ProductCode\": \"VT121\"\n  },\n  {\n    \"ProductCode\": \"VT229\"\n  },\n  {\n    \"ProductCode\": \"VT110\"\n  },\n  {\n    \"ProductCode\": \"VT275\"\n  }\n]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"VT121\"\n  },\n  {\n    \"ProductCode\": \"VT229\"\n  },\n  {\n    \"ProductCode\": \"VT275\"\n  },\n  {\n    \"ProductCode\": \"VT110\"\n  },\n  {\n    \"ProductCode\": \"VT82\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"VT121\"\n  },\n  {\n    \"ProductCode\": \"VT229\"\n  },\n  {\n    \"ProductCode\": \"VT82\"\n  },\n  {\n    \"ProductCode\": \"VT110\"\n  },\n  {\n    \"ProductCode\": \"VT275\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1379,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO6K7MK:0000001F",
-        "application": "crmkh",
-        "processing_time_ms": 1491.5276,
-        "created_at": "2026-03-02T03:15:23+00:00",
-        "prompt_tokens": 1236,
-        "completion_tokens": 67,
-        "total_tokens": 1303
-      }
+      "durationMs": 1820
     },
     {
       "id": "crm_recommendation_0107",
@@ -2356,39 +1296,19 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1774,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QM1LS0S:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 1666.3867,
-        "created_at": "2026-03-02T02:56:17+00:00",
-        "prompt_tokens": 2805,
-        "completion_tokens": 72,
-        "total_tokens": 2877
-      }
+      "durationMs": 2185
     },
     {
       "id": "crm_recommendation_0108",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n28/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VT03109 - Tăm chỉ nha khoa ORALTANA - 6\n  + ProductID: 19390\n  + ProductCode: VT03109\n  + Description: Tăm chỉ nha khoa ORALTANA\n05/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VT03812 - Nạng nách dành cho người khuyết tật, chất liệu nhôm, hiệu OROMI, Model : C12 - 1\n  + ProductID: 19448\n  + ProductCode: VT03812\n  + Description: Nạng nách dành cho người khuyết tật, chất liệu nhôm, hiệu OROMI, Model : C12\n09/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VT03369 - Khăn vải khô đa năng Merzy 250gr (12 gói/thùng) - 2\n  + ProductID: 17526\n  + ProductCode: VT03369\n  + Description: Khăn vải khô đa năng Merzy 250gr (12 gói/thùng)\n- VT04004 - KHẨU TRANG 5D MASK QUAI CHUN (người lớn, màu trắng) - 5\n  + ProductID: 17235\n  + ProductCode: VT04004\n  + Description: KHẨU TRANG 5D MASK QUAI CHUN (người lớn, màu trắng)\n- VT00427 - Ghế bô vệ sinh GB-LTS 01 (ghế có bô màu xanh) - 1\n  + ProductID: 16349\n  + ProductCode: VT00427\n  + Description: Ghế bô vệ sinh GB-LTS 01 (ghế có bô màu xanh)\n27/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VT03663 - Bô y tế Việt Nhật, nhựa, Nữ 5413-1 (bao/10c) - 1\n  + ProductID: 17987\n  + ProductCode: VT03663\n  + Description: Bô y tế Việt Nhật, nhựa, Nữ 5413-1 (bao/10c)\n- VT04428 - Bô đứng xanh dương (bô tiểu nam) Việt Thành (b/100c) - 1\n  + ProductID: 17089\n  + ProductCode: VT04428\n  + Description: Bô đứng xanh dương (bô tiểu nam) Việt Thành (b/100c)\n- VT03813 - Nạng nách dùng cho người khuyết tật, chất liệu inox, hiệu OROMI, Model : C11 - 1\n  + ProductID: 15393\n  + ProductCode: VT03813\n  + Description: Nạng nách dùng cho người khuyết tật, chất liệu inox, hiệu OROMI, Model : C11",
       "reference": "[{\"ProductCode\":\"VT03109\"},{\"ProductCode\":\"VT03369\"},{\"ProductCode\":\"VT04004\"},{\"ProductCode\":\"VT03812\"},{\"ProductCode\":\"VT03813\"}]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"VT03109\"\n  },\n  {\n    \"ProductCode\": \"VT04004\"\n  },\n  {\n    \"ProductCode\": \"VT03369\"\n  },\n  {\n    \"ProductCode\": \"VT03663\"\n  },\n  {\n    \"ProductCode\": \"VT04428\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"VT03663\"\n  },\n  {\n    \"ProductCode\": \"VT04428\"\n  },\n  {\n    \"ProductCode\": \"VT03813\"\n  },\n  {\n    \"ProductCode\": \"VT04004\"\n  },\n  {\n    \"ProductCode\": \"VT03369\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1538,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO6K83J:00000025",
-        "application": "crmkh",
-        "processing_time_ms": 1437.6127,
-        "created_at": "2026-03-02T03:56:33+00:00",
-        "prompt_tokens": 1080,
-        "completion_tokens": 72,
-        "total_tokens": 1152
-      }
+      "durationMs": 1922
     },
     {
       "id": "crm_recommendation_0109",
@@ -2400,17 +1320,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2082,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE1A7CK:00000008",
-        "application": "crmkh",
-        "processing_time_ms": 2579.718,
-        "created_at": "2026-03-02T03:08:02+00:00",
-        "prompt_tokens": 2659,
-        "completion_tokens": 109,
-        "total_tokens": 2768
-      }
+      "durationMs": 3049
     },
     {
       "id": "crm_recommendation_0110",
@@ -2422,17 +1332,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1695,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RAEJIKT:00000011",
-        "application": "crmkh",
-        "processing_time_ms": 1791.086,
-        "created_at": "2026-03-02T02:32:51+00:00",
-        "prompt_tokens": 2515,
-        "completion_tokens": 90,
-        "total_tokens": 2605
-      }
+      "durationMs": 2480
     },
     {
       "id": "crm_recommendation_0111",
@@ -2444,17 +1344,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2733,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O137:00000011",
-        "application": "crmkh",
-        "processing_time_ms": 2679.1831,
-        "created_at": "2026-03-02T03:44:08+00:00",
-        "prompt_tokens": 5391,
-        "completion_tokens": 82,
-        "total_tokens": 5473
-      }
+      "durationMs": 3146
     },
     {
       "id": "crm_recommendation_0112",
@@ -2466,17 +1356,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1798,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O05U:0000002C",
-        "application": "crmkh",
-        "processing_time_ms": 2128.5746,
-        "created_at": "2026-03-02T02:28:38+00:00",
-        "prompt_tokens": 3147,
-        "completion_tokens": 82,
-        "total_tokens": 3229
-      }
+      "durationMs": 3159
     },
     {
       "id": "crm_recommendation_0113",
@@ -2488,17 +1368,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1748,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O1DF:0000004B",
-        "application": "crmkh",
-        "processing_time_ms": 1750.0812,
-        "created_at": "2026-03-02T04:30:32+00:00",
-        "prompt_tokens": 3649,
-        "completion_tokens": 80,
-        "total_tokens": 3729
-      }
+      "durationMs": 2224
     },
     {
       "id": "crm_recommendation_0114",
@@ -2510,17 +1380,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2203,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUQI8E:00000014",
-        "application": "crmkh",
-        "processing_time_ms": 2261.8499,
-        "created_at": "2026-03-02T03:16:13+00:00",
-        "prompt_tokens": 3869,
-        "completion_tokens": 101,
-        "total_tokens": 3970
-      }
+      "durationMs": 2944
     },
     {
       "id": "crm_recommendation_0115",
@@ -2532,17 +1392,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1813,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQU0M:00000015",
-        "application": "crmkh",
-        "processing_time_ms": 1823.9165,
-        "created_at": "2026-03-02T02:18:03+00:00",
-        "prompt_tokens": 3592,
-        "completion_tokens": 72,
-        "total_tokens": 3664
-      }
+      "durationMs": 2166
     },
     {
       "id": "crm_recommendation_0116",
@@ -2554,17 +1404,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1756,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO598D8:0000008D",
-        "application": "crmkh",
-        "processing_time_ms": 1774.0883,
-        "created_at": "2026-03-02T03:39:02+00:00",
-        "prompt_tokens": 1110,
-        "completion_tokens": 88,
-        "total_tokens": 1198
-      }
+      "durationMs": 2936
     },
     {
       "id": "crm_recommendation_0117",
@@ -2576,17 +1416,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 2973,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO52K6K:0000002D",
-        "application": "crmkh",
-        "processing_time_ms": 3142.3846,
-        "created_at": "2026-03-02T03:58:10+00:00",
-        "prompt_tokens": 7377,
-        "completion_tokens": 108,
-        "total_tokens": 7485
-      }
+      "durationMs": 4175
     },
     {
       "id": "crm_recommendation_0118",
@@ -2598,17 +1428,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2182,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3PB48:00000019",
-        "application": "crmkh",
-        "processing_time_ms": 3036.9886,
-        "created_at": "2026-03-02T03:06:48+00:00",
-        "prompt_tokens": 4675,
-        "completion_tokens": 87,
-        "total_tokens": 4762
-      }
+      "durationMs": 2829
     },
     {
       "id": "crm_recommendation_0119",
@@ -2620,17 +1440,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1678,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RF41VDM:00000027",
-        "application": "crmkh",
-        "processing_time_ms": 1548.7889,
-        "created_at": "2026-03-02T03:33:08+00:00",
-        "prompt_tokens": 3099,
-        "completion_tokens": 72,
-        "total_tokens": 3171
-      }
+      "durationMs": 2189
     },
     {
       "id": "crm_recommendation_0120",
@@ -2642,17 +1452,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2279,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO6K7DR:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 2484.2895,
-        "created_at": "2026-03-02T02:47:52+00:00",
-        "prompt_tokens": 4350,
-        "completion_tokens": 120,
-        "total_tokens": 4470
-      }
+      "durationMs": 3434
     },
     {
       "id": "crm_recommendation_0121",
@@ -2664,61 +1464,31 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1958,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REIH84J:0000003C",
-        "application": "crmkh",
-        "processing_time_ms": 1897.487,
-        "created_at": "2026-03-02T03:43:20+00:00",
-        "prompt_tokens": 3185,
-        "completion_tokens": 84,
-        "total_tokens": 3269
-      }
+      "durationMs": 3308
     },
     {
       "id": "crm_recommendation_0122",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n07/05/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2110 - Lọc dầu JS2110 - C1805 - 1\n  + ProductID: 46270\n  + ProductCode: JS2110\n  + Description: Lọc dầu JS2110 - C1805\n- JS3708A - Lọc gió JS3708A - AS2205/AS2206-S - 1\n  + ProductID: 21084\n  + ProductCode: JS3708A\n  + Description: Lọc gió JS3708A - AS2205/AS2206-S\n26/05/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CND.PC200-5 - Cút nước dưới PC200-5 - 1\n  + ProductID: 42296\n  + ProductCode: CND.PC200-5\n  + Description: Cút nước dưới PC200-5\n27/05/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TA.A5627A - Lọc gió JS3003A/A5627A - 1\n  + ProductID: 29362\n  + ProductCode: TA.A5627A\n  + Description: Lọc gió JS3003A/A5627A\n28/05/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BD.3D84-12V CLC - Bơm dầu điện 3D84-12V CLC- K rơle - 2\n  + ProductID: 30540\n  + ProductCode: BD.3D84-12V CLC\n  + Description: Bơm dầu điện 3D84-12V CLC- K rơle\n- TA.A6113A - Lọc gió JS3006A/A6113A - 3\n  + ProductID: 16719\n  + ProductCode: TA.A6113A\n  + Description: Lọc gió JS3006A/A6113A\n30/05/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2011 - Lọc dầu JS2011 -  C1009/C1505 - 4\n  + ProductID: 42042\n  + ProductCode: JS2011\n  + Description: Lọc dầu JS2011 -  C1009/C1505\n03/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- RLTM.YANMAR12V.BMB - Rơ le 150ES/12S5SUC12S 12V ( A0818 ) - 2\n  + ProductID: 47475\n  + ProductCode: RLTM.YANMAR12V.BMB\n  + Description: Rơ le 150ES/12S5SUC12S 12V ( A0818 )\n- JS2010 - Lọc dầu JS2010 - C1306/C5718 - 1\n  + ProductID: 28175\n  + ProductCode: JS2010\n  + Description: Lọc dầu JS2010 - C1306/C5718\n- JS2008 - Lọc dầu JS2008 - C1305 - 1\n  + ProductID: 16899\n  + ProductCode: JS2008\n  + Description: Lọc dầu JS2008 - C1305\n07/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BNC.4BG1T - Bơm nước 4BG1 - 1\n  + ProductID: 30346\n  + ProductCode: BNC.4BG1T\n  + Description: Bơm nước 4BG1\n09/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MP.6D102 - KM006 - Máy phát 6D102 - ( 8R - 24V - 40A ) / (PC200-6) - 1\n  + ProductID: 30596\n  + ProductCode: MP.6D102 - KM006\n  + Description: Máy phát 6D102 - ( 8R - 24V - 40A ) / (PC200-6)\n10/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DCR.8PK 1580 - Dây curoa 8PK 1580 - 1\n  + ProductID: 44897\n  + ProductCode: DCR.8PK 1580\n  + Description: Dây curoa 8PK 1580\n- DCR.8PK 1480 - Dây curoa 8PK 1480 - 1\n  + ProductID: 40635\n  + ProductCode: DCR.8PK 1480\n  + Description: Dây curoa 8PK 1480\n- DCR.8PK 1560 - Dây curoa 8PK 1560 - 1\n  + ProductID: 21354\n  + ProductCode: DCR.8PK 1560\n  + Description: Dây curoa 8PK 1560\n18/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2002 - Lọc dầu JS2002 - C5604 - 5\n  + ProductID: 21056\n  + ProductCode: JS2002\n  + Description: Lọc dầu JS2002 - C5604\n21/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CSCM.PC-23 - PC200-5/6/6D95/6D102 (trước) - CSCM - 30\n  + ProductID: 44369\n  + ProductCode: CSCM.PC-23\n  + Description: PC200-5/6/6D95/6D102 (trước) - CSCM\n23/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BNC.6D102/4D102 - Bơm nước 6D102/4D102 ( PC200-6/7)/CM102 - 1\n  + ProductID: 30310\n  + ProductCode: BNC.6D102/4D102\n  + Description: Bơm nước 6D102/4D102 ( PC200-6/7)/CM102\n25/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MP.DH220-3 - DT002 - Máy phát DH220-3 - ( 2R - 28V - 70A ) - 1\n  + ProductID: 40004\n  + ProductCode: MP.DH220-3 - DT002\n  + Description: Máy phát DH220-3 - ( 2R - 28V - 70A )\n30/06/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BT.S6K-9mm/6D14 - Bơm tay ngang S6K/6D14 - 9mm ( E120/E140) - 1\n  + ProductID: 40631\n  + ProductCode: BT.S6K-9mm/6D14\n  + Description: Bơm tay ngang S6K/6D14 - 9mm ( E120/E140)\n- CNT.SK200-1/2/3(6D31) - Cút nước trên SK200-1/2/3(6D31) - 1\n  + ProductID: 36781\n  + ProductCode: CNT.SK200-1/2/3(6D31)\n  + Description: Cút nước trên SK200-1/2/3(6D31)\n- JS2013 - Lọc dầu JS2013 - C5808 - 1\n  + ProductID: 30672\n  + ProductCode: JS2013\n  + Description: Lọc dầu JS2013 - C5808\n- BNC.6D34 - Bơm nước 6D34 - 1\n  + ProductID: 30562\n  + ProductCode: BNC.6D34\n  + Description: Bơm nước 6D34\n- JS1006 - Lọc nhiên liệu JS1006 - FC1003 - 1\n  + ProductID: 24406\n  + ProductCode: JS1006\n  + Description: Lọc nhiên liệu JS1006 - FC1003\n- DCR.6450 - Dây curoa 6450 - 2\n  + ProductID: 20741\n  + ProductCode: DCR.6450\n  + Description: Dây curoa 6450\n- CND.SK200-1/2/3(6D31) - Cút nước dưới SK200-1/2/3(6D31) - 1\n  + ProductID: 16276\n  + ProductCode: CND.SK200-1/2/3(6D31)\n  + Description: Cút nước dưới SK200-1/2/3(6D31)\n05/07/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MD.MDD353 - Máy đề MDD353 - S010-021 - 1\n  + ProductID: 30767\n  + ProductCode: MD.MDD353\n  + Description: Máy đề MDD353 - S010-021\n08/07/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2021 - Lọc dầu JS2021 - C5704/DYO5009 - 5\n  + ProductID: 31685\n  + ProductCode: JS2021\n  + Description: Lọc dầu JS2021 - C5704/DYO5009\n10/07/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MP.MT350 - Máy phát MT350/A032-026 - 1\n  + ProductID: 46652\n  + ProductCode: MP.MT350\n  + Description: Máy phát MT350/A032-026\n17/07/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2035 - Lọc dầu nhớt JS2035 - C5707 - 3\n  + ProductID: 46343\n  + ProductCode: JS2035\n  + Description: Lọc dầu nhớt JS2035 - C5707\n24/07/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS3018B - Lọc gió JS3018B - A6008/A6117-S - 1\n  + ProductID: 44334\n  + ProductCode: JS3018B\n  + Description: Lọc gió JS3018B - A6008/A6117-S\n- JS3018A - Lọc gió JS3018A - A2210/A6117-S - 1\n  + ProductID: 41359\n  + ProductCode: JS3018A\n  + Description: Lọc gió JS3018A - A2210/A6117-S\n11/08/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TBSL.PC200-3 - Turbo PC200-3 (TO4B53/ 465044-0262-6137-82-8600) - 1\n  + ProductID: 37582\n  + ProductCode: TBSL.PC200-3\n  + Description: Turbo PC200-3 (TO4B53/ 465044-0262-6137-82-8600)\n- MD.6D105 - MDP203 - Máy đề 6D105 - ( 13R - 3T - 24V )/( PC200-3) - 1\n  + ProductID: 29285\n  + ProductCode: MD.6D105 - MDP203\n  + Description: Máy đề 6D105 - ( 13R - 3T - 24V )/( PC200-3)\n12/08/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CND.PC300-7 - Cút nước dưới PC300-7 - 1\n  + ProductID: 48212\n  + ProductCode: CND.PC300-7\n  + Description: Cút nước dưới PC300-7\n15/08/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS4005 - Lọc thủy lực JS4005 - H7911 - 1\n  + ProductID: 47213\n  + ProductCode: JS4005\n  + Description: Lọc thủy lực JS4005 - H7911\n- JS4010 - Lọc thủy lực JS4010 - H2706 - 1\n  + ProductID: 39509\n  + ProductCode: JS4010\n  + Description: Lọc thủy lực JS4010 - H2706\n28/08/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2006 - Lọc dầu JS2006 - C5603/C5605 - 2\n  + ProductID: 31213\n  + ProductCode: JS2006\n  + Description: Lọc dầu JS2006 - C5603/C5605\n05/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2018 - Lọc dầu JS2018 - C5715 - 2\n  + ProductID: 28674\n  + ProductCode: JS2018\n  + Description: Lọc dầu JS2018 - C5715\n10/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DCR.8580 - Dây curoa 8580 - 2\n  + ProductID: 37145\n  + ProductCode: DCR.8580\n  + Description: Dây curoa 8580\n- JS4354 - Lọc thủy lực JS4354 - O1301 - 1\n  + ProductID: 18121\n  + ProductCode: JS4354\n  + Description: Lọc thủy lực JS4354 - O1301\n11/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS3075B - Lọc gió JS3075B - A8580/A8579-S - 1\n  + ProductID: 26869\n  + ProductCode: JS3075B\n  + Description: Lọc gió JS3075B - A8580/A8579-S\n- JS3075A - Lọc gió JS3075A - A8579/A8579-S - 1\n  + ProductID: 25115\n  + ProductCode: JS3075A\n  + Description: Lọc gió JS3075A - A8579/A8579-S\n17/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DCR.8PK 1740 - Dây curoa 8PK 1740 - 1\n  + ProductID: 35505\n  + ProductCode: DCR.8PK 1740\n  + Description: Dây curoa 8PK 1740\n22/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TUYODAU.R6.3/8 WHC - Dây dầu R6 trơn cỡ 3/8, hiệu WHC - 20\n  + ProductID: 49815\n  + ProductCode: TUYODAU.R6.3/8 WHC\n  + Description: Dây dầu R6 trơn cỡ 3/8, hiệu WHC\n01/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MD.6D14/15/16 - MDM616 - Máy đề 6D14/15/16 - ( 11R - 2T - 24V ) / (SK07/R1300-5) -  S032-027/MDM616 - 1\n  + ProductID: 22897\n  + ProductCode: MD.6D14/15/16 - MDM616\n  + Description: Máy đề 6D14/15/16 - ( 11R - 2T - 24V ) / (SK07/R1300-5) -  S032-027/MDM616\n04/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS1016 - Lọc nhiên liệu JS1016 - SFC5706/FS1280 - 5\n  + ProductID: 36126\n  + ProductCode: JS1016\n  + Description: Lọc nhiên liệu JS1016 - SFC5706/FS1280\n- JS1018 - Lọc nhiên liệu JS1018 - FC7903 - 5\n  + ProductID: 22989\n  + ProductCode: JS1018\n  + Description: Lọc nhiên liệu JS1018 - FC7903\n08/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS4030 - Lọc thủy lực JS4030 - H7963 - 1\n  + ProductID: 44924\n  + ProductCode: JS4030\n  + Description: Lọc thủy lực JS4030 - H7963\n- OD75LT - Ống dầu 75 ( lõi thép ) - 1\n  + ProductID: 42361\n  + ProductCode: OD75LT\n  + Description: Ống dầu 75 ( lõi thép )\n- JS4003 - Lọc thủy lực JS4003 - H2704 - 1\n  + ProductID: 42288\n  + ProductCode: JS4003\n  + Description: Lọc thủy lực JS4003 - H2704\n- OKD.DH - Ổ khóa điện DH - 1\n  + ProductID: 17783\n  + ProductCode: OKD.DH\n  + Description: Ổ khóa điện DH\n21/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2071 - Lọc dầu JS2071 - 2\n  + ProductID: 46920\n  + ProductCode: JS2071\n  + Description: Lọc dầu JS2071\n25/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- HLX-6838 - Lọc dầu HLX-6838/C-5811 - 2\n  + ProductID: 50932\n  + ProductCode: HLX-6838\n  + Description: Lọc dầu HLX-6838/C-5811\n03/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS3154A - Lọc gió JS3154A - AS5412 - 1\n  + ProductID: 19193\n  + ProductCode: JS3154A\n  + Description: Lọc gió JS3154A - AS5412\n11/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CND.PC200-3 - Cút nước dưới PC200-3 - 1\n  + ProductID: 48242\n  + ProductCode: CND.PC200-3\n  + Description: Cút nước dưới PC200-3\n- CQ.6D102.6L12C - Cánh quạt 6D102 - 6 lỗ 12 cánh - 1\n  + ProductID: 30966\n  + ProductCode: CQ.6D102.6L12C\n  + Description: Cánh quạt 6D102 - 6 lỗ 12 cánh\n21/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DCR.6580 - Dây curoa 6580 - 3\n  + ProductID: 32653\n  + ProductCode: DCR.6580\n  + Description: Dây curoa 6580\n04/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- MD.MW4046 - Máy đề MW4046 - S040-046/MDN123 - 1\n  + ProductID: 48777\n  + ProductCode: MD.MW4046\n  + Description: Máy đề MW4046 - S040-046/MDN123\n05/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- HLX-5977 - Lọc diesel HLX-5977/FC56270/FC5713 - 1\n  + ProductID: 50907\n  + ProductCode: HLX-5977\n  + Description: Lọc diesel HLX-5977/FC56270/FC5713\n- JS4045 - Lọc thủy lực JS4045 - H5629 - 1\n  + ProductID: 41186\n  + ProductCode: JS4045\n  + Description: Lọc thủy lực JS4045 - H5629\n- JS3029A - Lọc gió JS3029A - A5666/A5668S - 1\n  + ProductID: 40949\n  + ProductCode: JS3029A\n  + Description: Lọc gió JS3029A - A5666/A5668S\n- JS4106 - Lọc thủy lực JS4106 - H5635/XZ200 - 1\n  + ProductID: 34883\n  + ProductCode: JS4106\n  + Description: Lọc thủy lực JS4106 - H5635/XZ200\n06/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- HLX-5969 - Lọc diesel HLX-5969/FC-5613 - 2\n  + ProductID: 50711\n  + ProductCode: HLX-5969\n  + Description: Lọc diesel HLX-5969/FC-5613\n24/12/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CQ.YANMAR75 - Cánh quạt YANMAR 75 - 1\n  + ProductID: 19057\n  + ProductCode: CQ.YANMAR75\n  + Description: Cánh quạt YANMAR 75\n05/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TA.A5639A - Lọc gió JS3001A/A5639A - 1\n  + ProductID: 24894\n  + ProductCode: TA.A5639A\n  + Description: Lọc gió JS3001A/A5639A\n06/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CNT.PC200-6/6D102 - Cút nước trên PC200-6/6D102 - 1\n  + ProductID: 25549\n  + ProductCode: CNT.PC200-6/6D102\n  + Description: Cút nước trên PC200-6/6D102\n- CND.PC200-6/6D102 - Cút nước dưới PC200-6/6D102 - 1\n  + ProductID: 18878\n  + ProductCode: CND.PC200-6/6D102\n  + Description: Cút nước dưới PC200-6/6D102\n14/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS1044C - Lọc nhiên liệu JS1044C - SFC1909 - 10B - 1\n  + ProductID: 35000\n  + ProductCode: JS1044C\n  + Description: Lọc nhiên liệu JS1044C - SFC1909 - 10B\n- JS1077 - Lọc nhiên liệu JS1077 - FC56270/FC5713 - 1\n  + ProductID: 24567\n  + ProductCode: JS1077\n  + Description: Lọc nhiên liệu JS1077 - FC56270/FC5713\n15/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CQ.6D22-CS - Cánh quạt 6D22 4 lỗ 6 cánh 800 ( Cốt sắt ) - 1\n  + ProductID: 48062\n  + ProductCode: CQ.6D22-CS\n  + Description: Cánh quạt 6D22 4 lỗ 6 cánh 800 ( Cốt sắt )\n- MD.PC30/40 - MDP340 - Máy đề PC30/PC40 - ( 11R - 2T - 12V ) S044-014/MDP340 - 1\n  + ProductID: 46173\n  + ProductCode: MD.PC30/40 - MDP340\n  + Description: Máy đề PC30/PC40 - ( 11R - 2T - 12V ) S044-014/MDP340\n- CQ.6D22/SK300 SF-0963 - Cánh quạt 6D22/SK300 SF-0963 - 1\n  + ProductID: 22227\n  + ProductCode: CQ.6D22/SK300 SF-0963\n  + Description: Cánh quạt 6D22/SK300 SF-0963\n16/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2038 - Lọc dầu JS2038 - C2705 - 2\n  + ProductID: 31518\n  + ProductCode: JS2038\n  + Description: Lọc dầu JS2038 - C2705\n22/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS4039 - Lọc thủy lực JS4039 - O1010/1012 - 4\n  + ProductID: 27518\n  + ProductCode: JS4039\n  + Description: Lọc thủy lực JS4039 - O1010/1012\n23/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DCR.8720 - Dây Curoa 8720 - 2\n  + ProductID: 45512\n  + ProductCode: DCR.8720\n  + Description: Dây Curoa 8720\n24/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DCR.8PK 1705 - Dây Curoa 8PK 1705 - 1\n  + ProductID: 35663\n  + ProductCode: DCR.8PK 1705\n  + Description: Dây Curoa 8PK 1705\n- CSCM.PC-43 - PC400-6/7/PC450-7 (trước-sau) - CSCM (1/2/3/4/5) - 4\n  + ProductID: 20175\n  + ProductCode: CSCM.PC-43\n  + Description: PC400-6/7/PC450-7 (trước-sau) - CSCM (1/2/3/4/5)\n28/01/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS1009 - Lọc nhiên liệu JS1009 - FC5602/5702/5501 - 1\n  + ProductID: 41386\n  + ProductCode: JS1009\n  + Description: Lọc nhiên liệu JS1009 - FC5602/5702/5501\n02/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2054 - Lọc dầu JS2054 - C1304 - 2\n  + ProductID: 45410\n  + ProductCode: JS2054\n  + Description: Lọc dầu JS2054 - C1304\n- CSCM.EX-43 - ZX200-3/240-3/250-3 - 4HK1 ( trước ) - Vuông - CSCM - 2\n  + ProductID: 39515\n  + ProductCode: CSCM.EX-43\n  + Description: ZX200-3/240-3/250-3 - 4HK1 ( trước ) - Vuông - CSCM\n- JS1076C - Lọc nhiên liệu JS1076 - SFC7939-30 - Cốc - 1\n  + ProductID: 25826\n  + ProductCode: JS1076C\n  + Description: Lọc nhiên liệu JS1076 - SFC7939-30 - Cốc\n05/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- JS2056 - Lọc dầu JS2056 - C1701/C52080 - 10\n  + ProductID: 37612\n  + ProductCode: JS2056\n  + Description: Lọc dầu JS2056 - C1701/C52080\n- MD.DH55/S55 - MDH512 - Máy đề DH55/S55 - ( 9R - 2T - 12V ) S044-011/MDH512 - 1\n  + ProductID: 35830\n  + ProductCode: MD.DH55/S55 - MDH512\n  + Description: Máy đề DH55/S55 - ( 9R - 2T - 12V ) S044-011/MDH512\n27/02/2026 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BT.S6K-13mmm/6D14 - Bơm tay S6K-13mmm/6D14 ( EX120/140) - 1\n  + ProductID: 45153\n  + ProductCode: BT.S6K-13mmm/6D14\n  + Description: Bơm tay S6K-13mmm/6D14 ( EX120/140)\n- BNC.6D125/PC400-6 - Bơm nước 6D125/PC400-6 - BẮT ỐC - 1\n  + ProductID: 22942\n  + ProductCode: BNC.6D125/PC400-6\n  + Description: Bơm nước 6D125/PC400-6 - BẮT ỐC",
       "reference": "[\n  {\n    \"ProductCode\": \"JS2056\"\n  },\n  {\n    \"ProductCode\": \"JS2054\"\n  },\n  {\n    \"ProductCode\": \"JS1076C\"\n  },\n  {\n    \"ProductCode\": \"CSCM.EX-43\"\n  },\n  {\n    \"ProductCode\": \"JS4039\"\n  }\n]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"JS2056\"\n  },\n  {\n    \"ProductCode\": \"JS4039\"\n  },\n  {\n    \"ProductCode\": \"JS1016\"\n  },\n  {\n    \"ProductCode\": \"JS1018\"\n  },\n  {\n    \"ProductCode\": \"CSCM.PC-23\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"JS2056\"\n  },\n  {\n    \"ProductCode\": \"JS4039\"\n  },\n  {\n    \"ProductCode\": \"JS1016\"\n  },\n  {\n    \"ProductCode\": \"JS1018\"\n  },\n  {\n    \"ProductCode\": \"JS2002\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
         "list_match": 40
       },
-      "durationMs": 2700,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O1DS:0000004A",
-        "application": "crmkh",
-        "processing_time_ms": 2895.8384,
-        "created_at": "2026-03-02T04:31:27+00:00",
-        "prompt_tokens": 7503,
-        "completion_tokens": 95,
-        "total_tokens": 7598
-      }
+      "durationMs": 2685
     },
     {
       "id": "crm_recommendation_0123",
       "status": "done",
       "input": "Gợi ý 5 hàng hóa khách hàng sẽ lấy vào ngày 02/03/2026 để gợi ý cho nhân viên kinh doanh lên đơn hàng nhanh chóng cho khách hàng dựa vào lịch sử đặt hàng của khách hàng.\n\nLưu ý:\n- Kết quả CHỈ trả ra danh sách mã hàng có trong dữ liệu hàng hóa gửi lên, không tự ý lấy ở ngoài.\n- PHẢI GIỮ NGUYÊN CHÍNH XÁC mã hàng hóa (ProductCode) như đã cung cấp, không được thay đổi format, thêm bớt ký tự hay loại bỏ khoảng trắng.\n- Nếu ít hơn 5 thì chỉ trả đúng số lượng\n- Cấu trúc kết quả trả về JSON array (chỉ cần ProductCode):\n[\n  {\n    \"ProductCode\": \"MÃ_HÀNG_HÓA\"\n  }\n]\n\nLịch sử đặt hàng của khách hàng:\n06/08/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- LD 4324100202 - Cốc lọc khí  HW hiệu WACO/HCL 0202 ( Cốc lọc bầu sấy ) - 17\n  + ProductID: 28287\n  + ProductCode: LD 4324100202\n  + Description: Cốc lọc khí  HW hiệu WACO/HCL 0202 ( Cốc lọc bầu sấy )\n- CNN003 - Cút nối nhanh nhựa thẳng phi 6 - 100\n  + ProductID: 27268\n  + ProductCode: CNN003\n  + Description: Cút nối nhanh nhựa thẳng phi 6\n- CNN047 - Cút nối nhanh nhựa cong chữ L phi 10 - 100\n  + ProductID: 26866\n  + ProductCode: CNN047\n  + Description: Cút nối nhanh nhựa cong chữ L phi 10\n- CNN005 - Cút nối nhanh nhựa thẳng phi 10 - 100\n  + ProductID: 26835\n  + ProductCode: CNN005\n  + Description: Cút nối nhanh nhựa thẳng phi 10\n- CNN044-1076 - Cút nối nhanh cong chữ L nhựa phi 5/6 - 100\n  + ProductID: 26419\n  + ProductCode: CNN044-1076\n  + Description: Cút nối nhanh cong chữ L nhựa phi 5/6\n- CNN004 - Cút nối nhanh nhựa thẳng phi 8 - 100\n  + ProductID: 25452\n  + ProductCode: CNN004\n  + Description: Cút nối nhanh nhựa thẳng phi 8\n- CNN007 - Cút nối nhanh nhựa thẳng phi 14 - 50\n  + ProductID: 23179\n  + ProductCode: CNN007\n  + Description: Cút nối nhanh nhựa thẳng phi 14\n- BCSTTGCB-430095/1 - Bạc cao su treo thanh giằng ca binh A7/T7 bạc nâng cấp 2025 thế hệ mới 2 chi tiết WG.......430095/1 - 4\n  + ProductID: 22795\n  + ProductCode: BCSTTGCB-430095/1\n  + Description: Bạc cao su treo thanh giằng ca binh A7/T7 bạc nâng cấp 2025 thế hệ mới 2 chi tiết WG.......430095/1\n- CNNN4 - Cút nối nhanh nhựa thẳng phi 4 - 100\n  + ProductID: 19562\n  + ProductCode: CNNN4\n  + Description: Cút nối nhanh nhựa thẳng phi 4\n- CNN16 - Cút nối nhanh nhựa thẳng phi 16 - 50\n  + ProductID: 18093\n  + ProductCode: CNN16\n  + Description: Cút nối nhanh nhựa thẳng phi 16\n- CNN055 - Cút nối nhanh nhựa cong L 14 - 50\n  + ProductID: 17365\n  + ProductCode: CNN055\n  + Description: Cút nối nhanh nhựa cong L 14\n- CNN006 - Cút nối nhanh nhựa thẳng phi 12 - 59465/1 - 100\n  + ProductID: 17364\n  + ProductCode: CNN006\n  + Description: Cút nối nhanh nhựa thẳng phi 12 - 59465/1\n- CN030 - Cút nối nhanh nhựa chữ T phi 16 - 50\n  + ProductID: 16774\n  + ProductCode: CN030\n  + Description: Cút nối nhanh nhựa chữ T phi 16\n11/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- RTTOI3024P - Rô tuyn HW 30*24 bên phải Sinotruk Hàng tôi cao tầng WG…..0018+002(có vú mỡ) - 6\n  + ProductID: 26639\n  + ProductCode: RTTOI3024P\n  + Description: Rô tuyn HW 30*24 bên phải Sinotruk Hàng tôi cao tầng WG…..0018+002(có vú mỡ)\n- QCSMOC - Quả cao su giằng cầu móc 3 lớp 58*65*28 (Vỏ sắt thân giữa cao su trong lõi sắt) Hãng NUJIA - 20\n  + ProductID: 26205\n  + ProductCode: QCSMOC\n  + Description: Quả cao su giằng cầu móc 3 lớp 58*65*28 (Vỏ sắt thân giữa cao su trong lõi sắt) Hãng NUJIA\n- OTK-1302 - Ốc tắc kê sau Chenglong H7 24*1.5*140 HCL......1302 (tĩnh điện mầu đồng Ê cu có nắp chụp bụi) - 60\n  + ProductID: 25959\n  + ProductCode: OTK-1302\n  + Description: Ốc tắc kê sau Chenglong H7 24*1.5*140 HCL......1302 (tĩnh điện mầu đồng Ê cu có nắp chụp bụi)\n- TLN080 - Láp ngang HW dài 1.11cm AZ…...0223 FX - 6\n  + ProductID: 25072\n  + ProductCode: TLN080\n  + Description: Láp ngang HW dài 1.11cm AZ…...0223 FX\n- OTK-1312 - Ốc tắc kê trước Chenglong H7 - 22*1.5*110 HCL......1312 (tĩnh điện mầu đồng thân có ren Ê cu rỗng) đồng bịt đít hàng nâng cấp chịu lực - 60\n  + ProductID: 25034\n  + ProductCode: OTK-1312\n  + Description: Ốc tắc kê trước Chenglong H7 - 22*1.5*110 HCL......1312 (tĩnh điện mầu đồng thân có ren Ê cu rỗng) đồng bịt đít hàng nâng cấp chịu lực\n- TLD-0261 - Láp dọc HW dài 71 / 46 then WG......  0261 Hàng chính hãng hộp đỏ - 5\n  + ProductID: 21243\n  + ProductCode: TLD-0261\n  + Description: Láp dọc HW dài 71 / 46 then WG......  0261 Hàng chính hãng hộp đỏ\n- RTTOI3024T - Rô tuyn HW 30*24 bên trái Sinotruk Hàng tôi cao tầng WG…..0018+001(có vú mỡ) - 10\n  + ProductID: 15990\n  + ProductCode: RTTOI3024T\n  + Description: Rô tuyn HW 30*24 bên trái Sinotruk Hàng tôi cao tầng WG…..0018+001(có vú mỡ)\n15/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CHTGNMK 9 / 10 / 12 / 16 5 0010 - Chia hơi thớt giữa nắp máy khâu 9/10/12/16 WG.....5 0010 - 20\n  + ProductID: 15452\n  + ProductCode: CHTGNMK 9 / 10 / 12 / 16 5 0010\n  + Description: Chia hơi thớt giữa nắp máy khâu 9/10/12/16 WG.....5 0010\n17/09/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- VDK0036 - Van điều khiển độ cao bóng hơi Shacman X3000 DZ...../0036/0037  (Nhập táo số) ( ST ) - 20\n  + ProductID: 28982\n  + ProductCode: VDK0036\n  + Description: Van điều khiển độ cao bóng hơi Shacman X3000 DZ...../0036/0037  (Nhập táo số) ( ST )\n05/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- TLN-31340223/HCH - Trục láp ngang HW 26/26/26 then dài 1.12mm AZ……..31340223 HCH - 4\n  + ProductID: 27691\n  + ProductCode: TLN-31340223/HCH\n  + Description: Trục láp ngang HW 26/26/26 then dài 1.12mm AZ……..31340223 HCH\n20/10/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- CDBEN001 - Chia dầu ben HW hãng HYVA PT-1220-250 - 4\n  + ProductID: 22870\n  + ProductCode: CDBEN001\n  + Description: Chia dầu ben HW hãng HYVA PT-1220-250\n- T8T-.0126/0135 - Trục 8 then AZ…..0126/0135  (ống điếu bánh răng lai) nhập nhà Mõ chính hãng - 8\n  + ProductID: 16128\n  + ProductCode: T8T-.0126/0135\n  + Description: Trục 8 then AZ…..0126/0135  (ống điếu bánh răng lai) nhập nhà Mõ chính hãng\n17/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- BRVSDCL HW 0271 - Bộ bánh răng vi sai con lợn HW AZ…..0071/0271 (8/22 trạc thập phi 27) Hãng châu hải - 3\n  + ProductID: 27406\n  + ProductCode: BRVSDCL HW 0271\n  + Description: Bộ bánh răng vi sai con lợn HW AZ…..0071/0271 (8/22 trạc thập phi 27) Hãng châu hải\n- OTK-1303 - Ốc tắc kê sau HH8T/DONGFENG 22*1.5*135 HCL......1303 (tĩnh điện mầu đồng Ê cu có nắp chụp bụi) - 60\n  + ProductID: 24968\n  + ProductCode: OTK-1303\n  + Description: Ốc tắc kê sau HH8T/DONGFENG 22*1.5*135 HCL......1303 (tĩnh điện mầu đồng Ê cu có nắp chụp bụi)\n- OTK-1309 - Ốc tắc kê MÓC FUWA  16T thân cân - 22*60-22*1.5*130 - HCL......1309  (tĩnh điện mầu đồng Ê cu rỗng)  đồng bịt đít hàng nâng cấp chịu lực - 60\n  + ProductID: 15624\n  + ProductCode: OTK-1309\n  + Description: Ốc tắc kê MÓC FUWA  16T thân cân - 22*60-22*1.5*130 - HCL......1309  (tĩnh điện mầu đồng Ê cu rỗng)  đồng bịt đít hàng nâng cấp chịu lực\n21/11/2025 đơn hàng với danh sách hàng hóa (-Mã hàng - Diễn giải - Số lượng):\n- DCM002 - Đinh chốt xe móc, có đinh 9-8 lỗ QYX 90K ( ST) - 5\n  + ProductID: 24633\n  + ProductCode: DCM002\n  + Description: Đinh chốt xe móc, có đinh 9-8 lỗ QYX 90K ( ST)\n- TCON0042-P - Tổng côn dưới Howo A7 0042 Perner ( ST ) - 6\n  + ProductID: 20318\n  + ProductCode: TCON0042-P\n  + Description: Tổng côn dưới Howo A7 0042 Perner ( ST )",
       "reference": "[\n  {\n    \"ProductCode\": \"OTK-1302\"\n  },\n  {\n    \"ProductCode\": \"OTK-1312\"\n  },\n  {\n    \"ProductCode\": \"OTK-1303\"\n  },\n  {\n    \"ProductCode\": \"OTK-1309\"\n  },\n  {\n    \"ProductCode\": \"DCM002\"\n  }\n]",
-      "output": "```json\n[\n  {\n    \"ProductCode\": \"OTK-1303\"\n  },\n  {\n    \"ProductCode\": \"OTK-1309\"\n  },\n  {\n    \"ProductCode\": \"OTK-1302\"\n  },\n  {\n    \"ProductCode\": \"OTK-1312\"\n  },\n  {\n    \"ProductCode\": \"CNN003\"\n  }\n]\n```",
+      "output": "```json\n[\n  {\n    \"ProductCode\": \"OTK-1303\"\n  },\n  {\n    \"ProductCode\": \"OTK-1309\"\n  },\n  {\n    \"ProductCode\": \"TCON0042-P\"\n  },\n  {\n    \"ProductCode\": \"DCM002\"\n  },\n  {\n    \"ProductCode\": \"BRVSDCL HW 0271\"\n  }\n]\n```",
       "tool_calls": [],
       "scores": {
-        "list_match": 80
+        "list_match": 60
       },
-      "durationMs": 1830,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RF41V47:00000003",
-        "application": "crmkh",
-        "processing_time_ms": 1729.778,
-        "created_at": "2026-03-02T03:00:29+00:00",
-        "prompt_tokens": 3136,
-        "completion_tokens": 70,
-        "total_tokens": 3206
-      }
+      "durationMs": 2615
     },
     {
       "id": "crm_recommendation_0124",
@@ -2730,17 +1500,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 3830,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM134V:000000BB",
-        "application": "crmkh",
-        "processing_time_ms": 3801.0882,
-        "created_at": "2026-03-02T02:20:21+00:00",
-        "prompt_tokens": 3138,
-        "completion_tokens": 203,
-        "total_tokens": 3341
-      }
+      "durationMs": 5386
     },
     {
       "id": "crm_recommendation_0125",
@@ -2752,17 +1512,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 2410,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM14NH:00000038",
-        "application": "crmkh",
-        "processing_time_ms": 4138.2111,
-        "created_at": "2026-03-02T04:25:00+00:00",
-        "prompt_tokens": 5007,
-        "completion_tokens": 93,
-        "total_tokens": 5100
-      }
+      "durationMs": 3153
     },
     {
       "id": "crm_recommendation_0126",
@@ -2774,17 +1524,7 @@
       "scores": {
         "list_match": 20
       },
-      "durationMs": 2919,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3O13B:0000004D",
-        "application": "crmkh",
-        "processing_time_ms": 2129.7596,
-        "created_at": "2026-03-02T03:56:28+00:00",
-        "prompt_tokens": 6707,
-        "completion_tokens": 107,
-        "total_tokens": 6814
-      }
+      "durationMs": 3328
     },
     {
       "id": "crm_recommendation_0127",
@@ -2796,17 +1536,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1801,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO6K7D1:0000001A",
-        "application": "crmkh",
-        "processing_time_ms": 1888.6499,
-        "created_at": "2026-03-02T02:50:23+00:00",
-        "prompt_tokens": 1639,
-        "completion_tokens": 92,
-        "total_tokens": 1731
-      }
+      "durationMs": 2473
     },
     {
       "id": "crm_recommendation_0128",
@@ -2818,17 +1548,7 @@
       "scores": {
         "list_match": 20
       },
-      "durationMs": 1529,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9GF5D7:00000002",
-        "application": "crmkh",
-        "processing_time_ms": 2261.1343,
-        "created_at": "2026-03-02T03:04:31+00:00",
-        "prompt_tokens": 1273,
-        "completion_tokens": 85,
-        "total_tokens": 1358
-      }
+      "durationMs": 1677
     },
     {
       "id": "crm_recommendation_0129",
@@ -2840,17 +1560,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1702,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RAEJJ6N:0000001F",
-        "application": "crmkh",
-        "processing_time_ms": 1952.7178,
-        "created_at": "2026-03-02T03:22:32+00:00",
-        "prompt_tokens": 1907,
-        "completion_tokens": 72,
-        "total_tokens": 1979
-      }
+      "durationMs": 2419
     },
     {
       "id": "crm_recommendation_0130",
@@ -2862,17 +1572,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1309,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QMFUVU3:00000082",
-        "application": "crmkh",
-        "processing_time_ms": 1234.2747,
-        "created_at": "2026-03-02T04:12:21+00:00",
-        "prompt_tokens": 738,
-        "completion_tokens": 62,
-        "total_tokens": 800
-      }
+      "durationMs": 1302
     },
     {
       "id": "crm_recommendation_0131",
@@ -2884,17 +1584,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 2099,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RE3JULT:00000043",
-        "application": "crmkh",
-        "processing_time_ms": 1637.4299,
-        "created_at": "2026-03-02T03:22:08+00:00",
-        "prompt_tokens": 4773,
-        "completion_tokens": 77,
-        "total_tokens": 4850
-      }
+      "durationMs": 2708
     },
     {
       "id": "crm_recommendation_0132",
@@ -2906,17 +1596,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2212,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R8IQV83:00000004",
-        "application": "crmkh",
-        "processing_time_ms": 1748.7562,
-        "created_at": "2026-03-02T04:06:14+00:00",
-        "prompt_tokens": 4082,
-        "completion_tokens": 93,
-        "total_tokens": 4175
-      }
+      "durationMs": 3475
     },
     {
       "id": "crm_recommendation_0133",
@@ -2928,17 +1608,7 @@
       "scores": {
         "list_match": 20
       },
-      "durationMs": 2128,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QMFUVUC:0000005D",
-        "application": "crmkh",
-        "processing_time_ms": 2360.1011,
-        "created_at": "2026-03-02T04:04:07+00:00",
-        "prompt_tokens": 4110,
-        "completion_tokens": 92,
-        "total_tokens": 4202
-      }
+      "durationMs": 2627
     },
     {
       "id": "crm_recommendation_0134",
@@ -2950,17 +1620,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 2599,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO5058N:000000AD",
-        "application": "crmkh",
-        "processing_time_ms": 2617.8839,
-        "created_at": "2026-03-02T02:20:50+00:00",
-        "prompt_tokens": 6251,
-        "completion_tokens": 74,
-        "total_tokens": 6325
-      }
+      "durationMs": 2642
     },
     {
       "id": "crm_recommendation_0135",
@@ -2972,17 +1632,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1645,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUKFI8:00000006",
-        "application": "crmkh",
-        "processing_time_ms": 1585.5619,
-        "created_at": "2026-03-02T04:08:55+00:00",
-        "prompt_tokens": 2737,
-        "completion_tokens": 77,
-        "total_tokens": 2814
-      }
+      "durationMs": 1893
     },
     {
       "id": "crm_recommendation_0136",
@@ -2994,17 +1644,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1557,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO51J4F:00000078",
-        "application": "crmkh",
-        "processing_time_ms": 1581.4865,
-        "created_at": "2026-03-02T03:52:16+00:00",
-        "prompt_tokens": 1746,
-        "completion_tokens": 72,
-        "total_tokens": 1818
-      }
+      "durationMs": 1831
     },
     {
       "id": "crm_recommendation_0137",
@@ -3016,17 +1656,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1804,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REPVCLQ:00000072",
-        "application": "crmkh",
-        "processing_time_ms": 1794.6733,
-        "created_at": "2026-03-02T03:51:31+00:00",
-        "prompt_tokens": 1599,
-        "completion_tokens": 96,
-        "total_tokens": 1695
-      }
+      "durationMs": 2320
     },
     {
       "id": "crm_recommendation_0138",
@@ -3038,17 +1668,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1423,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3PAHR:0000003D",
-        "application": "crmkh",
-        "processing_time_ms": 1514.5372,
-        "created_at": "2026-03-02T02:23:13+00:00",
-        "prompt_tokens": 823,
-        "completion_tokens": 67,
-        "total_tokens": 890
-      }
+      "durationMs": 1804
     },
     {
       "id": "crm_recommendation_0139",
@@ -3060,17 +1680,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1691,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO0N5US:00000025",
-        "application": "crmkh",
-        "processing_time_ms": 1921.7388,
-        "created_at": "2026-03-02T03:42:38+00:00",
-        "prompt_tokens": 3198,
-        "completion_tokens": 71,
-        "total_tokens": 3269
-      }
+      "durationMs": 1752
     },
     {
       "id": "crm_recommendation_0140",
@@ -3082,17 +1692,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1358,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QNE1GJT:0000000D",
-        "application": "crmkh",
-        "processing_time_ms": 1558.3814,
-        "created_at": "2026-03-02T03:15:48+00:00",
-        "prompt_tokens": 1071,
-        "completion_tokens": 71,
-        "total_tokens": 1142
-      }
+      "durationMs": 1841
     },
     {
       "id": "crm_recommendation_0141",
@@ -3104,17 +1704,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2489,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RD2BAD5:000000E8",
-        "application": "crmkh",
-        "processing_time_ms": 1831.8454,
-        "created_at": "2026-03-02T02:35:45+00:00",
-        "prompt_tokens": 1910,
-        "completion_tokens": 107,
-        "total_tokens": 2017
-      }
+      "durationMs": 3510
     },
     {
       "id": "crm_recommendation_0142",
@@ -3126,17 +1716,7 @@
       "scores": {
         "list_match": 0
       },
-      "durationMs": 2173,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RDNAQC3:00000003",
-        "application": "crmkh",
-        "processing_time_ms": 1257.2112,
-        "created_at": "2026-03-02T03:29:55+00:00",
-        "prompt_tokens": 3889,
-        "completion_tokens": 89,
-        "total_tokens": 3978
-      }
+      "durationMs": 2624
     },
     {
       "id": "crm_recommendation_0143",
@@ -3148,17 +1728,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2149,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9GF5I4:00000052",
-        "application": "crmkh",
-        "processing_time_ms": 1772.8905,
-        "created_at": "2026-03-02T03:32:45+00:00",
-        "prompt_tokens": 5140,
-        "completion_tokens": 79,
-        "total_tokens": 5219
-      }
+      "durationMs": 2429
     },
     {
       "id": "crm_recommendation_0144",
@@ -3170,17 +1740,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1851,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RDNAPQB:00000064",
-        "application": "crmkh",
-        "processing_time_ms": 4121.761,
-        "created_at": "2026-03-02T03:03:23+00:00",
-        "prompt_tokens": 1729,
-        "completion_tokens": 98,
-        "total_tokens": 1827
-      }
+      "durationMs": 2245
     },
     {
       "id": "crm_recommendation_0145",
@@ -3192,17 +1752,7 @@
       "scores": {
         "list_match": 40
       },
-      "durationMs": 1949,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QO3R6SH:00000001",
-        "application": "crmkh",
-        "processing_time_ms": 2137.8068,
-        "created_at": "2026-03-02T02:41:38+00:00",
-        "prompt_tokens": 2828,
-        "completion_tokens": 91,
-        "total_tokens": 2919
-      }
+      "durationMs": 2129
     },
     {
       "id": "crm_recommendation_0146",
@@ -3214,17 +1764,7 @@
       "scores": {
         "list_match": 60
       },
-      "durationMs": 1749,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8QNE1G3L:00000055",
-        "application": "crmkh",
-        "processing_time_ms": 1745.4576,
-        "created_at": "2026-03-02T02:47:59+00:00",
-        "prompt_tokens": 1593,
-        "completion_tokens": 89,
-        "total_tokens": 1682
-      }
+      "durationMs": 2106
     },
     {
       "id": "crm_recommendation_0147",
@@ -3236,17 +1776,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1512,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8R9GF4T1:00000031",
-        "application": "crmkh",
-        "processing_time_ms": 1830.4534,
-        "created_at": "2026-03-02T02:32:03+00:00",
-        "prompt_tokens": 1211,
-        "completion_tokens": 74,
-        "total_tokens": 1285
-      }
+      "durationMs": 2134
     },
     {
       "id": "crm_recommendation_0148",
@@ -3258,17 +1788,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 2448,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8RD2BANT:00000005",
-        "application": "crmkh",
-        "processing_time_ms": 2204.1216,
-        "created_at": "2026-03-02T02:29:08+00:00",
-        "prompt_tokens": 3252,
-        "completion_tokens": 103,
-        "total_tokens": 3355
-      }
+      "durationMs": 2900
     },
     {
       "id": "crm_recommendation_0149",
@@ -3280,17 +1800,7 @@
       "scores": {
         "list_match": 80
       },
-      "durationMs": 1980,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REUQIHR:00000046",
-        "application": "crmkh",
-        "processing_time_ms": 1876.3477,
-        "created_at": "2026-03-02T03:53:42+00:00",
-        "prompt_tokens": 3834,
-        "completion_tokens": 92,
-        "total_tokens": 3926
-      }
+      "durationMs": 2131
     },
     {
       "id": "crm_recommendation_0150",
@@ -3302,17 +1812,7 @@
       "scores": {
         "list_match": 100
       },
-      "durationMs": 1949,
-      "metadata": {
-        "model": "misa-ai-1.0-plus",
-        "trace_id": "0HNJL8REM144H:0000001C",
-        "application": "crmkh",
-        "processing_time_ms": 3005.2583,
-        "created_at": "2026-03-02T03:20:12+00:00",
-        "prompt_tokens": 2154,
-        "completion_tokens": 93,
-        "total_tokens": 2247
-      }
+      "durationMs": 1918
     }
   ]
 }

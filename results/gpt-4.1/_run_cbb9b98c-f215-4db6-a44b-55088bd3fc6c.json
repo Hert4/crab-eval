@@ -1,0 +1,12 @@
+{
+  "runId": "cbb9b98c-f215-4db6-a44b-55088bd3fc6c",
+  "model": "gpt-4.1",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 08:27:36",
+  "durationMs": 83900,
+  "tasks": {
+    "crm_intent_analysis": {
+      "accuracy": 57.89
+    }
+  }
+}
