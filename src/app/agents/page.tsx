@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useAgentsStore, AgentProfile } from '@/store/agentsStore'
-import { testConnection, getApiKey, setApiKey } from '@/lib/openai'
+import { testConnection, getApiKey, setApiKey, removeApiKey } from '@/lib/openai'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { Plus, Trash2, CheckCircle2, XCircle, Loader2, Pencil, X, Check } from 'lucide-react'
@@ -95,6 +95,7 @@ function AgentCard({ agent }: { agent: AgentProfile }) {
 
   const del = () => {
     if (!confirm(`Remove agent "${agent.name}"?`)) return
+    removeApiKey(agent.apiKeyName)
     removeAgent(agent.id)
     toast(`Removed "${agent.name}"`)
   }
@@ -164,7 +165,7 @@ function AgentCard({ agent }: { agent: AgentProfile }) {
             </Field>
           </div>
           <div className="col-span-2">
-            <Field label="API Key" hint="Stored in localStorage">
+            <Field label="API Key" hint="Stored in sessionStorage (cleared on tab close)">
               <div className="flex gap-2">
                 <input type="password" value={form.apiKey} onChange={e => setForm(f => ({ ...f, apiKey: e.target.value }))} className={`flex-1 ${inputCls.replace('w-full ', '')}`} placeholder="sk-..." />
                 <div className="flex items-center gap-1">
@@ -256,7 +257,7 @@ function AddAgentForm({ onClose }: { onClose: () => void }) {
           </Field>
         </div>
         <div className="col-span-2">
-          <Field label="API Key" hint="Stored in localStorage">
+          <Field label="API Key" hint="Stored in sessionStorage (cleared on tab close)">
             <div className="flex gap-2">
               <input type="password" value={form.apiKey} onChange={e => setForm(f => ({ ...f, apiKey: e.target.value }))} className={`flex-1 ${inputCls.replace('w-full ', '')}`} placeholder="sk-..." />
               <div className="flex items-center gap-1">

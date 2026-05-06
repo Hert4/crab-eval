@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
+import { assertLocalRequest } from '@/lib/serverGuard'
 
 const TASK_SPECS_DIR = path.resolve(process.cwd(), 'datasets', 'task-specs')
 
@@ -35,6 +36,9 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const guard = assertLocalRequest(req)
+  if (guard) return guard
+
   try {
     ensureDir()
 

@@ -45,17 +45,34 @@ export const useResultsStore = create<ResultsState>()(
           try { return JSON.parse(localStorage.getItem(key) ?? 'null') } catch { return null }
         },
         setItem: (key, value) => {
-          try {
-            localStorage.setItem(key, JSON.stringify(value))
-          } catch (e) {
-            // QuotaExceededError — trim oldest run and retry once
-            const current = JSON.parse(localStorage.getItem(key) ?? '{"state":{"runs":[]}}')
-            if (current?.state?.runs?.length > 1) {
-              current.state.runs = current.state.runs.slice(1)
-              try { localStorage.setItem(key, JSON.stringify(current)) } catch { /* give up */ }
-            }
-            console.warn('[resultsStore] localStorage quota exceeded, oldest run trimmed', e)
+          // Drop oldest runs in a loop until the payload fits, instead of
+          // giving up after a single retry. Disk is the source of truth so
+          // dropped localStorage entries can always be reloaded.
+          const trimRunsBy = (raw: string, n: number): string => {
+            try {
+              const parsed = JSON.parse(raw) as { state?: { runs?: unknown[] } }
+              if (parsed?.state?.runs && parsed.state.runs.length > n) {
+                parsed.state.runs = parsed.state.runs.slice(n)
+                return JSON.stringify(parsed)
+              }
+            } catch { /* fall through */ }
+            return raw
           }
+
+          let serialized = JSON.stringify(value)
+          let attempts = 0
+          while (attempts < 50) {
+            try {
+              localStorage.setItem(key, serialized)
+              return
+            } catch {
+              const trimmed = trimRunsBy(serialized, 1)
+              if (trimmed === serialized) break  // nothing left to trim
+              serialized = trimmed
+              attempts++
+            }
+          }
+          console.warn(`[resultsStore] localStorage quota exceeded — dropped ${attempts} oldest run(s) from cache. Disk results are unaffected.`)
         },
         removeItem: (key) => localStorage.removeItem(key),
       },

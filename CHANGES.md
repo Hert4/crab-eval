@@ -1,160 +1,63 @@
-# CHANGELOG — Crab Eval UI/UX & Feature Updates
+# CHANGELOG — Crab Eval
 
-> Tài liệu này ghi lại toàn bộ thay đổi đã thực hiện trong session làm việc gần nhất.
-> Dùng để biết bắt đầu từ đâu khi tiếp tục.
-
----
-
-## Trạng thái hiện tại (2026-04-01)
-
-**TypeScript:** `npx tsc --noEmit` → **0 errors**
-**Dev server:** `npm run dev` → `localhost:3000`
+> Tài liệu này ghi lại các change đáng nhớ. Chi tiết kiến trúc xem `CLAUDE.md`.
 
 ---
 
-## Phần 1 — UI/UX Redesign (đã hoàn thành)
+## 2026-05-06 — Audit fix pass
 
-### 1.1 Layout toàn trang — "full-viewport pattern"
+Một loạt sửa chữa sau code audit. `npx tsc --noEmit` → **0 errors**.
 
-**Vấn đề gốc:** Tất cả các trang (Task Generator, Run Eval, Config) đều bị scroll mất CTA button.
+### Security
+- **API key giờ thật sự dùng `sessionStorage`** (xóa khi đóng tab) — trước đó code dùng `localStorage` ngược với doc. Nếu bạn đang upgrade từ build cũ, các key cũ trong `localStorage` không tự xóa nhưng cũng không còn được đọc; có thể clear thủ công ở DevTools.
+- **`assertLocalRequest()`** (`src/lib/serverGuard.ts`): các route ghi đĩa (`POST/DELETE /api/results`, `POST /api/task-generator`) chặn non-loopback request khi `NODE_ENV === 'production'`. Dev mode no-op để workflow local không thay đổi.
+- Xóa agent giờ gọi `removeApiKey(agent.apiKeyName)` cleanup sessionStorage.
 
-**Pattern đã áp dụng cho tất cả trang:**
+### Eval correctness
+- **`passFailJudgeScore` math fix**: judge trả thừa item không còn skew score. `passFailToScore(results, expectedCount)` slice đến `expectedCount` — extras ignore, missing đếm fail. `criteriaJudgeScore` dùng cùng logic.
+- **`parseJudgeScore` robust**: ưu tiên `<score>N</score>` / `Score: N` / `Rating: N` tags, fallback **số CUỐI** trong text. Sửa bug "Out of 10 → 10" khi judge có preamble. Mọi judge prompt đã thêm `"Respond with ONLY a single integer on its own line"`.
+- **Global judge semaphore**: `_judgeAcquire` cap tổng judge call song song = `max(2, concurrency * 2)` thay vì fan-out `(N × concurrency × 8 metrics)`.
+
+### Storage
+- **Per-run filename**: `POST /api/results` ghi `results/<model>/<task>.<runId>.json` thay vì `<task>.json` → rerun cùng task không đè lịch sử. GET dedupe theo runId field nên backward-compat với file format cũ.
+- **`resultsStore` quota recovery loop**: drop oldest runs đến khi vừa thay vì retry 1 lần rồi give up.
+
+### Language-agnostic metrics
+- **`accuracy()`** không còn nhúng VN keywords. Hỗ trợ override qua `record.metadata.{unknown_label, unknown_synonyms, valid_label_range}`.
+- **`refusalAccuracy()`** đọc `metadata.refusal_phrases`; default fallback chỉ English.
+- **`tokenize()`** dùng `Intl.Segmenter` khi có (CJK / từ-ghép tiếng Việt) → fallback whitespace.
+
+### Compat / wrapper
+- **`chat_template_kwargs.enable_thinking=false`** giờ auto-retry: nếu API 400 vì field này (OpenAI/Anthropic gateway), retry không gửi. Cùng nhánh retry với `max_tokens` vs `max_completion_tokens`.
+
+### Cleanup
+- Xóa dead code visual-eval ở `api/results/route.ts` (`simResultToRunResult`, `simId`, `finalScore` branches). Visual Eval feature đã bị gỡ khỏi codebase từ trước.
+- Rewrite `CLAUDE.md` khớp code thực tế: bỏ Milestone 1/2/3, Frozen Oracle, Multi-Judge, τ-bench Phase 2 (đều không tồn tại). Cập nhật 6 task types thực, sessionStorage flow, judge global semaphore, per-run filename.
+- `tsconfig.json` exclude `.next/dev` — fix 2 stray `.next/dev/types/validator.ts` errors.
+
+---
+
+## 2026-04-01 — UI/UX redesign + LangSmith-inspired features
+
+### Layout — "full-viewport pattern"
+Tất cả page dùng:
 ```
 flex flex-col h-screen
   ├── shrink-0   → Header
   ├── flex-1 min-h-0 overflow-y-auto  → Body (scrollable)
   └── shrink-0   → Footer với CTA button (luôn visible)
 ```
+- `ScrollArea` shadcn không dùng được trong flex layout → thay bằng `div className="flex-1 min-h-0 overflow-y-auto"`
+- `sticky` không hoạt động khi parent có `overflow: auto` → dùng full-height flex
 
-**Lưu ý quan trọng:**
-- `ScrollArea` từ shadcn/ui **không dùng được** trong flex layout → thay bằng `div className="flex-1 min-h-0 overflow-y-auto"`
-- `sticky` **không hoạt động** khi parent có `overflow: auto` → dùng full-height flex thay thế
-
-### 1.2 Files đã sửa
-
-| File | Thay đổi |
-|---|---|
-| `src/app/layout.tsx` | Thêm `suppressHydrationWarning` vào `<main>` — fix hydration mismatch toàn app |
-| `src/app/config/page.tsx` | Rewrite hoàn toàn: 2-column grid (Target + Judge), Save button pinned footer, custom toggle |
-| `src/app/run/page.tsx` | Rewrite: split panel, log table, pinned Run button, empty states |
-| `src/components/layout/Sidebar.tsx` | Bỏ subtitle "LLM Evaluation", bỏ footer "Quick Start", bỏ robot icon |
-
-### 1.3 Task Generator — Split Panel Layout
-
-**File:** `src/app/task-generator/page.tsx`
-
-**Cấu trúc mới của Step 1:**
-```
-h-full flex
-  ├── LEFT  w-[46%] flex flex-col overflow-y-auto border-r p-5
-  │         (Upload + textarea 18 rows)
-  └── RIGHT flex-1 min-w-0 flex flex-col h-full
-            ├── shrink-0: Detection card (type badge)
-            ├── flex-1 min-h-0 overflow-y-auto: Model config accordion + Tool defs
-            └── shrink-0 border-t: CTA button "Generate..."
-```
-
-**CrawdAnim size:** `size={72}` trong detection card.
-
-**State vars đã thêm vào Step1Extract:**
-```ts
-const [modelConfigOpen, setModelConfigOpen] = useState(false)
-const [sysPromptOpen, setSysPromptOpen] = useState(false)
-```
-
-**TYPE_META constant** (6 task types, mỗi type có label + description + colorCls).
+### LangSmith-inspired features
+1. **Post-eval Analysis Breakdown** — `/api/results/[runId]` trả `RunAnalysis` với buckets theo `metadata.difficulty/intent/tags`. UI ở Leaderboard tab "Analysis", Recharts BarChart per-metric.
+2. **Failure Mode Detection** — `FailurePatternsPanel` gom failed records theo 5 pattern (`errors`, `low_overall`, `tool_fail`, `low_faith`, `low_criteria`). Click pattern → highlight rows.
+3. **Custom Attributes** — `DatasetAttributesModal` cho phép gắn key-value metadata tùy chỉnh lên dataset, persist qua `dataset.metadata.customAttributes`.
 
 ---
 
-## Phần 2 — LangSmith-Inspired Features (đã hoàn thành)
-
-Lấy cảm hứng từ reverse engineering LangSmith Insights Agent (xem `langsmith.md`).
-
-### 2.1 Feature 1 — Post-eval Analysis Breakdown
-
-**Mục đích:** Sau khi chạy eval, xem breakdown score theo difficulty/intent/tag trong Leaderboard.
-
-**Data flow:**
-```
-QAPair.difficulty/intent/tags
-  → DataRecord.metadata (đã có từ task-generator export)
-  → RecordLog.metadata  (MỚI — evalRunner copy vào)
-  → disk: results/<model>/<task>.json
-  → GET /api/results/[runId]
-  → RunAnalysis { tasks[].byDifficulty, byIntent, byTag }
-  → AnalysisBreakdown component trong Leaderboard tab
-```
-
-**Files mới/sửa:**
-- `src/types/index.ts` — thêm `RecordLog.metadata?`, `DatasetMetadata.customAttributes?`, types: `MetricBreakdownBucket`, `TaskAnalysis`, `RunAnalysis`
-- `src/lib/evalRunner.ts` — thêm `...(record.metadata ? { metadata: record.metadata } : {})` khi tạo RecordLog (~line 309)
-- `src/store/datasetsStore.ts` — `partialize` giờ giữ slim metadata (difficulty/intent/tags/test_aspect/attack_type/expected_behavior), thêm action `updateDatasetMetadata`
-- `src/app/api/results/[runId]/route.ts` — **file mới**, GET handler đọc disk files, tính buckets
-- `src/components/ui/AnalysisBreakdown.tsx` — **file mới**, Recharts BarChart + table per breakdown dimension
-- `src/app/leaderboard/page.tsx` — thêm tab "Leaderboard / Analysis", nút Microscope per row, `loadAnalysis()` function
-
-**Backward compat:** Runs cũ không có `metadata` trong logs → Analysis tab hiện "No metadata — re-run eval to populate". Không break gì cả.
-
-**Để có data breakdown:** Phải chạy eval MỚI sau khi deploy (runs cũ không có metadata).
-
-### 2.2 Feature 2 — Failure Mode Detection
-
-**Mục đích:** Sau khi eval xong, tự động gom nhóm records bị fail theo pattern, click để highlight trong log table.
-
-**Hoạt động hoàn toàn client-side** — không cần API, đọc từ `evalSessionStore.logs`.
-
-**5 patterns được detect:**
-| ID | Label | Điều kiện |
-|---|---|---|
-| `errors` | API / Runtime Errors | `log.error != null` |
-| `low_overall` | Low Overall Score | avg(all scores) < 50% |
-| `tool_fail` | Tool Call Failures | tool_call_exact / ast_accuracy / task_success_rate < 50% |
-| `low_faith` | Low Faithfulness | faithfulness / answer_relevancy < 50% |
-| `low_criteria` | Failed Criteria | criteria_score / instruction_adherence < 50% |
-
-**Files mới/sửa:**
-- `src/components/ui/FailurePatternsPanel.tsx` — **file mới**
-- `src/app/run/page.tsx` — thêm `highlightedPatternId`, `highlightedIds` state, row highlight styling, `<FailurePatternsPanel>` sau scrollable logs
-
-**Bug đã fix:** Header của panel là `<div onClick>` (không phải `<button>`) để tránh lỗi `<button> cannot be descendant of <button>`. "Clear highlight" dùng `<span role="button">`.
-
-### 2.3 Feature 3 — Custom Attributes cho Dataset
-
-**Mục đích:** Gắn key-value metadata tùy chỉnh lên dataset (ví dụ: domain, version, owner).
-
-**Files mới/sửa:**
-- `src/components/ui/DatasetAttributesModal.tsx` — **file mới**, modal key-value editor với diff detection
-- `src/app/datasets/page.tsx` — thêm nút `SlidersHorizontal`, attribute pills dưới gt_metrics badges, `DatasetAttributesModal` ở cuối JSX
-
-**Persist:** `customAttributes` nằm ở `dataset.metadata` (dataset level) → persist tự động qua `...d` spread trong `partialize`.
-
----
-
-## Kiến trúc quan trọng cần nhớ
-
-### API Keys
-```ts
-getApiKey('target_api_key')   // sessionStorage — xóa khi đóng tab
-getApiKey('judge_api_key')
-getApiKey(`agent_${id}_key`)  // per agent profile
-```
-**Không bao giờ** lưu API key vào Zustand/localStorage.
-
-### Stores và persist behavior
-| Store | Persist | Ghi chú |
-|---|---|---|
-| `datasetsStore` | localStorage | `partialize` strip context/output, giữ slim metadata |
-| `resultsStore` | localStorage | Strip `taskDetails` trước khi persist — chỉ giữ scores |
-| `configStore` | localStorage | Toàn bộ config (không có key) |
-| `agentsStore` | localStorage | Profile list (không có key) |
-| `evalSessionStore` | **Không** | Runtime only — reset khi reload |
-| `taskGeneratorStore` | localStorage | Chỉ persist `detectedLanguage` + `composeOptions` |
-
-### Dark theme
-Chỉ dùng `--crab-*` CSS vars. Không hardcode Tailwind colors (e.g. không dùng `bg-blue-100`).
-Dark-compatible exceptions: `bg-emerald-900/30 text-emerald-300`, `bg-sky-900/30 text-sky-300`, etc.
-
-### Score colors (nhất quán toàn app)
+## Score colors (consistent toàn app)
 ```ts
 score >= 80 → #8fba7a  (green)
 score >= 60 → #7dbfd4  (blue)
@@ -164,38 +67,32 @@ else        → #f87171  (red)
 
 ---
 
-## Việc còn lại / Known issues
+## Backlog / Known issues
 
-### Đã biết nhưng chưa fix
-- **Nút Microscope 🔬 trong Leaderboard không click được**: Chưa reproduce được nguyên nhân rõ ràng. Cần kiểm tra xem có nested interactive element nào trong table row không.
-- **Analysis tab Feature 1**: Cần chạy eval MỚI (sau deploy) mới có breakdown data. Runs cũ sẽ hiện "No metadata available".
+### React 19 lint strictness (pre-existing, không block build)
+`npm run lint` báo `react-hooks/set-state-in-effect` ở vài chỗ:
+- `agents/page.tsx` (form sync, hydration)
+- `run/page.tsx` (selectedIds derive từ datasets)
+- `gt-generator/page.tsx`, `datasets/page.tsx`, `task-generator/page.tsx` (hydration)
+- `DatasetAttributesModal.tsx` (rows sync từ prop)
 
-### Cải tiến chưa làm (backlog)
-- **Per-metric breakdown** trong Leaderboard thay vì chỉ global avg — giúp phân tích `tool_call_exact` riêng thay vì bị average với các metrics khác
-- **Pass rate metric**: % records đạt ≥80% trên TẤT CẢ metrics (không phải average) — phản ánh thực tế hơn global avg
-- **Multi-model compare run**: Chọn 2 config, chạy song song, side-by-side scores
-- **Export failure logs**: Download các records thuộc failure pattern để debug offline
+Đây là warning React 19 mới, hành vi vẫn đúng. Refactor sang `useSyncExternalStore` hoặc derived-during-render khi rảnh.
 
-### Vấn đề với global avg score
-Global 72.2% **không hoàn toàn đáng tin** vì:
-1. Average gộp metrics không đồng đều (binary `tool_call_exact` vs partial `ast_accuracy`)
-2. `criteria_score` phụ thuộc chất lượng judge prompt và criteria text
-3. Easy records (avg 95%) "kéo lên" score của hard records (avg 30%)
-→ Nên nhìn `tool_call_exact` và `task_success_rate` riêng biệt
+### Trong roadmap
+- **Per-metric breakdown** trong Leaderboard thay vì chỉ global avg
+- **Pass rate metric**: % records đạt ≥80% trên TẤT CẢ metrics
+- **Multi-model compare run**: side-by-side scores
+- **Export failure logs**: download các records thuộc failure pattern
+- **Vitest + golden tests** cho `metrics.ts` (BLEU, ROUGE, F1, AST, toolCallExact)
+- **Split** `src/lib/taskGenerator.ts` (2256 lines) + `src/app/task-generator/page.tsx` (3133 lines) thành modules nhỏ hơn
 
 ---
 
-## Quick reference — chạy lại từ đầu
+## Quick reference
 
 ```bash
 cd /home/dev/Develop_2026/crab-eval
 npm run dev          # localhost:3000
 npx tsc --noEmit     # type check, phải = 0 errors
+npm run lint         # eslint
 ```
-
-### Thứ tự workflow chuẩn
-1. `/task-generator` → Upload doc → Generate dataset → Send to Run Eval
-2. `/datasets` → Kiểm tra dataset, thêm custom attributes nếu cần
-3. `/config` → Set target model + judge model
-4. `/run` → Chọn datasets → Run Evaluation → xem Failure Patterns khi done
-5. `/leaderboard` → Load from disk → xem score → click 🔬 để xem Analysis breakdown

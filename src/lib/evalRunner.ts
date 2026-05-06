@@ -106,6 +106,16 @@ function makeSemaphore(limit: number) {
 // ── Module-level runner (survives page navigation) ───────────────────
 let _runningPromise: Promise<void> | null = null
 
+// Module-level judge semaphore — bounds total in-flight judge calls across
+// all targets. Without this, a multi-target eval can fan-out to
+// (N targets × concurrency × ~8 judge metrics) parallel calls and overwhelm
+// the judge upstream.
+let _judgeAcquire: (<T>(fn: () => Promise<T>) => Promise<T>) | null = null
+
+function withJudgeLimit<T>(fn: () => Promise<T>): Promise<T> {
+  return _judgeAcquire ? _judgeAcquire(fn) : fn()
+}
+
 export function isEvalRunning(): boolean {
   return !!_runningPromise
 }
@@ -146,6 +156,7 @@ export function stopEval() {
   abortEval()
   useEvalSessionStore.getState().stopSession()
   _runningPromise = null
+  _judgeAcquire = null
 }
 
 // ── Per-record processing args/result ───────────────────────────────
@@ -215,33 +226,33 @@ async function processRecord({
 
     if (metrics.includes('faithfulness') && record.context) {
       const faithfulnessPrompt = record.reference
-        ? `Context: ${record.context}\n\nReference answer: ${record.reference}\n\nModel answer: ${output}\n\nRate faithfulness 1-10: does the model answer stay grounded in the context and align with the reference answer? (integer only):`
-        : `Context: ${record.context}\n\nAnswer: ${output}\n\nRate faithfulness 1-10 (integer only):`
+        ? `Context: ${record.context}\n\nReference answer: ${record.reference}\n\nModel answer: ${output}\n\nRate faithfulness 1-10: does the model answer stay grounded in the context and align with the reference answer? Respond with ONLY a single integer on its own line. No explanation.`
+        : `Context: ${record.context}\n\nAnswer: ${output}\n\nRate faithfulness 1-10. Respond with ONLY a single integer on its own line. No explanation.`
       judgePromises.push(
-        judgeScore(judgeOpenAI, faithfulnessPrompt, abortSignal)
+        withJudgeLimit(() => judgeScore(judgeOpenAI, faithfulnessPrompt, abortSignal))
           .then(v => ['faithfulness', v] as [string, number | null])
       )
     }
     if (metrics.includes('answer_relevancy')) {
       judgePromises.push(
-        judgeScore(judgeOpenAI, `Question: ${record.input}\n\nAnswer: ${output}\n\nRate relevancy 1-10 (integer only):`, abortSignal)
+        withJudgeLimit(() => judgeScore(judgeOpenAI, `Question: ${record.input}\n\nAnswer: ${output}\n\nRate relevancy 1-10. Respond with ONLY a single integer on its own line. No explanation.`, abortSignal))
           .then(v => ['answer_relevancy', v] as [string, number | null])
       )
     }
     if (metrics.includes('answer_correctness') && record.reference) {
       judgePromises.push(
-        judgeScore(
+        withJudgeLimit(() => judgeScore(
           judgeOpenAI,
-          `Question: ${record.input}\n\nReference answer: ${record.reference}\n\nModel answer: ${output}\n\nRate how well the model answer aligns with the reference answer in content and factual correctness, 1-10 (10=fully aligned/equivalent, 5=partially correct, 1=completely wrong or missing). Accept semantically equivalent phrasing, different valid alternatives, and different ordering. Integer only:`,
+          `Question: ${record.input}\n\nReference answer: ${record.reference}\n\nModel answer: ${output}\n\nRate how well the model answer aligns with the reference answer in content and factual correctness, 1-10 (10=fully aligned/equivalent, 5=partially correct, 1=completely wrong or missing). Accept semantically equivalent phrasing, different valid alternatives, and different ordering. Respond with ONLY a single integer on its own line. No explanation.`,
           abortSignal
-        ).then(v => ['answer_correctness', v] as [string, number | null])
+        )).then(v => ['answer_correctness', v] as [string, number | null])
       )
     }
     if (metrics.includes('criteria_score') && record.reference) {
       const criteria = record.reference.split('\n').map(s => s.trim()).filter(Boolean)
       if (criteria.length > 0) {
         judgePromises.push(
-          criteriaJudgeScore(judgeOpenAI, record.input, output, gotToolCalls, criteria, abortSignal, record.tools as OpenAITool[] | undefined)
+          withJudgeLimit(() => criteriaJudgeScore(judgeOpenAI, record.input, output, gotToolCalls, criteria, abortSignal, record.tools as OpenAITool[] | undefined))
             .then(v => ['criteria_score', v] as [string, number | null])
         )
       }
@@ -254,7 +265,7 @@ async function processRecord({
           return `${role}: ${content}`
         }).join('\n')
       judgePromises.push(
-        judgeScore(judgeOpenAI, `Conversation history:\n${historyText}\n\nFinal question: ${record.input}\n\nModel answer: ${output}\n\nDoes the model correctly use or reference information from the conversation history? Rate 1-10 (10=excellent context use, 1=ignored context):`, abortSignal)
+        withJudgeLimit(() => judgeScore(judgeOpenAI, `Conversation history:\n${historyText}\n\nFinal question: ${record.input}\n\nModel answer: ${output}\n\nDoes the model correctly use or reference information from the conversation history? Rate 1-10 (10=excellent context use, 1=ignored context). Respond with ONLY a single integer on its own line.`, abortSignal))
           .then(v => ['context_retention', v] as [string, number | null])
       )
     }
@@ -266,7 +277,7 @@ async function processRecord({
           return `${role}: ${content}`
         }).join('\n')
       judgePromises.push(
-        judgeScore(judgeOpenAI, `Conversation history:\n${historyText}\n\nModel answer: ${output}\n\nDoes the model's answer contradict or conflict with anything in the conversation history? Rate 1-10 (10=fully consistent with no contradictions, 1=major contradictions):`, abortSignal)
+        withJudgeLimit(() => judgeScore(judgeOpenAI, `Conversation history:\n${historyText}\n\nModel answer: ${output}\n\nDoes the model's answer contradict or conflict with anything in the conversation history? Rate 1-10 (10=fully consistent with no contradictions, 1=major contradictions). Respond with ONLY a single integer on its own line.`, abortSignal))
           .then(v => ['consistency_score', v] as [string, number | null])
       )
     }
@@ -274,12 +285,12 @@ async function processRecord({
       const constraints = record.metadata.constraints as string[]
       if (Array.isArray(constraints) && constraints.length > 0) {
         judgePromises.push(
-          passFailJudgeScore(
+          withJudgeLimit(() => passFailJudgeScore(
             judgeOpenAI,
             `Instruction given to model:\n"""\n${record.input}\n"""\n\nModel output:\n"""\n${output}\n"""\n\nEvaluate whether the output satisfies each constraint below.\nFor each constraint, answer only "pass" or "fail".\n\nConstraints:\n${constraints.map((c, i) => `${i + 1}. ${c}`).join('\n')}\n\nRespond with ONLY a JSON array of "pass"/"fail" values, one per constraint, in order.\nExample for 3 constraints: ["pass", "fail", "pass"]\nNo explanation. No markdown.`,
             constraints.length,
             abortSignal
-          ).then(v => ['instruction_adherence', v] as [string, number | null])
+          )).then(v => ['instruction_adherence', v] as [string, number | null])
         )
       }
     }
@@ -287,18 +298,18 @@ async function processRecord({
       const keyFacts = record.metadata.key_facts as string[]
       if (Array.isArray(keyFacts) && keyFacts.length > 0) {
         judgePromises.push(
-          passFailJudgeScore(
+          withJudgeLimit(() => passFailJudgeScore(
             judgeOpenAI,
             `Model summary:\n"""\n${output}\n"""\n\nCheck whether each key fact below is present (explicitly or implicitly) in the summary.\nFor each fact, answer only "pass" (present) or "fail" (missing).\n\nKey facts:\n${keyFacts.map((f, i) => `${i + 1}. ${f}`).join('\n')}\n\nRespond with ONLY a JSON array of "pass"/"fail" values, one per fact, in order.\nExample for 3 facts: ["pass", "fail", "pass"]\nNo explanation. No markdown.`,
             keyFacts.length,
             abortSignal
-          ).then(v => ['coverage_score', v] as [string, number | null])
+          )).then(v => ['coverage_score', v] as [string, number | null])
         )
       }
     }
     if (metrics.includes('faithfulness') && !record.context && record.metadata?.source_text) {
       judgePromises.push(
-        judgeScore(judgeOpenAI, `Source text: ${String(record.metadata.source_text)}\n\nSummary: ${output}\n\nRate how faithful the summary is to the source text (no hallucinations or unsupported claims) 1-10 (integer only):`, abortSignal)
+        withJudgeLimit(() => judgeScore(judgeOpenAI, `Source text: ${String(record.metadata!.source_text)}\n\nSummary: ${output}\n\nRate how faithful the summary is to the source text (no hallucinations or unsupported claims) 1-10. Respond with ONLY a single integer on its own line.`, abortSignal))
           .then(v => ['faithfulness', v] as [string, number | null])
       )
     }
@@ -354,16 +365,26 @@ async function _runAllTargets(
 
   const concurrencyLimit = Math.max(1, Math.min(10, config.concurrency ?? 3))
 
-  // Each target gets its own semaphore but shares the abort signal + judge
-  const targetPromises = config.targets.map(target =>
-    _runEvalForTarget(target, datasets, judgeOpenAI, config.judgeConfig.enabled, concurrencyLimit, abortSignal)
-      .catch((e) => {
-        if (e instanceof DOMException && e.name === 'AbortError') throw e
-        useEvalSessionStore.getState().setModelError(target.modelId, String(e))
-      })
-  )
+  // Total in-flight judge calls across ALL targets. Without this cap, a
+  // multi-target eval can fan-out to (N targets × concurrency × ~8 metrics)
+  // concurrent judge requests and overwhelm the judge upstream.
+  const judgeLimit = Math.max(2, concurrencyLimit * 2)
+  _judgeAcquire = makeSemaphore(judgeLimit)
 
-  await Promise.allSettled(targetPromises)
+  try {
+    // Each target gets its own semaphore but shares the abort signal + judge
+    const targetPromises = config.targets.map(target =>
+      _runEvalForTarget(target, datasets, judgeOpenAI, config.judgeConfig.enabled, concurrencyLimit, abortSignal)
+        .catch((e) => {
+          if (e instanceof DOMException && e.name === 'AbortError') throw e
+          useEvalSessionStore.getState().setModelError(target.modelId, String(e))
+        })
+    )
+
+    await Promise.allSettled(targetPromises)
+  } finally {
+    _judgeAcquire = null
+  }
 
   // If aborted, propagate so the outer handler marks the session stopped
   if (abortSignal.aborted) throw new DOMException('Aborted', 'AbortError')
@@ -509,6 +530,23 @@ function buildMessages(
   return messages
 }
 
+// Extract a numeric score 1–10 (or 0–100) from judge text.
+// Strategy:
+//   1. Look for explicit tagged formats: <score>N</score>, "Score: N", "Rating: N"
+//   2. Fall back to the LAST number in the text (avoids capturing "1-10" in
+//      preambles like "Out of 10, I'd give 7" → grabs "7" not "10")
+function parseJudgeScore(text: string): number | null {
+  const trimmed = text.trim()
+  if (!trimmed) return null
+
+  const tagged = trimmed.match(/(?:<score>|score\s*[:=]|rating\s*[:=])\s*(\d+(?:\.\d+)?)/i)
+  if (tagged) return parseFloat(tagged[1])
+
+  const allNumbers = trimmed.match(/\d+(?:\.\d+)?/g)
+  if (!allNumbers || allNumbers.length === 0) return null
+  return parseFloat(allNumbers[allNumbers.length - 1])
+}
+
 async function judgeScore(
   config: OpenAIConfig,
   prompt: string,
@@ -517,9 +555,8 @@ async function judgeScore(
   try {
     const res = await chatCompletion(config, [{ role: 'user', content: prompt }], signal)
     const text = res.choices[0]?.message?.content || ''
-    const match = text.match(/\d+(\.\d+)?/)
-    if (!match) return null
-    const raw = parseFloat(match[0])
+    const raw = parseJudgeScore(text)
+    if (raw === null) return null
     const score = raw <= 1 ? raw * 100 : raw <= 10 ? raw * 10 : raw
     return Math.min(100, Math.max(0, parseFloat(score.toFixed(2))))
   } catch {
@@ -527,9 +564,33 @@ async function judgeScore(
   }
 }
 
+// Parse a JSON array of "pass"/"fail" strings out of judge response,
+// tolerating markdown code fences. Returns null if not parseable.
+function parsePassFailArray(text: string): string[] | null {
+  const cleaned = text.trim()
+    .replace(/^```(?:json)?\s*/i, '')
+    .replace(/\s*```$/, '')
+    .trim()
+  try {
+    const parsed = JSON.parse(cleaned)
+    if (!Array.isArray(parsed)) return null
+    return parsed.map(v => String(v))
+  } catch {
+    return null
+  }
+}
+
+// Score = (passed / expectedCount) * 100, capped to expectedCount items.
+// If judge returns fewer items than expected, missing items count as fail.
+// If judge returns extra items, extras are ignored.
+function passFailToScore(results: string[], expectedCount: number): number {
+  if (expectedCount <= 0) return 0
+  const trimmed = results.slice(0, expectedCount)
+  const passed = trimmed.filter(r => r.toLowerCase().trim() === 'pass').length
+  return Math.round((passed / expectedCount) * 100)
+}
+
 // ── Pass/Fail Judge (for instruction_adherence, coverage_score) ───────
-// Sends a prompt asking the judge to return a JSON array of "pass"/"fail".
-// Returns (passed / total) * 100 as score.
 async function passFailJudgeScore(
   config: OpenAIConfig,
   prompt: string,
@@ -538,13 +599,10 @@ async function passFailJudgeScore(
 ): Promise<number | null> {
   try {
     const res = await chatCompletion(config, [{ role: 'user', content: prompt }], signal)
-    const text = (res.choices[0]?.message?.content || '').trim()
-    const cleaned = text.replace(/^```(?:json)?\n?/m, '').replace(/\n?```$/m, '').trim()
-    const results: string[] = JSON.parse(cleaned)
-    if (!Array.isArray(results)) return null
-    const passed = results.filter(r => r.toLowerCase().trim() === 'pass').length
-    const total = Math.max(expectedCount, results.length)
-    return Math.round((passed / total) * 100)
+    const text = res.choices[0]?.message?.content || ''
+    const results = parsePassFailArray(text)
+    if (!results) return null
+    return passFailToScore(results, expectedCount)
   } catch {
     return null
   }
@@ -625,11 +683,10 @@ No explanation. No markdown.`
       [{ role: 'user', content: prompt }],
       signal
     )
-    const text = (res.choices[0]?.message?.content || '').trim()
-    const cleaned = text.replace(/^```(?:json)?\n?/m, '').replace(/\n?```$/m, '').trim()
-    const results: string[] = JSON.parse(cleaned)
-    const passed = results.filter(r => r.toLowerCase().trim() === 'pass').length
-    return Math.round((passed / criteria.length) * 100)
+    const text = res.choices[0]?.message?.content || ''
+    const results = parsePassFailArray(text)
+    if (!results) return null
+    return passFailToScore(results, criteria.length)
   } catch {
     return null
   }

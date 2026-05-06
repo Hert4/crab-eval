@@ -9,7 +9,7 @@ export interface AgentProfile {
   model: string
   maxTokens: number
   temperature: number
-  apiKeyName: string  // localStorage key for this agent's API key, e.g. "agent_<id>_key"
+  apiKeyName: string  // sessionStorage key for this agent's API key, e.g. "agent_<id>_key"
 }
 
 interface AgentsState {

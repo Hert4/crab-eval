@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
+import { assertLocalRequest } from '@/lib/serverGuard'
 
 // results/ lives inside the repo at crab-eval/results/
 const RESULTS_DIR = path.resolve(process.cwd(), 'results')
@@ -10,29 +11,11 @@ function safeName(s: string): string {
   return s.replace(/[^a-zA-Z0-9_\-\.]/g, '_').replace(/_+/g, '_').slice(0, 120)
 }
 
-// Convert a SimulationResult (visual eval) → RunResult shape for the leaderboard
-function simResultToRunResult(sim: Record<string, unknown>) {
-  if (sim.finalScore === null || sim.evaluationStatus === 'unavailable') return null
-
-  const tasks = sim.tasks as Record<string, Record<string, number>> | undefined
-  return {
-    runId:      sim.simId,
-    model:      sim.targetModel,
-    baseUrl:    '',
-    date:       sim.date,
-    durationMs: sim.durationMs ?? 0,
-    tasks:      tasks ?? {
-      [sim.scenarioName as string]: { overall: sim.finalScore ?? 0 },
-    },
-  }
-}
-
 // Parse a file into a RunResult-shaped object, or null if unrecognised
 function parseFile(filepath: string): Record<string, unknown> | null {
   try {
     const raw = JSON.parse(fs.readFileSync(filepath, 'utf-8')) as Record<string, unknown>
-    if (raw.runId && raw.tasks) return raw                       // RunResult (eval runner)
-    if (raw.simId && raw.targetModel) return simResultToRunResult(raw)  // SimulationResult (visual eval)
+    if (raw.runId && raw.tasks) return raw
     return null
   } catch {
     return null
@@ -47,7 +30,6 @@ export async function GET() {
       return NextResponse.json({ runs: [], dir: RESULTS_DIR })
     }
 
-    // model name → latest parsed run
     const runs: Record<string, unknown>[] = []
     const seenRunIds = new Set<string>()
     const errors: string[] = []
@@ -84,9 +66,13 @@ export async function GET() {
 
 // ── POST /api/results ────────────────────────────────────────────────
 // Body: RunResult (one complete run)
-// Saves results/<model_name>/<task_name>.json for each task
-// Also saves results/<model_name>/_run_<runId>.json as full run summary
+// Saves per-task detail files at results/<model>/<task>.<runId>.json so
+// reruns of the same task on the same model never overwrite each other.
+// Also saves results/<model>/_run_<runId>.json as a summary (scores only).
 export async function POST(req: Request) {
+  const guard = assertLocalRequest(req)
+  if (guard) return guard
+
   try {
     const run = await req.json()
 
@@ -98,11 +84,14 @@ export async function POST(req: Request) {
     fs.mkdirSync(modelDir, { recursive: true })
 
     const saved: string[] = []
+    const runIdSafe = safeName(run.runId)
 
-    // Save per-task detail files (with full logs if available)
+    // Save per-task detail files (with full logs if available).
+    // Filename includes runId so rerunning the same task on the same model
+    // accumulates history instead of overwriting.
     if (run.taskDetails) {
       for (const [taskName, detail] of Object.entries(run.taskDetails)) {
-        const filename = `${safeName(taskName)}.json`
+        const filename = `${safeName(taskName)}.${runIdSafe}.json`
         const filepath = path.join(modelDir, filename)
         fs.writeFileSync(filepath, JSON.stringify({
           runId: run.runId,
@@ -117,7 +106,7 @@ export async function POST(req: Request) {
     }
 
     // Save run summary (scores only, no logs) — used for leaderboard reload
-    const summaryName = `_run_${safeName(run.runId)}.json`
+    const summaryName = `_run_${runIdSafe}.json`
     const summaryPath = path.join(modelDir, summaryName)
     fs.writeFileSync(summaryPath, JSON.stringify({
       runId: run.runId,
@@ -140,6 +129,9 @@ export async function POST(req: Request) {
 //       { model: string } — deletes all files for a model folder
 //       { all: true }     — wipes entire results/ directory
 export async function DELETE(req: Request) {
+  const guard = assertLocalRequest(req)
+  if (guard) return guard
+
   try {
     const body = await req.json() as { runId?: string; model?: string; all?: boolean }
 
@@ -155,7 +147,7 @@ export async function DELETE(req: Request) {
     }
 
     if (body.runId) {
-      // Search all model dirs for file matching runId
+      // Search all model dirs for files matching runId.
       if (!fs.existsSync(RESULTS_DIR)) return NextResponse.json({ ok: true, deleted: 0 })
       let deleted = 0
       for (const modelDir of fs.readdirSync(RESULTS_DIR, { withFileTypes: true }).filter(d => d.isDirectory())) {
@@ -164,8 +156,7 @@ export async function DELETE(req: Request) {
           const filepath = path.join(dirPath, file)
           try {
             const raw = JSON.parse(fs.readFileSync(filepath, 'utf-8')) as Record<string, unknown>
-            const id = raw.simId ?? raw.runId
-            if (id === body.runId) {
+            if (raw.runId === body.runId) {
               fs.unlinkSync(filepath)
               deleted++
             }

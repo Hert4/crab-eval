@@ -62,7 +62,10 @@ export async function chatCompletion(
   // AND auto-retry with the other param if the API rejects with unsupported_parameter.
   const prefersCompletionTokens = /^(o1|o3|o4|gpt-5|computer-use)/i.test(config.model)
 
-  const buildBody = (useCompletionTokens: boolean): Record<string, unknown> => {
+  const buildBody = (
+    useCompletionTokens: boolean,
+    includeChatTemplateKwargs: boolean
+  ): Record<string, unknown> => {
     const b: Record<string, unknown> = { model: config.model, messages }
     if (config.maxTokens) {
       b[useCompletionTokens ? 'max_completion_tokens' : 'max_tokens'] = config.maxTokens
@@ -72,8 +75,11 @@ export async function chatCompletion(
       b.temperature = config.temperature
     }
     if (tools?.length) { b.tools = tools; b.tool_choice = 'auto' }
-    // Disable thinking mode for Qwen3-style models that return content=null with reasoning field
-    b.chat_template_kwargs = { enable_thinking: false }
+    // Disable thinking mode for Qwen3-style models that return content=null with reasoning field.
+    // Some upstreams (OpenAI, Anthropic gateways) reject this — auto-retry below strips it.
+    if (includeChatTemplateKwargs) {
+      b.chat_template_kwargs = { enable_thinking: false }
+    }
     return b
   }
 
@@ -87,16 +93,25 @@ export async function chatCompletion(
     return r
   }
 
-  let res = await doFetch(buildBody(prefersCompletionTokens))
+  let useCompletion = prefersCompletionTokens
+  let useChatTpl = true
+  let res = await doFetch(buildBody(useCompletion, useChatTpl))
 
-  // Auto-retry with the opposite token param if rejected for unsupported_parameter
+  // Auto-retry on 400: detect which param the API rejected, flip it, retry once.
+  // Handles three independent issues: max_tokens vs max_completion_tokens,
+  // and chat_template_kwargs (Qwen-only extension).
   if (res.status === 400) {
     const clone = res.clone()
     try {
       const errJson = await clone.json()
       const msg: string = errJson?.details?.error?.message || errJson?.error?.message || ''
-      if (msg.includes('max_tokens') || msg.includes('max_completion_tokens') || msg.includes('unsupported_parameter')) {
-        res = await doFetch(buildBody(!prefersCompletionTokens))
+      const tokenIssue = msg.includes('max_tokens') || msg.includes('max_completion_tokens')
+      const tplIssue = msg.includes('chat_template_kwargs') || msg.includes('enable_thinking')
+      const generic = msg.includes('unsupported_parameter') || msg.includes('Unrecognized')
+      if (tokenIssue) useCompletion = !useCompletion
+      if (tplIssue || generic) useChatTpl = false
+      if (tokenIssue || tplIssue || generic) {
+        res = await doFetch(buildBody(useCompletion, useChatTpl))
       }
     } catch { /* not JSON, fall through to normal error handling */ }
   }
@@ -137,15 +152,21 @@ export async function testConnection(config: OpenAIConfig): Promise<boolean> {
   }
 }
 
-// Local-storage helpers for API keys (persisted across sessions)
+// Session-only API key storage. Cleared when the tab is closed.
+// Never written to localStorage — protects keys from persisting on shared machines.
 export function getApiKey(key: string): string {
   if (typeof window === 'undefined') return ''
-  return localStorage.getItem(key) || ''
+  return sessionStorage.getItem(key) || ''
 }
 
 export function setApiKey(key: string, value: string) {
   if (typeof window === 'undefined') return
-  localStorage.setItem(key, value)
+  sessionStorage.setItem(key, value)
+}
+
+export function removeApiKey(key: string) {
+  if (typeof window === 'undefined') return
+  sessionStorage.removeItem(key)
 }
 
 // ── File-aware message builder ────────────────────────────────────────
