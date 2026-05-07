@@ -1,6 +1,7 @@
 import { Dataset, DataRecord, RecordLog, RunResult, TaskRunResult } from '@/types'
 import { chatCompletion, OpenAIConfig, OpenAIMessage, OpenAITool } from './openai'
 import { computeMetrics, avgScores } from './metrics'
+import { randomUUID } from './utils'
 import {
   useEvalSessionStore,
   getEvalController,
@@ -407,7 +408,7 @@ async function _runEvalForTarget(
     temperature: target.temperature,
   }
 
-  const runId = crypto.randomUUID()
+  const runId = randomUUID()
   const startTime = Date.now()
   const taskResults: Record<string, TaskRunResult> = {}
   const taskScores: Record<string, Record<string, number>> = {}

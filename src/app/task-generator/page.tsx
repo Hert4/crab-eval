@@ -44,6 +44,7 @@ import { getApiKey, setApiKey } from '@/lib/openai'
 import { useAgentsStore } from '@/store/agentsStore'
 import { AgentSelector } from '@/components/ui/AgentSelector'
 import { useDatasetsStore } from '@/store/datasetsStore'
+import { randomUUID } from '@/lib/utils'
 import type {
   AtomicSubtask,
   CompositeTask,
@@ -2390,7 +2391,7 @@ function Step4Generate() {
 
   const handleExportJson = () => {
     const taskSet = {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       name: 'Generated Task Set',
       createdAt: new Date().toISOString(),
       detectedLanguage,
@@ -2410,7 +2411,7 @@ function Step4Generate() {
 
   const handleSaveToServer = async () => {
     const taskSet = {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       name: 'Generated Task Set',
       createdAt: new Date().toISOString(),
       detectedLanguage,
@@ -2456,7 +2457,7 @@ function Step4Generate() {
       }))
 
       const dataset = {
-        id: crypto.randomUUID(),
+        id: randomUUID(),
         filename: `qa-${Date.now()}.json`,
         uploadedAt: new Date().toISOString(),
         metadata: {
@@ -2489,7 +2490,7 @@ function Step4Generate() {
         metadata: { test_aspect: p.test_aspect, difficulty: p.difficulty, tags: p.tags },
       }))
       const dataset = {
-        id: crypto.randomUUID(),
+        id: randomUUID(),
         filename: `multi-turn-${Date.now()}.json`,
         uploadedAt: new Date().toISOString(),
         metadata: {
@@ -2520,7 +2521,7 @@ function Step4Generate() {
         metadata: { constraints: p.constraints, difficulty: p.difficulty, tags: p.tags },
       }))
       const dataset = {
-        id: crypto.randomUUID(),
+        id: randomUUID(),
         filename: `instruction-${Date.now()}.json`,
         uploadedAt: new Date().toISOString(),
         metadata: {
@@ -2551,7 +2552,7 @@ function Step4Generate() {
         metadata: { attack_type: c.attack_type, expected_behavior: c.expected_behavior, difficulty: c.difficulty, tags: c.tags },
       }))
       const dataset = {
-        id: crypto.randomUUID(),
+        id: randomUUID(),
         filename: `safety-${Date.now()}.json`,
         uploadedAt: new Date().toISOString(),
         metadata: {
@@ -2583,7 +2584,7 @@ function Step4Generate() {
         metadata: { key_facts: p.key_facts, max_words: p.max_words, difficulty: p.difficulty, tags: p.tags },
       }))
       const dataset = {
-        id: crypto.randomUUID(),
+        id: randomUUID(),
         filename: `summarization-${Date.now()}.json`,
         uploadedAt: new Date().toISOString(),
         metadata: {
@@ -2632,7 +2633,7 @@ function Step4Generate() {
     const hasExpectedToolCalls = generatedTasks.some(t => t.expectedToolCalls !== undefined)
 
     const dataset = {
-      id: crypto.randomUUID(),
+      id: randomUUID(),
       filename: `task-set-${Date.now()}.json`,
       uploadedAt: new Date().toISOString(),
       metadata: {

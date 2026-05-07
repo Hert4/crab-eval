@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import { Upload, Trash2, Eye, Download, Merge, FileJson, AlertCircle, FolderOpen, Loader2, SlidersHorizontal } from 'lucide-react'
 import { CrawdAnim } from '@/components/ui/CrawdAnim'
 import { DatasetAttributesModal } from '@/components/ui/DatasetAttributesModal'
+import { randomUUID } from '@/lib/utils'
 
 function trunc(s: string, n = 80) {
   if (!s) return '—'
@@ -22,7 +23,7 @@ function parseDataset(filename: string, raw: unknown): Dataset | null {
   const obj = raw as Record<string, unknown>
   if (!obj.metadata || !Array.isArray(obj.data)) return null
   return {
-    id: crypto.randomUUID(),
+    id: randomUUID(),
     filename,
     uploadedAt: new Date().toISOString(),
     metadata: obj.metadata as Dataset['metadata'],

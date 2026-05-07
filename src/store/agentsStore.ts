@@ -1,6 +1,7 @@
 'use client'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { randomUUID } from '@/lib/utils'
 
 export interface AgentProfile {
   id: string
@@ -25,7 +26,7 @@ export const useAgentsStore = create<AgentsState>()(
       agents: [],
 
       addAgent: (a) => set((s) => ({
-        agents: [...s.agents, { ...a, id: crypto.randomUUID() }],
+        agents: [...s.agents, { ...a, id: randomUUID() }],
       })),
 
       updateAgent: (id, patch) => set((s) => ({
