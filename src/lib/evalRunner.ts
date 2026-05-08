@@ -314,11 +314,28 @@ async function processRecord({
           .then(v => ['faithfulness', v] as [string, number | null])
       )
     }
+    if (metrics.includes('translation_quality')) {
+      judgePromises.push(
+        withJudgeLimit(() => translationQualityJudgeScore(judgeOpenAI, record.input, output, record.reference, record.metadata, abortSignal))
+          .then(v => ['translation_quality', v] as [string, number | null])
+      )
+    }
 
     // All judge metrics for this record run concurrently
     const judgeResults = await Promise.all(judgePromises)
     for (const [metricName, score] of judgeResults) {
       if (score !== null) scores[metricName] = score
+    }
+
+    // translation_score = 0.4 × ngram_metric + 0.6 × translation_quality
+    // n-gram metric is whichever of chrf/chrf2/meteor/bleu/bleu1 appears in gt_metrics (priority order)
+    if (metrics.includes('translation_score')) {
+      const selected = (['chrf', 'chrf2', 'meteor', 'bleu', 'bleu1'] as const)
+        .find(m => metrics.includes(m) && scores[m] != null)
+      const judgeScore = scores['translation_quality']
+      if (selected && judgeScore != null) {
+        scores['translation_score'] = parseFloat((0.4 * scores[selected] + 0.6 * judgeScore).toFixed(2))
+      }
     }
   }
 
@@ -609,6 +626,7 @@ async function passFailJudgeScore(
   }
 }
 
+
 // ── Criteria-grounded judge ──────────────────────────────────────────
 // Evaluates agent output (text + tool calls) against natural-language
 // assertion criteria. Returns 0-100: (criteria passed / total) * 100.
@@ -627,27 +645,26 @@ async function criteriaJudgeScore(
 
   // Build tool schema section so judge can verify names + arg names
   const toolSchemaSection = toolDefinitions && toolDefinitions.length > 0
-    ? `\nAvailable tool definitions (judge MUST use these to verify tool name and argument names are correct):\n${
-        toolDefinitions.map(t => {
-          const fn = t.function
-          const params = fn.parameters?.properties
-            ? Object.entries(fn.parameters.properties as Record<string, {type?: string; description?: string}>)
-                .map(([k, v]) => `    - ${k} (${v.type ?? 'any'}): ${v.description ?? ''}`)
-                .join('\n')
-            : '    (no parameters)'
-          const required: string[] = (fn.parameters?.required as string[]) ?? []
-          return `  • ${fn.name}: ${fn.description ?? ''}\n    Parameters:\n${params}\n    Required: [${required.join(', ')}]`
-        }).join('\n')
-      }`
+    ? `\nAvailable tool definitions (judge MUST use these to verify tool name and argument names are correct):\n${toolDefinitions.map(t => {
+      const fn = t.function
+      const params = fn.parameters?.properties
+        ? Object.entries(fn.parameters.properties as Record<string, { type?: string; description?: string }>)
+          .map(([k, v]) => `    - ${k} (${v.type ?? 'any'}): ${v.description ?? ''}`)
+          .join('\n')
+        : '    (no parameters)'
+      const required: string[] = (fn.parameters?.required as string[]) ?? []
+      return `  • ${fn.name}: ${fn.description ?? ''}\n    Parameters:\n${params}\n    Required: [${required.join(', ')}]`
+    }).join('\n')
+    }`
     : ''
 
   // Build a readable representation of tool calls
   const toolCallSection = toolCalls && toolCalls.length > 0
     ? `\nAgent tool calls made:\n${toolCalls.map((tc, i) => {
-        let args = ''
-        try { args = JSON.stringify(JSON.parse(tc.function?.arguments || '{}'), null, 2) } catch { args = tc.function?.arguments || '' }
-        return `  ${i + 1}. ${tc.function?.name}(${args})`
-      }).join('\n')}`
+      let args = ''
+      try { args = JSON.stringify(JSON.parse(tc.function?.arguments || '{}'), null, 2) } catch { args = tc.function?.arguments || '' }
+      return `  ${i + 1}. ${tc.function?.name}(${args})`
+    }).join('\n')}`
     : ''
 
   const agentResponseSection = agentAnswer
@@ -688,6 +705,74 @@ No explanation. No markdown.`
     const results = parsePassFailArray(text)
     if (!results) return null
     return passFailToScore(results, criteria.length)
+  } catch {
+    return null
+  }
+}
+
+// ── Translation Quality judge ───────────────────────────────────────
+// Evaluates translation on two dimensions:
+//   - Adequacy  (meaning fully preserved from source)
+//   - Fluency   (natural, grammatically correct in target language)
+// With reference → reference-based scoring (COMET-DA style, 1-10 each dim)
+// Without reference → quality estimation only (COMET-QE style)
+async function translationQualityJudgeScore(
+  config: OpenAIConfig,
+  source: string,
+  hypothesis: string,
+  reference: string | undefined,
+  metadata: Record<string, unknown> | undefined,
+  signal: AbortSignal
+): Promise<number | null> {
+  if (!source || !hypothesis) return null
+
+  const srcLang = 'Vietnamese'
+  const tgtLang = typeof metadata?.target_language_original === 'string'
+    ? metadata.target_language_original
+    : 'the target language'
+
+  const referenceSection = reference
+    ? `\nReference translation:\n"""\n${reference}\n"""`
+    : ''
+
+  const scoringInstruction = reference
+    ? `Score both dimensions 1-10 considering how well the hypothesis matches the reference in meaning and whether it reads naturally in ${tgtLang}.`
+    : `Score both dimensions 1-10 based on the source text alone. You cannot compare to a reference.`
+
+  const prompt = `You are an expert translation evaluator. Evaluate the translation below on two dimensions.
+
+Source (${srcLang}):
+"""
+${source}
+"""
+
+Hypothesis translation (${tgtLang}):
+"""
+${hypothesis}
+"""${referenceSection}
+
+${scoringInstruction}
+
+Dimensions:
+1. Adequacy (1-10): Is the full meaning of the source preserved? Deduct for missing information, added content, or meaning distortion.
+2. Fluency (1-10): Is the translation grammatically correct and natural in ${tgtLang}? Deduct for awkward phrasing, grammatical errors, or unnatural word order.
+
+Respond with ONLY a JSON object on a single line:
+{"adequacy": <score>, "fluency": <score>}
+No explanation. No markdown.`
+
+  try {
+    const res = await chatCompletion(config, [{ role: 'user', content: prompt }], signal)
+    const text = (res.choices[0]?.message?.content || '').trim()
+      .replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim()
+    const parsed = JSON.parse(text)
+    const adequacy = parseFloat(parsed.adequacy)
+    const fluency = parseFloat(parsed.fluency)
+    if (isNaN(adequacy) || isNaN(fluency)) return null
+    // Average of both dimensions, scaled to 0-100
+    const avg = (adequacy + fluency) / 2
+    const score = avg <= 1 ? avg * 100 : avg <= 10 ? avg * 10 : avg
+    return Math.min(100, Math.max(0, parseFloat(score.toFixed(2))))
   } catch {
     return null
   }

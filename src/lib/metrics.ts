@@ -156,7 +156,102 @@ export function rougeL(output: string, reference: string): number {
   return (2 * precision * recall) / (precision + recall) * 100
 }
 
-// ─── AST Accuracy (tool calling) ────────────────
+// ─── METEOR ─────────────────────────────────────
+// Unigram METEOR with fragmentation penalty.
+// Score = Fmean * (1 - penalty)
+//   Fmean  = harmonic mean of P & R, α=0.9 
+//   penalty = γ * (chunks/matches)^δ  với γ=0.5, δ=3
+export function meteor(output: string, reference: string): number {
+  const hyp = tokenize(output)
+  const ref = tokenize(reference)
+  if (!hyp.length || !ref.length) return 0
+
+  // Greedy unigram match 
+  const refAvail = [...ref]
+  let matches = 0
+  let chunks = 0
+  let inChunk = false
+
+  for (const token of hyp) {
+    const idx = refAvail.indexOf(token)
+    if (idx !== -1) {
+      matches++
+      refAvail.splice(idx, 1)
+      if (!inChunk) { chunks++; inChunk = true }
+    } else {
+      inChunk = false
+    }
+  }
+
+  if (matches === 0) return 0
+
+  const precision = matches / hyp.length
+  const recall = matches / ref.length
+  const alpha = 0.9
+  const fmean = (precision * recall) / (alpha * precision + (1 - alpha) * recall)
+
+  const gamma = 0.5
+  const delta = 3
+  const penalty = gamma * Math.pow(chunks / matches, delta)
+
+  return Math.max(0, fmean * (1 - penalty)) * 100
+}
+
+// ─── chrF (character n-gram F-score) ────────────
+// chrF2: β=2 (recall-weighted 2×), n=6 (char 6-gram)
+export function chrF(output: string, reference: string, n = 6, beta = 2): number {
+  if (!output || !reference) return 0
+
+  function charNgrams(s: string, order: number): Map<string, number> {
+    const counts = new Map<string, number>()
+    for (let i = 0; i <= s.length - order; i++) {
+      const gram = s.slice(i, i + order)
+      counts.set(gram, (counts.get(gram) ?? 0) + 1)
+    }
+    return counts
+  }
+
+  let totalP = 0
+  let totalR = 0
+  let validN = 0
+
+  for (let order = 1; order <= n; order++) {
+    const hypGrams = charNgrams(output, order)
+    const refGrams = charNgrams(reference, order)
+    if (hypGrams.size === 0 || refGrams.size === 0) continue
+
+    let matched = 0
+    for (const [gram, cnt] of hypGrams) {
+      matched += Math.min(cnt, refGrams.get(gram) ?? 0)
+    }
+
+    const hypTotal = [...hypGrams.values()].reduce((a, b) => a + b, 0)
+    const refTotal = [...refGrams.values()].reduce((a, b) => a + b, 0)
+
+    totalP += matched / hypTotal
+    totalR += matched / refTotal
+    validN++
+  }
+
+  if (validN === 0) return 0
+
+  const avgP = totalP / validN
+  const avgR = totalR / validN
+  if (avgP + avgR === 0) return 0
+
+  const beta2 = beta * beta
+  return ((1 + beta2) * avgP * avgR) / (beta2 * avgP + avgR) * 100
+}
+
+// ─── Translation Quality (LLM-as-judge, handled by evalRunner) ─────
+// Placeholder — actual scoring done in evalRunner.ts.
+// Evaluates adequacy (meaning preserved) + fluency (natural target language).
+// Without reference: quality estimation only.
+export function translationQuality(): number {
+  return 0  // computed by LLM judge in evalRunner, not here
+}
+
+// ─── AST Accuracy (tool calling) ───────────────
 export function astAccuracy(
   toolCalls: Array<{ function?: { name: string; arguments: string } }> | null | undefined,
   expectedToolCalls: Array<{ function?: { name: string; arguments: string } }> | null | undefined
@@ -353,6 +448,7 @@ export function listMatch(output: string, reference: string): number {
   return (matched / refItems.length) * 100
 }
 
+
 // ─── Dispatcher ─────────────────────────────────
 export interface DataRecordForMetrics {
   output: string
@@ -390,6 +486,13 @@ export function computeMetrics(
       case 'bleu':
       case 'bleu1':
         scores[metric] = bleu1(newOutput, ref)
+        break
+      case 'meteor':
+        scores[metric] = meteor(newOutput, ref)
+        break
+      case 'chrf':
+      case 'chrf2':
+        scores[metric] = chrF(newOutput, ref)
         break
       case 'rouge':
       case 'rouge_l':
@@ -432,11 +535,8 @@ export function computeMetrics(
       case 'answer_correctness':
       // criteria_score is LLM-as-judge — handled by evalRunner
       case 'criteria_score':
-      // New LLM judge metrics — handled by evalRunner
-      case 'context_retention':
-      case 'consistency_score':
-      case 'instruction_adherence':
-      case 'coverage_score':
+      // LLM-as-judge metrics for translate evaluation— handled by evalRunner
+      case 'translation_quality':
         break
       default:
         // Fallback: token_f1
