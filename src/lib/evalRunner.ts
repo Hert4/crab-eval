@@ -183,6 +183,63 @@ interface ProcessRecordResult {
   error: boolean
 }
 
+function extractJsonFromText(text: string): string {
+  for (let start = 0; start < text.length; start++) {
+    if (text[start] !== '{' && text[start] !== '[') continue
+
+    const stack: string[] = []
+    let inString = false
+    let escaped = false
+
+    for (let i = start; i < text.length; i++) {
+      const char = text[i]
+
+      if (escaped) {
+        escaped = false
+        continue
+      }
+
+      if (char === '\\') {
+        escaped = true
+        continue
+      }
+
+      if (char === '"') {
+        inString = !inString
+        continue
+      }
+
+      if (inString) continue
+
+      if (char === '{' || char === '[') {
+        stack.push(char)
+      } else if (char === '}' || char === ']') {
+        const last = stack.pop()
+
+        if (
+          (char === '}' && last !== '{') ||
+          (char === ']' && last !== '[')
+        ) {
+          break
+        }
+
+        if (stack.length === 0) {
+          const candidate = text.slice(start, i + 1)
+
+          try {
+            JSON.parse(candidate)
+            return candidate
+          } catch {
+            break
+          }
+        }
+      }
+    }
+  }
+
+  return text
+}
+
 async function processRecord({
   modelId, record, di, ri, datasetLength, datasets, taskName, metrics,
   targetOpenAI, targetSystemPrompt, judgeOpenAI, judgeEnabled, abortSignal,
@@ -316,11 +373,13 @@ async function processRecord({
     }
     if (metrics.includes('translation_quality')) {
       let sourceText = record.input
-      const firstBrace = sourceText.indexOf('{')
-      const lastBrace = sourceText.lastIndexOf('}')
-      if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
-        sourceText = sourceText.substring(firstBrace, lastBrace + 1)
+
+      if (typeof record.metadata?.source_text === 'string' && record.metadata.source_text.trim() !== '') {
+        sourceText = record.metadata.source_text
+      } else {
+        sourceText = extractJsonFromText(sourceText)
       }
+
       judgePromises.push(
         withJudgeLimit(() => translationQualityJudgeScore(judgeOpenAI, sourceText, output, record.reference, record.metadata, abortSignal))
           .then(v => ['translation_quality', v] as [string, number | null])
@@ -581,7 +640,7 @@ async function judgeScore(
     const text = res.choices[0]?.message?.content || ''
     const raw = parseJudgeScore(text)
     if (raw === null) return null
-    const score = raw <= 1 ? raw * 100 : raw <= 10 ? raw * 10 : raw
+    const score = raw <= 10 ? raw * 10 : raw
     return Math.min(100, Math.max(0, parseFloat(score.toFixed(2))))
   } catch {
     return null
@@ -782,7 +841,7 @@ No explanation. No markdown.`
     if (isNaN(adequacy) || isNaN(fluency)) return null
     // Average of both dimensions, scaled to 0-100
     const avg = (adequacy + fluency) / 2
-    const score = avg <= 1 ? avg * 100 : avg <= 10 ? avg * 10 : avg
+    const score = avg <= 10 ? avg * 10 : avg
     return Math.min(100, Math.max(0, parseFloat(score.toFixed(2))))
   } catch {
     return null
