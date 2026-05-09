@@ -315,8 +315,14 @@ async function processRecord({
       )
     }
     if (metrics.includes('translation_quality')) {
+      let sourceText = record.input
+      const firstBrace = sourceText.indexOf('{')
+      const lastBrace = sourceText.lastIndexOf('}')
+      if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+        sourceText = sourceText.substring(firstBrace, lastBrace + 1)
+      }
       judgePromises.push(
-        withJudgeLimit(() => translationQualityJudgeScore(judgeOpenAI, record.input, output, record.reference, record.metadata, abortSignal))
+        withJudgeLimit(() => translationQualityJudgeScore(judgeOpenAI, sourceText, output, record.reference, record.metadata, abortSignal))
           .then(v => ['translation_quality', v] as [string, number | null])
       )
     }
@@ -726,7 +732,12 @@ async function translationQualityJudgeScore(
 ): Promise<number | null> {
   if (!source || !hypothesis) return null
 
-  const srcLang = 'Vietnamese'
+  const srcLang = typeof metadata?.source_language_original === 'string'
+    ? metadata.source_language_original
+    : (typeof metadata?.source_language === 'string'
+      ? metadata.source_language
+      : 'the source language')
+
   const tgtLang = typeof metadata?.target_language_original === 'string'
     ? metadata.target_language_original
     : 'the target language'

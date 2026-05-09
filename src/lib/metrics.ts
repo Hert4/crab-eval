@@ -156,46 +156,46 @@ export function rougeL(output: string, reference: string): number {
   return (2 * precision * recall) / (precision + recall) * 100
 }
 
-// ─── METEOR ─────────────────────────────────────
-// Unigram METEOR with fragmentation penalty.
-// Score = Fmean * (1 - penalty)
-//   Fmean  = harmonic mean of P & R, α=0.9 
-//   penalty = γ * (chunks/matches)^δ  với γ=0.5, δ=3
-export function meteor(output: string, reference: string): number {
-  const hyp = tokenize(output)
-  const ref = tokenize(reference)
-  if (!hyp.length || !ref.length) return 0
+// // ─── METEOR ─────────────────────────────────────
+// // Unigram METEOR with fragmentation penalty.
+// // Score = Fmean * (1 - penalty)
+// //   Fmean  = harmonic mean of P & R, α=0.9 
+// //   penalty = γ * (chunks/matches)^δ  với γ=0.5, δ=3
+// export function meteor(output: string, reference: string): number {
+//   const hyp = tokenize(output)
+//   const ref = tokenize(reference)
+//   if (!hyp.length || !ref.length) return 0
 
-  // Greedy unigram match 
-  const refAvail = [...ref]
-  let matches = 0
-  let chunks = 0
-  let inChunk = false
+//   // Greedy unigram match 
+//   const refAvail = [...ref]
+//   let matches = 0
+//   let chunks = 0
+//   let inChunk = false
 
-  for (const token of hyp) {
-    const idx = refAvail.indexOf(token)
-    if (idx !== -1) {
-      matches++
-      refAvail.splice(idx, 1)
-      if (!inChunk) { chunks++; inChunk = true }
-    } else {
-      inChunk = false
-    }
-  }
+//   for (const token of hyp) {
+//     const idx = refAvail.indexOf(token)
+//     if (idx !== -1) {
+//       matches++
+//       refAvail.splice(idx, 1)
+//       if (!inChunk) { chunks++; inChunk = true }
+//     } else {
+//       inChunk = false
+//     }
+//   }
 
-  if (matches === 0) return 0
+//   if (matches === 0) return 0
 
-  const precision = matches / hyp.length
-  const recall = matches / ref.length
-  const alpha = 0.9
-  const fmean = (precision * recall) / (alpha * precision + (1 - alpha) * recall)
+//   const precision = matches / hyp.length
+//   const recall = matches / ref.length
+//   const alpha = 0.9
+//   const fmean = (precision * recall) / (alpha * precision + (1 - alpha) * recall)
 
-  const gamma = 0.5
-  const delta = 3
-  const penalty = gamma * Math.pow(chunks / matches, delta)
+//   const gamma = 0.5
+//   const delta = 3
+//   const penalty = gamma * Math.pow(chunks / matches, delta)
 
-  return Math.max(0, fmean * (1 - penalty)) * 100
-}
+//   return Math.max(0, fmean * (1 - penalty)) * 100
+// }
 
 // ─── chrF (character n-gram F-score) ────────────
 // chrF2: β=2 (recall-weighted 2×), n=6 (char 6-gram)
@@ -487,9 +487,9 @@ export function computeMetrics(
       case 'bleu1':
         scores[metric] = bleu1(newOutput, ref)
         break
-      case 'meteor':
-        scores[metric] = meteor(newOutput, ref)
-        break
+      // case 'meteor':
+      //   scores[metric] = meteor(newOutput, ref)
+      //   break
       case 'chrf':
       case 'chrf2':
         scores[metric] = chrF(newOutput, ref)
@@ -537,6 +537,12 @@ export function computeMetrics(
       case 'criteria_score':
       // LLM-as-judge metrics for translate evaluation— handled by evalRunner
       case 'translation_quality':
+        break
+      // New LLM judge metrics — handled by evalRunner
+      case 'context_retention':
+      case 'consistency_score':
+      case 'instruction_adherence':
+      case 'coverage_score':
         break
       default:
         // Fallback: token_f1
