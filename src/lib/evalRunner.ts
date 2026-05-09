@@ -334,9 +334,9 @@ async function processRecord({
     }
 
     // translation_score = 0.4 × ngram_metric + 0.6 × translation_quality
-    // n-gram metric is whichever of chrf/chrf2/meteor/bleu/bleu1 appears in gt_metrics (priority order)
+    // n-gram metric is whichever of chrf/chrf2/bleu/bleu1 appears in gt_metrics (priority order)
     if (metrics.includes('translation_score')) {
-      const selected = (['chrf', 'chrf2', 'meteor', 'bleu', 'bleu1'] as const)
+      const selected = (['chrf', 'chrf2', 'bleu', 'bleu1'] as const)
         .find(m => metrics.includes(m) && scores[m] != null)
       const judgeScore = scores['translation_quality']
       if (selected && judgeScore != null) {
