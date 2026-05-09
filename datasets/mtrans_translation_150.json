@@ -15,13 +15,16 @@
     "script": "convert_raw_to_benchmark.py",
     "gt_task_type": "translation",
     "gt_metrics": [
-      "bleu"
+      "translation_score",
+      "translation_quality",
+      "chrf"
     ],
     "gt_generated_date": "2026-03-12 12:08:00",
     "gt_model": "gpt-5.2",
     "gt_script": "generate_ground_truth.py",
     "samples_with_reference": 150,
-    "samples_total": 150
+    "samples_total": 150,
+    "source_language_original": "tiếng Việt"
   },
   "data": [
     {
@@ -40,7 +43,8 @@
         "completion_tokens": 179,
         "total_tokens": 582,
         "target_language": "af",
-        "target_language_original": "tiếng Hà Lan (Nam Phi)"
+        "target_language_original": "tiếng Hà Lan (Nam Phi)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -59,7 +63,8 @@
         "completion_tokens": 398,
         "total_tokens": 788,
         "target_language": "am",
-        "target_language_original": "tiếng Amharic"
+        "target_language_original": "tiếng Amharic",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -78,7 +83,8 @@
         "completion_tokens": 262,
         "total_tokens": 680,
         "target_language": "ar",
-        "target_language_original": "tiếng Ả Rập"
+        "target_language_original": "tiếng Ả Rập",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -97,7 +103,8 @@
         "completion_tokens": 89,
         "total_tokens": 385,
         "target_language": "as",
-        "target_language_original": "tiếng Assam"
+        "target_language_original": "tiếng Assam",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -116,7 +123,8 @@
         "completion_tokens": 185,
         "total_tokens": 573,
         "target_language": "awa",
-        "target_language_original": "tiếng Awadhi"
+        "target_language_original": "tiếng Awadhi",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -135,7 +143,8 @@
         "completion_tokens": 196,
         "total_tokens": 582,
         "target_language": "az",
-        "target_language_original": "tiếng Azerbaijan"
+        "target_language_original": "tiếng Azerbaijan",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -154,7 +163,8 @@
         "completion_tokens": 206,
         "total_tokens": 594,
         "target_language": "ba",
-        "target_language_original": "tiếng Bashkir"
+        "target_language_original": "tiếng Bashkir",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -173,7 +183,8 @@
         "completion_tokens": 218,
         "total_tokens": 604,
         "target_language": "be",
-        "target_language_original": "tiếng Belarus"
+        "target_language_original": "tiếng Belarus",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -192,7 +203,8 @@
         "completion_tokens": 186,
         "total_tokens": 589,
         "target_language": "bew",
-        "target_language_original": "tiếng Betawi"
+        "target_language_original": "tiếng Betawi",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -211,7 +223,8 @@
         "completion_tokens": 200,
         "total_tokens": 586,
         "target_language": "bg",
-        "target_language_original": "tiếng Bulgaria"
+        "target_language_original": "tiếng Bulgaria",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -230,7 +243,8 @@
         "completion_tokens": 84,
         "total_tokens": 384,
         "target_language": "bho",
-        "target_language_original": "tiếng Bhojpuri"
+        "target_language_original": "tiếng Bhojpuri",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -249,7 +263,8 @@
         "completion_tokens": 209,
         "total_tokens": 617,
         "target_language": "bik",
-        "target_language_original": "tiếng Bikol"
+        "target_language_original": "tiếng Bikol",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -268,7 +283,8 @@
         "completion_tokens": 297,
         "total_tokens": 703,
         "target_language": "bm",
-        "target_language_original": "tiếng Bambara"
+        "target_language_original": "tiếng Bambara",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -287,7 +303,8 @@
         "completion_tokens": 258,
         "total_tokens": 644,
         "target_language": "bn",
-        "target_language_original": "tiếng Bengal"
+        "target_language_original": "tiếng Bengal",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -306,7 +323,8 @@
         "completion_tokens": 196,
         "total_tokens": 594,
         "target_language": "bnt",
-        "target_language_original": "tiếng Bantu"
+        "target_language_original": "tiếng Bantu",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -325,7 +343,8 @@
         "completion_tokens": 264,
         "total_tokens": 734,
         "target_language": "br",
-        "target_language_original": "tiếng Breton"
+        "target_language_original": "tiếng Breton",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -344,7 +363,8 @@
         "completion_tokens": 184,
         "total_tokens": 572,
         "target_language": "bs",
-        "target_language_original": "tiếng Bosnia"
+        "target_language_original": "tiếng Bosnia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -363,7 +383,8 @@
         "completion_tokens": 203,
         "total_tokens": 593,
         "target_language": "bua",
-        "target_language_original": "tiếng Buryat"
+        "target_language_original": "tiếng Buryat",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -382,7 +403,8 @@
         "completion_tokens": 228,
         "total_tokens": 664,
         "target_language": "ca",
-        "target_language_original": "tiếng Catalan"
+        "target_language_original": "tiếng Catalan",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -401,7 +423,8 @@
         "completion_tokens": 268,
         "total_tokens": 681,
         "target_language": "ceb",
-        "target_language_original": "tiếng Cebuano"
+        "target_language_original": "tiếng Cebuano",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -420,7 +443,8 @@
         "completion_tokens": 141,
         "total_tokens": 444,
         "target_language": "ckb",
-        "target_language_original": "tiếng Kurd (Sorani)"
+        "target_language_original": "tiếng Kurd (Sorani)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -439,7 +463,8 @@
         "completion_tokens": 99,
         "total_tokens": 414,
         "target_language": "co",
-        "target_language_original": "tiếng Corsi"
+        "target_language_original": "tiếng Corsi",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -458,7 +483,8 @@
         "completion_tokens": 105,
         "total_tokens": 416,
         "target_language": "crh",
-        "target_language_original": "tiếng Tatar Krym"
+        "target_language_original": "tiếng Tatar Krym",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -477,7 +503,8 @@
         "completion_tokens": 88,
         "total_tokens": 388,
         "target_language": "crs",
-        "target_language_original": "tiếng Creole Seychelles"
+        "target_language_original": "tiếng Creole Seychelles",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -496,7 +523,8 @@
         "completion_tokens": 235,
         "total_tokens": 678,
         "target_language": "cs",
-        "target_language_original": "tiếng Séc"
+        "target_language_original": "tiếng Séc",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -515,7 +543,8 @@
         "completion_tokens": 234,
         "total_tokens": 624,
         "target_language": "cv",
-        "target_language_original": "tiếng Chuvash"
+        "target_language_original": "tiếng Chuvash",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -534,7 +563,8 @@
         "completion_tokens": 232,
         "total_tokens": 674,
         "target_language": "cy",
-        "target_language_original": "tiếng Xứ Wales"
+        "target_language_original": "tiếng Xứ Wales",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -553,7 +583,8 @@
         "completion_tokens": 217,
         "total_tokens": 646,
         "target_language": "da",
-        "target_language_original": "tiếng Đan Mạch"
+        "target_language_original": "tiếng Đan Mạch",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -572,7 +603,8 @@
         "completion_tokens": 139,
         "total_tokens": 486,
         "target_language": "de",
-        "target_language_original": "tiếng Đức"
+        "target_language_original": "tiếng Đức",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -591,7 +623,8 @@
         "completion_tokens": 84,
         "total_tokens": 382,
         "target_language": "doi",
-        "target_language_original": "tiếng Dogri"
+        "target_language_original": "tiếng Dogri",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -610,7 +643,8 @@
         "completion_tokens": 233,
         "total_tokens": 623,
         "target_language": "el",
-        "target_language_original": "tiếng Hy Lạp"
+        "target_language_original": "tiếng Hy Lạp",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -629,7 +663,8 @@
         "completion_tokens": 139,
         "total_tokens": 529,
         "target_language": "en",
-        "target_language_original": "tiếng Tiếng Anh"
+        "target_language_original": "tiếng Tiếng Anh",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -648,7 +683,8 @@
         "completion_tokens": 69,
         "total_tokens": 371,
         "target_language": "eo",
-        "target_language_original": "tiếng Quốc tế ngữ"
+        "target_language_original": "tiếng Quốc tế ngữ",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -667,7 +703,8 @@
         "completion_tokens": 104,
         "total_tokens": 431,
         "target_language": "es",
-        "target_language_original": "tiếng Tây Ban Nha"
+        "target_language_original": "tiếng Tây Ban Nha",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -686,7 +723,8 @@
         "completion_tokens": 187,
         "total_tokens": 573,
         "target_language": "et",
-        "target_language_original": "tiếng Estonia"
+        "target_language_original": "tiếng Estonia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -705,7 +743,8 @@
         "completion_tokens": 153,
         "total_tokens": 502,
         "target_language": "eu",
-        "target_language_original": "tiếng Basque"
+        "target_language_original": "tiếng Basque",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -724,7 +763,8 @@
         "completion_tokens": 132,
         "total_tokens": 441,
         "target_language": "fa",
-        "target_language_original": "tiếng Ba Tư"
+        "target_language_original": "tiếng Ba Tư",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -743,7 +783,8 @@
         "completion_tokens": 232,
         "total_tokens": 674,
         "target_language": "fi",
-        "target_language_original": "tiếng Phần Lan"
+        "target_language_original": "tiếng Phần Lan",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -762,7 +803,8 @@
         "completion_tokens": 254,
         "total_tokens": 714,
         "target_language": "fil",
-        "target_language_original": "tiếng Filipino"
+        "target_language_original": "tiếng Filipino",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -781,7 +823,8 @@
         "completion_tokens": 246,
         "total_tokens": 650,
         "target_language": "fj",
-        "target_language_original": "tiếng Fiji"
+        "target_language_original": "tiếng Fiji",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -800,7 +843,8 @@
         "completion_tokens": 88,
         "total_tokens": 386,
         "target_language": "fr",
-        "target_language_original": "tiếng Pháp"
+        "target_language_original": "tiếng Pháp",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -819,7 +863,8 @@
         "completion_tokens": 303,
         "total_tokens": 754,
         "target_language": "fy",
-        "target_language_original": "tiếng Frisia"
+        "target_language_original": "tiếng Frisia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -838,7 +883,8 @@
         "completion_tokens": 294,
         "total_tokens": 733,
         "target_language": "ga",
-        "target_language_original": "tiếng Ireland"
+        "target_language_original": "tiếng Ireland",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -857,7 +903,8 @@
         "completion_tokens": 288,
         "total_tokens": 725,
         "target_language": "gd",
-        "target_language_original": "tiếng Gael Scotland"
+        "target_language_original": "tiếng Gael Scotland",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -876,7 +923,8 @@
         "completion_tokens": 294,
         "total_tokens": 733,
         "target_language": "gl",
-        "target_language_original": "tiếng Galicia"
+        "target_language_original": "tiếng Galicia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -895,7 +943,8 @@
         "completion_tokens": 79,
         "total_tokens": 377,
         "target_language": "gn",
-        "target_language_original": "tiếng Guarani"
+        "target_language_original": "tiếng Guarani",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -914,7 +963,8 @@
         "completion_tokens": 202,
         "total_tokens": 588,
         "target_language": "gu",
-        "target_language_original": "tiếng Gujarat"
+        "target_language_original": "tiếng Gujarat",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -933,7 +983,8 @@
         "completion_tokens": 331,
         "total_tokens": 808,
         "target_language": "ha",
-        "target_language_original": "tiếng Hausa"
+        "target_language_original": "tiếng Hausa",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -952,7 +1003,8 @@
         "completion_tokens": 193,
         "total_tokens": 579,
         "target_language": "haw",
-        "target_language_original": "tiếng Hawaii"
+        "target_language_original": "tiếng Hawaii",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -971,7 +1023,8 @@
         "completion_tokens": 187,
         "total_tokens": 577,
         "target_language": "he",
-        "target_language_original": "tiếng Do Thái"
+        "target_language_original": "tiếng Do Thái",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -990,7 +1043,8 @@
         "completion_tokens": 84,
         "total_tokens": 380,
         "target_language": "hi",
-        "target_language_original": "tiếng Hindi"
+        "target_language_original": "tiếng Hindi",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1009,7 +1063,8 @@
         "completion_tokens": 295,
         "total_tokens": 741,
         "target_language": "hil",
-        "target_language_original": "tiếng Hiligaynon"
+        "target_language_original": "tiếng Hiligaynon",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1028,7 +1083,8 @@
         "completion_tokens": 314,
         "total_tokens": 777,
         "target_language": "hmn",
-        "target_language_original": "tiếng Hmong"
+        "target_language_original": "tiếng Hmong",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1047,7 +1103,8 @@
         "completion_tokens": 296,
         "total_tokens": 737,
         "target_language": "hr",
-        "target_language_original": "tiếng Croatia"
+        "target_language_original": "tiếng Croatia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1066,7 +1123,8 @@
         "completion_tokens": 136,
         "total_tokens": 495,
         "target_language": "hrx",
-        "target_language_original": "tiếng Hunsrik"
+        "target_language_original": "tiếng Hunsrik",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1085,7 +1143,8 @@
         "completion_tokens": 235,
         "total_tokens": 685,
         "target_language": "ht",
-        "target_language_original": "tiếng Creole (Haiti)"
+        "target_language_original": "tiếng Creole (Haiti)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1104,7 +1163,8 @@
         "completion_tokens": 289,
         "total_tokens": 723,
         "target_language": "hu",
-        "target_language_original": "tiếng Hungary"
+        "target_language_original": "tiếng Hungary",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1123,7 +1183,8 @@
         "completion_tokens": 192,
         "total_tokens": 572,
         "target_language": "hy",
-        "target_language_original": "tiếng Armenia"
+        "target_language_original": "tiếng Armenia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1142,7 +1203,8 @@
         "completion_tokens": 52,
         "total_tokens": 314,
         "target_language": "id",
-        "target_language_original": "tiếng Indonesia"
+        "target_language_original": "tiếng Indonesia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1161,7 +1223,8 @@
         "completion_tokens": 227,
         "total_tokens": 662,
         "target_language": "ig",
-        "target_language_original": "tiếng Igbo"
+        "target_language_original": "tiếng Igbo",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1180,7 +1243,8 @@
         "completion_tokens": 52,
         "total_tokens": 298,
         "target_language": "ilo",
-        "target_language_original": "tiếng Ilocano"
+        "target_language_original": "tiếng Ilocano",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1199,7 +1263,8 @@
         "completion_tokens": 224,
         "total_tokens": 654,
         "target_language": "is",
-        "target_language_original": "tiếng Iceland"
+        "target_language_original": "tiếng Iceland",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1218,7 +1283,8 @@
         "completion_tokens": 159,
         "total_tokens": 531,
         "target_language": "it",
-        "target_language_original": "tiếng Ý"
+        "target_language_original": "tiếng Ý",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1237,7 +1303,8 @@
         "completion_tokens": 255,
         "total_tokens": 668,
         "target_language": "ja",
-        "target_language_original": "tiếng Nhật Bản(Japan)"
+        "target_language_original": "tiếng Nhật Bản(Japan)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1256,7 +1323,8 @@
         "completion_tokens": 81,
         "total_tokens": 394,
         "target_language": "jv",
-        "target_language_original": "tiếng Java"
+        "target_language_original": "tiếng Java",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1275,7 +1343,8 @@
         "completion_tokens": 281,
         "total_tokens": 674,
         "target_language": "ka",
-        "target_language_original": "tiếng Tiếng Georgia"
+        "target_language_original": "tiếng Tiếng Georgia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1294,7 +1363,8 @@
         "completion_tokens": 42,
         "total_tokens": 286,
         "target_language": "kk",
-        "target_language_original": "tiếng Kazakh"
+        "target_language_original": "tiếng Kazakh",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1313,7 +1383,8 @@
         "completion_tokens": 306,
         "total_tokens": 691,
         "target_language": "km",
-        "target_language_original": "tiếng Khmer"
+        "target_language_original": "tiếng Khmer",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1332,7 +1403,8 @@
         "completion_tokens": 53,
         "total_tokens": 295,
         "target_language": "kn",
-        "target_language_original": "tiếng Kannada"
+        "target_language_original": "tiếng Kannada",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1351,7 +1423,8 @@
         "completion_tokens": 236,
         "total_tokens": 644,
         "target_language": "ko",
-        "target_language_original": "tiếng Hàn Quốc(Korea)"
+        "target_language_original": "tiếng Hàn Quốc(Korea)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1370,7 +1443,8 @@
         "completion_tokens": 51,
         "total_tokens": 295,
         "target_language": "kok",
-        "target_language_original": "tiếng Konkani"
+        "target_language_original": "tiếng Konkani",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1389,7 +1463,8 @@
         "completion_tokens": 138,
         "total_tokens": 526,
         "target_language": "kri",
-        "target_language_original": "tiếng Krio"
+        "target_language_original": "tiếng Krio",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1408,7 +1483,8 @@
         "completion_tokens": 185,
         "total_tokens": 566,
         "target_language": "ku",
-        "target_language_original": "tiếng Kurd (Kurmanji)"
+        "target_language_original": "tiếng Kurd (Kurmanji)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1427,7 +1503,8 @@
         "completion_tokens": 112,
         "total_tokens": 427,
         "target_language": "ky",
-        "target_language_original": "tiếng Kyrgyz"
+        "target_language_original": "tiếng Kyrgyz",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1446,7 +1523,8 @@
         "completion_tokens": 233,
         "total_tokens": 621,
         "target_language": "la",
-        "target_language_original": "tiếng Latinh"
+        "target_language_original": "tiếng Latinh",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1465,7 +1543,8 @@
         "completion_tokens": 285,
         "total_tokens": 716,
         "target_language": "lb",
-        "target_language_original": "tiếng Luxembourg"
+        "target_language_original": "tiếng Luxembourg",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1484,7 +1563,8 @@
         "completion_tokens": 83,
         "total_tokens": 379,
         "target_language": "li",
-        "target_language_original": "tiếng Limburg"
+        "target_language_original": "tiếng Limburg",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1503,7 +1583,8 @@
         "completion_tokens": 211,
         "total_tokens": 630,
         "target_language": "lmo",
-        "target_language_original": "tiếng Lombard"
+        "target_language_original": "tiếng Lombard",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1522,7 +1603,8 @@
         "completion_tokens": 443,
         "total_tokens": 844,
         "target_language": "lo",
-        "target_language_original": "tiếng Lào (Laos)"
+        "target_language_original": "tiếng Lào (Laos)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1541,7 +1623,8 @@
         "completion_tokens": 228,
         "total_tokens": 664,
         "target_language": "lt",
-        "target_language_original": "tiếng Litva"
+        "target_language_original": "tiếng Litva",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1560,7 +1643,8 @@
         "completion_tokens": 275,
         "total_tokens": 677,
         "target_language": "lv",
-        "target_language_original": "tiếng Latvia"
+        "target_language_original": "tiếng Latvia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1579,7 +1663,8 @@
         "completion_tokens": 240,
         "total_tokens": 630,
         "target_language": "mai",
-        "target_language_original": "tiếng Maithili"
+        "target_language_original": "tiếng Maithili",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1598,7 +1683,8 @@
         "completion_tokens": 261,
         "total_tokens": 655,
         "target_language": "mg",
-        "target_language_original": "tiếng Malagasy"
+        "target_language_original": "tiếng Malagasy",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1617,7 +1703,8 @@
         "completion_tokens": 185,
         "total_tokens": 571,
         "target_language": "mi",
-        "target_language_original": "tiếng Maori"
+        "target_language_original": "tiếng Maori",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1636,7 +1723,8 @@
         "completion_tokens": 129,
         "total_tokens": 473,
         "target_language": "min",
-        "target_language_original": "tiếng Minang"
+        "target_language_original": "tiếng Minang",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1655,7 +1743,8 @@
         "completion_tokens": 102,
         "total_tokens": 407,
         "target_language": "mk",
-        "target_language_original": "tiếng Macedonia"
+        "target_language_original": "tiếng Macedonia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1674,7 +1763,8 @@
         "completion_tokens": 265,
         "total_tokens": 653,
         "target_language": "ml",
-        "target_language_original": "tiếng Malayalam"
+        "target_language_original": "tiếng Malayalam",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1693,7 +1783,8 @@
         "completion_tokens": 206,
         "total_tokens": 598,
         "target_language": "mn",
-        "target_language_original": "tiếng Mông Cổ"
+        "target_language_original": "tiếng Mông Cổ",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1712,7 +1803,8 @@
         "completion_tokens": 182,
         "total_tokens": 568,
         "target_language": "mr",
-        "target_language_original": "tiếng Marathi"
+        "target_language_original": "tiếng Marathi",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1731,7 +1823,8 @@
         "completion_tokens": 294,
         "total_tokens": 737,
         "target_language": "ms",
-        "target_language_original": "tiếng Mã Lai"
+        "target_language_original": "tiếng Mã Lai",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1750,7 +1843,8 @@
         "completion_tokens": 92,
         "total_tokens": 388,
         "target_language": "mt",
-        "target_language_original": "tiếng Malta"
+        "target_language_original": "tiếng Malta",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1769,7 +1863,8 @@
         "completion_tokens": 111,
         "total_tokens": 407,
         "target_language": "my",
-        "target_language_original": "tiếng Myanmar"
+        "target_language_original": "tiếng Myanmar",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1788,7 +1883,8 @@
         "completion_tokens": 190,
         "total_tokens": 579,
         "target_language": "ne",
-        "target_language_original": "tiếng Nepal"
+        "target_language_original": "tiếng Nepal",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1807,7 +1903,8 @@
         "completion_tokens": 221,
         "total_tokens": 650,
         "target_language": "nl",
-        "target_language_original": "tiếng Hà Lan"
+        "target_language_original": "tiếng Hà Lan",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1826,7 +1923,8 @@
         "completion_tokens": 140,
         "total_tokens": 492,
         "target_language": "no",
-        "target_language_original": "tiếng Na Uy"
+        "target_language_original": "tiếng Na Uy",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1845,7 +1943,8 @@
         "completion_tokens": 289,
         "total_tokens": 725,
         "target_language": "nr",
-        "target_language_original": "tiếng Nam Ndebele"
+        "target_language_original": "tiếng Nam Ndebele",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1864,7 +1963,8 @@
         "completion_tokens": 282,
         "total_tokens": 712,
         "target_language": "nso",
-        "target_language_original": "tiếng Sepedi"
+        "target_language_original": "tiếng Sepedi",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1883,7 +1983,8 @@
         "completion_tokens": 249,
         "total_tokens": 708,
         "target_language": "ny",
-        "target_language_original": "tiếng Chichewa"
+        "target_language_original": "tiếng Chichewa",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1902,7 +2003,8 @@
         "completion_tokens": 220,
         "total_tokens": 648,
         "target_language": "oc",
-        "target_language_original": "tiếng Occitan"
+        "target_language_original": "tiếng Occitan",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1921,7 +2023,8 @@
         "completion_tokens": 205,
         "total_tokens": 599,
         "target_language": "om",
-        "target_language_original": "tiếng Oromo"
+        "target_language_original": "tiếng Oromo",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1940,7 +2043,8 @@
         "completion_tokens": 139,
         "total_tokens": 444,
         "target_language": "or",
-        "target_language_original": "tiếng Odia (Oriya)"
+        "target_language_original": "tiếng Odia (Oriya)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1959,7 +2063,8 @@
         "completion_tokens": 128,
         "total_tokens": 435,
         "target_language": "pa",
-        "target_language_original": "tiếng Punjab (Gurmukhi)"
+        "target_language_original": "tiếng Punjab (Gurmukhi)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1978,7 +2083,8 @@
         "completion_tokens": 36,
         "total_tokens": 283,
         "target_language": "pam",
-        "target_language_original": "tiếng Kapampangan"
+        "target_language_original": "tiếng Kapampangan",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -1997,7 +2103,8 @@
         "completion_tokens": 192,
         "total_tokens": 587,
         "target_language": "pap",
-        "target_language_original": "tiếng Papiamento"
+        "target_language_original": "tiếng Papiamento",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2016,7 +2123,8 @@
         "completion_tokens": 229,
         "total_tokens": 666,
         "target_language": "pl",
-        "target_language_original": "tiếng Ba Lan"
+        "target_language_original": "tiếng Ba Lan",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2035,7 +2143,8 @@
         "completion_tokens": 93,
         "total_tokens": 391,
         "target_language": "ps",
-        "target_language_original": "tiếng Pashto"
+        "target_language_original": "tiếng Pashto",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2054,7 +2163,8 @@
         "completion_tokens": 244,
         "total_tokens": 661,
         "target_language": "pt-BR",
-        "target_language_original": "tiếng Bồ Đào Nha (Brazil)"
+        "target_language_original": "tiếng Bồ Đào Nha (Brazil)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2073,7 +2183,8 @@
         "completion_tokens": 250,
         "total_tokens": 708,
         "target_language": "ro",
-        "target_language_original": "tiếng Rumani"
+        "target_language_original": "tiếng Rumani",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2092,7 +2203,8 @@
         "completion_tokens": 189,
         "total_tokens": 577,
         "target_language": "rom",
-        "target_language_original": "tiếng Romani"
+        "target_language_original": "tiếng Romani",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2111,7 +2223,8 @@
         "completion_tokens": 183,
         "total_tokens": 569,
         "target_language": "ru",
-        "target_language_original": "tiếng Nga"
+        "target_language_original": "tiếng Nga",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2130,7 +2243,8 @@
         "completion_tokens": 252,
         "total_tokens": 716,
         "target_language": "rw",
-        "target_language_original": "tiếng Kinyarwanda"
+        "target_language_original": "tiếng Kinyarwanda",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2149,7 +2263,8 @@
         "completion_tokens": 239,
         "total_tokens": 627,
         "target_language": "sa",
-        "target_language_original": "tiếng Phạn"
+        "target_language_original": "tiếng Phạn",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2168,7 +2283,8 @@
         "completion_tokens": 175,
         "total_tokens": 547,
         "target_language": "scn",
-        "target_language_original": "tiếng Sicily"
+        "target_language_original": "tiếng Sicily",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2187,7 +2303,8 @@
         "completion_tokens": 194,
         "total_tokens": 582,
         "target_language": "sd",
-        "target_language_original": "tiếng Sindhi"
+        "target_language_original": "tiếng Sindhi",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2206,7 +2323,8 @@
         "completion_tokens": 122,
         "total_tokens": 418,
         "target_language": "si",
-        "target_language_original": "tiếng Sinhala"
+        "target_language_original": "tiếng Sinhala",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2225,7 +2343,8 @@
         "completion_tokens": 247,
         "total_tokens": 702,
         "target_language": "sk",
-        "target_language_original": "tiếng Slovak"
+        "target_language_original": "tiếng Slovak",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2244,7 +2363,8 @@
         "completion_tokens": 256,
         "total_tokens": 718,
         "target_language": "sl",
-        "target_language_original": "tiếng Slovenia"
+        "target_language_original": "tiếng Slovenia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2263,7 +2383,8 @@
         "completion_tokens": 248,
         "total_tokens": 702,
         "target_language": "sm",
-        "target_language_original": "tiếng Samoa"
+        "target_language_original": "tiếng Samoa",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2282,7 +2403,8 @@
         "completion_tokens": 293,
         "total_tokens": 733,
         "target_language": "sn",
-        "target_language_original": "tiếng Shona"
+        "target_language_original": "tiếng Shona",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2301,7 +2423,8 @@
         "completion_tokens": 291,
         "total_tokens": 719,
         "target_language": "so",
-        "target_language_original": "tiếng Somali"
+        "target_language_original": "tiếng Somali",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2320,7 +2443,8 @@
         "completion_tokens": 181,
         "total_tokens": 564,
         "target_language": "sq",
-        "target_language_original": "tiếng Albania"
+        "target_language_original": "tiếng Albania",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2339,7 +2463,8 @@
         "completion_tokens": 281,
         "total_tokens": 704,
         "target_language": "sr",
-        "target_language_original": "tiếng Serbia"
+        "target_language_original": "tiếng Serbia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2358,7 +2483,8 @@
         "completion_tokens": 255,
         "total_tokens": 718,
         "target_language": "st",
-        "target_language_original": "tiếng Sesotho"
+        "target_language_original": "tiếng Sesotho",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2377,7 +2503,8 @@
         "completion_tokens": 300,
         "total_tokens": 746,
         "target_language": "su",
-        "target_language_original": "tiếng Sunda"
+        "target_language_original": "tiếng Sunda",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2396,7 +2523,8 @@
         "completion_tokens": 276,
         "total_tokens": 706,
         "target_language": "sv",
-        "target_language_original": "tiếng Thụy Điển"
+        "target_language_original": "tiếng Thụy Điển",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2415,7 +2543,8 @@
         "completion_tokens": 305,
         "total_tokens": 759,
         "target_language": "sw",
-        "target_language_original": "tiếng Swahili"
+        "target_language_original": "tiếng Swahili",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2434,7 +2563,8 @@
         "completion_tokens": 190,
         "total_tokens": 580,
         "target_language": "szl",
-        "target_language_original": "tiếng Silesia"
+        "target_language_original": "tiếng Silesia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2453,7 +2583,8 @@
         "completion_tokens": 294,
         "total_tokens": 734,
         "target_language": "ta",
-        "target_language_original": "tiếng Tamil"
+        "target_language_original": "tiếng Tamil",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2472,7 +2603,8 @@
         "completion_tokens": 147,
         "total_tokens": 452,
         "target_language": "te",
-        "target_language_original": "tiếng Telugu"
+        "target_language_original": "tiếng Telugu",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2491,7 +2623,8 @@
         "completion_tokens": 218,
         "total_tokens": 606,
         "target_language": "tg",
-        "target_language_original": "tiếng Tajik"
+        "target_language_original": "tiếng Tajik",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2510,7 +2643,8 @@
         "completion_tokens": 34,
         "total_tokens": 286,
         "target_language": "th",
-        "target_language_original": "tiếng Thái Lan(Thailand)"
+        "target_language_original": "tiếng Thái Lan(Thailand)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2529,7 +2663,8 @@
         "completion_tokens": 386,
         "total_tokens": 776,
         "target_language": "ti",
-        "target_language_original": "tiếng Tigrinya"
+        "target_language_original": "tiếng Tigrinya",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2548,7 +2683,8 @@
         "completion_tokens": 148,
         "total_tokens": 489,
         "target_language": "tk",
-        "target_language_original": "tiếng Turkmen"
+        "target_language_original": "tiếng Turkmen",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2567,7 +2703,8 @@
         "completion_tokens": 259,
         "total_tokens": 734,
         "target_language": "tr",
-        "target_language_original": "tiếng Thổ Nhĩ Kỳ"
+        "target_language_original": "tiếng Thổ Nhĩ Kỳ",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2586,7 +2723,8 @@
         "completion_tokens": 204,
         "total_tokens": 592,
         "target_language": "tt",
-        "target_language_original": "tiếng Tatar"
+        "target_language_original": "tiếng Tatar",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2605,7 +2743,8 @@
         "completion_tokens": 229,
         "total_tokens": 619,
         "target_language": "ug",
-        "target_language_original": "tiếng Uyghur"
+        "target_language_original": "tiếng Uyghur",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2624,7 +2763,8 @@
         "completion_tokens": 143,
         "total_tokens": 464,
         "target_language": "uk",
-        "target_language_original": "tiếng Ukraina"
+        "target_language_original": "tiếng Ukraina",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2643,7 +2783,8 @@
         "completion_tokens": 193,
         "total_tokens": 579,
         "target_language": "ur",
-        "target_language_original": "tiếng Urdu"
+        "target_language_original": "tiếng Urdu",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2662,7 +2803,8 @@
         "completion_tokens": 271,
         "total_tokens": 664,
         "target_language": "uz",
-        "target_language_original": "tiếng Uzbek"
+        "target_language_original": "tiếng Uzbek",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2681,7 +2823,8 @@
         "completion_tokens": 102,
         "total_tokens": 400,
         "target_language": "yi",
-        "target_language_original": "tiếng Yiddish"
+        "target_language_original": "tiếng Yiddish",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2700,7 +2843,8 @@
         "completion_tokens": 308,
         "total_tokens": 762,
         "target_language": "yo",
-        "target_language_original": "tiếng Yoruba"
+        "target_language_original": "tiếng Yoruba",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2719,7 +2863,8 @@
         "completion_tokens": 279,
         "total_tokens": 713,
         "target_language": "zh-Hans",
-        "target_language_original": "tiếng Trung (Giản thể)"
+        "target_language_original": "tiếng Trung (Giản thể)",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2738,7 +2883,8 @@
         "completion_tokens": 239,
         "total_tokens": 640,
         "target_language": "zh-Hant-HK",
-        "target_language_original": "tiếng Quảng Đông"
+        "target_language_original": "tiếng Quảng Đông",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2757,7 +2903,8 @@
         "completion_tokens": 230,
         "total_tokens": 668,
         "target_language": "zu",
-        "target_language_original": "tiếng Zulu"
+        "target_language_original": "tiếng Zulu",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2776,7 +2923,8 @@
         "completion_tokens": 87,
         "total_tokens": 368,
         "target_language": "hmn",
-        "target_language_original": "tiếng Hmong"
+        "target_language_original": "tiếng Hmong",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2795,7 +2943,8 @@
         "completion_tokens": 306,
         "total_tokens": 757,
         "target_language": "lb",
-        "target_language_original": "tiếng Luxembourg"
+        "target_language_original": "tiếng Luxembourg",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2814,7 +2963,8 @@
         "completion_tokens": 231,
         "total_tokens": 674,
         "target_language": "es",
-        "target_language_original": "tiếng Tây Ban Nha"
+        "target_language_original": "tiếng Tây Ban Nha",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2833,7 +2983,8 @@
         "completion_tokens": 281,
         "total_tokens": 724,
         "target_language": "sl",
-        "target_language_original": "tiếng Slovenia"
+        "target_language_original": "tiếng Slovenia",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2852,7 +3003,8 @@
         "completion_tokens": 299,
         "total_tokens": 743,
         "target_language": "sm",
-        "target_language_original": "tiếng Samoa"
+        "target_language_original": "tiếng Samoa",
+        "source_language_original": "tiếng Việt"
       }
     },
     {
@@ -2871,7 +3023,8 @@
         "completion_tokens": 249,
         "total_tokens": 706,
         "target_language": "ig",
-        "target_language_original": "tiếng Igbo"
+        "target_language_original": "tiếng Igbo",
+        "source_language_original": "tiếng Việt"
       }
     }
   ]
