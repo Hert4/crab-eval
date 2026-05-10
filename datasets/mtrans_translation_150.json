@@ -44,7 +44,8 @@
         "total_tokens": 582,
         "target_language": "af",
         "target_language_original": "tiếng Hà Lan (Nam Phi)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"NTNDIEM - GÒ VẤP - AMIS\",\"K_2\":\"ABĐ\",\"K_3\":\"CHĐTH\",\"K_4\":\"Toàn quyền\",\"K_5\":\"Loại hoàng hóa\",\"K_6\":\"Thẻ chuyển giao\",\"K_7\":\"Khách hàng chăm sóc\",\"K_8\":\"Tình trạng\",\"K_9\":\"Cơ hội\",\"K_10\":\"Chính sách giá\",\"K_11\":\"Dự toán kinh phí\",\"K_12\":\"Dự án bán hàng\",\"K_13\":\"Thẻ hỗ trợ\",\"K_14\":\"Chiến dịch\",\"K_15\":\"Thẻ chăm sóc\",\"K_16\":\"Đơn hàng\",\"K_17\":\"Hóa đơn\",\"K_18\":\"Liên hệ\",\"K_19\":\"Hoạt động\",\"K_20\":\"Trả lại hàng bán\"}"
       }
     },
     {
@@ -64,7 +65,8 @@
         "total_tokens": 788,
         "target_language": "am",
         "target_language_original": "tiếng Amharic",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -84,7 +86,8 @@
         "total_tokens": 680,
         "target_language": "ar",
         "target_language_original": "tiếng Ả Rập",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"ưefawefawef\",\"K_2\":\"APĐ-Q12\",\"K_3\":\"BĐ_N90\",\"K_4\":\"ĐXSON\",\"K_5\":\"P2-ĐL-LĐ\",\"K_6\":\"TBĐM (2000-2018)\",\"K_7\":\"hnuyen-ĐGNV2021\",\"K_8\":\"VUA_CĐKT_BMT\",\"K_9\":\"Q1ĐK\",\"K_10\":\"CUK4 AO KXĐ\",\"K_11\":\"Toàn quyền\",\"K_12\":\"Loại hoàng hóa\",\"K_13\":\"Thẻ chuyển giao\",\"K_14\":\"Khách hàng chăm sóc\",\"K_15\":\"Tình trạng\",\"K_16\":\"Cơ hội\",\"K_17\":\"Chính sách giá\",\"K_18\":\"Dự toán kinh phí\",\"K_19\":\"Dự án bán hàng\",\"K_20\":\"Thẻ hỗ trợ\"}"
       }
     },
     {
@@ -104,7 +107,8 @@
         "total_tokens": 385,
         "target_language": "as",
         "target_language_original": "tiếng Assam",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -124,7 +128,8 @@
         "total_tokens": 573,
         "target_language": "awa",
         "target_language_original": "tiếng Awadhi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -144,7 +149,8 @@
         "total_tokens": 582,
         "target_language": "az",
         "target_language_original": "tiếng Azerbaijan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Phước Mỹ_TM\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -164,7 +170,8 @@
         "total_tokens": 594,
         "target_language": "ba",
         "target_language_original": "tiếng Bashkir",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -184,7 +191,8 @@
         "total_tokens": 604,
         "target_language": "be",
         "target_language_original": "tiếng Belarus",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -204,7 +212,8 @@
         "total_tokens": 589,
         "target_language": "bew",
         "target_language_original": "tiếng Betawi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Nguyễn Định An\",\"K_2\":\"Võ Bá Quang\",\"K_3\":\"Thu Thủy\",\"K_4\":\"Lộc Thanh 25\",\"K_5\":\"Vy đông giang\",\"K_6\":\"CHF KT - TT Long Thành\",\"K_7\":\"SQL TB Hiệp\",\"K_8\":\"TÂY NINH_AMIS HKD\",\"K_9\":\"Toàn quyền\",\"K_10\":\"Loại hoàng hóa\",\"K_11\":\"Thẻ chuyển giao\",\"K_12\":\"Khách hàng chăm sóc\",\"K_13\":\"Tình trạng\",\"K_14\":\"Cơ hội\",\"K_15\":\"Chính sách giá\",\"K_16\":\"Dự toán kinh phí\",\"K_17\":\"Dự án bán hàng\",\"K_18\":\"Thẻ hỗ trợ\",\"K_19\":\"Chiến dịch\",\"K_20\":\"Thẻ chăm sóc\"}"
       }
     },
     {
@@ -224,7 +233,8 @@
         "total_tokens": 586,
         "target_language": "bg",
         "target_language_original": "tiếng Bulgaria",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -244,7 +254,8 @@
         "total_tokens": 384,
         "target_language": "bho",
         "target_language_original": "tiếng Bhojpuri",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -264,7 +275,8 @@
         "total_tokens": 617,
         "target_language": "bik",
         "target_language_original": "tiếng Bikol",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"bình tân\",\"K_2\":\"CHTB Hoàng mai\",\"K_3\":\"Bửu Phương\",\"K_4\":\"AN PHÚ ĐÔNG / THẠNH LỘC\",\"K_5\":\"GPHĐ - NHS\",\"K_6\":\"PYNHI_CĐ_AMIS N90\",\"K_7\":\"Toàn quyền\",\"K_8\":\"Loại hoàng hóa\",\"K_9\":\"Thẻ chuyển giao\",\"K_10\":\"Khách hàng chăm sóc\",\"K_11\":\"Tình trạng\",\"K_12\":\"Cơ hội\",\"K_13\":\"Chính sách giá\",\"K_14\":\"Dự toán kinh phí\",\"K_15\":\"Dự án bán hàng\",\"K_16\":\"Thẻ hỗ trợ\",\"K_17\":\"Chiến dịch\",\"K_18\":\"Thẻ chăm sóc\",\"K_19\":\"Đơn hàng\",\"K_20\":\"Hóa đơn\"}"
       }
     },
     {
@@ -284,7 +296,8 @@
         "total_tokens": 703,
         "target_language": "bm",
         "target_language_original": "tiếng Bambara",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"THÙY\",\"K_2\":\"12 GÒ VẤP\",\"K_3\":\"MEIN HUẾ\",\"K_4\":\"PHI HOÀNG\",\"K_5\":\"TÂN QUÝ - TÂN PHÚ\",\"K_6\":\"Thúy Vy\",\"K_7\":\"MTT ĐẮK LẮK\",\"K_8\":\"Châu Thành - AG\",\"K_9\":\"Krông Pa\",\"K_10\":\"Toàn quyền\",\"K_11\":\"Loại hoàng hóa\",\"K_12\":\"Thẻ chuyển giao\",\"K_13\":\"Khách hàng chăm sóc\",\"K_14\":\"Tình trạng\",\"K_15\":\"Cơ hội\",\"K_16\":\"Chính sách giá\",\"K_17\":\"Dự toán kinh phí\",\"K_18\":\"Dự án bán hàng\",\"K_19\":\"Thẻ hỗ trợ\",\"K_20\":\"Chiến dịch\"}"
       }
     },
     {
@@ -304,7 +317,8 @@
         "total_tokens": 644,
         "target_language": "bn",
         "target_language_original": "tiếng Bengal",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -324,7 +338,8 @@
         "total_tokens": 594,
         "target_language": "bnt",
         "target_language_original": "tiếng Bantu",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"NMTruong_KĐYBT 2023\",\"K_2\":\"CTN-TN-ĐXL\",\"K_3\":\"Toàn quyền\",\"K_4\":\"Loại hoàng hóa\",\"K_5\":\"Thẻ chuyển giao\",\"K_6\":\"Khách hàng chăm sóc\",\"K_7\":\"Tình trạng\",\"K_8\":\"Cơ hội\",\"K_9\":\"Chính sách giá\",\"K_10\":\"Dự toán kinh phí\",\"K_11\":\"Dự án bán hàng\",\"K_12\":\"Thẻ hỗ trợ\",\"K_13\":\"Chiến dịch\",\"K_14\":\"Thẻ chăm sóc\",\"K_15\":\"Đơn hàng\",\"K_16\":\"Hóa đơn\",\"K_17\":\"Liên hệ\",\"K_18\":\"Hoạt động\",\"K_19\":\"Trả lại hàng bán\",\"K_20\":\"Ao cơ hội\"}"
       }
     },
     {
@@ -344,7 +359,8 @@
         "total_tokens": 734,
         "target_language": "br",
         "target_language_original": "tiếng Breton",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"HCM_Gò Vấp (1.455)\",\"K_2\":\"VĨnh tường VP\",\"K_3\":\"NHƠN TRẠCH\",\"K_4\":\"TỊNH BIÊN - SME HH\",\"K_5\":\"NNHAN_ĐT_VC\",\"K_6\":\"Đăk Đoa - Mang Yang\",\"K_7\":\"HOÀNG\",\"K_8\":\"MHTRAM - PHÚ MỸ (284)\",\"K_9\":\"MỄ TRÌ NTL\",\"K_10\":\"THANH HÓA 19/1\",\"K_11\":\"VĨNH NGUYÊN_KHM\",\"K_12\":\"KNDUNG_TÂN LỢI\",\"K_13\":\"DĨ AN-BD\",\"K_14\":\"BTĐ BT HCM 2016\",\"K_15\":\"AO CH TÂN AN\",\"K_16\":\"SQL HOÀNG\",\"K_17\":\"CHÂU PHÚ - AN GIANG\",\"K_18\":\"MCP_GÒ VẤP\",\"K_19\":\"TÂN PHÚ - CẦN THƠ\",\"K_20\":\"KHC AMIS - Biên Hòa\"}"
       }
     },
     {
@@ -364,7 +380,8 @@
         "total_tokens": 572,
         "target_language": "bs",
         "target_language_original": "tiếng Bosnia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"KHC Trung Chánh amis\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -384,7 +401,8 @@
         "total_tokens": 593,
         "target_language": "bua",
         "target_language_original": "tiếng Buryat",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -404,7 +422,8 @@
         "total_tokens": 664,
         "target_language": "ca",
         "target_language_original": "tiếng Catalan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"HCM_GÒ VẤP\",\"K_2\":\"HỒNG UYÊN\",\"K_3\":\"TườngVii LA\",\"K_4\":\"Hoàng Thắm\",\"K_5\":\"1.2.Thọ Xuân_Mimo\",\"K_6\":\"Lộc Sơn\",\"K_7\":\"Nam Định_2020\",\"K_8\":\"THU HÀ\",\"K_9\":\"Vũng Liêm\",\"K_10\":\"QUANG ĐĂNG\",\"K_11\":\"PTC Ninh Phước\",\"K_12\":\"Tiến Dũng\",\"K_13\":\"A Khải\",\"K_14\":\"THÁI NGUYÊN\",\"K_15\":\"KHM Thới An\",\"K_16\":\"Tân Biên\",\"K_17\":\"Hữu Duy - Vũng Tàu (2) - 207\",\"K_18\":\"q12 - thới an, tân thới hiệp, TTN\",\"K_19\":\"YẾN-Q7\",\"K_20\":\"CH Nhật Vy\"}"
       }
     },
     {
@@ -424,7 +443,8 @@
         "total_tokens": 681,
         "target_language": "ceb",
         "target_language_original": "tiếng Cebuano",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Nguyễn Ngọc Trà My\",\"K_2\":\"khương mai\",\"K_3\":\"MELNVOICE-Ánh\",\"K_4\":\"KD 01 (Uyên)\",\"K_5\":\"VY Sơn Trà\",\"K_6\":\"hnuyen-ĐGNV2021\",\"K_7\":\"Thoại Sơn\",\"K_8\":\"email phạm văn hai\",\"K_9\":\"Lynh Iêu\",\"K_10\":\"CUK4 AO KXĐ\",\"K_11\":\"NHN - Mỹ Đức\",\"K_12\":\"C Hằng - BT3\",\"K_13\":\"nghệ an 1\",\"K_14\":\"Toàn quyền\",\"K_15\":\"Loại hoàng hóa\",\"K_16\":\"Thẻ chuyển giao\",\"K_17\":\"Khách hàng chăm sóc\",\"K_18\":\"Tình trạng\",\"K_19\":\"Cơ hội\",\"K_20\":\"Chính sách giá\"}"
       }
     },
     {
@@ -444,7 +464,8 @@
         "total_tokens": 444,
         "target_language": "ckb",
         "target_language_original": "tiếng Kurd (Sorani)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -464,7 +485,8 @@
         "total_tokens": 414,
         "target_language": "co",
         "target_language_original": "tiếng Corsi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Chào hàng\",\"K_2\":\"Báo giá\",\"K_3\":\"Khách hàng\",\"K_4\":\"Thẻ chăm sóc\",\"K_5\":\"Mục tiêu doanh số\",\"K_6\":\"Doanh số tính thưởng\",\"K_7\":\"Đơn hàng\",\"K_8\":\"Tiềm năng\",\"K_9\":\"Lịch hẹn\",\"K_10\":\"Nhiệm vụ\",\"K_11\":\"Cuộc gọi\",\"K_12\":\" và \"}"
       }
     },
     {
@@ -484,7 +506,8 @@
         "total_tokens": 416,
         "target_language": "crh",
         "target_language_original": "tiếng Tatar Krym",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Báo giá\",\"K_2\":\"Khách hàng\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Mục tiêu doanh số\",\"K_5\":\"Doanh số tính thưởng\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Tiềm năng\",\"K_8\":\"Lịch hẹn\",\"K_9\":\"Nhiệm vụ\",\"K_10\":\"Cuộc gọi\",\"K_11\":\" và \"}"
       }
     },
     {
@@ -504,7 +527,8 @@
         "total_tokens": 388,
         "target_language": "crs",
         "target_language_original": "tiếng Creole Seychelles",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -524,7 +548,8 @@
         "total_tokens": 678,
         "target_language": "cs",
         "target_language_original": "tiếng Séc",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"TRÂN - PHÚ GIÁO - BÌNH DƯƠNG\",\"K_2\":\"LÂM ĐỒNG P10\",\"K_3\":\"Ngọc Châu HD2\",\"K_4\":\"Hdanh_Chư Pưh\",\"K_5\":\"Thủ Đức 2021\",\"K_6\":\"phú lương 2021\",\"K_7\":\"Dương Thị Thanh Hải (D20-0194)\",\"K_8\":\"MTT TĐ\",\"K_9\":\"Thiện Thanh\",\"K_10\":\"Ngân Đinh\",\"K_11\":\"Mai động HM\",\"K_12\":\"Phương Anh\",\"K_13\":\"PHƯƠNG-2019\",\"K_14\":\"HOÀI ĐỨC\",\"K_15\":\"YẾN NHƯ\",\"K_16\":\"THUẬN PHƯỚC_LINH\",\"K_17\":\"Quỳnh Anh KT3\",\"K_18\":\"Phù Mỹ\",\"K_19\":\"AN HOÀ - RG - KG\",\"K_20\":\"Trung phụng\"}"
       }
     },
     {
@@ -544,7 +569,8 @@
         "total_tokens": 624,
         "target_language": "cv",
         "target_language_original": "tiếng Chuvash",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -564,7 +590,8 @@
         "total_tokens": 674,
         "target_language": "cy",
         "target_language_original": "tiếng Xứ Wales",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Phú Xuyên_PKD6\",\"K_2\":\"Quảng Bình_2020\",\"K_3\":\"TÚ QUYÊN\",\"K_4\":\"Gò Vấp 2023\",\"K_5\":\"Yô lô\",\"K_6\":\"VC-ĐN\",\"K_7\":\"Hà Tĩnh 2022\",\"K_8\":\"MEI-DIÊN PHÚ\",\"K_9\":\"TMAU_GÒ VẤP_052020\",\"K_10\":\"Chu Phương\",\"K_11\":\"YÊN SỞ\",\"K_12\":\"KHC-Trung Chánh\",\"K_13\":\"HA - Bình Long BP\",\"K_14\":\"VĨNH LỘC A- MCP\",\"K_15\":\"Hồ Chí Minh (19.492)\",\"K_16\":\"HKD THỊNH PHỤ TRÁCH\",\"K_17\":\"Hiếu BM5\",\"K_18\":\"mei 1 bình tân\",\"K_19\":\"nam dương\",\"K_20\":\"CH - PHÚC\"}"
       }
     },
     {
@@ -584,7 +611,8 @@
         "total_tokens": 646,
         "target_language": "da",
         "target_language_original": "tiếng Đan Mạch",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"GPHĐ - NHS\",\"K_2\":\"Vĩnh Hưng\",\"K_3\":\"LỘC TIẾN BL\",\"K_4\":\"Phan Thảo Vy\",\"K_5\":\"MEI4 - Thanh Hà\",\"K_6\":\"Yến Nhi\",\"K_7\":\"DS Điện Biên\",\"K_8\":\"krong nô, đắk nông\",\"K_9\":\"VIKHANH_GÒ VẤP\",\"K_10\":\"Kiến Hưng\",\"K_11\":\"ngọc Anh\",\"K_12\":\"ĐỖ THỊ THẢO\",\"K_13\":\"Uyên KPI 2025\",\"K_14\":\"Sơn Tây_Hạnh\",\"K_15\":\"Diễm/Data\",\"K_16\":\"Bình Thạnh - 517\",\"K_17\":\"Ninh Kiều\",\"K_18\":\"LỘC NGA\",\"K_19\":\"Lệ Mi\",\"K_20\":\"Thạnh Hóa - LA(8)\"}"
       }
     },
     {
@@ -604,7 +632,8 @@
         "total_tokens": 486,
         "target_language": "de",
         "target_language_original": "tiếng Đức",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Liên hệ\",\"K_2\":\"Hoạt động\",\"K_3\":\"Trả lại hàng bán\",\"K_4\":\"Ao cơ hội\",\"K_5\":\"Chào hàng\",\"K_6\":\"Báo giá\",\"K_7\":\"Khách hàng\",\"K_8\":\"Thẻ chăm sóc\",\"K_9\":\"Mục tiêu doanh số\",\"K_10\":\"Doanh số tính thưởng\",\"K_11\":\"Đơn hàng\",\"K_12\":\"Tiềm năng\",\"K_13\":\"Lịch hẹn\",\"K_14\":\"Nhiệm vụ\",\"K_15\":\"Cuộc gọi\",\"K_16\":\" và \"}"
       }
     },
     {
@@ -624,7 +653,8 @@
         "total_tokens": 382,
         "target_language": "doi",
         "target_language_original": "tiếng Dogri",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -644,7 +674,8 @@
         "total_tokens": 623,
         "target_language": "el",
         "target_language_original": "tiếng Hy Lạp",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -664,7 +695,8 @@
         "total_tokens": 529,
         "target_language": "en",
         "target_language_original": "tiếng Tiếng Anh",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -684,7 +716,8 @@
         "total_tokens": 371,
         "target_language": "eo",
         "target_language_original": "tiếng Quốc tế ngữ",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -704,7 +737,8 @@
         "total_tokens": 431,
         "target_language": "es",
         "target_language_original": "tiếng Tây Ban Nha",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ao cơ hội\",\"K_2\":\"Chào hàng\",\"K_3\":\"Báo giá\",\"K_4\":\"Khách hàng\",\"K_5\":\"Thẻ chăm sóc\",\"K_6\":\"Mục tiêu doanh số\",\"K_7\":\"Doanh số tính thưởng\",\"K_8\":\"Đơn hàng\",\"K_9\":\"Tiềm năng\",\"K_10\":\"Lịch hẹn\",\"K_11\":\"Nhiệm vụ\",\"K_12\":\"Cuộc gọi\",\"K_13\":\" và \"}"
       }
     },
     {
@@ -724,7 +758,8 @@
         "total_tokens": 573,
         "target_language": "et",
         "target_language_original": "tiếng Estonia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Loại hoàng hóa\",\"K_2\":\"Thẻ chuyển giao\",\"K_3\":\"Khách hàng chăm sóc\",\"K_4\":\"Tình trạng\",\"K_5\":\"Cơ hội\",\"K_6\":\"Chính sách giá\",\"K_7\":\"Dự toán kinh phí\",\"K_8\":\"Dự án bán hàng\",\"K_9\":\"Thẻ hỗ trợ\",\"K_10\":\"Chiến dịch\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Đơn hàng\",\"K_13\":\"Hóa đơn\",\"K_14\":\"Liên hệ\",\"K_15\":\"Hoạt động\",\"K_16\":\"Trả lại hàng bán\",\"K_17\":\"Ao cơ hội\",\"K_18\":\"Chào hàng\",\"K_19\":\"Báo giá\",\"K_20\":\"Khách hàng\"}"
       }
     },
     {
@@ -744,7 +779,8 @@
         "total_tokens": 502,
         "target_language": "eu",
         "target_language_original": "tiếng Basque",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Liên hệ\",\"K_2\":\"Hoạt động\",\"K_3\":\"Trả lại hàng bán\",\"K_4\":\"Ao cơ hội\",\"K_5\":\"Chào hàng\",\"K_6\":\"Báo giá\",\"K_7\":\"Khách hàng\",\"K_8\":\"Thẻ chăm sóc\",\"K_9\":\"Mục tiêu doanh số\",\"K_10\":\"Doanh số tính thưởng\",\"K_11\":\"Đơn hàng\",\"K_12\":\"Tiềm năng\",\"K_13\":\"Lịch hẹn\",\"K_14\":\"Nhiệm vụ\",\"K_15\":\"Cuộc gọi\",\"K_16\":\" và \"}"
       }
     },
     {
@@ -764,7 +800,8 @@
         "total_tokens": 441,
         "target_language": "fa",
         "target_language_original": "tiếng Ba Tư",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Báo giá\",\"K_2\":\"Khách hàng\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Mục tiêu doanh số\",\"K_5\":\"Doanh số tính thưởng\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Tiềm năng\",\"K_8\":\"Lịch hẹn\",\"K_9\":\"Nhiệm vụ\",\"K_10\":\"Cuộc gọi\",\"K_11\":\" và \"}"
       }
     },
     {
@@ -784,7 +821,8 @@
         "total_tokens": 674,
         "target_language": "fi",
         "target_language_original": "tiếng Phần Lan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Gò Vấp 2023\",\"K_2\":\"Hà Tĩnh 2022\",\"K_3\":\"2025_Bình Định\",\"K_4\":\"Vĩnh Long 2025\",\"K_5\":\"Đồng Xoài 2022\",\"K_6\":\"Huỳnh Tâm Hưng\",\"K_7\":\"NTPHÁT\",\"K_8\":\"Nguyễn Thị Kim Oanh\",\"K_9\":\"CD_QLTS_QĐ213_LTDung\",\"K_10\":\"Hoàng_HCM_2021\",\"K_11\":\"ĐẮK R LẤP\",\"K_12\":\"Phượng CKS\",\"K_13\":\"TG-NỞ\",\"K_14\":\"Đặng Văn Dũng\",\"K_15\":\"TÂN HIỆP\",\"K_16\":\"Hoàng Mai 10.5.2023\",\"K_17\":\"Tân bình N-90\",\"K_18\":\"Mê Linh_PKD6\",\"K_19\":\"CH ĐHĐ\",\"K_20\":\"Trần Thị Kim Chung\"}"
       }
     },
     {
@@ -804,7 +842,8 @@
         "total_tokens": 714,
         "target_language": "fil",
         "target_language_original": "tiếng Filipino",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Đức Hòa - ASP\",\"K_2\":\"BTĐB_TTA\",\"K_3\":\"BTĐ BT HCM 2015\",\"K_4\":\"P. LINH CHIỂU\",\"K_5\":\"Nguyễn Cư Trinh_94\",\"K_6\":\"sme gò vấp\",\"K_7\":\"KHC AN KHÁNH\",\"K_8\":\"BTĐ BT HCM 2019\",\"K_9\":\"KHĐM P36710TB\",\"K_10\":\"HN/DV-XL/29/07/Ánh\",\"K_11\":\"Vĩnh Cửu - Đồng Nai - Ngô Hiền KV6\",\"K_12\":\"Trà Vinh HT\",\"K_13\":\"Cần thơ - NK - An Phú\",\"K_14\":\"Phú Tân - An Giang\",\"K_15\":\"Nguyễn Thị Linh\",\"K_16\":\"Bắc Từ Liêm - Mimosa online\",\"K_17\":\"CTN-TN-ĐXL\",\"K_18\":\"NKLINH_MTT TMĐT\",\"K_19\":\"TTĐ - TK\",\"K_20\":\"Toàn quyền\"}"
       }
     },
     {
@@ -824,7 +863,8 @@
         "total_tokens": 650,
         "target_language": "fj",
         "target_language_original": "tiếng Fiji",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"THỦ ĐỨC - AMIS 90\",\"K_2\":\"An Giang - Châu Thành\",\"K_3\":\"PYNHI_CĐ_2021_HCM\",\"K_4\":\"Mthy_CSBĐ\",\"K_5\":\"BT GPHĐ\",\"K_6\":\"Toàn quyền\",\"K_7\":\"Loại hoàng hóa\",\"K_8\":\"Thẻ chuyển giao\",\"K_9\":\"Khách hàng chăm sóc\",\"K_10\":\"Tình trạng\",\"K_11\":\"Cơ hội\",\"K_12\":\"Chính sách giá\",\"K_13\":\"Dự toán kinh phí\",\"K_14\":\"Dự án bán hàng\",\"K_15\":\"Thẻ hỗ trợ\",\"K_16\":\"Chiến dịch\",\"K_17\":\"Thẻ chăm sóc\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Hóa đơn\",\"K_20\":\"Liên hệ\"}"
       }
     },
     {
@@ -844,7 +884,8 @@
         "total_tokens": 386,
         "target_language": "fr",
         "target_language_original": "tiếng Pháp",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -864,7 +905,8 @@
         "total_tokens": 754,
         "target_language": "fy",
         "target_language_original": "tiếng Frisia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"VĨNH NGUYÊN_KHM\",\"K_2\":\"Trâm\",\"K_3\":\"KNDUNG_TÂN LỢI\",\"K_4\":\"Yên Sở\",\"K_5\":\"Thanh Thảo TXKT MCP\",\"K_6\":\"LĨNH NAM\",\"K_7\":\"BTĐ BT HCM 2016\",\"K_8\":\"ưefawefawef\",\"K_9\":\"CAM LÂM\",\"K_10\":\"BTN- Khánh Hòa\",\"K_11\":\"Bình Dương 2021\",\"K_12\":\"ANH THUẬN\",\"K_13\":\"NHI_TÂN UYÊN_BD\",\"K_14\":\"Trần Hà- NTL(mỹ đình 1)\",\"K_15\":\"TONG CĐ\",\"K_16\":\"Quảng Yên 2025\",\"K_17\":\"Thái Nguyên HT\",\"K_18\":\"PHÚ THẠNH - TÂN PHÚ\",\"K_19\":\"XUÂN KHÁNH - SME HH\",\"K_20\":\"THÙY_INBOT\"}"
       }
     },
     {
@@ -884,7 +926,8 @@
         "total_tokens": 733,
         "target_language": "ga",
         "target_language_original": "tiếng Ireland",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Phước Mỹ_TM\",\"K_2\":\"AO CH TÂN PHONG\",\"K_3\":\"Trúc Nhi\",\"K_4\":\"HÀ TĨNH 2020\",\"K_5\":\"La Khê\",\"K_6\":\"KHÁNH HÒA - VC\",\"K_7\":\"SQL TB Hạnh\",\"K_8\":\"13. Kông Chro\",\"K_9\":\"Quỳnh Anh _ KT1_ 11062024\",\"K_10\":\"MEI - HUẾ\",\"K_11\":\"Kiều - H. Đức Cơ GL\",\"K_12\":\"Cù Lao Dung - Sóc Trăng\",\"K_13\":\"Trinh HDĐV\",\"K_14\":\"KIỀU OANH\",\"K_15\":\"Thới An.1010\",\"K_16\":\"TRÂN\",\"K_17\":\"Nhi Lê_2024\",\"K_18\":\"La khê\",\"K_19\":\"Thanh Mai - Phú Thọ - AMIS\",\"K_20\":\"2024 Trương Nguyễn Thanh Trang\"}"
       }
     },
     {
@@ -904,7 +947,8 @@
         "total_tokens": 725,
         "target_language": "gd",
         "target_language_original": "tiếng Gael Scotland",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"AO TRÚC\",\"K_2\":\"Phú la\",\"K_3\":\"Thịnh Liệt\",\"K_4\":\"Tuấn BM03\",\"K_5\":\"QUẢNG NINH Yết Kiêu\",\"K_6\":\"CSKHBĐ_05\",\"K_7\":\"KHC P. CAM THUẬN\",\"K_8\":\"Hưng Phú CR\",\"K_9\":\"HKD An Khánh\",\"K_10\":\"PTC Nhơn Trạch-35\",\"K_11\":\"NNHAN_ĐT_AMIS\",\"K_12\":\"u minh thượng\",\"K_13\":\"Khánh Hòa - MeInvoice\",\"K_14\":\"TMAU_PHÚ YÊN_052020\",\"K_15\":\"TRÂN - AN PHÚ - THUẬN AN\",\"K_16\":\"Phổ yên\",\"K_17\":\"BTĐ A\",\"K_18\":\"Quảng phú _NY\",\"K_19\":\"Lạng Sơn\",\"K_20\":\"Ninh Bình 2022\"}"
       }
     },
     {
@@ -924,7 +968,8 @@
         "total_tokens": 733,
         "target_language": "gl",
         "target_language_original": "tiếng Galicia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Bình Tân - 1.240\",\"K_2\":\"Thanh Trì - QLTS\",\"K_3\":\"PTC Long Phú\",\"K_4\":\"Phúc - Esign\",\"K_5\":\"Phú Nhuận - 541\",\"K_6\":\"SDR Hương\",\"K_7\":\"Trần Văn Thời CM\",\"K_8\":\"Nguyễn Phạm Hoài Thương\",\"K_9\":\"TTV Phi NĐ 70\",\"K_10\":\"CUK VŨNG TÀU\",\"K_11\":\"Tân Chánh Hiệp\",\"K_12\":\"A Lưới\",\"K_13\":\"NHUNG_CĐ 2810\",\"K_14\":\"Cù Lao Dung - Sóc Trăng\",\"K_15\":\"Thọ Quang, Sơn Trà\",\"K_16\":\"Trinh HDĐV\",\"K_17\":\"Vĩnh Linh\",\"K_18\":\"THÙY VÂN\",\"K_19\":\"Hưng - inbot\",\"K_20\":\"QT_Biên Hòa\"}"
       }
     },
     {
@@ -944,7 +989,8 @@
         "total_tokens": 377,
         "target_language": "gn",
         "target_language_original": "tiếng Guarani",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -964,7 +1010,8 @@
         "total_tokens": 588,
         "target_language": "gu",
         "target_language_original": "tiếng Gujarat",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -984,7 +1031,8 @@
         "total_tokens": 808,
         "target_language": "ha",
         "target_language_original": "tiếng Hausa",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"NGỌC THI\",\"K_2\":\"LTDUONG BT LINH TRUNG TĐ\",\"K_3\":\"KG-RG-Vĩnh Thanh Vân\",\"K_4\":\"Hoàng Văn Thi\",\"K_5\":\"CUKCUK Q1, Q3, TĐ\",\"K_6\":\"ĐNG_GPKT1_1501\",\"K_7\":\"HIỆP TÂN -TPHU\",\"K_8\":\"NGHĨA PHÚ+ĐẮK NIA - ĐẮK NÔNG\",\"K_9\":\"KHÁNH HÒA - PHÚC\",\"K_10\":\"HKD Đồng tháp\",\"K_11\":\"Phú Thọ Hảo\",\"K_12\":\"TMTRAN- KHC TRUNG MỸ TÂY-09.05.23\",\"K_13\":\"KHC_ Nguyễn Văn Cừ\",\"K_14\":\"HCM_Gò Vấp (1.455)\",\"K_15\":\"Ân Thi\",\"K_16\":\"Vừa_Q8\",\"K_17\":\"Phú Xuyên_PKD6\",\"K_18\":\"Bình phước\",\"K_19\":\"TÚ QUYÊN\",\"K_20\":\"CSHH ĐTT 2024\"}"
       }
     },
     {
@@ -1004,7 +1052,8 @@
         "total_tokens": 579,
         "target_language": "haw",
         "target_language_original": "tiếng Hawaii",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Loại hoàng hóa\",\"K_2\":\"Thẻ chuyển giao\",\"K_3\":\"Khách hàng chăm sóc\",\"K_4\":\"Tình trạng\",\"K_5\":\"Cơ hội\",\"K_6\":\"Chính sách giá\",\"K_7\":\"Dự toán kinh phí\",\"K_8\":\"Dự án bán hàng\",\"K_9\":\"Thẻ hỗ trợ\",\"K_10\":\"Chiến dịch\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Đơn hàng\",\"K_13\":\"Hóa đơn\",\"K_14\":\"Liên hệ\",\"K_15\":\"Hoạt động\",\"K_16\":\"Trả lại hàng bán\",\"K_17\":\"Ao cơ hội\",\"K_18\":\"Chào hàng\",\"K_19\":\"Báo giá\",\"K_20\":\"Khách hàng\"}"
       }
     },
     {
@@ -1024,7 +1073,8 @@
         "total_tokens": 577,
         "target_language": "he",
         "target_language_original": "tiếng Do Thái",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1044,7 +1094,8 @@
         "total_tokens": 380,
         "target_language": "hi",
         "target_language_original": "tiếng Hindi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1064,7 +1115,8 @@
         "total_tokens": 741,
         "target_language": "hil",
         "target_language_original": "tiếng Hiligaynon",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Nguyễn Nghiêm_QNG\",\"K_2\":\"10_Krông Ana\",\"K_3\":\"Long Bình Tân\",\"K_4\":\"Bình Thắng - MEIN\",\"K_5\":\"Hòa Bình k E\",\"K_6\":\"Vĩnh Hiệp\",\"K_7\":\"Lương Thủy\",\"K_8\":\"Thanh Tùng\",\"K_9\":\"FB AD - Tùng HRM\",\"K_10\":\"THỦ ĐỨC - CMLUYEN\",\"K_11\":\"HA - Bình Long - BP\",\"K_12\":\"MEI-Cái Răng\",\"K_13\":\"VÕ CƯỜNG 2023\",\"K_14\":\"Tuy Đức - Đắk Nông\",\"K_15\":\"MTT HÓC MÔN\",\"K_16\":\"Vĩnh Phúc\",\"K_17\":\"XUÂN KHÁNH - CT\",\"K_18\":\"KRÔNG PĂK\",\"K_19\":\"NTP_ĐAK NÔNG\",\"K_20\":\"KHM TÂN TẠO\"}"
       }
     },
     {
@@ -1084,7 +1136,8 @@
         "total_tokens": 777,
         "target_language": "hmn",
         "target_language_original": "tiếng Hmong",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"10. Chư Sê\",\"K_2\":\"NGỌC THI\",\"K_3\":\"LTDUONG BT LINH TRUNG TĐ\",\"K_4\":\"NHKIM Ninh Thuận (46)\",\"K_5\":\"Hoàng Văn Thi\",\"K_6\":\"CKS-CHI LĂNG\",\"K_7\":\"CUKCUK Q1, Q3, TĐ\",\"K_8\":\"ĐNG_GPKT1_1501\",\"K_9\":\"Phú Yên 2021\",\"K_10\":\"Phú Thọ Hảo\",\"K_11\":\"PHÚ YÊN 2021\",\"K_12\":\"KHC_ Nguyễn Văn Cừ\",\"K_13\":\"HCM_Gò Vấp (1.455)\",\"K_14\":\"VK_Khánh Hòa\",\"K_15\":\"Ân Thi\",\"K_16\":\"Vừa_Q8\",\"K_17\":\"Quảng Bình_2020\",\"K_18\":\"TÚ QUYÊN\",\"K_19\":\"Gò Vấp 2023\",\"K_20\":\"P. THẠNH HỘI + BẠCH ĐẰNG\"}"
       }
     },
     {
@@ -1104,7 +1157,8 @@
         "total_tokens": 737,
         "target_language": "hr",
         "target_language_original": "tiếng Croatia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"TMTRAN PHƯỚC LONG A Q9.26.TH9\",\"K_2\":\"Thanh Hóa_2021\",\"K_3\":\"Lào Cai\",\"K_4\":\"Thiệu Hóa_Sala\",\"K_5\":\"Quảng Thành\",\"K_6\":\"Bình thạnh\",\"K_7\":\"Thái Nguyên\",\"K_8\":\"Sơn Tịnh\",\"K_9\":\"vĩnh ngọc 2024-2025\",\"K_10\":\"Nguyễn Châm C1474\",\"K_11\":\"TN BÌNH TÂN\",\"K_12\":\"VĨNH QUỲNH-LIÊN NINH\",\"K_13\":\"Lan Phương\",\"K_14\":\"Huyền HAN\",\"K_15\":\"AN BIÊN - KIÊN GIANG\",\"K_16\":\"Thảo - Tân Phú\",\"K_17\":\"Quảng BÌnh\",\"K_18\":\"MEIN QUẢNG NAM\",\"K_19\":\"Tân Uyên - DSD\",\"K_20\":\"LĨNH NAM\"}"
       }
     },
     {
@@ -1124,7 +1178,8 @@
         "total_tokens": 495,
         "target_language": "hrx",
         "target_language_original": "tiếng Hunsrik",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Hóa đơn\",\"K_2\":\"Liên hệ\",\"K_3\":\"Hoạt động\",\"K_4\":\"Trả lại hàng bán\",\"K_5\":\"Ao cơ hội\",\"K_6\":\"Chào hàng\",\"K_7\":\"Báo giá\",\"K_8\":\"Khách hàng\",\"K_9\":\"Thẻ chăm sóc\",\"K_10\":\"Mục tiêu doanh số\",\"K_11\":\"Doanh số tính thưởng\",\"K_12\":\"Đơn hàng\",\"K_13\":\"Tiềm năng\",\"K_14\":\"Lịch hẹn\",\"K_15\":\"Nhiệm vụ\",\"K_16\":\"Cuộc gọi\",\"K_17\":\" và \"}"
       }
     },
     {
@@ -1144,7 +1199,8 @@
         "total_tokens": 685,
         "target_language": "ht",
         "target_language_original": "tiếng Creole (Haiti)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Mỹ Tho\",\"K_2\":\"Quảng ninh\",\"K_3\":\"SYT Tiền Giang\",\"K_4\":\"Nguyễn Trần Đức Thế\",\"K_5\":\"Tân Bình\",\"K_6\":\"CHF - Thạnh Xuân\",\"K_7\":\"15_Cư Kuin\",\"K_8\":\"GPHĐ - THANH KHÊ\",\"K_9\":\"Thảo_BRIA\",\"K_10\":\"MTT Tân Bình\",\"K_11\":\"Phú Thuận - Q7\",\"K_12\":\"Phước Long B KHC SME (24/8)\",\"K_13\":\"HUỲNH PHƯƠNG - PTG T8\",\"K_14\":\"q7 - Phú thuận\",\"K_15\":\"Phú Nhuận VC\",\"K_16\":\"Đặng Vũ Hạnh\",\"K_17\":\"Tân Biên Amis\",\"K_18\":\"Vũ Quang 2021\",\"K_19\":\"Khuê Mỹ_20/3_DV\",\"K_20\":\"P. An Hòa\"}"
       }
     },
     {
@@ -1164,7 +1220,8 @@
         "total_tokens": 723,
         "target_language": "hu",
         "target_language_original": "tiếng Hungary",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Phan Thiết - BT\",\"K_2\":\"VUA_CĐKT_BMT\",\"K_3\":\"Thạnh Lộc\",\"K_4\":\"FB AD - Hạnh PLF\",\"K_5\":\"CHF - Tân Mai\",\"K_6\":\"KHC - ĐAKAO\",\"K_7\":\"FALCON- Hưng Yên 2025\",\"K_8\":\"CÀ MAU - CUKCUK\",\"K_9\":\"LY - CƯ ÊBUR\",\"K_10\":\"Hảo_Hà Nội\",\"K_11\":\"Trọng Đức\",\"K_12\":\"TÙNG_TLSD_MMO\",\"K_13\":\"AM DIỆU\",\"K_14\":\"Thủ Đức 3\",\"K_15\":\"H. Tuy Đức _ ĐN\",\"K_16\":\"ST - MỸ TÚ\",\"K_17\":\"A HUỲNH\",\"K_18\":\"THÙY DEMO\",\"K_19\":\"THỔ CHÂU - KG\",\"K_20\":\"khm cát lái\"}"
       }
     },
     {
@@ -1184,7 +1241,8 @@
         "total_tokens": 572,
         "target_language": "hy",
         "target_language_original": "tiếng Armenia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Chiến dịch\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Đơn hàng\",\"K_4\":\"Hóa đơn\",\"K_5\":\"Liên hệ\",\"K_6\":\"Hoạt động\",\"K_7\":\"Trả lại hàng bán\",\"K_8\":\"Ao cơ hội\",\"K_9\":\"Chào hàng\",\"K_10\":\"Báo giá\",\"K_11\":\"Khách hàng\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Mục tiêu doanh số\",\"K_14\":\"Doanh số tính thưởng\",\"K_15\":\"Đơn hàng\",\"K_16\":\"Tiềm năng\",\"K_17\":\"Lịch hẹn\",\"K_18\":\"Nhiệm vụ\",\"K_19\":\"Cuộc gọi\",\"K_20\":\" và \"}"
       }
     },
     {
@@ -1204,7 +1262,8 @@
         "total_tokens": 314,
         "target_language": "id",
         "target_language_original": "tiếng Indonesia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Tiềm năng\",\"K_2\":\"Lịch hẹn\",\"K_3\":\"Nhiệm vụ\",\"K_4\":\"Cuộc gọi\",\"K_5\":\" và \",\"K_6\":\"Thúy Thúy\"}"
       }
     },
     {
@@ -1224,7 +1283,8 @@
         "total_tokens": 662,
         "target_language": "ig",
         "target_language_original": "tiếng Igbo",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"La Khê\",\"K_2\":\"SQL TB Hạnh\",\"K_3\":\"Thanh Thảo CHF TXKT\",\"K_4\":\"Phú Yên 2023\",\"K_5\":\"Hoàng Minh Phương\",\"K_6\":\"PTC Thuận Bắc-30\",\"K_7\":\"CD_QLTS_QĐ213_PTNgoc\",\"K_8\":\"Mei_Tây Ninh\",\"K_9\":\"13. Kông Chro\",\"K_10\":\"Kiến An_Hạnh\",\"K_11\":\"Đắk Bla\",\"K_12\":\"HA - Phước Long - BP\",\"K_13\":\"Xuân Nhung\",\"K_14\":\"Kiều - Krong Búk\",\"K_15\":\"Hà-Eahleo\",\"K_16\":\"phước long A B\",\"K_17\":\"Phương anh\",\"K_18\":\"Thanh Thảo - HKH - ACH-CHF\",\"K_19\":\"TBĐM (2000-2018)\",\"K_20\":\"BM6_SDT_Tân Phú\"}"
       }
     },
     {
@@ -1244,7 +1304,8 @@
         "total_tokens": 298,
         "target_language": "ilo",
         "target_language_original": "tiếng Ilocano",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ra mắt Gemini 3.1 Pro\",\"K_2\":\"Mô hình tiên tiến nhất từ Google với khả năng phân tích vượt trội\"}"
       }
     },
     {
@@ -1264,7 +1325,8 @@
         "total_tokens": 654,
         "target_language": "is",
         "target_language_original": "tiếng Iceland",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"ÁNH - GEMINI - 7/4\",\"K_2\":\"Đakrông\",\"K_3\":\"PHÚ YÊN 2021\",\"K_4\":\"Phạm Trọng Thuận\",\"K_5\":\"Ái\",\"K_6\":\"Phú Xuyên_PKD6\",\"K_7\":\"LỌC THANH TRÌ\",\"K_8\":\"Gò Vấp 2023\",\"K_9\":\"Meinvoice_Khánh Hòa\",\"K_10\":\"Phú Nhuận - P.17,15\",\"K_11\":\"AE Nghĩa\",\"K_12\":\"Trang Đan Phượng\",\"K_13\":\"Dương Minh Khai\",\"K_14\":\"Bích Trâm\",\"K_15\":\"LONG BIÊN 22\",\"K_16\":\"CHAO CHƯA MTT ĐN\",\"K_17\":\"NGỌC HỒI\",\"K_18\":\"Đức Thiện\",\"K_19\":\"Phương Linh\",\"K_20\":\"thanh khê\"}"
       }
     },
     {
@@ -1284,7 +1346,8 @@
         "total_tokens": 531,
         "target_language": "it",
         "target_language_original": "tiếng Ý",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ chăm sóc\",\"K_2\":\"Đơn hàng\",\"K_3\":\"Hóa đơn\",\"K_4\":\"Liên hệ\",\"K_5\":\"Hoạt động\",\"K_6\":\"Trả lại hàng bán\",\"K_7\":\"Ao cơ hội\",\"K_8\":\"Chào hàng\",\"K_9\":\"Báo giá\",\"K_10\":\"Khách hàng\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Mục tiêu doanh số\",\"K_13\":\"Doanh số tính thưởng\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Tiềm năng\",\"K_16\":\"Lịch hẹn\",\"K_17\":\"Nhiệm vụ\",\"K_18\":\"Cuộc gọi\",\"K_19\":\" và \"}"
       }
     },
     {
@@ -1304,7 +1367,8 @@
         "total_tokens": 668,
         "target_language": "ja",
         "target_language_original": "tiếng Nhật Bản(Japan)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"CHĐTH\",\"K_2\":\"AN KHÁNH - SME HH\",\"K_3\":\"TMDUYÊN\",\"K_4\":\"HUYÊN ES1 HAN\",\"K_5\":\"BTĐ KHM FULL 70\",\"K_6\":\"10 - 3 - TĐ\",\"K_7\":\"BN-ĐNG-TCG\",\"K_8\":\"Toàn quyền\",\"K_9\":\"Loại hoàng hóa\",\"K_10\":\"Thẻ chuyển giao\",\"K_11\":\"Khách hàng chăm sóc\",\"K_12\":\"Tình trạng\",\"K_13\":\"Cơ hội\",\"K_14\":\"Chính sách giá\",\"K_15\":\"Dự toán kinh phí\",\"K_16\":\"Dự án bán hàng\",\"K_17\":\"Thẻ hỗ trợ\",\"K_18\":\"Chiến dịch\",\"K_19\":\"Thẻ chăm sóc\",\"K_20\":\"Đơn hàng\"}"
       }
     },
     {
@@ -1324,7 +1388,8 @@
         "total_tokens": 394,
         "target_language": "jv",
         "target_language_original": "tiếng Java",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Chào hàng\",\"K_2\":\"Báo giá\",\"K_3\":\"Khách hàng\",\"K_4\":\"Thẻ chăm sóc\",\"K_5\":\"Mục tiêu doanh số\",\"K_6\":\"Doanh số tính thưởng\",\"K_7\":\"Đơn hàng\",\"K_8\":\"Tiềm năng\",\"K_9\":\"Lịch hẹn\",\"K_10\":\"Nhiệm vụ\",\"K_11\":\"Cuộc gọi\",\"K_12\":\" và \"}"
       }
     },
     {
@@ -1344,7 +1409,8 @@
         "total_tokens": 674,
         "target_language": "ka",
         "target_language_original": "tiếng Tiếng Georgia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"KHĐM P36710TB\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -1364,7 +1430,8 @@
         "total_tokens": 286,
         "target_language": "kk",
         "target_language_original": "tiếng Kazakh",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ra mắt Gemini 3.1 Pro\",\"K_2\":\"Mô hình tiên tiến nhất từ Google với khả năng phân tích vượt trội\"}"
       }
     },
     {
@@ -1384,7 +1451,8 @@
         "total_tokens": 691,
         "target_language": "km",
         "target_language_original": "tiếng Khmer",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ chuyển giao\",\"K_2\":\"Khách hàng chăm sóc\",\"K_3\":\"Tình trạng\",\"K_4\":\"Cơ hội\",\"K_5\":\"Chính sách giá\",\"K_6\":\"Dự toán kinh phí\",\"K_7\":\"Dự án bán hàng\",\"K_8\":\"Thẻ hỗ trợ\",\"K_9\":\"Chiến dịch\",\"K_10\":\"Thẻ chăm sóc\",\"K_11\":\"Đơn hàng\",\"K_12\":\"Hóa đơn\",\"K_13\":\"Liên hệ\",\"K_14\":\"Hoạt động\",\"K_15\":\"Trả lại hàng bán\",\"K_16\":\"Ao cơ hội\",\"K_17\":\"Chào hàng\",\"K_18\":\"Báo giá\",\"K_19\":\"Khách hàng\",\"K_20\":\"Thẻ chăm sóc\"}"
       }
     },
     {
@@ -1404,7 +1472,8 @@
         "total_tokens": 295,
         "target_language": "kn",
         "target_language_original": "tiếng Kannada",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ra mắt Gemini 3.1 Pro\",\"K_2\":\"Mô hình tiên tiến nhất từ Google với khả năng phân tích vượt trội\"}"
       }
     },
     {
@@ -1424,7 +1493,8 @@
         "total_tokens": 644,
         "target_language": "ko",
         "target_language_original": "tiếng Hàn Quốc(Korea)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"KHĐM P36710TB\",\"K_2\":\"HH CKS 7,8,9 TĐ\",\"K_3\":\"CHF ĐH\",\"K_4\":\"FĐN\",\"K_5\":\"ASP_UYÊN_BMT\",\"K_6\":\"Toàn quyền\",\"K_7\":\"Loại hoàng hóa\",\"K_8\":\"Thẻ chuyển giao\",\"K_9\":\"Khách hàng chăm sóc\",\"K_10\":\"Tình trạng\",\"K_11\":\"Cơ hội\",\"K_12\":\"Chính sách giá\",\"K_13\":\"Dự toán kinh phí\",\"K_14\":\"Dự án bán hàng\",\"K_15\":\"Thẻ hỗ trợ\",\"K_16\":\"Chiến dịch\",\"K_17\":\"Thẻ chăm sóc\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Hóa đơn\",\"K_20\":\"Liên hệ\"}"
       }
     },
     {
@@ -1444,7 +1514,8 @@
         "total_tokens": 295,
         "target_language": "kok",
         "target_language_original": "tiếng Konkani",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ra mắt Gemini 3.1 Pro\",\"K_2\":\"Mô hình tiên tiến nhất từ Google với khả năng phân tích vượt trội\"}"
       }
     },
     {
@@ -1464,7 +1535,8 @@
         "total_tokens": 526,
         "target_language": "kri",
         "target_language_original": "tiếng Krio",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1484,7 +1556,8 @@
         "total_tokens": 566,
         "target_language": "ku",
         "target_language_original": "tiếng Kurd (Kurmanji)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ chăm sóc\",\"K_2\":\"Đơn hàng\",\"K_3\":\"Hóa đơn\",\"K_4\":\"Liên hệ\",\"K_5\":\"Hoạt động\",\"K_6\":\"Trả lại hàng bán\",\"K_7\":\"Ao cơ hội\",\"K_8\":\"Chào hàng\",\"K_9\":\"Báo giá\",\"K_10\":\"Khách hàng\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Mục tiêu doanh số\",\"K_13\":\"Doanh số tính thưởng\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Tiềm năng\",\"K_16\":\"Lịch hẹn\",\"K_17\":\"Nhiệm vụ\",\"K_18\":\"Cuộc gọi\",\"K_19\":\" và \"}"
       }
     },
     {
@@ -1504,7 +1577,8 @@
         "total_tokens": 427,
         "target_language": "ky",
         "target_language_original": "tiếng Kyrgyz",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Chào hàng\",\"K_2\":\"Báo giá\",\"K_3\":\"Khách hàng\",\"K_4\":\"Thẻ chăm sóc\",\"K_5\":\"Mục tiêu doanh số\",\"K_6\":\"Doanh số tính thưởng\",\"K_7\":\"Đơn hàng\",\"K_8\":\"Tiềm năng\",\"K_9\":\"Lịch hẹn\",\"K_10\":\"Nhiệm vụ\",\"K_11\":\"Cuộc gọi\",\"K_12\":\" và \"}"
       }
     },
     {
@@ -1524,7 +1598,8 @@
         "total_tokens": 621,
         "target_language": "la",
         "target_language_original": "tiếng Latinh",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1544,7 +1619,8 @@
         "total_tokens": 716,
         "target_language": "lb",
         "target_language_original": "tiếng Luxembourg",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"An Lạc\",\"K_2\":\"CD Phương Anh\",\"K_3\":\"Bửu Phương\",\"K_4\":\"PYNHI_KHC B.Tân\",\"K_5\":\"Biên Hoà\",\"K_6\":\"Nguyễn Tiến Đạt\",\"K_7\":\"Nguyễn Văn Giai\",\"K_8\":\"Phú Xuyên - Avatar\",\"K_9\":\"HDDT - Quảng Ngãi\",\"K_10\":\"Tư Nghĩa\",\"K_11\":\"Inbot Nghệ An\",\"K_12\":\"5.3 Trần Đề (ST)\",\"K_13\":\"CHF gò vấp\",\"K_14\":\"MEI - Dương Thanh\",\"K_15\":\"Tân Phong CHF\",\"K_16\":\"Bùi Nguyệt Như\",\"K_17\":\"Vũ Thị Huyền Lương\",\"K_18\":\"Hải Dương 2024\",\"K_19\":\"Ngọc Huy_02/2021\",\"K_20\":\"Bảo Anh\"}"
       }
     },
     {
@@ -1564,7 +1640,8 @@
         "total_tokens": 379,
         "target_language": "li",
         "target_language_original": "tiếng Limburg",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1584,7 +1661,8 @@
         "total_tokens": 630,
         "target_language": "lmo",
         "target_language_original": "tiếng Lombard",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Kiều - H. Krong Búk\",\"K_2\":\"Lê Thị Huyền Trang\",\"K_3\":\"Ngọc Tạo\",\"K_4\":\"Hoài linh\",\"K_5\":\"TKCS_A Minh_XHĐ\",\"K_6\":\"UYÊN HƯNG\",\"K_7\":\"THÚY - MEI Q3\",\"K_8\":\"Thu Hà\",\"K_9\":\"THANH XUÂN\",\"K_10\":\"Q12_Tân Hưng Thuận\",\"K_11\":\"H. Chư Pưh\",\"K_12\":\"Uyên\",\"K_13\":\"lọccccc\",\"K_14\":\"Lai Châu\",\"K_15\":\"ĐỨC TRỌNG XT\",\"K_16\":\"Vĩnh Lộc\",\"K_17\":\"vĩnh thông\",\"K_18\":\"Quảng Ninh Hảo\",\"K_19\":\"Mỹ Hòa\",\"K_20\":\"LONG BIÊN\"}"
       }
     },
     {
@@ -1604,7 +1682,8 @@
         "total_tokens": 844,
         "target_language": "lo",
         "target_language_original": "tiếng Lào (Laos)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"APĐ-Q12\",\"K_2\":\"GPHĐ - NHS\",\"K_3\":\"BV+TO+MĐ\",\"K_4\":\"NHĐ\",\"K_5\":\"TĐKT3\",\"K_6\":\"CSKHBĐ_05\",\"K_7\":\"CSBĐ\",\"K_8\":\"Toàn quyền\",\"K_9\":\"Loại hoàng hóa\",\"K_10\":\"Thẻ chuyển giao\",\"K_11\":\"Khách hàng chăm sóc\",\"K_12\":\"Tình trạng\",\"K_13\":\"Cơ hội\",\"K_14\":\"Chính sách giá\",\"K_15\":\"Dự toán kinh phí\",\"K_16\":\"Dự án bán hàng\",\"K_17\":\"Thẻ hỗ trợ\",\"K_18\":\"Chiến dịch\",\"K_19\":\"Thẻ chăm sóc\",\"K_20\":\"Đơn hàng\"}"
       }
     },
     {
@@ -1624,7 +1703,8 @@
         "total_tokens": 664,
         "target_language": "lt",
         "target_language_original": "tiếng Litva",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"TRẦN LAN\",\"K_2\":\"NTThiên-2022\",\"K_3\":\"AO CH ĐXL\",\"K_4\":\"Thọ Xuân\",\"K_5\":\"Võ Minh Hải\",\"K_6\":\"ưefawefawef\",\"K_7\":\"gv_Ánh\",\"K_8\":\"CHÂU THÀNH A, HẬU GIANG\",\"K_9\":\"04. Phú Thiện\",\"K_10\":\"Thúy Quỳnh\",\"K_11\":\"AO CH THƯƠNG\",\"K_12\":\"VỜ Y VY\",\"K_13\":\"KHC Tân Bình\",\"K_14\":\"THỔ CHÂU - KIÊN GIANG\",\"K_15\":\"PHÚ NHUẬN 2021\",\"K_16\":\"THẮM\",\"K_17\":\"NBQuynh_HCM_Thủ Đức\",\"K_18\":\"THANH XUÂN\",\"K_19\":\"HÙNG LỌC 2020\",\"K_20\":\"Â\"}"
       }
     },
     {
@@ -1644,7 +1724,8 @@
         "total_tokens": 677,
         "target_language": "lv",
         "target_language_original": "tiếng Latvia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"TMTRAN PHƯỚC LONG A Q9.26.TH9\",\"K_2\":\"THANH HÓA 2023\",\"K_3\":\"Toàn quyền\",\"K_4\":\"Loại hoàng hóa\",\"K_5\":\"Thẻ chuyển giao\",\"K_6\":\"Khách hàng chăm sóc\",\"K_7\":\"Tình trạng\",\"K_8\":\"Cơ hội\",\"K_9\":\"Chính sách giá\",\"K_10\":\"Dự toán kinh phí\",\"K_11\":\"Dự án bán hàng\",\"K_12\":\"Thẻ hỗ trợ\",\"K_13\":\"Chiến dịch\",\"K_14\":\"Thẻ chăm sóc\",\"K_15\":\"Đơn hàng\",\"K_16\":\"Hóa đơn\",\"K_17\":\"Liên hệ\",\"K_18\":\"Hoạt động\",\"K_19\":\"Trả lại hàng bán\",\"K_20\":\"Ao cơ hội\"}"
       }
     },
     {
@@ -1664,7 +1745,8 @@
         "total_tokens": 630,
         "target_language": "mai",
         "target_language_original": "tiếng Maithili",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1684,7 +1766,8 @@
         "total_tokens": 655,
         "target_language": "mg",
         "target_language_original": "tiếng Malagasy",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"PHÚ NHUẬN LỌC\",\"K_2\":\"Thoại Sơn\",\"K_3\":\"PKD04 Hà Đông\",\"K_4\":\"Ba Đình 2022\",\"K_5\":\"Hoài Đức\",\"K_6\":\"Toàn quyền\",\"K_7\":\"Loại hoàng hóa\",\"K_8\":\"Thẻ chuyển giao\",\"K_9\":\"Khách hàng chăm sóc\",\"K_10\":\"Tình trạng\",\"K_11\":\"Cơ hội\",\"K_12\":\"Chính sách giá\",\"K_13\":\"Dự toán kinh phí\",\"K_14\":\"Dự án bán hàng\",\"K_15\":\"Thẻ hỗ trợ\",\"K_16\":\"Chiến dịch\",\"K_17\":\"Thẻ chăm sóc\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Hóa đơn\",\"K_20\":\"Liên hệ\"}"
       }
     },
     {
@@ -1704,7 +1787,8 @@
         "total_tokens": 571,
         "target_language": "mi",
         "target_language_original": "tiếng Maori",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng chăm sóc\",\"K_2\":\"Tình trạng\",\"K_3\":\"Cơ hội\",\"K_4\":\"Chính sách giá\",\"K_5\":\"Dự toán kinh phí\",\"K_6\":\"Dự án bán hàng\",\"K_7\":\"Thẻ hỗ trợ\",\"K_8\":\"Chiến dịch\",\"K_9\":\"Thẻ chăm sóc\",\"K_10\":\"Đơn hàng\",\"K_11\":\"Hóa đơn\",\"K_12\":\"Liên hệ\",\"K_13\":\"Hoạt động\",\"K_14\":\"Trả lại hàng bán\",\"K_15\":\"Ao cơ hội\",\"K_16\":\"Chào hàng\",\"K_17\":\"Báo giá\",\"K_18\":\"Khách hàng\",\"K_19\":\"Thẻ chăm sóc\",\"K_20\":\"Mục tiêu doanh số\"}"
       }
     },
     {
@@ -1724,7 +1808,8 @@
         "total_tokens": 473,
         "target_language": "min",
         "target_language_original": "tiếng Minang",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Trả lại hàng bán\",\"K_2\":\"Ao cơ hội\",\"K_3\":\"Chào hàng\",\"K_4\":\"Báo giá\",\"K_5\":\"Khách hàng\",\"K_6\":\"Thẻ chăm sóc\",\"K_7\":\"Mục tiêu doanh số\",\"K_8\":\"Doanh số tính thưởng\",\"K_9\":\"Đơn hàng\",\"K_10\":\"Tiềm năng\",\"K_11\":\"Lịch hẹn\",\"K_12\":\"Nhiệm vụ\",\"K_13\":\"Cuộc gọi\",\"K_14\":\" và \",\"K_15\":\"Thúy Thúy\"}"
       }
     },
     {
@@ -1744,7 +1829,8 @@
         "total_tokens": 407,
         "target_language": "mk",
         "target_language_original": "tiếng Macedonia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Báo giá\",\"K_2\":\"Khách hàng\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Mục tiêu doanh số\",\"K_5\":\"Doanh số tính thưởng\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Tiềm năng\",\"K_8\":\"Lịch hẹn\",\"K_9\":\"Nhiệm vụ\",\"K_10\":\"Cuộc gọi\",\"K_11\":\" và \"}"
       }
     },
     {
@@ -1764,7 +1850,8 @@
         "total_tokens": 653,
         "target_language": "ml",
         "target_language_original": "tiếng Malayalam",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"ưefawefawef\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -1784,7 +1871,8 @@
         "total_tokens": 598,
         "target_language": "mn",
         "target_language_original": "tiếng Mông Cổ",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1804,7 +1892,8 @@
         "total_tokens": 568,
         "target_language": "mr",
         "target_language_original": "tiếng Marathi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1824,7 +1913,8 @@
         "total_tokens": 737,
         "target_language": "ms",
         "target_language_original": "tiếng Mã Lai",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"HCM_Hóc Môn_QLTV+QLTB\",\"K_2\":\"Nguyễn Minh Chánh\",\"K_3\":\"Nguyễn Thị Minh Lý\",\"K_4\":\"TT-TH-HĐ-BM\",\"K_5\":\"VT+KH+BP+LA_THÌ\",\"K_6\":\"NHĐ\",\"K_7\":\"hnuyen-ĐGNV\",\"K_8\":\"PTĐ 2\",\"K_9\":\"Thùy_BP_T8\",\"K_10\":\"Ngân Đinh\",\"K_11\":\"CHÂU PHÚ\",\"K_12\":\"Cuk-Ứng Hòa\",\"K_13\":\"Thới Lai\",\"K_14\":\"Bến Lức, Long An\",\"K_15\":\"NNHAN_ĐT_2021\",\"K_16\":\"HIẾU_TÂN PHÚ T9-T12\",\"K_17\":\"Vĩnh Long\",\"K_18\":\"DATA MTT HƯNG YÊN 2025\",\"K_19\":\"Gò Vấp - T10\",\"K_20\":\"Ba đình\"}"
       }
     },
     {
@@ -1844,7 +1934,8 @@
         "total_tokens": 388,
         "target_language": "mt",
         "target_language_original": "tiếng Malta",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1864,7 +1955,8 @@
         "total_tokens": 407,
         "target_language": "my",
         "target_language_original": "tiếng Myanmar",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1884,7 +1976,8 @@
         "total_tokens": 579,
         "target_language": "ne",
         "target_language_original": "tiếng Nepal",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"PYNHI_BĐ_VC\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -1904,7 +1997,8 @@
         "total_tokens": 650,
         "target_language": "nl",
         "target_language_original": "tiếng Hà Lan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Nguyễn Thái Phương\",\"K_2\":\"Tạ bảo Tín\",\"K_3\":\"Minh Đức\",\"K_4\":\"A Khải\",\"K_5\":\"Hoàng Thị Vân\",\"K_6\":\"BS_BM_Tuyên Quang_ LTHIEP\",\"K_7\":\"TTTHAO- CUK BÌNH THẠNH P.26\",\"K_8\":\"P7-LÂM ĐỒNG\",\"K_9\":\"Ánh Ngọc\",\"K_10\":\"Lệ Trâm\",\"K_11\":\"KV1- TRÂM- DV 323\",\"K_12\":\"ONB ANH TÚ\",\"K_13\":\"Nguyệt\",\"K_14\":\"CUKCUK THỦ ĐỨC\",\"K_15\":\"Hiền Trang Thái Bình\",\"K_16\":\"Cường ASP\",\"K_17\":\"Vĩnh Lương\",\"K_18\":\"Càng Long\",\"K_19\":\"Íos\",\"K_20\":\"Cẩm Thủy\"}"
       }
     },
     {
@@ -1924,7 +2018,8 @@
         "total_tokens": 492,
         "target_language": "no",
         "target_language_original": "tiếng Na Uy",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Trả lại hàng bán\",\"K_2\":\"Ao cơ hội\",\"K_3\":\"Chào hàng\",\"K_4\":\"Báo giá\",\"K_5\":\"Khách hàng\",\"K_6\":\"Thẻ chăm sóc\",\"K_7\":\"Mục tiêu doanh số\",\"K_8\":\"Doanh số tính thưởng\",\"K_9\":\"Đơn hàng\",\"K_10\":\"Tiềm năng\",\"K_11\":\"Lịch hẹn\",\"K_12\":\"Nhiệm vụ\",\"K_13\":\"Cuộc gọi\",\"K_14\":\" và \",\"K_15\":\"Thúy Thúy\",\"K_16\":\"Bùi Việt\"}"
       }
     },
     {
@@ -1944,7 +2039,8 @@
         "total_tokens": 725,
         "target_language": "nr",
         "target_language_original": "tiếng Nam Ndebele",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"AN BIÊN - KG\",\"K_2\":\"Phương Liệt TX\",\"K_3\":\"TRÂM_MEIN\",\"K_4\":\"phú mỹ q7\",\"K_5\":\"Mthy_CSBĐ\",\"K_6\":\"Ái_LocCH\",\"K_7\":\"CD_QLTS_QĐ213_PTNgoc\",\"K_8\":\"Phan Nguyễn Hoàng Đình\",\"K_9\":\"Lệ-tiên Phước\",\"K_10\":\"Đỗ Văn Đoàn (C26-0139)\",\"K_11\":\"9/03 Nhung Đống Đa\",\"K_12\":\"2022_Vĩnh Phúc\",\"K_13\":\"inbot - Hiệp Thành Q12 - Amis\",\"K_14\":\"Diễm\",\"K_15\":\"hiếu_ch\",\"K_16\":\"Toàn quyền\",\"K_17\":\"Loại hoàng hóa\",\"K_18\":\"Thẻ chuyển giao\",\"K_19\":\"Khách hàng chăm sóc\",\"K_20\":\"Tình trạng\"}"
       }
     },
     {
@@ -1964,7 +2060,8 @@
         "total_tokens": 712,
         "target_language": "nso",
         "target_language_original": "tiếng Sepedi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Phan Thị Huyền\",\"K_2\":\"Biên Hòa_AMIS QT\",\"K_3\":\"Nguyễn Thúy Quỳnh (D-0712)\",\"K_4\":\"Mshop Long Xuyên\",\"K_5\":\"Huyền CRM\",\"K_6\":\"1AM Ngọc\",\"K_7\":\"TMAU_GÒ VẤP\",\"K_8\":\"T. Lai Châu\",\"K_9\":\"LÂM\",\"K_10\":\"DV - AN LẠC A\",\"K_11\":\"CSKHBĐ_05\",\"K_12\":\"TBĐM_2020-2022\",\"K_13\":\"SME-TĐ\",\"K_14\":\"C HUỆ\",\"K_15\":\"H PHÚ VANG_C LINH\",\"K_16\":\"SQL TB Hiệp\",\"K_17\":\"MTT HUẾ\",\"K_18\":\"Hiền Hải Châu\",\"K_19\":\"Q7 Phú thuận\",\"K_20\":\"Dương_HDĐT\"}"
       }
     },
     {
@@ -1984,7 +2081,8 @@
         "total_tokens": 708,
         "target_language": "ny",
         "target_language_original": "tiếng Chichewa",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ba Đình - Harpy\",\"K_2\":\"MISA meInvoice - Hóc Môn\",\"K_3\":\"TÂY NINH_MEI\",\"K_4\":\"KHÁNH HÒA - 3Q - VC\",\"K_5\":\"THÚY - MEI Q3\",\"K_6\":\"Hoàng\",\"K_7\":\"hân-sme-inbot\",\"K_8\":\"MT NN QUẢNG NGÃI\",\"K_9\":\"Ba Đình 2024\",\"K_10\":\"AE KIM KHÁNH\",\"K_11\":\"Mein DL - Thủ Đức\",\"K_12\":\"KHM VĨNH NGUYÊN\",\"K_13\":\"Ngọc Tạo - Châu Phú A - AG\",\"K_14\":\"PHÚ LỢI\",\"K_15\":\"Q12_Tân Hưng Thuận\",\"K_16\":\"HA - Hớn Quản - BP\",\"K_17\":\"AN KHÁNH MTL\",\"K_18\":\"ĐỨC THUẬN\",\"K_19\":\"Kim Thành -HD\",\"K_20\":\"Trần Hưng Đạo\"}"
       }
     },
     {
@@ -2004,7 +2102,8 @@
         "total_tokens": 648,
         "target_language": "oc",
         "target_language_original": "tiếng Occitan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"ưefawefawef\",\"K_2\":\"Cường ASP\",\"K_3\":\"Q7 Phương\",\"K_4\":\"Càng Long\",\"K_5\":\"Nguyễn Thị Anh Vân\",\"K_6\":\"PHẠM NGŨ LÃO\",\"K_7\":\"GÒ VẤP\",\"K_8\":\"AM Thuyên\",\"K_9\":\"NDTT - Krông Búk\",\"K_10\":\"GÒ QUAO - KG\",\"K_11\":\"AM_Tú\",\"K_12\":\"0.5_SLĐ\",\"K_13\":\"KHC Phùng Khắc Khoan\",\"K_14\":\"KIÊN GIANG\",\"K_15\":\"Láng Hạ\",\"K_16\":\"NHI_THUẬN AN_BD\",\"K_17\":\"Phú Nhuận_MTT\",\"K_18\":\"Krông Pắk\",\"K_19\":\"NMTruong_KĐYBT 2023\",\"K_20\":\"Salagov Kiến Xương\"}"
       }
     },
     {
@@ -2024,7 +2123,8 @@
         "total_tokens": 599,
         "target_language": "om",
         "target_language_original": "tiếng Oromo",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"TKCS03_Vũ\",\"K_2\":\"KĐT 1 (01-09)\",\"K_3\":\"Toàn quyền\",\"K_4\":\"Loại hoàng hóa\",\"K_5\":\"Thẻ chuyển giao\",\"K_6\":\"Khách hàng chăm sóc\",\"K_7\":\"Tình trạng\",\"K_8\":\"Cơ hội\",\"K_9\":\"Chính sách giá\",\"K_10\":\"Dự toán kinh phí\",\"K_11\":\"Dự án bán hàng\",\"K_12\":\"Thẻ hỗ trợ\",\"K_13\":\"Chiến dịch\",\"K_14\":\"Thẻ chăm sóc\",\"K_15\":\"Đơn hàng\",\"K_16\":\"Hóa đơn\",\"K_17\":\"Liên hệ\",\"K_18\":\"Hoạt động\",\"K_19\":\"Trả lại hàng bán\",\"K_20\":\"Ao cơ hội\"}"
       }
     },
     {
@@ -2044,7 +2144,8 @@
         "total_tokens": 444,
         "target_language": "or",
         "target_language_original": "tiếng Odia (Oriya)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -2064,7 +2165,8 @@
         "total_tokens": 435,
         "target_language": "pa",
         "target_language_original": "tiếng Punjab (Gurmukhi)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -2084,7 +2186,8 @@
         "total_tokens": 283,
         "target_language": "pam",
         "target_language_original": "tiếng Kapampangan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Lịch hẹn\",\"K_2\":\"Nhiệm vụ\",\"K_3\":\"Cuộc gọi\",\"K_4\":\" và \"}"
       }
     },
     {
@@ -2104,7 +2207,8 @@
         "total_tokens": 587,
         "target_language": "pap",
         "target_language_original": "tiếng Papiamento",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"pBĐ-LB23\",\"K_2\":\"ưefawefawef\",\"K_3\":\"Toàn quyền\",\"K_4\":\"Loại hoàng hóa\",\"K_5\":\"Thẻ chuyển giao\",\"K_6\":\"Khách hàng chăm sóc\",\"K_7\":\"Tình trạng\",\"K_8\":\"Cơ hội\",\"K_9\":\"Chính sách giá\",\"K_10\":\"Dự toán kinh phí\",\"K_11\":\"Dự án bán hàng\",\"K_12\":\"Thẻ hỗ trợ\",\"K_13\":\"Chiến dịch\",\"K_14\":\"Thẻ chăm sóc\",\"K_15\":\"Đơn hàng\",\"K_16\":\"Hóa đơn\",\"K_17\":\"Liên hệ\",\"K_18\":\"Hoạt động\",\"K_19\":\"Trả lại hàng bán\",\"K_20\":\"Ao cơ hội\"}"
       }
     },
     {
@@ -2124,7 +2228,8 @@
         "total_tokens": 666,
         "target_language": "pl",
         "target_language_original": "tiếng Ba Lan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"STIWA_PHÚ NHUẬN\",\"K_2\":\"Phương Thảo\",\"K_3\":\"NAM TỪ LIÊM\",\"K_4\":\"BT - KIÊN GIANG\",\"K_5\":\"CHF Bình Định\",\"K_6\":\"Mai Dịch\",\"K_7\":\"Tân Phú 18-20\",\"K_8\":\"2_Buôn Đôn\",\"K_9\":\"Cường ASP\",\"K_10\":\"Huyền Trâm\",\"K_11\":\"Quốc Cường\",\"K_12\":\"Phú Thượng\",\"K_13\":\"PHÚ YÊN VC\",\"K_14\":\"BD_Tân Uyên (536)\",\"K_15\":\"Đào Văn Long (C20-0222)\",\"K_16\":\"Lương Thúy\",\"K_17\":\"Mễ trì\",\"K_18\":\"KHC H. KHÁNH VĨNH\",\"K_19\":\"vuong hđ mtt\",\"K_20\":\"BTĐB BCTU 16/3\"}"
       }
     },
     {
@@ -2144,7 +2249,8 @@
         "total_tokens": 391,
         "target_language": "ps",
         "target_language_original": "tiếng Pashto",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -2164,7 +2270,8 @@
         "total_tokens": 661,
         "target_language": "pt-BR",
         "target_language_original": "tiếng Bồ Đào Nha (Brazil)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"28/4 Yến\",\"K_2\":\"THANH XUÂN TRUNG\",\"K_3\":\"Nguyễn Trãi - Hà Đông\",\"K_4\":\"NHI_HĐ AMIS\",\"K_5\":\"TT-VTV-HĐ-BM\",\"K_6\":\"Toàn quyền\",\"K_7\":\"Loại hoàng hóa\",\"K_8\":\"Thẻ chuyển giao\",\"K_9\":\"Khách hàng chăm sóc\",\"K_10\":\"Tình trạng\",\"K_11\":\"Cơ hội\",\"K_12\":\"Chính sách giá\",\"K_13\":\"Dự toán kinh phí\",\"K_14\":\"Dự án bán hàng\",\"K_15\":\"Thẻ hỗ trợ\",\"K_16\":\"Chiến dịch\",\"K_17\":\"Thẻ chăm sóc\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Hóa đơn\",\"K_20\":\"Liên hệ\"}"
       }
     },
     {
@@ -2184,7 +2291,8 @@
         "total_tokens": 708,
         "target_language": "ro",
         "target_language_original": "tiếng Rumani",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"HIỆP BÌNH PHƯỚC - TĐ\",\"K_2\":\"QUỲNH VY\",\"K_3\":\"THẠNH MỸ LỢI\",\"K_4\":\"KHM - Phú Trung - Tân Phú\",\"K_5\":\"Hoàng_HCM_2021\",\"K_6\":\"ĐẮK R LẤP\",\"K_7\":\"Xuân Khánh - CT\",\"K_8\":\"HẢI DƯƠNG NEWW\",\"K_9\":\"TÂN AN - 204\",\"K_10\":\"Thanh Hóa\",\"K_11\":\"Bến Tre_2024\",\"K_12\":\"17/5 Yến\",\"K_13\":\"Bắc Giang 20/9\",\"K_14\":\"Mê Linh_PKD6\",\"K_15\":\"Long Khánh\",\"K_16\":\"CẦN THƠ\",\"K_17\":\"dĩ an\",\"K_18\":\"XUÂN KHÁNH - CẦN THƠ\",\"K_19\":\"Phú Mỹ - MTL\",\"K_20\":\"Khánh Xuân - Đắk Lắk\"}"
       }
     },
     {
@@ -2204,7 +2312,8 @@
         "total_tokens": 577,
         "target_language": "rom",
         "target_language_original": "tiếng Romani",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2224,7 +2333,8 @@
         "total_tokens": 569,
         "target_language": "ru",
         "target_language_original": "tiếng Nga",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2244,7 +2354,8 @@
         "total_tokens": 716,
         "target_language": "rw",
         "target_language_original": "tiếng Kinyarwanda",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"LÂM HÀ\",\"K_2\":\"ÁNH - GEMINI - 7/4\",\"K_3\":\"Nguyễn Hải Yến\",\"K_4\":\"10. Chư Sê\",\"K_5\":\"2.2 Mỹ Long - MHH - Mỹ Khánh - LX - AG\",\"K_6\":\"NGỌC THI\",\"K_7\":\"Dũng KT\",\"K_8\":\"Hải Dương mei\",\"K_9\":\"Hoàng Văn Thi\",\"K_10\":\"CKS-CHI LĂNG\",\"K_11\":\"HIỆP TÂN -TPHU\",\"K_12\":\"C Cầm\",\"K_13\":\"PHÚ NHUẬN CỦA PHÚC 201\",\"K_14\":\"PHÚ YÊN 2021\",\"K_15\":\"KHC_ Nguyễn Văn Cừ\",\"K_16\":\"HCM_Gò Vấp (1.455)\",\"K_17\":\"Gò Vấp 2023\",\"K_18\":\"HIỆP TÂN SX\",\"K_19\":\"vĩnh phúc, nđ, tn\",\"K_20\":\"Vĩnh Long 2025\"}"
       }
     },
     {
@@ -2264,7 +2375,8 @@
         "total_tokens": 627,
         "target_language": "sa",
         "target_language_original": "tiếng Phạn",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2284,7 +2396,8 @@
         "total_tokens": 547,
         "target_language": "scn",
         "target_language_original": "tiếng Sicily",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ chăm sóc\",\"K_2\":\"Đơn hàng\",\"K_3\":\"Hóa đơn\",\"K_4\":\"Liên hệ\",\"K_5\":\"Hoạt động\",\"K_6\":\"Trả lại hàng bán\",\"K_7\":\"Ao cơ hội\",\"K_8\":\"Chào hàng\",\"K_9\":\"Báo giá\",\"K_10\":\"Khách hàng\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Mục tiêu doanh số\",\"K_13\":\"Doanh số tính thưởng\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Tiềm năng\",\"K_16\":\"Lịch hẹn\",\"K_17\":\"Nhiệm vụ\",\"K_18\":\"Cuộc gọi\",\"K_19\":\" và \"}"
       }
     },
     {
@@ -2304,7 +2417,8 @@
         "total_tokens": 582,
         "target_language": "sd",
         "target_language_original": "tiếng Sindhi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2324,7 +2438,8 @@
         "total_tokens": 418,
         "target_language": "si",
         "target_language_original": "tiếng Sinhala",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -2344,7 +2459,8 @@
         "total_tokens": 702,
         "target_language": "sk",
         "target_language_original": "tiếng Slovak",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"hoàng văn thụ - HM\",\"K_2\":\"Phước Long B KHC SME (24/8)\",\"K_3\":\"Duy Tân KT\",\"K_4\":\"Đắk Nông\",\"K_5\":\"Đặng Hoàng Hoài Linh\",\"K_6\":\"Thanh hóa\",\"K_7\":\"Vũ Quang 2021\",\"K_8\":\"Trần Hà - Thái Nguyên\",\"K_9\":\"Minh Thư\",\"K_10\":\"dn_hiệp bình phước\",\"K_11\":\"MỸ QUÝ-AN GIANG\",\"K_12\":\"Đồ Sơn 2025\",\"K_13\":\"Tân Lợi\",\"K_14\":\"Vĩnh Phúc - PKD02\",\"K_15\":\"HN/TM-DV-XL/Ánh\",\"K_16\":\"Văn Giang_HY\",\"K_17\":\"KHÁNH XUÂN - BMT\",\"K_18\":\"KHM-PHƯỚC ĐỒNG\",\"K_19\":\"LONG BÌNH 2024\",\"K_20\":\"An Phú - Cần Thơ\"}"
       }
     },
     {
@@ -2364,7 +2480,8 @@
         "total_tokens": 718,
         "target_language": "sl",
         "target_language_original": "tiếng Slovenia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Hoàng Văn Thi\",\"K_2\":\"TRẦN LAN\",\"K_3\":\"PHÚ YÊN 2021\",\"K_4\":\"Gò Vấp 2023\",\"K_5\":\"Yên phong Bắc ninh\",\"K_6\":\"vĩnh phúc, nđ, tn\",\"K_7\":\"Hà Tĩnh 2022\",\"K_8\":\"Vĩnh Long 2025\",\"K_9\":\"2. Krông Pa\",\"K_10\":\"10/5 Yến\",\"K_11\":\"Yên Sơn\",\"K_12\":\"xaylap_hòa xuân cẩm lệ\",\"K_13\":\"BẮC NINH THANH HÓA _ 2\",\"K_14\":\"VĨNH THẠNH 2025\",\"K_15\":\"Thụy Khuê 2024\",\"K_16\":\"Quyết Thắng, kon tum\",\"K_17\":\"Cẩm thượng+ Ngọc châu\",\"K_18\":\"Xuân Đỉnh_Bắc Từ Liêm\",\"K_19\":\"Lâm Đồng 2020\",\"K_20\":\"Đăk Lăk_Buôn Đôn\"}"
       }
     },
     {
@@ -2384,7 +2501,8 @@
         "total_tokens": 702,
         "target_language": "sm",
         "target_language_original": "tiếng Samoa",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"hoàng văn thụ - HM\",\"K_2\":\"PXDAO KHÁNH HÒA 31/12\",\"K_3\":\"Ngọc Phát\",\"K_4\":\"AP_TLT_CUCHIĐM\",\"K_5\":\"CD_QLTS_QĐ213_DCTai\",\"K_6\":\"Mai Phương\",\"K_7\":\"13/5 Yến\",\"K_8\":\"Lý Chính Thắng\",\"K_9\":\"Duyyy nèee\",\"K_10\":\"XK, AB, Ba Láng, Tân Phú, Thường Thạch - CT\",\"K_11\":\"CD Phương Anh\",\"K_12\":\"Hoàng Thị Kim Liên\",\"K_13\":\"GPHĐ - NHS\",\"K_14\":\"BTĐA\",\"K_15\":\"An Bình - Kiên Giang\",\"K_16\":\"MDrắk\",\"K_17\":\"NMTruong_KĐYBT 2023\",\"K_18\":\"KHÁNH HÒA 2021\",\"K_19\":\"KHÁNH HÒA N90\",\"K_20\":\"Quảng Nam - GPVC\"}"
       }
     },
     {
@@ -2404,7 +2522,8 @@
         "total_tokens": 733,
         "target_language": "sn",
         "target_language_original": "tiếng Shona",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Phú Yên 2021\",\"K_2\":\"PHÚ YÊN 2021\",\"K_3\":\"CSHH ĐTT 2024\",\"K_4\":\"Hai Bà Trưng 4/11\",\"K_5\":\"STT 0Đ DNTRUC\",\"K_6\":\"Phù Mỹ - ĐN\",\"K_7\":\"P.KHÁNH XUÂN\",\"K_8\":\"Sóc Trăng\",\"K_9\":\"THƯỜNG THẠNH - CẦN THƠ\",\"K_10\":\"AO CH ĐXL\",\"K_11\":\"SƠN TRÀ\",\"K_12\":\"Meinvoice_Khánh Hòa\",\"K_13\":\"sơn tinh\",\"K_14\":\"P.BTĐB\",\"K_15\":\"Xuân La\",\"K_16\":\"vĩnh quang\",\"K_17\":\"NNHAN_ĐT_VC\",\"K_18\":\"Trần Doãn Khanh\",\"K_19\":\"AO_ CẨM LỆ\",\"K_20\":\"CH Thanh Diễm\"}"
       }
     },
     {
@@ -2424,7 +2543,8 @@
         "total_tokens": 719,
         "target_language": "so",
         "target_language_original": "tiếng Somali",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ngọc Huy (PLAT)\",\"K_2\":\"P.Vĩnh Thanh - RG - KG\",\"K_3\":\"Q-Ngãi Lhphong\",\"K_4\":\"Trần Thị Kim Chung - D20-0189\",\"K_5\":\"Nghĩa Thành\",\"K_6\":\"BM5 HCM (Nguyễn Trung Vĩ)\",\"K_7\":\"Hiệp Phú, Thủ Đức\",\"K_8\":\"ÁNH-MTL-THT\",\"K_9\":\"Đồ Sơn_Hải Phòng\",\"K_10\":\"Toàn quyền\",\"K_11\":\"Loại hoàng hóa\",\"K_12\":\"Thẻ chuyển giao\",\"K_13\":\"Khách hàng chăm sóc\",\"K_14\":\"Tình trạng\",\"K_15\":\"Cơ hội\",\"K_16\":\"Chính sách giá\",\"K_17\":\"Dự toán kinh phí\",\"K_18\":\"Dự án bán hàng\",\"K_19\":\"Thẻ hỗ trợ\",\"K_20\":\"Chiến dịch\"}"
       }
     },
     {
@@ -2444,7 +2564,8 @@
         "total_tokens": 564,
         "target_language": "sq",
         "target_language_original": "tiếng Albania",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ hỗ trợ\",\"K_2\":\"Chiến dịch\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Đơn hàng\",\"K_5\":\"Hóa đơn\",\"K_6\":\"Liên hệ\",\"K_7\":\"Hoạt động\",\"K_8\":\"Trả lại hàng bán\",\"K_9\":\"Ao cơ hội\",\"K_10\":\"Chào hàng\",\"K_11\":\"Báo giá\",\"K_12\":\"Khách hàng\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Mục tiêu doanh số\",\"K_15\":\"Doanh số tính thưởng\",\"K_16\":\"Đơn hàng\",\"K_17\":\"Tiềm năng\",\"K_18\":\"Lịch hẹn\",\"K_19\":\"Nhiệm vụ\",\"K_20\":\"Cuộc gọi\"}"
       }
     },
     {
@@ -2464,7 +2585,8 @@
         "total_tokens": 704,
         "target_language": "sr",
         "target_language_original": "tiếng Serbia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"ưefawefawef\",\"K_2\":\"NNHAN_ĐT_SUB\",\"K_3\":\"Đắk RLấp\",\"K_4\":\"CD_QLTS_QĐ213_DCTai\",\"K_5\":\"HUÊ_CHĐN\",\"K_6\":\"CUK2-TTMINH-TĐT8\",\"K_7\":\"Â\",\"K_8\":\"BT 0đ QTri\",\"K_9\":\"T12_BD_Q12_Q7_TĐ\",\"K_10\":\"CSKHBĐ_05\",\"K_11\":\"3đ\",\"K_12\":\"NĐ MEI SME22\",\"K_13\":\"ch đht\",\"K_14\":\"CHF BTĐAB 2020\",\"K_15\":\"ưe43r\",\"K_16\":\"LDTAI_mail_ĐT\",\"K_17\":\"Toàn quyền\",\"K_18\":\"Loại hoàng hóa\",\"K_19\":\"Thẻ chuyển giao\",\"K_20\":\"Khách hàng chăm sóc\"}"
       }
     },
     {
@@ -2484,7 +2606,8 @@
         "total_tokens": 718,
         "target_language": "st",
         "target_language_original": "tiếng Sesotho",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"hoàng văn thụ - HM\",\"K_2\":\"Phú Thuận - Q7\",\"K_3\":\"Đặng Hoàng Hoài Linh\",\"K_4\":\"PXDAO KHÁNH HÒA 31/12\",\"K_5\":\"kh nguyễn trãi\",\"K_6\":\"CKS HIẾU\",\"K_7\":\"Thủ Đức (Dương Em)\",\"K_8\":\"Krông Pa - Gia Lai\",\"K_9\":\"HA - Bù Đăng - BP\",\"K_10\":\"MEI4 - Tạ Tâm\",\"K_11\":\"Vũ Quang 2021\",\"K_12\":\"CHÂU THÀNH - AN GIANG\",\"K_13\":\"khm - p1.tb - phượng\",\"K_14\":\"Châu Thành KG\",\"K_15\":\"HƯNG YÊN\",\"K_16\":\"KIM QUYÊN\",\"K_17\":\"AP_TLT_CUCHIĐM\",\"K_18\":\"CD_QLTS_QĐ213_DCTai\",\"K_19\":\"Nghê An 2023\",\"K_20\":\"TÙNG_TLSD_QLTS\"}"
       }
     },
     {
@@ -2504,7 +2627,8 @@
         "total_tokens": 746,
         "target_language": "su",
         "target_language_original": "tiếng Sunda",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Noo CÁT LÁI\",\"K_2\":\"TÙNG_TLSD_MMO\",\"K_3\":\"Lieu Pham_Kiên Giang\",\"K_4\":\"HKD PHƯƠNG\",\"K_5\":\"Hưng Định\",\"K_6\":\"TÂN BÌNH HDDR\",\"K_7\":\"AO HƯNG YÊN\",\"K_8\":\"Quảng Nam - AMIS kt\",\"K_9\":\"THÙY DEMO\",\"K_10\":\"Ba Láng Cần Thơ\",\"K_11\":\"CH- THÚY DUY\",\"K_12\":\"MỸ KHÁNH-AN GIANG\",\"K_13\":\"Thanh Lương, Hai Bà Trưng\",\"K_14\":\"Nguyên Khê 2024-2025\",\"K_15\":\"Trang Phú Thiện\",\"K_16\":\"bửu long\",\"K_17\":\"lục ngạn\",\"K_18\":\"Bến Cát BT (316)\",\"K_19\":\"ASP_UYÊN_BMT\",\"K_20\":\"Vân HKK\"}"
       }
     },
     {
@@ -2524,7 +2648,8 @@
         "total_tokens": 706,
         "target_language": "sv",
         "target_language_original": "tiếng Thụy Điển",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Trân\",\"K_2\":\"2022_Tuyên Quang\",\"K_3\":\"Dương HV\",\"K_4\":\"CÙ LAO DUNG\",\"K_5\":\"Thúy Tbai\",\"K_6\":\"Hưng Lợi\",\"K_7\":\"Trọng Huân\",\"K_8\":\"Bé Trâm\",\"K_9\":\"Vĩnh Hiệp\",\"K_10\":\"Trâm P05-PN-SME\",\"K_11\":\"PTC Ninh Phước (PB) - 20\",\"K_12\":\"Lương Thủy\",\"K_13\":\"data Hạnh\",\"K_14\":\"Nghĩa Tân\",\"K_15\":\"$$$ Tạ Thoa $$$\",\"K_16\":\"Tuy Đức - Đắk Nông\",\"K_17\":\"THÙY_INBOT_11\",\"K_18\":\"MTT HÓC MÔN\",\"K_19\":\"chi Lăng XT\",\"K_20\":\"BMT.Lâm Đồng\"}"
       }
     },
     {
@@ -2544,7 +2669,8 @@
         "total_tokens": 759,
         "target_language": "sw",
         "target_language_original": "tiếng Swahili",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"KHC THỚI TAM THÔN - TÂN HIỆP - TRUNG CHÁNH\",\"K_2\":\"THANH TRÌ\",\"K_3\":\"Phương Ngân\",\"K_4\":\"DNCŨ\",\"K_5\":\"BÌNH DƯƠNG_AMIS\",\"K_6\":\"Huyền Trân\",\"K_7\":\"BÍCH NGÂN\",\"K_8\":\"HAN CĐ\",\"K_9\":\"KHC SME-TĐH\",\"K_10\":\"Lê Thị Thoại Vi\",\"K_11\":\"AM Đỗ Minh Trí\",\"K_12\":\"KHÁNH HÒA - 3Q - VC\",\"K_13\":\"AF - Vũng Tàu\",\"K_14\":\"PTĐ 2\",\"K_15\":\"an khánh DN\",\"K_16\":\"DT_ĐT_2024\",\"K_17\":\"PYNHI_BĐ_VC\",\"K_18\":\"Thanh Hường\",\"K_19\":\"Phong Phú - Bình Chánh\",\"K_20\":\"P. LINH XUÂN - TĐ\"}"
       }
     },
     {
@@ -2564,7 +2690,8 @@
         "total_tokens": 580,
         "target_language": "szl",
         "target_language_original": "tiếng Silesia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Dự toán kinh phí\",\"K_2\":\"Dự án bán hàng\",\"K_3\":\"Thẻ hỗ trợ\",\"K_4\":\"Chiến dịch\",\"K_5\":\"Thẻ chăm sóc\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Hóa đơn\",\"K_8\":\"Liên hệ\",\"K_9\":\"Hoạt động\",\"K_10\":\"Trả lại hàng bán\",\"K_11\":\"Ao cơ hội\",\"K_12\":\"Chào hàng\",\"K_13\":\"Báo giá\",\"K_14\":\"Khách hàng\",\"K_15\":\"Thẻ chăm sóc\",\"K_16\":\"Mục tiêu doanh số\",\"K_17\":\"Doanh số tính thưởng\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Tiềm năng\",\"K_20\":\"Lịch hẹn\"}"
       }
     },
     {
@@ -2584,7 +2711,8 @@
         "total_tokens": 734,
         "target_language": "ta",
         "target_language_original": "tiếng Tamil",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"APĐ-Q12\",\"K_2\":\"BV+TO+MĐ\",\"K_3\":\"MĐ2\",\"K_4\":\"CD_QLTS_QĐ213_BMLinh\",\"K_5\":\"CHF - APĐ\",\"K_6\":\"HCM100ĐV\",\"K_7\":\"T12_BD_Q12_Q7_TĐ\",\"K_8\":\"CH_CUKCUK_ĐTH\",\"K_9\":\"0.5_SLĐ\",\"K_10\":\"CƯMGAR\",\"K_11\":\"BTĐB\",\"K_12\":\"PKD03-KĐT\",\"K_13\":\"CD_QLTS_QĐ213_PTNgoc\",\"K_14\":\"TBĐM (2000-2018)\",\"K_15\":\"CHF BTĐAB 2020\",\"K_16\":\"TBai DĐa, NTLiêm\",\"K_17\":\"MTL CT-KT-ĐH\",\"K_18\":\"CD_CHƯ PRONG\",\"K_19\":\"PGĐ STC\",\"K_20\":\"10 - 3 - TĐ\"}"
       }
     },
     {
@@ -2604,7 +2732,8 @@
         "total_tokens": 452,
         "target_language": "te",
         "target_language_original": "tiếng Telugu",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Báo giá\",\"K_2\":\"Khách hàng\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Mục tiêu doanh số\",\"K_5\":\"Doanh số tính thưởng\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Tiềm năng\",\"K_8\":\"Lịch hẹn\",\"K_9\":\"Nhiệm vụ\",\"K_10\":\"Cuộc gọi\",\"K_11\":\" và \"}"
       }
     },
     {
@@ -2624,7 +2753,8 @@
         "total_tokens": 606,
         "target_language": "tg",
         "target_language_original": "tiếng Tajik",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2644,7 +2774,8 @@
         "total_tokens": 286,
         "target_language": "th",
         "target_language_original": "tiếng Thái Lan(Thailand)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Lịch hẹn\",\"K_2\":\"Nhiệm vụ\",\"K_3\":\"Cuộc gọi\",\"K_4\":\" và \"}"
       }
     },
     {
@@ -2664,7 +2795,8 @@
         "total_tokens": 776,
         "target_language": "ti",
         "target_language_original": "tiếng Tigrinya",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2684,7 +2816,8 @@
         "total_tokens": 489,
         "target_language": "tk",
         "target_language_original": "tiếng Turkmen",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Hoạt động\",\"K_2\":\"Trả lại hàng bán\",\"K_3\":\"Ao cơ hội\",\"K_4\":\"Chào hàng\",\"K_5\":\"Báo giá\",\"K_6\":\"Khách hàng\",\"K_7\":\"Thẻ chăm sóc\",\"K_8\":\"Mục tiêu doanh số\",\"K_9\":\"Doanh số tính thưởng\",\"K_10\":\"Đơn hàng\",\"K_11\":\"Tiềm năng\",\"K_12\":\"Lịch hẹn\",\"K_13\":\"Nhiệm vụ\",\"K_14\":\"Cuộc gọi\",\"K_15\":\" và \"}"
       }
     },
     {
@@ -2704,7 +2837,8 @@
         "total_tokens": 734,
         "target_language": "tr",
         "target_language_original": "tiếng Thổ Nhĩ Kỳ",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"VĨNH BẢO KG\",\"K_2\":\"CH KHÁNH\",\"K_3\":\"Thu Phương. GV. 05\",\"K_4\":\"Cầu Giấy (Eshop 2)\",\"K_5\":\"Giáp Bát + Trần Phú (Hoàng Mai)\",\"K_6\":\"An khánh\",\"K_7\":\"LTTHUY_B.Hòa_Meinvoice\",\"K_8\":\"Tiên Du BN\",\"K_9\":\"ĐỨC HÒA - INBOT\",\"K_10\":\"Thanh Thảo HCT KHM\",\"K_11\":\"PHÚ TÂN - AMIS HH\",\"K_12\":\"Vừa_Q10, p1-11,14\",\"K_13\":\"MN QUẢNG HÒA\",\"K_14\":\"hiệp bình phước\",\"K_15\":\"Hiền PKD02\",\"K_16\":\"btl, hk, đa, đp\",\"K_17\":\"Hải Dương\",\"K_18\":\"Bình Hưng Hòa\",\"K_19\":\"Nguyễn Thị Ngọc Yến (D26-0144)\",\"K_20\":\"CT - NK - Thới Bình\"}"
       }
     },
     {
@@ -2724,7 +2858,8 @@
         "total_tokens": 592,
         "target_language": "tt",
         "target_language_original": "tiếng Tatar",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2744,7 +2879,8 @@
         "total_tokens": 619,
         "target_language": "ug",
         "target_language_original": "tiếng Uyghur",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2764,7 +2900,8 @@
         "total_tokens": 464,
         "target_language": "uk",
         "target_language_original": "tiếng Ukraina",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ao cơ hội\",\"K_2\":\"Chào hàng\",\"K_3\":\"Báo giá\",\"K_4\":\"Khách hàng\",\"K_5\":\"Thẻ chăm sóc\",\"K_6\":\"Mục tiêu doanh số\",\"K_7\":\"Doanh số tính thưởng\",\"K_8\":\"Đơn hàng\",\"K_9\":\"Tiềm năng\",\"K_10\":\"Lịch hẹn\",\"K_11\":\"Nhiệm vụ\",\"K_12\":\"Cuộc gọi\",\"K_13\":\" và \"}"
       }
     },
     {
@@ -2784,7 +2921,8 @@
         "total_tokens": 579,
         "target_language": "ur",
         "target_language_original": "tiếng Urdu",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -2804,7 +2942,8 @@
         "total_tokens": 664,
         "target_language": "uz",
         "target_language_original": "tiếng Uzbek",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"P.BTĐB\",\"K_2\":\"BTĐ BT HCM 2016\",\"K_3\":\"APĐ-Q12\",\"K_4\":\"huỳnh phương\",\"K_5\":\"mỹ đức\",\"K_6\":\"Toàn quyền\",\"K_7\":\"Loại hoàng hóa\",\"K_8\":\"Thẻ chuyển giao\",\"K_9\":\"Khách hàng chăm sóc\",\"K_10\":\"Tình trạng\",\"K_11\":\"Cơ hội\",\"K_12\":\"Chính sách giá\",\"K_13\":\"Dự toán kinh phí\",\"K_14\":\"Dự án bán hàng\",\"K_15\":\"Thẻ hỗ trợ\",\"K_16\":\"Chiến dịch\",\"K_17\":\"Thẻ chăm sóc\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Hóa đơn\",\"K_20\":\"Liên hệ\"}"
       }
     },
     {
@@ -2824,7 +2963,8 @@
         "total_tokens": 400,
         "target_language": "yi",
         "target_language_original": "tiếng Yiddish",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -2844,7 +2984,8 @@
         "total_tokens": 762,
         "target_language": "yo",
         "target_language_original": "tiếng Yoruba",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"LONG AN - TÂN AN\",\"K_2\":\"Gia lâm\",\"K_3\":\"CH AO - THÁI NGUYÊN\",\"K_4\":\"Bình Thuận - MTL\",\"K_5\":\"Cần Giuộc - Amis\",\"K_6\":\"Hà Cầu. Đồng Mai. La Khê\",\"K_7\":\"26/11 Thảo TPT\",\"K_8\":\"MDR - THANH THÚY\",\"K_9\":\"LÊ LỢI\",\"K_10\":\"Long KHánh Hòa\",\"K_11\":\"Phú Lãm\",\"K_12\":\"NĐ70 HCM\",\"K_13\":\"Phước Long B KHC amis (25/8)\",\"K_14\":\"CHF - Tân Mai\",\"K_15\":\"quỳnh 10/07\",\"K_16\":\"Vân Sơn\",\"K_17\":\"FALCON- Hưng Yên 2025\",\"K_18\":\"MEINBOT- Vĩnh Phúc 2025\",\"K_19\":\"Huỳnh Như - 2024\",\"K_20\":\"CHA - APĐ\"}"
       }
     },
     {
@@ -2864,7 +3005,8 @@
         "total_tokens": 713,
         "target_language": "zh-Hans",
         "target_language_original": "tiếng Trung (Giản thể)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"NHPHÚC\",\"K_2\":\"TB TĐ\",\"K_3\":\"KHĐM_TB\",\"K_4\":\"TT-VH-HĐ-BM\",\"K_5\":\"ưe43r\",\"K_6\":\"MEIN-ĐL\",\"K_7\":\"MTL CT-KT-ĐH\",\"K_8\":\"DIÊMX\",\"K_9\":\"PKD 03 - KĐT\",\"K_10\":\"CD_QLTS_QĐ213_NTCan\",\"K_11\":\"BĐ_Mei_200\",\"K_12\":\"KĐT 1 (01-09)\",\"K_13\":\"PT-TQ-PTH_AMIS_CHƯAMEI\",\"K_14\":\"AĐK\",\"K_15\":\"vđ1\",\"K_16\":\"MTT CĐ\",\"K_17\":\"BN-ĐNG-TCG\",\"K_18\":\"TTĐ - TK\",\"K_19\":\"SME_ĐAKTO\",\"K_20\":\"Toàn quyền\"}"
       }
     },
     {
@@ -2884,7 +3026,8 @@
         "total_tokens": 640,
         "target_language": "zh-Hant-HK",
         "target_language_original": "tiếng Quảng Đông",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"UYÊN\",\"K_2\":\"vtvan - chf - uyên (2024)\",\"K_3\":\"CSKHBĐ_05\",\"K_4\":\"Toàn quyền\",\"K_5\":\"Loại hoàng hóa\",\"K_6\":\"Thẻ chuyển giao\",\"K_7\":\"Khách hàng chăm sóc\",\"K_8\":\"Tình trạng\",\"K_9\":\"Cơ hội\",\"K_10\":\"Chính sách giá\",\"K_11\":\"Dự toán kinh phí\",\"K_12\":\"Dự án bán hàng\",\"K_13\":\"Thẻ hỗ trợ\",\"K_14\":\"Chiến dịch\",\"K_15\":\"Thẻ chăm sóc\",\"K_16\":\"Đơn hàng\",\"K_17\":\"Hóa đơn\",\"K_18\":\"Liên hệ\",\"K_19\":\"Hoạt động\",\"K_20\":\"Trả lại hàng bán\"}"
       }
     },
     {
@@ -2904,7 +3047,8 @@
         "total_tokens": 668,
         "target_language": "zu",
         "target_language_original": "tiếng Zulu",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Phan Huyền\",\"K_2\":\"Hằng Miu\",\"K_3\":\"DT_ĐT_2024\",\"K_4\":\"Phước Mỹ_TM\",\"K_5\":\"Lê Thế Hiệp\",\"K_6\":\"Hằng\",\"K_7\":\"Hoàng Minh Phương\",\"K_8\":\"CD_QLTS_QĐ213_PTNgoc\",\"K_9\":\"Hường\",\"K_10\":\"Vĩnh lộc A - MINHTHU\",\"K_11\":\"Thanh Mai - Gia Lâm - SME\",\"K_12\":\"Kông chro\",\"K_13\":\"2009 ĐN\",\"K_14\":\"Bến Tre GHCN 2023\",\"K_15\":\"Võ Bá Quang\",\"K_16\":\"P. LINH XUÂN - TĐ\",\"K_17\":\"NGÁT 22/8\",\"K_18\":\"Hiền Trang Hoàn Kiếm\",\"K_19\":\"HCSN-THPT- Vũng tàu\",\"K_20\":\"MEi-thảo điền\"}"
       }
     },
     {
@@ -2924,7 +3068,8 @@
         "total_tokens": 368,
         "target_language": "hmn",
         "target_language_original": "tiếng Hmong",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Mục tiêu doanh số\",\"K_2\":\"Doanh số tính thưởng\",\"K_3\":\"Đơn hàng\",\"K_4\":\"Tiềm năng\",\"K_5\":\"Lịch hẹn\",\"K_6\":\"Nhiệm vụ\",\"K_7\":\"Cuộc gọi\",\"K_8\":\" và \"}"
       }
     },
     {
@@ -2944,7 +3089,8 @@
         "total_tokens": 757,
         "target_language": "lb",
         "target_language_original": "tiếng Luxembourg",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"TMAU_GÒ VẤP_052020\",\"K_2\":\"AN PHÚ - CẦN THƠ\",\"K_3\":\"DIÊN HỒNG\",\"K_4\":\"Hai Bà Trưng 4/11\",\"K_5\":\"xaylap_hòa xuân cẩm lệ\",\"K_6\":\"CH - PHÚC\",\"K_7\":\"Khánh Hòa - BM01\",\"K_8\":\"VĨNH TRUNG NHA TRANG\",\"K_9\":\"STT 0Đ DNTRUC\",\"K_10\":\"Sóc Trăng\",\"K_11\":\"Quyết Thắng, kon tum\",\"K_12\":\"VÂN ANH\",\"K_13\":\"CÁT TIÊN\",\"K_14\":\"NGHĨA TRUNG\",\"K_15\":\"SƠN TRÀ\",\"K_16\":\"Ngọc Huy\",\"K_17\":\"PTC Cù Lao Dung\",\"K_18\":\"LÂM\",\"K_19\":\"NHƠN TRẠCH/HDDT\",\"K_20\":\"BTĐ BT HCM 2016\"}"
       }
     },
     {
@@ -2964,7 +3110,8 @@
         "total_tokens": 674,
         "target_language": "es",
         "target_language_original": "tiếng Tây Ban Nha",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"NPS Phương\",\"K_2\":\"Vũ Thị Huệ (C38-0009)\",\"K_3\":\"Quỳnh Hoa\",\"K_4\":\"Mỹ Hào-Hưng Yên\",\"K_5\":\"AMIS NH Bắc Ninh\",\"K_6\":\"BTĐ BT HCM 2018\",\"K_7\":\"Vân_QNam\",\"K_8\":\"Quợn\",\"K_9\":\"Cam Lộ\",\"K_10\":\"GPKT - Quảng Trị\",\"K_11\":\"Tào Xuyên\",\"K_12\":\"An Khánh - Cần Thơ\",\"K_13\":\"Uyên KPI 2025\",\"K_14\":\"Nguyễn Thị Phương Loan\",\"K_15\":\"Nguyễn Văn QUá - 14/10\",\"K_16\":\"Mỹ Phước\",\"K_17\":\"Mỹ hòa hưng - LX 18\",\"K_18\":\"Mạc Đỉnh Chi\",\"K_19\":\"BTĐ - BT\",\"K_20\":\"HOÀNG VĂN THỤ\"}"
       }
     },
     {
@@ -2984,7 +3131,8 @@
         "total_tokens": 724,
         "target_language": "sl",
         "target_language_original": "tiếng Slovenia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"*BT Châu Phú-Châu Thành-Châu Đốc AG\",\"K_2\":\"P. Nghĩa Tân - Gia Nghĩa\",\"K_3\":\"Thanh Thảo - HTH - ACH-CHF\",\"K_4\":\"Mỹ Tú_DN_ST1\",\"K_5\":\"BẮC NINH SME K MEI\",\"K_6\":\"HH_THỦ ĐỨC T12\",\"K_7\":\"CHA - APĐ\",\"K_8\":\"10 - 3 - TĐ\",\"K_9\":\"Anh Tú\",\"K_10\":\"TỊNH BIÊN - AMIS HH\",\"K_11\":\"Đinh Vũ Mỹ Huyên\",\"K_12\":\"SÓC TRĂNG - THI\",\"K_13\":\"Toàn quyền\",\"K_14\":\"Loại hoàng hóa\",\"K_15\":\"Thẻ chuyển giao\",\"K_16\":\"Khách hàng chăm sóc\",\"K_17\":\"Tình trạng\",\"K_18\":\"Cơ hội\",\"K_19\":\"Chính sách giá\",\"K_20\":\"Dự toán kinh phí\"}"
       }
     },
     {
@@ -3004,7 +3152,8 @@
         "total_tokens": 743,
         "target_language": "sm",
         "target_language_original": "tiếng Samoa",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Nguyễn Trần Đức Thế\",\"K_2\":\"Inbot MĐ\",\"K_3\":\"Mỹ Đình 1\",\"K_4\":\"Đống Đa Hiền Trang\",\"K_5\":\"Thùy Dương\",\"K_6\":\"Quảng Trị\",\"K_7\":\"tam dương, vĩnh phúc\",\"K_8\":\"KG-RG-Vĩnh Thanh\",\"K_9\":\"BT ĐĂK NÔNG\",\"K_10\":\"Xuân Phương-Nam Từ Liêm\",\"K_11\":\"MEI TT LINH XUÂN TĐ\",\"K_12\":\"LĨNH NAM\",\"K_13\":\"CM THUẬN AN\",\"K_14\":\"GIA LÂM 2025\",\"K_15\":\"Nguyễn Thị Hà My\",\"K_16\":\"TĐ/TM/ Linh Trung, Tăng Nhơn Phú AB\",\"K_17\":\"Ngọc Cẩm\",\"K_18\":\"Lục Nam BG\",\"K_19\":\"Đơn Dương\",\"K_20\":\"MTT Tân Bình\"}"
       }
     },
     {
@@ -3024,7 +3173,8 @@
         "total_tokens": 706,
         "target_language": "ig",
         "target_language_original": "tiếng Igbo",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"MTT TÂN BÌNH\",\"K_2\":\"Gò Vấp_BT GPKT\",\"K_3\":\"Bích Nhi\",\"K_4\":\"TTKDGPHĐT HCM - AMIS\",\"K_5\":\"Phạm Ngũ Lão - KHM\",\"K_6\":\"Trần Hà - Ba Đình\",\"K_7\":\"Quỳnh\",\"K_8\":\"Hoàng Thịnh\",\"K_9\":\"Phú Thiện GL\",\"K_10\":\"BTĐ A BT HCM 2017\",\"K_11\":\"Đắk Mil\",\"K_12\":\"Cà Mau + Cần Thơ\",\"K_13\":\"cúc v\",\"K_14\":\"Thanh Thảo Tân An KHM\",\"K_15\":\"Rạch Sỏi - Kiên Giang\",\"K_16\":\"TRI TÔN - AG\",\"K_17\":\"CHAF - TT Long Thành SME\",\"K_18\":\"Vĩnh Phúc 5/11\",\"K_19\":\"Thanh Trì - Hoàn Kiếm - Ba Đình\",\"K_20\":\"HÀ NỘI 2 PKD6\"}"
       }
     }
   ]

@@ -46,7 +46,8 @@
         "total_tokens": 582,
         "target_language": "af",
         "target_language_original": "tiếng Hà Lan (Nam Phi)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"NTNDIEM - GÒ VẤP - AMIS\",\"K_2\":\"ABĐ\",\"K_3\":\"CHĐTH\",\"K_4\":\"Toàn quyền\",\"K_5\":\"Loại hoàng hóa\",\"K_6\":\"Thẻ chuyển giao\",\"K_7\":\"Khách hàng chăm sóc\",\"K_8\":\"Tình trạng\",\"K_9\":\"Cơ hội\",\"K_10\":\"Chính sách giá\",\"K_11\":\"Dự toán kinh phí\",\"K_12\":\"Dự án bán hàng\",\"K_13\":\"Thẻ hỗ trợ\",\"K_14\":\"Chiến dịch\",\"K_15\":\"Thẻ chăm sóc\",\"K_16\":\"Đơn hàng\",\"K_17\":\"Hóa đơn\",\"K_18\":\"Liên hệ\",\"K_19\":\"Hoạt động\",\"K_20\":\"Trả lại hàng bán\"}"
       }
     },
     {
@@ -66,7 +67,8 @@
         "total_tokens": 788,
         "target_language": "am",
         "target_language_original": "tiếng Amharic",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -86,7 +88,8 @@
         "total_tokens": 680,
         "target_language": "ar",
         "target_language_original": "tiếng Ả Rập",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"ưefawefawef\",\"K_2\":\"APĐ-Q12\",\"K_3\":\"BĐ_N90\",\"K_4\":\"ĐXSON\",\"K_5\":\"P2-ĐL-LĐ\",\"K_6\":\"TBĐM (2000-2018)\",\"K_7\":\"hnuyen-ĐGNV2021\",\"K_8\":\"VUA_CĐKT_BMT\",\"K_9\":\"Q1ĐK\",\"K_10\":\"CUK4 AO KXĐ\",\"K_11\":\"Toàn quyền\",\"K_12\":\"Loại hoàng hóa\",\"K_13\":\"Thẻ chuyển giao\",\"K_14\":\"Khách hàng chăm sóc\",\"K_15\":\"Tình trạng\",\"K_16\":\"Cơ hội\",\"K_17\":\"Chính sách giá\",\"K_18\":\"Dự toán kinh phí\",\"K_19\":\"Dự án bán hàng\",\"K_20\":\"Thẻ hỗ trợ\"}"
       }
     },
     {
@@ -106,7 +109,8 @@
         "total_tokens": 385,
         "target_language": "as",
         "target_language_original": "tiếng Assam",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -126,7 +130,8 @@
         "total_tokens": 573,
         "target_language": "awa",
         "target_language_original": "tiếng Awadhi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -146,7 +151,8 @@
         "total_tokens": 582,
         "target_language": "az",
         "target_language_original": "tiếng Azerbaijan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Phước Mỹ_TM\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -166,7 +172,8 @@
         "total_tokens": 594,
         "target_language": "ba",
         "target_language_original": "tiếng Bashkir",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -186,7 +193,8 @@
         "total_tokens": 604,
         "target_language": "be",
         "target_language_original": "tiếng Belarus",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -206,7 +214,8 @@
         "total_tokens": 586,
         "target_language": "bg",
         "target_language_original": "tiếng Bulgaria",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -226,7 +235,8 @@
         "total_tokens": 384,
         "target_language": "bho",
         "target_language_original": "tiếng Bhojpuri",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -246,7 +256,8 @@
         "total_tokens": 644,
         "target_language": "bn",
         "target_language_original": "tiếng Bengal",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -266,7 +277,8 @@
         "total_tokens": 572,
         "target_language": "bs",
         "target_language_original": "tiếng Bosnia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"KHC Trung Chánh amis\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -286,7 +298,8 @@
         "total_tokens": 444,
         "target_language": "ckb",
         "target_language_original": "tiếng Kurd (Sorani)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -306,7 +319,8 @@
         "total_tokens": 416,
         "target_language": "crh",
         "target_language_original": "tiếng Tatar Krym",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Báo giá\",\"K_2\":\"Khách hàng\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Mục tiêu doanh số\",\"K_5\":\"Doanh số tính thưởng\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Tiềm năng\",\"K_8\":\"Lịch hẹn\",\"K_9\":\"Nhiệm vụ\",\"K_10\":\"Cuộc gọi\",\"K_11\":\" và \"}"
       }
     },
     {
@@ -326,7 +340,8 @@
         "total_tokens": 388,
         "target_language": "crs",
         "target_language_original": "tiếng Creole Seychelles",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -346,7 +361,8 @@
         "total_tokens": 624,
         "target_language": "cv",
         "target_language_original": "tiếng Chuvash",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -366,7 +382,8 @@
         "total_tokens": 486,
         "target_language": "de",
         "target_language_original": "tiếng Đức",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Liên hệ\",\"K_2\":\"Hoạt động\",\"K_3\":\"Trả lại hàng bán\",\"K_4\":\"Ao cơ hội\",\"K_5\":\"Chào hàng\",\"K_6\":\"Báo giá\",\"K_7\":\"Khách hàng\",\"K_8\":\"Thẻ chăm sóc\",\"K_9\":\"Mục tiêu doanh số\",\"K_10\":\"Doanh số tính thưởng\",\"K_11\":\"Đơn hàng\",\"K_12\":\"Tiềm năng\",\"K_13\":\"Lịch hẹn\",\"K_14\":\"Nhiệm vụ\",\"K_15\":\"Cuộc gọi\",\"K_16\":\" và \"}"
       }
     },
     {
@@ -386,7 +403,8 @@
         "total_tokens": 382,
         "target_language": "doi",
         "target_language_original": "tiếng Dogri",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -406,7 +424,8 @@
         "total_tokens": 623,
         "target_language": "el",
         "target_language_original": "tiếng Hy Lạp",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -426,7 +445,8 @@
         "total_tokens": 529,
         "target_language": "en",
         "target_language_original": "tiếng Tiếng Anh",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -446,7 +466,8 @@
         "total_tokens": 371,
         "target_language": "eo",
         "target_language_original": "tiếng Quốc tế ngữ",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -466,7 +487,8 @@
         "total_tokens": 573,
         "target_language": "et",
         "target_language_original": "tiếng Estonia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Loại hoàng hóa\",\"K_2\":\"Thẻ chuyển giao\",\"K_3\":\"Khách hàng chăm sóc\",\"K_4\":\"Tình trạng\",\"K_5\":\"Cơ hội\",\"K_6\":\"Chính sách giá\",\"K_7\":\"Dự toán kinh phí\",\"K_8\":\"Dự án bán hàng\",\"K_9\":\"Thẻ hỗ trợ\",\"K_10\":\"Chiến dịch\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Đơn hàng\",\"K_13\":\"Hóa đơn\",\"K_14\":\"Liên hệ\",\"K_15\":\"Hoạt động\",\"K_16\":\"Trả lại hàng bán\",\"K_17\":\"Ao cơ hội\",\"K_18\":\"Chào hàng\",\"K_19\":\"Báo giá\",\"K_20\":\"Khách hàng\"}"
       }
     },
     {
@@ -486,7 +508,8 @@
         "total_tokens": 502,
         "target_language": "eu",
         "target_language_original": "tiếng Basque",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Liên hệ\",\"K_2\":\"Hoạt động\",\"K_3\":\"Trả lại hàng bán\",\"K_4\":\"Ao cơ hội\",\"K_5\":\"Chào hàng\",\"K_6\":\"Báo giá\",\"K_7\":\"Khách hàng\",\"K_8\":\"Thẻ chăm sóc\",\"K_9\":\"Mục tiêu doanh số\",\"K_10\":\"Doanh số tính thưởng\",\"K_11\":\"Đơn hàng\",\"K_12\":\"Tiềm năng\",\"K_13\":\"Lịch hẹn\",\"K_14\":\"Nhiệm vụ\",\"K_15\":\"Cuộc gọi\",\"K_16\":\" và \"}"
       }
     },
     {
@@ -506,7 +529,8 @@
         "total_tokens": 441,
         "target_language": "fa",
         "target_language_original": "tiếng Ba Tư",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Báo giá\",\"K_2\":\"Khách hàng\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Mục tiêu doanh số\",\"K_5\":\"Doanh số tính thưởng\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Tiềm năng\",\"K_8\":\"Lịch hẹn\",\"K_9\":\"Nhiệm vụ\",\"K_10\":\"Cuộc gọi\",\"K_11\":\" và \"}"
       }
     },
     {
@@ -526,7 +550,8 @@
         "total_tokens": 386,
         "target_language": "fr",
         "target_language_original": "tiếng Pháp",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -546,7 +571,8 @@
         "total_tokens": 377,
         "target_language": "gn",
         "target_language_original": "tiếng Guarani",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -566,7 +592,8 @@
         "total_tokens": 588,
         "target_language": "gu",
         "target_language_original": "tiếng Gujarat",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -586,7 +613,8 @@
         "total_tokens": 579,
         "target_language": "haw",
         "target_language_original": "tiếng Hawaii",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Loại hoàng hóa\",\"K_2\":\"Thẻ chuyển giao\",\"K_3\":\"Khách hàng chăm sóc\",\"K_4\":\"Tình trạng\",\"K_5\":\"Cơ hội\",\"K_6\":\"Chính sách giá\",\"K_7\":\"Dự toán kinh phí\",\"K_8\":\"Dự án bán hàng\",\"K_9\":\"Thẻ hỗ trợ\",\"K_10\":\"Chiến dịch\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Đơn hàng\",\"K_13\":\"Hóa đơn\",\"K_14\":\"Liên hệ\",\"K_15\":\"Hoạt động\",\"K_16\":\"Trả lại hàng bán\",\"K_17\":\"Ao cơ hội\",\"K_18\":\"Chào hàng\",\"K_19\":\"Báo giá\",\"K_20\":\"Khách hàng\"}"
       }
     },
     {
@@ -606,7 +634,8 @@
         "total_tokens": 577,
         "target_language": "he",
         "target_language_original": "tiếng Do Thái",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -626,7 +655,8 @@
         "total_tokens": 380,
         "target_language": "hi",
         "target_language_original": "tiếng Hindi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -646,7 +676,8 @@
         "total_tokens": 572,
         "target_language": "hy",
         "target_language_original": "tiếng Armenia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Chiến dịch\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Đơn hàng\",\"K_4\":\"Hóa đơn\",\"K_5\":\"Liên hệ\",\"K_6\":\"Hoạt động\",\"K_7\":\"Trả lại hàng bán\",\"K_8\":\"Ao cơ hội\",\"K_9\":\"Chào hàng\",\"K_10\":\"Báo giá\",\"K_11\":\"Khách hàng\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Mục tiêu doanh số\",\"K_14\":\"Doanh số tính thưởng\",\"K_15\":\"Đơn hàng\",\"K_16\":\"Tiềm năng\",\"K_17\":\"Lịch hẹn\",\"K_18\":\"Nhiệm vụ\",\"K_19\":\"Cuộc gọi\",\"K_20\":\" và \"}"
       }
     },
     {
@@ -666,7 +697,8 @@
         "total_tokens": 314,
         "target_language": "id",
         "target_language_original": "tiếng Indonesia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Tiềm năng\",\"K_2\":\"Lịch hẹn\",\"K_3\":\"Nhiệm vụ\",\"K_4\":\"Cuộc gọi\",\"K_5\":\" và \",\"K_6\":\"Thúy Thúy\"}"
       }
     },
     {
@@ -686,7 +718,8 @@
         "total_tokens": 298,
         "target_language": "ilo",
         "target_language_original": "tiếng Ilocano",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ra mắt Gemini 3.1 Pro\",\"K_2\":\"Mô hình tiên tiến nhất từ Google với khả năng phân tích vượt trội\"}"
       }
     },
     {
@@ -706,7 +739,8 @@
         "total_tokens": 531,
         "target_language": "it",
         "target_language_original": "tiếng Ý",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ chăm sóc\",\"K_2\":\"Đơn hàng\",\"K_3\":\"Hóa đơn\",\"K_4\":\"Liên hệ\",\"K_5\":\"Hoạt động\",\"K_6\":\"Trả lại hàng bán\",\"K_7\":\"Ao cơ hội\",\"K_8\":\"Chào hàng\",\"K_9\":\"Báo giá\",\"K_10\":\"Khách hàng\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Mục tiêu doanh số\",\"K_13\":\"Doanh số tính thưởng\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Tiềm năng\",\"K_16\":\"Lịch hẹn\",\"K_17\":\"Nhiệm vụ\",\"K_18\":\"Cuộc gọi\",\"K_19\":\" và \"}"
       }
     },
     {
@@ -726,7 +760,8 @@
         "total_tokens": 668,
         "target_language": "ja",
         "target_language_original": "tiếng Nhật Bản(Japan)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"CHĐTH\",\"K_2\":\"AN KHÁNH - SME HH\",\"K_3\":\"TMDUYÊN\",\"K_4\":\"HUYÊN ES1 HAN\",\"K_5\":\"BTĐ KHM FULL 70\",\"K_6\":\"10 - 3 - TĐ\",\"K_7\":\"BN-ĐNG-TCG\",\"K_8\":\"Toàn quyền\",\"K_9\":\"Loại hoàng hóa\",\"K_10\":\"Thẻ chuyển giao\",\"K_11\":\"Khách hàng chăm sóc\",\"K_12\":\"Tình trạng\",\"K_13\":\"Cơ hội\",\"K_14\":\"Chính sách giá\",\"K_15\":\"Dự toán kinh phí\",\"K_16\":\"Dự án bán hàng\",\"K_17\":\"Thẻ hỗ trợ\",\"K_18\":\"Chiến dịch\",\"K_19\":\"Thẻ chăm sóc\",\"K_20\":\"Đơn hàng\"}"
       }
     },
     {
@@ -746,7 +781,8 @@
         "total_tokens": 394,
         "target_language": "jv",
         "target_language_original": "tiếng Java",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Chào hàng\",\"K_2\":\"Báo giá\",\"K_3\":\"Khách hàng\",\"K_4\":\"Thẻ chăm sóc\",\"K_5\":\"Mục tiêu doanh số\",\"K_6\":\"Doanh số tính thưởng\",\"K_7\":\"Đơn hàng\",\"K_8\":\"Tiềm năng\",\"K_9\":\"Lịch hẹn\",\"K_10\":\"Nhiệm vụ\",\"K_11\":\"Cuộc gọi\",\"K_12\":\" và \"}"
       }
     },
     {
@@ -766,7 +802,8 @@
         "total_tokens": 674,
         "target_language": "ka",
         "target_language_original": "tiếng Tiếng Georgia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"KHĐM P36710TB\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -786,7 +823,8 @@
         "total_tokens": 286,
         "target_language": "kk",
         "target_language_original": "tiếng Kazakh",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ra mắt Gemini 3.1 Pro\",\"K_2\":\"Mô hình tiên tiến nhất từ Google với khả năng phân tích vượt trội\"}"
       }
     },
     {
@@ -806,7 +844,8 @@
         "total_tokens": 691,
         "target_language": "km",
         "target_language_original": "tiếng Khmer",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ chuyển giao\",\"K_2\":\"Khách hàng chăm sóc\",\"K_3\":\"Tình trạng\",\"K_4\":\"Cơ hội\",\"K_5\":\"Chính sách giá\",\"K_6\":\"Dự toán kinh phí\",\"K_7\":\"Dự án bán hàng\",\"K_8\":\"Thẻ hỗ trợ\",\"K_9\":\"Chiến dịch\",\"K_10\":\"Thẻ chăm sóc\",\"K_11\":\"Đơn hàng\",\"K_12\":\"Hóa đơn\",\"K_13\":\"Liên hệ\",\"K_14\":\"Hoạt động\",\"K_15\":\"Trả lại hàng bán\",\"K_16\":\"Ao cơ hội\",\"K_17\":\"Chào hàng\",\"K_18\":\"Báo giá\",\"K_19\":\"Khách hàng\",\"K_20\":\"Thẻ chăm sóc\"}"
       }
     },
     {
@@ -826,7 +865,8 @@
         "total_tokens": 295,
         "target_language": "kn",
         "target_language_original": "tiếng Kannada",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ra mắt Gemini 3.1 Pro\",\"K_2\":\"Mô hình tiên tiến nhất từ Google với khả năng phân tích vượt trội\"}"
       }
     },
     {
@@ -846,7 +886,8 @@
         "total_tokens": 644,
         "target_language": "ko",
         "target_language_original": "tiếng Hàn Quốc(Korea)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"KHĐM P36710TB\",\"K_2\":\"HH CKS 7,8,9 TĐ\",\"K_3\":\"CHF ĐH\",\"K_4\":\"FĐN\",\"K_5\":\"ASP_UYÊN_BMT\",\"K_6\":\"Toàn quyền\",\"K_7\":\"Loại hoàng hóa\",\"K_8\":\"Thẻ chuyển giao\",\"K_9\":\"Khách hàng chăm sóc\",\"K_10\":\"Tình trạng\",\"K_11\":\"Cơ hội\",\"K_12\":\"Chính sách giá\",\"K_13\":\"Dự toán kinh phí\",\"K_14\":\"Dự án bán hàng\",\"K_15\":\"Thẻ hỗ trợ\",\"K_16\":\"Chiến dịch\",\"K_17\":\"Thẻ chăm sóc\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Hóa đơn\",\"K_20\":\"Liên hệ\"}"
       }
     },
     {
@@ -866,7 +907,8 @@
         "total_tokens": 295,
         "target_language": "kok",
         "target_language_original": "tiếng Konkani",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ra mắt Gemini 3.1 Pro\",\"K_2\":\"Mô hình tiên tiến nhất từ Google với khả năng phân tích vượt trội\"}"
       }
     },
     {
@@ -886,7 +928,8 @@
         "total_tokens": 526,
         "target_language": "kri",
         "target_language_original": "tiếng Krio",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -906,7 +949,8 @@
         "total_tokens": 566,
         "target_language": "ku",
         "target_language_original": "tiếng Kurd (Kurmanji)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ chăm sóc\",\"K_2\":\"Đơn hàng\",\"K_3\":\"Hóa đơn\",\"K_4\":\"Liên hệ\",\"K_5\":\"Hoạt động\",\"K_6\":\"Trả lại hàng bán\",\"K_7\":\"Ao cơ hội\",\"K_8\":\"Chào hàng\",\"K_9\":\"Báo giá\",\"K_10\":\"Khách hàng\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Mục tiêu doanh số\",\"K_13\":\"Doanh số tính thưởng\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Tiềm năng\",\"K_16\":\"Lịch hẹn\",\"K_17\":\"Nhiệm vụ\",\"K_18\":\"Cuộc gọi\",\"K_19\":\" và \"}"
       }
     },
     {
@@ -926,7 +970,8 @@
         "total_tokens": 427,
         "target_language": "ky",
         "target_language_original": "tiếng Kyrgyz",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Chào hàng\",\"K_2\":\"Báo giá\",\"K_3\":\"Khách hàng\",\"K_4\":\"Thẻ chăm sóc\",\"K_5\":\"Mục tiêu doanh số\",\"K_6\":\"Doanh số tính thưởng\",\"K_7\":\"Đơn hàng\",\"K_8\":\"Tiềm năng\",\"K_9\":\"Lịch hẹn\",\"K_10\":\"Nhiệm vụ\",\"K_11\":\"Cuộc gọi\",\"K_12\":\" và \"}"
       }
     },
     {
@@ -946,7 +991,8 @@
         "total_tokens": 621,
         "target_language": "la",
         "target_language_original": "tiếng Latinh",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -966,7 +1012,8 @@
         "total_tokens": 379,
         "target_language": "li",
         "target_language_original": "tiếng Limburg",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -986,7 +1033,8 @@
         "total_tokens": 844,
         "target_language": "lo",
         "target_language_original": "tiếng Lào (Laos)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"APĐ-Q12\",\"K_2\":\"GPHĐ - NHS\",\"K_3\":\"BV+TO+MĐ\",\"K_4\":\"NHĐ\",\"K_5\":\"TĐKT3\",\"K_6\":\"CSKHBĐ_05\",\"K_7\":\"CSBĐ\",\"K_8\":\"Toàn quyền\",\"K_9\":\"Loại hoàng hóa\",\"K_10\":\"Thẻ chuyển giao\",\"K_11\":\"Khách hàng chăm sóc\",\"K_12\":\"Tình trạng\",\"K_13\":\"Cơ hội\",\"K_14\":\"Chính sách giá\",\"K_15\":\"Dự toán kinh phí\",\"K_16\":\"Dự án bán hàng\",\"K_17\":\"Thẻ hỗ trợ\",\"K_18\":\"Chiến dịch\",\"K_19\":\"Thẻ chăm sóc\",\"K_20\":\"Đơn hàng\"}"
       }
     },
     {
@@ -1006,7 +1054,8 @@
         "total_tokens": 677,
         "target_language": "lv",
         "target_language_original": "tiếng Latvia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"TMTRAN PHƯỚC LONG A Q9.26.TH9\",\"K_2\":\"THANH HÓA 2023\",\"K_3\":\"Toàn quyền\",\"K_4\":\"Loại hoàng hóa\",\"K_5\":\"Thẻ chuyển giao\",\"K_6\":\"Khách hàng chăm sóc\",\"K_7\":\"Tình trạng\",\"K_8\":\"Cơ hội\",\"K_9\":\"Chính sách giá\",\"K_10\":\"Dự toán kinh phí\",\"K_11\":\"Dự án bán hàng\",\"K_12\":\"Thẻ hỗ trợ\",\"K_13\":\"Chiến dịch\",\"K_14\":\"Thẻ chăm sóc\",\"K_15\":\"Đơn hàng\",\"K_16\":\"Hóa đơn\",\"K_17\":\"Liên hệ\",\"K_18\":\"Hoạt động\",\"K_19\":\"Trả lại hàng bán\",\"K_20\":\"Ao cơ hội\"}"
       }
     },
     {
@@ -1026,7 +1075,8 @@
         "total_tokens": 630,
         "target_language": "mai",
         "target_language_original": "tiếng Maithili",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1046,7 +1096,8 @@
         "total_tokens": 571,
         "target_language": "mi",
         "target_language_original": "tiếng Maori",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng chăm sóc\",\"K_2\":\"Tình trạng\",\"K_3\":\"Cơ hội\",\"K_4\":\"Chính sách giá\",\"K_5\":\"Dự toán kinh phí\",\"K_6\":\"Dự án bán hàng\",\"K_7\":\"Thẻ hỗ trợ\",\"K_8\":\"Chiến dịch\",\"K_9\":\"Thẻ chăm sóc\",\"K_10\":\"Đơn hàng\",\"K_11\":\"Hóa đơn\",\"K_12\":\"Liên hệ\",\"K_13\":\"Hoạt động\",\"K_14\":\"Trả lại hàng bán\",\"K_15\":\"Ao cơ hội\",\"K_16\":\"Chào hàng\",\"K_17\":\"Báo giá\",\"K_18\":\"Khách hàng\",\"K_19\":\"Thẻ chăm sóc\",\"K_20\":\"Mục tiêu doanh số\"}"
       }
     },
     {
@@ -1066,7 +1117,8 @@
         "total_tokens": 473,
         "target_language": "min",
         "target_language_original": "tiếng Minang",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Trả lại hàng bán\",\"K_2\":\"Ao cơ hội\",\"K_3\":\"Chào hàng\",\"K_4\":\"Báo giá\",\"K_5\":\"Khách hàng\",\"K_6\":\"Thẻ chăm sóc\",\"K_7\":\"Mục tiêu doanh số\",\"K_8\":\"Doanh số tính thưởng\",\"K_9\":\"Đơn hàng\",\"K_10\":\"Tiềm năng\",\"K_11\":\"Lịch hẹn\",\"K_12\":\"Nhiệm vụ\",\"K_13\":\"Cuộc gọi\",\"K_14\":\" và \",\"K_15\":\"Thúy Thúy\"}"
       }
     },
     {
@@ -1086,7 +1138,8 @@
         "total_tokens": 407,
         "target_language": "mk",
         "target_language_original": "tiếng Macedonia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Báo giá\",\"K_2\":\"Khách hàng\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Mục tiêu doanh số\",\"K_5\":\"Doanh số tính thưởng\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Tiềm năng\",\"K_8\":\"Lịch hẹn\",\"K_9\":\"Nhiệm vụ\",\"K_10\":\"Cuộc gọi\",\"K_11\":\" và \"}"
       }
     },
     {
@@ -1106,7 +1159,8 @@
         "total_tokens": 653,
         "target_language": "ml",
         "target_language_original": "tiếng Malayalam",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"ưefawefawef\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -1126,7 +1180,8 @@
         "total_tokens": 598,
         "target_language": "mn",
         "target_language_original": "tiếng Mông Cổ",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1146,7 +1201,8 @@
         "total_tokens": 568,
         "target_language": "mr",
         "target_language_original": "tiếng Marathi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1166,7 +1222,8 @@
         "total_tokens": 388,
         "target_language": "mt",
         "target_language_original": "tiếng Malta",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1186,7 +1243,8 @@
         "total_tokens": 407,
         "target_language": "my",
         "target_language_original": "tiếng Myanmar",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1206,7 +1264,8 @@
         "total_tokens": 579,
         "target_language": "ne",
         "target_language_original": "tiếng Nepal",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"PYNHI_BĐ_VC\",\"K_2\":\"Toàn quyền\",\"K_3\":\"Loại hoàng hóa\",\"K_4\":\"Thẻ chuyển giao\",\"K_5\":\"Khách hàng chăm sóc\",\"K_6\":\"Tình trạng\",\"K_7\":\"Cơ hội\",\"K_8\":\"Chính sách giá\",\"K_9\":\"Dự toán kinh phí\",\"K_10\":\"Dự án bán hàng\",\"K_11\":\"Thẻ hỗ trợ\",\"K_12\":\"Chiến dịch\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Hóa đơn\",\"K_16\":\"Liên hệ\",\"K_17\":\"Hoạt động\",\"K_18\":\"Trả lại hàng bán\",\"K_19\":\"Ao cơ hội\",\"K_20\":\"Chào hàng\"}"
       }
     },
     {
@@ -1226,7 +1285,8 @@
         "total_tokens": 492,
         "target_language": "no",
         "target_language_original": "tiếng Na Uy",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Trả lại hàng bán\",\"K_2\":\"Ao cơ hội\",\"K_3\":\"Chào hàng\",\"K_4\":\"Báo giá\",\"K_5\":\"Khách hàng\",\"K_6\":\"Thẻ chăm sóc\",\"K_7\":\"Mục tiêu doanh số\",\"K_8\":\"Doanh số tính thưởng\",\"K_9\":\"Đơn hàng\",\"K_10\":\"Tiềm năng\",\"K_11\":\"Lịch hẹn\",\"K_12\":\"Nhiệm vụ\",\"K_13\":\"Cuộc gọi\",\"K_14\":\" và \",\"K_15\":\"Thúy Thúy\",\"K_16\":\"Bùi Việt\"}"
       }
     },
     {
@@ -1246,7 +1306,8 @@
         "total_tokens": 599,
         "target_language": "om",
         "target_language_original": "tiếng Oromo",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"TKCS03_Vũ\",\"K_2\":\"KĐT 1 (01-09)\",\"K_3\":\"Toàn quyền\",\"K_4\":\"Loại hoàng hóa\",\"K_5\":\"Thẻ chuyển giao\",\"K_6\":\"Khách hàng chăm sóc\",\"K_7\":\"Tình trạng\",\"K_8\":\"Cơ hội\",\"K_9\":\"Chính sách giá\",\"K_10\":\"Dự toán kinh phí\",\"K_11\":\"Dự án bán hàng\",\"K_12\":\"Thẻ hỗ trợ\",\"K_13\":\"Chiến dịch\",\"K_14\":\"Thẻ chăm sóc\",\"K_15\":\"Đơn hàng\",\"K_16\":\"Hóa đơn\",\"K_17\":\"Liên hệ\",\"K_18\":\"Hoạt động\",\"K_19\":\"Trả lại hàng bán\",\"K_20\":\"Ao cơ hội\"}"
       }
     },
     {
@@ -1266,7 +1327,8 @@
         "total_tokens": 444,
         "target_language": "or",
         "target_language_original": "tiếng Odia (Oriya)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1286,7 +1348,8 @@
         "total_tokens": 435,
         "target_language": "pa",
         "target_language_original": "tiếng Punjab (Gurmukhi)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1306,7 +1369,8 @@
         "total_tokens": 283,
         "target_language": "pam",
         "target_language_original": "tiếng Kapampangan",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Lịch hẹn\",\"K_2\":\"Nhiệm vụ\",\"K_3\":\"Cuộc gọi\",\"K_4\":\" và \"}"
       }
     },
     {
@@ -1326,7 +1390,8 @@
         "total_tokens": 391,
         "target_language": "ps",
         "target_language_original": "tiếng Pashto",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1346,7 +1411,8 @@
         "total_tokens": 661,
         "target_language": "pt-BR",
         "target_language_original": "tiếng Bồ Đào Nha (Brazil)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"28/4 Yến\",\"K_2\":\"THANH XUÂN TRUNG\",\"K_3\":\"Nguyễn Trãi - Hà Đông\",\"K_4\":\"NHI_HĐ AMIS\",\"K_5\":\"TT-VTV-HĐ-BM\",\"K_6\":\"Toàn quyền\",\"K_7\":\"Loại hoàng hóa\",\"K_8\":\"Thẻ chuyển giao\",\"K_9\":\"Khách hàng chăm sóc\",\"K_10\":\"Tình trạng\",\"K_11\":\"Cơ hội\",\"K_12\":\"Chính sách giá\",\"K_13\":\"Dự toán kinh phí\",\"K_14\":\"Dự án bán hàng\",\"K_15\":\"Thẻ hỗ trợ\",\"K_16\":\"Chiến dịch\",\"K_17\":\"Thẻ chăm sóc\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Hóa đơn\",\"K_20\":\"Liên hệ\"}"
       }
     },
     {
@@ -1366,7 +1432,8 @@
         "total_tokens": 577,
         "target_language": "rom",
         "target_language_original": "tiếng Romani",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1386,7 +1453,8 @@
         "total_tokens": 569,
         "target_language": "ru",
         "target_language_original": "tiếng Nga",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1406,7 +1474,8 @@
         "total_tokens": 627,
         "target_language": "sa",
         "target_language_original": "tiếng Phạn",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1426,7 +1495,8 @@
         "total_tokens": 547,
         "target_language": "scn",
         "target_language_original": "tiếng Sicily",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ chăm sóc\",\"K_2\":\"Đơn hàng\",\"K_3\":\"Hóa đơn\",\"K_4\":\"Liên hệ\",\"K_5\":\"Hoạt động\",\"K_6\":\"Trả lại hàng bán\",\"K_7\":\"Ao cơ hội\",\"K_8\":\"Chào hàng\",\"K_9\":\"Báo giá\",\"K_10\":\"Khách hàng\",\"K_11\":\"Thẻ chăm sóc\",\"K_12\":\"Mục tiêu doanh số\",\"K_13\":\"Doanh số tính thưởng\",\"K_14\":\"Đơn hàng\",\"K_15\":\"Tiềm năng\",\"K_16\":\"Lịch hẹn\",\"K_17\":\"Nhiệm vụ\",\"K_18\":\"Cuộc gọi\",\"K_19\":\" và \"}"
       }
     },
     {
@@ -1446,7 +1516,8 @@
         "total_tokens": 582,
         "target_language": "sd",
         "target_language_original": "tiếng Sindhi",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1466,7 +1537,8 @@
         "total_tokens": 418,
         "target_language": "si",
         "target_language_original": "tiếng Sinhala",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1486,7 +1558,8 @@
         "total_tokens": 564,
         "target_language": "sq",
         "target_language_original": "tiếng Albania",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Thẻ hỗ trợ\",\"K_2\":\"Chiến dịch\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Đơn hàng\",\"K_5\":\"Hóa đơn\",\"K_6\":\"Liên hệ\",\"K_7\":\"Hoạt động\",\"K_8\":\"Trả lại hàng bán\",\"K_9\":\"Ao cơ hội\",\"K_10\":\"Chào hàng\",\"K_11\":\"Báo giá\",\"K_12\":\"Khách hàng\",\"K_13\":\"Thẻ chăm sóc\",\"K_14\":\"Mục tiêu doanh số\",\"K_15\":\"Doanh số tính thưởng\",\"K_16\":\"Đơn hàng\",\"K_17\":\"Tiềm năng\",\"K_18\":\"Lịch hẹn\",\"K_19\":\"Nhiệm vụ\",\"K_20\":\"Cuộc gọi\"}"
       }
     },
     {
@@ -1506,7 +1579,8 @@
         "total_tokens": 580,
         "target_language": "szl",
         "target_language_original": "tiếng Silesia",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Dự toán kinh phí\",\"K_2\":\"Dự án bán hàng\",\"K_3\":\"Thẻ hỗ trợ\",\"K_4\":\"Chiến dịch\",\"K_5\":\"Thẻ chăm sóc\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Hóa đơn\",\"K_8\":\"Liên hệ\",\"K_9\":\"Hoạt động\",\"K_10\":\"Trả lại hàng bán\",\"K_11\":\"Ao cơ hội\",\"K_12\":\"Chào hàng\",\"K_13\":\"Báo giá\",\"K_14\":\"Khách hàng\",\"K_15\":\"Thẻ chăm sóc\",\"K_16\":\"Mục tiêu doanh số\",\"K_17\":\"Doanh số tính thưởng\",\"K_18\":\"Đơn hàng\",\"K_19\":\"Tiềm năng\",\"K_20\":\"Lịch hẹn\"}"
       }
     },
     {
@@ -1526,7 +1600,8 @@
         "total_tokens": 452,
         "target_language": "te",
         "target_language_original": "tiếng Telugu",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Báo giá\",\"K_2\":\"Khách hàng\",\"K_3\":\"Thẻ chăm sóc\",\"K_4\":\"Mục tiêu doanh số\",\"K_5\":\"Doanh số tính thưởng\",\"K_6\":\"Đơn hàng\",\"K_7\":\"Tiềm năng\",\"K_8\":\"Lịch hẹn\",\"K_9\":\"Nhiệm vụ\",\"K_10\":\"Cuộc gọi\",\"K_11\":\" và \"}"
       }
     },
     {
@@ -1546,7 +1621,8 @@
         "total_tokens": 606,
         "target_language": "tg",
         "target_language_original": "tiếng Tajik",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1566,7 +1642,8 @@
         "total_tokens": 286,
         "target_language": "th",
         "target_language_original": "tiếng Thái Lan(Thailand)",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Lịch hẹn\",\"K_2\":\"Nhiệm vụ\",\"K_3\":\"Cuộc gọi\",\"K_4\":\" và \"}"
       }
     },
     {
@@ -1586,7 +1663,8 @@
         "total_tokens": 776,
         "target_language": "ti",
         "target_language_original": "tiếng Tigrinya",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1606,7 +1684,8 @@
         "total_tokens": 489,
         "target_language": "tk",
         "target_language_original": "tiếng Turkmen",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Hoạt động\",\"K_2\":\"Trả lại hàng bán\",\"K_3\":\"Ao cơ hội\",\"K_4\":\"Chào hàng\",\"K_5\":\"Báo giá\",\"K_6\":\"Khách hàng\",\"K_7\":\"Thẻ chăm sóc\",\"K_8\":\"Mục tiêu doanh số\",\"K_9\":\"Doanh số tính thưởng\",\"K_10\":\"Đơn hàng\",\"K_11\":\"Tiềm năng\",\"K_12\":\"Lịch hẹn\",\"K_13\":\"Nhiệm vụ\",\"K_14\":\"Cuộc gọi\",\"K_15\":\" và \"}"
       }
     },
     {
@@ -1626,7 +1705,8 @@
         "total_tokens": 592,
         "target_language": "tt",
         "target_language_original": "tiếng Tatar",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1646,7 +1726,8 @@
         "total_tokens": 619,
         "target_language": "ug",
         "target_language_original": "tiếng Uyghur",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1666,7 +1747,8 @@
         "total_tokens": 464,
         "target_language": "uk",
         "target_language_original": "tiếng Ukraina",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Ao cơ hội\",\"K_2\":\"Chào hàng\",\"K_3\":\"Báo giá\",\"K_4\":\"Khách hàng\",\"K_5\":\"Thẻ chăm sóc\",\"K_6\":\"Mục tiêu doanh số\",\"K_7\":\"Doanh số tính thưởng\",\"K_8\":\"Đơn hàng\",\"K_9\":\"Tiềm năng\",\"K_10\":\"Lịch hẹn\",\"K_11\":\"Nhiệm vụ\",\"K_12\":\"Cuộc gọi\",\"K_13\":\" và \"}"
       }
     },
     {
@@ -1686,7 +1768,8 @@
         "total_tokens": 579,
         "target_language": "ur",
         "target_language_original": "tiếng Urdu",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Toàn quyền\",\"K_2\":\"Loại hoàng hóa\",\"K_3\":\"Thẻ chuyển giao\",\"K_4\":\"Khách hàng chăm sóc\",\"K_5\":\"Tình trạng\",\"K_6\":\"Cơ hội\",\"K_7\":\"Chính sách giá\",\"K_8\":\"Dự toán kinh phí\",\"K_9\":\"Dự án bán hàng\",\"K_10\":\"Thẻ hỗ trợ\",\"K_11\":\"Chiến dịch\",\"K_12\":\"Thẻ chăm sóc\",\"K_13\":\"Đơn hàng\",\"K_14\":\"Hóa đơn\",\"K_15\":\"Liên hệ\",\"K_16\":\"Hoạt động\",\"K_17\":\"Trả lại hàng bán\",\"K_18\":\"Ao cơ hội\",\"K_19\":\"Chào hàng\",\"K_20\":\"Báo giá\"}"
       }
     },
     {
@@ -1706,7 +1789,8 @@
         "total_tokens": 400,
         "target_language": "yi",
         "target_language_original": "tiếng Yiddish",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"Khách hàng\",\"K_2\":\"Thẻ chăm sóc\",\"K_3\":\"Mục tiêu doanh số\",\"K_4\":\"Doanh số tính thưởng\",\"K_5\":\"Đơn hàng\",\"K_6\":\"Tiềm năng\",\"K_7\":\"Lịch hẹn\",\"K_8\":\"Nhiệm vụ\",\"K_9\":\"Cuộc gọi\",\"K_10\":\" và \"}"
       }
     },
     {
@@ -1726,7 +1810,8 @@
         "total_tokens": 640,
         "target_language": "zh-Hant-HK",
         "target_language_original": "tiếng Quảng Đông",
-        "source_language_original": "tiếng Việt"
+        "source_language_original": "tiếng Việt",
+        "source_text": "{\"K_1\":\"UYÊN\",\"K_2\":\"vtvan - chf - uyên (2024)\",\"K_3\":\"CSKHBĐ_05\",\"K_4\":\"Toàn quyền\",\"K_5\":\"Loại hoàng hóa\",\"K_6\":\"Thẻ chuyển giao\",\"K_7\":\"Khách hàng chăm sóc\",\"K_8\":\"Tình trạng\",\"K_9\":\"Cơ hội\",\"K_10\":\"Chính sách giá\",\"K_11\":\"Dự toán kinh phí\",\"K_12\":\"Dự án bán hàng\",\"K_13\":\"Thẻ hỗ trợ\",\"K_14\":\"Chiến dịch\",\"K_15\":\"Thẻ chăm sóc\",\"K_16\":\"Đơn hàng\",\"K_17\":\"Hóa đơn\",\"K_18\":\"Liên hệ\",\"K_19\":\"Hoạt động\",\"K_20\":\"Trả lại hàng bán\"}"
       }
     }
   ]
