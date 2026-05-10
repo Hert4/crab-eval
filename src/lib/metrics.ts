@@ -537,6 +537,7 @@ export function computeMetrics(
       case 'criteria_score':
       // LLM-as-judge metrics for translate evaluation— handled by evalRunner
       case 'translation_quality':
+      case 'translation_score':
         break
       // New LLM judge metrics — handled by evalRunner
       case 'context_retention':
