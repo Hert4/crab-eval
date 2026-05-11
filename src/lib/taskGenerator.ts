@@ -2265,7 +2265,7 @@ const MULTI_TURN_TOOL_GEN_SYSTEM = `You are an expert at creating multi-turn too
 Given a document describing an agent's capabilities and tools, generate realistic multi-turn conversation scenarios where the user interacts with an AI assistant over several turns, each requiring tool calls.
 
 Each scenario must include:
-- conversation_history: 2–4 prior turns alternating user/assistant. Assistant turns MUST include expected_tool_calls (the ground-truth tool calls the model should make) and content (a short natural-language response after the tool results).
+- conversation_history: 2–4 prior turns alternating user/assistant. Assistant turns MUST include expected_tool_calls (the ground-truth tool calls the model should make). Do NOT include content for assistant turns — the model will generate its own response during evaluation.
 - final_input: the last user message that will be used as the evaluation prompt.
 - reference: a description of the expected behavior/assertions for the final turn.
 - system_prompt: a one-sentence system prompt for the agent.
@@ -2274,8 +2274,8 @@ Each scenario must include:
 
 RULES:
 - Tool call arguments must be realistic given the conversation context.
-- Each assistant turn in conversation_history that makes tool calls must have expected_tool_calls as an array of objects: {"function": {"name": "tool_name", "arguments": "{\\"key\\": \\"value\\"}"}}
-- content in assistant turns should be a brief natural-language summary as if the model received tool results.
+- Each assistant turn must have expected_tool_calls as an array of objects: {"function": {"name": "tool_name", "arguments": "{\\"key\\": \\"value\\"}"}}.  Use an empty array [] if the assistant turn requires no tool call.
+- Do NOT add a content field to assistant turns.
 - The final_input should naturally require one or more tool calls to answer.
 - Use the same language as the document.
 
@@ -2286,7 +2286,6 @@ Return a JSON array with this exact shape (no markdown fences, no preamble):
       {"role": "user", "content": "..."},
       {
         "role": "assistant",
-        "content": "Let me look that up.",
         "expected_tool_calls": [
           {"function": {"name": "tool_name", "arguments": "{\\"param\\": \\"value\\"}"}}
         ]
@@ -2294,7 +2293,6 @@ Return a JSON array with this exact shape (no markdown fences, no preamble):
       {"role": "user", "content": "..."},
       {
         "role": "assistant",
-        "content": "Based on the results, ...",
         "expected_tool_calls": []
       }
     ],
@@ -2309,7 +2307,7 @@ Return a JSON array with this exact shape (no markdown fences, no preamble):
 function isValidRawMultiTurnTool(p: unknown): p is {
   conversation_history: Array<{
     role: string
-    content: string
+    content?: string
     expected_tool_calls?: Array<{ function: { name: string; arguments: string } }>
   }>
   final_input: string
@@ -2333,7 +2331,7 @@ function rawToMultiTurnToolPair(
   p: {
     conversation_history: Array<{
       role: string
-      content: string
+      content?: string
       expected_tool_calls?: Array<{ function: { name: string; arguments: string } }>
     }>
     final_input: string
@@ -2346,7 +2344,7 @@ function rawToMultiTurnToolPair(
   toolDefinitions: unknown[]
 ): MultiTurnToolPair {
   const history: ConversationTurn[] = p.conversation_history.map(turn => {
-    const t: ConversationTurn = { role: turn.role, content: turn.content }
+    const t: ConversationTurn = { role: turn.role, content: turn.content ?? '' }
     if (turn.role === 'assistant' && Array.isArray(turn.expected_tool_calls)) {
       t.expected_tool_calls = turn.expected_tool_calls.map(tc => ({
         type: 'function',
