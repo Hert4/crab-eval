@@ -260,8 +260,43 @@ async function processRecord({
   let gotToolCalls: RecordLog['tool_calls'] = []
   let error: string | undefined
 
+  // Multi-turn tool session: simulate each prior assistant turn to capture actual tool_calls
+  const isMultiTurnTool = metrics.includes('tool_call_exact_sequence') ||
+    record.conversation_history?.some(t => t.role === 'assistant' && t.expected_tool_calls !== undefined)
+
+  // Build a mutable copy of conversation_history with actual tool_calls filled in
+  const simulatedHistory: DataRecord['conversation_history'] = record.conversation_history
+    ? record.conversation_history.map(t => ({ ...t }))
+    : undefined
+
   try {
-    const messages = buildMessages(record, targetSystemPrompt)
+    if (isMultiTurnTool && simulatedHistory?.length) {
+      const tools = record.tools as OpenAITool[] | undefined
+      // Replay the history up to (but not including) each assistant turn to capture actual calls
+      for (let i = 0; i < simulatedHistory.length; i++) {
+        const turn = simulatedHistory[i]
+        if (turn.role !== 'assistant') continue
+        // Build messages up to (not including) this turn
+        const partialRecord: DataRecord = { ...record, conversation_history: simulatedHistory.slice(0, i) }
+        // The "input" for this intermediate call is the preceding user message
+        const precedingUserTurn = simulatedHistory.slice(0, i).filter(t => t.role === 'user').slice(-1)[0]
+        if (!precedingUserTurn) continue
+        const partialWithInput: DataRecord = { ...partialRecord, input: precedingUserTurn.content ?? '' }
+        // Exclude the last user turn from history since it becomes `input`
+        const historyWithoutLast = simulatedHistory.slice(0, i).slice(0, -1)
+        const msgs = buildMessages({ ...partialWithInput, conversation_history: historyWithoutLast }, targetSystemPrompt)
+        const res = await chatCompletionWithRetry(targetOpenAI, msgs, abortSignal, tools)
+        const choice = res.choices?.[0]
+        turn.tool_calls = choice?.message?.tool_calls?.map(tc => ({
+          type: tc.type,
+          function: { name: tc.function.name, arguments: tc.function.arguments },
+        })) || []
+        // Preserve the generated content so the conversation reads naturally
+        if (choice?.message?.content) turn.content = choice.message.content
+      }
+    }
+
+    const messages = buildMessages(record, targetSystemPrompt, simulatedHistory)
     const tools = record.tools as OpenAITool[] | undefined
     const res = await chatCompletionWithRetry(targetOpenAI, messages, abortSignal, tools)
     const choice = res.choices?.[0]
@@ -275,7 +310,7 @@ async function processRecord({
     error = String(e)
   }
 
-  const recordForMetrics = { ...record, tool_calls: gotToolCalls }
+  const recordForMetrics = { ...record, tool_calls: gotToolCalls, conversation_history: simulatedHistory }
   const scores = computeMetrics(recordForMetrics, output, metrics)
 
   // LLM-as-judge — all judge calls for this record run in parallel
@@ -411,11 +446,6 @@ async function processRecord({
     reference: record.reference,
     output,
     tool_calls: gotToolCalls,
-    ...(record.tool_call_sequence ? {
-      tool_call_sequence: record.tool_call_sequence.map(turn =>
-        turn.map(tc => ({ type: tc.type ?? 'function', function: tc.function! }))
-      )
-    } : {}),
     scores,
     error,
     durationMs: Date.now() - t0,
@@ -597,16 +627,37 @@ async function _runEvalForTarget(
 // ── Helpers ──────────────────────────────────────────────────────────
 function buildMessages(
   record: DataRecord,
-  systemPromptOverride: string
+  systemPromptOverride: string,
+  historyOverride?: DataRecord['conversation_history']
 ): OpenAIMessage[] {
   const messages: OpenAIMessage[] = []
   const systemContent = systemPromptOverride || record.system_prompt || record.context || ''
   if (systemContent) messages.push({ role: 'system', content: systemContent })
 
-  if (record.conversation_history?.length) {
-    for (const turn of record.conversation_history) {
-      if (turn.role && turn.content) {
-        messages.push({ role: turn.role as 'user' | 'assistant', content: turn.content })
+  const history = historyOverride ?? record.conversation_history
+  if (history?.length) {
+    for (const turn of history) {
+      if (turn.role === 'assistant' && turn.tool_calls?.length) {
+        // Reconstruct assistant message with tool_calls (for multi-turn tool replay)
+        messages.push({
+          role: 'assistant',
+          content: turn.content || null,
+          tool_calls: turn.tool_calls.map((tc, idx) => ({
+            id: `call_${idx}`,
+            type: 'function',
+            function: { name: tc.function?.name ?? '', arguments: tc.function?.arguments ?? '{}' },
+          })),
+        } as unknown as OpenAIMessage)
+        // Inject stub tool results so the conversation is valid for the API
+        for (let i = 0; i < (turn.tool_calls?.length ?? 0); i++) {
+          messages.push({
+            role: 'tool',
+            tool_call_id: `call_${i}`,
+            content: '{}',
+          } as unknown as OpenAIMessage)
+        }
+      } else if (turn.role && turn.content !== undefined) {
+        messages.push({ role: turn.role as 'user' | 'assistant', content: turn.content ?? '' })
       } else if (turn.user) {
         messages.push({ role: 'user', content: turn.user })
         if (turn.bot) messages.push({ role: 'assistant', content: turn.bot })
