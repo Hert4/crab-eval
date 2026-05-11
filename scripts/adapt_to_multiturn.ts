@@ -30,7 +30,24 @@ const BATCH = 3
 const src = JSON.parse(fs.readFileSync(SRC, 'utf8'))
 const records: SrcRecord[] = src.data
 
-const canonicalTools = records[0]?.tools ?? []
+// ava has 4 distinct tool sets across records 0..97. Per multi-turn record,
+// merge tools from the source batch so every expected_tool_call in history
+// (and the final inference) has a matching tool definition the model can see.
+type ToolDef = { function?: { name?: string } } & Record<string, unknown>
+function unionTools(batch: SrcRecord[]): unknown[] {
+  const seen = new Set<string>()
+  const merged: unknown[] = []
+  for (const r of batch) {
+    for (const t of (r.tools ?? []) as ToolDef[]) {
+      const name = t?.function?.name
+      if (!name || seen.has(name)) continue
+      seen.add(name)
+      merged.push(t)
+    }
+  }
+  return merged
+}
+
 const canonicalSystem = records[0]?.system_prompt ?? ''
 
 const newRecords: unknown[] = []
@@ -51,7 +68,7 @@ for (let i = 0; i + BATCH <= records.length; i += BATCH) {
     reference: last.reference ?? '',
     expected_tool_calls: last.expected_tool_calls ?? [],
     conversation_history: history,
-    tools: canonicalTools,
+    tools: unionTools(batch),
     system_prompt: canonicalSystem,
     metadata: {
       difficulty: 'medium',
