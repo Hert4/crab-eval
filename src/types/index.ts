@@ -12,6 +12,8 @@ export interface DataRecord {
   metadata?: Record<string, unknown>
   tool_calls?: ToolCall[]
   expected_tool_calls?: ToolCall[]
+  tool_call_sequence?: ToolCall[][]
+  expected_tool_call_sequence?: ToolCall[][]
   conversation_history?: ConversationTurn[]
   tools?: unknown[]              // OpenAI tool definitions passed to model on every call
 }
@@ -84,6 +86,7 @@ export interface RecordLog {
   reference: string
   output: string
   tool_calls?: Array<{ type: string; function: { name: string; arguments: string } }>
+  tool_call_sequence?: Array<Array<{ type: string; function: { name: string; arguments: string } }>> 
   scores: Record<string, number>
   error?: string
   durationMs?: number
