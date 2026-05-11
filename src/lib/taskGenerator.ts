@@ -1266,6 +1266,122 @@ No markdown fences. No preamble. Return only the JSON array.`
   return results
 }
 
+/**
+ * Generate expected_tool_call_sequence for multi-turn tool calling evaluation.
+ *
+ * Each tool in expectedToolChain becomes one turn. LLM fills in the arguments
+ * for each tool given the user message and tool definitions.
+ *
+ * Returns an updated copy of `generatedTasks` with `expectedToolCallSequence` populated.
+ */
+export async function generateExpectedToolCallSequence(
+  generatedTasks: GeneratedTask[],
+  config: ModelConfig,
+  signal?: AbortSignal,
+  onProgress?: (done: number, total: number) => void,
+  toolDefinitions?: Array<{ type?: string; function?: { name: string; description?: string; parameters?: { required?: string[]; properties?: Record<string, unknown> } } }>
+): Promise<GeneratedTask[]> {
+  const results: GeneratedTask[] = generatedTasks.map(gt => ({ ...gt }))
+
+  const toolDefsMap = new Map<string, { required: string[]; properties: Record<string, unknown> }>()
+  if (toolDefinitions) {
+    for (const td of toolDefinitions) {
+      const fn = td.function
+      if (fn?.name) {
+        toolDefsMap.set(fn.name, {
+          required: fn.parameters?.required ?? [],
+          properties: fn.parameters?.properties ?? {},
+        })
+      }
+    }
+  }
+
+  // Only process tasks that have a multi-step tool chain
+  const multiStepIndices = results
+    .map((gt, i) => ({ gt, i }))
+    .filter(({ gt }) => gt.expectedToolChain.length > 1)
+    .map(({ i }) => i)
+
+  const systemPrompt = `You are generating expected tool call arguments for multi-turn AI agent evaluation.
+Given a user message and an ordered sequence of tools the agent must call (one per turn), generate the arguments for each tool call.
+
+Rules:
+1. For each tool in the sequence, generate ONE tool call with its required arguments.
+2. Use ONLY values explicitly stated in the user message. Do NOT infer or derive values.
+3. If a required argument value is missing from the user message, use an empty string "" as placeholder.
+4. Argument names MUST exactly match the tool's required param names.
+5. Return a JSON array — one element per tool in the sequence (same order).
+
+Output schema:
+[
+  { "name": "tool_name", "arguments": { "param": "value" } },
+  { "name": "tool_name_2", "arguments": { "param": "value" } }
+]
+No markdown fences. No preamble. Return only the JSON array.`
+
+  const batchSize = 5
+
+  for (let bi = 0; bi < multiStepIndices.length; bi += batchSize) {
+    if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
+
+    const batchIndices = multiStepIndices.slice(bi, bi + batchSize)
+    const batchItems = batchIndices.map(idx => results[idx])
+
+    const specsText = batchItems.map((gt, j) => {
+      const toolSequence = gt.expectedToolChain.map((toolName, step) => {
+        const def = toolDefsMap.get(toolName)
+        const params = def ? `required_params: [${def.required.join(', ')}]` : 'required_params: unknown'
+        return `  Step ${step + 1}: ${toolName} (${params})`
+      }).join('\n')
+      return `Task ${j + 1}:\nUser message: "${gt.userMessage}"\nTool sequence:\n${toolSequence}`
+    }).join('\n\n---\n\n')
+
+    const userMsg = `Generate expected tool call arguments for the following ${batchItems.length} multi-turn task(s).\nFor each task, return a JSON array with one object per step in the tool sequence.\n\n${specsText}\n\nReturn a JSON array of arrays: [[step1, step2, ...], [step1, step2, ...], ...]`
+
+    const apiMessages: OpenAIMessage[] = [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userMsg },
+    ]
+
+    const raw = await withRetry(async () => {
+      if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
+      const res = await chatCompletion(
+        { baseUrl: config.baseUrl, apiKey: config.apiKey, model: config.model, maxTokens: 3000, temperature: 0 },
+        apiMessages,
+        signal
+      )
+      return res.choices[0]?.message?.content || ''
+    })
+
+    let parsed: Array<Array<{ name: string; arguments: Record<string, unknown> }>>
+    try {
+      parsed = await parseJsonWithRepair<Array<Array<{ name: string; arguments: Record<string, unknown> }>>>(raw, config, signal)
+    } catch (e) {
+      console.warn('[generateExpectedToolCallSequence] Failed to parse batch response, skipping batch:', e)
+      parsed = []
+    }
+
+    for (let j = 0; j < batchIndices.length; j++) {
+      const idx = batchIndices[j]
+      const seq = parsed[j]
+      if (!seq?.length) continue
+
+      const toolCallSequence: import('@/types').ToolCall[][] = seq.map(step => [{
+        type: 'function',
+        function: {
+          name: step.name,
+          arguments: JSON.stringify(step.arguments ?? {}),
+        },
+      }])
+      results[idx].expectedToolCallSequence = toolCallSequence
+    }
+
+    onProgress?.(Math.min(bi + batchSize, multiStepIndices.length), multiStepIndices.length)
+  }
+
+  return results
+}
+
 // ── Stats computation ─────────────────────────────────────────────────
 
 export function computeTaskSetStats(
