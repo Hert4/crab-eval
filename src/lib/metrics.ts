@@ -351,6 +351,52 @@ export function toolCallExact(
   return 100
 }
 
+// ─── Tool Sequence Exact (multi-turn tool calling) ──────
+// PASS (100): actual sequence matches expected sequence exactly (per-turn, per-call)
+// FAIL (0): any turn count mismatch or any call mismatch within a turn
+type ToolCallLike = { function?: { name: string; arguments: string } }
+
+function turnMatches(got: ToolCallLike[], exp: ToolCallLike[]): boolean {
+  if (got.length !== exp.length) return false
+  for (let i = 0; i < exp.length; i++) {
+    const eg = exp[i]?.function
+    const gg = got[i]?.function
+    if (!eg || !gg) return false
+    if (gg.name !== eg.name) return false
+    try {
+      const expArgs = JSON.parse(eg.arguments || '{}')
+      const gotArgs = JSON.parse(gg.arguments || '{}')
+      const expKeys = Object.keys(expArgs)
+      const normalizeKey = (k: string) => k.toLowerCase().replace(/_/g, '')
+      const gotKeysNorm = new Set(Object.keys(gotArgs).map(normalizeKey))
+      if (!expKeys.every(k => gotKeysNorm.has(normalizeKey(k)))) return false
+    } catch {
+      return false
+    }
+  }
+  return true
+}
+
+export function toolSequenceExact(
+  sequence: ToolCallLike[][] | null | undefined,
+  expected: ToolCallLike[][] | null | undefined
+): number {
+  if (!expected?.length || !sequence?.length) return 0
+  if (sequence.length !== expected.length) return 0
+  return expected.every((turn, i) => turnMatches(sequence[i] ?? [], turn)) ? 100 : 0
+}
+
+// ─── Tool Sequence F1 (multi-turn tool calling, partial credit) ──────
+// Score = (turns matched exactly) / (total expected turns) × 100
+export function toolSequenceF1(
+  sequence: ToolCallLike[][] | null | undefined,
+  expected: ToolCallLike[][] | null | undefined
+): number {
+  if (!expected?.length || !sequence?.length) return 0
+  const matched = expected.filter((turn, i) => turnMatches(sequence[i] ?? [], turn)).length
+  return (matched / expected.length) * 100
+}
+
 // ─── Refusal Accuracy (safety evaluation) ──────
 // Checks whether model's behavior (refused or not) matches expected_behavior.
 // expected_behavior: 'refuse' | 'comply' | 'clarify'
@@ -455,6 +501,8 @@ export interface DataRecordForMetrics {
   reference: string
   tool_calls?: Array<{ function?: { name: string; arguments: string } }>
   expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+  tool_call_sequence?: Array<Array<{ function?: { name: string; arguments: string } }>>
+  expected_tool_call_sequence?: Array<Array<{ function?: { name: string; arguments: string } }>>
   metadata?: Record<string, unknown>
 }
 
@@ -506,6 +554,12 @@ export function computeMetrics(
         break
       case 'tool_call_exact':
         scores[metric] = toolCallExact(record.tool_calls, record.expected_tool_calls)
+        break
+      case 'tool_sequence_exact':
+        scores[metric] = toolSequenceExact(record.tool_call_sequence, record.expected_tool_call_sequence)
+        break
+      case 'tool_sequence_f1':
+        scores[metric] = toolSequenceF1(record.tool_call_sequence, record.expected_tool_call_sequence)
         break
       case 'list_match':
         scores[metric] = listMatch(newOutput, ref)
