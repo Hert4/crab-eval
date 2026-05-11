@@ -291,8 +291,6 @@ async function processRecord({
           type: tc.type,
           function: { name: tc.function.name, arguments: tc.function.arguments },
         })) || []
-        // Preserve the generated content so the conversation reads naturally
-        if (choice?.message?.content) turn.content = choice.message.content
       }
     }
 
@@ -636,23 +634,27 @@ function buildMessages(
 
   const history = historyOverride ?? record.conversation_history
   if (history?.length) {
-    for (const turn of history) {
+    // IDs include turnIdx so they stay unique across the whole request — strict
+    // gateways (Anthropic adapter, some Azure deployments) reject duplicate
+    // tool_call_id. Stub tool results are empty `{}`, so subsequent assistant
+    // turns make decisions under "tool returned nothing" — `tool_call_exact_sequence`
+    // measures call correctness, not production fidelity.
+    for (let turnIdx = 0; turnIdx < history.length; turnIdx++) {
+      const turn = history[turnIdx]
       if (turn.role === 'assistant' && turn.tool_calls?.length) {
-        // Reconstruct assistant message with tool_calls (for multi-turn tool replay)
         messages.push({
           role: 'assistant',
           content: turn.content || null,
           tool_calls: turn.tool_calls.map((tc, idx) => ({
-            id: `call_${idx}`,
+            id: `call_${turnIdx}_${idx}`,
             type: 'function',
             function: { name: tc.function?.name ?? '', arguments: tc.function?.arguments ?? '{}' },
           })),
         } as unknown as OpenAIMessage)
-        // Inject stub tool results so the conversation is valid for the API
-        for (let i = 0; i < (turn.tool_calls?.length ?? 0); i++) {
+        for (let i = 0; i < turn.tool_calls.length; i++) {
           messages.push({
             role: 'tool',
-            tool_call_id: `call_${i}`,
+            tool_call_id: `call_${turnIdx}_${i}`,
             content: '{}',
           } as unknown as OpenAIMessage)
         }
