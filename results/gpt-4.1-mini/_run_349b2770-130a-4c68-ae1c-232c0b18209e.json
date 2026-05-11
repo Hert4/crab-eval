@@ -1,0 +1,12 @@
+{
+  "runId": "349b2770-130a-4c68-ae1c-232c0b18209e",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "https://api.openai.com/v1",
+  "date": "2026-05-11 13:38:14",
+  "durationMs": 117752,
+  "tasks": {
+    "AVA Multi-turn Tool Calling (synthetic)": {
+      "tool_call_exact_sequence": 67.19
+    }
+  }
+}
