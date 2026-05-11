@@ -411,6 +411,11 @@ async function processRecord({
     reference: record.reference,
     output,
     tool_calls: gotToolCalls,
+    ...(record.tool_call_sequence ? {
+      tool_call_sequence: record.tool_call_sequence.map(turn =>
+        turn.map(tc => ({ type: tc.type ?? 'function', function: tc.function! }))
+      )
+    } : {}),
     scores,
     error,
     durationMs: Date.now() - t0,
