@@ -656,8 +656,8 @@ function buildMessages(
             content: '{}',
           } as unknown as OpenAIMessage)
         }
-      } else if (turn.role && turn.content !== undefined) {
-        messages.push({ role: turn.role as 'user' | 'assistant', content: turn.content ?? '' })
+      } else if (turn.role && turn.content) {
+        messages.push({ role: turn.role as 'user' | 'assistant', content: turn.content })
       } else if (turn.user) {
         messages.push({ role: 'user', content: turn.user })
         if (turn.bot) messages.push({ role: 'assistant', content: turn.bot })
