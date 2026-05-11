@@ -49,13 +49,31 @@ export interface OpenAIResponse {
   }
 }
 
+// Browser → /api/llm-proxy/* → upstream. Bypasses CORS for providers (OpenAI,
+// DeepSeek, …) that don't set Access-Control-Allow-Origin. In Node (SSR /
+// scripts) fetch the upstream directly so server-side callers still work.
+function resolveEndpoint(
+  baseUrl: string,
+  suffix: string
+): { url: string; extraHeaders: Record<string, string> } {
+  const cleanBase = baseUrl.replace(/\/$/, '')
+  const cleanSuffix = suffix.replace(/^\//, '')
+  if (typeof window !== 'undefined') {
+    return {
+      url: `/api/llm-proxy/${cleanSuffix}`,
+      extraHeaders: { 'x-llm-baseurl': cleanBase },
+    }
+  }
+  return { url: `${cleanBase}/${cleanSuffix}`, extraHeaders: {} }
+}
+
 export async function chatCompletion(
   config: OpenAIConfig,
   messages: OpenAIMessage[],
   signal?: AbortSignal,
   tools?: OpenAITool[]
 ): Promise<OpenAIResponse> {
-  const url = config.baseUrl.replace(/\/$/, '') + '/chat/completions'
+  const { url, extraHeaders } = resolveEndpoint(config.baseUrl, 'chat/completions')
 
   // Models like gpt-5.x, o1, o3 use max_completion_tokens; legacy use max_tokens.
   // We detect by checking if model name suggests a "reasoning" / new-gen model,
@@ -86,7 +104,11 @@ export async function chatCompletion(
   const doFetch = async (body: Record<string, unknown>) => {
     const r = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${config.apiKey}` },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${config.apiKey}`,
+        ...extraHeaders,
+      },
       body: JSON.stringify(body),
       signal,
     })
@@ -141,9 +163,9 @@ export async function chatCompletion(
 
 export async function testConnection(config: OpenAIConfig): Promise<boolean> {
   try {
-    const url = config.baseUrl.replace(/\/$/, '') + '/models'
+    const { url, extraHeaders } = resolveEndpoint(config.baseUrl, 'models')
     const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${config.apiKey}` },
+      headers: { Authorization: `Bearer ${config.apiKey}`, ...extraHeaders },
       signal: AbortSignal.timeout(8000),
     })
     return res.ok
@@ -209,14 +231,14 @@ async function uploadFileToOpenAI(
   signal?: AbortSignal
 ): Promise<string | null> {
   try {
-    const url = baseUrl.replace(/\/$/, '') + '/files'
+    const { url, extraHeaders } = resolveEndpoint(baseUrl, 'files')
     const form = new FormData()
     form.append('file', file, file.name)
     form.append('purpose', 'assistants')
 
     const res = await fetch(url, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}` },
+      headers: { Authorization: `Bearer ${apiKey}`, ...extraHeaders },
       body: form,
       signal,
     })

@@ -36,6 +36,7 @@ src/
 │   ├── leaderboard/page.tsx    ← bảng xếp hạng + radar charts + analysis breakdown
 │   └── api/
 │       ├── datasets/route.ts        ← GET đọc file từ datasets/ trong repo
+│       ├── llm-proxy/[...path]/route.ts ← catch-all proxy → upstream LLM API (CORS bypass, loopback-only)
 │       ├── parse-document/route.ts  ← POST upload .pdf/.docx/.txt/.json → text
 │       ├── results/route.ts         ← GET/POST/DELETE eval results (loopback-only)
 │       ├── results/[runId]/route.ts ← GET run analysis (breakdown by difficulty/intent/tag)
@@ -300,6 +301,8 @@ import { MarkdownRenderer } from '@/components/ui/MarkdownRenderer'
 11. **Loopback guard**: `assertLocalRequest(req)` ở đầu route ghi đĩa. Dev (`NODE_ENV !== 'production'`) là no-op; production chỉ chấp nhận `127.0.0.1` / `::1` / `localhost`.
 
 12. **Language hardcoding**: KHÔNG nhúng từ khóa cụ thể tiếng Việt/Trung/etc trong metric heuristic. Dùng `record.metadata.{refusal_phrases, unknown_synonyms, valid_label_range}` để override.
+
+13. **CORS / LLM proxy**: browser → upstream LLM (OpenAI, DeepSeek, …) đi qua `/api/llm-proxy/[...path]`. `openai.ts:resolveEndpoint()` tự rewrite URL khi `typeof window !== 'undefined'`, baseUrl truyền qua header `x-llm-baseurl`, `Authorization` pass-through. Đừng `fetch` thẳng `api.openai.com` từ client — sẽ bị CORS block (OpenAI/DeepSeek không set `Access-Control-Allow-Origin`).
 
 ## Chạy local
 
