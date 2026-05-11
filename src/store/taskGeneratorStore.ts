@@ -9,6 +9,7 @@ import type {
   TaskSetStats,
   QAPair,
   MultiTurnPair,
+  MultiTurnToolPair,
   InstructionPair,
   SafetyCase,
   SummarizationPair,
@@ -30,8 +31,8 @@ interface TaskGeneratorState {
   generateProgress: { done: number; total: number }
   stats: TaskSetStats | null
 
-  // Task type detection — extended to 6 types
-  detectedTaskType: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'instruction_following' | 'safety' | 'summarization' | null
+  // Task type detection — extended to 7 types
+  detectedTaskType: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool' | 'instruction_following' | 'safety' | 'summarization' | null
   isDetecting: boolean
 
   // QA/RAG mode
@@ -54,6 +55,10 @@ interface TaskGeneratorState {
   summarizationPairs: SummarizationPair[]
   summarizationProgress: { done: number; total: number }
 
+  // Multi-turn Tool Calling mode
+  multiTurnToolPairs: MultiTurnToolPair[]
+  multiTurnToolProgress: { done: number; total: number }
+
   // Actions
   setStep: (step: number) => void
   setDocumentContent: (content: string) => void
@@ -74,7 +79,7 @@ interface TaskGeneratorState {
   setStats: (s: TaskSetStats) => void
 
   // Detection actions
-  setDetectedTaskType: (t: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'instruction_following' | 'safety' | 'summarization' | null) => void
+  setDetectedTaskType: (t: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool' | 'instruction_following' | 'safety' | 'summarization' | null) => void
   setIsDetecting: (v: boolean) => void
 
   // QA/RAG actions
@@ -106,6 +111,11 @@ interface TaskGeneratorState {
   updateSummarizationPair: (id: string, patch: Partial<SummarizationPair>) => void
   removeSummarizationPair: (id: string) => void
   setSummarizationProgress: (p: { done: number; total: number }) => void
+
+  // Multi-turn Tool Calling actions
+  setMultiTurnToolPairs: (pairs: MultiTurnToolPair[]) => void
+  removeMultiTurnToolPair: (id: string) => void
+  setMultiTurnToolProgress: (p: { done: number; total: number }) => void
 
   reset: () => void
 }
@@ -160,6 +170,10 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
       // Summarization initial state
       summarizationPairs: [],
       summarizationProgress: { done: 0, total: 0 },
+
+      // Multi-turn Tool Calling initial state
+      multiTurnToolPairs: [],
+      multiTurnToolProgress: { done: 0, total: 0 },
 
       // ── Basic actions
       setStep: (step) => set({ currentStep: step }),
@@ -244,6 +258,12 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
         set((st) => ({ summarizationPairs: st.summarizationPairs.filter((p) => p.id !== id) })),
       setSummarizationProgress: (p) => set({ summarizationProgress: p }),
 
+      // ── Multi-turn Tool Calling actions
+      setMultiTurnToolPairs: (pairs) => set({ multiTurnToolPairs: pairs }),
+      removeMultiTurnToolPair: (id) =>
+        set((st) => ({ multiTurnToolPairs: st.multiTurnToolPairs.filter((p) => p.id !== id) })),
+      setMultiTurnToolProgress: (p) => set({ multiTurnToolProgress: p }),
+
       reset: () =>
         set({
           currentStep: 1,
@@ -270,6 +290,8 @@ export const useTaskGeneratorStore = create<TaskGeneratorState>()(
           safetyProgress: { done: 0, total: 0 },
           summarizationPairs: [],
           summarizationProgress: { done: 0, total: 0 },
+          multiTurnToolPairs: [],
+          multiTurnToolProgress: { done: 0, total: 0 },
         }),
     }),
     {

@@ -351,6 +351,24 @@ export function toolCallExact(
   return 100
 }
 
+// Averages toolCallExact over all assistant turns in conversation_history that
+// have expected_tool_calls set. Turns without expected_tool_calls are skipped.
+export function toolCallExactSequence(
+  history: Array<{
+    role?: string
+    tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+    expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+  }> | null | undefined
+): number {
+  if (!history || history.length === 0) return 0
+  const assistantTurns = history.filter(
+    t => t.role === 'assistant' && t.expected_tool_calls !== undefined && t.expected_tool_calls !== null
+  )
+  if (assistantTurns.length === 0) return 0
+  const total = assistantTurns.reduce((sum, t) => sum + toolCallExact(t.tool_calls, t.expected_tool_calls), 0)
+  return total / assistantTurns.length
+}
+
 // ─── Refusal Accuracy (safety evaluation) ──────
 // Checks whether model's behavior (refused or not) matches expected_behavior.
 // expected_behavior: 'refuse' | 'comply' | 'clarify'
@@ -456,6 +474,11 @@ export interface DataRecordForMetrics {
   tool_calls?: Array<{ function?: { name: string; arguments: string } }>
   expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
   metadata?: Record<string, unknown>
+  conversation_history?: Array<{
+    role?: string
+    tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+    expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+  }>
 }
 
 export function computeMetrics(
@@ -506,6 +529,9 @@ export function computeMetrics(
         break
       case 'tool_call_exact':
         scores[metric] = toolCallExact(record.tool_calls, record.expected_tool_calls)
+        break
+      case 'tool_call_exact_sequence':
+        scores[metric] = toolCallExactSequence(record.conversation_history)
         break
       case 'list_match':
         scores[metric] = listMatch(newOutput, ref)

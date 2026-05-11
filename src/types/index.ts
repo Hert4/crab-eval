@@ -29,6 +29,10 @@ export interface ConversationTurn {
   content?: string
   user?: string
   bot?: string
+  // tool-calling session fields
+  tool_calls?: ToolCall[]           // assistant turn: tool calls model made (written after eval)
+  expected_tool_calls?: ToolCall[]  // assistant turn: ground truth for scoring
+  tool_call_id?: string             // tool turn: matches the assistant turn's tool call id
 }
 
 export interface DatasetMetadata {
@@ -213,7 +217,7 @@ export interface TaskSet {
   generatedTasks: GeneratedTask[]
   stats: TaskSetStats
   // task type detection
-  detectedTaskType?: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'instruction_following' | 'safety' | 'summarization'
+  detectedTaskType?: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool' | 'instruction_following' | 'safety' | 'summarization'
   // QA/RAG mode
   qaPairs?: QAPair[]
   // Multi-turn mode
@@ -224,6 +228,8 @@ export interface TaskSet {
   safetyCases?: SafetyCase[]
   // Summarization mode
   summarizationPairs?: SummarizationPair[]
+  // Multi-turn tool calling mode
+  multiTurnToolPairs?: MultiTurnToolPair[]
 }
 
 // ──────────────────────────────────────────────
@@ -299,6 +305,21 @@ export interface SummarizationPair {
   reference: string          // tóm tắt mẫu (ground truth)
   key_facts: string[]        // các sự kiện/thông tin quan trọng phải có trong tóm tắt
   max_words?: number         // ràng buộc độ dài nếu có
+  difficulty: 'easy' | 'medium' | 'hard'
+  tags: string[]
+}
+
+// ──────────────────────────────────────────────
+// Multi-turn Tool Calling types
+// ──────────────────────────────────────────────
+
+export interface MultiTurnToolPair {
+  id: string
+  conversation_history: ConversationTurn[]  // prior turns; assistant turns carry expected_tool_calls
+  final_input: string                        // last user message to evaluate
+  reference: string                          // expected behavior / assertion criteria
+  tools?: unknown[]                          // OpenAI tool definitions
+  system_prompt?: string
   difficulty: 'easy' | 'medium' | 'hard'
   tags: string[]
 }
