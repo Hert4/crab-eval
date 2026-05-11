@@ -17,6 +17,7 @@ import {
   ExpectedBehavior,
   SummarizationPair,
   ConversationTurn,
+  MultiTurnToolPair,
 } from '@/types'
 import { chatCompletion, OpenAIMessage, buildFileMessageContent } from './openai'
 
@@ -1266,122 +1267,6 @@ No markdown fences. No preamble. Return only the JSON array.`
   return results
 }
 
-/**
- * Generate expected_tool_call_sequence for multi-turn tool calling evaluation.
- *
- * Each tool in expectedToolChain becomes one turn. LLM fills in the arguments
- * for each tool given the user message and tool definitions.
- *
- * Returns an updated copy of `generatedTasks` with `expectedToolCallSequence` populated.
- */
-export async function generateExpectedToolCallSequence(
-  generatedTasks: GeneratedTask[],
-  config: ModelConfig,
-  signal?: AbortSignal,
-  onProgress?: (done: number, total: number) => void,
-  toolDefinitions?: Array<{ type?: string; function?: { name: string; description?: string; parameters?: { required?: string[]; properties?: Record<string, unknown> } } }>
-): Promise<GeneratedTask[]> {
-  const results: GeneratedTask[] = generatedTasks.map(gt => ({ ...gt }))
-
-  const toolDefsMap = new Map<string, { required: string[]; properties: Record<string, unknown> }>()
-  if (toolDefinitions) {
-    for (const td of toolDefinitions) {
-      const fn = td.function
-      if (fn?.name) {
-        toolDefsMap.set(fn.name, {
-          required: fn.parameters?.required ?? [],
-          properties: fn.parameters?.properties ?? {},
-        })
-      }
-    }
-  }
-
-  // Only process tasks that have a multi-step tool chain
-  const multiStepIndices = results
-    .map((gt, i) => ({ gt, i }))
-    .filter(({ gt }) => gt.expectedToolChain.length > 1)
-    .map(({ i }) => i)
-
-  const systemPrompt = `You are generating expected tool call arguments for multi-turn AI agent evaluation.
-Given a user message and an ordered sequence of tools the agent must call (one per turn), generate the arguments for each tool call.
-
-Rules:
-1. For each tool in the sequence, generate ONE tool call with its required arguments.
-2. Use ONLY values explicitly stated in the user message. Do NOT infer or derive values.
-3. If a required argument value is missing from the user message, use an empty string "" as placeholder.
-4. Argument names MUST exactly match the tool's required param names.
-5. Return a JSON array — one element per tool in the sequence (same order).
-
-Output schema:
-[
-  { "name": "tool_name", "arguments": { "param": "value" } },
-  { "name": "tool_name_2", "arguments": { "param": "value" } }
-]
-No markdown fences. No preamble. Return only the JSON array.`
-
-  const batchSize = 5
-
-  for (let bi = 0; bi < multiStepIndices.length; bi += batchSize) {
-    if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
-
-    const batchIndices = multiStepIndices.slice(bi, bi + batchSize)
-    const batchItems = batchIndices.map(idx => results[idx])
-
-    const specsText = batchItems.map((gt, j) => {
-      const toolSequence = gt.expectedToolChain.map((toolName, step) => {
-        const def = toolDefsMap.get(toolName)
-        const params = def ? `required_params: [${def.required.join(', ')}]` : 'required_params: unknown'
-        return `  Step ${step + 1}: ${toolName} (${params})`
-      }).join('\n')
-      return `Task ${j + 1}:\nUser message: "${gt.userMessage}"\nTool sequence:\n${toolSequence}`
-    }).join('\n\n---\n\n')
-
-    const userMsg = `Generate expected tool call arguments for the following ${batchItems.length} multi-turn task(s).\nFor each task, return a JSON array with one object per step in the tool sequence.\n\n${specsText}\n\nReturn a JSON array of arrays: [[step1, step2, ...], [step1, step2, ...], ...]`
-
-    const apiMessages: OpenAIMessage[] = [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userMsg },
-    ]
-
-    const raw = await withRetry(async () => {
-      if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
-      const res = await chatCompletion(
-        { baseUrl: config.baseUrl, apiKey: config.apiKey, model: config.model, maxTokens: 3000, temperature: 0 },
-        apiMessages,
-        signal
-      )
-      return res.choices[0]?.message?.content || ''
-    })
-
-    let parsed: Array<Array<{ name: string; arguments: Record<string, unknown> }>>
-    try {
-      parsed = await parseJsonWithRepair<Array<Array<{ name: string; arguments: Record<string, unknown> }>>>(raw, config, signal)
-    } catch (e) {
-      console.warn('[generateExpectedToolCallSequence] Failed to parse batch response, skipping batch:', e)
-      parsed = []
-    }
-
-    for (let j = 0; j < batchIndices.length; j++) {
-      const idx = batchIndices[j]
-      const seq = parsed[j]
-      if (!seq?.length) continue
-
-      const toolCallSequence: import('@/types').ToolCall[][] = seq.map(step => [{
-        type: 'function',
-        function: {
-          name: step.name,
-          arguments: JSON.stringify(step.arguments ?? {}),
-        },
-      }])
-      results[idx].expectedToolCallSequence = toolCallSequence
-    }
-
-    onProgress?.(Math.min(bi + batchSize, multiStepIndices.length), multiStepIndices.length)
-  }
-
-  return results
-}
-
 // ── Stats computation ─────────────────────────────────────────────────
 
 export function computeTaskSetStats(
@@ -2364,6 +2249,208 @@ export async function generateSummarizationPairs(
     } catch (e) {
       if (e instanceof DOMException && e.name === 'AbortError') throw e
       console.warn(`[generateSummarizationPairs] chunk ${i + 1} failed:`, e)
+    }
+  }
+
+  onProgress?.(totalChunks, totalChunks)
+  return allPairs.slice(0, targetCount)
+}
+
+// ──────────────────────────────────────────────────────────────────────────────
+// Multi-turn Tool Calling generator
+// ──────────────────────────────────────────────────────────────────────────────
+
+const MULTI_TURN_TOOL_GEN_SYSTEM = `You are an expert at creating multi-turn tool-calling evaluation datasets for AI agents.
+
+Given a document describing an agent's capabilities and tools, generate realistic multi-turn conversation scenarios where the user interacts with an AI assistant over several turns, each requiring tool calls.
+
+Each scenario must include:
+- conversation_history: 2–4 prior turns alternating user/assistant. Assistant turns MUST include expected_tool_calls (the ground-truth tool calls the model should make) and content (a short natural-language response after the tool results).
+- final_input: the last user message that will be used as the evaluation prompt.
+- reference: a description of the expected behavior/assertions for the final turn.
+- system_prompt: a one-sentence system prompt for the agent.
+- difficulty: "easy" | "medium" | "hard"
+- tags: relevant topic tags
+
+RULES:
+- Tool call arguments must be realistic given the conversation context.
+- Each assistant turn in conversation_history that makes tool calls must have expected_tool_calls as an array of objects: {"function": {"name": "tool_name", "arguments": "{\\"key\\": \\"value\\"}"}}
+- content in assistant turns should be a brief natural-language summary as if the model received tool results.
+- The final_input should naturally require one or more tool calls to answer.
+- Use the same language as the document.
+
+Return a JSON array with this exact shape (no markdown fences, no preamble):
+[
+  {
+    "conversation_history": [
+      {"role": "user", "content": "..."},
+      {
+        "role": "assistant",
+        "content": "Let me look that up.",
+        "expected_tool_calls": [
+          {"function": {"name": "tool_name", "arguments": "{\\"param\\": \\"value\\"}"}}
+        ]
+      },
+      {"role": "user", "content": "..."},
+      {
+        "role": "assistant",
+        "content": "Based on the results, ...",
+        "expected_tool_calls": []
+      }
+    ],
+    "final_input": "the last user message to evaluate",
+    "reference": "description of expected behavior and assertions for the final turn",
+    "system_prompt": "You are a helpful agent with access to tools.",
+    "difficulty": "medium",
+    "tags": ["tag1", "tag2"]
+  }
+]`
+
+function isValidRawMultiTurnTool(p: unknown): p is {
+  conversation_history: Array<{
+    role: string
+    content: string
+    expected_tool_calls?: Array<{ function: { name: string; arguments: string } }>
+  }>
+  final_input: string
+  reference: string
+  system_prompt?: string
+  difficulty: string
+  tags: unknown[]
+} {
+  if (!p || typeof p !== 'object') return false
+  const obj = p as Record<string, unknown>
+  return (
+    Array.isArray(obj.conversation_history) &&
+    (obj.conversation_history as unknown[]).length >= 1 &&
+    typeof obj.final_input === 'string' && obj.final_input.length > 0 &&
+    typeof obj.reference === 'string' && obj.reference.length > 0 &&
+    typeof obj.difficulty === 'string'
+  )
+}
+
+function rawToMultiTurnToolPair(
+  p: {
+    conversation_history: Array<{
+      role: string
+      content: string
+      expected_tool_calls?: Array<{ function: { name: string; arguments: string } }>
+    }>
+    final_input: string
+    reference: string
+    system_prompt?: string
+    difficulty: string
+    tags: unknown[]
+  },
+  index: number,
+  toolDefinitions: unknown[]
+): MultiTurnToolPair {
+  const history: ConversationTurn[] = p.conversation_history.map(turn => {
+    const t: ConversationTurn = { role: turn.role, content: turn.content }
+    if (turn.role === 'assistant' && Array.isArray(turn.expected_tool_calls)) {
+      t.expected_tool_calls = turn.expected_tool_calls.map(tc => ({
+        type: 'function',
+        function: { name: tc.function.name, arguments: tc.function.arguments },
+      }))
+    }
+    return t
+  })
+
+  return {
+    id: `mtt_${Date.now()}_${index}`,
+    conversation_history: history,
+    final_input: p.final_input,
+    reference: p.reference,
+    tools: toolDefinitions.length > 0 ? toolDefinitions : undefined,
+    system_prompt: typeof p.system_prompt === 'string' ? p.system_prompt : undefined,
+    difficulty: (['easy', 'medium', 'hard'].includes(p.difficulty) ? p.difficulty : 'medium') as 'easy' | 'medium' | 'hard',
+    tags: Array.isArray(p.tags) ? (p.tags as string[]) : [],
+  }
+}
+
+export async function generateMultiTurnToolPairs(
+  documentContent: string,
+  config: ModelConfig,
+  toolDefinitions: unknown[],
+  signal?: AbortSignal,
+  onProgress?: (done: number, total: number) => void,
+  sourceFile?: File,
+  targetCount = 20
+): Promise<MultiTurnToolPair[]> {
+  const allPairs: MultiTurnToolPair[] = []
+
+  const toolsContext = toolDefinitions.length > 0
+    ? `\n\nAvailable tools:\n${JSON.stringify(toolDefinitions, null, 2)}`
+    : ''
+
+  // File-direct path
+  if (sourceFile) {
+    const fileContent = await buildFileMessageContent(sourceFile, config.baseUrl, config.apiKey, signal)
+    if (fileContent) {
+      const userContent: unknown[] = [
+        { type: 'text', text: `Generate ${targetCount} multi-turn tool-calling evaluation scenarios from this document.${toolsContext}` },
+        ...fileContent,
+      ]
+      const messages: OpenAIMessage[] = [
+        { role: 'system', content: MULTI_TURN_TOOL_GEN_SYSTEM },
+        { role: 'user', content: userContent as unknown as OpenAIMessage['content'] },
+      ]
+      try {
+        const res = await withRetry(() =>
+          chatCompletion({ baseUrl: config.baseUrl, apiKey: config.apiKey, model: config.model, maxTokens: 12000, temperature: 0.4 }, messages, signal)
+        )
+        const raw = res.choices[0]?.message?.content || ''
+        const parsed = await parseJsonWithRepair<unknown[]>(raw, config, signal)
+        if (Array.isArray(parsed)) {
+          for (const p of parsed) {
+            if (!isValidRawMultiTurnTool(p)) continue
+            allPairs.push(rawToMultiTurnToolPair(p, allPairs.length, toolDefinitions))
+          }
+        }
+      } catch (e) {
+        if (e instanceof DOMException && e.name === 'AbortError') throw e
+        console.warn('[generateMultiTurnToolPairs] file path failed, falling back to chunks:', e)
+      }
+      onProgress?.(1, 1)
+      return allPairs.slice(0, targetCount)
+    }
+  }
+
+  const pairsPerChunk = 3
+  const chunks = chunkDocument(documentContent, 10000)
+  const totalChunks = chunks.length
+
+  for (let i = 0; i < totalChunks; i++) {
+    if (signal?.aborted) throw new DOMException('Aborted', 'AbortError')
+    if (allPairs.length >= targetCount) break
+    onProgress?.(i, totalChunks)
+
+    const chunk = chunks[i]
+    const messages: OpenAIMessage[] = [
+      { role: 'system', content: MULTI_TURN_TOOL_GEN_SYSTEM },
+      {
+        role: 'user',
+        content: `Document excerpt:\n\n${chunk}${toolsContext}\n\nGenerate ${pairsPerChunk} multi-turn tool-calling evaluation scenarios from this content.`,
+      },
+    ]
+
+    try {
+      const res = await withRetry(() =>
+        chatCompletion({ baseUrl: config.baseUrl, apiKey: config.apiKey, model: config.model, maxTokens: 6000, temperature: 0.4 }, messages, signal)
+      )
+      const raw = res.choices[0]?.message?.content || ''
+      const parsed = await parseJsonWithRepair<unknown[]>(raw, config, signal)
+      if (Array.isArray(parsed)) {
+        for (const p of parsed) {
+          if (!isValidRawMultiTurnTool(p)) continue
+          const isDuplicate = allPairs.some(e => tokenOverlap(e.final_input, p.final_input) > 0.7)
+          if (isDuplicate) continue
+          allPairs.push(rawToMultiTurnToolPair(p, allPairs.length, toolDefinitions))
+        }
+      }
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') throw e
+      console.warn(`[generateMultiTurnToolPairs] chunk ${i + 1} failed:`, e)
     }
   }
 
