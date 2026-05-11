@@ -351,50 +351,22 @@ export function toolCallExact(
   return 100
 }
 
-// ─── Tool Sequence Exact (multi-turn tool calling) ──────
-// PASS (100): actual sequence matches expected sequence exactly (per-turn, per-call)
-// FAIL (0): any turn count mismatch or any call mismatch within a turn
-type ToolCallLike = { function?: { name: string; arguments: string } }
-
-function turnMatches(got: ToolCallLike[], exp: ToolCallLike[]): boolean {
-  if (got.length !== exp.length) return false
-  for (let i = 0; i < exp.length; i++) {
-    const eg = exp[i]?.function
-    const gg = got[i]?.function
-    if (!eg || !gg) return false
-    if (gg.name !== eg.name) return false
-    try {
-      const expArgs = JSON.parse(eg.arguments || '{}')
-      const gotArgs = JSON.parse(gg.arguments || '{}')
-      const expKeys = Object.keys(expArgs)
-      const normalizeKey = (k: string) => k.toLowerCase().replace(/_/g, '')
-      const gotKeysNorm = new Set(Object.keys(gotArgs).map(normalizeKey))
-      if (!expKeys.every(k => gotKeysNorm.has(normalizeKey(k)))) return false
-    } catch {
-      return false
-    }
-  }
-  return true
-}
-
-export function toolSequenceExact(
-  sequence: ToolCallLike[][] | null | undefined,
-  expected: ToolCallLike[][] | null | undefined
+// Averages toolCallExact over all assistant turns in conversation_history that
+// have expected_tool_calls set. Turns without expected_tool_calls are skipped.
+export function toolCallExactSequence(
+  history: Array<{
+    role?: string
+    tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+    expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+  }> | null | undefined
 ): number {
-  if (!expected?.length || !sequence?.length) return 0
-  if (sequence.length !== expected.length) return 0
-  return expected.every((turn, i) => turnMatches(sequence[i] ?? [], turn)) ? 100 : 0
-}
-
-// ─── Tool Sequence F1 (multi-turn tool calling, partial credit) ──────
-// Score = (turns matched exactly) / (total expected turns) × 100
-export function toolSequenceF1(
-  sequence: ToolCallLike[][] | null | undefined,
-  expected: ToolCallLike[][] | null | undefined
-): number {
-  if (!expected?.length || !sequence?.length) return 0
-  const matched = expected.filter((turn, i) => turnMatches(sequence[i] ?? [], turn)).length
-  return (matched / expected.length) * 100
+  if (!history || history.length === 0) return 0
+  const assistantTurns = history.filter(
+    t => t.role === 'assistant' && t.expected_tool_calls !== undefined && t.expected_tool_calls !== null
+  )
+  if (assistantTurns.length === 0) return 0
+  const total = assistantTurns.reduce((sum, t) => sum + toolCallExact(t.tool_calls, t.expected_tool_calls), 0)
+  return total / assistantTurns.length
 }
 
 // ─── Refusal Accuracy (safety evaluation) ──────
@@ -501,9 +473,12 @@ export interface DataRecordForMetrics {
   reference: string
   tool_calls?: Array<{ function?: { name: string; arguments: string } }>
   expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
-  tool_call_sequence?: Array<Array<{ function?: { name: string; arguments: string } }>>
-  expected_tool_call_sequence?: Array<Array<{ function?: { name: string; arguments: string } }>>
   metadata?: Record<string, unknown>
+  conversation_history?: Array<{
+    role?: string
+    tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+    expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
+  }>
 }
 
 export function computeMetrics(
@@ -555,11 +530,8 @@ export function computeMetrics(
       case 'tool_call_exact':
         scores[metric] = toolCallExact(record.tool_calls, record.expected_tool_calls)
         break
-      case 'tool_sequence_exact':
-        scores[metric] = toolSequenceExact(record.tool_call_sequence, record.expected_tool_call_sequence)
-        break
-      case 'tool_sequence_f1':
-        scores[metric] = toolSequenceF1(record.tool_call_sequence, record.expected_tool_call_sequence)
+      case 'tool_call_exact_sequence':
+        scores[metric] = toolCallExactSequence(record.conversation_history)
         break
       case 'list_match':
         scores[metric] = listMatch(newOutput, ref)
