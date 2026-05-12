@@ -1,0 +1,14 @@
+{
+  "runId": "c9390328-8319-4973-963b-59ba594a59ff",
+  "model": "gpt-5.5",
+  "baseUrl": "https://api.openai.com/v1",
+  "date": "2026-05-12 03:53:25",
+  "durationMs": 679360,
+  "tasks": {
+    "mtrans_translation": {
+      "chrf": 82.95,
+      "translation_quality": 75.18,
+      "translation_score": 78.28
+    }
+  }
+}

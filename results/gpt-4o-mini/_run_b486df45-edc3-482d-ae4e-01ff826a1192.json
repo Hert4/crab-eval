@@ -1,0 +1,14 @@
+{
+  "runId": "b486df45-edc3-482d-ae4e-01ff826a1192",
+  "model": "gpt-4o-mini",
+  "baseUrl": "https://api.openai.com/v1",
+  "date": "2026-05-12 03:28:36",
+  "durationMs": 244324,
+  "tasks": {
+    "mtrans_translation": {
+      "chrf": 70.63,
+      "translation_quality": 65,
+      "translation_score": 67.25
+    }
+  }
+}
