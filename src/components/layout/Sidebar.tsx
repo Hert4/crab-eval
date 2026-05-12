@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEvalSessionStore } from '@/store/evalSessionStore'
 import { CrabLogo } from './CrabLogo'
-import { Layers, Database, Settings, Play, Trophy, Wand2, Users } from 'lucide-react'
+import { Layers, Database, Settings, Play, Trophy, Wand2, Users, Gavel } from 'lucide-react'
 
 const NAV = [
   { href: '/task-generator', label: 'Task Generator', icon: Layers   },
@@ -12,6 +12,7 @@ const NAV = [
   { href: '/config',         label: 'Config',         icon: Settings },
   { href: '/run',            label: 'Run Eval',       icon: Play     },
   { href: '/leaderboard',    label: 'Leaderboard',    icon: Trophy   },
+  { href: '/judge-audit',    label: 'Judge Audit',    icon: Gavel    },
   { href: '/agents',         label: 'Agents',         icon: Users    },
 ]
 

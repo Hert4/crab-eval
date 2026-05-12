@@ -382,3 +382,46 @@ export interface RunAnalysis {
   date: string
   tasks: TaskAnalysis[]
 }
+
+// ──────────────────────────────────────────────
+// Judge Reliability Audit types
+// ──────────────────────────────────────────────
+
+export interface JudgeAuditVerbosityRecord {
+  recordId: string
+  original: number       // baseline judge score on reference (0-100)
+  padded: number         // judge score on reference + filler (0-100)
+  delta: number          // |padded - original|, higher = more biased
+}
+
+export interface JudgeAuditStabilityRecord {
+  recordId: string
+  scores: number[]       // N repeated judge scores on same prompt
+  stddev: number         // standard deviation
+}
+
+export interface JudgeAuditSeparabilityRecord {
+  recordId: string
+  good: number           // judge score on intact reference
+  bad: number            // judge score on scrambled reference
+  delta: number          // good - bad, higher = better discrimination
+}
+
+export interface JudgeAuditResult {
+  runId: string
+  timestamp: number
+  judgeBaseUrl: string
+  judgeModel: string
+  datasetId: string
+  datasetName: string
+  sampleSize: number
+  // aggregate scores, all 0-100, higher is better
+  verbosityRobustness: number   // 100 - mean(|padded - original|)
+  stochasticStability: number   // 100 - mean(stddev) * STABILITY_SCALE
+  scoreSeparability: number     // mean(good - bad)
+  perRecord: {
+    verbosity: JudgeAuditVerbosityRecord[]
+    stability: JudgeAuditStabilityRecord[]
+    separability: JudgeAuditSeparabilityRecord[]
+  }
+}

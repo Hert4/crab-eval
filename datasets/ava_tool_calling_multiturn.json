@@ -3,7 +3,9 @@
     "task_name": "AVA Multi-turn Tool Calling (synthetic)",
     "task_type": "multi_turn_tool",
     "gt_metrics": [
-      "tool_call_exact_sequence"
+      "tool_call_exact_sequence",
+      "ast_accuracy_sequence",
+      "task_success_rate_sequence"
     ],
     "gt_model": "synthetic-from-ava",
     "description": "Synthetic multi-turn tool calling dataset built by grouping 3 consecutive records from ava_tool_calling_50.json. Each record has 2 prior assistant turns (each with expected_tool_calls) followed by a final user input. Conversation flow is NOT natural — unrelated records glued together. Use only to exercise the multi-turn pipeline."
