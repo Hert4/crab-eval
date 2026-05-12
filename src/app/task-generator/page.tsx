@@ -2773,7 +2773,7 @@ function Step4Generate() {
           task_name: `Multi-turn Tool — ${filename}`,
           task_type: 'multi_turn_tool',
           description: `Multi-turn tool-calling dataset (${multiTurnToolPairs.length} sessions)`,
-          gt_metrics: ['tool_call_exact_sequence', 'ast_accuracy_sequence', 'task_success_rate_sequence'],
+          gt_metrics: ['tool_call_exact_sequence', 'criteria_score'],
           created_date: new Date().toISOString(),
           sampled_records: multiTurnToolPairs.length,
         },
@@ -3018,8 +3018,8 @@ function Step4Generate() {
             </span>
           </div>
           <p className="text-xs text-[var(--crab-text-muted)]">
-            Metrics: <span className="font-medium text-[var(--crab-text-secondary)]">tool_call_exact_sequence · ast_accuracy_sequence · task_success_rate_sequence</span>
-            <span className="ml-2 text-[var(--crab-text-muted)]">(tất cả programmatic, average qua các turns)</span>
+            Metrics: <span className="font-medium text-[var(--crab-text-secondary)]">tool_call_exact_sequence · criteria_score</span>
+            <span className="ml-2 text-[var(--crab-text-muted)]">(sequence: programmatic · criteria_score: LLM judge)</span>
           </p>
           <Button
             onClick={handleSendToRunEval}
