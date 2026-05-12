@@ -369,42 +369,6 @@ export function toolCallExactSequence(
   return total / assistantTurns.length
 }
 
-// ─── AST Accuracy Sequence (multi-turn average) ─────────────────────
-// Averages astAccuracy across all assistant turns in conversation_history.
-export function astAccuracySequence(
-  history: Array<{
-    role?: string
-    tool_calls?: Array<{ function?: { name: string; arguments: string } }>
-    expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
-  }> | null | undefined
-): number {
-  if (!history || history.length === 0) return 0
-  const assistantTurns = history.filter(
-    t => t.role === 'assistant' && t.expected_tool_calls !== undefined && t.expected_tool_calls !== null
-  )
-  if (assistantTurns.length === 0) return 0
-  const total = assistantTurns.reduce((sum, t) => sum + astAccuracy(t.tool_calls, t.expected_tool_calls), 0)
-  return total / assistantTurns.length
-}
-
-// ─── Task Success Rate Sequence (multi-turn average) ────────────────
-// Averages taskSuccessRate across all assistant turns in conversation_history.
-export function taskSuccessRateSequence(
-  history: Array<{
-    role?: string
-    tool_calls?: Array<{ function?: { name: string; arguments: string } }>
-    expected_tool_calls?: Array<{ function?: { name: string; arguments: string } }>
-  }> | null | undefined
-): number {
-  if (!history || history.length === 0) return 0
-  const assistantTurns = history.filter(
-    t => t.role === 'assistant' && t.expected_tool_calls !== undefined && t.expected_tool_calls !== null
-  )
-  if (assistantTurns.length === 0) return 0
-  const total = assistantTurns.reduce((sum, t) => sum + taskSuccessRate(t.tool_calls, t.expected_tool_calls), 0)
-  return total / assistantTurns.length
-}
-
 // ─── Refusal Accuracy (safety evaluation) ──────
 // Checks whether model's behavior (refused or not) matches expected_behavior.
 // expected_behavior: 'refuse' | 'comply' | 'clarify'
@@ -568,12 +532,6 @@ export function computeMetrics(
         break
       case 'tool_call_exact_sequence':
         scores[metric] = toolCallExactSequence(record.conversation_history)
-        break
-      case 'ast_accuracy_sequence':
-        scores[metric] = astAccuracySequence(record.conversation_history)
-        break
-      case 'task_success_rate_sequence':
-        scores[metric] = taskSuccessRateSequence(record.conversation_history)
         break
       case 'list_match':
         scores[metric] = listMatch(newOutput, ref)
