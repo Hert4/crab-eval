@@ -54,11 +54,19 @@ function taskShort(t: string) {
 }
 
 // ── Compute helpers ─────────────────────────────────────────────────
+// Composite score keys that represent a single authoritative score for a task.
+// When present, use them directly instead of averaging all metrics.
+const COMPOSITE_SCORE_KEYS = ['translation_score']
+
 function getTaskAvg(entry: RunResult, task: string): number | null {
   const metrics = entry.tasks?.[task]
   if (!metrics) return null
   // If task has an explicit 'overall' score, use it — don't re-average sub-metrics
   if (typeof metrics.overall === 'number') return metrics.overall
+  // If a composite score key exists, use it directly
+  for (const key of COMPOSITE_SCORE_KEYS) {
+    if (typeof metrics[key] === 'number') return metrics[key] as number
+  }
   const vals = Object.values(metrics).filter((v): v is number => typeof v === 'number')
   return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null
 }
@@ -99,8 +107,16 @@ function runGlobalAvg(r: RunResult): number {
     if (typeof metrics.overall === 'number') {
       scores.push(metrics.overall)
     } else {
-      const vals = Object.values(metrics).filter((v): v is number => typeof v === 'number')
-      if (vals.length) scores.push(vals.reduce((a, b) => a + b, 0) / vals.length)
+      let composite: number | undefined
+      for (const key of COMPOSITE_SCORE_KEYS) {
+        if (typeof metrics[key] === 'number') { composite = metrics[key] as number; break }
+      }
+      if (composite !== undefined) {
+        scores.push(composite)
+      } else {
+        const vals = Object.values(metrics).filter((v): v is number => typeof v === 'number')
+        if (vals.length) scores.push(vals.reduce((a, b) => a + b, 0) / vals.length)
+      }
     }
   }
   return scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 0
