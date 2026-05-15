@@ -240,10 +240,31 @@ function extractJsonFromText(text: string): string {
   return text
 }
 
+// Keys that metrics read from record.metadata (see metrics.ts and the judge
+// branches below). When present on dataset.metadata they act as defaults so a
+// dataset author can declare them once instead of repeating on every record.
+const METRIC_METADATA_KEYS = [
+  'unknown_label', 'unknown_synonyms', 'valid_label_range',
+  'expected_behavior', 'refusal_phrases',
+  'constraints', 'key_facts', 'source_text', 'max_words',
+  'source_language', 'target_language',
+  'source_language_original', 'target_language_original',
+] as const
+
+function mergeDatasetMetricDefaults(record: DataRecord, datasetMeta: Record<string, unknown>): DataRecord {
+  const defaults: Record<string, unknown> = {}
+  for (const k of METRIC_METADATA_KEYS) {
+    if (datasetMeta[k] !== undefined) defaults[k] = datasetMeta[k]
+  }
+  if (Object.keys(defaults).length === 0) return record
+  return { ...record, metadata: { ...defaults, ...(record.metadata ?? {}) } }
+}
+
 async function processRecord({
   modelId, record, di, ri, datasetLength, datasets, taskName, metrics,
   targetOpenAI, targetSystemPrompt, judgeOpenAI, judgeEnabled, abortSignal,
 }: ProcessRecordArgs): Promise<ProcessRecordResult> {
+  record = mergeDatasetMetricDefaults(record, datasets[di].metadata)
   const s = useEvalSessionStore.getState()
   s.updateProgress(modelId, {
     datasetIndex: di,

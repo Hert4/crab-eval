@@ -219,6 +219,8 @@ EvalRunner đọc `dataset.metadata.gt_metrics` để quyết định metric nà
 - `accuracy` → optional `metadata.{unknown_label, unknown_synonyms, valid_label_range}` cho special-case classification
 - `word_count_compliance` → cần `metadata.max_words: number`
 
+Các metric-key trên (`unknown_label`, `unknown_synonyms`, `valid_label_range`, `expected_behavior`, `refusal_phrases`, `constraints`, `key_facts`, `source_text`, `max_words`, `source_language`, `target_language`, `source_language_original`, `target_language_original`) có thể đặt ở **`dataset.metadata`** để làm default cho mọi record — `record.metadata` override khi cần. Whitelist ở `METRIC_METADATA_KEYS` trong `evalRunner.ts`.
+
 ## Multi-model eval (parallel)
 
 `startEval(datasets, config: EvalConfig)` nhận `EvalConfig.targets: EvalTarget[]` — chạy **song song** tất cả target qua `Promise.allSettled`. Mỗi target có semaphore riêng với cùng `concurrency`. Datasets dùng chung. Mỗi target tạo 1 `RunResult` + runId riêng, post `/api/results` độc lập → leaderboard thấy N row.

@@ -21,7 +21,14 @@
     "gt_model": "gpt-5.2",
     "gt_script": "generate_ground_truth.py",
     "samples_with_reference": 57,
-    "samples_total": 57
+    "samples_total": 57,
+    "unknown_label": "unknown",
+    "valid_label_range": "[1-7]",
+    "unknown_synonyms": [
+      "không có hành động",
+      "vui lòng cung cấp",
+      "không cần thực hiện"
+    ]
   },
   "data": [
     {
