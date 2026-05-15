@@ -1,0 +1,14 @@
+{
+  "runId": "b31c3b36-d10d-4727-ba3f-61d30216696d",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "https://api.openai.com/v1",
+  "date": "2026-05-15 04:13:11",
+  "durationMs": 3067974,
+  "tasks": {
+    "ava_multiturn_tool_calling": {
+      "tool_call_exact_sequence": 42.79,
+      "ast_accuracy_sequence": 69.43,
+      "task_success_rate_sequence": 71.92
+    }
+  }
+}

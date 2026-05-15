@@ -1,0 +1,14 @@
+{
+  "runId": "af7655ae-0731-4d59-97d8-3e67a3ba37ba",
+  "model": "gpt-5.5",
+  "baseUrl": "https://api.openai.com/v1",
+  "date": "2026-05-15 06:06:02",
+  "durationMs": 6739232,
+  "tasks": {
+    "ava_multiturn_tool_calling": {
+      "tool_call_exact_sequence": 75.89,
+      "ast_accuracy_sequence": 85.56,
+      "task_success_rate_sequence": 85.28
+    }
+  }
+}
