@@ -506,6 +506,129 @@ async function _runAllTargets(
   if (abortSignal.aborted) throw new DOMException('Aborted', 'AbortError')
 }
 
+// ── EnvScaler eval (multi_turn_tool_calling) ─────────────────────────────────
+async function runEnvScalerEval(
+  dataset: Dataset,
+  target: EvalTarget,
+  modelId: string,
+  di: number,
+  datasets: Dataset[],
+  acquire: <T>(fn: () => Promise<T>) => Promise<T>,
+  onRecordFinished: () => void,
+  abortSignal: AbortSignal
+): Promise<TaskRunResult> {
+  const taskName = dataset.metadata.task_name
+
+  // Health check — if EnvScaler is down, throw a clear error
+  const health = await fetch('/api/envscaler', { signal: AbortSignal.timeout(5_000) }).catch(() => null)
+  if (!health?.ok) {
+    throw new Error('EnvScaler server unavailable. Start the server or use a different task type.')
+  }
+
+  const logs: RecordLog[] = []
+
+  const recordPromises = dataset.data.map((record, ri) =>
+    acquire(async () => {
+      if (abortSignal.aborted) return null
+
+      const payload = {
+        run_id: randomUUID(),
+        task_name: taskName,
+        model: target.model,
+        model_provider: 'openai',
+        api_key: target.apiKey,
+        base_url: target.baseUrl,
+        records: [{
+          id: record.id,
+          input: record.input,
+          tools: record.tools ?? [],
+          conversation_history: record.conversation_history ?? [],
+          metadata: record.metadata ?? {},
+        }],
+        eval_config: {
+          max_steps: 20,
+          temperature: target.temperature ?? 0.7,
+          infer_mode: 'fc',
+          enable_thinking: false,
+        },
+      }
+
+      const res = await fetch('/api/envscaler', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        signal: abortSignal,
+      })
+
+      if (!res.ok) {
+        const detail = await res.text().catch(() => res.statusText)
+        throw new Error(`EnvScaler failed (${res.status}): ${detail}`)
+      }
+
+      const envResult = await res.json()
+      const r = envResult.results?.[0]
+      if (!r) throw new Error('No result returned from EnvScaler')
+
+      const checklistResults: Array<{ check_item: string; passed: boolean }> = r.checklist_results ?? []
+      const log: RecordLog = {
+        id: r.record_id,
+        status: r.error ? 'error' : 'done',
+        input: record.input ?? '',
+        reference: record.reference ?? '',
+        output: r.error
+          ? r.error
+          : checklistResults.map(c => `[${c.passed ? 'pass' : 'fail'}] ${c.check_item}`).join('\n') || 'No checklist items',
+        tool_calls: [],
+        scores: {
+          envscaler_score: r.score * 100,
+          checkpoints_passed: checklistResults.filter(c => c.passed).length,
+          checkpoints_total: checklistResults.length,
+        },
+        ...(r.error ? { error: r.error } : {}),
+        durationMs: r.duration_ms,
+        metadata: {
+          ...(record.metadata ?? {}),
+          steps: r.steps,
+          checklist_results: checklistResults,
+        },
+      }
+
+      const s = useEvalSessionStore.getState()
+      s.appendLog(modelId, log)
+      s.updateProgress(modelId, {
+        datasetIndex: di,
+        datasetTotal: datasets.length,
+        datasetName: taskName,
+        recordIndex: ri + 1,
+        recordTotal: dataset.data.length,
+        currentId: log.id,
+        status: log.status === 'error' ? 'error' : 'done',
+        log,
+      })
+
+      onRecordFinished()
+      return log
+    })
+  )
+
+  const results = await Promise.all(recordPromises)
+  for (const result of results) {
+    if (result) logs.push(result)
+  }
+
+  const avgEnvScore = logs.reduce((s, l) => s + (l.scores.envscaler_score ?? 0), 0) / Math.max(1, logs.length)
+
+  return {
+    taskName,
+    taskType: 'multi_turn_tool_calling',
+    description: dataset.metadata.description || taskName,
+    numSamples: logs.length,
+    metrics: ['envscaler_score', 'checkpoints_passed', 'checkpoints_total'],
+    scores: { envscaler_score: parseFloat(avgEnvScore.toFixed(2)) },
+    logs,
+  }
+}
+
 // ── Single-target eval pipeline ──────────────────────────────────────
 async function _runEvalForTarget(
   target: EvalTarget,
@@ -538,6 +661,30 @@ async function _runEvalForTarget(
 
     const dataset = datasets[di]
     const taskName = dataset.metadata.task_name
+
+    // Dispatch multi_turn_tool_calling datasets to EnvScaler
+    if (dataset.metadata.task_type === 'multi_turn_tool_calling') {
+      const taskResult = await runEnvScalerEval(
+        dataset, 
+        target, 
+        target.modelId, 
+        di, 
+        datasets, 
+        acquire,
+        () => {
+          processedTotal++
+          useEvalSessionStore.getState().setOverallProgress(
+            target.modelId,
+            Math.round((processedTotal / totalRecords) * 100)
+          )
+        },
+        abortSignal
+      )
+      taskResults[taskName] = taskResult
+      taskScores[taskName] = taskResult.scores
+      continue
+    }
+
     const metrics = dataset.metadata.gt_metrics || ['exact_match', 'token_f1']
     const logs: RecordLog[] = []
     const perRecordScores: Record<string, number>[] = []

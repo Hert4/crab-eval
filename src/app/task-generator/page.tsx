@@ -271,6 +271,9 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
     setMultiTurnToolProgress,
   } = useTaskGeneratorStore()
 
+  const router = useRouter()
+  const { addDataset } = useDatasetsStore()
+
   const [baseUrl, setBaseUrl] = useState('https://api.openai.com/v1')
   const [model, setModel] = useState('gpt-4o')
   const [log, setLog] = useState<string[]>([])
@@ -496,41 +499,39 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
     }
   }
 
-  const handleExtractMultiTurnTool = async () => {
+  const handleExtractMultiTurnTool = () => {
     if (!documentContent.trim()) { toast.error('Please paste or upload a document first'); return }
-    setIsExtracting(true)
-    setLog(['Generating multi-turn tool-calling scenarios...'])
-    abortRef.current = new AbortController()
-    try {
-      const config: ModelConfig = { baseUrl, model, apiKey: getApiKey('tg_api_key') }
-      let toolDefs: unknown[] = []
-      try { toolDefs = JSON.parse(agentToolsJson) } catch { /* use empty */ }
-      const pairs = await generateMultiTurnToolPairs(
-        documentContent, config, toolDefs, abortRef.current.signal,
-        (done, total) => {
-          setMultiTurnToolProgress({ done, total })
-          setLog(p => {
-            const last = p[p.length - 1]
-            const msg = `Chunk ${done}/${total}...`
-            return last?.startsWith('Chunk') ? [...p.slice(0, -1), msg] : [...p, msg]
-          })
-        },
-        sourceFile ?? undefined, 20
-      )
-      setMultiTurnToolPairs(pairs)
-      setLog(p => [...p, `Generated ${pairs.length} multi-turn tool scenarios.`, 'Done.'])
-      toast.success(`Generated ${pairs.length} multi-turn tool scenarios`)
-      setTimeout(onNextQA, 600)
-    } catch (e) {
-      if (e instanceof DOMException && e.name === 'AbortError') {
-        setLog(p => [...p, 'Aborted.'])
-      } else {
-        setLog(p => [...p, `Error: ${e}`])
-        toast.error(`Multi-turn tool generation failed: ${e}`)
-      }
-    } finally {
-      setIsExtracting(false)
+
+    const lines = documentContent.split('\n').map(l => l.trim()).filter(Boolean)
+    if (lines.length === 0) { toast.error('No input lines found in document'); return }
+
+    const filename = sourceFile?.name ?? 'document'
+    const taskName = filename.replace(/\.[^.]+$/, '')
+
+    const records = lines.map((line, i) => ({
+      id: `${taskName}_${i + 1}`,
+      input: line,
+      output: '',
+      reference: '',
+      metadata: { task_type: 'multi_turn_tool_calling' },
+    }))
+
+    const dataset = {
+      id: randomUUID(),
+      filename: `${taskName}-envscaler-${Date.now()}.json`,
+      uploadedAt: new Date().toISOString(),
+      metadata: {
+        task_name: taskName,
+        task_type: 'multi_turn_tool_calling',
+        description: `Imported from ${filename} — ${records.length} user inputs`,
+        gt_metrics: [],
+      },
+      data: records,
     }
+
+    addDataset(dataset)
+    toast.success(`Loaded ${records.length} inputs — sending to Run Eval`)
+    router.push('/run')
   }
 
   const handleGenerateSysPrompt = async () => {
@@ -692,7 +693,7 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
     rag_qa:               { label: 'QA / RAG',           description: 'FAQ or knowledge base → generates Q&A evaluation pairs',             colorCls: 'bg-[var(--crab-accent-light)] text-[var(--crab-accent-hover)] border border-[var(--crab-accent-medium)]' },
     tool_calling:         { label: 'Tool-Calling',        description: 'Agent spec or API docs → generates tool-calling test cases',         colorCls: 'bg-[var(--crab-bg-tertiary)] text-[var(--crab-text-secondary)] border border-[var(--crab-border-strong)]' },
     multi_turn:           { label: 'Multi-turn Conv.',    description: 'Conversation scripts → generates multi-turn dialog tests',           colorCls: 'bg-sky-900/40 text-sky-300 border border-sky-700/40' },
-    multi_turn_tool:      { label: 'Multi-turn Tool',     description: 'Agent spec + flows → generates multi-turn tool-calling sessions',    colorCls: 'bg-cyan-900/40 text-cyan-300 border border-cyan-700/40' },
+    multi_turn_tool_calling:      { label: 'Multi-turn Tool',     description: 'Agent spec + flows → generates multi-turn tool-calling sessions',    colorCls: 'bg-cyan-900/40 text-cyan-300 border border-cyan-700/40' },
     instruction_following:{ label: 'Instruction Follow.', description: 'Policy or rules document → generates instruction-following pairs',   colorCls: 'bg-purple-900/40 text-purple-300 border border-purple-700/40' },
     safety:               { label: 'Safety / Guardrail',  description: 'Content policy → generates safety and guardrail test cases',         colorCls: 'bg-red-900/40 text-red-300 border border-red-700/40' },
     summarization:        { label: 'Summarization',       description: 'Long report or article → generates summarization tasks',             colorCls: 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/40' },
@@ -700,13 +701,13 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
 
   const handleSwitchType = () => {
     if (!detectedTaskType) return
-    const ORDER = ['tool_calling', 'rag_qa', 'multi_turn', 'multi_turn_tool', 'instruction_following', 'safety', 'summarization'] as const
+    const ORDER = ['tool_calling', 'rag_qa', 'multi_turn', 'multi_turn_tool_calling', 'instruction_following', 'safety', 'summarization'] as const
     const idx = ORDER.indexOf(detectedTaskType as typeof ORDER[number])
     const next = ORDER[(idx + 1) % ORDER.length]
     setDetectedTaskType(next)
     if (detectedTaskType === 'rag_qa') { setQAPairs([]); setQAProgress({ done: 0, total: 0 }) }
     else if (detectedTaskType === 'multi_turn') { setMultiTurnPairs([]); setMultiTurnProgress({ done: 0, total: 0 }) }
-    else if (detectedTaskType === 'multi_turn_tool') { setMultiTurnToolPairs([]); setMultiTurnToolProgress({ done: 0, total: 0 }) }
+    else if (detectedTaskType === 'multi_turn_tool_calling') { setMultiTurnToolPairs([]); setMultiTurnToolProgress({ done: 0, total: 0 }) }
     else if (detectedTaskType === 'instruction_following') { setInstructionPairs([]); setInstructionProgress({ done: 0, total: 0 }) }
     else if (detectedTaskType === 'safety') { setSafetyCases([]); setSafetyProgress({ done: 0, total: 0 }) }
     else if (detectedTaskType === 'summarization') { setSummarizationPairs([]); setSummarizationProgress({ done: 0, total: 0 }) }
@@ -975,7 +976,7 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
                   : detectedTaskType === 'instruction_following' ? handleExtractInstruction
                   : detectedTaskType === 'safety' ? handleExtractSafety
                   : detectedTaskType === 'summarization' ? handleExtractSummarization
-                  : detectedTaskType === 'multi_turn_tool' ? handleExtractMultiTurnTool
+                  : detectedTaskType === 'multi_turn_tool_calling' ? handleExtractMultiTurnTool
                   : handleExtract
                 }
                 disabled={!documentContent.trim()}
@@ -984,7 +985,7 @@ function Step1Extract({ onNext, onNextQA }: { onNext: () => void; onNextQA: () =
                 <FlaskConical size={15} />
                 {detectedTaskType === 'rag_qa' ? 'Generate QA Pairs'
                   : detectedTaskType === 'multi_turn' ? 'Generate Conversations'
-                  : detectedTaskType === 'multi_turn_tool' ? 'Generate Tool Sessions'
+                  : detectedTaskType === 'multi_turn_tool_calling' ? 'Send to EnvScaler'
                   : detectedTaskType === 'instruction_following' ? 'Generate Instructions'
                   : detectedTaskType === 'safety' ? 'Generate Safety Cases'
                   : detectedTaskType === 'summarization' ? 'Generate Summaries'
@@ -1621,7 +1622,7 @@ function SummarizationPairRow({ pair, onDelete }: { pair: SummarizationPair; onD
   )
 }
 
-// ── Step 2 (multi_turn_tool mode): Review Multi-turn Tool Pairs ────────
+// ── Step 2 (multi_turn_tool_calling mode): Review Multi-turn Tool Pairs ────────
 
 function Step2MultiTurnToolReview({ onNext }: { onNext: () => void }) {
   const { multiTurnToolPairs, removeMultiTurnToolPair, sourceFile, documentContent } = useTaskGeneratorStore()
@@ -2745,7 +2746,7 @@ function Step4Generate() {
     }
 
     // ── Multi-turn Tool Calling mode ──────────────────────────────────
-    if (detectedTaskType === 'multi_turn_tool') {
+    if (detectedTaskType === 'multi_turn_tool_calling') {
       if (multiTurnToolPairs.length === 0) { toast.error('No multi-turn tool sessions to send'); return }
       const filename = sourceFile?.name ?? 'document'
 
@@ -2762,7 +2763,7 @@ function Step4Generate() {
         conversation_history: p.conversation_history,
         ...(p.tools ? { tools: p.tools } : parsedTools ? { tools: parsedTools } : {}),
         ...(p.system_prompt ? { system_prompt: p.system_prompt } : {}),
-        metadata: { difficulty: p.difficulty, tags: p.tags, task_type: 'multi_turn_tool' },
+        metadata: { difficulty: p.difficulty, tags: p.tags, task_type: 'multi_turn_tool_calling' },
       }))
 
       const dataset = {
@@ -2771,7 +2772,7 @@ function Step4Generate() {
         uploadedAt: new Date().toISOString(),
         metadata: {
           task_name: `Multi-turn Tool — ${filename}`,
-          task_type: 'multi_turn_tool',
+          task_type: 'multi_turn_tool_calling',
           description: `Multi-turn tool-calling dataset (${multiTurnToolPairs.length} sessions)`,
           gt_metrics: ['tool_call_exact_sequence', 'ast_accuracy_sequence', 'task_success_rate_sequence'],
           created_date: new Date().toISOString(),
@@ -3009,7 +3010,7 @@ function Step4Generate() {
       )}
 
       {/* ── Multi-turn Tool Calling mode: export panel ─────────────── */}
-      {detectedTaskType === 'multi_turn_tool' && (
+      {detectedTaskType === 'multi_turn_tool_calling' && (
         <div className="bg-[var(--crab-bg-secondary)] border border-[var(--crab-accent-medium)] rounded-xl p-5 space-y-3">
           <div className="flex items-center gap-2">
             <span className="text-sm font-semibold text-[var(--crab-text)]">Multi-turn Tool Dataset</span>
@@ -3048,7 +3049,7 @@ function Step4Generate() {
       </div>
 
       {/* Generate button + progress + results — tool_calling only */}
-      {detectedTaskType !== 'rag_qa' && detectedTaskType !== 'multi_turn' && detectedTaskType !== 'instruction_following' && detectedTaskType !== 'safety' && detectedTaskType !== 'summarization' && detectedTaskType !== 'multi_turn_tool' && (<>
+      {detectedTaskType !== 'rag_qa' && detectedTaskType !== 'multi_turn' && detectedTaskType !== 'instruction_following' && detectedTaskType !== 'safety' && detectedTaskType !== 'summarization' && detectedTaskType !== 'multi_turn_tool_calling' && (<>
 
       {/* Generate button + progress (tool-calling mode) */}
       <div className="flex items-center gap-3 flex-wrap">
@@ -3311,10 +3312,10 @@ export default function TaskGeneratorPage() {
             {currentStep === 2 && detectedTaskType === 'summarization' && (
               <Step2SummarizationReview onNext={() => setStep(4)} />
             )}
-            {currentStep === 2 && detectedTaskType === 'multi_turn_tool' && (
+            {currentStep === 2 && detectedTaskType === 'multi_turn_tool_calling' && (
               <Step2MultiTurnToolReview onNext={() => setStep(4)} />
             )}
-            {currentStep === 2 && detectedTaskType !== 'rag_qa' && detectedTaskType !== 'multi_turn' && detectedTaskType !== 'instruction_following' && detectedTaskType !== 'safety' && detectedTaskType !== 'summarization' && detectedTaskType !== 'multi_turn_tool' && (
+            {currentStep === 2 && detectedTaskType !== 'rag_qa' && detectedTaskType !== 'multi_turn' && detectedTaskType !== 'instruction_following' && detectedTaskType !== 'safety' && detectedTaskType !== 'summarization' && detectedTaskType !== 'multi_turn_tool_calling' && (
               <Step2Review onNext={() => setStep(3)} />
             )}
             {currentStep === 3 && (
