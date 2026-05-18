@@ -101,7 +101,7 @@ async def run_eval(request: RunRequest):
 
     # Aggregate
     total = len(results)
-    passed = sum(1 for r in results if r.score > 0)
+    passed = sum(1 for r in results if r.score >= 0.99)
     avg_score = sum(r.score for r in results) / total if total else 0.0
     avg_steps = sum(r.steps for r in results) / total if total else 0.0
 
