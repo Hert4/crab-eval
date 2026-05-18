@@ -32,7 +32,7 @@ interface TaskGeneratorState {
   stats: TaskSetStats | null
 
   // Task type detection — extended to 7 types
-  detectedTaskType: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool' | 'instruction_following' | 'safety' | 'summarization' | null
+  detectedTaskType: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool_calling' | 'instruction_following' | 'safety' | 'summarization' | null
   isDetecting: boolean
 
   // QA/RAG mode
@@ -79,7 +79,7 @@ interface TaskGeneratorState {
   setStats: (s: TaskSetStats) => void
 
   // Detection actions
-  setDetectedTaskType: (t: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool' | 'instruction_following' | 'safety' | 'summarization' | null) => void
+  setDetectedTaskType: (t: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool_calling' | 'instruction_following' | 'safety' | 'summarization' | null) => void
   setIsDetecting: (v: boolean) => void
 
   // QA/RAG actions

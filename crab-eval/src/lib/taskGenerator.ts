@@ -1324,6 +1324,7 @@ const DETECT_TYPE_SYSTEM = `You are an expert at classifying documents for AI ev
 Read the document excerpt below and determine the BEST task type for generating evaluation data from it.
 
 Task types:
+- "multi_turn_tool_calling": The document is a specification of tools/APIs/environments where an AI agent must take actions, OR the document is a plain list of user commands — one per line — where each line is something a user would say to an AI assistant to get something done (e.g., "Book a meeting room", "Cancel my leave request", "Send birthday greetings to Nguyen Van Son"). The key signal is short, action-oriented lines that read like spoken or typed instructions.
 - "tool_calling": A technical spec describing API functions, tools, or skills that an AI agent can invoke (e.g., function names, parameters, integration guides, API docs).
 - "rag_qa": A knowledge document containing business information, FAQs, policies, procedures, or domain knowledge that a user might ask factual questions about.
 - "multi_turn": A document describing customer service scenarios, conversation templates, CRM interactions, chat transcripts, or any context where multi-turn dialogue and context retention should be tested.
@@ -1332,7 +1333,7 @@ Task types:
 - "summarization": A long document (report, article, legal text, research paper, meeting notes) that is valuable to condense into shorter summaries for evaluation.
 
 Return ONLY a JSON object with this exact shape:
-{"type": "tool_calling" | "rag_qa" | "multi_turn" | "instruction_following" | "safety" | "summarization", "reason": "one short sentence explaining your decision"}
+{"type": "multi_turn_tool_calling" | "tool_calling" | "rag_qa" | "multi_turn" | "instruction_following" | "safety" | "summarization", "reason": "one short sentence explaining your decision"}
 
 No markdown fences. No preamble. Return only the JSON object.`
 
@@ -1341,7 +1342,7 @@ export async function detectTaskType(
   config: ModelConfig,
   signal?: AbortSignal,
   sourceFile?: File
-): Promise<'tool_calling' | 'rag_qa' | 'multi_turn' | 'instruction_following' | 'safety' | 'summarization'> {
+): Promise<'multi_turn_tool_calling' | 'tool_calling' | 'rag_qa' | 'multi_turn' | 'instruction_following' | 'safety' | 'summarization'> {
   const sample = documentContent.slice(0, 6000)
 
   let messages: OpenAIMessage[]
@@ -1382,7 +1383,7 @@ export async function detectTaskType(
   )
 
   const raw = res.choices[0]?.message?.content || ''
-  const VALID_TYPES = ['tool_calling', 'rag_qa', 'multi_turn', 'instruction_following', 'safety', 'summarization'] as const
+  const VALID_TYPES = ['multi_turn_tool_calling', 'tool_calling', 'rag_qa', 'multi_turn', 'instruction_following', 'safety', 'summarization'] as const
   try {
     const parsed = await parseJsonWithRepair<{ type: string; reason: string }>(raw, config, signal)
     if (VALID_TYPES.includes(parsed.type as typeof VALID_TYPES[number])) {

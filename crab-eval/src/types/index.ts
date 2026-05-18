@@ -217,7 +217,7 @@ export interface TaskSet {
   generatedTasks: GeneratedTask[]
   stats: TaskSetStats
   // task type detection
-  detectedTaskType?: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool' | 'instruction_following' | 'safety' | 'summarization'
+  detectedTaskType?: 'tool_calling' | 'rag_qa' | 'multi_turn' | 'multi_turn_tool_calling' | 'instruction_following' | 'safety' | 'summarization'
   // QA/RAG mode
   qaPairs?: QAPair[]
   // Multi-turn mode
@@ -338,6 +338,12 @@ export interface ModelConfig {
   model: string
   apiKey: string
 }
+
+export const ENVSCALER_METRICS = [
+  'envscaler_score',
+  'checkpoints_passed',
+  'checkpoints_total',
+] as const
 
 // ──────────────────────────────────────────────
 // Leaderboard types (mirrors leaderboard.html)
