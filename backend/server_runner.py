@@ -132,6 +132,7 @@ def _run_agent(
     temperature: float = 0.7,
     api_key: str | None = None,
     base_url: str | None = None,
+    custom_headers: dict | None = None,
 ) -> dict:
     """
     Inject a synthetic task_item into a temp file, spin up
@@ -181,6 +182,7 @@ def _run_agent(
             enable_thinking=enable_thinking,
             api_key=api_key,
             base_url=base_url,
+            custom_headers=custom_headers,
         )
         result = agent.run(task_index=0)
         # Attach per-item checklist results stored by calculate_reward

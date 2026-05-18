@@ -8,9 +8,12 @@ from openai import OpenAI
 from dotenv import load_dotenv
 from typing import List, Dict, Any, Tuple, Optional
 
+from custom_gateway import (
+    custom_gateway_stream_inference_fc,
+    custom_gateway_stream_inference_prompt,
+)
 # Load environment variables
 load_dotenv()
-
 
 def openai_inference_prompt(
     model: str, 
@@ -254,26 +257,69 @@ def openai_stream_inference_fc(
     return {"reasoning_content": "", "tool_calls": [], "content": ""}
 
 
-def llm_inference_fc(provider: str, model: str, messages: List[Dict[str, Any]], temperature: float = None, tools: Optional[List[Dict]] = None, enable_thinking: bool = False, api_key: str = None, base_url: str = None) -> Dict[str, Any]:
+
+
+def llm_inference_fc(
+    provider: str,
+    model: str,
+    messages: List[Dict[str, Any]],
+    temperature: float = None,
+    tools: Optional[List[Dict]] = None,
+    enable_thinking: bool = False,
+    api_key: str = None,
+    base_url: str = None,
+    custom_headers: Optional[Dict[str, str]] = None,  # ← NEW
+) -> Dict[str, Any]:
     """
     Unified LLM inference interface for FC mode.
     """
     if provider == "openai":
-        return openai_stream_inference_fc(model=model, messages=messages, temperature=temperature, tools=tools, enable_thinking=enable_thinking, api_key=api_key, base_url=base_url)
+        return openai_stream_inference_fc(
+            model=model, messages=messages, temperature=temperature,
+            tools=tools, enable_thinking=enable_thinking,
+            api_key=api_key, base_url=base_url
+        )
+    elif provider == "custom":  # ← NEW
+        return custom_gateway_stream_inference_fc(
+            model=model, messages=messages, temperature=temperature,
+            tools=tools, enable_thinking=enable_thinking,
+            api_key=api_key, base_url=base_url,
+            custom_headers=custom_headers
+        )
     else:
-        # add other provider support here
         raise ValueError(f"Invalid provider: {provider}")
+    
 
-
-def llm_inference_prompt(provider: str, model: str, messages: List[Dict[str, Any]], temperature: float = None, enable_thinking: bool = False, api_key: str = None, base_url: str = None) -> str:
+def llm_inference_prompt(
+    provider: str,
+    model: str,
+    messages: List[Dict[str, Any]],
+    temperature: float = None,
+    enable_thinking: bool = False,
+    api_key: str = None,
+    base_url: str = None,
+    custom_headers: Optional[Dict[str, str]] = None,  # ← NEW
+) -> str:
     """
     Unified LLM inference interface for Prompt mode.
     """
     if provider == "openai":
-        return openai_stream_inference_prompt(model=model, messages=messages, temperature=temperature, enable_thinking=enable_thinking, api_key=api_key, base_url=base_url)
+        return openai_stream_inference_prompt(
+            model=model, messages=messages, temperature=temperature,
+            enable_thinking=enable_thinking,
+            api_key=api_key, base_url=base_url
+        )
+    elif provider == "custom":  # ← NEW
+        return custom_gateway_stream_inference_prompt(
+            model=model, messages=messages, temperature=temperature,
+            enable_thinking=enable_thinking,
+            api_key=api_key, base_url=base_url,
+            custom_headers=custom_headers
+        )
     else:
-        # add other provider support here
         raise ValueError(f"Invalid provider: {provider}")
+    
+       
 
 
 if __name__ ==  "__main__":

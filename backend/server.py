@@ -2,7 +2,7 @@
 FastAPI server exposing EnvScaler evaluation as a REST API for crab-eval.
 
 Start with:
-    cd EnvScaler
+    cd backend
     uvicorn server:app --port 8000
 """
 import asyncio
@@ -38,7 +38,7 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 
-def _worker_wrapper(record, model, provider, infer_mode, enable_thinking, max_steps, temperature, api_key, base_url):
+def _worker_wrapper(record, model, provider, infer_mode, enable_thinking, max_steps, temperature, api_key, base_url, custom_headers):
     import os
     if api_key:
         os.environ["OPENAI_API_KEY"] = api_key
@@ -53,7 +53,7 @@ def _worker_wrapper(record, model, provider, infer_mode, enable_thinking, max_st
     from server_runner import run_record
     return run_record(
         record, model, provider, infer_mode, enable_thinking,
-        max_steps, temperature, api_key, base_url
+        max_steps, temperature, api_key, base_url, custom_headers
     )
 
 
@@ -92,6 +92,7 @@ async def run_eval(request: RunRequest):
                 cfg.temperature,
                 request.api_key,
                 request.base_url,
+                request.custom_headers,
             ),
         )
         for record in request.records

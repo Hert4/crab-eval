@@ -32,6 +32,7 @@ class RunRequest(BaseModel):
     model_provider: str = "openai"
     api_key: Optional[str] = None
     base_url: Optional[str] = None
+    custom_headers: Optional[Dict[str, str]] = None
     records: list[RecordInput]
     eval_config: EvalConfig = EvalConfig()
 

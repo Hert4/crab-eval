@@ -9,17 +9,18 @@ from agent.agent_llm_inference import llm_inference_fc, llm_inference_prompt
 class TaskSolveAgent:
     """Agent that solves tasks in interactive environments using LLM inference."""
     def __init__(
-        self,
-        env_name,
-        env,
-        model,
-        provider,
-        temperature,
-        infer_mode,
-        max_steps,
-        enable_thinking,
-        api_key=None,
-        base_url=None
+    self,
+    env_name,
+    env,
+    model,
+    provider,
+    temperature,
+    infer_mode,
+    max_steps,
+    enable_thinking,
+    api_key=None,
+    base_url=None,
+    custom_headers=None,  # ← NEW
     ):
         self.env_name = env_name
         self.env = env
@@ -30,6 +31,7 @@ class TaskSolveAgent:
         self.temperature = temperature
         self.api_key = api_key
         self.base_url = base_url
+        self.custom_headers = custom_headers
         assert infer_mode in ["prompt", "fc"]  # prompt: tool use via prompts, fc: tool use via function calling interface
         self.infer_mode = infer_mode
         self.enable_thinking = enable_thinking
@@ -133,7 +135,8 @@ class TaskSolveAgent:
                 temperature=self.temperature,
                 enable_thinking=self.enable_thinking,
                 api_key=self.api_key,
-                base_url=self.base_url
+                base_url=self.base_url,
+                custom_headers=self.custom_headers,
             )
             if "</think>" in raw_response:
                 raw_response = raw_response.split("</think>")[-1].strip()
@@ -147,7 +150,8 @@ class TaskSolveAgent:
                 tools=self.tools,
                 enable_thinking=self.enable_thinking,
                 api_key=self.api_key,
-                base_url=self.base_url
+                base_url=self.base_url, 
+                custom_headers=self.custom_headers,
             )
 
         # Add model output to conversation history
