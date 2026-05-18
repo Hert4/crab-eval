@@ -2,10 +2,7 @@
 pydantic
 python-dotenv
 openai
-tqdm
-rich
-jsonpickle
 fastapi
 uvicorn[standard]
+jsonpickle
 numpy
-transformers
