@@ -1,0 +1,1009 @@
+{
+  "runId": "12523b8f-2033-4593-9cf2-2e67f98d5fa9",
+  "model": "gpt-5.5",
+  "baseUrl": "https://api.openai.com/v1",
+  "date": "2026-05-11 13:34:43",
+  "taskName": "AVA Multi-turn Tool Calling (synthetic)",
+  "taskType": "multi_turn_tool",
+  "description": "Synthetic multi-turn tool calling dataset built by grouping 3 consecutive records from ava_tool_calling_50.json. Each record has 2 prior assistant turns (each with expected_tool_calls) followed by a final user input. Conversation flow is NOT natural — unrelated records glued together. Use only to exercise the multi-turn pipeline.",
+  "numSamples": 32,
+  "metrics": [
+    "tool_call_exact_sequence"
+  ],
+  "scores": {
+    "tool_call_exact_sequence": 32.81
+  },
+  "logs": [
+    {
+      "id": "mtt_ava_000",
+      "status": "done",
+      "input": "Giá vàng và thời tiết hôm nay thế nào?",
+      "reference": "Hôm nay, thời tiết ở một số thành phố như sau:\n- Hà Nội: 27°C, trời quang đãng.\n- Đà Nẵng: 24°C, có mây ít.\n- Hồ Chí Minh: 34°C, trời quang đãng.\n\nGiá vàng tại Hà Nội:\n- Mua vào: 94,400,000 VNĐ/cây\n- Bán ra: 97,400,000 VNĐ/cây\n\nChị Ánh cần thêm thông tin gì nữa không ạ?",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\":\"Giá vàng hôm nay 21/09/2024 và thời tiết hôm nay tại Hà Nội, Thành phố Hồ Chí Minh, Đà Nẵng\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 100
+      },
+      "durationMs": 18178,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_001",
+          "tool_calling_002",
+          "tool_calling_003"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_001",
+      "status": "done",
+      "input": "Lịch nghỉ lễ của công ty trong năm nay là gì?",
+      "reference": "Lịch nghỉ lễ của công ty MISA trong năm 2024 như sau:\n\n1. Tết Dương lịch (01/01): Nghỉ 01 ngày.\n2. Tết Âm lịch: Nghỉ 05 ngày.\n3. Ngày Giỗ Tổ Hùng Vương (10/03 Âm lịch): Nghỉ 01 ngày.\n4. Ngày Chiến thắng (30/04): Nghỉ 01 ngày.\n5. Ngày Quốc tế Lao động (01/05): Nghỉ 01 ngày.\n6. Ngày Quốc khánh (02/09): Nghỉ 02 ngày.\n\nNếu những ngày nghỉ trên trùng vào ngày nghỉ hằng tuần, người lao động sẽ được nghỉ bù theo kế hoạch do Ban Tổng Giám đốc phê duyệt. Anh Tùng có thể xem thêm chi tiết tại [đây](https://misajsc.amis.vn/Notes/3342?pageid=661904).",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"Lịch nghỉ lễ của công ty MISA năm 2024\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 100
+      },
+      "durationMs": 13674,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_004",
+          "tool_calling_005",
+          "tool_calling_006"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_002",
+      "status": "done",
+      "input": "Gợi ý vài phim kinh dị mới ra mắt gần đây được không?",
+      "reference": "Dưới đây là một số bộ phim kinh dị mới ra mắt gần đây mà anh có thể quan tâm:\n\n1. **Mickey's Mouse Trap**: Một nhóm người bị mắc kẹt trong khu trò chơi điện tử và bị truy sát bởi một kẻ mặc trang phục giống như chuột Mickey.\n\n2. **Immaculate**: Câu chuyện về một phụ nữ sùng đạo tên Cecilia, được mời đến tu viện danh tiếng ở Ý và phát hiện ra những bí mật khủng khiếp.\n\n3. **The First Omen**: Phần tiền truyện của bộ phim kinh điển *The Omen (1976)*, kể về một cô gái người Mỹ phát hiện ra thế lực hắc ám tại Rome.\n\n4. **Abigail**: Một nhóm tội phạm bắt cóc một diễn viên ba lê nhí và phát hiện ra cô bé không bình thường.\n\n5. **Tarot**: Một nhóm bạn vô tình giải phong ấn cho một ác quỷ mắc kẹt trong những lá bài Tarot bị nguyền rủa.\n\n6. **The Strangers: Chapter 1**: Một cặp vợ chồng trẻ bị truy đuổi bởi 3 kẻ sát nhân đeo mặt nạ khi xe của họ bị hỏng giữa đường.\n\n7. **The Crow**: Remake từ tựa phim cùng tên năm 1994, kể về Eric Draven, một nhạc sĩ được hồi sinh từ cõi chết để báo thù cho người vợ sắp cưới.\n\n8. **The Watchers**: Mina, một nghệ sĩ bị lạc trong khu rừng ở Ireland, phát hiện ra có những sinh vật vô hình theo dõi họ mỗi đêm.\n\n9. **A Quiet Place: Day One**: Phần tiền truyện của loạt phim nổi tiếng, lấy bối cảnh ngày đầu tiên loài quái vật ngoài hành tinh xâm nhập Trái Đất.\n\n10. **Alien: Romulus**: Phần 7 trong series Alien, diễn ra 20 năm sau sự kiện của phần phim gốc năm 1979.\n\nHy vọng anh sẽ tìm thấy bộ phim kinh dị phù hợp với sở thích của mình!",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"phim kinh dị mới ra mắt gần đây 2024 2025 đáng xem\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 100
+      },
+      "durationMs": 17023,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_007",
+          "tool_calling_008",
+          "tool_calling_009"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_003",
+      "status": "done",
+      "input": "Giá vàng hôm nay thế nào? Thời tiết hiện tại?",
+      "reference": "Hiện tại, thời tiết ở một số thành phố như sau:\n- Hà Nội: 21°C, mây rải rác.\n- Đà Nẵng: 20°C, mây rải rác.\n- Hồ Chí Minh: 26°C, mây u ám.\n\nGiá vàng hôm nay tại Hà Nội:\n- Mua vào: 99,400,000 VNĐ/cây\n- Bán ra: 102,100,000 VNĐ/cây",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\": \"giá vàng hôm nay Việt Nam SJC DOJI PNJ 21/09/2024\"}"
+          }
+        },
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\": \"thời tiết hiện tại Hà Nội Hồ Chí Minh Đà Nẵng 21/09/2024\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 13495,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_010",
+          "tool_calling_011",
+          "tool_calling_012"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_004",
+      "status": "done",
+      "input": "Chính sách nghỉ phép của công ty như nào?",
+      "reference": "Chính sách nghỉ phép của công ty MISA như sau:\n\n1. **Số ngày nghỉ phép năm**:\n   - Nhân viên làm việc đủ 12 tháng trong năm được nghỉ 12 ngày phép/năm.\n   - Nhân viên làm việc dưới 12 tháng thì số ngày nghỉ phép được tính tương ứng với số tháng làm việc.\n   - Nhân viên có thời gian làm việc từ 5 năm trở lên được cộng thêm 1 ngày phép cho mỗi 5 năm.\n\n2. **Chuyển ngày phép**:\n   - Nếu chưa nghỉ hết số ngày phép trong năm, số ngày phép còn lại sẽ được chuyển sang quý I năm sau. Một số bộ phận có thể chuyển sang quý II.\n\n3. **Thủ tục xin nghỉ phép**:\n   - Nhân viên cần làm đơn xin nghỉ phép trên hệ thống AMIS.HRM và gửi tới các cấp xem xét, phê duyệt.\n\n4. **Lập kế hoạch nghỉ phép**:\n   - CBNV là quản lý cấp trưởng/phó phòng/ban/bộ phận phải lập kế hoạch nghỉ phép năm và được phê duyệt chậm nhất ngày 30/01 hàng năm.\n\nChị có thể xem chi tiết hơn tại [đây](https://misajsc.amis.vn/Notes/3342?pageid=661902). Nếu cần thêm thông tin, chị cứ cho em biết nhé!",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"Chính sách nghỉ phép của công ty MISA\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 13733,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_013",
+          "tool_calling_014",
+          "tool_calling_015"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_005",
+      "status": "done",
+      "input": "Giá vàng và thời tiết ở Đà Nẵng 23 ngày nữa",
+      "reference": "Hiện tại, em không có thông tin về giá vàng và thời tiết ở Đà Nẵng vào ngày 25/02/2024. Tuy nhiên, em có thể cung cấp thông tin thời tiết hiện tại ở Đà Nẵng: nhiệt độ là 24°C với mây rải rác. Giá vàng hiện tại ở Hà Nội là 98,200,000 VNĐ/cây (mua vào) và 100,200,000 VNĐ/cây (bán ra).",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\":\"giá vàng và dự báo thời tiết Đà Nẵng ngày 14/10/2024\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 18872,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_016",
+          "tool_calling_017",
+          "tool_calling_018"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_006",
+      "status": "done",
+      "input": "Thời tiết Hà Nội hôm nay?",
+      "reference": "Thưa anh, thời tiết Hà Nội hôm nay có mây nhiều, nhiệt độ khoảng 18°C.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\":\"Thời tiết Hà Nội hôm nay 21/09/2024\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 33335,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_019",
+          "tool_calling_020",
+          "tool_calling_021"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_007",
+      "status": "done",
+      "input": "Thế giá vàng và thời tiết ngày mốt thì sao?",
+      "reference": "Ngày mốt, thời tiết tại một số thành phố như sau:\n\n- Hà Nội: Nhiệt độ 24°C, trời nhiều mây.\n- Đà Nẵng: Nhiệt độ 24°C, trời nhiều mây.\n- Hồ Chí Minh: Nhiệt độ 26°C, trời có mây rải rác.\n\nVề giá vàng tại Hà Nội, giá mua là 98.200.000 VNĐ/cây và giá bán là 100.200.000 VNĐ/cây.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\":\"Giá vàng hôm nay và dự báo thời tiết ngày 23/09/2024 tại Việt Nam\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 14537,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_022",
+          "tool_calling_023",
+          "tool_calling_024"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_008",
+      "status": "done",
+      "input": "Giá xăng dầu hiện tại là bao nhiêu?",
+      "reference": "Giá xăng dầu hiện tại như sau:\n\n- Xăng RON 95-III: 19.200 đồng/lít\n- Xăng E5 RON 92-II: 18.880 đồng/lít\n- Dầu diesel: 17.240 đồng/lít\n- Dầu hỏa: 17.410 đồng/lít\n\nGiá trên đã bao gồm thuế giá trị gia tăng (GTGT) và thuế môi trường.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"giá xăng dầu hiện tại Việt Nam hôm nay 21/09/2024\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 16442,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_025",
+          "tool_calling_026",
+          "tool_calling_027"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_009",
+      "status": "done",
+      "input": "Giá vàng và thời tiết ở New York",
+      "reference": "Hiện tại, em không có thông tin về thời tiết ở New York. Còn về giá vàng, ở Hà Nội, giá mua vào là 94,400,000 VNĐ/cây và giá bán ra là 97,400,000 VNĐ/cây. Nếu anh cần thêm thông tin, anh có thể kiểm tra lại sau nhé!",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\":\"Giá vàng hôm nay và thời tiết hiện tại ở New York\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 14987,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_028",
+          "tool_calling_029",
+          "tool_calling_030"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_010",
+      "status": "done",
+      "input": "Học máy được ứng dụng trong thương mại điện tử như thế nào?",
+      "reference": "Học máy được ứng dụng rộng rãi trong thương mại điện tử để cải thiện hiệu quả hoạt động và tối ưu hóa trải nghiệm khách hàng. Dưới đây là một số ứng dụng cụ thể:\n\n1. **Cá nhân hóa trải nghiệm khách hàng**: Học máy giúp phân tích dữ liệu người dùng để đưa ra các đề xuất sản phẩm phù hợp, từ đó tăng cường sự tương tác và hài lòng của khách hàng.\n\n2. **Tự động hóa và tối ưu hóa quy trình kinh doanh**: Học máy giúp tự động hóa các quy trình phức tạp như quản lý chuỗi cung ứng, tối ưu hóa tồn kho, và dự đoán nhu cầu sản phẩm.\n\n3. **Phân tích dữ liệu và dự đoán hành vi khách hàng**: Học máy phân tích dữ liệu để dự đoán xu hướng mua sắm và hành vi của khách hàng, từ đó giúp doanh nghiệp đưa ra các quyết định chiến lược chính xác hơn.\n\n4. **Chatbots và trợ lý ảo**: Sử dụng học máy để phát triển chatbots và trợ lý ảo, giúp cải thiện dịch vụ khách hàng và hỗ trợ người dùng 24/7.\n\n5. **Tối ưu hóa tìm kiếm và đề xuất sản phẩm**: Học máy cải thiện khả năng tìm kiếm và đề xuất sản phẩm trên các nền tảng thương mại điện tử, giúp khách hàng dễ dàng tìm thấy sản phẩm họ cần.\n\n6. **Marketing tự động và quảng cáo mục tiêu**: Học máy giúp tối ưu hóa chi phí quảng cáo và tăng hiệu quả chiến dịch marketing thông qua việc xác định đối tượng khách hàng mục tiêu và thời điểm triển khai quảng cáo.\n\nNhững ứng dụng này không chỉ giúp doanh nghiệp thương mại điện tử tăng cường năng lực cạnh tranh mà còn tạo ra những mô hình kinh doanh mới và tối ưu hóa nguồn lực.",
+      "output": "Anh Nam, học máy được ứng dụng rất rộng trong thương mại điện tử, chủ yếu để hiểu khách hàng tốt hơn, tự động hóa vận hành và tăng doanh thu. Một số ứng dụng tiêu biểu gồm:\n\n1. Gợi ý sản phẩm cá nhân hóa  \nHệ thống phân tích lịch sử xem hàng, mua hàng, tìm kiếm, giỏ hàng và hành vi của người dùng để đề xuất sản phẩm phù hợp. Ví dụ: “Sản phẩm có thể anh quan tâm”, “Mua kèm thường xuyên”, “Gợi ý dành riêng cho anh”.\n\n2. Tìm kiếm thông minh  \nHọc máy giúp công cụ tìm kiếm hiểu ý định của khách hàng, kể cả khi gõ sai chính tả, dùng từ gần nghĩa hoặc mô tả chưa chính xác. Ví dụ khách tìm “áo đi làm mùa hè”, hệ thống có thể ưu tiên áo sơ mi, áo polo, chất liệu thoáng mát.\n\n3. Cá nhân hóa trải nghiệm mua sắm  \nTrang chủ, banner, mã giảm giá, danh mục sản phẩm và email marketing có thể được tùy chỉnh theo từng nhóm khách hàng hoặc từng cá nhân, giúp tăng khả năng mua hàng.\n\n4. Dự báo nhu cầu và quản lý tồn kho  \nHọc máy có thể dự đoán sản phẩm nào sắp bán chạy dựa trên mùa vụ, xu hướng, lịch sử bán hàng, chiến dịch quảng cáo hoặc sự kiện đặc biệt. Nhờ đó doanh nghiệp nhập hàng hợp lý hơn, hạn chế thiếu hàng hoặc tồn kho quá nhiều.\n\n5. Định giá động  \nHệ thống có thể gợi ý mức giá phù hợp dựa trên nhu cầu thị trường, tồn kho, hành vi mua hàng, thời điểm, khu vực và biên lợi nhuận mong muốn.\n\n6. Phát hiện gian lận  \nHọc máy hỗ trợ nhận diện giao dịch bất thường, tài khoản giả, hành vi hoàn hàng lạm dụng, thanh toán đáng ngờ hoặc đặt hàng ảo.\n\n7. Chatbot và chăm sóc khách hàng tự động  \nChatbot dùng trí tuệ nhân tạo có thể tư vấn sản phẩm, tra cứu đơn hàng, giải đáp câu hỏi thường gặp, hỗ trợ đổi trả và chuyển tiếp cho nhân viên khi cần.\n\n8. Phân khúc khách hàng  \nHọc máy giúp chia khách hàng thành các nhóm như khách mới, khách trung thành, khách có nguy cơ rời bỏ, khách nhạy cảm với giá, khách thích khuyến mãi… Từ đó doanh nghiệp có chiến lược chăm sóc phù hợp.\n\n9. Dự đoán khả năng rời bỏ của khách hàng  \nDựa vào tần suất mua hàng, thời gian không quay lại, mức độ tương tác, phản hồi… hệ thống có thể dự báo khách nào có nguy cơ ngừng mua để doanh nghiệp kịp thời chăm sóc.\n\n10. Tối ưu quảng cáo và tiếp thị  \nHọc máy giúp xác định khách hàng tiềm năng, thời điểm gửi thông điệp, nội dung phù hợp và kênh tiếp cận hiệu quả hơn.\n\nTóm lại, học máy giúp thương mại điện tử chuyển từ bán hàng đại trà sang bán hàng thông minh, cá nhân hóa và tối ưu theo dữ liệu. Nói vui một chút: nếu website “đoán đúng” món anh đang muốn mua thì nhiều khả năng phía sau có học máy đang âm thầm làm việc ạ.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 33661,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_031",
+          "tool_calling_032",
+          "tool_calling_033"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_011",
+      "status": "done",
+      "input": "Cho mình xin thông tin liên hệ của công ty",
+      "reference": "Hiện tại, em không tìm thấy thông tin liên hệ chung của công ty MISA. Tuy nhiên, nếu anh cần liên hệ với các đầu mối sản phẩm cụ thể, em có thể cung cấp thông tin chi tiết về các sản phẩm và người phụ trách. Anh có thể cho em biết sản phẩm hoặc dịch vụ cụ thể mà anh quan tâm để em hỗ trợ thêm nhé!",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"Thông tin liên hệ Công ty Cổ phần MISA địa chỉ hotline email website\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 13548,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_034",
+          "tool_calling_035",
+          "tool_calling_036"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_012",
+      "status": "done",
+      "input": "Thời tiết Hà Nội quý 1 thế nào?",
+      "reference": "Em xin lỗi, hiện tại em chỉ có thông tin thời tiết của Hà Nội cho ngày hôm nay, không có thông tin chi tiết cho cả quý 1. Hôm nay, thời tiết ở Hà Nội có mây rải rác với nhiệt độ khoảng 21°C.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\":\"Thời tiết Hà Nội quý 1 tháng 1 tháng 2 tháng 3 đặc điểm khí hậu\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 17288,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_037",
+          "tool_calling_038",
+          "tool_calling_039"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_013",
+      "status": "done",
+      "input": "Tôi nghe nói học nghề điện lạnh cũng khá hot, bạn có thông tin gì về ngành này không?",
+      "reference": "Ngành điện lạnh hiện nay đang có nhu cầu nhân lực cao và mang lại nhiều cơ hội việc làm hấp dẫn. Với sự gia tăng của các thiết bị điện lạnh trong cuộc sống hàng ngày, việc học nghề điện lạnh trở thành một lựa chọn hấp dẫn cho nhiều bạn trẻ. Dưới đây là một số thông tin về ngành này:\n\n1. **Cơ hội việc làm**: Ngành điện lạnh cung cấp nhiều vị trí việc làm như thợ điện lạnh, kỹ thuật viên điện lạnh, chuyên viên điện lạnh, và quản lý kỹ thuật điện lạnh. Các công việc này thường liên quan đến lắp đặt, bảo trì, và sửa chữa các hệ thống điện lạnh trong các tòa nhà, trung tâm thương mại, và các công ty.\n\n2. **Nhu cầu nhân lực**: Ngành điện lạnh đang thiếu hụt nhân lực, với tỷ lệ cung – cầu chỉ khoảng 30%. Điều này có nghĩa là có nhiều cơ hội việc làm và thăng tiến cho những ai theo đuổi ngành này.\n\n3. **Thu nhập và phát triển**: Nghề điện lạnh không chỉ mang lại thu nhập ổn định và cao, mà còn giúp phát triển kỹ năng, kiến thức và sáng tạo trong công việc. Bạn sẽ có cơ hội làm việc với nhiều khách hàng khác nhau và học hỏi từ những người có chuyên môn trong ngành.\n\n4. **Kỹ năng cần thiết**: Công việc trong ngành điện lạnh đòi hỏi kiến thức chuyên môn về các hệ thống điện lạnh, kỹ năng kỹ thuật, khả năng phân tích và giải quyết vấn đề, kỹ năng giao tiếp, và khả năng làm việc độc lập cũng như theo nhóm.\n\nVới những thông tin trên, ngành điện lạnh là một lựa chọn hứa hẹn cho những ai muốn theo đuổi sự nghiệp trong lĩnh vực này.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"thông tin ngành nghề điện lạnh học nghề điện lạnh cơ hội việc làm thu nhập kỹ năng cần có Việt Nam\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 16210,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_040",
+          "tool_calling_041",
+          "tool_calling_042"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_014",
+      "status": "done",
+      "input": "Quy định về tăng lương của công ty?",
+      "reference": "Quy định về tăng lương tại MISA JSC như sau:\n\n1. **Kỳ xem xét tăng lương:** MISA có 2 kỳ review đãi ngộ vào tháng 4 và tháng 10 hàng năm. Trong mỗi kỳ, dựa vào năng suất của từng cán bộ nhân viên (CBNV), mức lương hiện tại so với mặt bằng chung của thị trường và quỹ lương cho việc điều chỉnh, Ban lãnh đạo sẽ xem xét để xác định mức tăng cho từng CBNV.\n\n2. **Điều kiện để được tăng lương:** Để được tăng lương, CBNV cần làm tốt công việc của mình để có năng suất tốt và nhiều tháng được đánh giá đạt yêu cầu.\n\n3. **Thời điểm áp dụng:** Mức đãi ngộ điều chỉnh sẽ được áp dụng vào kỳ lương tháng 4 và tháng 10.\n\nChị có thể tham khảo thêm chi tiết tại quy trình xem xét lại chế độ đãi ngộ tại [đây](https://misajsc.amis.vn/Notes/3342?pageid=66556).",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"Quy định tăng lương công ty MISA chính sách tăng lương\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 100
+      },
+      "durationMs": 17850,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_043",
+          "tool_calling_044",
+          "tool_calling_045"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_015",
+      "status": "done",
+      "input": "Okay. Vậy cho tôi biết giá vàng và thời tiết ở New York",
+      "reference": "Hiện tại, em không có thông tin về thời tiết ở New York. Còn về giá vàng, ở Hà Nội, giá mua là 94,400,000 VNĐ/cây và giá bán là 97,400,000 VNĐ/cây. Nếu anh cần thêm thông tin gì khác, xin hãy cho em biết nhé!",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "GetGoldAndWeather",
+            "arguments": "{\"query\":\"giá vàng hôm nay và thời tiết hiện tại ở New York ngày 21/09/2024\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 50
+      },
+      "durationMs": 15801,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_046",
+          "tool_calling_047",
+          "tool_calling_048"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_016",
+      "status": "done",
+      "input": "giúp tôi lên bút toán chuyển tiền học phí sang tài khoản tiền gửi",
+      "reference": "Bút toán chuyển tiền học phí sang tài khoản tiền gửi:\n\nNợ TK 112 - Tiền gửi ngân hàng  \nCó TK 111 - Tiền mặt (hoặc TK 131 - Phải thu của khách hàng, nếu chuyển từ công nợ học phí)\n\nNếu cần hướng dẫn chi tiết trên phần mềm, vui lòng liên hệ bộ phận support của MISA để được hỗ trợ.",
+      "output": "Dạ anh Nam, nếu ý anh là **chuyển/nhận tiền học phí vào tài khoản tiền gửi ngân hàng**, anh có thể lên bút toán theo từng tình huống như sau:\n\n**1. Nếu thu học phí bằng tiền mặt rồi nộp vào tài khoản ngân hàng**  \nBút toán khi nộp tiền vào ngân hàng:\n\n- Nợ TK 112: Tiền gửi ngân hàng  \n- Có TK 111: Tiền mặt  \n\n**2. Nếu học viên/phụ huynh chuyển khoản học phí trực tiếp vào ngân hàng**  \nNếu ghi nhận doanh thu ngay khi thu tiền:\n\n- Nợ TK 112: Tiền gửi ngân hàng  \n- Có TK 511: Doanh thu cung cấp dịch vụ  \n- Có TK 3331: Thuế giá trị gia tăng phải nộp, nếu có\n\n**3. Nếu trước đó đã ghi nhận phải thu học phí**  \nKhi nhận được tiền chuyển khoản:\n\n- Nợ TK 112: Tiền gửi ngân hàng  \n- Có TK 131: Phải thu của khách hàng/học viên\n\n**4. Nếu khoản học phí thu trước cho kỳ học/dịch vụ chưa cung cấp ngay**  \nKhi nhận tiền:\n\n- Nợ TK 112: Tiền gửi ngân hàng  \n- Có TK 3387: Doanh thu chưa thực hiện  \n- Có TK 3331: Thuế giá trị gia tăng phải nộp, nếu có\n\nSau đó khi phân bổ doanh thu theo kỳ:\n\n- Nợ TK 3387: Doanh thu chưa thực hiện  \n- Có TK 511: Doanh thu cung cấp dịch vụ\n\nAnh cho em hỏi thêm: khoản này là **nộp tiền mặt học phí vào ngân hàng**, hay là **khách hàng chuyển khoản học phí trực tiếp** ạ? Em sẽ giúp anh chốt đúng bút toán theo trường hợp cụ thể.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 100
+      },
+      "durationMs": 25116,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_049",
+          "tool_calling_050",
+          "tool_calling_051"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_017",
+      "status": "done",
+      "input": "chị cần hôc trợ báo cáo kết quả hoạt động",
+      "reference": "Chị vui lòng cho biết rõ hơn về phần mềm hoặc nghiệp vụ chị đang sử dụng để em hỗ trợ chính xác. Nếu cần hướng dẫn chi tiết, chị có thể liên hệ bộ phận support của MISA để được trợ giúp nhanh chóng.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"hỗ trợ báo cáo kết quả hoạt động MISA hướng dẫn lập báo cáo kết quả hoạt động\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 17155,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_052",
+          "tool_calling_053",
+          "tool_calling_054"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_018",
+      "status": "done",
+      "input": "Hỗ trợ sử dụng phần mềm",
+      "reference": "Chào bạn, bạn cần hỗ trợ sử dụng phần mềm nào của MISA và gặp vấn đề gì? Vui lòng cung cấp thêm thông tin chi tiết để mình hỗ trợ bạn tốt nhất. Nếu cần hướng dẫn chi tiết, bạn có thể liên hệ bộ phận support của MISA để được trợ giúp nhanh chóng.",
+      "output": "Dạ vâng anh Nam, em sẵn sàng hỗ trợ anh sử dụng phần mềm ạ.\n\nAnh cho em xin thêm một chút thông tin để hỗ trợ đúng nhu cầu nhé:\n\n1. Anh đang dùng phần mềm nào của MISA ạ?  \n   Ví dụ: MISA AMIS Kế toán, MISA SME, hóa đơn điện tử, bán hàng, nhân sự…\n\n2. Anh cần hỗ trợ thao tác gì?  \n   Ví dụ:\n   - Lập báo cáo tài chính\n   - Thiết lập kỳ báo cáo từ 01/01/2025 đến 31/12/2025\n   - Kiểm tra số liệu trước khi lên báo cáo\n   - Kết chuyển lãi lỗ\n   - In hoặc nộp báo cáo\n   - Xử lý lỗi khi xem báo cáo\n\n3. Phần mềm đang báo lỗi gì không ạ? Nếu có, anh gửi giúp em nội dung lỗi hoặc ảnh chụp màn hình.\n\nAnh chỉ cần mô tả ngắn gọn tình huống, em sẽ hướng dẫn từng bước cho anh ạ.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 27102,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_055",
+          "tool_calling_056",
+          "tool_calling_057"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_019",
+      "status": "done",
+      "input": "Hướng dẫn cách nhập số dư đầu kỳ",
+      "reference": "Để nhập số dư đầu kỳ, bạn thực hiện như sau:\n\n1. Vào phân hệ “Nhập số dư ban đầu” trên phần mềm.\n2. Chọn loại số dư cần nhập (tài khoản, công nợ, vật tư hàng hóa…).\n3. Nhập thông tin chi tiết về số dư cho từng đối tượng.\n4. Kiểm tra lại số liệu và lưu lại.\n\nNếu cần hướng dẫn chi tiết cho từng phần mềm cụ thể, vui lòng liên hệ bộ phận hỗ trợ của MISA để được trợ giúp.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"Hướng dẫn cách nhập số dư đầu kỳ MISA ngân sách rút dự toán bảng đối chiếu tình hình sử dụng ngân sách\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 9774,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_058",
+          "tool_calling_059",
+          "tool_calling_060"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_020",
+      "status": "done",
+      "input": "Xem nhanh số liệu, báo cáo",
+      "reference": "Để xem nhanh số liệu và báo cáo, bạn vui lòng truy cập vào mục “Báo cáo” trên phần mềm. Nếu cần hướng dẫn chi tiết, bạn có thể liên hệ bộ phận support của MISA để được hỗ trợ.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"Xem nhanh số liệu báo cáo MISA điều chỉnh thống kê hoạt động lên báo cáo tài chính\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 11304,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_061",
+          "tool_calling_062",
+          "tool_calling_063"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_021",
+      "status": "done",
+      "input": "Giúp tôi tạo chứng từ chuyển khoản thanh toán hóa đơn điện cho văn phòng, tài khoản sử dụng là 12110000999999.",
+      "reference": "AVA sẽ tạo chứng từ chuyển khoản thanh toán hóa đơn điện cho văn phòng từ tài khoản 12110000999999.",
+      "output": "Anh Nam ơi, em có thể hỗ trợ anh chuẩn bị chứng từ, tuy nhiên hiện em chưa có quyền thao tác trực tiếp để tạo chứng từ trên hệ thống thay anh.\n\nVới nghiệp vụ “chuyển khoản thanh toán hóa đơn điện cho văn phòng”, em đề xuất nội dung chứng từ như sau:\n\n**Loại chứng từ:** Chuyển khoản thanh toán  \n**Nội dung:** Thanh toán hóa đơn tiền điện văn phòng  \n**Tài khoản sử dụng:** 12110000999999  \n**Đối tượng nhận tiền:** Đơn vị cung cấp điện  \n**Diễn giải:** Chuyển khoản thanh toán hóa đơn tiền điện văn phòng  \n**Hình thức thanh toán:** Chuyển khoản  \n\nĐể lập chứng từ đầy đủ, anh vui lòng cung cấp thêm giúp em các thông tin sau:\n\n1. **Số tiền thanh toán**\n2. **Ngày chứng từ/ngày hạch toán**\n3. **Tên đơn vị cung cấp điện**\n4. **Số hóa đơn, ký hiệu hóa đơn nếu có**\n5. **Tháng thanh toán** — có phải tiền điện tháng 5 không ạ?\n6. **Tài khoản nhận tiền của nhà cung cấp**\n7. **Thông tin hạch toán** nếu đơn vị anh có quy định riêng\n\nSau khi anh gửi thêm thông tin, em sẽ giúp anh soạn nội dung chứng từ hoàn chỉnh để anh nhập nhanh vào phần mềm MISA.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 24767,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_064",
+          "tool_calling_065",
+          "tool_calling_066"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_022",
+      "status": "done",
+      "input": "Sinh chứng từ chuyển khoản tiền nước quý 2 cho công ty TNHH Môi Trường, dùng tài khoản 987654321 tại BIDV.",
+      "reference": "Chứng từ chuyển khoản tiền nước quý 2 cho công ty TNHH Môi Trường đã được tạo từ tài khoản 987654321 tại BIDV.",
+      "output": "Dạ Anh Nam, em có thể hỗ trợ Anh lập **dự thảo chứng từ chuyển khoản tiền nước quý 2/2024** như sau:\n\n**Thông tin chứng từ đề xuất**\n\n- **Loại chứng từ**: Chứng từ chuyển khoản thanh toán tiền nước  \n- **Nội dung thanh toán**: Thanh toán tiền nước quý 2/2024  \n- **Đơn vị nhận tiền**: Công ty TNHH Môi Trường  \n- **Hình thức thanh toán**: Chuyển khoản  \n- **Ngân hàng nhận**: Ngân hàng Đầu tư và Phát triển Việt Nam  \n- **Số tài khoản nhận**: 987654321  \n- **Diễn giải**: Chuyển khoản thanh toán tiền nước quý 2/2024 cho Công ty TNHH Môi Trường  \n- **Ngày chứng từ**: Anh vui lòng xác nhận ngày lập chứng từ  \n- **Số tiền**: Anh vui lòng cung cấp số tiền cần thanh toán  \n- **Tài khoản nguồn/chi**: Anh vui lòng cung cấp tài khoản ngân hàng hoặc tài khoản kho bạc dùng để chuyển tiền, nếu có yêu cầu cụ thể  \n\nĐể em hoàn thiện chứng từ chính xác hơn, Anh cho em xin thêm 3 thông tin nhé:\n\n1. **Số tiền thanh toán** là bao nhiêu ạ?  \n2. **Ngày lập chứng từ** Anh muốn ghi ngày nào?  \n3. Đây là chứng từ trên phần mềm nào của MISA hoặc nghiệp vụ nào: **rút dự toán**, **ủy nhiệm chi**, hay **phiếu chi chuyển khoản** ạ?",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 43837,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_067",
+          "tool_calling_068",
+          "tool_calling_069"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_023",
+      "status": "done",
+      "input": "Tôi muốn tạo chứng từ chuyển khoản trả tiền điện thoại văn phòng, dùng tài khoản ngân hàng 21510000009876.",
+      "reference": "Đã tạo chứng từ chuyển khoản thanh toán tiền điện thoại văn phòng từ tài khoản 21510000009876.",
+      "output": "Dạ anh Nam, em có thể hỗ trợ anh lập nội dung chứng từ, tuy nhiên hiện em chưa thể tạo trực tiếp chứng từ trên phần mềm nếu anh chưa cung cấp đủ thông tin bắt buộc.\n\nVới thông tin anh đã đưa, em ghi nhận:\n\n• Nghiệp vụ: Chuyển khoản trả tiền điện thoại văn phòng  \n• Tài khoản ngân hàng sử dụng: 21510000009876  \n• Nội dung chứng từ gợi ý: Chuyển khoản thanh toán tiền điện thoại văn phòng  \n• Hình thức thanh toán: Chuyển khoản\n\nĐể lập chứng từ đầy đủ, anh vui lòng bổ sung giúp em một số thông tin sau:\n\n1. Kỳ thanh toán: tháng mấy, năm nào?  \n2. Số tiền thanh toán là bao nhiêu?  \n3. Đơn vị nhận tiền hoặc nhà cung cấp dịch vụ viễn thông?  \n4. Số hóa đơn, ngày hóa đơn nếu có?  \n5. Ngày hạch toán, ngày chứng từ?  \n6. Nguồn kinh phí, chương, khoản, mục, tiểu mục nếu đơn vị anh quản lý theo ngân sách?  \n7. Anh muốn lập loại chứng từ nào:  \n   • Rút dự toán chuyển khoản  \n   • Chuyển khoản kho bạc  \n   • Ủy nhiệm chi  \n   • Chứng từ nghiệp vụ khác trên phần mềm MISA\n\nNếu anh gửi thêm các thông tin trên, em sẽ soạn sẵn nội dung chứng từ chi tiết để anh nhập vào phần mềm MISA nhanh nhất ạ.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 28959,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_070",
+          "tool_calling_071",
+          "tool_calling_072"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_024",
+      "status": "done",
+      "input": "Làm giúp tôi chứng từ thanh toán lương quý 2/2024 cho bộ phận Hành chính, chuyển vào tài khoản 987654321 ngân hàng BIDV.",
+      "reference": "AVA sẽ lập chứng từ thanh toán lương quý 2/2024 cho bộ phận Hành chính qua tài khoản 987654321 tại BIDV.",
+      "output": "Anh Nam, em lập nháp chứng từ thanh toán lương quý 2/2024 như sau ạ:\n\n**Chứng từ chuyển khoản thanh toán lương**\n\n- **Loại chứng từ:** Thanh toán lương qua chuyển khoản  \n- **Nội dung:** Thanh toán lương quý 2/2024 cho bộ phận Hành chính  \n- **Kỳ lương:** Quý 2/2024, gồm tháng 04/2024, 05/2024, 06/2024  \n- **Bộ phận:** Hành chính  \n- **Hình thức thanh toán:** Chuyển khoản  \n- **Tài khoản nhận:** 987654321  \n- **Ngân hàng nhận:** Ngân hàng TMCP Đầu tư và Phát triển Việt Nam  \n- **Ngày chứng từ:** Anh vui lòng xác nhận ngày lập chứng từ  \n- **Số tiền:** Anh vui lòng cung cấp tổng số tiền lương cần thanh toán  \n- **Người nhận/đơn vị nhận:** Anh vui lòng cung cấp tên người nhận hoặc danh sách nhân sự nhận lương nếu cần chi tiết theo từng người  \n\n**Hạch toán đề xuất:**\n\n- **Nợ TK 334:** Phải trả người lao động  \n- **Có TK 112:** Tiền gửi ngân hàng  \n\n**Diễn giải hạch toán:**  \nThanh toán lương quý 2/2024 cho bộ phận Hành chính qua tài khoản 987654321 tại Ngân hàng TMCP Đầu tư và Phát triển Việt Nam.\n\nAnh Nam gửi thêm giúp em **số tiền**, **ngày chứng từ** và nếu cần thì **danh sách nhân viên nhận lương**, em sẽ hoàn thiện chứng từ đầy đủ cho anh ạ.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 58815,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_073",
+          "tool_calling_074",
+          "tool_calling_075"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_025",
+      "status": "done",
+      "input": "Lập chứng từ rút dự toán chuyển khoản để thanh toán bảo hiểm xã hội cho nhân viên tháng 5 từ tài khoản 1121.",
+      "reference": "Đã lập chứng từ rút dự toán chuyển khoản thanh toán bảo hiểm xã hội cho nhân viên tháng 5 từ tài khoản 1121.",
+      "output": "Anh Nam ơi, hiện em chưa có quyền thao tác trực tiếp để lập chứng từ trên phần mềm thay anh. Tuy nhiên, em có thể hỗ trợ anh soạn nội dung chứng từ rút dự toán chuyển khoản như sau:\n\nThông tin chứng từ dự kiến:\n\n- Loại chứng từ: Chứng từ rút dự toán chuyển khoản\n- Nội dung: Rút dự toán chuyển khoản để thanh toán bảo hiểm xã hội cho nhân viên tháng 5\n- Tài khoản chi: 1121\n- Đối tượng nhận tiền: Cơ quan bảo hiểm xã hội\n- Hình thức thanh toán: Chuyển khoản\n- Diễn giải: Thanh toán bảo hiểm xã hội cho nhân viên tháng 5\n\nĐể lập chứng từ đầy đủ, anh vui lòng bổ sung giúp em một số thông tin còn thiếu:\n\n1. Số tiền thanh toán bảo hiểm xã hội tháng 5  \n2. Tài khoản nhận tiền của cơ quan bảo hiểm xã hội  \n3. Ngân hàng/Kho bạc nơi nhận  \n4. Ngày chứng từ, ngày hạch toán  \n5. Nguồn kinh phí, chương, khoản, mục/tiểu mục nếu đơn vị đang theo dõi ngân sách  \n6. Có tách chi tiết theo từng khoản bảo hiểm không: bảo hiểm xã hội, bảo hiểm y tế, bảo hiểm thất nghiệp, kinh phí công đoàn\n\nSau khi anh cung cấp các thông tin trên, em sẽ giúp anh soạn đầy đủ nội dung hạch toán/chứng từ để anh nhập nhanh vào phần mềm MISA.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 46328,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_076",
+          "tool_calling_077",
+          "tool_calling_078"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_026",
+      "status": "done",
+      "input": "Thêm khách hàng mới tên là Công ty TNHH Thương mại Hải Đăng, mã KH0023, địa chỉ 45 Nguyễn Văn Linh, Đà Nẵng.",
+      "reference": "Đã thêm khách hàng Công ty TNHH Thương mại Hải Đăng với mã KH0023.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"hướng dẫn thêm khách hàng mới mã khách hàng địa chỉ MISA\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 13040,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_079",
+          "tool_calling_080",
+          "tool_calling_081"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_027",
+      "status": "done",
+      "input": "Tôi muốn thêm đối tượng nhà cung cấp: Công ty TNHH An Phước, mã NCC301, địa chỉ: 88 Nguyễn Trãi, Quận 1, TP.HCM.",
+      "reference": "Đã thêm nhà cung cấp Công ty TNHH An Phước với mã NCC301.",
+      "output": "Dạ anh Nam, em đã ghi nhận thông tin nhà cung cấp cần thêm:\n\n• Loại đối tượng: Nhà cung cấp  \n• Mã nhà cung cấp: NCC301  \n• Tên nhà cung cấp: Công ty TNHH An Phước  \n• Địa chỉ: 88 Nguyễn Trãi, Quận 1, TP.HCM  \n\nHiện tại em chưa có quyền thao tác trực tiếp để tạo mới dữ liệu trên hệ thống cho anh. Anh có thể nhập theo thông tin trên vào phần danh mục Nhà cung cấp trên phần mềm MISA.\n\nNếu anh muốn, em có thể hỗ trợ anh soạn sẵn dữ liệu theo mẫu để import hàng loạt vào phần mềm.",
+      "tool_calls": [],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 39357,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_082",
+          "tool_calling_083",
+          "tool_calling_084"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_028",
+      "status": "done",
+      "input": "Báo cáo thực hiện kế hoạch ngân sách",
+      "reference": "Sau đây là báo cáo thực hiện kế hoạch ngân sách.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"Báo cáo thực hiện kế hoạch ngân sách\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 15392,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_085",
+          "tool_calling_086",
+          "tool_calling_087"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_029",
+      "status": "done",
+      "input": "Tình hình số dư tiền gửi ngân hàng thế nào?",
+      "reference": "Bạn vui lòng xem tình hình số dư tiền gửi tại đây.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"Tình hình số dư tiền gửi ngân hàng hiện tại báo cáo số dư tiền gửi ngân hàng MISA\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 14878,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_088",
+          "tool_calling_089",
+          "tool_calling_090"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_030",
+      "status": "done",
+      "input": "Tôi muốn biết cách nhập số dư đầu kỳ trong MIMOSA, hướng dẫn giúp tôi.",
+      "reference": "Bạn truy cập menu Tiện ích > Nhập số dư đầu kỳ và nhập thông tin theo hướng dẫn.",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"hướng dẫn nhập số dư đầu kỳ trong MISA MIMOSA\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 8334,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_091",
+          "tool_calling_092",
+          "tool_calling_093"
+        ]
+      }
+    },
+    {
+      "id": "mtt_ava_031",
+      "status": "done",
+      "input": "Chỉ tôi cách sử dụng phần mềm MIMOSA với nhé",
+      "reference": "Bạn muốn hướng dẫn sử dụng tính năng nào của phần mềm MIMOSA? Mình sẵn sàng hỗ trợ!",
+      "output": "",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "MISASearchKnowledge",
+            "arguments": "{\"query\":\"hướng dẫn sử dụng phần mềm MISA Mimosa\"}"
+          }
+        }
+      ],
+      "scores": {
+        "tool_call_exact_sequence": 0
+      },
+      "durationMs": 17926,
+      "metadata": {
+        "difficulty": "medium",
+        "tags": [
+          "synthetic",
+          "multi_turn_tool",
+          "adapted_from_ava"
+        ],
+        "source_records": [
+          "tool_calling_094",
+          "tool_calling_095",
+          "tool_calling_096"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "runId": "9e8c94a0-4030-4c4b-b633-d13bbbdfcb94",
+  "model": "misa-ai-1.0-plus",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 03:55:37",
+  "durationMs": 2026118,
+  "tasks": {
+    "htkh_rag_qa": {
+      "faithfulness": 83,
+      "answer_relevancy": 89.2
+    }
+  }
+}

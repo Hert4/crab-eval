@@ -1,0 +1,12 @@
+{
+  "runId": "e669a9c8-96f8-4099-bc43-627c2307d2f7",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 08:21:35",
+  "durationMs": 39904,
+  "tasks": {
+    "htkh_intent_routing": {
+      "accuracy": 68.18
+    }
+  }
+}

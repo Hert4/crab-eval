@@ -1,0 +1,35 @@
+{
+  "runId": "707b1913-75ef-4c27-84f4-beb52424788d",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:59:26",
+  "durationMs": 760270,
+  "tasks": {
+    "ava_tool_calling": {
+      "ast_accuracy": 91.5,
+      "task_success_rate": 89.8
+    },
+    "crm_intent_analysis": {
+      "accuracy": 82.46
+    },
+    "crm_recommendation": {
+      "list_match": 68.27
+    },
+    "crmmisa_dashboard": {
+      "token_f1": 50.3
+    },
+    "htkh_intent_classification": {
+      "accuracy": 96.67
+    },
+    "htkh_intent_routing": {
+      "accuracy": 67.53
+    },
+    "makt_forecast": {
+      "list_match": 89.6
+    },
+    "htkh_rag_qa": {
+      "faithfulness": 86.47,
+      "answer_relevancy": 86.78
+    }
+  }
+}

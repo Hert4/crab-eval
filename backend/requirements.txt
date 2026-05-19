@@ -1,8 +1,0 @@
-# Core dependencies for EnvScaler backend API
-pydantic
-python-dotenv
-openai
-fastapi
-uvicorn[standard]
-jsonpickle
-numpy
