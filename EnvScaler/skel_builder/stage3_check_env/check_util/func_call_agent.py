@@ -241,7 +241,7 @@ class FuncCallAgent:
             tool_brief_info=self.brief_tool_info)
         return input_content
     
-    def gen_func_call_request(self, current_state):
+    def gen_func_call_request(self, current_state, api_key=None, base_url=None):
         """Generate function call request using LLM, retry if parsing fails."""
         input_content = self.get_input(current_state)
         input_message = [{'role': 'system', 'content': self.system_prompt}, {"role": "user", "content": input_content}]
@@ -253,7 +253,10 @@ class FuncCallAgent:
                 provider="openai",
                 model=self.model, 
                 temperature=self.temperature, 
-                messages=input_message)
+                messages=input_message,
+                api_key=api_key,
+                base_url=base_url
+                )
             parsed_success, func_call_request = parse_response(response)
             if parsed_success:
                 break
