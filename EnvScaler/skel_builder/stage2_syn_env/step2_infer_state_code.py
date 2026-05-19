@@ -157,7 +157,7 @@ def construct_messages(env_item):
     return messages
 
 
-def llm_infer(messages, model):
+def llm_infer(messages, model, api_key=None, base_url=None):
     """Generate class definition using LLM with retry mechanism."""
     cur_try = 0
     max_try = 5
@@ -167,7 +167,9 @@ def llm_infer(messages, model):
         response = llm_inference(
             provider="openai",
             model=model,
-            messages=messages
+            messages=messages,
+            api_key=api_key,
+            base_url=base_url
         )
         parse_success, class_definition = parse_response(response)
         if parse_success:
@@ -176,11 +178,11 @@ def llm_infer(messages, model):
     return class_definition
 
 
-def process_env_item(env_item, model):
+def process_env_item(env_item, model, api_key=None, base_url=None):
     """Process a single environment item to generate class definition."""
     new_env_item = deepcopy(env_item)
     messages = construct_messages(env_item)
-    class_definition = llm_infer(messages, model)
+    class_definition = llm_infer(messages, model, api_key=api_key, base_url=base_url)
     new_env_item["class_definition"] = class_definition
     return new_env_item
 

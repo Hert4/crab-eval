@@ -11,10 +11,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def llm_inference(provider: str, model: str, messages: List[dict], temperature: float = None, stop_strs: Optional[List[str]] = None, max_tokens: int = None):
+def llm_inference(provider: str, model: str, messages: List[dict], temperature: float = None, stop_strs: Optional[List[str]] = None, max_tokens: int = None, api_key: str = None, base_url: str = None):
     """Call LLM with different providers."""
     if provider == "openai":
-        return openai_llm_inference(model, messages, temperature, stop_strs, max_tokens)
+        return openai_llm_inference(model, messages, temperature, stop_strs, max_tokens, api_key=api_key, base_url=base_url)
     else:
         # add other provider here
         raise ValueError(f"Invalid provider: {provider}")
@@ -24,15 +24,17 @@ def openai_llm_inference(
     messages: List[dict],
     temperature: float = None,
     stop_strs: Optional[List[str]] = None,
-    max_tokens: int = None
+    max_tokens: int = None,
+    api_key: str = None,
+    base_url: str = None
 ):
     """Call OpenAI LLM API with retry mechanism."""
     client = OpenAI(
-        api_key=os.getenv("OPENAI_API_KEY"),
-        base_url=os.getenv("OPENAI_BASE_URL")
+        api_key=api_key,
+        base_url=base_url
     )
     retries = 0
-    max_retries = 5
+    max_retries = 3
     while retries < max_retries:
         try:
             if 'gpt-5' in model:
@@ -51,6 +53,7 @@ def openai_llm_inference(
                     temperature=temperature,
                     max_tokens=max_tokens
                 )
+                print(f"LLM response: {response}")
                 output = response.choices[0].message.content
                 return output
         # except KeyboardInterrupt:
@@ -66,8 +69,8 @@ def openai_llm_inference(
 def openai_single_embedding_inference(model: str, text: str) -> List[float]:
     """Get embedding for a single text using OpenAI API with retry mechanism."""
     client = OpenAI(
-        api_key=os.getenv("OPENAI_API_KEY"),
-        base_url=os.getenv("OPENAI_BASE_URL"),
+        api_key=api_key,
+        base_url=base_url,
     )
     retries = 0
     max_retries = 5
@@ -91,8 +94,8 @@ def openai_single_embedding_inference(model: str, text: str) -> List[float]:
 def openai_batch_embedding_inference(model: str, texts: List[str]) -> List[List[float]]:
     """Get embeddings for multiple texts using OpenAI API with retry mechanism."""
     client = OpenAI(
-        api_key=os.getenv("OPENAI_API_KEY"),
-        base_url=os.getenv("OPENAI_BASE_URL"),
+        api_key=api_key,
+        base_url=base_url,
     )
     retries = 0
     max_retries = 5
@@ -111,22 +114,22 @@ def openai_batch_embedding_inference(model: str, texts: List[str]) -> List[List[
     return []
 
 
-# if __name__ == "__main__":
-#     # Test LLM inference
-#     # messages = [{'role': 'user', 'content': "Introduce yourself."}]
-#     # response = openai_llm_inference(model="gpt-4.1", messages=messages, temperature=0)
-#     # print(response)
-#
-#     # Test embedding inference
-#     # text = "Hello, world!"
-#     # embedding = openai_single_embedding_inference(model="text-embedding-3-large", text=text)
-#     # print(embedding)
-#     # print(type(embedding))
-#     # print(len(embedding))
-#
-#     # Test batch embedding inference
-#     # texts = ["Hello, world!", "Hello, china!", "Hello, america!"]
-#     # embeddings = openai_batch_embedding_inference(model="text-embedding-3-large", texts=texts)
-#     # print(embeddings)
-#     # print(type(embeddings))
-#     # print(len(embeddings))
+if __name__ == "__main__":
+    # Test LLM inference
+    messages = [{'role': 'user', 'content': "Introduce yourself."}]
+    response = openai_llm_inference(model="gpt-4.1", messages=messages, temperature=0)
+    print(response)
+
+    # Test embedding inference
+    # text = "Hello, world!"
+    # embedding = openai_single_embedding_inference(model="text-embedding-3-large", text=text)
+    # print(embedding)
+    # print(type(embedding))
+    # print(len(embedding))
+
+    # Test batch embedding inference
+    # texts = ["Hello, world!", "Hello, china!", "Hello, america!"]
+    # embeddings = openai_batch_embedding_inference(model="text-embedding-3-large", texts=texts)
+    # print(embeddings)
+    # print(type(embeddings))
+    # print(len(embeddings))

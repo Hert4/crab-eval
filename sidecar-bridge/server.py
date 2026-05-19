@@ -2,7 +2,7 @@
 FastAPI server exposing EnvScaler evaluation as a REST API for crab-eval.
 
 Start with:
-    cd backend
+    cd sidecar-bridge
     uvicorn server:app --port 8000
 """
 import asyncio
@@ -38,31 +38,20 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 
-def _worker_wrapper(record, model, provider, infer_mode, enable_thinking, max_steps, temperature, api_key, base_url, custom_headers):
-    import os
-    if api_key:
-        os.environ["OPENAI_API_KEY"] = api_key
-    elif "OPENAI_API_KEY" in os.environ:
-        del os.environ["OPENAI_API_KEY"]
-        
-    if base_url:
-        os.environ["OPENAI_BASE_URL"] = base_url
-    elif "OPENAI_BASE_URL" in os.environ:
-        del os.environ["OPENAI_BASE_URL"]
-        
+def _worker_wrapper(record, model, model_provider, infer_mode, enable_thinking, max_steps, temperature, api_key, base_url, custom_headers):
     from server_runner import run_record
     return run_record(
-    record=record,
-    model=model,
-    provider=provider,
-    infer_mode=infer_mode,
-    enable_thinking=enable_thinking,
-    max_steps=max_steps,
-    temperature=temperature,
-    api_key=api_key,
-    base_url=base_url,
-    custom_headers=custom_headers,
-)
+        record=record,
+        model=model,
+        model_provider=model_provider,
+        infer_mode=infer_mode,
+        enable_thinking=enable_thinking,
+        max_steps=max_steps,
+        temperature=temperature,
+        api_key=api_key,
+        base_url=base_url,
+        custom_headers=custom_headers
+    )
 
 
 @app.get("/envscaler/health")

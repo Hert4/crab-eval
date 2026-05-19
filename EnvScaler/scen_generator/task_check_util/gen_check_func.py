@@ -96,7 +96,7 @@ def parse_check_func(llm_output: str) -> Tuple[bool, str]:
     else:
         return False, ""
 
-def gen_check_func(model: str, init_config: dict, task: str, env_introduction: str, check_item: str) -> str:
+def gen_check_func(model: str, init_config: dict, task: str, env_introduction: str, check_item: str, api_key=None, base_url=None) -> str:
     """Generate check function for the given task using LLM."""
     init_config_str = json.dumps(init_config, indent=4)
     input_content = input_template.format(
@@ -112,7 +112,7 @@ def gen_check_func(model: str, init_config: dict, task: str, env_introduction: s
     max_try = 5
     while cur_try < max_try:
         cur_try += 1
-        output_text = llm_inference(provider="openai", model=model, messages=messages)
+        output_text = llm_inference(provider="openai", model=model, messages=messages, api_key=api_key, base_url=base_url)
         parse_success, check_func = parse_check_func(output_text)
         if parse_success:
             break

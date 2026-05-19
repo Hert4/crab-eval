@@ -1,5 +1,5 @@
 from typing import Any, Optional, Dict, List
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 # ─── Request models ───────────────────────────────────────────────────────────
@@ -7,17 +7,15 @@ from pydantic import BaseModel, Field
 class RecordMetadata(BaseModel):
     env_id: Optional[str] = None
     init_config: Optional[Dict[str, Any]] = None
-
-    class Config:
-        extra = "allow"
+    model_config = {"extra": "allow"}
 
 
 class RecordInput(BaseModel):
     id: str
     input: str
-    tools: List[Dict[str, Any]] = Field(default_factory=list)
-    conversation_history: List[Dict[str, Any]] = Field(default_factory=list)
-    metadata: RecordMetadata = Field(default_factory=RecordMetadata)
+    tools: List[Dict[str, Any]] = []
+    conversation_history: List[Dict[str, Any]] = []
+    metadata: RecordMetadata = RecordMetadata()
 
 
 class EvalConfig(BaseModel):
@@ -36,7 +34,7 @@ class RunRequest(BaseModel):
     base_url: Optional[str] = None
     custom_headers: Optional[Dict[str, str]] = None
     records: List[RecordInput]
-    eval_config: EvalConfig = Field(default_factory=EvalConfig)
+    eval_config: EvalConfig = EvalConfig()
 
 
 # ─── Response models ──────────────────────────────────────────────────────────
@@ -52,8 +50,8 @@ class RecordResult(BaseModel):
     score: float          # 0.0 – 1.0
     steps: int = 0
     duration_ms: int = 0
-    trajectory: List[Dict[str, Any]] = Field(default_factory=list)
-    checklist_results: List[ChecklistResult] = Field(default_factory=list)
+    trajectory: List[Dict[str, Any]] = []
+    checklist_results: List[ChecklistResult] = []
     error: Optional[str] = None
 
 

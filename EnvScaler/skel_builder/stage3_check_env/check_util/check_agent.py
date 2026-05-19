@@ -121,7 +121,7 @@ class CheckAgent:
         
         
         
-    def check_func_call(self, func_name, state_before_call, func_params, func_return, state_after_call, state_diff):
+    def check_func_call(self, func_name, state_before_call, func_params, func_return, state_after_call, state_diff, api_key=None, base_url=None):
         """Check method call behavior using LLM, retry up to max_check_try times if parsing fails."""
         input_content = self.format_input(func_name, state_before_call, func_params, func_return, state_after_call, state_diff)
         input_message = [{"role": "user", "content": input_content}]
@@ -129,7 +129,7 @@ class CheckAgent:
         max_check_try = 5
         # Retry if response parsing fails
         while cur_check_try < max_check_try:
-            response = llm_inference(provider="openai", model=self.model, messages=input_message, temperature=self.temperature)
+            response = llm_inference(provider="openai", model=self.model, messages=input_message, temperature=self.temperature, api_key=api_key, base_url=base_url)
             parsed_success, parsed_content = self.parse_response(response)
             if parsed_success:
                 break

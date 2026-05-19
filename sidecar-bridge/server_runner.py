@@ -45,7 +45,7 @@ from server_models import RecordInput, RecordResult, ChecklistResult
 
 # ── skel_builder pipeline ─────────────────────────────────────────────────────
 
-def _build_env_metadata(task_text: str, model: str) -> dict | None:
+def _build_env_metadata(task_text: str, model: str, api_key: str | None = None, base_url: str | None = None) -> dict | None:
     """
     Run the full skel_builder pipeline on raw task text.
     Returns an env_item dict (with env_class_code, tools, etc.)
@@ -54,29 +54,29 @@ def _build_env_metadata(task_text: str, model: str) -> dict | None:
     env_item_raw = {"task": task_text, "task_from": "crab-eval"}
 
     # Stage 1-1: filter non-stateful tasks
-    judge = _stage1_step1(query=task_text, model=model)
+    judge = _stage1_step1(query=task_text, model=model, api_key=api_key, base_url=base_url)
     if not judge.get("judge_result"):
         return None
 
     # Stage 1-2: infer env topic
-    env_item = _stage1_step2(item=env_item_raw, model=model)
+    env_item = _stage1_step2(item=env_item_raw, model=model, api_key=api_key, base_url=base_url)
 
     # Stage 2-1 … 2-6: synthesise full env class
-    env_item = _stage2_step1(env_item=env_item, model=model)
-    env_item = _stage2_step2(env_item=env_item, model=model)
-    env_item = _stage2_step3(env_item=env_item, model=model)
-    env_item = _stage2_step4(env_item=env_item, model=model)
+    env_item = _stage2_step1(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
+    env_item = _stage2_step2(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
+    env_item = _stage2_step3(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
+    env_item = _stage2_step4(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
     success, env_item = _stage2_step5(env_item=env_item)
     if not success:
         raise RuntimeError("skel_builder Stage 2-5 AST check failed")
-    env_item = _stage2_step6(env_item=env_item)
+    env_item = _stage2_step6(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
 
     return env_item
 
 
 # ── scen_generator helpers ────────────────────────────────────────────────────
 
-def _build_init_config(env_item: dict, model: str, temperature: float) -> dict:
+def _build_init_config(env_item: dict, model: str, temperature: float, api_key: str | None = None, base_url: str | None = None) -> dict:
     """Call gen_init_config with the env class code and container info."""
     all_containers = {
         k: v
@@ -88,6 +88,8 @@ def _build_init_config(env_item: dict, model: str, temperature: float) -> dict:
         all_containers=all_containers,
         model=model,
         temperature=temperature,
+        api_key=api_key,
+        base_url=base_url
     )
     if init_config is None:
         raise RuntimeError("gen_init_config returned None after retries")
@@ -99,6 +101,8 @@ def _build_checklist_with_func(
     task_text: str,
     init_config: dict,
     model: str,
+    api_key: str | None = None,
+    base_url: str | None = None
 ) -> list:
     """Generate checklist + check_func for a single task."""
     # process_single_task expects a task_item dict and an env_items dict keyed by env_id
@@ -114,7 +118,7 @@ def _build_checklist_with_func(
     }
     env_items = {synthetic_env_id: env_item_copy}
 
-    result = process_single_task(model=model, task_item=task_item, env_items=env_items)
+    result = process_single_task(model=model, task_item=task_item, env_items=env_items, api_key=api_key, base_url=base_url)
     return result.get("checklist_with_func", [])
 
 
@@ -222,7 +226,7 @@ def run_record(
 
     try:
         # ── Stage 1-2: build env from raw task text ───────────────────────────
-        env_item = _build_env_metadata(task_text=record.input, model=model)
+        env_item = _build_env_metadata(task_text=record.input, model=model, api_key=api_key, base_url=base_url)
         if env_item is None:
             return RecordResult(
                 record_id=record.id,
@@ -234,7 +238,7 @@ def run_record(
 
         # ── Stage 3: generate init_config ────────────────────────────────────
         init_config = _build_init_config(
-            env_item=env_item, model=model, temperature=temperature
+            env_item=env_item, model=model, temperature=temperature, api_key=api_key, base_url=base_url
         )
 
         # ── Stage 4: generate check functions (use record.input as task) ─────
@@ -243,6 +247,8 @@ def run_record(
             task_text=record.input,
             init_config=init_config,
             model=model,
+            api_key=api_key,
+            base_url=base_url
         )
 
         # ── Stage 5: run agent ────────────────────────────────────────────────

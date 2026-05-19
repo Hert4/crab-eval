@@ -10,7 +10,7 @@ from task_check_util.gen_checklist import gen_checklist
 from task_check_util.gen_check_func import gen_check_func
 
 
-def process_single_task(model, task_item, env_items):
+def process_single_task(model, task_item, env_items,api_key=None, base_url=None):
     """Process a single task to generate checklist and check functions."""
     env_id = task_item["env_id"]
     env_item = env_items[env_id]
@@ -22,7 +22,7 @@ def process_single_task(model, task_item, env_items):
     init_config = task_item["init_config"]
 
     # Generate checklist
-    check_list = gen_checklist(model, task=task_item["task"])
+    check_list = gen_checklist(model, task=task_item["task"], api_key=api_key, base_url=base_url)
     # print(f"check_list: {check_list}")
     new_task_item["checklist"] = deepcopy(check_list)
     checklist_with_func = []
@@ -34,7 +34,9 @@ def process_single_task(model, task_item, env_items):
             init_config=init_config,
             task=task,
             env_introduction=env_introduction,
-            check_item=check_item
+            check_item=check_item,
+            api_key=api_key,
+            base_url=base_url
         )
         checklist_with_func.append({"check_item": check_item, "check_func": check_func})
     new_task_item["checklist_with_func"] = checklist_with_func
@@ -42,12 +44,12 @@ def process_single_task(model, task_item, env_items):
     return new_task_item
 
     
-def main(model, task_items_path, env_items, save_file_path, num_workers):
+def main(model, task_items_path, env_items, save_file_path, num_workers, api_key=None, base_url=None):
     """Main function: process tasks sequentially."""
     task_items = read_file(task_items_path)
     results = []
     for task_item in tqdm(task_items):
-        new_task_item = process_single_task(model, task_item, env_items)
+        new_task_item = process_single_task(model, task_item, env_items, api_key, base_url)
         results.append(new_task_item)
         if len(results) % 5 == 0:  # Periodic save
             save_file(save_file_path, results)
@@ -57,7 +59,7 @@ def main(model, task_items_path, env_items, save_file_path, num_workers):
     save_file("final_result/env_scenario.json", results)
 
 
-def main_threaded(model, task_items_path, env_items, save_file_path, num_workers):
+def main_threaded(model, task_items_path, env_items, save_file_path, num_workers, api_key=None, base_url=None):
     """Main function: process tasks in parallel using thread pool, preserving original order."""
     # Store results with original index as key
     result_dict = {}
@@ -65,7 +67,7 @@ def main_threaded(model, task_items_path, env_items, save_file_path, num_workers
     with ThreadPoolExecutor(max_workers=num_workers) as executor:
         # Map future to original index
         future_to_index = {
-            executor.submit(process_single_task, model, task_item, env_items): idx
+            executor.submit(process_single_task, model, task_item, env_items, api_key, base_url): idx
             for idx, task_item in enumerate(task_items)
         }
         pbar = tqdm(total=len(task_items))
@@ -94,4 +96,6 @@ if __name__ == "__main__":
     env_items = read_file("your_path/filtered_env_metadata.json")
     save_file_path = "temp_result/step3_gen_task_check_func.json"
     num_workers = 3
-    main_threaded(model, task_items_path, env_items, save_file_path, num_workers)
+    api_key = None
+    base_url = None
+    main_threaded(model, task_items_path, env_items, save_file_path, num_workers, api_key, base_url)

@@ -1,3 +1,21 @@
+"""
+File nay la mot mock server de OpenAI, duoc viet bang FastAPI. 
+No se mo mot endpoint /chat/completions de nhan cac request tu EnvScaler va tra ve cac chunk du lieu dang stream, giong nhu OpenAI thuc hien. 
+Chay file nay de test bridge ma khong can phai goi den OpenAI that.
+
+Cach su dung:
+1. Chay file nay: `python mock_openai.py`
+
+2. Mo 1 terminal khac va chay lenh: uvicorn server:app --localhost:8000
+
+3. Mo 1 terminal khac, cd den folder crab-eval/crab-eval va chay: npm run dev
+
+Trong frontend, dat Base URL la: `http://localhost:8080/v1`
+API key co the de trong, vi server nay khong can xac thuc.
+Ten model co the de bat ky, vi server nay se tra ve ket qua giong nhau cho moi request.
+
+"""
+
 import json
 import time
 from fastapi import FastAPI, Request

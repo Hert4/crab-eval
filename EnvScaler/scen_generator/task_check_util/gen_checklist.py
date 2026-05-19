@@ -51,7 +51,7 @@ Output Format (strictly follow this):
 - ...
 """
 
-def parse_response(output_text: str) -> Tuple[bool, List[str]]:
+def parse_response(output_text: str, api_key=None, base_url=None) -> Tuple[bool, List[str]]:
     """Parse checklist items from LLM output."""
     if "</think>" in output_text:
         output_text = output_text.split("</think>")[1]
@@ -91,7 +91,7 @@ def gen_checklist(model: str, task: str) -> List[str]:
     max_try = 5
     while cur_try < max_try:
         cur_try += 1
-        output_text = llm_inference(provider="openai", model=model, messages=messages)
+        output_text = llm_inference(provider="openai", model=model, messages=messages, api_key=None, base_url=None)
         parse_success, checklist = parse_response(output_text)
         if parse_success:
             break

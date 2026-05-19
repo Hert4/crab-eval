@@ -197,34 +197,37 @@ def parse_response(response):
         return "Error parsing response:" + response, []
 
 
-def process_env_item(env_item, model):
-    """Process a single environment item to infer operation list."""
-    new_env_item = deepcopy(env_item)
-    env_info = {
-        "environment_summary": env_item["environment_summary"],
-        "environment_introduction": env_item["environment_introduction"],
-        "state_space_definition": env_item["state_space_definition"],
-        "constraints_rules": env_item["constraints_rules"],
-        "environment_class_definition": env_item["class_definition"],
-        "environment_example_task": env_item["task"]
-    }
-    input_content = input_template.format(env_info=env_info)
-    response = llm_inference(
-        provider="openai",
-        model=model,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": input_case_1}, 
-            {"role": "assistant", "content": output_case_1},
-            {"role": "user", "content": input_content}
-        ]
-    )
-    analysis, operation_list = parse_response(response)
-    new_env_item["operation_list"] = operation_list
-    return new_env_item
+def process_env_item(env_item, model, api_key=None, base_url=None):
+  """Process a single environment item to infer operation list."""
+  new_env_item = deepcopy(env_item)
+  env_info = {
+    "environment_summary": env_item["environment_summary"],
+    "environment_introduction": env_item["environment_introduction"],
+    "state_space_definition": env_item["state_space_definition"],
+    "constraints_rules": env_item["constraints_rules"],
+    "environment_class_definition": env_item["class_definition"],
+    "environment_example_task": env_item["task"]
+  }
+  input_content = input_template.format(env_info=env_info)
+  response = llm_inference(
+    provider="openai",
+    model=model,
+    messages=[
+      {"role": "system", "content": system_prompt},
+      {"role": "user", "content": input_case_1}, 
+      {"role": "assistant", "content": output_case_1},
+      {"role": "user", "content": input_content}
+    ],
+    api_key=api_key,
+    base_url=base_url
+  )
+  analysis, operation_list = parse_response(response)
+  new_env_item["operation_list"] = operation_list
+  new_env_item["operation_analysis"] = analysis
+  return new_env_item
 
 
-def main(read_file_path, save_file_path, model):
+def main(read_file_path, save_file_path, model, api_key=None, base_url=None ):
     """Main function: generate operation lists for all environments."""
     raw_data = read_file(read_file_path)
     new_data = []
@@ -233,7 +236,7 @@ def main(read_file_path, save_file_path, model):
         if "operation_list" in env_item and env_item["operation_list"]:
             new_data.append(env_item)
             continue
-        new_env_item = process_env_item(env_item, model)
+        new_env_item = process_env_item(env_item, model, api_key=api_key, base_url=base_url)
         new_data.append(new_env_item)
         # Save every 10 items
         if len(new_data) % 10 == 0:
@@ -246,4 +249,4 @@ if __name__ == "__main__":
     model = "gpt-4.1"
     read_file_path = "stage2_syn_env/temp_result/step2_infer_state_code.json"
     save_file_path = "stage2_syn_env/temp_result/step3_infer_operation.json"
-    main(read_file_path, save_file_path, model)
+    main(read_file_path, save_file_path, model, api_key=None, base_url=None)

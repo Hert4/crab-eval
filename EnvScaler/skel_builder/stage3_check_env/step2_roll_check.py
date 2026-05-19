@@ -162,7 +162,7 @@ def build_func_test_cases(steps_log):
 
     return log_data
 
-def run_step(step_idx, env, func_call_agent, check_agent):
+def run_step(step_idx, env, func_call_agent, check_agent, api_key=None, base_url=None):
     """Run single test step and return step record dictionary."""
     print("-" * 30)
     print(f"Step {step_idx}")
@@ -194,7 +194,9 @@ def run_step(step_idx, env, func_call_agent, check_agent):
         func_params=func_params,
         func_return=observation,
         state_after_call=state_after_call,
-        state_diff=state_diff
+        state_diff=state_diff,
+        api_key=api_key,
+        base_url=base_url
     ))
     
     if check_result['result']:
@@ -229,7 +231,7 @@ def run_step(step_idx, env, func_call_agent, check_agent):
 
 
 
-def process_item(env_item, model, temperature, max_steps):
+def process_item(env_item, model, temperature, max_steps, api_key=None, base_url=None):
     """Process environment item: build env, run test steps, and generate test results."""
     # Build environment
     try:
@@ -246,8 +248,8 @@ def process_item(env_item, model, temperature, max_steps):
         return env_item
 
     # Initialize agents
-    func_call_agent = FuncCallAgent(model=model, temperature=temperature, env_item=env_item)
-    check_agent = CheckAgent(model=model, temperature=0, env_item=env_item)
+    func_call_agent = FuncCallAgent(model=model, temperature=temperature, env_item=env_item, api_key=api_key, base_url=base_url)
+    check_agent = CheckAgent(model=model, temperature=0, env_item=env_item, api_key=api_key, base_url=base_url)
 
     # Run test steps
     steps_log = []
@@ -266,12 +268,12 @@ def process_item(env_item, model, temperature, max_steps):
     new_item["func_test_result"] = final_log
     return new_item
 
-def main(read_file_path, save_file_path, model, temperature, max_steps, num_workers, chunk_size):
+def main(read_file_path, save_file_path, model, temperature, max_steps, num_workers, chunk_size, api_key=None, base_url=None):
     """Process all environment items sequentially and save results periodically."""
     raw_data = read_file(read_file_path)
     new_data = []
     for item in tqdm(raw_data, desc="Rollout Check"):
-        new_item = process_item(item, model, temperature, max_steps)
+        new_item = process_item(item, model, temperature, max_steps, api_key=api_key, base_url=base_url)
         new_data.append(new_item)
         # Save after each item
         if len(new_data) % 1 == 0:

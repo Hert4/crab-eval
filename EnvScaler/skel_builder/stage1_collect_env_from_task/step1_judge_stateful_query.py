@@ -99,7 +99,7 @@ def parse_response(response: str):
         return "parsed_failed", False
 
 
-def process_query(query, model):
+def process_query(query, model, api_key=None, base_url=None):
     """Process a single query to judge if it's stateful."""
     query = query.strip()
     response = llm_inference(
@@ -109,6 +109,8 @@ def process_query(query, model):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": input_template.format(query=query)}
         ],
+        api_key=api_key,
+        base_url=base_url
     )
     analysis, answer = parse_response(response)
     return {
@@ -117,7 +119,7 @@ def process_query(query, model):
         "judge_result": answer
     }
 
-def main(tasks, save_file_path, model, max_workers=5):
+def main(tasks, save_file_path, model, api_key=None, base_url=None, max_workers=5):
     """Main function: process tasks in parallel and save results periodically."""
     tasks = [q.strip() for q in tasks]
     new_data = []

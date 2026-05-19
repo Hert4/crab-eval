@@ -113,7 +113,7 @@ def parse_response(response):
 
 
 
-def process_item(item, model):
+def process_item(item, model, api_key=None, base_url=None):
     """Process a single item to infer its environment."""
     new_item = deepcopy(item)
     task = item["task"]
@@ -131,7 +131,9 @@ def process_item(item, model):
                 {"role": "user", "content": input_case_2},
                 {"role": "assistant", "content": output_case_2},
                 {"role": "user", "content": input_template.format(task=task)}
-            ]
+            ],
+            api_key=api_key,
+            base_url=base_url
         )
         success, result = parse_response(response)
         if success:
@@ -140,7 +142,7 @@ def process_item(item, model):
     return new_item
 
 
-def main(read_file_path, save_file_path, model, num_workers=1):
+def main(read_file_path, save_file_path, model, api_key=None, base_url=None, num_workers=1):
     """Main function: process tasks in parallel and save results periodically."""
     raw_data = read_file(read_file_path)
     # Keep only items with judge_result=True
@@ -148,7 +150,7 @@ def main(read_file_path, save_file_path, model, num_workers=1):
     new_data = []
 
     with ThreadPoolExecutor(max_workers=num_workers) as executor:
-        futures = {executor.submit(process_item, item, model): item for item in raw_data}
+        futures = {executor.submit(process_item, item, model, api_key, base_url): item for item in raw_data}
         for i, future in enumerate(tqdm(as_completed(futures), total=len(futures))):
             try:
                 new_item = future.result()
