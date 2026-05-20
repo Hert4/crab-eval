@@ -87,7 +87,7 @@ def parse_response(response):
         return response, None
 
 
-def gen_init_config(env_class_code, all_containers, model, temperature):
+def gen_init_config(env_class_code, all_containers, model, temperature, api_key=None, base_url=None):
     """Generate initialization config for an environment using LLM."""
     cur_try = 0
     max_try = 3
@@ -100,7 +100,9 @@ def gen_init_config(env_class_code, all_containers, model, temperature):
             provider="openai",
             model=model,
             messages=[{"role": "user", "content": input_content}],
-            temperature=temperature)
+            temperature=temperature,
+            api_key=api_key,
+            base_url=base_url)
         gen_init_config_analysis, init_config = parse_response(response)
         if init_config:
             break

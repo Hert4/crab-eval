@@ -81,7 +81,7 @@ def parse_response(output_text: str, api_key=None, base_url=None) -> Tuple[bool,
 
     return parse_success, checklist
 
-def gen_checklist(model: str, task: str) -> List[str]:
+def gen_checklist(model: str, task: str, api_key: str, base_url: str) -> List[str]:
     """Generate checklist items for the given task using LLM."""
     input_content = input_template.format(task=task)
     messages = [
@@ -91,7 +91,7 @@ def gen_checklist(model: str, task: str) -> List[str]:
     max_try = 5
     while cur_try < max_try:
         cur_try += 1
-        output_text = llm_inference(provider="openai", model=model, messages=messages, api_key=None, base_url=None)
+        output_text = llm_inference(provider="openai", model=model, messages=messages, api_key=api_key, base_url=base_url)
         parse_success, checklist = parse_response(output_text)
         if parse_success:
             break

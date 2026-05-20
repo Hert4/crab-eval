@@ -53,7 +53,6 @@ def openai_llm_inference(
                     temperature=temperature,
                     max_tokens=max_tokens
                 )
-                print(f"LLM response: {response}")
                 output = response.choices[0].message.content
                 return output
         # except KeyboardInterrupt:

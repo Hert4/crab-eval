@@ -19,7 +19,8 @@ class TaskSolveAgent:
         max_steps,
         enable_thinking,
         api_key=None,
-        base_url=None
+        base_url=None,
+        custom_headers=None
     ):
         self.env_name = env_name
         self.env = env
@@ -30,6 +31,7 @@ class TaskSolveAgent:
         self.temperature = temperature
         self.api_key = api_key
         self.base_url = base_url
+        self.custom_headers = custom_headers
         assert infer_mode in ["prompt", "fc"]  # prompt: tool use via prompts, fc: tool use via function calling interface
         self.infer_mode = infer_mode
         self.enable_thinking = enable_thinking
@@ -48,6 +50,7 @@ class TaskSolveAgent:
 
         # Trajectory recording
         self.trajectory = []  # Detailed execution information for each step
+
 
     def reset(self, task_index=None):
         """Reset environment and conversation history."""

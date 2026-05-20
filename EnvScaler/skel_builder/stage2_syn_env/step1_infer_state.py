@@ -155,7 +155,7 @@ def parse_response(response):
         print(f"Error parsing response: {response}")
         return response, None, None
 
-def process_env_item(env_item, model):
+def process_env_item(env_item, model, api_key=None, base_url=None):
     """Process a single environment item to infer state space."""
     new_env_item = deepcopy(env_item)
     input_content = input_template.format(
@@ -175,7 +175,9 @@ def process_env_item(env_item, model):
                 {"role": "user", "content": input_case_1},
                 {"role": "assistant", "content": output_case_1},
                 {"role": "user", "content": input_content}
-            ]
+            ],
+            api_key=api_key,
+            base_url=base_url
         )
         analysis, state_space_definition, constraints_rules = parse_response(response)
         if analysis and state_space_definition and constraints_rules:
@@ -193,7 +195,7 @@ if __name__ == "__main__":
     raw_data = read_file(read_file_path)
     new_data = []
     for env_item in tqdm(raw_data):
-        new_env_item = process_env_item(env_item, model)
+        new_env_item = process_env_item(env_item, model, api_key=None, base_url=None)
         new_data.append(new_env_item)
         # Save every 10 items
         if len(new_data) % 10 == 0:

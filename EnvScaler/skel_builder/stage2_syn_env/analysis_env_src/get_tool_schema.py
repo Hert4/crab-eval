@@ -61,23 +61,69 @@ def parse_type(type_str: str):
     return {"type": "object"}  # Fallback
 
 
+# def convert_tool_schema(simple_def):
+#     """Convert simple tool definition to OpenAI-compatible function calling schema format."""
+#     props = {}
+#     required = []
+#     for pname, tstr in simple_def.get("parameters", {}).items():
+#         schema = parse_type(tstr)
+        
+#         # Fallback: if array type has no items, add empty object
+#         if schema.get("type") == "array" and "items" not in schema:
+#             schema["items"] = {}
+            
+#         # Filter out internal markers (keys starting with "_")
+#         props[pname] = {k:v for k,v in schema.items() if not k.startswith("_")}
+#         # Add to required list if not optional
+#         if not schema.get("_optional"):
+#             required.append(pname)
+            
+#     return {
+#         "type": "function",
+#         "function": {
+#             "name": simple_def["name"],
+#             "description": simple_def.get("description", ""),
+#             "parameters": {
+#                 "type": "object",
+#                 "properties": props,
+#                 "required": required
+#             }
+#         }
+#     }
+
 def convert_tool_schema(simple_def):
     """Convert simple tool definition to OpenAI-compatible function calling schema format."""
     props = {}
     required = []
+
+    print("\n=== SIMPLE DEF ===")
+    print(simple_def)
+
     for pname, tstr in simple_def.get("parameters", {}).items():
+
+        print(f"PARAM: {pname}, TYPE: {tstr}")
+
+        if tstr is None:
+            raise ValueError(
+                f"Missing type annotation in tool={simple_def.get('name')} param={pname}"
+            )
+
         schema = parse_type(tstr)
-        
+
         # Fallback: if array type has no items, add empty object
         if schema.get("type") == "array" and "items" not in schema:
             schema["items"] = {}
-            
+
         # Filter out internal markers (keys starting with "_")
-        props[pname] = {k:v for k,v in schema.items() if not k.startswith("_")}
+        props[pname] = {
+            k: v for k, v in schema.items()
+            if not k.startswith("_")
+        }
+
         # Add to required list if not optional
         if not schema.get("_optional"):
             required.append(pname)
-            
+
     return {
         "type": "function",
         "function": {

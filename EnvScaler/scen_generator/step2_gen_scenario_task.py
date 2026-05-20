@@ -87,11 +87,13 @@ def construct_prompt(env_item, init_state):
 class GenTaskAgent:
     """Agent for generating tasks using LLM."""
     
-    def __init__(self, env_item, model, temperature=0.5):
+    def __init__(self, env_item, model, temperature=0.5, api_key=None, base_url=None):
         self.env_item = deepcopy(env_item)
         self.model = model
         self.temperature = temperature
-        
+        self.api_key = api_key
+        self.base_url = base_url
+
     def gen_task(self, init_config):
         """Generate a task for the given initial config."""
         prompt = construct_prompt(self.env_item, init_config)
@@ -104,7 +106,9 @@ class GenTaskAgent:
                 provider="openai",
                 model=self.model,
                 messages=input_messages,
-                temperature=self.temperature
+                temperature=self.temperature,
+                api_key=self.api_key,
+                base_url=self.base_url
             )
             parsed_success, task = parse_response(response)
             if parsed_success:
@@ -112,13 +116,13 @@ class GenTaskAgent:
         return task
 
 
-def process_env_item(env_id, env_item, env_all_configs, gen_num, model, temperature):
+def process_env_item(env_id, env_item, env_all_configs, gen_num, model, temperature, api_key=None, base_url=None):
     """Generate multiple tasks for a single environment."""
     task_info_list = []
     for gen_id in tqdm(range(gen_num)):
         init_config = env_all_configs[gen_id]
         init_config_copy = deepcopy(init_config)
-        agent = GenTaskAgent(env_item, model, temperature)
+        agent = GenTaskAgent(env_item, model, temperature, api_key, base_url)
         task = agent.gen_task(init_config)
         if task == None or task == "":
             continue

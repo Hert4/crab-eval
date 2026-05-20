@@ -69,7 +69,7 @@ def _build_env_metadata(task_text: str, model: str, api_key: str | None = None, 
     success, env_item = _stage2_step5(env_item=env_item)
     if not success:
         raise RuntimeError("skel_builder Stage 2-5 AST check failed")
-    env_item = _stage2_step6(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
+    env_item = _stage2_step6(env_item=env_item)
 
     return env_item
 

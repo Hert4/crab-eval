@@ -91,7 +91,7 @@ def parse_response(response):
         print(f"Error parsing response: {response}")
         return response, None
     
-def gen_init_config(env_class_code, all_containers, model, temperature):
+def gen_init_config(env_class_code, all_containers, model, temperature, api_key=None, base_url=None):
     """Generate initialization config using LLM, retry up to max_try times if parsing fails."""
     cur_try = 0
     max_try = 3
@@ -104,7 +104,9 @@ def gen_init_config(env_class_code, all_containers, model, temperature):
             provider="openai",
             model=model,
             messages=[{"role": "user", "content": input_content}],
-            temperature=temperature)
+            temperature=temperature,
+            api_key=api_key,
+            base_url=base_url)
         gen_init_config_analysis, init_config = parse_response(response)
         if init_config:
             break
@@ -112,7 +114,7 @@ def gen_init_config(env_class_code, all_containers, model, temperature):
     return init_config
     
 
-def process_env_item(env_item, gen_config_num, model, temperature):
+def process_env_item(env_item, gen_config_num, model, temperature, api_key=None, base_url=None):
     """Process environment item to generate required number of initialization configs."""
     env_class_code = env_item["env_class_code"]
     # Extract all containers except init_config
@@ -130,7 +132,7 @@ def process_env_item(env_item, gen_config_num, model, temperature):
     # Generate only the remaining configs needed
     gen_config_num = gen_config_num - len(init_config_list)
     for i in range(gen_config_num):
-        init_config = gen_init_config(env_class_code=env_class_code, all_containers=all_containers, model=model, temperature=temperature)
+        init_config = gen_init_config(env_class_code=env_class_code, all_containers=all_containers, model=model, temperature=temperature, api_key=api_key, base_url=base_url)
         if init_config:
             init_config_list.append(init_config)
     new_item = deepcopy(env_item)
@@ -154,7 +156,7 @@ def main(read_file_path, save_file_path, gen_config_num, model, temperature, max
     result_dict = {}
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         future_to_index = {
-            executor.submit(process_env_item, env_item, gen_config_num, model, temperature): idx
+            executor.submit(process_env_item, env_item, gen_config_num, model, temperature, api_key=None, base_url=None): idx
             for idx, env_item in enumerate(raw_data)
         }
         for future in tqdm(as_completed(future_to_index), total=len(raw_data)):

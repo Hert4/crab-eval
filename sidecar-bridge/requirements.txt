@@ -17,4 +17,3 @@ adjustText
 gradio
 fastapi
 uvicorn[standard]
-fastapi

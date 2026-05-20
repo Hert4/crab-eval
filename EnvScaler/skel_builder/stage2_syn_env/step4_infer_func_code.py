@@ -97,7 +97,7 @@ def construct_messages(env_item, operation_item):
     ]
     return messages
 
-def llm_infer(messages, model):
+def llm_infer(messages, model, api_key=None, base_url=None):
     """LLM inference"""
     cur_try = 0
     max_try = 5
@@ -107,6 +107,8 @@ def llm_infer(messages, model):
         response = llm_inference(
             provider="openai",
             model=model,
+            api_key=api_key,
+            base_url=base_url,
             messages=messages)
         parse_success, func_code = parse_response(response)
         if parse_success:
@@ -114,7 +116,7 @@ def llm_infer(messages, model):
         cur_try += 1
     return func_code
 
-def process_env_item_for_demo(env_item, model):
+def process_env_item_for_demo(env_item, model, api_key=None, base_url=None):
     """Only for demo: Process the environment item for demo"""
     new_env_item = deepcopy(env_item)
     operation_items = deepcopy(env_item["operation_list"])
@@ -123,7 +125,7 @@ def process_env_item_for_demo(env_item, model):
                 desc='Processing operation', 
                 bar_format='{l_bar}{bar} {n_fmt}/{total_fmt} '): # 删掉了前面的 {desc}:
         messages = construct_messages(env_item, operation_items[i])
-        func_code = llm_infer(messages, model)
+        func_code = llm_infer(messages, model, api_key=api_key, base_url=base_url)
         operation_items[i]["code"] = func_code
 
         from env_build_demo import pretty_print
@@ -133,13 +135,13 @@ def process_env_item_for_demo(env_item, model):
     new_env_item["operation_list"] = operation_items
     return new_env_item
 
-def process_env_item(env_item, model):
+def process_env_item(env_item, model, api_key=None, base_url=None):
     """Process the environment item"""
     new_env_item = deepcopy(env_item)
     operation_items = deepcopy(env_item["operation_list"])
     for i in tqdm(range(len(operation_items)), desc="Processing operation"):
         messages = construct_messages(env_item, operation_items[i])
-        func_code = llm_infer(messages, model)
+        func_code = llm_infer(messages, model, api_key=api_key, base_url=base_url)
         operation_items[i]["code"] = func_code
     new_env_item["operation_list"] = operation_items
     return new_env_item
