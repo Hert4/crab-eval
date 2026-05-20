@@ -211,8 +211,11 @@ def run_record(
     record: RecordInput,
     model: str,
     model_provider: str,
-    infer_mode: str,
-    enable_thinking: bool,
+    generator_model: str,
+    generator_api_key: str | None = None,
+    generator_base_url: str | None = None,
+    infer_mode: str = "fc",
+    enable_thinking: bool = False,
     max_steps: int = 30,
     temperature: float = 0.7,
     api_key: str | None = None,
@@ -221,12 +224,14 @@ def run_record(
 ) -> RecordResult:
     """
     Full pipeline: raw task text → skel_builder → scen_generator → agent run → RecordResult.
+    generator_model/generator_api_key/generator_base_url are used for stages 1–4 (env synthesis).
+    model/api_key/base_url are used for stage 5 (agent interaction).
     """
     start_ms = int(time.time() * 1000)
 
     try:
         # ── Stage 1-2: build env from raw task text ───────────────────────────
-        env_item = _build_env_metadata(task_text=record.input, model=model, api_key=api_key, base_url=base_url)
+        env_item = _build_env_metadata(task_text=record.input, model=generator_model, api_key=generator_api_key, base_url=generator_base_url)
         if env_item is None:
             return RecordResult(
                 record_id=record.id,
@@ -238,7 +243,7 @@ def run_record(
 
         # ── Stage 3: generate init_config ────────────────────────────────────
         init_config = _build_init_config(
-            env_item=env_item, model=model, temperature=temperature, api_key=api_key, base_url=base_url
+            env_item=env_item, model=generator_model, temperature=temperature, api_key=generator_api_key, base_url=generator_base_url
         )
 
         # ── Stage 4: generate check functions (use record.input as task) ─────
@@ -246,9 +251,9 @@ def run_record(
             env_item=env_item,
             task_text=record.input,
             init_config=init_config,
-            model=model,
-            api_key=api_key,
-            base_url=base_url
+            model=generator_model,
+            api_key=generator_api_key,
+            base_url=generator_base_url
         )
 
         # ── Stage 5: run agent ────────────────────────────────────────────────

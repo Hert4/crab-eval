@@ -11,10 +11,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def llm_inference(provider: str, model: str, messages: List[dict], temperature: float = None, stop_strs: Optional[List[str]] = None, max_tokens: int = None):
+def llm_inference(provider: str, model: str, messages: List[dict], temperature: float = None, stop_strs: Optional[List[str]] = None, max_tokens: int = None, api_key: str = None, base_url: str = None):
     """Call LLM with different providers."""
     if provider == "openai":
-        return openai_llm_inference(model, messages, temperature, stop_strs, max_tokens)
+        return openai_llm_inference(model, messages, temperature, stop_strs, max_tokens, api_key=api_key, base_url=base_url)
     else:
         # add other provider here
         raise ValueError(f"Invalid provider: {provider}")
@@ -24,12 +24,14 @@ def openai_llm_inference(
     messages: List[dict],
     temperature: float = None,
     stop_strs: Optional[List[str]] = None,
-    max_tokens: int = None
+    max_tokens: int = None,
+    api_key: str = None,
+    base_url: str = None,
 ):
     """Call OpenAI LLM API with retry mechanism."""
     client = OpenAI(
-        api_key=os.getenv("OPENAI_API_KEY"),
-        base_url=os.getenv("OPENAI_BASE_URL")
+        api_key=api_key or os.getenv("OPENAI_API_KEY"),
+        base_url=base_url or os.getenv("OPENAI_BASE_URL"),
     )
     retries = 0
     max_retries = 5
@@ -51,6 +53,8 @@ def openai_llm_inference(
                     temperature=temperature,
                     max_tokens=max_tokens
                 )
+                if hasattr(response, 'error') and response.error:
+                    raise RuntimeError(f"API error in response body: {response.error}")
                 output = response.choices[0].message.content
                 return output
         # except KeyboardInterrupt:

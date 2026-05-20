@@ -113,6 +113,7 @@ def process_query(query, model, api_key=None, base_url=None):
         base_url=base_url
     )
     analysis, answer = parse_response(response)
+    print("Step 1: OK!")
     return {
         "task": query,
         "judge_analysis": analysis,

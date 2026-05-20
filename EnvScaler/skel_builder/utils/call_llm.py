@@ -53,6 +53,10 @@ def openai_llm_inference(
                     temperature=temperature,
                     max_tokens=max_tokens
                 )
+                print(f"Received response from OpenAI LLM API: {response}")
+                # Some proxies return HTTP 200 with an error payload instead of raising
+                if hasattr(response, 'error') and response.error:
+                    raise RuntimeError(f"Error: {response.error}")
                 output = response.choices[0].message.content
                 return output
         # except KeyboardInterrupt:

@@ -38,19 +38,22 @@ app.add_middleware(
     allow_headers=["Content-Type"],
 )
 
-def _worker_wrapper(record, model, model_provider, infer_mode, enable_thinking, max_steps, temperature, api_key, base_url, custom_headers):
+def _worker_wrapper(record, model, model_provider, infer_mode, enable_thinking, max_steps, temperature, api_key, base_url, custom_headers, generator_model=None, generator_api_key=None, generator_base_url=None):
     from server_runner import run_record
     return run_record(
         record=record,
         model=model,
         model_provider=model_provider,
+        generator_model=generator_model or model,
+        generator_api_key=generator_api_key,
+        generator_base_url=generator_base_url,
         infer_mode=infer_mode,
         enable_thinking=enable_thinking,
         max_steps=max_steps,
         temperature=temperature,
         api_key=api_key,
         base_url=base_url,
-        custom_headers=custom_headers
+        custom_headers=custom_headers,
     )
 
 
@@ -90,6 +93,9 @@ async def run_eval(request: RunRequest):
                 request.api_key,
                 request.base_url,
                 request.custom_headers,
+                request.generator_model,
+                request.generator_api_key,
+                request.generator_base_url,
             ),
         )
         for record in request.records

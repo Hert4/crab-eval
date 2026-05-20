@@ -29,6 +29,9 @@ class RunRequest(BaseModel):
     run_id: str
     task_name: str
     model: str
+    generator_model: Optional[str] = None
+    generator_api_key: Optional[str] = None
+    generator_base_url: Optional[str] = None
     model_provider: str = "openai"
     api_key: Optional[str] = None
     base_url: Optional[str] = None

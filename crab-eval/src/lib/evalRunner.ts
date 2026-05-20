@@ -490,7 +490,7 @@ async function _runAllTargets(
   try {
     // Each target gets its own semaphore but shares the abort signal + judge
     const targetPromises = config.targets.map(target =>
-      _runEvalForTarget(target, datasets, judgeOpenAI, config.judgeConfig.enabled, concurrencyLimit, abortSignal)
+      _runEvalForTarget(target, datasets, judgeOpenAI, config.judgeConfig, concurrencyLimit, abortSignal)
         .catch((e) => {
           if (e instanceof DOMException && e.name === 'AbortError') throw e
           useEvalSessionStore.getState().setModelError(target.modelId, String(e))
@@ -512,6 +512,7 @@ async function runEnvScalerEval(
   target: EvalTarget,
   modelId: string,
   di: number,
+  judgeConfig: EvalConfig['judgeConfig'],
   datasets: Dataset[],
   acquire: <T>(fn: () => Promise<T>) => Promise<T>,
   onRecordFinished: () => void,
@@ -538,6 +539,9 @@ async function runEnvScalerEval(
         model_provider: 'openai',
         api_key: target.apiKey,
         base_url: target.baseUrl,
+        generator_model: judgeConfig.model,
+        generator_api_key: judgeConfig.apiKey,
+        generator_base_url: judgeConfig.baseUrl,
         records: [{
           id: record.id,
           input: record.input,
@@ -634,7 +638,7 @@ async function _runEvalForTarget(
   target: EvalTarget,
   datasets: Dataset[],
   judgeOpenAI: OpenAIConfig,
-  judgeEnabled: boolean,
+  judgeConfig: EvalConfig['judgeConfig'],
   concurrencyLimit: number,
   abortSignal: AbortSignal
 ): Promise<void> {
@@ -665,11 +669,12 @@ async function _runEvalForTarget(
     // Dispatch multi_turn_tool_calling datasets to EnvScaler
     if (dataset.metadata.task_type === 'multi_turn_tool_calling') {
       const taskResult = await runEnvScalerEval(
-        dataset, 
-        target, 
-        target.modelId, 
-        di, 
-        datasets, 
+        dataset,
+        target,
+        target.modelId,
+        di,
+        judgeConfig,
+        datasets,
         acquire,
         () => {
           processedTotal++
@@ -701,7 +706,7 @@ async function _runEvalForTarget(
           targetOpenAI,
           targetSystemPrompt: target.systemPrompt,
           judgeOpenAI,
-          judgeEnabled,
+          judgeEnabled: judgeConfig.enabled,
           abortSignal,
         })
 
@@ -745,7 +750,7 @@ async function _runEvalForTarget(
     durationMs: Date.now() - startTime,
     tasks: taskScores,
     taskDetails: taskResults,
-    ...(judgeEnabled && {
+    ...(judgeConfig.enabled && {
       judgeModel: judgeOpenAI.model,
       judgeBaseUrl: judgeOpenAI.baseUrl,
     }),
