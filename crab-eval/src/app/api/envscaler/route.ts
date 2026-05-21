@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { assertLocalRequest } from '@/lib/serverGuard'
 
+export const maxDuration = 1800 // 30 min — EnvScaler pipeline can take a long time
+
 const ENVSCALER_URL = process.env.ENVSCALER_URL ?? 'http://localhost:8000'
 
 export async function GET() {
@@ -26,7 +28,7 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
-      signal: AbortSignal.timeout(600_000), // 10 min timeout
+      signal: AbortSignal.timeout(1_800_000), // 30 min timeout
     })
   } catch (e) {
     return NextResponse.json(

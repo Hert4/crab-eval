@@ -29,7 +29,7 @@ class RunRequest(BaseModel):
     run_id: str
     task_name: str
     model: str
-    generator_model: Optional[str] = None
+    generator_model: Optional[str] = None   
     generator_api_key: Optional[str] = None
     generator_base_url: Optional[str] = None
     model_provider: str = "openai"
@@ -38,8 +38,8 @@ class RunRequest(BaseModel):
     custom_headers: Optional[Dict[str, str]] = None
     records: List[RecordInput]
     eval_config: EvalConfig = EvalConfig()
-    conversation_mode: bool = True
-    user_model: Optional[str] = None
+    conversation_mode: bool = True  # Whether to use conversation-based env/agent (EnvScalerConvRLEnv + system/user messages) or non-conversation-based (EnvScalerNonConvRLEnv + single prompt). Conversation mode is better for multi-turn tasks but may cause more token usage and instability for short tasks.
+    user_model: Optional[str] = None # Optional user_model for conversation mode. If not provided, will use generator_model or model.
 
 
 # ─── Response models ──────────────────────────────────────────────────────────

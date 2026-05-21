@@ -130,6 +130,34 @@ def openai_stream_inference_prompt(
     print(f"Failed to get response after {max_retries} retries.")
     return ""
 
+def _openai_responses_api_fc(
+    client: OpenAI,
+    model: str,
+    messages: List[Dict[str, Any]],
+    tools: Optional[List[Dict]] = None,
+) -> Dict[str, Any]:
+    """Use OpenAI Responses API for gpt-5.x models that don't support Chat Completions streaming."""
+    kwargs: Dict[str, Any] = {"model": model, "input": messages}
+    if tools:
+        kwargs["tools"] = [{"type": "function", **t} if t.get("type") != "function" else t for t in tools]
+    response = client.responses.create(**kwargs)
+
+    content = getattr(response, "output_text", "") or ""
+    tool_calls = []
+    # Extract function tool calls from response.output
+    for item in getattr(response, "output", []):
+        if getattr(item, "type", "") == "function_call":
+            tool_calls.append({
+                "id": getattr(item, "call_id", "") or "",
+                "type": "function",
+                "function": {
+                    "name": getattr(item, "name", ""),
+                    "arguments": getattr(item, "arguments", ""),
+                }
+            })
+    return {"reasoning_content": "", "tool_calls": tool_calls, "content": content}
+
+
 def openai_stream_inference_fc(
     model: str,
     messages: List[Dict[str, Any]],
@@ -154,6 +182,10 @@ def openai_stream_inference_fc(
     max_retries = 10
     while retries < max_retries:
         try:
+            # gpt-5.x models use the Responses API (not Chat Completions)
+            if 'gpt-5' in model:
+                return _openai_responses_api_fc(client, model, messages, tools)
+
             if tools:
                 completion = client.chat.completions.create(
                     model=model,
