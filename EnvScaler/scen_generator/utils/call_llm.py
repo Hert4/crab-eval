@@ -30,8 +30,8 @@ def openai_llm_inference(
 ):
     """Call OpenAI LLM API with retry mechanism."""
     client = OpenAI(
-        api_key=api_key or os.getenv("OPENAI_API_KEY"),
-        base_url=base_url or os.getenv("OPENAI_BASE_URL"),
+        api_key=api_key,
+        base_url=base_url,
     )
     retries = 0
     max_retries = 5
@@ -67,11 +67,11 @@ def openai_llm_inference(
     print(f"Failed to get response after {max_retries} retries, return empty string")
     return ''
 
-def openai_single_embedding_inference(model: str, text: str) -> List[float]:
+def openai_single_embedding_inference(model: str, text: str, api_key: str = None, base_url: str = None) -> List[float]:
     """Get embedding for a single text using OpenAI API with retry mechanism."""
     client = OpenAI(
-        api_key=os.getenv("OPENAI_API_KEY"),
-        base_url=os.getenv("OPENAI_BASE_URL"),
+        api_key=api_key,
+        base_url=base_url,
     )
     retries = 0
     max_retries = 5
@@ -92,11 +92,11 @@ def openai_single_embedding_inference(model: str, text: str) -> List[float]:
     print(f"Failed to get embedding after {max_retries} retries, return empty list")
     return []
 
-def openai_batch_embedding_inference(model: str, texts: List[str]) -> List[List[float]]:
+def openai_batch_embedding_inference(model: str, texts: List[str], api_key: str = None, base_url: str = None) -> List[List[float]]:
     """Get embeddings for multiple texts using OpenAI API with retry mechanism."""
     client = OpenAI(
-        api_key=os.getenv("OPENAI_API_KEY"),
-        base_url=os.getenv("OPENAI_BASE_URL"),
+        api_key=api_key,
+        base_url=base_url,
     )
     retries = 0
     max_retries = 5

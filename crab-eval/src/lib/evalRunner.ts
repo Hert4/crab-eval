@@ -574,14 +574,18 @@ async function runEnvScalerEval(
       if (!r) throw new Error('No result returned from EnvScaler')
 
       const checklistResults: Array<{ check_item: string; passed: boolean }> = r.checklist_results ?? []
+      const noChecklist = !r.error && checklistResults.length === 0
+      const isError = r.status === 'error' || (!!r.error && checklistResults.length === 0)
       const log: RecordLog = {
         id: r.record_id,
-        status: r.error ? 'error' : 'done',
+        status: isError ? 'error' : noChecklist ? 'skipped' : 'done',
         input: record.input ?? '',
         reference: record.reference ?? '',
         output: r.error
           ? r.error
-          : checklistResults.map(c => `[${c.passed ? 'pass' : 'fail'}] ${c.check_item}`).join('\n') || 'No checklist items',
+          : noChecklist
+            ? 'No checklist items'
+            : checklistResults.map(c => `[${c.passed ? 'pass' : 'fail'}] ${c.check_item}`).join('\n'),
         tool_calls: [],
         scores: {
           envscaler_score: r.score * 100,
@@ -620,7 +624,10 @@ async function runEnvScalerEval(
     if (result) logs.push(result)
   }
 
-  const avgEnvScore = logs.reduce((s, l) => s + (l.scores.envscaler_score ?? 0), 0) / Math.max(1, logs.length)
+  const scorableLogs = logs.filter(l => l.status === 'done' && (l.scores.checkpoints_total ?? 0) > 0)
+  const avgEnvScore = scorableLogs.length > 0
+    ? scorableLogs.reduce((s, l) => s + (l.scores.envscaler_score ?? 0), 0) / scorableLogs.length
+    : 0
 
   return {
     taskName,

@@ -12,6 +12,7 @@ import traceback
 # ── Path setup ────────────────────────────────────────────────────────────────
 _BASE_DIR        = os.path.dirname(__file__)
 _ENVSCALER_DIR   = os.path.join(_BASE_DIR, "..", "EnvScaler")
+_ENVS_DIR        = os.path.join(_BASE_DIR, "..", "envs")
 _SKEL_DIR        = os.path.join(_ENVSCALER_DIR, "skel_builder")
 _SCEN_DIR        = os.path.join(_ENVSCALER_DIR, "scen_generator")
 _INTERACT_DIR    = os.path.join(_ENVSCALER_DIR, "interact_with_env")
@@ -36,7 +37,7 @@ from step3_gen_task_check_func  import process_single_task
 
 # ── interact_with_env imports ─────────────────────────────────────────────────
 from agent.task_solve_agent import TaskSolveAgent
-from envscaler_env import EnvScalerNonConvRLEnv
+from envscaler_env import EnvScalerNonConvRLEnv, EnvScalerConvRLEnv
 
 from server_models import RecordInput, RecordResult, ChecklistResult
 
@@ -138,6 +139,9 @@ def _run_agent(
     api_key: str | None = None,
     base_url: str | None = None,
     custom_headers: dict | None = None,
+    conversation_mode: bool = False,
+    user_model: str | None = None,
+    generator_model: str | None = None,
 ) -> dict:
     """
     Inject a synthetic task_item into a temp file, spin up
@@ -171,13 +175,26 @@ def _run_agent(
         env_items_path = env_f.name
 
     try:
-        env = EnvScalerNonConvRLEnv(
-            mode="eval",
-            env_items_path=env_items_path,
-            task_items_path=task_items_path,
-        )
+        if conversation_mode:
+            env_name = "envscaler_conversation_rl"
+            env = EnvScalerConvRLEnv(
+                mode="eval",
+                user_model=user_model or generator_model or model,
+                provider=model_provider,
+                env_items_path=env_items_path,
+                task_items_path=task_items_path,
+                api_key=api_key,
+                base_url=base_url,
+            )
+        else:
+            env_name = "envscaler_non_conversation_rl"
+            env = EnvScalerNonConvRLEnv(
+                mode="eval",
+                env_items_path=env_items_path,
+                task_items_path=task_items_path,
+            )
         agent = TaskSolveAgent(
-            env_name="envscaler_non_conversation_rl",
+            env_name=env_name,
             env=env,
             model=model,
             provider=model_provider,
@@ -221,6 +238,8 @@ def run_record(
     api_key: str | None = None,
     base_url: str | None = None,
     custom_headers: dict | None = None,
+    conversation_mode: bool = True,
+    user_model: str | None = None,
 ) -> RecordResult:
     """
     Full pipeline: raw task text → skel_builder → scen_generator → agent run → RecordResult.
@@ -228,9 +247,11 @@ def run_record(
     model/api_key/base_url are used for stage 5 (agent interaction).
     """
     start_ms = int(time.time() * 1000)
+    failed_stage: str | None = None
 
     try:
         # ── Stage 1-2: build env from raw task text ───────────────────────────
+        failed_stage = "stage1_build_env"
         env_item = _build_env_metadata(task_text=record.input, model=generator_model, api_key=generator_api_key, base_url=generator_base_url)
         if env_item is None:
             return RecordResult(
@@ -241,12 +262,20 @@ def run_record(
                 error="Task filtered out by skel_builder Stage 1-1 (not a stateful query)",
             )
 
+        # ── Save env to disk ──────────────────────────────────────────────────
+        os.makedirs(_ENVS_DIR, exist_ok=True)
+        env_path = os.path.join(_ENVS_DIR, f"{record.id}.json")
+        with open(env_path, "w", encoding="utf-8") as f:
+            json.dump(env_item, f, ensure_ascii=False, indent=2)
+
         # ── Stage 3: generate init_config ────────────────────────────────────
+        failed_stage = "stage3_init_config"
         init_config = _build_init_config(
             env_item=env_item, model=generator_model, temperature=temperature, api_key=generator_api_key, base_url=generator_base_url
         )
 
         # ── Stage 4: generate check functions (use record.input as task) ─────
+        failed_stage = "stage4_checklist"
         checklist_with_func = _build_checklist_with_func(
             env_item=env_item,
             task_text=record.input,
@@ -257,6 +286,7 @@ def run_record(
         )
 
         # ── Stage 5: run agent ────────────────────────────────────────────────
+        failed_stage = "stage5_agent"
         raw = _run_agent(
             env_item=env_item,
             task_text=record.input,
@@ -271,7 +301,11 @@ def run_record(
             api_key=api_key,
             base_url=base_url,
             custom_headers=custom_headers,
+            conversation_mode=conversation_mode,
+            user_model=user_model,
+            generator_model=generator_model,
         )
+        failed_stage = None
 
     except Exception as exc:
         duration_ms = int(time.time() * 1000) - start_ms
@@ -281,7 +315,7 @@ def run_record(
             score=0.0,
             steps=0,
             duration_ms=duration_ms,
-            error=f"{type(exc).__name__}: {exc}\n{traceback.format_exc()}",
+            error=f"[{failed_stage}] {type(exc).__name__}: {exc}\n{traceback.format_exc()}",
         )
 
     duration_ms = int(time.time() * 1000) - start_ms
@@ -300,6 +334,10 @@ def run_record(
         for item in raw_checklist
     ]
 
+    empty_checklist_reason: str | None = None
+    if not checklist_results and not checklist_with_func:
+        empty_checklist_reason = "[stage4_checklist] LLM failed to generate checklist items after max retries"
+
     return RecordResult(
         record_id=record.id,
         status="truncated" if truncated else "success",
@@ -308,6 +346,7 @@ def run_record(
         duration_ms=duration_ms,
         trajectory=trajectory,
         checklist_results=checklist_results,
+        error=empty_checklist_reason,
     )
 
 

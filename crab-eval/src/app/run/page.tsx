@@ -11,7 +11,7 @@ import { startEval, stopEval, EvalConfig, EvalTarget } from '@/lib/evalRunner'
 import { getApiKey } from '@/lib/openai'
 import {
   Play, Square, CheckCircle2, XCircle, Loader2, Trophy,
-  AlertCircle, RefreshCw, Trash2, Settings, Database, ChevronRight, Users,
+  AlertCircle, AlertTriangle, RefreshCw, Trash2, Settings, Database, ChevronRight, Users,
 } from 'lucide-react'
 import { CrawdAnim } from '@/components/ui/CrawdAnim'
 import { FailurePatternsPanel } from '@/components/ui/FailurePatternsPanel'
@@ -598,39 +598,62 @@ export default function RunPage() {
                   {activeLogs.map((l, i) => {
                     const isHighlighted = highlightedIds !== null && highlightedIds.has(l.id)
                     const isDimmed = highlightedIds !== null && !highlightedIds.has(l.id)
+                    const checklistItems = (l.metadata?.checklist_results as Array<{ check_item: string; passed: boolean }> | undefined) ?? []
                     return (
                     <div key={i}
-                      className="grid grid-cols-[20px_160px_1fr_auto_80px] gap-3 items-center px-5 py-2 hover:bg-[var(--crab-bg-hover)] transition-colors min-w-0"
+                      className="grid grid-cols-[20px_160px_1fr_auto_80px] gap-3 items-start px-5 py-2 hover:bg-[var(--crab-bg-hover)] transition-colors min-w-0"
                       style={{
                         background: isHighlighted ? 'rgba(251,191,36,0.07)' : undefined,
                         borderLeft: isHighlighted ? '2px solid #fbbf24' : '2px solid transparent',
                         opacity: isDimmed ? 0.3 : 1,
                       }}
                     >
-                      <div className="shrink-0 flex items-center justify-center">
+                      <div className="shrink-0 flex items-center justify-center pt-0.5">
                         {l.status === 'running' && <Loader2 size={12} className="animate-spin text-[var(--crab-accent)]" />}
                         {l.status === 'done'    && <CheckCircle2 size={12} className="text-emerald-400" />}
                         {l.status === 'error'   && <XCircle size={12} className="text-red-400" />}
+                        {l.status === 'skipped' && <AlertTriangle size={12} className="text-amber-400" />}
                       </div>
-                      <span className="font-mono text-[11px] text-[var(--crab-text-muted)] truncate">{l.id}</span>
-                      <span className="text-[11px] truncate text-[var(--crab-text-secondary)]">
+                      <span className="font-mono text-[11px] text-[var(--crab-text-muted)] truncate pt-0.5">{l.id}</span>
+                      <div className="text-[11px] text-[var(--crab-text-secondary)] min-w-0">
                         {l.error
-                          ? <span className="text-red-400 flex items-center gap-1"><AlertCircle size={10} />{l.error}</span>
+                          ? <span title={l.error} className="text-red-400 flex items-start gap-1 cursor-help">
+                              <AlertCircle size={10} className="shrink-0 mt-0.5" />
+                              <span className="break-all line-clamp-2">{l.error.split('\n')[0]}</span>
+                            </span>
                           : l.tool_calls?.length
                             ? <span className="font-mono text-[var(--crab-accent)]">{l.tool_calls[0].function.name}()</span>
-                            : l.output || <span className="text-[var(--crab-text-muted)] italic">—</span>
+                            : checklistItems.length > 0
+                              ? <div className="flex flex-col gap-0.5">
+                                  {checklistItems.map((c, ci) => (
+                                    <div key={ci} className="flex items-start gap-1.5">
+                                      {c.passed
+                                        ? <CheckCircle2 size={10} className="text-emerald-400 shrink-0 mt-0.5" />
+                                        : <XCircle size={10} className="text-red-400 shrink-0 mt-0.5" />}
+                                      <span className={c.passed ? 'text-emerald-400' : 'text-red-400'}>{c.check_item}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              : l.status === 'skipped'
+                              ? <span className="text-amber-400 flex items-center gap-1">
+                                  <AlertTriangle size={10} className="shrink-0" />
+                                  No checklist items — not scored
+                                </span>
+                              : <span className="text-[var(--crab-text-muted)] italic">{l.output || '—'}</span>
                         }
-                      </span>
-                      <div className="flex gap-1 shrink-0 justify-end">
-                        {l.status === 'done' && Object.entries(l.scores).map(([k, v]) => (
-                          <span key={k} title={k} className={`text-[10px] px-2 py-0.5 rounded-md font-mono font-semibold ${
-                            v >= 80 ? 'bg-emerald-500/15 text-emerald-400' :
-                            v >= 50 ? 'bg-amber-500/15 text-amber-400' :
-                                      'bg-red-500/15 text-red-400'
-                          }`}>
-                            {fmt(v)}
-                          </span>
-                        ))}
+                      </div>
+                      <div className="flex gap-1 shrink-0 justify-end items-center">
+                        {l.status === 'done' && Object.entries(l.scores)
+                          .filter(([k]) => k !== 'checkpoints_passed' && k !== 'checkpoints_total')
+                          .map(([k, v]) => (
+                            <span key={k} title={k} className={`text-[10px] px-2 py-0.5 rounded-md font-mono font-semibold ${
+                              v >= 80 ? 'bg-emerald-500/15 text-emerald-400' :
+                              v >= 50 ? 'bg-amber-500/15 text-amber-400' :
+                                        'bg-red-500/15 text-red-400'
+                            }`}>
+                              {fmt(v)}
+                            </span>
+                          ))}
                         {l.status === 'running' && (
                           <span className="text-[10px] text-[var(--crab-text-muted)] italic">scoring…</span>
                         )}

@@ -17,7 +17,7 @@ def normalize_source(src: str) -> str:
 
 def ann_to_str(node):
     if node is None:
-        return None
+        return "Any"
     if isinstance(node, ast.Name):
         return node.id
     if isinstance(node, ast.Attribute):

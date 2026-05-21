@@ -38,6 +38,8 @@ class RunRequest(BaseModel):
     custom_headers: Optional[Dict[str, str]] = None
     records: List[RecordInput]
     eval_config: EvalConfig = EvalConfig()
+    conversation_mode: bool = True
+    user_model: Optional[str] = None
 
 
 # ─── Response models ──────────────────────────────────────────────────────────

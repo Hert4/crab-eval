@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
-      signal: AbortSignal.timeout(300_000),
+      signal: AbortSignal.timeout(600_000), // 10 min timeout
     })
   } catch (e) {
     return NextResponse.json(
