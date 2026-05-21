@@ -589,8 +589,6 @@ async function runEnvScalerEval(
         tool_calls: [],
         scores: {
           envscaler_score: r.score * 100,
-          checkpoints_passed: checklistResults.filter(c => c.passed).length,
-          checkpoints_total: checklistResults.length,
         },
         ...(r.error ? { error: r.error } : {}),
         durationMs: r.duration_ms,
@@ -624,7 +622,7 @@ async function runEnvScalerEval(
     if (result) logs.push(result)
   }
 
-  const scorableLogs = logs.filter(l => l.status === 'done' && (l.scores.checkpoints_total ?? 0) > 0)
+  const scorableLogs = logs.filter(l => l.status === 'done')
   const avgEnvScore = scorableLogs.length > 0
     ? scorableLogs.reduce((s, l) => s + (l.scores.envscaler_score ?? 0), 0) / scorableLogs.length
     : 0

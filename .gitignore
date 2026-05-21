@@ -41,7 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # eval outputs (generated at runtime, not committed)
-*/results/*
+# */results/*
 *envs/*
 # Byte-compiled / cache
 __pycache__/
