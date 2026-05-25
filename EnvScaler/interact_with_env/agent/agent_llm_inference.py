@@ -3,6 +3,7 @@ LLM inference utilities for action agent inference.
 """
 
 import os
+import json
 import time
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -33,7 +34,7 @@ def openai_inference_prompt(
                 temperature=temperature,
                 max_tokens=10000,
                 n=1,
-                extra_body={"chat_template_kwargs": {"enable_thinking": enable_thinking}},
+                **({"extra_body": {"chat_template_kwargs": {"enable_thinking": enable_thinking}}} if enable_thinking else {}),
             )
             content = response.choices[0].message.content
             # Get reasoning content if available
@@ -49,7 +50,7 @@ def openai_inference_prompt(
 
         except Exception as e:
             print(f"Something wrong: {e}. Retrying in {retries * 10 + 10} seconds...")
-            time.sleep(retries * 10)
+            time.sleep(2)
             
             retries += 1
             
@@ -77,9 +78,10 @@ def openai_stream_inference_prompt(
             "stream": True,
             "temperature": temperature,
             "max_tokens": max_tokens,
-            "extra_body": {"chat_template_kwargs": {"enable_thinking": enable_thinking}},
             "n": 1
         }
+        if enable_thinking:
+            params["extra_body"] = {"chat_template_kwargs": {"enable_thinking": enable_thinking}}
         try:
             completion = client.chat.completions.create(**params)
 
@@ -121,7 +123,7 @@ def openai_stream_inference_prompt(
         
         except Exception as e:
             print(f"Something wrong: {e}. Retrying in {retries * 10 + 10} seconds...")
-            time.sleep(retries * 10)
+            time.sleep(2)
             if retries >= 5:
                 max_tokens = 5000
                 print(f"max_tokens: {max_tokens}")
@@ -130,6 +132,49 @@ def openai_stream_inference_prompt(
     print(f"Failed to get response after {max_retries} retries.")
     return ""
 
+def _chat_messages_to_responses_input(messages: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Convert Chat Completions message history → Responses API input format.
+
+    Chat Completions: tool_calls attached to assistant message, tool result as role=tool.
+    Responses API: separate items
+        {"type": "function_call",        "call_id": ..., "name": ..., "arguments": ...}
+        {"type": "function_call_output", "call_id": ..., "output": ...}
+    Plain role messages keep their {role, content} shape.
+    """
+    out: List[Dict[str, Any]] = []
+    for msg in messages:
+        role = msg.get("role")
+        if role == "tool":
+            out.append({
+                "type": "function_call_output",
+                "call_id": msg.get("tool_call_id", ""),
+                "output": msg.get("content", "") if isinstance(msg.get("content"), str)
+                         else json.dumps(msg.get("content"), ensure_ascii=False),
+            })
+            continue
+        if role == "assistant" and msg.get("tool_calls"):
+            # Emit content first (if any), then each tool call as its own item.
+            content = msg.get("content") or ""
+            if content:
+                out.append({"role": "assistant", "content": content})
+            for tc in msg["tool_calls"]:
+                fn = tc.get("function", {}) if isinstance(tc, dict) else {}
+                out.append({
+                    "type": "function_call",
+                    "call_id": tc.get("id", "") if isinstance(tc, dict) else "",
+                    "name": fn.get("name", ""),
+                    "arguments": fn.get("arguments", "") if isinstance(fn.get("arguments"), str)
+                                else json.dumps(fn.get("arguments", {}), ensure_ascii=False),
+                })
+            continue
+        # Plain message — pass through with whitelisted keys.
+        clean = {k: v for k, v in msg.items() if k in ("role", "content")}
+        if clean:
+            out.append(clean)
+    return out
+
+
 def _openai_responses_api_fc(
     client: OpenAI,
     model: str,
@@ -137,9 +182,24 @@ def _openai_responses_api_fc(
     tools: Optional[List[Dict]] = None,
 ) -> Dict[str, Any]:
     """Use OpenAI Responses API for gpt-5.x models that don't support Chat Completions streaming."""
-    kwargs: Dict[str, Any] = {"model": model, "input": messages}
+    kwargs: Dict[str, Any] = {"model": model, "input": _chat_messages_to_responses_input(messages)}
     if tools:
-        kwargs["tools"] = [{"type": "function", **t} if t.get("type") != "function" else t for t in tools]
+        # Responses API wants FLAT tool definitions:
+        #   {"type": "function", "name": ..., "description": ..., "parameters": ...}
+        # Chat Completions format is nested under "function": flatten if needed.
+        flat = []
+        for t in tools:
+            if "function" in t and isinstance(t["function"], dict):
+                fn = t["function"]
+                flat.append({
+                    "type": "function",
+                    "name": fn.get("name", ""),
+                    "description": fn.get("description", ""),
+                    "parameters": fn.get("parameters", {}),
+                })
+            elif "name" in t:
+                flat.append({"type": "function", **t} if t.get("type") != "function" else t)
+        kwargs["tools"] = flat
     response = client.responses.create(**kwargs)
 
     content = getattr(response, "output_text", "") or ""
@@ -197,7 +257,7 @@ def openai_stream_inference_fc(
                     tool_choice="auto",
                     top_p=0.95,
                     n=1,
-                    extra_body={"chat_template_kwargs": {"enable_thinking": enable_thinking}}
+                    **({"extra_body": {"chat_template_kwargs": {"enable_thinking": enable_thinking}}} if enable_thinking else {})
                 )
             else:
                 completion = client.chat.completions.create(
@@ -207,7 +267,7 @@ def openai_stream_inference_fc(
                     temperature=temperature,
                     max_tokens=10000,
                     n=1,
-                    extra_body={"chat_template_kwargs": {"enable_thinking": enable_thinking}}
+                    **({"extra_body": {"chat_template_kwargs": {"enable_thinking": enable_thinking}}} if enable_thinking else {})
                 )
 
             reasoning_content = ""
@@ -279,7 +339,7 @@ def openai_stream_inference_fc(
         
         except Exception as e:
             print(f"Something wrong: {e}. Retrying in {retries * 10 + 10} seconds...")
-            time.sleep(retries * 10)
+            time.sleep(2)
             retries += 1
 
     print(f"Failed to get response after {max_retries} retries.")

@@ -25,13 +25,12 @@ def openai_llm_inference(
     max_retries = 10
     while retries < max_retries:
         try:
-            response = client.chat.completions.create(
-                        model=model,
-                        messages=messages,
-                        stop=stop_strs,
-                        temperature=temperature,
-                        max_tokens=max_tokens
-                    )
+            # Drop None-valued kwargs — newer OpenAI models reject null.
+            kwargs = {"model": model, "messages": messages}
+            if stop_strs is not None:   kwargs["stop"] = stop_strs
+            if temperature is not None: kwargs["temperature"] = temperature
+            if max_tokens is not None:  kwargs["max_tokens"] = max_tokens
+            response = client.chat.completions.create(**kwargs)
             output=response.choices[0].message.content
             return output
         except KeyboardInterrupt:
@@ -39,7 +38,7 @@ def openai_llm_inference(
             break
         except Exception as e:
             print(f"Someting wrong:{e}. Retrying in {retries*10+10} seconds...")
-            time.sleep(retries*10) 
+            time.sleep(2) 
             retries += 1
     return ''
     

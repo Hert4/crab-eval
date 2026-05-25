@@ -36,7 +36,7 @@ def openai_llm_inference(
             break
         except Exception as e:
             print(f"Someting wrong:{e}. Retrying in {retries*10+10} seconds...")
-            time.sleep(retries*10) 
+            time.sleep(2) 
             retries += 1
     return ''
 
@@ -105,7 +105,7 @@ def openai_llm_inference(
         
 #         except Exception as e:
 #             print(f"Something wrong: {e}. Retrying in {retries * 10 + 10} seconds...")
-#             time.sleep(retries * 10)
+#             time.sleep(2)
 #             retries += 1
 
 #     print(f"Failed to get response after {max_retries} retries.")

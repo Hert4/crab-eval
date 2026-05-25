@@ -38,7 +38,7 @@ def openai_llm_inference(
     while retries < max_retries:
         try:
             if 'gpt-5' in model:
-                print("Think model cannot set stop_strs, temperature, max_tokens, ignoring these settings")
+                # print("Think model cannot set stop_strs, temperature, max_tokens, ignoring these settings")
                 response = client.responses.create(
                     model=model,
                     input=messages,
@@ -46,14 +46,14 @@ def openai_llm_inference(
                 output = response.output_text
                 return output
             else:
-                response = client.chat.completions.create(
-                    model=model,
-                    messages=messages,
-                    stop=stop_strs,
-                    temperature=temperature,
-                    max_tokens=max_tokens
-                )
-                print(f"Response: {response}")
+                # Drop None-valued kwargs — newer OpenAI models reject
+                # null max_tokens / stop / temperature.
+                kwargs = {"model": model, "messages": messages}
+                if stop_strs is not None:   kwargs["stop"] = stop_strs
+                if temperature is not None: kwargs["temperature"] = temperature
+                if max_tokens is not None:  kwargs["max_tokens"] = max_tokens
+                response = client.chat.completions.create(**kwargs)
+                # print(f"Response: {response}")  # silenced — too noisy in sidecar logs
                 # Some proxies return HTTP 200 with an error payload instead of raising
                 if hasattr(response, 'error') and response.error:
                     raise RuntimeError(f"Error: {response.error}")
@@ -64,7 +64,7 @@ def openai_llm_inference(
         #     raise
         except Exception as e:
             print(f"Something wrong: {e}. Retrying in {retries*10+10} seconds...")
-            time.sleep(retries*10)
+            time.sleep(2)
             retries += 1
     print(f"Failed to get response after {max_retries} retries, return empty string")
     return ''
@@ -89,7 +89,7 @@ def openai_single_embedding_inference(model: str, text: str, api_key: str = None
             break
         except Exception as e:
             print(f"Something wrong: {e}. Retrying in {retries*10+10} seconds...")
-            time.sleep(retries*10)
+            time.sleep(2)
             retries += 1
     print(f"Failed to get embedding after {max_retries} retries, return empty list")
     return []
@@ -111,7 +111,7 @@ def openai_batch_embedding_inference(model: str, texts: List[str], api_key: str 
             return [d.embedding for d in response.data]
         except Exception as e:
             print(f"Something wrong: {e}. Retrying in {retries*10+10} seconds...")
-            time.sleep(retries*10)
+            time.sleep(2)
             retries += 1
     print(f"Failed to get embeddings after {max_retries} retries, return empty list")
     return []

@@ -56,8 +56,7 @@ def parse_type(type_str: str):
         t = type_map[type_str]
         return {"type": t} if t else {}
     
-    # Unknown custom class name - fallback to object
-    print(f"Unknown type: {type_str}")
+    # Unknown custom class name - fallback to object (silenced)
     return {"type": "object"}  # Fallback
 
 
@@ -96,12 +95,12 @@ def convert_tool_schema(simple_def):
     props = {}
     required = []
 
-    print("\n=== SIMPLE DEF ===")
-    print(simple_def)
+    # print("\n=== SIMPLE DEF ===")  # silenced — too noisy
+    # print(simple_def)
 
     for pname, tstr in simple_def.get("parameters", {}).items():
 
-        print(f"PARAM: {pname}, TYPE: {tstr}")
+        # print(f"PARAM: {pname}, TYPE: {tstr}")
 
         if tstr is None:
             raise ValueError(

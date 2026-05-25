@@ -46,13 +46,12 @@ def openai_llm_inference(
                 output = response.output_text
                 return output
             else:
-                response = client.chat.completions.create(
-                    model=model,
-                    messages=messages,
-                    stop=stop_strs,
-                    temperature=temperature,
-                    max_tokens=max_tokens
-                )
+                # Drop None-valued kwargs — newer OpenAI models reject null.
+                kwargs = {"model": model, "messages": messages}
+                if stop_strs is not None:   kwargs["stop"] = stop_strs
+                if temperature is not None: kwargs["temperature"] = temperature
+                if max_tokens is not None:  kwargs["max_tokens"] = max_tokens
+                response = client.chat.completions.create(**kwargs)
                 if hasattr(response, 'error') and response.error:
                     raise RuntimeError(f"API error in response body: {response.error}")
                 output = response.choices[0].message.content

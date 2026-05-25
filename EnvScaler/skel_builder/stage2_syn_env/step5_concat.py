@@ -186,10 +186,30 @@ def write_py_code(py_code: str, output_path: str):
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(py_code)
 
+def _method_is_valid(method_code: str) -> bool:
+    """Check a method's syntax by wrapping it in a minimal class scaffold."""
+    try:
+        body = method_code.strip()
+        if not body:
+            return False
+        indented = "\n".join("    " + l if l.strip() else l for l in body.splitlines())
+        ast.parse(f"class _Tmp:\n{indented}\n")
+        return True
+    except SyntaxError:
+        return False
+
+
 def process_env_item(env_item):
     """Assemble class code from definition and methods, validate syntax and returns."""
     class_def = env_item["class_definition"]
-    methods = [operation["code"] for operation in env_item["operation_list"]]
+    # Drop methods with bad syntax — one broken LLM-generated op shouldn't
+    # take down the whole env class. A reduced env is still useful for eval.
+    all_ops = env_item["operation_list"]
+    valid_ops = [op for op in all_ops if _method_is_valid(op["code"])]
+    dropped = len(all_ops) - len(valid_ops)
+    if dropped:
+        print(f"⚠ step5: dropped {dropped}/{len(all_ops)} ops with invalid syntax")
+    methods = [op["code"] for op in valid_ops]
     passed = True
     try:
         py_code = assemble_env_class(class_def, methods)
@@ -198,18 +218,20 @@ def process_env_item(env_item):
         print(f"❌ Error assembling class: {e}")
         passed = False
     if check_ast(py_code):
-        print("✅ Syntax is valid")
+        # Check return statements only if syntax is valid (check_returns
+        # calls ast.parse without try/except — would re-raise SyntaxError).
+        try:
+            if not check_returns(py_code):
+                print("❌ Returns are invalid")
+                passed = False
+        except SyntaxError:
+            passed = False
     else:
         print("❌ Syntax is invalid")
         passed = False
-    # Check return statements for proper dictionary structure
-    if check_returns(py_code):
-        print("✅ Returns are valid")
-    else:
-        print("❌ Returns are invalid")
-        passed = False
     new_item = deepcopy(env_item)
     new_item["env_class_code"] = py_code
+    new_item["operation_list"] = valid_ops  # keep downstream consistent with dropped ops
     return passed, new_item
         
         

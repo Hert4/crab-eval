@@ -520,106 +520,215 @@ async function runEnvScalerEval(
 ): Promise<TaskRunResult> {
   const taskName = dataset.metadata.task_name
 
+  // Browser → sidecar trực tiếp. Né undici 5-min timeout của Next.js route proxy
+  // và Node http requestTimeout default. CORS sidecar đã allow localhost:3000.
+  const envscalerBase = process.env.NEXT_PUBLIC_ENVSCALER_URL || 'http://localhost:8000'
+
   // Health check — if EnvScaler is down, throw a clear error
-  const health = await fetch('/api/envscaler', { signal: AbortSignal.timeout(5_000) }).catch(() => null)
+  const health = await fetch(`${envscalerBase}/envscaler/health`, { signal: AbortSignal.timeout(5_000) }).catch(() => null)
   if (!health?.ok) {
     throw new Error('EnvScaler server unavailable. Start the server or use a different task type.')
   }
 
   const logs: RecordLog[] = []
 
-  const recordPromises = dataset.data.map((record, ri) =>
-    acquire(async () => {
-      if (abortSignal.aborted) return null
+  // Single batched request: sidecar's build_envs_batch parallelizes Stage 1
+  // and dedup/clusters before Stage 2 — sending per-record disables that.
+  const payload = {
+    run_id: randomUUID(),
+    task_name: taskName,
+    model: target.model,
+    model_provider: 'openai',
+    api_key: target.apiKey,
+    base_url: target.baseUrl,
+    generator_model: judgeConfig.model,
+    generator_api_key: judgeConfig.apiKey,
+    generator_base_url: judgeConfig.baseUrl,
+    records: dataset.data.map(record => ({
+      id: record.id,
+      input: record.input,
+      tools: record.tools ?? [],
+      conversation_history: record.conversation_history ?? [],
+      metadata: record.metadata ?? {},
+    })),
+    eval_config: {
+      max_steps: 8,  // tradeoff: lower = faster Stage 5 but agent may not finish complex tasks
+      temperature: target.temperature ?? 0.7,
+      infer_mode: 'fc',
+      enable_thinking: false,
+    },
+  }
 
-      const payload = {
-        run_id: randomUUID(),
-        task_name: taskName,
-        model: target.model,
-        model_provider: 'openai',
-        api_key: target.apiKey,
-        base_url: target.baseUrl,
-        generator_model: judgeConfig.model,
-        generator_api_key: judgeConfig.apiKey,
-        generator_base_url: judgeConfig.baseUrl,
-        records: [{
-          id: record.id,
-          input: record.input,
-          tools: record.tools ?? [],
-          conversation_history: record.conversation_history ?? [],
-          metadata: record.metadata ?? {},
-        }],
-        eval_config: {
-          max_steps: 20,
-          temperature: target.temperature ?? 0.7,
-          infer_mode: 'fc',
-          enable_thinking: false,
-        },
-      }
+  const recordById = new Map(dataset.data.map(r => [r.id, r]))
+  const seenRecordIds = new Set<string>()
+  let completeResponse: any = null
 
-      const res = await fetch('/api/envscaler', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        signal: abortSignal,
-      })
+  const buildLog = (r: any): RecordLog => {
+    const record = recordById.get(r.record_id)
+    const checklistResults: Array<{ check_item: string; passed: boolean }> = r.checklist_results ?? []
+    const noChecklist = !r.error && checklistResults.length === 0
+    const isError = r.status === 'error' || (!!r.error && checklistResults.length === 0)
+    return {
+      id: r.record_id,
+      status: isError ? 'error' : noChecklist ? 'skipped' : 'done',
+      input: record?.input ?? '',
+      reference: record?.reference ?? '',
+      output: r.error
+        ? r.error
+        : noChecklist
+          ? 'No checklist items'
+          : checklistResults.map((c: any) => `[${c.passed ? 'pass' : 'fail'}] ${c.check_item}`).join('\n'),
+      tool_calls: [],
+      scores: { envscaler_score: (r.score ?? 0) * 100 },
+      ...(r.error ? { error: r.error } : {}),
+      durationMs: r.duration_ms,
+      metadata: {
+        ...(record?.metadata ?? {}),
+        steps: r.steps,
+        checklist_results: checklistResults,
+      },
+    }
+  }
 
-      if (!res.ok) {
-        const detail = await res.text().catch(() => res.statusText)
-        throw new Error(`EnvScaler failed (${res.status}): ${detail}`)
-      }
+  // Stage 1/2 progress counters — surfaced in progress.datasetName so the UI
+  // shows "Building envs (stage1 5/10)" instead of sitting at 0%.
+  let stage1Total = dataset.data.length
+  let stage1Done = 0
+  let stage2Total = 0
+  let stage2Done = 0
+  let completedRecords = 0
 
-      const envResult = await res.json()
-      const r = envResult.results?.[0]
-      if (!r) throw new Error('No result returned from EnvScaler')
-
-      const checklistResults: Array<{ check_item: string; passed: boolean }> = r.checklist_results ?? []
-      const noChecklist = !r.error && checklistResults.length === 0
-      const isError = r.status === 'error' || (!!r.error && checklistResults.length === 0)
-      const log: RecordLog = {
-        id: r.record_id,
-        status: isError ? 'error' : noChecklist ? 'skipped' : 'done',
-        input: record.input ?? '',
-        reference: record.reference ?? '',
-        output: r.error
-          ? r.error
-          : noChecklist
-            ? 'No checklist items'
-            : checklistResults.map(c => `[${c.passed ? 'pass' : 'fail'}] ${c.check_item}`).join('\n'),
-        tool_calls: [],
-        scores: {
-          envscaler_score: r.score * 100,
-        },
-        ...(r.error ? { error: r.error } : {}),
-        durationMs: r.duration_ms,
-        metadata: {
-          ...(record.metadata ?? {}),
-          steps: r.steps,
-          checklist_results: checklistResults,
-        },
-      }
-
-      const s = useEvalSessionStore.getState()
-      s.appendLog(modelId, log)
-      s.updateProgress(modelId, {
-        datasetIndex: di,
-        datasetTotal: datasets.length,
-        datasetName: taskName,
-        recordIndex: ri + 1,
-        recordTotal: dataset.data.length,
-        currentId: log.id,
-        status: log.status === 'error' ? 'error' : 'done',
-        log,
-      })
-
-      onRecordFinished()
-      return log
+  const pushPhaseProgress = (phase: string) => {
+    useEvalSessionStore.getState().updateProgress(modelId, {
+      datasetIndex: di,
+      datasetTotal: datasets.length,
+      datasetName: `${taskName} — ${phase}`,
+      recordIndex: completedRecords,
+      recordTotal: dataset.data.length,
+      currentId: '',
+      status: 'running',
     })
-  )
+  }
 
-  const results = await Promise.all(recordPromises)
-  for (const result of results) {
-    if (result) logs.push(result)
+  await acquire(async () => {
+    if (abortSignal.aborted) throw new DOMException('Aborted', 'AbortError')
+
+    const res = await fetch(`${envscalerBase}/envscaler/run`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream' },
+      body: JSON.stringify(payload),
+      signal: abortSignal,
+    })
+    if (!res.ok || !res.body) {
+      const detail = await res.text().catch(() => res.statusText)
+      throw new Error(`EnvScaler failed (${res.status}): ${detail}`)
+    }
+
+    const reader = res.body.getReader()
+    const decoder = new TextDecoder()
+    let buf = ''
+
+    const handleFrame = (frame: string) => {
+      // Frame = `event: <name>\ndata: <json>` (possibly multi-line data, but we emit single-line JSON)
+      let event = 'message'
+      const dataLines: string[] = []
+      for (const line of frame.split('\n')) {
+        if (line.startsWith('event:')) event = line.slice(6).trim()
+        else if (line.startsWith('data:')) dataLines.push(line.slice(5).trimStart())
+      }
+      const dataStr = dataLines.join('\n')
+      let data: any = null
+      if (dataStr) {
+        try { data = JSON.parse(dataStr) } catch { data = dataStr }
+      }
+
+      switch (event) {
+        case 'stage1_start':
+          stage1Total = data?.total ?? stage1Total
+          pushPhaseProgress(`stage 1 (0/${stage1Total})`)
+          break
+        case 'stage1_done':
+          stage1Done++
+          pushPhaseProgress(`stage 1 (${stage1Done}/${stage1Total})`)
+          break
+        case 'stage2_start':
+          stage2Total = data?.total_reps ?? 0
+          pushPhaseProgress(`stage 2 (0/${stage2Total} reps)`)
+          break
+        case 'stage2_done':
+          stage2Done++
+          pushPhaseProgress(`stage 2 (${stage2Done}/${stage2Total} reps)`)
+          break
+        case 'record_done': {
+          const r = data?.result
+          if (!r || seenRecordIds.has(r.record_id)) break
+          seenRecordIds.add(r.record_id)
+          const log = buildLog(r)
+          logs.push(log)
+          completedRecords++
+          const s = useEvalSessionStore.getState()
+          s.appendLog(modelId, log)
+          s.updateProgress(modelId, {
+            datasetIndex: di,
+            datasetTotal: datasets.length,
+            datasetName: taskName,
+            recordIndex: completedRecords,
+            recordTotal: dataset.data.length,
+            currentId: log.id,
+            status: log.status === 'error' ? 'error' : 'done',
+            log,
+          })
+          onRecordFinished()
+          break
+        }
+        case 'complete':
+          completeResponse = data
+          break
+        case 'error':
+          throw new Error(`EnvScaler stream error: ${data?.message ?? 'unknown'}`)
+      }
+    }
+
+    while (true) {
+      const { value, done } = await reader.read()
+      if (done) break
+      buf += decoder.decode(value, { stream: true })
+      let idx: number
+      while ((idx = buf.indexOf('\n\n')) !== -1) {
+        const frame = buf.slice(0, idx)
+        buf = buf.slice(idx + 2)
+        if (frame.trim()) handleFrame(frame)
+      }
+    }
+    if (buf.trim()) handleFrame(buf)
+  })
+
+  // Backfill any records that never got a `record_done` event (shouldn't happen
+  // with the current sidecar, but guard against partial streams).
+  if (completeResponse?.results) {
+    for (const r of completeResponse.results as any[]) {
+      if (seenRecordIds.has(r.record_id)) continue
+      seenRecordIds.add(r.record_id)
+      const log = buildLog(r)
+      logs.push(log)
+      useEvalSessionStore.getState().appendLog(modelId, log)
+    }
+  }
+  for (const record of dataset.data) {
+    if (seenRecordIds.has(record.id)) continue
+    const log: RecordLog = {
+      id: record.id,
+      status: 'error',
+      input: record.input ?? '',
+      reference: record.reference ?? '',
+      output: 'No result returned from EnvScaler for this record',
+      tool_calls: [],
+      scores: { envscaler_score: 0 },
+      error: 'missing_result',
+      metadata: { ...(record.metadata ?? {}) },
+    }
+    logs.push(log)
+    useEvalSessionStore.getState().appendLog(modelId, log)
   }
 
   const scorableLogs = logs.filter(l => l.status === 'done')

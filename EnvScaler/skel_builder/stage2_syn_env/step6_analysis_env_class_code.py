@@ -21,7 +21,7 @@ def process_env_item(env_item):
     env_structure = build_class_tree_form_str(src = env_class_code, class_name = env_class_name)
     env_func_details = extract_class_methods_from_source(source_str=env_class_code, class_name=env_class_name, include_self=False)
     new_item = deepcopy(env_item)
-    print("env_class_name: ", env_class_name)
+    # print("env_class_name: ", env_class_name)  # silenced
     new_item["env_class_name"] = env_class_name
     new_item["env_class_def"] = env_class_def
     new_item["env_structure"] = env_structure

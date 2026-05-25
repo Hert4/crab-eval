@@ -20,13 +20,17 @@ We are ONLY looking for tasks that meet **all** of the following criteria:
 
 1. **Persistent Environment** — The query is about a domain where:
    - There is a live, ongoing state that can be read or changed
-   - The environment supports both:
-     a) Information queries about current state (read operations)  
+   - The query targets at least one of:
+     a) Information queries about current state (read operations)
      b) Explicit state-changing actions (create, update, delete, move, cancel, etc.)
+     c) Generating content or output derived from data in the environment
+   The environment as a whole may support reads, writes, or both — a single
+   query does not need to do both at once.
 
 2. **State Dependency** — The task cannot be answered correctly without:
    - Inspecting the actual current data or configuration in the environment, and/or
-   - Executing an operation that modifies that data.
+   - Executing an operation that modifies that data, and/or
+   - Reading records/lists from the environment to drive the output.
 
 3. **Domain Specificity** — The environment is not general-purpose knowledge; it is a structured system such as:
    - File management system with stored files/folders
@@ -45,26 +49,31 @@ We are ONLY looking for tasks that meet **all** of the following criteria:
 A request is **NOT eligible** if it is:
 - Open-domain factual Q&A unrelated to a live state ("Who invented AI?", "What’s the capital of France?")
 - Casual conversation ("How are you?", "What's the weather?")
-- Content creation ("Write me a story", "Make a poem")
+- Pure content creation with NO dependency on environment data
+  ("Write me a story", "Make a poem about love"). Content generation that
+  reads or references records/lists/state from the environment IS eligible.
 - Pure hypothetical without actual environment interaction
 - Isolated reasoning or calculations without accessing persisted state
 
-### Judgment Rule — Be strict:
-Choose **YES** only if:
+### Judgment Rule
+Choose **YES** if all of the following hold:
 - The query **cannot** be answered from general knowledge alone
-- AND it **requires real-time access** to persistent state in a domain-specific environment
-- AND it **targets an actionable operation** (either a read or a write to that environment)
-- AND the environment has the capability for both queries and modifications
+- AND it **requires access** to persistent state in a domain-specific environment
+- AND it **targets** a read, a state-changing action, or output derived from
+  environment data
 
-If any criterion is missing → **NO**.
+Otherwise → **NO**. Specifically, choose **NO** for general-knowledge Q&A,
+casual chat, pure hypotheticals, or content creation unrelated to any
+environment data.
 
 ---
 
 ### Task
 Given a query, first **analyze** whether it implies or requires:
-- A domain-specific environment with both query and modification capabilities
-- Accessing or updating persistent state
-- Performing a concrete, actionable operation
+- A domain-specific environment with read and/or modification capabilities
+- Accessing, referencing, or updating persistent state
+- Performing a concrete, actionable operation (read, write, or producing
+  output derived from environment data)
 
 Then give your final judgment.
 

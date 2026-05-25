@@ -7,7 +7,7 @@
 #   make test      — chạy sidecar tests
 #   make clean     — xoá __pycache__ + .next
 
-.PHONY: install install-frontend install-sidecar dev dev-frontend dev-sidecar test clean help
+.PHONY: install install-frontend install-sidecar dev dev-frontend dev-sidecar test clean stop help
 
 help:
 	@echo "Targets:"
@@ -30,13 +30,20 @@ install-sidecar:
 # Frontend log prefix [WEB], sidecar log prefix [API].
 dev:
 	@echo "Starting crab-eval (3000) + sidecar (8000). Ctrl+C để dừng cả hai."
-	@trap 'kill 0' INT; \
-		(cd crab-eval && npm run dev 2>&1 | sed 's/^/[WEB] /') & \
-		(cd sidecar-bridge && uvicorn server:app --port 8000 --reload 2>&1 | sed 's/^/[API] /') & \
-		wait
+	@cleanup() { \
+		echo ""; echo "stopping..."; \
+		pkill -f "uvicorn server:app --port 8000" 2>/dev/null || true; \
+		pkill -f "node server.js" 2>/dev/null || true; \
+		kill 0 2>/dev/null || true; \
+		exit 0; \
+	}; \
+	trap cleanup INT TERM EXIT; \
+	(cd crab-eval && node server.js 2>&1 | sed 's/^/[WEB] /') & \
+	(cd sidecar-bridge && uvicorn server:app --port 8000 --reload 2>&1 | sed 's/^/[API] /') & \
+	wait
 
 dev-frontend:
-	cd crab-eval && npm run dev
+	cd crab-eval && node server.js
 
 dev-sidecar:
 	cd sidecar-bridge && uvicorn server:app --port 8000 --reload
@@ -48,3 +55,10 @@ clean:
 	find . -type d -name __pycache__ -not -path "*/node_modules/*" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name .next -not -path "*/node_modules/*" -exec rm -rf {} + 2>/dev/null || true
 	@echo "Cleaned __pycache__ + .next"
+
+stop:
+	@pkill -9 -f "uvicorn server:app --port 8000" 2>/dev/null && echo "killed uvicorn" || echo "no uvicorn running"
+	@pkill -9 -f "node server.js" 2>/dev/null && echo "killed node server" || echo "no node server running"
+	@pkill -9 -f "multiprocessing.spawn" 2>/dev/null && echo "killed zombie spawn workers" || true
+	@lsof -ti:8000 2>/dev/null | xargs -r kill -9 2>/dev/null; true
+	@echo "all ports freed"

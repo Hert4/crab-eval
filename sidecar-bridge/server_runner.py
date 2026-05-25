@@ -13,7 +13,13 @@ import time
 import json
 import tempfile
 import traceback
+import warnings
 from concurrent.futures import ThreadPoolExecutor, as_completed
+
+# Silence sklearn cosine-normalize warnings: divide-by-zero/overflow inside
+# matmul when embedding vectors are near-zero — doesn't affect clustering
+# correctness, just spams the log.
+warnings.filterwarnings("ignore", category=RuntimeWarning, module="sklearn.utils.extmath")
 
 # ── Path setup ────────────────────────────────────────────────────────────────
 _BASE_DIR        = os.path.dirname(__file__)
@@ -38,9 +44,33 @@ from stage1_collect_env_from_task.step3_optional_select_env    import (
 from stage2_syn_env.step1_infer_state                         import process_env_item as _stage2_step1
 from stage2_syn_env.step2_infer_state_code                    import process_env_item as _stage2_step2
 from stage2_syn_env.step3_infer_operation                     import process_env_item as _stage2_step3
-from stage2_syn_env.step4_infer_func_code                     import process_env_item_for_demo as _stage2_step4
+from stage2_syn_env.step4_infer_func_code                     import construct_messages as _step4_msgs, llm_infer as _step4_llm
 from stage2_syn_env.step5_concat                              import process_env_item as _stage2_step5
 from stage2_syn_env.step6_analysis_env_class_code             import process_env_item as _stage2_step6
+
+_STEP4_MAX_WORKERS = int(os.environ.get("ENVSCALER_STEP4_WORKERS", "8"))
+
+
+def _stage2_step4(env_item: dict, model: str, api_key: str | None = None, base_url: str | None = None) -> dict:
+    """Parallel replacement for EnvScaler's per-demo step4 loop.
+
+    Upstream `process_env_item_for_demo` chạy tuần tự + print verbose mỗi op.
+    Với env có 20+ operations, đây là bottleneck lớn nhất của Stage 2.
+    """
+    from copy import deepcopy
+    new_env_item = deepcopy(env_item)
+    operation_items = deepcopy(env_item["operation_list"])
+
+    def _one(i: int):
+        msgs = _step4_msgs(env_item, operation_items[i])
+        return i, _step4_llm(msgs, model, api_key=api_key, base_url=base_url)
+
+    with ThreadPoolExecutor(max_workers=_STEP4_MAX_WORKERS) as ex:
+        for i, code in ex.map(_one, range(len(operation_items))):
+            operation_items[i]["code"] = code
+
+    new_env_item["operation_list"] = operation_items
+    return new_env_item
 
 # ── scen_generator imports ────────────────────────────────────────────────────
 from step1_gen_env_config       import gen_init_config
@@ -55,26 +85,78 @@ from server_models import RecordInput, RecordResult, ChecklistResult
 
 # ── Internal helpers ──────────────────────────────────────────────────────────
 
+_REQUIRE_STATEFUL_JUDGE = os.environ.get("ENVSCALER_REQUIRE_STATEFUL", "0") == "1"
+_PREBUILT_ENV_ID       = os.environ.get("ENVSCALER_PREBUILT_ENV") or None
+
+
+def _load_prebuilt_env(env_id: str) -> dict:
+    """
+    Load a hand-written env class and run only step6 (AST extract) to
+    populate env_func_details / env_structure / tools. Skips step1-5
+    (LLM-generated state code + ops code).
+    """
+    sys.path.insert(0, _BASE_DIR)
+    from prebuilt_envs import PREBUILT_ENVS
+    if env_id not in PREBUILT_ENVS:
+        raise ValueError(f"Unknown prebuilt env: {env_id}. Available: {list(PREBUILT_ENVS)}")
+    meta = PREBUILT_ENVS[env_id]
+    env_class_code = meta["file"].read_text(encoding="utf-8")
+    env_item = {
+        "environment_summary":      meta["summary"],
+        "environment_introduction": meta["introduction"],
+        "env_class_code":           env_class_code,
+    }
+    return _stage2_step6(env_item=env_item)
+
+
 def _run_stage1(record: RecordInput, model: str, api_key: str | None, base_url: str | None) -> dict | None:
-    """Stage 1-1 + 1-2 for a single record. Returns env_item with metrics or None if filtered."""
-    judge = _stage1_step1(query=record.input, model=model, api_key=api_key, base_url=base_url)
-    if not judge.get("judge_result"):
-        return None
+    """
+    Stage 1-1 + 1-2 for a single record. Returns env_item with metrics or None if filtered.
+
+    By default the step1 LLM judge is BYPASSED — it's unreliable on borderline
+    state-dependent tasks (composing content for filtered subsets) and just
+    burns LLM calls. Stage 2 will fail naturally if env can't be built.
+    Set env var ENVSCALER_REQUIRE_STATEFUL=1 to re-enable the gate.
+    """
+    if _REQUIRE_STATEFUL_JUDGE:
+        judge = _stage1_step1(query=record.input, model=model, api_key=api_key, base_url=base_url)
+        if not judge.get("judge_result"):
+            return None
     env_item_raw = {"task": record.input, "task_from": "crab-eval"}
     return _stage1_step2(item=env_item_raw, model=model, api_key=api_key, base_url=base_url)
 
 
 def _run_stage2(env_item: dict, model: str, api_key: str | None, base_url: str | None) -> dict:
-    """Stage 2 (1-6): synthesise full env class from env description."""
-    env_item = _stage2_step1(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
-    env_item = _stage2_step2(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
-    env_item = _stage2_step3(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
-    env_item = _stage2_step4(env_item=env_item, model=model, api_key=api_key, base_url=base_url)
-    success, env_item = _stage2_step5(env_item=env_item)
-    if not success:
-        raise RuntimeError("skel_builder Stage 2-5 AST check failed")
-    env_item = _stage2_step6(env_item=env_item)
-    return env_item
+    """
+    Stage 2 (1-6): synthesise full env class from env description.
+
+    LLM-generated method code occasionally has bad syntax; one bad method
+    is filtered in step5, but if class_def itself (step2) is broken, the
+    whole assembly fails. Retry step1-5 up to MAX_TRIES times — each LLM
+    pass is non-deterministic and usually recovers.
+    """
+    from copy import deepcopy
+    original = deepcopy(env_item)
+    MAX_TRIES = 3
+    last_err: Exception | None = None
+    for attempt in range(MAX_TRIES):
+        try:
+            item = original if attempt == 0 else deepcopy(original)
+            item = _stage2_step1(env_item=item, model=model, api_key=api_key, base_url=base_url)
+            item = _stage2_step2(env_item=item, model=model, api_key=api_key, base_url=base_url)
+            item = _stage2_step3(env_item=item, model=model, api_key=api_key, base_url=base_url)
+            item = _stage2_step4(env_item=item, model=model, api_key=api_key, base_url=base_url)
+            success, item = _stage2_step5(env_item=item)
+            if not success:
+                raise RuntimeError("skel_builder Stage 2-5 AST check failed")
+            return _stage2_step6(env_item=item)
+        except Exception as e:
+            last_err = e
+            if attempt < MAX_TRIES - 1:
+                print(f"⚠ Stage 2 attempt {attempt+1}/{MAX_TRIES} failed: {type(e).__name__}: {e}. Retrying...")
+                continue
+            raise
+    raise last_err if last_err else RuntimeError("Stage 2 exhausted retries")
 
 
 def _build_init_config(env_item: dict, model: str, temperature: float, api_key: str | None = None, base_url: str | None = None) -> dict:
@@ -209,6 +291,7 @@ def build_envs_batch(
     generator_base_url: str | None = None,
     embedding_model: str = "text-embedding-3-small",
     n_clusters: int | None = None,
+    progress_cb=None,
 ) -> dict[str, dict | None]:
     """
     Run Stage 1 for all records in parallel, embed + cluster to deduplicate envs,
@@ -221,7 +304,31 @@ def build_envs_batch(
     """
     import numpy as np
 
+    def _emit(event: str, payload: dict) -> None:
+        if progress_cb is not None:
+            try:
+                progress_cb(event, payload)
+            except Exception:
+                pass
+
     os.makedirs(_ENVS_DIR, exist_ok=True)
+
+    # Fast path: use a prebuilt hand-written env class for every record.
+    # Bypasses Stage 1+2 LLM code generation entirely.
+    if _PREBUILT_ENV_ID:
+        _emit("stage1_start", {"total": len(records), "prebuilt": _PREBUILT_ENV_ID})
+        try:
+            prebuilt = _load_prebuilt_env(_PREBUILT_ENV_ID)
+        except Exception as exc:
+            return {r.id: exc for r in records}
+        _emit("stage2_start", {"total_reps": 1, "total_records": len(records)})
+        results: dict[str, dict | None | Exception] = {r.id: prebuilt for r in records}
+        for r in records:
+            _emit("stage1_done", {"record_id": r.id, "ok": True})
+        _emit("stage2_done", {"rep_id": 0, "ok": True})
+        return results
+
+    _emit("stage1_start", {"total": len(records)})
 
     # ── Step 1: Stage 1-1 + 1-2 for all records (parallel) ───────────────────
     stage1_results: dict[str, dict | None | Exception] = {}
@@ -236,8 +343,10 @@ def build_envs_batch(
             try:
                 rid, env_item = fut.result()
                 stage1_results[rid] = env_item
+                _emit("stage1_done", {"record_id": rid, "ok": env_item is not None})
             except Exception as exc:
                 stage1_results[record.id] = exc
+                _emit("stage1_done", {"record_id": record.id, "ok": False, "error": f"{type(exc).__name__}: {exc}"})
 
     # Partition: valid (passed stage1) vs filtered/errored
     valid: list[tuple[RecordInput, dict]] = []   # (record, stage1_env_item)
@@ -321,6 +430,8 @@ def build_envs_batch(
     unique_reps: dict[int, dict] = {id(rep): rep for rep in representatives}
     built_reps: dict[int, dict | Exception] = {}
 
+    _emit("stage2_start", {"total_reps": len(unique_reps), "total_records": len(filtered_valid)})
+
     def _do_stage2(rep_id: int, rep: dict):
         return rep_id, _run_stage2(rep, generator_model, generator_api_key, generator_base_url)
 
@@ -331,8 +442,10 @@ def build_envs_batch(
             try:
                 rid, full_env = fut.result()
                 built_reps[rid] = full_env
+                _emit("stage2_done", {"rep_id": rid, "ok": True})
             except Exception as exc:
                 built_reps[rep_id] = exc
+                _emit("stage2_done", {"rep_id": rep_id, "ok": False, "error": f"{type(exc).__name__}: {exc}"})
 
     # ── Step 5: assign built env_item to each record ──────────────────────────
     for record, _ in filtered_valid:
@@ -381,9 +494,19 @@ def run_record(
     cache_path = os.path.join(_ENVS_DIR, f"{record.id}.cache.json")
 
     try:
+        # Invalidate cache when env_class_name in cache doesn't match current
+        # env_item (e.g. switched to a prebuilt env, or LLM regenerated a
+        # different class name on retry).
+        cache_valid = False
         if os.path.exists(cache_path):
             with open(cache_path, encoding="utf-8") as f:
                 cache = json.load(f)
+            cached_name = cache.get("env_item", {}).get("env_class_name")
+            current_name = env_item.get("env_class_name")
+            if cached_name and cached_name == current_name:
+                cache_valid = True
+
+        if cache_valid:
             cached_env_item      = cache["env_item"]
             init_config          = cache["init_config"]
             checklist_with_func  = cache["checklist_with_func"]

@@ -82,7 +82,7 @@ def llm_inference(
 
         except Exception as e:
             print(f"Something wrong: {e}. Retrying in {retries * 10 + 10} seconds...")
-            time.sleep(retries * 10)
+            time.sleep(2)
             
             retries += 1
             
