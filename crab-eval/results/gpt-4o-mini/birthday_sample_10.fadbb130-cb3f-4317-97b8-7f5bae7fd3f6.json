@@ -1,0 +1,259 @@
+{
+  "runId": "fadbb130-cb3f-4317-97b8-7f5bae7fd3f6",
+  "model": "gpt-4o-mini",
+  "baseUrl": "https://test-aiservice.misa.com.vn/llm-gateway/v1",
+  "date": "2026-05-21 04:48:16",
+  "taskName": "birthday_sample_10",
+  "taskType": "multi_turn_tool_calling",
+  "description": "Imported from birthday_sample_10.txt — 10 user inputs",
+  "numSamples": 10,
+  "metrics": [
+    "envscaler_score",
+    "checkpoints_passed",
+    "checkpoints_total"
+  ],
+  "scores": {
+    "envscaler_score": 25
+  },
+  "logs": [
+    {
+      "id": "birthday_sample_10_1",
+      "status": "done",
+      "input": "Lọc danh sách nhân viên thuộc khối KD bán thêm, trực thuộc khối doanh nghiệp nhỏ và khối KD thị trường doanh nghiệp.",
+      "reference": "",
+      "output": "[fail] Has a filter for employees belonging to \"khối KD bán thêm\" been applied?\n[fail] Has a filter for employees belonging to \"khối doanh nghiệp nhỏ\" been applied?\n[fail] Has a filter for employees belonging to \"khối KD thị trường doanh nghiệp\" been applied?\n[fail] Has the employee list been checked to include only employees from \"khối KD bán thêm\", \"khối doanh nghiệp nhỏ\", or \"khối KD thị trường doanh nghiệp\"?\n[fail] Has the employee list been checked to exclude employees not from \"khối KD bán thêm\", \"khối doanh nghiệp nhỏ\", or \"khối KD thị trường doanh nghiệp\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 5
+      },
+      "durationMs": 255287,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has a filter for employees belonging to \"khối KD bán thêm\" been applied?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a filter for employees belonging to \"khối doanh nghiệp nhỏ\" been applied?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a filter for employees belonging to \"khối KD thị trường doanh nghiệp\" been applied?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the employee list been checked to include only employees from \"khối KD bán thêm\", \"khối doanh nghiệp nhỏ\", or \"khối KD thị trường doanh nghiệp\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the employee list been checked to exclude employees not from \"khối KD bán thêm\", \"khối doanh nghiệp nhỏ\", or \"khối KD thị trường doanh nghiệp\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_10_2",
+      "status": "skipped",
+      "input": "Gửi lời chúc sinh nhật cho 3 nhân viên đầu tiên trong danh sách sinh nhật hôm nay với phong cách mạnh mẽ hơn.",
+      "reference": "",
+      "output": "No checklist items",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 0
+      },
+      "durationMs": 213125,
+      "metadata": {
+        "steps": 2,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_10_3",
+      "status": "error",
+      "input": "Tạo lại lời chúc sinh nhật cho các nhân viên trong danh sách hiện tại theo phong cách hài hước.",
+      "reference": "",
+      "output": "Task filtered out by skel_builder Stage 1-1 (not a stateful query)",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 0
+      },
+      "error": "Task filtered out by skel_builder Stage 1-1 (not a stateful query)",
+      "durationMs": 4040,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_10_4",
+      "status": "done",
+      "input": "Hiển thị danh sách nhân viên thuộc nhóm quản lý 01, phòng KD bán thêm 01, phòng KD bán thêm, trung tâm KD giải pháp DN vừa – Hồ Chí Minh.",
+      "reference": "",
+      "output": "[fail] Has the list of employees been displayed?\n[fail] Has the list included employees with group \"Nhóm quản lý 01\"?\n[fail] Has the list included employees with department \"Phòng KD bán thêm 01\"?\n[fail] Has the list included employees with department \"Phòng KD bán thêm\"?\n[fail] Has the list included employees with center \"Trung tâm KD giải pháp DN vừa – Hồ Chí Minh\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 5
+      },
+      "durationMs": 291895,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of employees been displayed?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list included employees with group \"Nhóm quản lý 01\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list included employees with department \"Phòng KD bán thêm 01\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list included employees with department \"Phòng KD bán thêm\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list included employees with center \"Trung tâm KD giải pháp DN vừa – Hồ Chí Minh\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_10_5",
+      "status": "done",
+      "input": "Thêm thông tin Facebook của các nhân viên khác trong danh sách sinh nhật hiện tại.",
+      "reference": "",
+      "output": "[fail] Has the Facebook information field been added for each employee in the current birthday list who previously lacked it?\n[fail] Has the Facebook information field for each employee in the current birthday list been filled with the correct Facebook profile link or identifier?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 2
+      },
+      "durationMs": 131661,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the Facebook information field been added for each employee in the current birthday list who previously lacked it?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the Facebook information field for each employee in the current birthday list been filled with the correct Facebook profile link or identifier?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_10_6",
+      "status": "error",
+      "input": "Tạo thêm 1 lời chúc sinh nhật mới cho các nhân viên thuộc nhóm tư vấn bán hàng.",
+      "reference": "",
+      "output": "Task filtered out by skel_builder Stage 1-1 (not a stateful query)",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 0
+      },
+      "error": "Task filtered out by skel_builder Stage 1-1 (not a stateful query)",
+      "durationMs": 2228,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_10_7",
+      "status": "done",
+      "input": "Xóa đoạn “hy vọng bạn sẽ tiếp tục phát huy năng lực, đóng góp tích cực vào sự phát triển chung của công ty.” khỏi toàn bộ lời chúc sinh nhật đã tạo.",
+      "reference": "",
+      "output": "[pass] Has the phrase “hy vọng bạn sẽ tiếp tục phát huy năng lực, đóng góp tích cực vào sự phát triển chung của công ty.” been removed from every created birthday greeting message?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 100,
+        "checkpoints_passed": 1,
+        "checkpoints_total": 1
+      },
+      "durationMs": 193756,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the phrase “hy vọng bạn sẽ tiếp tục phát huy năng lực, đóng góp tích cực vào sự phát triển chung của công ty.” been removed from every created birthday greeting message?",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_10_8",
+      "status": "skipped",
+      "input": "Gửi lời chúc mừng sinh nhật cho các nhân viên trong danh sách hiện tại với nội dung bá đạo hơn.",
+      "reference": "",
+      "output": "No checklist items",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 0
+      },
+      "durationMs": 246461,
+      "metadata": {
+        "steps": 1,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_10_9",
+      "status": "skipped",
+      "input": "Cập nhật lời chúc sinh nhật cho nhóm lập trình viên thành: “tuổi mới code nhanh như gió, lương cao như núi, dáng đẹp như mơ, bớt ăn hành để còn lấy vợ”.",
+      "reference": "",
+      "output": "No checklist items",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 0
+      },
+      "durationMs": 251755,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_10_10",
+      "status": "error",
+      "input": "Tạo lời chúc sinh nhật hài hước cho các lập trình viên thuộc dự án MISA Order trong hệ thống nhân sự.",
+      "reference": "",
+      "output": "Task filtered out by skel_builder Stage 1-1 (not a stateful query)",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0,
+        "checkpoints_passed": 0,
+        "checkpoints_total": 0
+      },
+      "error": "Task filtered out by skel_builder Stage 1-1 (not a stateful query)",
+      "durationMs": 3722,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    }
+  ]
+}

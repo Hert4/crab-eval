@@ -1,0 +1,702 @@
+{
+  "runId": "572ff5b1-9537-49a8-b0b7-52db6360238d",
+  "model": "misa-ai-1.0",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:09:47",
+  "taskName": "crm_intent_analysis",
+  "taskType": "qa",
+  "description": "CRM intent analysis — phân tích hành động người dùng với đơn hàng",
+  "numSamples": 57,
+  "metrics": [
+    "accuracy"
+  ],
+  "scores": {
+    "accuracy": 80.7
+  },
+  "logs": [
+    {
+      "id": "crm_intent_analysis_0001",
+      "status": "done",
+      "input": "f",
+      "reference": "unknown",
+      "output": "Không có yêu cầu rõ ràng để phân tích. Vui lòng cung cấp nội dung cụ thể liên quan đến đơn hàng, hàng hóa, khách hàng hoặc báo giá để tôi có thể hỗ trợ bạn chính xác.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 920
+    },
+    {
+      "id": "crm_intent_analysis_0002",
+      "status": "done",
+      "input": "ckdh",
+      "reference": "unknown",
+      "output": "Không xác định được hành động rõ ràng.\n\n**Phân tích:**  \n\"Từ khóa 'ckdh' là viết tắt không rõ ràng trong ngữ cảnh hiện tại. Có thể là:  \n- CKDH = Chiết khấu đơn hàng?  \n- Nhưng không có động từ hành động (thêm, xóa, cập nhật, sắp xếp...)  \n- Không đề cập đến đối tượng cụ thể (hàng hóa, khách hàng, báo giá, đơn hàng cha...)  \n- Không đủ thông tin để xác định trường cần cập nhật hoặc hành động cần thực hiện.\"\n\n→ **Kết luận:** Không thuộc bất kỳ hành động nào trong danh sách hỗ trợ.\n\n**Đáp án:** Không xác định (không trả về số 1-7)  \n**Gợi ý người dùng:** Vui lòng cung cấp câu đầy đủ, ví dụ: *\"Cập nhật chiết khấu đơn hàng thành 5%\"* hoặc *\"Thêm hàng hóa với chiết khấu 10%\"* để được hỗ trợ chính xác.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2187
+    },
+    {
+      "id": "crm_intent_analysis_0003",
+      "status": "done",
+      "input": "Cập nhật Kho của tất cả hàng hóa thành Q7",
+      "reference": "2",
+      "output": "**Hành động: 2 - Cập nhật trường**\n\n**Giải thích:**\n- Hành động chính: **\"Cập nhật\"** → phù hợp với hành động loại 2 (cập nhật trường).\n- Trường được cập nhật: **\"Kho\"** → nằm trong danh sách các trường được hỗ trợ (có trong danh sách trường của hành động 2).\n- Đối tượng: **\"tất cả hàng hóa\"** trong đơn hàng → tức là cập nhật trường **Kho** cho tất cả các dòng hàng hóa trong đơn hàng hiện tại.\n- Không có từ khóa \"thêm\", \"tạo\", nên không phải hành động 1.\n- Không đề cập đến khách hàng, báo giá, đơn hàng cha → không vi phạm quy tắc loại trừ.\n\n→ **Kết luận: Hành động 2 (Cập nhật trường)**\n\n✅ **Đáp án: 2**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1896
+    },
+    {
+      "id": "crm_intent_analysis_0004",
+      "status": "done",
+      "input": "Cập nhật Kho của tất cả hàng hóa thành HCM",
+      "reference": "2",
+      "output": "**Hành động: 2 - Cập nhật trường**\n\n**Giải thích:**\n- Hành động người dùng yêu cầu: **\"Cập nhật Kho của tất cả hàng hóa thành HCM\"**\n- Từ khóa \"cập nhật\" → phù hợp với hành động **\"2 - Cập nhật trường\"**\n- Trường được cập nhật: **Kho** (thuộc danh sách trường được hỗ trợ trong hành động 2)\n- Đối tượng: **tất cả hàng hóa trong đơn hàng** → đây là cập nhật trường ở cấp hàng hóa (chi tiết đơn hàng), không phải thêm/xóa đơn hàng hay khách hàng\n- Không có từ khóa \"thêm\", \"tạo\", \"xóa\" → không phải hành động 1\n- Không đề cập đến đối tượng khác như khách hàng, báo giá → nên hiểu là hành động trên **đơn hàng**\n\n✅ **Kết luận: Hành động là \"2\" - Cập nhật trường (Kho)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2454
+    },
+    {
+      "id": "crm_intent_analysis_0005",
+      "status": "done",
+      "input": "Cập nhật Kho của tất cả hàng hóa thành HCm",
+      "reference": "2",
+      "output": "**Hành động: 2 - Cập nhật trường**\n\n**Lý do phân tích:**\n- Hành động chính: **\"Cập nhật\"** → phù hợp với hành động 2 (cập nhật trường).\n- Đối tượng cập nhật: **\"Kho\"** → là một trong các trường được liệt kê trong danh sách trường hỗ trợ cho hành động 2.\n- Phạm vi: **\"của tất cả hàng hóa\"** → tức là cập nhật trường **Kho** trên tất cả các dòng hàng hóa trong đơn hàng.\n- Không có từ khóa \"thêm\", \"tạo\", \"xóa\" → không phải hành động 1.\n- Không đề cập đến khách hàng, báo giá, đơn hàng cha → không vi phạm quy tắc loại trừ.\n\n→ **Kết luận: Hành động 2 (Cập nhật trường)** là chính xác.\n\n✅ **Đáp án: `2`**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1593
+    },
+    {
+      "id": "crm_intent_analysis_0006",
+      "status": "done",
+      "input": "vivumed",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng, vì văn bản \"vivumed\" không chứa từ khóa liên quan đến các hành động được hỗ trợ (thêm, xóa, sắp xếp, cập nhật khách hàng/báo giá/đơn hàng cha/trường đơn hàng...).\n\n**Kết quả: Không có hành động nào (không khớp với bất kỳ mã hành động nào từ 1 đến 7).**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1039
+    },
+    {
+      "id": "crm_intent_analysis_0007",
+      "status": "done",
+      "input": "omega",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng, sản phẩm, khách hàng, báo giá hoặc đơn hàng cha dựa trên từ khóa \"omega\".\n\n- \"Omega\" không phải là từ khóa chỉ hành động (thêm, xóa, cập nhật, sắp xếp,...)\n- Không đề cập đến hàng hóa, đơn hàng, khách hàng, báo giá hay đơn hàng cha theo ngữ cảnh nghiệp vụ\n- Không có đủ thông tin để xác định mục đích người dùng\n\n👉 **Kết luận: Không có hành động nào được xác định.**  \n**Mã hành động: Không xác định**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1049
+    },
+    {
+      "id": "crm_intent_analysis_0008",
+      "status": "done",
+      "input": "Sắp xếp tăng dần theo Mã hàng hóa",
+      "reference": "{\n  \"sort_criteria\": [\n    {\n      \"sort_field\": \"ProductCode\",\n      \"sort_order\": \"asc\",\n      \"priority\": 1\n    }\n  ]\n}",
+      "output": "{\n    \"sort_criteria\": [\n        {\n            \"sort_field\": \"ProductCode\",\n            \"sort_order\": \"asc\",\n            \"priority\": 1\n        }\n    ]\n}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 353
+    },
+    {
+      "id": "crm_intent_analysis_0009",
+      "status": "done",
+      "input": "anh",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện.\n\n**Lý do:**  \nTừ “anh” không chứa bất kỳ từ khóa liên quan đến hành động với **đơn hàng** (thêm, cập nhật, sửa, thay đổi...) hoặc đối tượng cụ thể nào (sản phẩm, số lượng, giá, v.v.). Đây chỉ là một từ xưng hô, không mang thông tin nghiệp vụ.\n\n👉 **Kết luận:** Không có hành động nào được yêu cầu. Vui lòng cung cấp câu lệnh rõ ràng hơn, ví dụ:  \n- “Thêm sản phẩm A”  \n- “Cập nhật số lượng thành 5”  \n- “Sửa địa chỉ giao hàng”  \n\nĐể mình hỗ trợ chính xác nhé!",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1185
+    },
+    {
+      "id": "crm_intent_analysis_0010",
+      "status": "done",
+      "input": "hộp đèn",
+      "reference": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Lý do:**  \nChỉ đề cập đến “hộp đèn” – đây là tên hàng hóa, nhưng **không có từ khóa hành động** (như: thêm, cập nhật, sửa, xóa...) và **không có thông tin nào yêu cầu thao tác với đơn hàng**.\n\n→ Theo quy tắc mặc định: *Nếu không đề cập rõ hành động → không có hành động nào cần thực hiện.*\n\n**Kết luận:**  \n**Không có hành động (không trả về 1 hoặc 2)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 930
+    },
+    {
+      "id": "crm_intent_analysis_0011",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng CÔNG TY CỔ PHẦN SẢN XUẤT NỆM ĐẠI THÀNH, với các hàng hoá:\n- Quạt đứng công nghiệp NS-75 Plus\n- Quạt sàn công nghiệp FE-40\n- Chương trình khuyến mãi",
+      "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"Quạt đứng công nghiệp NS-75 Plus\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Quạt sàn công nghiệp FE-40\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Chương trình khuyến mãi\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "output": "{\n    \"products\": [\n        {\n            \"product_name\": \"Quạt đứng công nghiệp NS-75 Plus\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Quạt sàn công nghiệp FE-40\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        },\n        {\n            \"product_name\": \"Chương trình khuyến mãi\",\n            \"quantity\": null,\n            \"unit\": null,\n            \"price\": null,\n            \"description\": null\n        }\n    ]\n}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1000
+    },
+    {
+      "id": "crm_intent_analysis_0012",
+      "status": "done",
+      "input": ".",
+      "reference": "unknown",
+      "output": "Không có nội dung để phân tích. Vui lòng cung cấp văn bản cần phân tích hành động với ĐƠN HÀNG.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 524
+    },
+    {
+      "id": "crm_intent_analysis_0013",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng 014 TRẦN BA, với các hàng hoá:\n- Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\n- Phí vận chuyển\n- Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\n- Hóa chất trợ lắng (PAC) Trung Quốc\n- Keo ốp lát gạch Hanteco\nThêm đơn hàng cho khách hàng 014 TRẦN BA, với các hàng hoá:\n- Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\n- Phí vận chuyển\n- Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\n- Hóa chất trợ lắng (PAC) Trung Quốc\n- Keo ốp lát gạch Hanteco",
+      "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Keo ốp lát gạch Hanteco\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Keo ốp lát gạch Hanteco\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "output": "{\n  \"products\": [\n    {\n      \"product_name\": \"Phí vận chuyển từ kho Hanteco ra bến xe (chành xe)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Phí vận chuyển\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất Calcium hypochlorite 70% (Ca(ClO)2)\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Hóa chất trợ lắng (PAC) Trung Quốc\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"Keo ốp lát gạch Hanteco\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1679
+    },
+    {
+      "id": "crm_intent_analysis_0014",
+      "status": "done",
+      "input": "Thái Trường Anh",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với ĐƠN HÀNG.\n\n**Lý do:**  \nChuỗi \"Thái Trường Anh\" chỉ là một tên người, không chứa bất kỳ từ khóa nào liên quan đến các hành động được hỗ trợ (thêm, xóa, sắp xếp, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường đơn hàng).  \n\nKhông có ngữ cảnh nào cho thấy đây là yêu cầu cập nhật khách hàng, báo giá, hay bất kỳ trường nào trong đơn hàng.\n\n👉 **Kết quả: Không có hành động nào được xác định.**  \n**Mã hành động: Không có (không khớp với bất kỳ trường hợp nào)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1322
+    },
+    {
+      "id": "crm_intent_analysis_0015",
+      "status": "done",
+      "input": "anh kiệt",
+      "reference": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Giải thích:**  \nCâu \"anh kiệt\" không chứa bất kỳ từ khóa nào liên quan đến hành động với **đơn hàng** (như: thêm, cập nhật, sửa, thay đổi...) và cũng không đề cập đến bất kỳ trường nào trong đơn hàng hay hàng hóa. Đây chỉ là một cách gọi tên người, không có ngữ cảnh nghiệp vụ.\n\n→ **Kết luận: Không có hành động nào cần thực hiện.**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1039
+    },
+    {
+      "id": "crm_intent_analysis_0016",
+      "status": "done",
+      "input": "Sắp xếp MÃ HÀNG",
+      "reference": "{\n  \"sort_criteria\": [\n    {\n      \"sort_field\": \"ProductCode\",\n      \"sort_order\": \"asc\",\n      \"priority\": 1\n    }\n  ]\n}",
+      "output": "{\n    \"sort_criteria\": [\n        {\n            \"sort_field\": \"ProductCode\",\n            \"sort_order\": \"asc\",\n            \"priority\": 1\n        }\n    ]\n}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 448
+    },
+    {
+      "id": "crm_intent_analysis_0017",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH, với các hàng hoá:\n- Thanh nẹp góc giấy V50x50x5x1000mm\n- Thanh nẹp góc giấy V50x50x5x900mm\n- Thanh nẹp góc giấy V50x50x5x1100mm\n- Thanh nẹp góc giấy V50x50x5x1200mm\n- Thanh nẹp góc giấy V50x50x5x2000mm",
+      "reference": "{\n  \"updates\": [\n    {\n      \"field_name\": \"AccountID\",\n      \"new_value\": \"CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH\",\n      \"original_value\": \"CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH\",\n      \"update_all\": true\n    }\n  ]\n}",
+      "output": "{\n    \"updates\": [\n        {\n            \"field_name\": \"AccountID\",\n            \"new_value\": \"CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH\",\n            \"original_value\": \"CÔNG TY TNHH SẢN XUẤT THƯƠNG MẠI IN VŨ THÀNH\",\n            \"update_all\": true\n        }\n    ]\n}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 657
+    },
+    {
+      "id": "crm_intent_analysis_0018",
+      "status": "done",
+      "input": "CÔNG TY TNHH U-LI (VN)",
+      "reference": "unknown",
+      "output": "Không có hành động nào với đơn hàng được đề cập.\n\n**Lý do:**  \nChỉ cung cấp tên công ty \"CÔNG TY TNHH U-LI (VN)\" mà không có bất kỳ từ khóa nào liên quan đến hành động: thêm, xóa, cập nhật, sắp xếp, hoặc bất kỳ trường nào của đơn hàng. Không có ngữ cảnh nào cho thấy đây là hành động cập nhật khách hàng, báo giá, đơn hàng cha, hay thao tác với hàng hóa.\n\n→ **Kết luận: Không xác định được hành động nào cần thực hiện.**  \n**Mã hành động: Không có (không thuộc các trường hợp hỗ trợ)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1032
+    },
+    {
+      "id": "crm_intent_analysis_0019",
+      "status": "done",
+      "input": "tôi muốn liên kết thông tin sang Viettel Post",
+      "reference": "unknown",
+      "output": "Hành động: **Không thuộc các hành động được hỗ trợ** (không phải thêm hoặc cập nhật đơn hàng)\n\n**Giải thích:**\n\n- Câu nói: *\"tôi muốn liên kết thông tin sang Viettel Post\"*  \n→ Đây là yêu cầu **liên kết với hệ thống bên ngoài** (Viettel Post), không phải hành động **thêm hàng hóa** hay **cập nhật trường** trong đơn hàng theo định nghĩa trong quy tắc.\n\n- Các hành động được hỗ trợ chỉ bao gồm:\n  - **1**: Thêm hàng hóa mới vào đơn hàng\n  - **2**: Cập nhật các trường thuộc về đơn hàng hoặc chi tiết hàng hóa trong đơn hàng\n\n- “Liên kết thông tin sang Viettel Post” là hành động **tích hợp hệ thống**, **gửi dữ liệu ra ngoài**, hoặc **cập nhật trạng thái vận chuyển** — nhưng **không phải là một trường trong danh sách trường được hỗ trợ** của hành động 2, và cũng không phải thêm hàng hóa.\n\n→ Do đó, **không có hành động nào trong danh sách 1 hoặc 2 phù hợp**.\n\n**Kết luận:**  \n**Không xác định được hành động (không hỗ trợ)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1819
+    },
+    {
+      "id": "crm_intent_analysis_0020",
+      "status": "done",
+      "input": "bình hút lộc màu trắng h22",
+      "reference": "unknown",
+      "output": "Không có hành động nào với đơn hàng được xác định.\n\n**Lý do:**  \nCâu \"bình hút lộc màu trắng h22\" chỉ là một **mô tả sản phẩm**, không chứa bất kỳ từ khóa hành động nào như: thêm, xóa, cập nhật, sắp xếp, đổi khách hàng, thay báo giá, thay đơn hàng cha,...  \n\n→ Không có hành động nào thuộc các loại \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\" được kích hoạt.\n\n**Kết luận:**  \n**Không có hành động (không trả về số nào)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1078
+    },
+    {
+      "id": "crm_intent_analysis_0021",
+      "status": "done",
+      "input": "born fire",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng, hàng hóa, khách hàng, hoặc báo giá từ nội dung \"born fire\".  \nKhông có từ khóa liên quan đến các hành động được hỗ trợ.\n\n**Kết quả: Không có hành động (không trả về số nào)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 488
+    },
+    {
+      "id": "crm_intent_analysis_0022",
+      "status": "done",
+      "input": "Kha Thanh Điền",
+      "reference": "unknown",
+      "output": "Không có hành động nào với đơn hàng được xác định.\n\n**Lý do:**  \nChuỗi văn bản \"Kha Thanh Điền\" chỉ là một tên người (có thể là tên khách hàng, nhân viên hoặc người liên quan), nhưng **không chứa bất kỳ từ khóa hành động nào** (như: thêm, cập nhật, sửa, xóa...) và **không đề cập đến đơn hàng, sản phẩm, hàng hóa hay bất kỳ trường nào trong đơn hàng**.\n\nTheo quy tắc mặc định:  \n→ Nếu không đề cập rõ đối tượng **và không có hành động**, thì **không có hành động nào được kích hoạt**.\n\n**Kết luận:**  \n✅ **Không có hành động nào (không trả về 1 hoặc 2)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2232
+    },
+    {
+      "id": "crm_intent_analysis_0023",
+      "status": "done",
+      "input": "in cảnh việt nam",
+      "reference": "unknown",
+      "output": "Tôi không thể thực hiện hành động nào với đơn hàng dựa trên yêu cầu \"in cảnh Việt Nam\" vì:\n\n- Yêu cầu này **không liên quan** đến bất kỳ hành động nào với **đơn hàng, hàng hóa, khách hàng, báo giá hoặc đơn hàng cha**.\n- Không có từ khóa nào trong danh sách hành động được hỗ trợ (thêm, xóa, sắp xếp, cập nhật...).\n- \"In cảnh Việt Nam\" là một yêu cầu mang tính hình ảnh hoặc văn hóa, không phải nghiệp vụ quản lý đơn hàng.\n\n👉 **Kết luận**: Không xác định được hành động nào cần thực hiện.  \n**Mã hành động**: Không áp dụng.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2307
+    },
+    {
+      "id": "crm_intent_analysis_0024",
+      "status": "done",
+      "input": "ly bầu lùn quai C",
+      "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"ly bầu lùn quai C\",\n      \"quantity\": null,\n      \"unit\": null,\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "output": "{\n  \"products\": []\n}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 320
+    },
+    {
+      "id": "crm_intent_analysis_0025",
+      "status": "done",
+      "input": "cúc huế",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên nội dung \"cúc huế\".  \n\n**Lý do:**  \n- Không chứa từ khóa liên quan đến các hành động hỗ trợ: thêm, xóa, sắp xếp, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường.  \n- \"Cúc huế\" có thể là tên sản phẩm, tên người, hoặc từ ngữ không liên quan đến nghiệp vụ đơn hàng.  \n\n👉 **Kết luận:** Không có hành động nào cần thực hiện.  \n**Mã hành động:** `0`",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1842
+    },
+    {
+      "id": "crm_intent_analysis_0026",
+      "status": "done",
+      "input": "Jin",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên đầu vào \"Jin\". Vui lòng cung cấp thông tin rõ ràng hơn, ví dụ: thêm/xóa/sửa hàng hóa, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường nào đó trong đơn hàng.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 680
+    },
+    {
+      "id": "crm_intent_analysis_0027",
+      "status": "done",
+      "input": "10kg chả cá sợi\n8kg chả cá tươi",
+      "reference": "{\n  \"products\": [\n    {\n      \"product_name\": \"chả cá sợi\",\n      \"quantity\": \"10\",\n      \"unit\": \"kg\",\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"chả cá tươi\",\n      \"quantity\": \"8\",\n      \"unit\": \"kg\",\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "output": "{\n  \"products\": [\n    {\n      \"product_name\": \"chả cá sợi\",\n      \"quantity\": \"10\",\n      \"unit\": \"kg\",\n      \"price\": null,\n      \"description\": null\n    },\n    {\n      \"product_name\": \"chả cá tươi\",\n      \"quantity\": \"8\",\n      \"unit\": \"kg\",\n      \"price\": null,\n      \"description\": null\n    }\n  ]\n}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 651
+    },
+    {
+      "id": "crm_intent_analysis_0028",
+      "status": "done",
+      "input": "10kg chả cá sợi\n8kg chả cá  tươi\nCập nhật Kho của tất cả hàng hóa thành HCM",
+      "reference": "1, 2",
+      "output": "Dựa trên phân tích theo quy tắc đã cho:\n\n---\n\n### **Phân tích hành động:**\n\n#### **1. \"10kg chả cá sợi\"**  \n→ Đây là **mô tả hàng hóa** với **số lượng (10kg)** và **tên hàng hóa (chả cá sợi)**.  \n→ **Không có từ khóa hành động** (thêm, cập nhật, xóa...) → **Không phải hành động**.  \n→ Đây là **dữ liệu đầu vào**, không phải yêu cầu xử lý.\n\n#### **2. \"8kg chả cá tươi\"**  \n→ Tương tự, chỉ là **mô tả hàng hóa** với số lượng và tên.  \n→ **Không có từ khóa hành động** → **Không phải hành động**.\n\n#### **3. \"Cập nhật Kho của tất cả hàng hóa thành HCM\"**  \n→ **Từ khóa hành động**: **\"Cập nhật\"** → ✅ **Hành động 2: Cập nhật trường**  \n→ **Trường được cập nhật**: **Kho** → ✅ Có trong danh sách trường được hỗ trợ  \n→ **Giá trị mới**: **HCM**  \n→ **Đối tượng**: **tất cả hàng hóa** trong đơn hàng → ✅ Hợp lệ (cập nhật trường Kho cho tất cả dòng hàng trong đơn)\n\n→ **Không có từ khóa \"thêm\"**, không liên quan đến khách hàng/báo giá → **Không vi phạm quy tắc loại trừ**\n\n---\n\n### ✅ **Kết luận hành động:**\n\n**Hành động duy nhất cần thực hiện:**\n\n> **\"2\" - Cập nhật trường**  \n> **Trường:** Kho  \n> **Giá trị mới:** HCM  \n> **Đối tượng:** Tất cả hàng hóa trong đơn hàng\n\n---\n\n### 📌 **Đáp án cuối cùng:**\n```\n2\n```",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 2753
+    },
+    {
+      "id": "crm_intent_analysis_0029",
+      "status": "done",
+      "input": "g",
+      "reference": "unknown",
+      "output": "Không có hành động nào được xác định vì nội dung không cung cấp thông tin rõ ràng để phân tích. Vui lòng cung cấp câu lệnh cụ thể liên quan đến đơn hàng, hàng hóa, khách hàng, báo giá hoặc đơn hàng cha để tôi có thể hỗ trợ bạn chính xác.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 746
+    },
+    {
+      "id": "crm_intent_analysis_0030",
+      "status": "done",
+      "input": "GITNĐ HUẾ",
+      "reference": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Lý do:**  \n“GITNĐ HUẾ” không chứa bất kỳ từ khóa hành động nào liên quan đến **đơn hàng** (như: thêm, cập nhật, sửa, xóa, v.v.) và cũng không rõ là tên đơn hàng, mã đơn hàng, hay thông tin liên quan đến trường nào trong đơn hàng.  \n\n- Không có từ khóa hành động: *thêm, cập nhật, sửa, xóa, tạo, add, insert...*  \n- Không có từ khóa trường dữ liệu nào trong danh sách trường được hỗ trợ.  \n- “GITNĐ HUẾ” có thể là tên viết tắt, mã nội bộ, hoặc địa điểm — nhưng **không đủ thông tin để xác định hành động** theo quy tắc phân tích.\n\n👉 **Kết luận:** Không xác định được hành động nào cần thực hiện.  \n**Hành động trả về: _Không có hành động_**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2405
+    },
+    {
+      "id": "crm_intent_analysis_0031",
+      "status": "done",
+      "input": "ff",
+      "reference": "unknown",
+      "output": "Không có hành động nào được xác định.  \nVui lòng cung cấp thông tin rõ ràng về hành động bạn muốn thực hiện với đơn hàng, hàng hóa, khách hàng hoặc báo giá.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 712
+    },
+    {
+      "id": "crm_intent_analysis_0032",
+      "status": "done",
+      "input": "VIP MAX",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với ĐƠN HÀNG.\n\n**Lý do:**  \n“VIP MAX” là một cụm từ không rõ nghĩa trong ngữ cảnh đơn hàng, không chứa từ khóa hành động (thêm, cập nhật, xóa...) và không đề cập đến bất kỳ trường nào của đơn hàng hay hàng hóa. Không có thông tin nào cho thấy đây là tên sản phẩm, mã đơn hàng, hay thuộc tính cần cập nhật.\n\n→ **Kết luận: Không có hành động hợp lệ nào được xác định.**  \n**Trả về: Không có hành động (empty)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1619
+    },
+    {
+      "id": "crm_intent_analysis_0033",
+      "status": "done",
+      "input": "Kinh Bắc",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với ĐƠN HÀNG.\n\n**Lý do:**  \nTừ \"Kinh Bắc\" là một tên địa danh (có thể là tên khách hàng, địa chỉ, hoặc tên công ty), nhưng **không chứa từ khóa hành động** nào liên quan đến các thao tác được hỗ trợ (thêm, xóa, cập nhật, sắp xếp...).  \n\n- Không có từ khóa hành động như: *thêm, xóa, cập nhật, sửa, sắp xếp, đổi, chọn, gán...*  \n- Không rõ ràng việc \"Kinh Bắc\" là khách hàng, báo giá, đơn hàng cha hay hàng hóa → **không đủ cơ sở để xác định hành động** theo quy tắc.\n\n👉 **Kết luận: Không có hành động nào được xác định → Trả về rỗng hoặc yêu cầu làm rõ.**\n\n**Gợi ý phản hồi nếu cần:**  \n> \"Bạn muốn thực hiện hành động gì với 'Kinh Bắc'? Ví dụ: cập nhật khách hàng, thêm đơn hàng cho khách hàng Kinh Bắc, hay chọn báo giá Kinh Bắc?\"",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2841
+    },
+    {
+      "id": "crm_intent_analysis_0034",
+      "status": "done",
+      "input": "thiện an",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện với đơn hàng.\n\n**Lý do:**  \nTừ “thiện an” không chứa bất kỳ từ khóa hành động nào (như: thêm, cập nhật, sửa, xóa...) và cũng không chỉ rõ đối tượng là đơn hàng, sản phẩm, hay bất kỳ trường nào trong đơn hàng. Đây có thể là tên địa danh, tên khách hàng, hoặc thông tin không liên quan đến thao tác nghiệp vụ trong hệ thống CRM.\n\n👉 **Kết luận:** Không có hành động nào được yêu cầu → **Không trả về hành động nào (1 hoặc 2).**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1816
+    },
+    {
+      "id": "crm_intent_analysis_0035",
+      "status": "done",
+      "input": "khiên",
+      "reference": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Lý do:**  \nTừ “khiên” không phải là từ khóa liên quan đến hành động với **đơn hàng** (thêm, cập nhật, xóa...), cũng không chỉ đến bất kỳ trường nào trong danh sách trường đơn hàng, và không có ngữ cảnh nào cho thấy đây là yêu cầu xử lý đơn hàng hoặc hàng hóa.\n\n→ **Kết luận: Không có hành động nào cần thực hiện.**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1276
+    },
+    {
+      "id": "crm_intent_analysis_0036",
+      "status": "done",
+      "input": "doanh khoa",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên đầu vào \"doanh khoa\".\n\n- Không có từ khóa liên quan đến các hành động được hỗ trợ: thêm, xóa, sắp xếp, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường.\n- \"Doanh khoa\" có thể là lỗi chính tả hoặc không liên quan đến nghiệp vụ đơn hàng.\n\n👉 **Kết luận: Không có hành động hợp lệ.**  \n**Mã hành động: Không xác định (không trả về 1-7)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1300
+    },
+    {
+      "id": "crm_intent_analysis_0037",
+      "status": "done",
+      "input": "fff",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện. Vui lòng cung cấp thông tin rõ ràng về yêu cầu liên quan đến đơn hàng, hàng hóa, khách hàng hoặc báo giá.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 701
+    },
+    {
+      "id": "crm_intent_analysis_0038",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng 1121-Chị Xuân 0936189933, với các hàng hoá:\n- Bệt liền Inax AC989\n- Nắp bệt Inax CF502 (AC989)\n- Bệt liền khối Viglacera V64\n- Vòi xịt nhựa Viglacera VG826\n- Tê khóa Viglacera VG853",
+      "reference": "1,5",
+      "output": "\"5\"",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 182
+    },
+    {
+      "id": "crm_intent_analysis_0039",
+      "status": "done",
+      "input": "merinco",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện với đơn hàng.\n\nLý do:  \n- Văn bản \"merinco\" không chứa bất kỳ từ khóa hành động nào (như: thêm, cập nhật, sửa, xóa...)  \n- Cũng không đề cập đến bất kỳ trường dữ liệu nào của đơn hàng hay hàng hóa  \n- Không có ngữ cảnh rõ ràng để suy luận hành động\n\n→ **Kết luận: Không có hành động hợp lệ với đơn hàng.**  \n**Trả về: Không có hành động (empty)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1078
+    },
+    {
+      "id": "crm_intent_analysis_0040",
+      "status": "done",
+      "input": "Triển Long",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với ĐƠN HÀNG.\n\n\"Triển Long\" là một tên riêng, không chứa từ khóa liên quan đến bất kỳ hành động nào được hỗ trợ (thêm, xóa, sắp xếp, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường đơn hàng).\n\n→ **Kết quả: Không có hành động nào (không trả về số nào).**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 917
+    },
+    {
+      "id": "crm_intent_analysis_0041",
+      "status": "done",
+      "input": "gdfgd",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện vì nội dung không chứa thông tin rõ ràng liên quan đến đơn hàng, hàng hóa, khách hàng, báo giá hoặc các trường dữ liệu trong đơn hàng.\n\nVui lòng cung cấp yêu cầu cụ thể hơn, ví dụ:\n- \"Thêm sản phẩm A\"\n- \"Xóa thuốc ho\"\n- \"Cập nhật khách hàng sang ABC\"\n- \"Sắp xếp theo giá\"\n\nMình sẵn sàng hỗ trợ khi bạn có thông tin rõ ràng!",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 734
+    },
+    {
+      "id": "crm_intent_analysis_0042",
+      "status": "done",
+      "input": "sana",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện.  \nVui lòng cung cấp thông tin rõ ràng hơn về yêu cầu liên quan đến **đơn hàng**, **hàng hóa**, **khách hàng**, hoặc **báo giá**.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 682
+    },
+    {
+      "id": "crm_intent_analysis_0043",
+      "status": "done",
+      "input": "Thêm hàng hóa",
+      "reference": "1",
+      "output": "\"1\"",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 349
+    },
+    {
+      "id": "crm_intent_analysis_0044",
+      "status": "done",
+      "input": "Tôi lên đơn hàng gửi cho khách hàng",
+      "reference": "{\n  \"updates\": [\n    {\n      \"field_name\": \"AccountID\",\n      \"new_value\": null,\n      \"original_value\": null,\n      \"update_all\": true\n    }\n  ]\n}",
+      "output": "{\n    \"updates\": [\n        {\n            \"field_name\": \"AccountID\",\n            \"new_value\": null,\n            \"original_value\": null,\n            \"update_all\": true\n        }\n    ]\n}",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 423
+    },
+    {
+      "id": "crm_intent_analysis_0045",
+      "status": "done",
+      "input": "Gửi đơn hàng có kèm theo công nợ khách hàng cũ đó có được không",
+      "reference": "5",
+      "output": "Hành động: **\"2\" - Cập nhật trường**\n\n**Lý do phân tích:**\n\n- Người dùng nói: *\"Gửi đơn hàng có kèm theo công nợ khách hàng cũ đó có được không\"*\n- Câu này **không yêu cầu thêm/xóa/sắp xếp hàng hóa** → không phải hành động 1, 3, 4.\n- Câu này **không đề cập đến việc thay đổi báo giá** → không phải hành động 6.\n- Câu này **không đề cập đến đơn hàng cha** → không phải hành động 7.\n- Câu này **không yêu cầu thêm/cập nhật khách hàng** (dù có nhắc \"khách hàng cũ\", nhưng không nói \"đổi khách hàng\", \"thêm khách hàng là...\", mà chỉ nói \"công nợ khách hàng cũ\" → đây là **trạng thái công nợ**, thuộc **trường dữ liệu của đơn hàng**).\n- **\"Công nợ khách hàng\"** là một khái niệm liên quan đến **còn phải thu** hoặc **tình trạng thanh toán** — đây là **trường trong đơn hàng** (ví dụ: *Còn phải thu NT*, *Còn phải thu*, *Tình trạng thanh toán*...).\n- Người dùng đang **hỏi về khả năng gửi đơn hàng kèm theo công nợ cũ** → ngụ ý muốn **cập nhật trường liên quan đến công nợ** trong đơn hàng để phản ánh đúng tình trạng.\n\n→ Do đó, đây là hành động **cập nhật một trường trong đơn hàng** (cụ thể là các trường như *Còn phải thu*, *Tình trạng thanh toán*, *Thực thu*, v.v.) để giữ lại thông tin công nợ khách hàng cũ.\n\n✅ **Kết luận: Hành động là \"2\" - Cập nhật trường**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 3302
+    },
+    {
+      "id": "crm_intent_analysis_0046",
+      "status": "done",
+      "input": "a",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện vì nội dung \"a\" không chứa thông tin rõ ràng về đơn hàng, hàng hóa, khách hàng, báo giá hoặc các trường liên quan.\n\n👉 **Kết quả: Không có hành động (không khớp với bất kỳ mã hành động nào)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1027
+    },
+    {
+      "id": "crm_intent_analysis_0047",
+      "status": "done",
+      "input": "ti hi cake",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên nội dung \"ti hi cake\".  \n\n- Không có từ khóa liên quan đến các hành động hỗ trợ: thêm, xóa, sắp xếp, cập nhật khách hàng/báo giá/đơn hàng cha, hoặc cập nhật trường.  \n- \"ti hi cake\" không liên quan đến đơn hàng, sản phẩm, khách hàng, báo giá hay bất kỳ trường nào trong đơn hàng.  \n\n👉 **Kết luận: Không có hành động hợp lệ.**  \n**Mã hành động: Không xác định (không thuộc các trường hợp hỗ trợ)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1277
+    },
+    {
+      "id": "crm_intent_analysis_0048",
+      "status": "done",
+      "input": "jin",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện với đơn hàng hoặc đối tượng liên quan. Vui lòng cung cấp thông tin rõ ràng hơn, ví dụ: thêm/xóa/sửa hàng hóa, cập nhật khách hàng, báo giá, đơn hàng cha, hoặc cập nhật trường nào trong đơn hàng.",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 483
+    },
+    {
+      "id": "crm_intent_analysis_0049",
+      "status": "done",
+      "input": "v",
+      "reference": "unknown",
+      "output": "Không có hành động nào được xác định.\n\n**Lý do:** Văn bản chỉ chứa \"v\" — không chứa từ khóa liên quan đến đơn hàng, hàng hóa, khách hàng, báo giá, hay bất kỳ hành động nào trong danh sách hỗ trợ. Không đủ thông tin để xác định mục tiêu hoặc hành động cần thực hiện.\n\n👉 **Kết quả: Không có hành động (không trả về số nào).**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 707
+    },
+    {
+      "id": "crm_intent_analysis_0050",
+      "status": "done",
+      "input": "anh nhân",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng.\n\n**Lý do:**  \nCâu \"anh nhân\" không chứa từ khóa liên quan đến hành động với **đơn hàng** (như: thêm, cập nhật, sửa, xóa...), cũng không đề cập đến bất kỳ trường nào trong đơn hàng hay sản phẩm. Đây có thể là một phần tên người hoặc câu nói không đầy đủ, không mang nghĩa nghiệp vụ trong hệ thống CRM.\n\n👉 **Kết luận:** Không có hành động nào cần thực hiện.  \n**Trả về: (không có hành động)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1210
+    },
+    {
+      "id": "crm_intent_analysis_0051",
+      "status": "done",
+      "input": "hà văn tâm",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào với đơn hàng dựa trên đầu vào \"hà văn tâm\".\n\n- Không có từ khóa hành động (thêm, xóa, cập nhật, sắp xếp,...)\n- Không đề cập đến hàng hóa, đơn hàng, báo giá, khách hàng, đơn hàng cha theo ngữ cảnh nghiệp vụ\n- \"hà văn tâm\" có thể là tên người, nhưng không rõ là khách hàng, nhân viên, hay đối tượng khác — và **không có động từ hành động** đi kèm để xác định mục đích\n\n→ **Kết luận: Không có hành động nào được xác định.**\n\n**Mã hành động: (không xác định)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1300
+    },
+    {
+      "id": "crm_intent_analysis_0052",
+      "status": "done",
+      "input": "Anh Nhân - Cty Cửu Long",
+      "reference": "unknown",
+      "output": "Không có hành động nào với đơn hàng được xác định.\n\n**Lý do:**  \nCâu \"Anh Nhân - Cty Cửu Long\" chỉ cung cấp thông tin về **người liên hệ** và **công ty**, không chứa bất kỳ từ khóa hành động nào liên quan đến **đơn hàng** (như: thêm, cập nhật, xóa, sửa...), cũng không đề cập đến sản phẩm, hàng hóa, hay bất kỳ trường nào trong đơn hàng.\n\n→ **Kết luận: Không có hành động nào cần thực hiện.**  \n**Trả về: Không có hành động (empty)**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1125
+    },
+    {
+      "id": "crm_intent_analysis_0053",
+      "status": "done",
+      "input": "đổi sang đơn vị tính thùng",
+      "reference": "2",
+      "output": "**Hành động: 2 - Cập nhật trường**\n\n**Lý do:**  \n- Hành động \"đổi sang đơn vị tính thùng\" là yêu cầu **cập nhật trường** `Đơn vị tính` trong đơn hàng.  \n- \"Đơn vị tính\" **không phải** là thuộc tính mặc định của hàng hóa mới (không thuộc nhóm loại trừ: Số lượng, Đơn giá, Diễn giải, Đơn vị tính).  \n→ Theo quy tắc: Khi có hành động \"cập nhật\" (dù không dùng từ \"cập nhật\" nhưng \"đổi sang\" là hành động thay đổi giá trị trường) + trường **không thuộc nhóm loại trừ** → **Hành động 2**.\n\n✅ **Kết quả:** `2`",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1277
+    },
+    {
+      "id": "crm_intent_analysis_0054",
+      "status": "done",
+      "input": "gel",
+      "reference": "unknown",
+      "output": "Không xác định được hành động nào cần thực hiện.\n\n**Lý do:**  \nTừ “gel” chỉ là một từ chung chung (có thể là tên sản phẩm, chất liệu, hoặc từ viết tắt), nhưng **không chứa bất kỳ từ khóa hành động nào** (như: thêm, cập nhật, sửa, xóa...) và **không có ngữ cảnh rõ ràng** để xác định đây là đơn hàng, sản phẩm, hay đối tượng khác.\n\n👉 **Theo quy tắc mặc định:** Nếu không đề cập rõ hành động hoặc đối tượng, hệ thống không thể suy diễn.\n\n**Kết luận:**  \n✅ **Không có hành động nào được xác định.**  \nBạn vui lòng cung cấp câu rõ ràng hơn, ví dụ:  \n- “Thêm gel dưỡng da vào đơn hàng” → Hành động **1**  \n- “Cập nhật số lượng gel thành 10” → Hành động **2**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1608
+    },
+    {
+      "id": "crm_intent_analysis_0055",
+      "status": "done",
+      "input": "Thêm đơn hàng cho khách hàng 1121-Chị Xuân 0936189933, với các hàng hoá:\n- Vòi xịt nhựa Viglacera VG826\n- Chậu treo 1 lỗ Viglacera V23\n- Nắp thường Viglacera V1102\n- Nắp bệt Inax CF500VS (C/AC504, AC969, AC959)\n- Bệt liền khối Viglacera V823",
+      "reference": "1,5",
+      "output": "\"5\"",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 213
+    },
+    {
+      "id": "crm_intent_analysis_0056",
+      "status": "done",
+      "input": "cập nhật Kho HCM",
+      "reference": "2",
+      "output": "Hành động: **2 - Cập nhật trường**\n\n**Giải thích:**  \n- Câu lệnh: *\"cập nhật Kho HCM\"*  \n- Hành động \"cập nhật\" → phù hợp với hành động loại **2**  \n- \"Kho HCM\" là giá trị cần cập nhật cho trường **Kho** trong đơn hàng  \n- \"Kho\" nằm trong danh sách các trường được hỗ trợ cập nhật (theo danh sách trường đã cung cấp)  \n- Không có từ khóa nào chỉ đối tượng khác (khách hàng, báo giá...) → mặc định là hành động với **đơn hàng**\n\n✅ **Kết luận: Hành động 2 - Cập nhật trường \"Kho\" với giá trị \"HCM\"**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2230
+    },
+    {
+      "id": "crm_intent_analysis_0057",
+      "status": "done",
+      "input": "Cty Tường Vỹ",
+      "reference": "unknown",
+      "output": "Không có hành động nào với đơn hàng được xác định.\n\n**Lý do:**  \nChuỗi văn bản \"Cty Tường Vỹ\" chỉ là tên một công ty, không chứa bất kỳ từ khóa hành động nào liên quan đến đơn hàng (như: thêm, cập nhật, sửa, xóa...), cũng không đề cập đến sản phẩm, hàng hóa, hay bất kỳ trường nào trong đơn hàng.\n\n→ **Kết luận: Không có hành động nào cần thực hiện.**",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1736
+    }
+  ]
+}

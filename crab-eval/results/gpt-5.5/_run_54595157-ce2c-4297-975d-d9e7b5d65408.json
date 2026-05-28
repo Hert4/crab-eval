@@ -1,0 +1,12 @@
+{
+  "runId": "54595157-ce2c-4297-975d-d9e7b5d65408",
+  "model": "gpt-5.5",
+  "baseUrl": "https://test-aiservice.misa.com.vn/llm-gateway/v1",
+  "date": "2026-05-27 06:36:13",
+  "durationMs": 287256,
+  "tasks": {
+    "birthday_sample_100": {
+      "envscaler_score": 25.25
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "runId": "40f4ba64-299c-4bbc-a1e7-546b7a9dd378",
+  "model": "gpt-4.1-mini",
+  "baseUrl": "https://test-aiservice.misa.com.vn/llm-gateway/v1",
+  "date": "2026-05-27 06:33:43",
+  "durationMs": 137200,
+  "tasks": {
+    "birthday_sample_100": {
+      "envscaler_score": 45.76
+    }
+  }
+}

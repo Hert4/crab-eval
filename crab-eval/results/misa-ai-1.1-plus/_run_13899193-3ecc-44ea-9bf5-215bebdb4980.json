@@ -1,0 +1,35 @@
+{
+  "runId": "13899193-3ecc-44ea-9bf5-215bebdb4980",
+  "model": "misa-ai-1.1-plus",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:43:12",
+  "durationMs": 1556831,
+  "tasks": {
+    "ava_tool_calling": {
+      "ast_accuracy": 76.19,
+      "task_success_rate": 76.53
+    },
+    "crm_intent_analysis": {
+      "accuracy": 59.65
+    },
+    "crm_recommendation": {
+      "list_match": 14.8
+    },
+    "crmmisa_dashboard": {
+      "token_f1": 49.65
+    },
+    "htkh_intent_classification": {
+      "accuracy": 97.33
+    },
+    "htkh_intent_routing": {
+      "accuracy": 59.09
+    },
+    "makt_forecast": {
+      "list_match": 88.47
+    },
+    "htkh_rag_qa": {
+      "faithfulness": 85.2,
+      "answer_relevancy": 88.47
+    }
+  }
+}

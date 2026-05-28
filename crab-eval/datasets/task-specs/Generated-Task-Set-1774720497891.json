@@ -1,0 +1,4876 @@
+{
+  "id": "703169a9-69a5-41ab-843d-5319db86e484",
+  "name": "Generated Task Set",
+  "createdAt": "2026-03-28T17:54:56.946Z",
+  "detectedLanguage": "Vietnamese",
+  "atomicSubtasks": [
+    {
+      "id": "search_candidate_by_name",
+      "name": "Search candidate by name",
+      "description": "Retrieve a list of candidates matching a given name (and optional recruitment name)",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_search_candidate",
+      "expectedTools": [
+        {
+          "toolName": "get_candidates",
+          "requiredArgs": [
+            "CandidateName"
+          ],
+          "optionalArgs": [
+            "RecruitmentName"
+          ],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateName",
+          "type": "string",
+          "description": "Tên ứng viên cần tìm",
+          "sampleValues": [
+            "Nguyễn Văn A",
+            "Trần Thị B"
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "RecruitmentName",
+          "type": "string",
+          "description": "Tên tin tuyển dụng (nếu muốn lọc)",
+          "sampleValues": [
+            "Kỹ sư phần mềm - Q1 2026",
+            "Nhân viên kinh doanh"
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ],
+      "group": "candidate_search",
+      "dependsOn": []
+    },
+    {
+      "id": "evaluate_multiple_candidates",
+      "name": "Evaluate fit score for multiple candidates",
+      "description": "Calculate suitability scores for a set of candidates against a specific recruitment posting",
+      "intent": "analysis",
+      "skillRef": "recruitment_skill_evaluation_candidate",
+      "expectedTools": [
+        {
+          "toolName": "get_multiple_candidates_fit_score",
+          "requiredArgs": [
+            "CandidateIDs",
+            "RecruitmentID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateIDs",
+          "type": "string",
+          "description": "Danh sách ID ứng viên, ngăn cách bằng dấu phẩy",
+          "sampleValues": [
+            "101,102,103"
+          ]
+        },
+        {
+          "name": "RecruitmentID",
+          "type": "number",
+          "description": "ID của tin tuyển dụng",
+          "sampleValues": [
+            55
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "group": "candidate_evaluation",
+      "dependsOn": []
+    },
+    {
+      "id": "evaluate_single_candidate",
+      "name": "Evaluate fit score for a single candidate",
+      "description": "Calculate suitability score for one candidate against a recruitment posting",
+      "intent": "analysis",
+      "skillRef": "recruitment_skill_evaluation_candidate",
+      "expectedTools": [
+        {
+          "toolName": "get_candidate_fit_score",
+          "requiredArgs": [
+            "CandidateID",
+            "RecruitmentID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên",
+          "sampleValues": [
+            101
+          ]
+        },
+        {
+          "name": "RecruitmentID",
+          "type": "number",
+          "description": "ID của tin tuyển dụng",
+          "sampleValues": [
+            55
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "group": "candidate_evaluation",
+      "dependsOn": []
+    },
+    {
+      "id": "search_candidates_natural_query",
+      "name": "Search candidates via natural language query",
+      "description": "Retrieve candidates and recruitment info based on a free‑text query",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_evaluation_candidate",
+      "expectedTools": [
+        {
+          "toolName": "get_candidates_for_evaluation",
+          "requiredArgs": [
+            "Query"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "Query",
+          "type": "string",
+          "description": "Câu truy vấn ngôn ngữ tự nhiên mô tả tiêu chí",
+          "sampleValues": [
+            "Ứng viên đang ở vòng phỏng vấn cho tin QC‑T1‑2026",
+            "Các ứng viên có kinh nghiệm Java 3 năm"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates với ít nhất một ứng viên",
+        "RecruitmentID và RecruitmentName được trả về cùng với danh sách"
+      ],
+      "group": "candidate_search",
+      "dependsOn": []
+    },
+    {
+      "id": "fetch_email_template",
+      "name": "Fetch email template details",
+      "description": "Retrieve the content and metadata of an email template for editing or reuse",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_gen_email_template",
+      "expectedTools": [
+        {
+          "toolName": "get_email",
+          "requiredArgs": [
+            "EmailID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "EmailID",
+          "type": "number",
+          "description": "ID của mẫu email cần lấy",
+          "sampleValues": [
+            2001
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Kết quả trả về chứa EmailContent có placeholder ##Value##",
+        "EmailTemplateName và TitleEmail được trả về"
+      ],
+      "group": "email_template",
+      "dependsOn": []
+    },
+    {
+      "id": "generate_new_email",
+      "name": "Generate new recruitment email",
+      "description": "Create a fresh email content based on a selected template and supplied field values",
+      "intent": "content_generation",
+      "skillRef": "recruitment_skill_gen_email_template",
+      "expectedTools": [
+        {
+          "toolName": "get_email",
+          "requiredArgs": [
+            "EmailID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "EmailID",
+          "type": "number",
+          "description": "ID của mẫu email gốc",
+          "sampleValues": [
+            2001
+          ]
+        },
+        {
+          "name": "FieldValues",
+          "type": "object",
+          "description": "Map các trường trộn (FieldKey) sang giá trị thực tế",
+          "sampleValues": [
+            {
+              "CandidateName": "Nguyễn Văn A",
+              "Position": "Kỹ sư phần mềm"
+            },
+            {
+              "CandidateName": "Trần Thị B",
+              "InterviewDate": "2026-04-15"
+            }
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ],
+      "group": "email_template",
+      "dependsOn": [
+        "fetch_email_template"
+      ]
+    },
+    {
+      "id": "suggest_interview_questions",
+      "name": "Suggest interview questions",
+      "description": "Provide a list of interview questions based on user‑specified criteria",
+      "intent": "content_generation",
+      "skillRef": "Gợi ý câu hỏi phỏng vấn",
+      "expectedTools": [
+        {
+          "toolName": "ToolA_placeholder",
+          "requiredArgs": [
+            "Topic",
+            "Level"
+          ],
+          "optionalArgs": [
+            "NumberOfQuestions"
+          ],
+          "order": 1
+        },
+        {
+          "toolName": "ToolB_placeholder",
+          "requiredArgs": [
+            "Topic"
+          ],
+          "optionalArgs": [],
+          "order": 2
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "Topic",
+          "type": "string",
+          "description": "Chủ đề hoặc vị trí công việc",
+          "sampleValues": [
+            "Kỹ năng lập trình Java",
+            "Quản lý dự án"
+          ]
+        },
+        {
+          "name": "Level",
+          "type": "string",
+          "description": "Mức độ khó (beginner, intermediate, senior)",
+          "sampleValues": [
+            "intermediate"
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "NumberOfQuestions",
+          "type": "number",
+          "description": "Số câu hỏi mong muốn",
+          "sampleValues": [
+            5,
+            10
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về là danh sách ít nhất 3 câu hỏi",
+        "Mỗi câu hỏi liên quan tới Topic và phù hợp với Level"
+      ],
+      "group": "interview_question",
+      "dependsOn": []
+    },
+    {
+      "id": "print_interview_questions",
+      "name": "Print interview questions",
+      "description": "Send the generated interview questions to a printer or export as PDF",
+      "intent": "action",
+      "skillRef": "Function Calling - In câu hỏi phỏng vấn",
+      "expectedTools": [
+        {
+          "toolName": "PrintTool_placeholder",
+          "requiredArgs": [
+            "QuestionList"
+          ],
+          "optionalArgs": [
+            "Format"
+          ],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "QuestionList",
+          "type": "array",
+          "description": "Danh sách câu hỏi cần in",
+          "sampleValues": [
+            [
+              "Câu hỏi 1",
+              "Câu hỏi 2",
+              "Câu hỏi 3"
+            ]
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "Format",
+          "type": "string",
+          "description": "Định dạng xuất (pdf, docx)",
+          "sampleValues": [
+            "pdf"
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "In thành công và trả về thông báo xác nhận",
+        "File PDF được tạo nếu Format=pdf"
+      ],
+      "group": "interview_question",
+      "dependsOn": [
+        "suggest_interview_questions"
+      ]
+    },
+    {
+      "id": "save_email_template",
+      "name": "Save email template",
+      "description": "Persist a newly created or edited email template into the recruitment system",
+      "intent": "action",
+      "skillRef": "Function Calling - Lưu mẫu email tuyển dụng",
+      "expectedTools": [
+        {
+          "toolName": "SaveEmailTool_placeholder",
+          "requiredArgs": [
+            "EmailContent",
+            "TemplateName",
+            "EmailType"
+          ],
+          "optionalArgs": [
+            "TitleEmail"
+          ],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "EmailContent",
+          "type": "string",
+          "description": "Nội dung email đã hoàn thiện",
+          "sampleValues": [
+            "Kính gửi Nguyễn Văn A, chúng tôi mời bạn tham gia phỏng vấn..."
+          ]
+        },
+        {
+          "name": "TemplateName",
+          "type": "string",
+          "description": "Tên mẫu email",
+          "sampleValues": [
+            "Mời phỏng vấn - Kỹ sư phần mềm"
+          ]
+        },
+        {
+          "name": "EmailType",
+          "type": "number",
+          "description": "Loại email theo hệ thống (0=Other,1=Xác nhận,5=Loại ứng viên,18=Mời thi,54=Mời ứng tuyển lại)",
+          "sampleValues": [
+            18
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "TitleEmail",
+          "type": "string",
+          "description": "Tiêu đề email",
+          "sampleValues": [
+            "Mời tham gia phỏng vấn vị trí Kỹ sư phần mềm"
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "Trả về ID mới của mẫu email đã lưu",
+        "Thông báo lưu thành công được hiển thị"
+      ],
+      "group": "email_template",
+      "dependsOn": [
+        "generate_new_email"
+      ]
+    },
+    {
+      "id": "summarize_cv",
+      "name": "Summarize CV",
+      "description": "Generate a concise summary of a candidate's CV based on user‑specified focus",
+      "intent": "analysis",
+      "skillRef": "Kỹ năng tóm tắt CV",
+      "expectedTools": [
+        {
+          "toolName": "SummarizeCVTool_placeholder",
+          "requiredArgs": [
+            "CandidateID",
+            "FocusArea"
+          ],
+          "optionalArgs": [
+            "Length"
+          ],
+          "order": 1
+        },
+        {
+          "toolName": "FetchCVTool_placeholder",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 2
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên",
+          "sampleValues": [
+            101
+          ]
+        },
+        {
+          "name": "FocusArea",
+          "type": "string",
+          "description": "Mục tiêu tóm tắt (ví dụ: kinh nghiệm, kỹ năng, dự án)",
+          "sampleValues": [
+            "Kinh nghiệm làm việc"
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "Length",
+          "type": "number",
+          "description": "Số câu muốn trong bản tóm tắt",
+          "sampleValues": [
+            3
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "Bản tóm tắt ngắn gọn, không vượt quá Length câu",
+        "Bao gồm thông tin về FocusArea"
+      ],
+      "group": "cv_processing",
+      "dependsOn": []
+    },
+    {
+      "id": "translate_cv",
+      "name": "Translate CV",
+      "description": "Translate a candidate's CV into a target language",
+      "intent": "content_generation",
+      "skillRef": "Kỹ năng dịch CV",
+      "expectedTools": [
+        {
+          "toolName": "TranslateCVTool_placeholder",
+          "requiredArgs": [
+            "CandidateID",
+            "TargetLanguage"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        },
+        {
+          "toolName": "FetchCVTool_placeholder",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 2
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên",
+          "sampleValues": [
+            102
+          ]
+        },
+        {
+          "name": "TargetLanguage",
+          "type": "string",
+          "description": "Ngôn ngữ đích (ISO code hoặc tên)",
+          "sampleValues": [
+            "en",
+            "fr"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Kết quả trả về là nội dung CV bằng TargetLanguage",
+        "Không có ký tự lạ hoặc mất dữ liệu"
+      ],
+      "group": "cv_processing",
+      "dependsOn": []
+    },
+    {
+      "id": "use_email_template_content",
+      "name": "Use existing email template content",
+      "description": "Insert a saved email template's content into a new email composition flow",
+      "intent": "action",
+      "skillRef": "Function Calling - Dùng nội dung mẫu email",
+      "expectedTools": [
+        {
+          "toolName": "InsertTemplateTool_placeholder",
+          "requiredArgs": [
+            "EmailID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "EmailID",
+          "type": "number",
+          "description": "ID của mẫu email muốn dùng",
+          "sampleValues": [
+            2001
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Nội dung mẫu email được chèn vào khung soạn email",
+        "Placeholder vẫn còn nếu chưa được thay thế"
+      ],
+      "group": "email_template",
+      "dependsOn": []
+    },
+    {
+      "id": "report_query",
+      "name": "Answer report‑related question",
+      "description": "Provide answers to user queries about recruitment reports using multiple reporting tools",
+      "intent": "information_retrieval",
+      "skillRef": "Hỏi đáp báo cáo",
+      "expectedTools": [
+        {
+          "toolName": "ReportTool1_placeholder",
+          "requiredArgs": [
+            "ReportID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        },
+        {
+          "toolName": "ReportTool2_placeholder",
+          "requiredArgs": [
+            "Parameters"
+          ],
+          "optionalArgs": [],
+          "order": 2
+        },
+        {
+          "toolName": "ReportTool3_placeholder",
+          "requiredArgs": [
+            "Query"
+          ],
+          "optionalArgs": [],
+          "order": 3
+        },
+        {
+          "toolName": "ReportTool4_placeholder",
+          "requiredArgs": [
+            "Metric"
+          ],
+          "optionalArgs": [],
+          "order": 4
+        },
+        {
+          "toolName": "ReportTool5_placeholder",
+          "requiredArgs": [
+            "DateRange"
+          ],
+          "optionalArgs": [],
+          "order": 5
+        },
+        {
+          "toolName": "ReportTool6_placeholder",
+          "requiredArgs": [
+            "Department"
+          ],
+          "optionalArgs": [],
+          "order": 6
+        },
+        {
+          "toolName": "ReportTool7_placeholder",
+          "requiredArgs": [
+            "Format"
+          ],
+          "optionalArgs": [],
+          "order": 7
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "Query",
+          "type": "string",
+          "description": "Câu hỏi người dùng về báo cáo",
+          "sampleValues": [
+            "Số lượng ứng viên đã nộp hồ sơ trong tháng 3",
+            "Tỷ lệ chuyển đổi từ CV sang phỏng vấn"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Câu trả lời chứa số liệu hoặc biểu đồ phù hợp",
+        "Nếu có yêu cầu xuất file, trả về link tải"
+      ],
+      "group": "reporting",
+      "dependsOn": []
+    },
+    {
+      "id": "interview_schedule_query",
+      "name": "Answer interview schedule question",
+      "description": "Provide information about interview dates, times, and locations",
+      "intent": "information_retrieval",
+      "skillRef": "Hỏi đáp lịch phỏng vấn",
+      "expectedTools": [
+        {
+          "toolName": "ScheduleTool1_placeholder",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        },
+        {
+          "toolName": "ScheduleTool2_placeholder",
+          "requiredArgs": [
+            "Date"
+          ],
+          "optionalArgs": [],
+          "order": 2
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên cần tra lịch",
+          "sampleValues": [
+            101
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "Date",
+          "type": "date",
+          "description": "Ngày cụ thể muốn kiểm tra (nếu có)",
+          "sampleValues": [
+            "2026-04-20"
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "Trả về thời gian và địa điểm phỏng vấn cho CandidateID",
+        "Nếu không có lịch, thông báo rõ ràng"
+      ],
+      "group": "schedule",
+      "dependsOn": []
+    },
+    {
+      "id": "view_candidate_cv",
+      "name": "View candidate CV content",
+      "description": "Retrieve the full CV text of a candidate for review",
+      "intent": "information_retrieval",
+      "skillRef": "Xem nội dung CV",
+      "expectedTools": [
+        {
+          "toolName": "ViewCVTool_placeholder",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        },
+        {
+          "toolName": "ParseCVTool_placeholder",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 2
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên",
+          "sampleValues": [
+            103
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Nội dung CV được trả về đầy đủ, định dạng văn bản",
+        "Không có lỗi truy xuất"
+      ],
+      "group": "cv_processing",
+      "dependsOn": []
+    },
+    {
+      "id": "generate_interview_questions",
+      "name": "Generate interview questions",
+      "description": "Generate primary and secondary interview questions for a specific candidate and recruitment posting",
+      "intent": "content_generation",
+      "skillRef": "recruitment_skill_generate_interview_question",
+      "expectedTools": [
+        {
+          "toolName": "get_data_for_gen_interview_question",
+          "requiredArgs": [
+            "CandidateID",
+            "RecruitmentID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "Unique identifier of the candidate",
+          "sampleValues": [
+            "12345",
+            "9876"
+          ]
+        },
+        {
+          "name": "RecruitmentID",
+          "type": "number",
+          "description": "Identifier of the recruitment posting the candidate applied to",
+          "sampleValues": [
+            "555",
+            "1020"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Agent returns a list of primary interview questions",
+        "Agent returns a list of secondary (follow‑up) interview questions",
+        "Each question reflects the candidate persona and job requirements"
+      ],
+      "group": "interview_question_creation",
+      "dependsOn": []
+    },
+    {
+      "id": "summarize_cv_by_id",
+      "name": "Summarize CV (by ID)",
+      "description": "Retrieve a candidate's CV content and produce a concise summary based on user request",
+      "intent": "analysis",
+      "skillRef": "recruitment_skill_sumarize_cv",
+      "expectedTools": [
+        {
+          "toolName": "get_cv_content",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "Unique identifier of the candidate whose CV will be summarized",
+          "sampleValues": [
+            "1122",
+            "3344"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Agent returns a short paragraph summarizing the candidate's experience and skills",
+        "Summary references key achievements from the CV",
+        "Length of summary is within 3‑5 sentences"
+      ],
+      "group": "cv_processing",
+      "dependsOn": []
+    },
+    {
+      "id": "summarize_cv_by_name",
+      "name": "Summarize CV (by name)",
+      "description": "Search for a candidate by name (and optional recruitment) then summarize their CV",
+      "intent": "analysis",
+      "skillRef": "recruitment_skill_sumarize_cv",
+      "expectedTools": [
+        {
+          "toolName": "get_candidates",
+          "requiredArgs": [
+            "CandidateName"
+          ],
+          "optionalArgs": [
+            "RecruitmentName"
+          ],
+          "order": 1
+        },
+        {
+          "toolName": "get_cv_content",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 2
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateName",
+          "type": "string",
+          "description": "Full or partial name of the candidate",
+          "sampleValues": [
+            "Tran Thi C",
+            "Pham D"
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "RecruitmentName",
+          "type": "string",
+          "description": "Title of the recruitment posting to narrow the search",
+          "sampleValues": [
+            "Marketing Specialist",
+            "Data Analyst"
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "Agent selects the correct candidate from the list",
+        "Returned summary reflects the selected candidate's CV",
+        "If multiple matches, agent asks clarification before summarizing"
+      ],
+      "group": "cv_processing",
+      "dependsOn": []
+    },
+    {
+      "id": "translate_cv_by_id",
+      "name": "Translate CV (by ID)",
+      "description": "Fetch a candidate's CV and translate it into the target language specified by the user",
+      "intent": "content_generation",
+      "skillRef": "recruitment_skill_translate_cv",
+      "expectedTools": [
+        {
+          "toolName": "get_cv_content",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "Identifier of the candidate whose CV will be translated",
+          "sampleValues": [
+            "2001",
+            "4500"
+          ]
+        },
+        {
+          "name": "TargetLanguage",
+          "type": "string",
+          "description": "ISO code or name of the language to translate the CV into",
+          "sampleValues": [
+            "en",
+            "English",
+            "fr",
+            "French"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Translated CV text is returned in the requested language",
+        "Formatting of sections (Education, Experience, etc.) is preserved",
+        "No original Vietnamese content remains in the output"
+      ],
+      "group": "cv_processing",
+      "dependsOn": []
+    },
+    {
+      "id": "translate_cv_by_name",
+      "name": "Translate CV (by name)",
+      "description": "Locate a candidate by name (optional recruitment) and translate their CV into a target language",
+      "intent": "content_generation",
+      "skillRef": "recruitment_skill_translate_cv",
+      "expectedTools": [
+        {
+          "toolName": "get_candidates",
+          "requiredArgs": [
+            "CandidateName"
+          ],
+          "optionalArgs": [
+            "RecruitmentName"
+          ],
+          "order": 1
+        },
+        {
+          "toolName": "get_cv_content",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 2
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateName",
+          "type": "string",
+          "description": "Name of the candidate whose CV will be translated",
+          "sampleValues": [
+            "Hoang Van D",
+            "Nguyen Thi E"
+          ]
+        },
+        {
+          "name": "TargetLanguage",
+          "type": "string",
+          "description": "Language to translate the CV into",
+          "sampleValues": [
+            "en",
+            "English",
+            "de",
+            "German"
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "RecruitmentName",
+          "type": "string",
+          "description": "Recruitment posting title to narrow candidate search",
+          "sampleValues": [
+            "Backend Engineer",
+            "HR Manager"
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "Agent confirms the correct candidate before translation",
+        "Returned text is fully translated into the target language",
+        "If multiple candidates match, agent asks for clarification"
+      ],
+      "group": "cv_processing",
+      "dependsOn": []
+    },
+    {
+      "id": "list_candidates",
+      "name": "List candidates",
+      "description": "Retrieve a list of candidates filtered by name and optionally by recruitment posting",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_sumarize_cv",
+      "expectedTools": [
+        {
+          "toolName": "get_candidates",
+          "requiredArgs": [
+            "CandidateName"
+          ],
+          "optionalArgs": [
+            "RecruitmentName"
+          ],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateName",
+          "type": "string",
+          "description": "Name or partial name to search for",
+          "sampleValues": [
+            "Mai",
+            "Tran"
+          ]
+        }
+      ],
+      "optionalInputs": [
+        {
+          "name": "RecruitmentName",
+          "type": "string",
+          "description": "Recruitment posting title to further filter results",
+          "sampleValues": [
+            "Sales Executive",
+            "UI/UX Designer"
+          ]
+        }
+      ],
+      "assertionCriteria": [
+        "Agent returns an array of candidate records",
+        "Each record includes CandidateID, CandidateName, RecruitmentName, TitleWebsite, ApplyDate, and Position",
+        "Results are limited to matches for the provided name (and recruitment if given)"
+      ],
+      "group": "candidate_lookup",
+      "dependsOn": []
+    },
+    {
+      "id": "get_recruitment_by_name",
+      "name": "Retrieve Recruitment Posting by Name",
+      "description": "Fetch details of a recruitment posting given its internal title",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_view_report",
+      "expectedTools": [
+        {
+          "toolName": "get_recruitment",
+          "requiredArgs": [
+            "RecruitmentName"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "RecruitmentName",
+          "type": "string",
+          "description": "Internal title of the recruitment posting",
+          "sampleValues": [
+            "Tuyển dụng Kỹ sư phần mềm",
+            "Mở vị trí Chuyên viên Marketing"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "The returned payload includes RecruitmentID and JobPostitionName",
+        "The response status is successful and contains a non‑empty array"
+      ],
+      "group": "recruitment_lookup",
+      "dependsOn": []
+    },
+    {
+      "id": "compare_recruitment_periods",
+      "name": "Compare Recruitment Metrics Between Two Periods",
+      "description": "Generate a side‑by‑side comparison of recruitment statistics for two date ranges",
+      "intent": "analysis",
+      "skillRef": "recruitment_skill_view_report",
+      "expectedTools": [
+        {
+          "toolName": "recruitment_comparison",
+          "requiredArgs": [
+            "FromDate1",
+            "ToDate1",
+            "FromDate2",
+            "ToDate2"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "FromDate1",
+          "type": "string",
+          "description": "Start date of the first reporting period (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-01-01",
+            "2024-04-01"
+          ]
+        },
+        {
+          "name": "ToDate1",
+          "type": "string",
+          "description": "End date of the first reporting period (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-01-31",
+            "2024-04-30"
+          ]
+        },
+        {
+          "name": "FromDate2",
+          "type": "string",
+          "description": "Start date of the second reporting period (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-02-01",
+            "2024-05-01"
+          ]
+        },
+        {
+          "name": "ToDate2",
+          "type": "string",
+          "description": "End date of the second reporting period (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-02-28",
+            "2024-05-31"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Output contains Period1 and Period2 objects with TotalNeeded, TotalCVApplied, TotalHired, and CompletionRate",
+        "Numeric values are present for each metric in both periods"
+      ],
+      "group": "recruitment_analysis",
+      "dependsOn": []
+    },
+    {
+      "id": "candidate_report_by_time",
+      "name": "Report Candidate Applications Over Time",
+      "description": "Retrieve number of candidates applied per day for a specific recruitment posting",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_view_report",
+      "expectedTools": [
+        {
+          "toolName": "get_candidate_by_time_by_recruitment",
+          "requiredArgs": [
+            "RecruitmentID",
+            "FromDate",
+            "ToDate"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "RecruitmentID",
+          "type": "number",
+          "description": "Unique identifier of the recruitment posting",
+          "sampleValues": [
+            1023,
+            2045
+          ]
+        },
+        {
+          "name": "FromDate",
+          "type": "string",
+          "description": "Start date for the candidate report (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-03-01",
+            "2024-06-01"
+          ]
+        },
+        {
+          "name": "ToDate",
+          "type": "string",
+          "description": "End date for the candidate report (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-03-31",
+            "2024-06-30"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Payload is an array where each element has Date and Total fields",
+        "Total is a non‑negative integer for each date"
+      ],
+      "group": "candidate_time_series",
+      "dependsOn": []
+    },
+    {
+      "id": "recruitment_post_overview",
+      "name": "Get Overview of a Specific Recruitment Posting",
+      "description": "Fetch detailed recruitment metrics for a single posting, including rounds, efficiency, evaluation, cost, and channels",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_view_report",
+      "expectedTools": [
+        {
+          "toolName": "recruitment_post_overview",
+          "requiredArgs": [
+            "RecruitmentID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "RecruitmentID",
+          "type": "number",
+          "description": "ID of the recruitment posting to overview",
+          "sampleValues": [
+            1501,
+            1789
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Output contains arrays RecruitmentRound, RecruitmentEfficiency, RecruitmentEvaluation, RecruitmentChannel, etc.",
+        "Each array includes the fields described in the tool definition (e.g., RoundName, Quantity, Percent)"
+      ],
+      "group": "recruitment_overview",
+      "dependsOn": []
+    },
+    {
+      "id": "company_wide_recruitment_overview",
+      "name": "Company‑wide Recruitment Overview",
+      "description": "Generate a summary report of recruitment activity across the whole company for a given period",
+      "intent": "analysis",
+      "skillRef": "recruitment_skill_view_report",
+      "expectedTools": [
+        {
+          "toolName": "get_recruitment_overview",
+          "requiredArgs": [
+            "FromDate",
+            "ToDate"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "FromDate",
+          "type": "string",
+          "description": "Start date of the reporting period (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-01-01",
+            "2024-07-01"
+          ]
+        },
+        {
+          "name": "ToDate",
+          "type": "string",
+          "description": "End date of the reporting period (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-01-31",
+            "2024-07-31"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Summary object includes TotalCVApplied, TotalPositions, TotalHired, TotalNeeded, CompletionRate",
+        "Deficit and FewApplication arrays are present when applicable"
+      ],
+      "group": "company_report",
+      "dependsOn": []
+    },
+    {
+      "id": "department_recruitment_report",
+      "name": "Recruitment Report by Department",
+      "description": "Provide recruitment statistics for a specific department within a date range",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_view_report",
+      "expectedTools": [
+        {
+          "toolName": "recruitment_by_department",
+          "requiredArgs": [
+            "FromDate",
+            "ToDate",
+            "DepartmentName"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "FromDate",
+          "type": "string",
+          "description": "Start date for the department report (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-04-01",
+            "2024-08-01"
+          ]
+        },
+        {
+          "name": "ToDate",
+          "type": "string",
+          "description": "End date for the department report (YYYY‑MM‑DD)",
+          "sampleValues": [
+            "2024-04-30",
+            "2024-08-31"
+          ]
+        },
+        {
+          "name": "DepartmentName",
+          "type": "string",
+          "description": "Name of the department (e.g., IT, Marketing)",
+          "sampleValues": [
+            "Phòng Công nghệ Thông tin",
+            "Phòng Marketing"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Payload contains Summary with DepartmentName and TotalNeeded fields",
+        "Numeric totals are non‑negative and match the requested period"
+      ],
+      "group": "department_report",
+      "dependsOn": []
+    },
+    {
+      "id": "fetch_recruitment_report_by_position",
+      "name": "Get recruitment report by job position",
+      "description": "Retrieve a recruitment status report for a specific job position within a date range",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_by_position",
+      "expectedTools": [
+        {
+          "toolName": "recruitment_by_position",
+          "requiredArgs": [
+            "JobPositionName",
+            "FromDate",
+            "ToDate"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "JobPositionName",
+          "type": "string",
+          "description": "Tên vị trí tuyển dụng",
+          "sampleValues": [
+            "Kỹ sư phần mềm",
+            "Chuyên viên nhân sự"
+          ]
+        },
+        {
+          "name": "FromDate",
+          "type": "string",
+          "description": "Thời điểm bắt đầu kỳ báo cáo (YYYY-MM-DD)",
+          "sampleValues": [
+            "2024-01-01",
+            "2024-07-01"
+          ]
+        },
+        {
+          "name": "ToDate",
+          "type": "string",
+          "description": "Thời điểm kết thúc kỳ báo cáo (YYYY-MM-DD)",
+          "sampleValues": [
+            "2024-01-31",
+            "2024-07-31"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Response contains a 'payload' object with a 'Summary' field",
+        "Summary includes the same JobPositionName as requested",
+        "Numbers for TotalNeeded, TotalHired, and CompletionRate are present and non‑negative"
+      ],
+      "group": "recruitment_reporting",
+      "dependsOn": []
+    },
+    {
+      "id": "list_interview_schedules",
+      "name": "List interview schedules",
+      "description": "Retrieve a list of interview schedules filtered by date range, type and scope",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_view_schedule",
+      "expectedTools": [
+        {
+          "toolName": "get_schedule",
+          "requiredArgs": [
+            "FromDate",
+            "ToDate",
+            "ScheduleType",
+            "Scope"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "FromDate",
+          "type": "string",
+          "description": "Thời gian bắt đầu (YYYY-MM-DD)",
+          "sampleValues": [
+            "2024-06-01",
+            "2024-07-15"
+          ]
+        },
+        {
+          "name": "ToDate",
+          "type": "string",
+          "description": "Thời gian kết thúc (YYYY-MM-DD)",
+          "sampleValues": [
+            "2024-06-30",
+            "2024-07-31"
+          ]
+        },
+        {
+          "name": "ScheduleType",
+          "type": "number",
+          "description": "Loại lịch phỏng vấn (1=trực tiếp, 2=bài thi, 4=online, …)",
+          "sampleValues": [
+            1,
+            4
+          ]
+        },
+        {
+          "name": "Scope",
+          "type": "number",
+          "description": "Phạm vi xem lịch (1=đã tạo, 2=tham gia, 3=cả hai, 4=toàn công ty)",
+          "sampleValues": [
+            2,
+            4
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Response contains a 'payload.Data' array",
+        "Each item includes CandidateID, CandidateName, JobPositionName, StartTime and EndTime",
+        "Total number of records matches the 'payload.Total' field"
+      ],
+      "group": "schedule_management",
+      "dependsOn": []
+    },
+    {
+      "id": "view_interview_board",
+      "name": "View interview board members",
+      "description": "Get the list of interview board members for a specific interview schedule",
+      "intent": "information_retrieval",
+      "skillRef": "recruitment_skill_view_schedule",
+      "expectedTools": [
+        {
+          "toolName": "get_recruitment_board",
+          "requiredArgs": [
+            "CandidateScheduleID",
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateScheduleID",
+          "type": "number",
+          "description": "ID của lịch phỏng vấn",
+          "sampleValues": [
+            10123,
+            20245
+          ]
+        },
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên",
+          "sampleValues": [
+            5678,
+            9123
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Response includes a 'payload' array of board members",
+        "Each member has UserID, FullName and ContactEmail",
+        "IsCreatedSchedule flag is a boolean"
+      ],
+      "group": "schedule_management",
+      "dependsOn": []
+    },
+    {
+      "id": "get_candidate_cv_content",
+      "name": "Get candidate CV content",
+      "description": "Retrieve the raw CV file content of a specific candidate",
+      "intent": "content_generation",
+      "skillRef": "recrutment_skill_view_cv",
+      "expectedTools": [
+        {
+          "toolName": "get_cv_content",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên",
+          "sampleValues": [
+            5678,
+            9123
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "Response payload is a non‑empty string",
+        "String appears to be plain text or base64‑encoded PDF content",
+        "Content length is greater than 100 characters"
+      ],
+      "group": "candidate_cv",
+      "dependsOn": []
+    },
+    {
+      "id": "summarize_candidate_cv",
+      "name": "Summarize candidate CV",
+      "description": "Generate a concise summary of a candidate's CV after retrieving its content",
+      "intent": "analysis",
+      "skillRef": "recrutment_skill_view_cv",
+      "expectedTools": [
+        {
+          "toolName": "get_cv_content",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên",
+          "sampleValues": [
+            5678,
+            9123
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "LLM returns a paragraph (50‑150 words) summarizing education, experience and skills",
+        "Summary mentions the candidate's name and applied position",
+        "No raw CV markup appears in the output"
+      ],
+      "group": "candidate_cv",
+      "dependsOn": []
+    },
+    {
+      "id": "translate_candidate_cv",
+      "name": "Translate candidate CV",
+      "description": "Translate the retrieved CV content into a target language",
+      "intent": "content_generation",
+      "skillRef": "recrutment_skill_view_cv",
+      "expectedTools": [
+        {
+          "toolName": "get_cv_content",
+          "requiredArgs": [
+            "CandidateID"
+          ],
+          "optionalArgs": [],
+          "order": 1
+        }
+      ],
+      "requiredInputs": [
+        {
+          "name": "CandidateID",
+          "type": "number",
+          "description": "ID của ứng viên",
+          "sampleValues": [
+            5678,
+            9123
+          ]
+        },
+        {
+          "name": "TargetLanguage",
+          "type": "string",
+          "description": "Ngôn ngữ đích (ISO code)",
+          "sampleValues": [
+            "en",
+            "fr"
+          ]
+        }
+      ],
+      "optionalInputs": [],
+      "assertionCriteria": [
+        "LLM returns translated text in the requested language",
+        "Translation preserves the structure of sections (Education, Experience, etc.)",
+        "Output length is comparable to original CV content"
+      ],
+      "group": "candidate_cv",
+      "dependsOn": []
+    }
+  ],
+  "compositeTasks": [
+    {
+      "id": "ct_1774719299851_1",
+      "name": "Search candidate by name (expert, complete)",
+      "subtaskIds": [
+        "search_candidate_by_name"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_2",
+      "name": "Search candidate by name (novice, complete)",
+      "subtaskIds": [
+        "search_candidate_by_name"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_3",
+      "name": "Evaluate fit score for multiple candidates (expert, complete)",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_4",
+      "name": "Evaluate fit score for multiple candidates (expert, partial)",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_17",
+      "name": "Fetch email template details (expert, complete)",
+      "subtaskIds": [
+        "fetch_email_template"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về chứa EmailContent có placeholder ##Value##",
+        "EmailTemplateName và TitleEmail được trả về"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_18",
+      "name": "Fetch email template details (novice, complete)",
+      "subtaskIds": [
+        "fetch_email_template"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về chứa EmailContent có placeholder ##Value##",
+        "EmailTemplateName và TitleEmail được trả về"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_25",
+      "name": "Suggest interview questions (expert, complete)",
+      "subtaskIds": [
+        "suggest_interview_questions"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về là danh sách ít nhất 3 câu hỏi",
+        "Mỗi câu hỏi liên quan tới Topic và phù hợp với Level"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_26",
+      "name": "Suggest interview questions (expert, partial)",
+      "subtaskIds": [
+        "suggest_interview_questions"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về là danh sách ít nhất 3 câu hỏi",
+        "Mỗi câu hỏi liên quan tới Topic và phù hợp với Level"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_31",
+      "name": "Print interview questions (expert, complete)",
+      "subtaskIds": [
+        "print_interview_questions"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "In thành công và trả về thông báo xác nhận",
+        "File PDF được tạo nếu Format=pdf"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_32",
+      "name": "Print interview questions (novice, complete)",
+      "subtaskIds": [
+        "print_interview_questions"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "In thành công và trả về thông báo xác nhận",
+        "File PDF được tạo nếu Format=pdf"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_33",
+      "name": "Save email template (expert, complete)",
+      "subtaskIds": [
+        "save_email_template"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Trả về ID mới của mẫu email đã lưu",
+        "Thông báo lưu thành công được hiển thị"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_34",
+      "name": "Save email template (expert, partial)",
+      "subtaskIds": [
+        "save_email_template"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Trả về ID mới của mẫu email đã lưu",
+        "Thông báo lưu thành công được hiển thị"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_39",
+      "name": "Summarize CV (expert, complete)",
+      "subtaskIds": [
+        "summarize_cv"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Bản tóm tắt ngắn gọn, không vượt quá Length câu",
+        "Bao gồm thông tin về FocusArea"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_40",
+      "name": "Summarize CV (expert, partial)",
+      "subtaskIds": [
+        "summarize_cv"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Bản tóm tắt ngắn gọn, không vượt quá Length câu",
+        "Bao gồm thông tin về FocusArea"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_45",
+      "name": "Translate CV (expert, complete)",
+      "subtaskIds": [
+        "translate_cv"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về là nội dung CV bằng TargetLanguage",
+        "Không có ký tự lạ hoặc mất dữ liệu"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_46",
+      "name": "Translate CV (expert, partial)",
+      "subtaskIds": [
+        "translate_cv"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về là nội dung CV bằng TargetLanguage",
+        "Không có ký tự lạ hoặc mất dữ liệu"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_51",
+      "name": "Use existing email template content (expert, complete)",
+      "subtaskIds": [
+        "use_email_template_content"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Nội dung mẫu email được chèn vào khung soạn email",
+        "Placeholder vẫn còn nếu chưa được thay thế"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_52",
+      "name": "Use existing email template content (novice, complete)",
+      "subtaskIds": [
+        "use_email_template_content"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Nội dung mẫu email được chèn vào khung soạn email",
+        "Placeholder vẫn còn nếu chưa được thay thế"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_53",
+      "name": "Answer report‑related question (expert, complete)",
+      "subtaskIds": [
+        "report_query"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Câu trả lời chứa số liệu hoặc biểu đồ phù hợp",
+        "Nếu có yêu cầu xuất file, trả về link tải"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_54",
+      "name": "Answer report‑related question (novice, complete)",
+      "subtaskIds": [
+        "report_query"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Câu trả lời chứa số liệu hoặc biểu đồ phù hợp",
+        "Nếu có yêu cầu xuất file, trả về link tải"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_55",
+      "name": "Answer interview schedule question (expert, complete)",
+      "subtaskIds": [
+        "interview_schedule_query"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Trả về thời gian và địa điểm phỏng vấn cho CandidateID",
+        "Nếu không có lịch, thông báo rõ ràng"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_56",
+      "name": "Answer interview schedule question (novice, complete)",
+      "subtaskIds": [
+        "interview_schedule_query"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Trả về thời gian và địa điểm phỏng vấn cho CandidateID",
+        "Nếu không có lịch, thông báo rõ ràng"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_57",
+      "name": "View candidate CV content (expert, complete)",
+      "subtaskIds": [
+        "view_candidate_cv"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Nội dung CV được trả về đầy đủ, định dạng văn bản",
+        "Không có lỗi truy xuất"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_58",
+      "name": "View candidate CV content (novice, complete)",
+      "subtaskIds": [
+        "view_candidate_cv"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Nội dung CV được trả về đầy đủ, định dạng văn bản",
+        "Không có lỗi truy xuất"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_59",
+      "name": "Generate interview questions (expert, complete)",
+      "subtaskIds": [
+        "generate_interview_questions"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Agent returns a list of primary interview questions",
+        "Agent returns a list of secondary (follow‑up) interview questions",
+        "Each question reflects the candidate persona and job requirements"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_60",
+      "name": "Generate interview questions (expert, partial)",
+      "subtaskIds": [
+        "generate_interview_questions"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Agent returns a list of primary interview questions",
+        "Agent returns a list of secondary (follow‑up) interview questions",
+        "Each question reflects the candidate persona and job requirements"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_65",
+      "name": "Summarize CV (by ID) (expert, complete)",
+      "subtaskIds": [
+        "summarize_cv_by_id"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Agent returns a short paragraph summarizing the candidate's experience and skills",
+        "Summary references key achievements from the CV",
+        "Length of summary is within 3‑5 sentences"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_66",
+      "name": "Summarize CV (by ID) (novice, complete)",
+      "subtaskIds": [
+        "summarize_cv_by_id"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Agent returns a short paragraph summarizing the candidate's experience and skills",
+        "Summary references key achievements from the CV",
+        "Length of summary is within 3‑5 sentences"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_69",
+      "name": "Translate CV (by ID) (expert, complete)",
+      "subtaskIds": [
+        "translate_cv_by_id"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Translated CV text is returned in the requested language",
+        "Formatting of sections (Education, Experience, etc.) is preserved",
+        "No original Vietnamese content remains in the output"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_70",
+      "name": "Translate CV (by ID) (expert, partial)",
+      "subtaskIds": [
+        "translate_cv_by_id"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Translated CV text is returned in the requested language",
+        "Formatting of sections (Education, Experience, etc.) is preserved",
+        "No original Vietnamese content remains in the output"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_83",
+      "name": "Retrieve Recruitment Posting by Name (expert, complete)",
+      "subtaskIds": [
+        "get_recruitment_by_name"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "The returned payload includes RecruitmentID and JobPostitionName",
+        "The response status is successful and contains a non‑empty array"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_84",
+      "name": "Retrieve Recruitment Posting by Name (novice, complete)",
+      "subtaskIds": [
+        "get_recruitment_by_name"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "The returned payload includes RecruitmentID and JobPostitionName",
+        "The response status is successful and contains a non‑empty array"
+      ]
+    },
+    {
+      "id": "ct_1774719299852_111",
+      "name": "Get recruitment report by job position (expert, complete)",
+      "subtaskIds": [
+        "fetch_recruitment_report_by_position"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Response contains a 'payload' object with a 'Summary' field",
+        "Summary includes the same JobPositionName as requested",
+        "Numbers for TotalNeeded, TotalHired, and CompletionRate are present and non‑negative"
+      ]
+    },
+    {
+      "id": "ct_1774719299852_112",
+      "name": "Get recruitment report by job position (expert, partial)",
+      "subtaskIds": [
+        "fetch_recruitment_report_by_position"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Response contains a 'payload' object with a 'Summary' field",
+        "Summary includes the same JobPositionName as requested",
+        "Numbers for TotalNeeded, TotalHired, and CompletionRate are present and non‑negative"
+      ]
+    },
+    {
+      "id": "ct_1774719299852_117",
+      "name": "List interview schedules (expert, complete)",
+      "subtaskIds": [
+        "list_interview_schedules"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Response contains a 'payload.Data' array",
+        "Each item includes CandidateID, CandidateName, JobPositionName, StartTime and EndTime",
+        "Total number of records matches the 'payload.Total' field"
+      ]
+    },
+    {
+      "id": "ct_1774719299852_118",
+      "name": "List interview schedules (expert, partial)",
+      "subtaskIds": [
+        "list_interview_schedules"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Response contains a 'payload.Data' array",
+        "Each item includes CandidateID, CandidateName, JobPositionName, StartTime and EndTime",
+        "Total number of records matches the 'payload.Total' field"
+      ]
+    },
+    {
+      "id": "ct_1774719299852_129",
+      "name": "Get candidate CV content (expert, complete)",
+      "subtaskIds": [
+        "get_candidate_cv_content"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Response payload is a non‑empty string",
+        "String appears to be plain text or base64‑encoded PDF content",
+        "Content length is greater than 100 characters"
+      ]
+    },
+    {
+      "id": "ct_1774719299852_130",
+      "name": "Get candidate CV content (novice, complete)",
+      "subtaskIds": [
+        "get_candidate_cv_content"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Response payload is a non‑empty string",
+        "String appears to be plain text or base64‑encoded PDF content",
+        "Content length is greater than 100 characters"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_139",
+      "name": "[entity_not_found] Search candidate by name",
+      "subtaskIds": [
+        "search_candidate_by_name"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "entity_not_found",
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_140",
+      "name": "[entity_not_found] Evaluate fit score for multiple candidates",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "entity_not_found",
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_142",
+      "name": "[ambiguous_entity] Search candidate by name",
+      "subtaskIds": [
+        "search_candidate_by_name"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "ambiguous_entity",
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_143",
+      "name": "[ambiguous_entity] Search candidates via natural language query",
+      "subtaskIds": [
+        "search_candidates_natural_query"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "ambiguous_entity",
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates với ít nhất một ứng viên",
+        "RecruitmentID và RecruitmentName được trả về cùng với danh sách"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_145",
+      "name": "[missing_required_input] Evaluate fit score for multiple candidates",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "edgeCaseType": "missing_required_input",
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_146",
+      "name": "[missing_required_input] Evaluate fit score for a single candidate",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "edgeCaseType": "missing_required_input",
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_148",
+      "name": "[malformed_input] Evaluate fit score for multiple candidates",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "malformed_input",
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_149",
+      "name": "[malformed_input] Evaluate fit score for a single candidate",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "malformed_input",
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_151",
+      "name": "[out_of_scope] Search candidate by name",
+      "subtaskIds": [
+        "search_candidate_by_name"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "out_of_scope",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "out_of_scope",
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_152",
+      "name": "[out_of_scope] Evaluate fit score for multiple candidates",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "out_of_scope",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "out_of_scope",
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_154",
+      "name": "[conflicting_request] Search candidate by name",
+      "subtaskIds": [
+        "search_candidate_by_name"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "conflicting_request",
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_155",
+      "name": "[conflicting_request] Evaluate fit score for multiple candidates",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "conflicting_request",
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_9",
+      "name": "Evaluate fit score for a single candidate (expert, complete)",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_15",
+      "name": "Search candidates via natural language query (expert, complete)",
+      "subtaskIds": [
+        "search_candidates_natural_query"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates với ít nhất một ứng viên",
+        "RecruitmentID và RecruitmentName được trả về cùng với danh sách"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_19",
+      "name": "Generate new recruitment email (expert, complete)",
+      "subtaskIds": [
+        "generate_new_email"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_67",
+      "name": "Summarize CV (by name) (expert, complete)",
+      "subtaskIds": [
+        "summarize_cv_by_name"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Agent selects the correct candidate from the list",
+        "Returned summary reflects the selected candidate's CV",
+        "If multiple matches, agent asks clarification before summarizing"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_75",
+      "name": "Translate CV (by name) (expert, complete)",
+      "subtaskIds": [
+        "translate_cv_by_name"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Agent confirms the correct candidate before translation",
+        "Returned text is fully translated into the target language",
+        "If multiple candidates match, agent asks for clarification"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_81",
+      "name": "List candidates (expert, complete)",
+      "subtaskIds": [
+        "list_candidates"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Agent returns an array of candidate records",
+        "Each record includes CandidateID, CandidateName, RecruitmentName, TitleWebsite, ApplyDate, and Position",
+        "Results are limited to matches for the provided name (and recruitment if given)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_85",
+      "name": "Compare Recruitment Metrics Between Two Periods (expert, complete)",
+      "subtaskIds": [
+        "compare_recruitment_periods"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Output contains Period1 and Period2 objects with TotalNeeded, TotalCVApplied, TotalHired, and CompletionRate",
+        "Numeric values are present for each metric in both periods"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_91",
+      "name": "Report Candidate Applications Over Time (expert, complete)",
+      "subtaskIds": [
+        "candidate_report_by_time"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Payload is an array where each element has Date and Total fields",
+        "Total is a non‑negative integer for each date"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_97",
+      "name": "Get Overview of a Specific Recruitment Posting (expert, complete)",
+      "subtaskIds": [
+        "recruitment_post_overview"
+      ],
+      "difficulty": "easy",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Output contains arrays RecruitmentRound, RecruitmentEfficiency, RecruitmentEvaluation, RecruitmentChannel, etc.",
+        "Each array includes the fields described in the tool definition (e.g., RoundName, Quantity, Percent)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_5",
+      "name": "Evaluate fit score for multiple candidates (expert, ambiguous)",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "ambiguous",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_6",
+      "name": "Evaluate fit score for multiple candidates (novice, complete)",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_7",
+      "name": "Evaluate fit score for multiple candidates (novice, partial)",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_8",
+      "name": "Evaluate fit score for multiple candidates (novice, ambiguous)",
+      "subtaskIds": [
+        "evaluate_multiple_candidates"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "ambiguous",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_10",
+      "name": "Evaluate fit score for a single candidate (expert, partial)",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_11",
+      "name": "Evaluate fit score for a single candidate (expert, ambiguous)",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "ambiguous",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_12",
+      "name": "Evaluate fit score for a single candidate (novice, complete)",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_13",
+      "name": "Evaluate fit score for a single candidate (novice, partial)",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_14",
+      "name": "Evaluate fit score for a single candidate (novice, ambiguous)",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "ambiguous",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_141",
+      "name": "[entity_not_found] Evaluate fit score for a single candidate",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "entity_not_found",
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_144",
+      "name": "[ambiguous_entity] Save email template",
+      "subtaskIds": [
+        "save_email_template"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "ambiguous_entity",
+      "assertionCriteria": [
+        "Trả về ID mới của mẫu email đã lưu",
+        "Thông báo lưu thành công được hiển thị"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_147",
+      "name": "[missing_required_input] Generate new recruitment email",
+      "subtaskIds": [
+        "generate_new_email"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "edgeCaseType": "missing_required_input",
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_150",
+      "name": "[malformed_input] Fetch email template details",
+      "subtaskIds": [
+        "fetch_email_template"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "malformed_input",
+      "assertionCriteria": [
+        "Kết quả trả về chứa EmailContent có placeholder ##Value##",
+        "EmailTemplateName và TitleEmail được trả về"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_153",
+      "name": "[out_of_scope] Evaluate fit score for a single candidate",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "out_of_scope",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "out_of_scope",
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299853_156",
+      "name": "[conflicting_request] Evaluate fit score for a single candidate",
+      "subtaskIds": [
+        "evaluate_single_candidate"
+      ],
+      "difficulty": "hard",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": "conflicting_request",
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_16",
+      "name": "Search candidates via natural language query (novice, complete)",
+      "subtaskIds": [
+        "search_candidates_natural_query"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates với ít nhất một ứng viên",
+        "RecruitmentID và RecruitmentName được trả về cùng với danh sách"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_20",
+      "name": "Generate new recruitment email (expert, partial)",
+      "subtaskIds": [
+        "generate_new_email"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_21",
+      "name": "Generate new recruitment email (expert, ambiguous)",
+      "subtaskIds": [
+        "generate_new_email"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "expert",
+      "infoCompleteness": "ambiguous",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_22",
+      "name": "Generate new recruitment email (novice, complete)",
+      "subtaskIds": [
+        "generate_new_email"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_23",
+      "name": "Generate new recruitment email (novice, partial)",
+      "subtaskIds": [
+        "generate_new_email"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ]
+    },
+    {
+      "id": "ct_1774719299851_24",
+      "name": "Generate new recruitment email (novice, ambiguous)",
+      "subtaskIds": [
+        "generate_new_email"
+      ],
+      "difficulty": "medium",
+      "numSteps": 1,
+      "persona": "novice",
+      "infoCompleteness": "ambiguous",
+      "edgeCaseType": null,
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ]
+    }
+  ],
+  "generatedTasks": [
+    {
+      "id": "gt_ct_1774719299851_1",
+      "compositeTaskId": "ct_1774719299851_1",
+      "userMessage": "Nhờ bạn tra cứu danh sách ứng viên có tên “Trần Thị B” (không cần lọc theo chiến dịch tuyển dụng). Trả về giúp tôi CandidateID và CandidateName cho các kết quả khớp.",
+      "userMessageAlt": "Bạn tìm giúp các candidate trùng tên Trần Thị B nhé, xuất danh sách gồm CandidateID + CandidateName.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_candidates"
+      ],
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "search_candidate",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_2",
+      "compositeTaskId": "ct_1774719299851_2",
+      "userMessage": "Bạn ơi tìm giúp mình hồ sơ ứng viên tên Nguyễn Văn A với, cho mình danh sách kèm mã ứng viên luôn nha.",
+      "userMessageAlt": "Mình muốn tra mấy bạn ứng viên tên Nguyễn Văn A, bạn trả về ID và tên giúp mình.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_candidates"
+      ],
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "search_candidate",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_3",
+      "compositeTaskId": "ct_1774719299851_3",
+      "userMessage": "Tính fit score cho các ứng viên CandidateID = 101, 102, 103 theo tin tuyển dụng RecruitmentID = 55. Trả kết quả dạng danh sách Candidates và mỗi ứng viên có fit score tương ứng.",
+      "userMessageAlt": "Nhờ bạn chấm điểm phù hợp (fit score) cho 101/102/103 dựa trên recruitment 55, output gồm danh sách ứng viên và fit score từng người.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit_score",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_4",
+      "compositeTaskId": "ct_1774719299851_4",
+      "userMessage": "Nhờ bạn đánh giá fit score cho các ứng viên 101, 102, 103 theo một vị trí tuyển dụng (tính theo tin tuyển dụng đó) và trả về danh sách Candidates kèm fit score từng người.",
+      "userMessageAlt": "Bạn tính điểm phù hợp cho các candidate 101,102,103 theo job đang tuyển giúp mình; cho mình kết quả có fit score từng bạn.",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit_score",
+        "expert",
+        "partial",
+        "missing_recruitment_id"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_17",
+      "compositeTaskId": "ct_1774719299851_17",
+      "userMessage": "Vui lòng lấy chi tiết email template theo EmailID = 2001 để tôi chỉnh sửa: trả về EmailTemplateName, TitleEmail và EmailContent (giữ nguyên placeholder dạng ##Value## nếu có).",
+      "userMessageAlt": "Bạn fetch giúp mình nội dung + metadata của template email ID 2001, gồm EmailTemplateName, TitleEmail và EmailContent có placeholder ##Value##.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa EmailContent có placeholder ##Value##",
+        "EmailTemplateName và TitleEmail được trả về"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "email_template",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_18",
+      "compositeTaskId": "ct_1774719299851_18",
+      "userMessage": "Bạn mở giúp mình mẫu email số 2001 với, mình cần xem tên mẫu, tiêu đề email và nội dung bên trong (có mấy chỗ kiểu ##Value## ấy).",
+      "userMessageAlt": "Cho mình coi chi tiết template email ID 2001: tên template, title và nội dung email (giữ nguyên ##Value##).",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa EmailContent có placeholder ##Value##",
+        "EmailTemplateName và TitleEmail được trả về"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "email_template",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_25",
+      "compositeTaskId": "ct_1774719299851_25",
+      "userMessage": "Bạn giúp mình đề xuất 10 câu hỏi phỏng vấn về chủ đề Quản lý dự án (Project Management) cho ứng viên level intermediate. Ưu tiên câu hỏi tình huống và đánh giá khả năng lập kế hoạch, quản trị rủi ro, quản lý stakeholder.",
+      "userMessageAlt": "Nhờ bạn gợi ý danh sách 10 câu hỏi interview về Quản lý dự án ở mức intermediate, tập trung vào scenario-based questions (planning, risk management, stakeholder management).",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "ToolA_placeholder",
+        "ToolB_placeholder"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về là danh sách ít nhất 3 câu hỏi",
+        "Mỗi câu hỏi liên quan tới Topic và phù hợp với Level"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "suggest_interview_questions",
+        "expert",
+        "complete",
+        "project_management",
+        "intermediate"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_26",
+      "compositeTaskId": "ct_1774719299851_26",
+      "userMessage": "Bạn đề xuất giúp mình một bộ câu hỏi phỏng vấn cho ứng viên về Kubernetes (K8s) ở mức độ senior. Mình cần tối thiểu 3 câu.",
+      "userMessageAlt": "Nhờ bạn gợi ý vài câu hỏi interview chủ đề Kubernetes cho ứng viên senior (ít nhất 3 câu hỏi).",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "ToolA_placeholder",
+        "ToolB_placeholder"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về là danh sách ít nhất 3 câu hỏi",
+        "Mỗi câu hỏi liên quan tới Topic và phù hợp với Level"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "suggest_interview_questions",
+        "expert",
+        "partial",
+        "kubernetes",
+        "senior"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_31",
+      "compositeTaskId": "ct_1774719299851_31",
+      "userMessage": "Hãy xuất danh sách câu hỏi sau thành file PDF giúp mình (format=pdf): 1) Trình bày sự khác nhau giữa REST và gRPC, khi nào chọn mỗi loại? 2) Thiết kế API cho nghiệp vụ đặt hàng (Order) với các yêu cầu idempotency và versioning. 3) Bạn xử lý backward compatibility như thế nào khi thay đổi schema response? 4) Kể một lần bạn debug latency tăng đột biến giữa các microservice và cách bạn khoanh vùng nguyên nhân. 5) Trình bày chiến lược authentication/authorization cho hệ thống microservices (JWT, OAuth2, mTLS).",
+      "userMessageAlt": "Mình cần export sang PDF danh sách câu hỏi phỏng vấn này: (1) REST vs gRPC... (2) Thiết kế API Order có idempotency & versioning... (3) Backward compatibility khi đổi response schema... (4) Debug latency giữa microservices... (5) AuthN/AuthZ cho microservices (JWT/OAuth2/mTLS).",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "PrintTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "In thành công và trả về thông báo xác nhận",
+        "File PDF được tạo nếu Format=pdf"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "print_interview_questions",
+        "expert",
+        "complete",
+        "pdf_export"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_32",
+      "compositeTaskId": "ct_1774719299851_32",
+      "userMessage": "Bạn in giúp mình mấy câu hỏi này ra file PDF với nhé: 1) Em hãy giới thiệu bản thân trong 2 phút. 2) Vì sao em muốn ứng tuyển vị trí này? 3) Kể một lần em gặp khó khăn khi làm việc nhóm và cách em giải quyết. 4) Điểm mạnh/điểm yếu của em là gì? 5) Em mong đợi mức lương và lộ trình phát triển thế nào?",
+      "userMessageAlt": "Cho mình xuất ra PDF danh sách câu hỏi phỏng vấn sau: giới thiệu bản thân, lý do ứng tuyển, tình huống teamwork khó, điểm mạnh/yếu, mong đợi lương & phát triển.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "PrintTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "In thành công và trả về thông báo xác nhận",
+        "File PDF được tạo nếu Format=pdf"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "print_interview_questions",
+        "novice",
+        "complete",
+        "pdf_export"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_33",
+      "compositeTaskId": "ct_1774719299851_33",
+      "userMessage": "Vui lòng lưu giúp tôi một email template vào hệ thống với các thông tin sau: TemplateName=\"Mời phỏng vấn - Kỹ sư dữ liệu\"; EmailType=18; TitleEmail=\"[ABC] Thư mời phỏng vấn vị trí Data Engineer\"; EmailContent=\"Kính gửi {{candidate_name}},\\n\\nCảm ơn bạn đã ứng tuyển vị trí Data Engineer tại ABC. Chúng tôi trân trọng mời bạn tham gia vòng phỏng vấn kỹ thuật.\\n\\nThời gian: {{interview_time}}\\nHình thức: {{interview_mode}}\\nĐịa điểm/Link: {{interview_location_or_link}}\\nNgười phỏng vấn: {{interviewer_name}}\\n\\nVui lòng phản hồi email này để xác nhận tham gia trước {{rsvp_deadline}}.\\n\\nTrân trọng,\\n{{sender_name}}\\nPhòng Nhân sự - ABC\".",
+      "userMessageAlt": "Nhờ bạn tạo và lưu template email: tên mẫu \"Mời phỏng vấn - Kỹ sư dữ liệu\", loại EmailType 18, tiêu đề \"[ABC] Thư mời phỏng vấn vị trí Data Engineer\", nội dung như sau: Kính gửi {{candidate_name}}... (có các biến {{interview_time}}, {{interview_mode}}, {{interview_location_or_link}}, {{interviewer_name}}, {{rsvp_deadline}}, {{sender_name}}).",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "SaveEmailTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Trả về ID mới của mẫu email đã lưu",
+        "Thông báo lưu thành công được hiển thị"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "save_email_template",
+        "expert",
+        "complete",
+        "recruitment",
+        "email_type_18"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_34",
+      "compositeTaskId": "ct_1774719299851_34",
+      "userMessage": "Bạn lưu giúp mình mẫu email này vào hệ thống với TemplateName=\"Offer letter - Backend Engineer\" và EmailType=22. Nội dung: \"Kính gửi {{candidate_name}},\\n\\nChúc mừng bạn đã vượt qua các vòng tuyển dụng cho vị trí Backend Engineer tại XYZ. Chúng tôi gửi bạn đề nghị làm việc với các thông tin chính như sau:\\n- Ngày bắt đầu: {{start_date}}\\n- Mức lương: {{salary}}\\n- Địa điểm: {{work_location}}\\n\\nVui lòng phản hồi xác nhận trước {{deadline}}.\\n\\nTrân trọng,\\n{{sender_name}}\".",
+      "userMessageAlt": "Nhờ bạn tạo/lưu email template tên \"Offer letter - Backend Engineer\", EmailType 22, nội dung offer như mình gửi (có biến {{candidate_name}}, {{start_date}}, {{salary}}, {{work_location}}, {{deadline}}, {{sender_name}}).",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "SaveEmailTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Trả về ID mới của mẫu email đã lưu",
+        "Thông báo lưu thành công được hiển thị"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "save_email_template",
+        "expert",
+        "partial",
+        "offer_email",
+        "email_type_22"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_39",
+      "compositeTaskId": "ct_1774719299851_39",
+      "userMessage": "Nhờ bạn tóm tắt CV của ứng viên CandidateID 101, tập trung vào phần Kinh nghiệm làm việc. Giới hạn tối đa 4 câu.",
+      "userMessageAlt": "Hãy tạo bản tóm tắt ngắn CV ứng viên 101, ưu tiên nội dung về kinh nghiệm làm việc, không quá 4 câu.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "SummarizeCVTool_placeholder",
+        "FetchCVTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Bản tóm tắt ngắn gọn, không vượt quá Length câu",
+        "Bao gồm thông tin về FocusArea"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "summarize_cv",
+        "expert",
+        "complete",
+        "candidate_101",
+        "focus_kinh_nghiem_lam_viec",
+        "length_specified"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_40",
+      "compositeTaskId": "ct_1774719299851_40",
+      "userMessage": "Bạn tóm tắt giúp CV của ứng viên CandidateID 101, tập trung vào Kinh nghiệm làm việc nhé.",
+      "userMessageAlt": "Nhờ bạn viết bản tóm tắt CV cho ứng viên 101, phần trọng tâm là kinh nghiệm làm việc.",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "SummarizeCVTool_placeholder",
+        "FetchCVTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Bản tóm tắt ngắn gọn, không vượt quá Length câu",
+        "Bao gồm thông tin về FocusArea"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "summarize_cv",
+        "expert",
+        "partial",
+        "candidate_101",
+        "missing_length"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_45",
+      "compositeTaskId": "ct_1774719299851_45",
+      "userMessage": "Vui lòng dịch toàn bộ CV của ứng viên CandidateID 102 sang tiếng Anh (en), giữ nguyên bố cục và nội dung, không làm mất dữ liệu.",
+      "userMessageAlt": "Nhờ bạn translate CV ứng viên 102 sang English (en), đảm bảo đầy đủ thông tin và không xuất hiện ký tự lạ.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "TranslateCVTool_placeholder",
+        "FetchCVTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về là nội dung CV bằng TargetLanguage",
+        "Không có ký tự lạ hoặc mất dữ liệu"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "translate_cv",
+        "expert",
+        "complete",
+        "candidate_102",
+        "target_language_en"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_46",
+      "compositeTaskId": "ct_1774719299851_46",
+      "userMessage": "Dịch CV của ứng viên CandidateID 102 giúp mình với.",
+      "userMessageAlt": "Bạn chuyển ngữ CV của ứng viên 102 sang ngôn ngữ mình cần nhé.",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "TranslateCVTool_placeholder",
+        "FetchCVTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về là nội dung CV bằng TargetLanguage",
+        "Không có ký tự lạ hoặc mất dữ liệu"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "translate_cv",
+        "expert",
+        "partial",
+        "candidate_102",
+        "missing_target_language"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_51",
+      "compositeTaskId": "ct_1774719299851_51",
+      "userMessage": "Chèn nội dung mẫu email có EmailID 2001 vào khung soạn email mới giúp tôi (giữ nguyên các placeholder nếu có).",
+      "userMessageAlt": "Mình muốn dùng template email 2001: bạn insert nội dung của nó vào email đang soạn, đừng thay placeholder.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "InsertTemplateTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Nội dung mẫu email được chèn vào khung soạn email",
+        "Placeholder vẫn còn nếu chưa được thay thế"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "email_template",
+        "expert",
+        "complete",
+        "emailid_2001",
+        "insert_template"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_52",
+      "compositeTaskId": "ct_1774719299851_52",
+      "userMessage": "Mình có cái mẫu email số 2001, bạn cho mình dùng lại nội dung đó để điền vào email đang soạn với.",
+      "userMessageAlt": "Bạn lấy giúp mình nội dung template email ID 2001 rồi dán vào khung soạn thư nha (mấy chỗ trống cứ để nguyên).",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "InsertTemplateTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Nội dung mẫu email được chèn vào khung soạn email",
+        "Placeholder vẫn còn nếu chưa được thay thế"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "email_template",
+        "novice",
+        "complete",
+        "emailid_2001",
+        "insert_template"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_53",
+      "compositeTaskId": "ct_1774719299851_53",
+      "userMessage": "Cho mình số liệu báo cáo tuyển dụng quý I/2026: (1) tổng số CV nộp theo từng tháng (01–03/2026), (2) tỷ lệ chuyển đổi CV → phỏng vấn → offer → nhận việc, và (3) top 5 nguồn ứng viên theo số CV. Nếu được, xuất kèm file CSV để mình tải về.",
+      "userMessageAlt": "Bạn giúp mình tổng hợp report tuyển dụng Q1-2026: số lượng ứng viên nộp hồ sơ theo tháng, funnel conversion từ CV đến interview/offer/join, và 5 nguồn ứng viên lớn nhất. Vui lòng xuất file CSV và gửi link tải.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "ReportTool1_placeholder",
+        "ReportTool2_placeholder",
+        "ReportTool3_placeholder",
+        "ReportTool4_placeholder",
+        "ReportTool5_placeholder",
+        "ReportTool6_placeholder",
+        "ReportTool7_placeholder"
+      ],
+      "assertionCriteria": [
+        "Câu trả lời chứa số liệu hoặc biểu đồ phù hợp",
+        "Nếu có yêu cầu xuất file, trả về link tải"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "report",
+        "recruitment",
+        "metrics",
+        "export_csv",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_54",
+      "compositeTaskId": "ct_1774719299851_54",
+      "userMessage": "Mình muốn coi báo cáo tuyển dụng á: tháng 3/2026 có bao nhiêu người nộp CV, rồi từ CV qua phỏng vấn được bao nhiêu % vậy? Nếu tải ra Excel được thì cho mình link luôn nha.",
+      "userMessageAlt": "Bạn xem giúp mình trong tháng 3/2026 có bao nhiêu hồ sơ ứng tuyển và tỉ lệ chuyển từ nộp CV sang được mời phỏng vấn là bao nhiêu. Xuất cho mình file Excel để tải được không?",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "ReportTool1_placeholder",
+        "ReportTool2_placeholder",
+        "ReportTool3_placeholder",
+        "ReportTool4_placeholder",
+        "ReportTool5_placeholder",
+        "ReportTool6_placeholder",
+        "ReportTool7_placeholder"
+      ],
+      "assertionCriteria": [
+        "Câu trả lời chứa số liệu hoặc biểu đồ phù hợp",
+        "Nếu có yêu cầu xuất file, trả về link tải"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "report",
+        "recruitment",
+        "march_2026",
+        "conversion_rate",
+        "export_excel",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_55",
+      "compositeTaskId": "ct_1774719299851_55",
+      "userMessage": "Tra cứu lịch phỏng vấn cho CandidateID 101 trong ngày 2026-04-02: khung giờ, hình thức (online/onsite), địa điểm hoặc link meeting và người phỏng vấn (nếu có).",
+      "userMessageAlt": "Vui lòng cung cấp chi tiết lịch interview của ứng viên ID 101 vào 02/04/2026: thời gian, địa điểm (hoặc link online) và panel/phỏng vấn viên.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "ScheduleTool1_placeholder",
+        "ScheduleTool2_placeholder"
+      ],
+      "assertionCriteria": [
+        "Trả về thời gian và địa điểm phỏng vấn cho CandidateID",
+        "Nếu không có lịch, thông báo rõ ràng"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "interview_schedule",
+        "candidate_101",
+        "date_specific",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_56",
+      "compositeTaskId": "ct_1774719299851_56",
+      "userMessage": "Bạn ơi xem giúp mình ứng viên mã 101 có lịch phỏng vấn lúc nào với ở đâu vậy? (Nếu là online thì gửi link giúp mình luôn.)",
+      "userMessageAlt": "Cho mình hỏi bạn candidate ID 101 phỏng vấn ngày giờ nào và địa điểm ở đâu nhỉ, online thì cho mình cái link với.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "ScheduleTool1_placeholder",
+        "ScheduleTool2_placeholder"
+      ],
+      "assertionCriteria": [
+        "Trả về thời gian và địa điểm phỏng vấn cho CandidateID",
+        "Nếu không có lịch, thông báo rõ ràng"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "interview_schedule",
+        "candidate_101",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_57",
+      "compositeTaskId": "ct_1774719299851_57",
+      "userMessage": "Vui lòng hiển thị toàn bộ nội dung CV (text đầy đủ) của CandidateID 103 để mình review, bao gồm kinh nghiệm, kỹ năng, học vấn và thông tin liên hệ.",
+      "userMessageAlt": "Bạn truy xuất giúp mình CV dạng văn bản đầy đủ của ứng viên ID 103 (full text) để đọc và đánh giá.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "ViewCVTool_placeholder",
+        "ParseCVTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Nội dung CV được trả về đầy đủ, định dạng văn bản",
+        "Không có lỗi truy xuất"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "cv",
+        "candidate_103",
+        "full_text",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_58",
+      "compositeTaskId": "ct_1774719299851_58",
+      "userMessage": "Cho mình xem CV của bạn ứng viên mã 103 với, mình cần đọc hết nội dung luôn ấy.",
+      "userMessageAlt": "Bạn mở giúp mình hồ sơ/CV của candidate ID 103, cho mình xem toàn bộ nội dung nha.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "ViewCVTool_placeholder",
+        "ParseCVTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Nội dung CV được trả về đầy đủ, định dạng văn bản",
+        "Không có lỗi truy xuất"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "cv",
+        "candidate_103",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_59",
+      "compositeTaskId": "ct_1774719299851_59",
+      "userMessage": "Bạn tạo giúp bộ câu hỏi phỏng vấn (câu hỏi chính + câu hỏi follow-up) cho ứng viên CandidateID 9876 ứng tuyển vào tin tuyển dụng RecruitmentID 1020. Câu hỏi cần bám sát yêu cầu vị trí và khai thác đúng kinh nghiệm trong hồ sơ của ứng viên.",
+      "userMessageAlt": "Nhờ bạn soạn danh sách câu hỏi phỏng vấn vòng 1 gồm phần câu hỏi core và câu hỏi đào sâu cho CandidateID=9876 theo requisition RecruitmentID=1020, tập trung vào năng lực phù hợp JD và các điểm nổi bật trong CV.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_data_for_gen_interview_question"
+      ],
+      "assertionCriteria": [
+        "Agent returns a list of primary interview questions",
+        "Agent returns a list of secondary (follow‑up) interview questions",
+        "Each question reflects the candidate persona and job requirements"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "generate_interview_questions",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_60",
+      "compositeTaskId": "ct_1774719299851_60",
+      "userMessage": "Bạn soạn giúp câu hỏi phỏng vấn (primary + secondary) cho ứng viên CandidateID 12345 theo tin tuyển dụng ID 555 nhé, ưu tiên các câu hỏi đánh giá competency và kinh nghiệm thực chiến.",
+      "userMessageAlt": "Nhờ bạn chuẩn bị bộ câu hỏi phỏng vấn gồm câu hỏi chính và câu hỏi follow-up cho CandidateID 12345; bám theo job posting (ID 555) và tập trung vào năng lực/kinh nghiệm liên quan.",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_data_for_gen_interview_question"
+      ],
+      "assertionCriteria": [
+        "Agent returns a list of primary interview questions",
+        "Agent returns a list of secondary (follow‑up) interview questions",
+        "Each question reflects the candidate persona and job requirements"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "generate_interview_questions",
+        "expert",
+        "partial"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_65",
+      "compositeTaskId": "ct_1774719299851_65",
+      "userMessage": "Tóm tắt CV của ứng viên CandidateID 1122 giúp mình trong 3–5 câu: nêu số năm kinh nghiệm, domain chính, kỹ năng nổi bật và 1–2 thành tựu/điểm nhấn quan trọng nhất.",
+      "userMessageAlt": "Bạn lấy CV theo CandidateID=1122 và viết summary ngắn 3–5 câu, tập trung vào kinh nghiệm, core skills và các key achievements trong hồ sơ.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_cv_content"
+      ],
+      "assertionCriteria": [
+        "Agent returns a short paragraph summarizing the candidate's experience and skills",
+        "Summary references key achievements from the CV",
+        "Length of summary is within 3‑5 sentences"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "summarize_cv",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_66",
+      "compositeTaskId": "ct_1774719299851_66",
+      "userMessage": "Bạn tóm tắt nhanh CV của bạn ứng viên mã 3344 giúp mình với, khoảng 3–5 câu thôi: người này làm gì, giỏi gì và có thành tích nào đáng chú ý không?",
+      "userMessageAlt": "Nhờ bạn xem CV CandidateID 3344 rồi viết đoạn giới thiệu ngắn 3–5 câu về kinh nghiệm, kỹ năng và điểm nổi bật của bạn ấy.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_cv_content"
+      ],
+      "assertionCriteria": [
+        "Agent returns a short paragraph summarizing the candidate's experience and skills",
+        "Summary references key achievements from the CV",
+        "Length of summary is within 3‑5 sentences"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "summarize_cv",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_69",
+      "compositeTaskId": "ct_1774719299851_69",
+      "userMessage": "Vui lòng dịch toàn bộ CV của CandidateID 4500 sang English. Giữ nguyên cấu trúc/format theo các mục (Summary, Education, Experience, Skills, Certifications…), và đảm bảo bản dịch chỉ còn tiếng Anh (không lẫn tiếng Việt).",
+      "userMessageAlt": "Bạn fetch CV CandidateID=4500 và translate sang tiếng Anh giúp mình, bảo toàn heading/section và trình bày; output không được còn nội dung tiếng Việt.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_cv_content"
+      ],
+      "assertionCriteria": [
+        "Translated CV text is returned in the requested language",
+        "Formatting of sections (Education, Experience, etc.) is preserved",
+        "No original Vietnamese content remains in the output"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "translate_cv",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_70",
+      "compositeTaskId": "ct_1774719299851_70",
+      "userMessage": "Bạn dịch CV của CandidateID 2001 giúp mình nhé, nhớ giữ nguyên các mục như Education/Experience/Skills và format dễ đọc.",
+      "userMessageAlt": "Nhờ bạn lấy CV theo CandidateID 2001 rồi dịch sang ngôn ngữ phù hợp, giữ cấu trúc các section và trình bày như bản gốc.",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_cv_content"
+      ],
+      "assertionCriteria": [
+        "Translated CV text is returned in the requested language",
+        "Formatting of sections (Education, Experience, etc.) is preserved",
+        "No original Vietnamese content remains in the output"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "translate_cv",
+        "expert",
+        "partial"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_83",
+      "compositeTaskId": "ct_1774719299851_83",
+      "userMessage": "Tra cứu giúp tôi thông tin bài đăng tuyển dụng có tiêu đề nội bộ “Tuyển dụng Kỹ sư phần mềm”. Tôi cần trả về tối thiểu RecruitmentID và JobPostitionName.",
+      "userMessageAlt": "Vui lòng lấy chi tiết posting tuyển dụng theo RecruitmentName = “Tuyển dụng Kỹ sư phần mềm”, trả về RecruitmentID kèm JobPostitionName.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_recruitment"
+      ],
+      "assertionCriteria": [
+        "The returned payload includes RecruitmentID and JobPostitionName",
+        "The response status is successful and contains a non‑empty array"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "recruitment",
+        "retrieve_by_name",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_84",
+      "compositeTaskId": "ct_1774719299851_84",
+      "userMessage": "Bạn kiểm tra giúp mình tin tuyển dụng tên “Mở vị trí Chuyên viên Marketing” với, cho mình biết mã tin (ID) và vị trí tuyển là gì nha.",
+      "userMessageAlt": "Mình cần xem bài tuyển dụng “Mở vị trí Chuyên viên Marketing”, bạn gửi lại ID bài và tên vị trí công việc giúp mình với.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_recruitment"
+      ],
+      "assertionCriteria": [
+        "The returned payload includes RecruitmentID and JobPostitionName",
+        "The response status is successful and contains a non‑empty array"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "recruitment",
+        "retrieve_by_name",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299852_111",
+      "compositeTaskId": "ct_1774719299852_111",
+      "userMessage": "Cho tôi báo cáo tình trạng tuyển dụng theo vị trí “Kỹ sư phần mềm” trong khoảng 2024-07-01 đến 2024-07-31. Trả về Summary gồm JobPositionName, TotalNeeded, TotalHired và CompletionRate.",
+      "userMessageAlt": "Lấy recruitment report theo JobPositionName = “Kỹ sư phần mềm”, FromDate = 2024-07-01, ToDate = 2024-07-31; cần trường Summary (TotalNeeded/TotalHired/CompletionRate).",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "recruitment_by_position"
+      ],
+      "assertionCriteria": [
+        "Response contains a 'payload' object with a 'Summary' field",
+        "Summary includes the same JobPositionName as requested",
+        "Numbers for TotalNeeded, TotalHired, and CompletionRate are present and non‑negative"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "recruitment_report",
+        "job_position",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299852_112",
+      "compositeTaskId": "ct_1774719299852_112",
+      "userMessage": "Xuất giúp tôi báo cáo tuyển dụng theo vị trí “Chuyên viên nhân sự” cho giai đoạn tháng 01/2024 (tôi sẽ bổ sung ngày cụ thể nếu cần). Tôi cần phần Summary có TotalNeeded, TotalHired và CompletionRate.",
+      "userMessageAlt": "Tôi cần recruitment status report theo JobPositionName “Chuyên viên nhân sự” trong tháng 01/2024; vui lòng cho biết cần FromDate/ToDate cụ thể thế nào để trả Summary (TotalNeeded, TotalHired, CompletionRate).",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "recruitment_by_position"
+      ],
+      "assertionCriteria": [
+        "Response contains a 'payload' object with a 'Summary' field",
+        "Summary includes the same JobPositionName as requested",
+        "Numbers for TotalNeeded, TotalHired, and CompletionRate are present and non‑negative"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "recruitment_report",
+        "job_position",
+        "expert",
+        "partial",
+        "missing_date_range"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299852_117",
+      "compositeTaskId": "ct_1774719299852_117",
+      "userMessage": "Liệt kê danh sách lịch phỏng vấn trong khoảng FromDate = 2024-06-01 đến ToDate = 2024-06-30, ScheduleType = 1, Scope = 2. Trả về payload.Data có CandidateID, CandidateName, JobPositionName, StartTime, EndTime và đảm bảo Total khớp số bản ghi.",
+      "userMessageAlt": "Vui lòng lấy danh sách interview schedules từ 2024-06-01 đến 2024-06-30 với ScheduleType 1 và Scope 2; cần Data gồm CandidateID/CandidateName/JobPositionName/StartTime/EndTime và Total chính xác.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_schedule"
+      ],
+      "assertionCriteria": [
+        "Response contains a 'payload.Data' array",
+        "Each item includes CandidateID, CandidateName, JobPositionName, StartTime and EndTime",
+        "Total number of records matches the 'payload.Total' field"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "interview_schedule",
+        "list",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299852_118",
+      "compositeTaskId": "ct_1774719299852_118",
+      "userMessage": "Cho tôi danh sách lịch phỏng vấn từ 2024-07-15 đến 2024-07-31, ScheduleType = 4. Scope để mặc định cũng được, nếu bắt buộc thì bạn hỏi lại giúp tôi. Kết quả cần có CandidateID, CandidateName, JobPositionName, StartTime, EndTime.",
+      "userMessageAlt": "Lấy interview schedules trong khoảng 2024-07-15—2024-07-31 với ScheduleType 4; mình chưa chắc Scope là gì, bạn báo mình cần điền giá trị nào. Trả về Data có CandidateID/CandidateName/JobPositionName/StartTime/EndTime.",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_schedule"
+      ],
+      "assertionCriteria": [
+        "Response contains a 'payload.Data' array",
+        "Each item includes CandidateID, CandidateName, JobPositionName, StartTime and EndTime",
+        "Total number of records matches the 'payload.Total' field"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "interview_schedule",
+        "list",
+        "expert",
+        "partial",
+        "missing_scope"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299852_129",
+      "compositeTaskId": "ct_1774719299852_129",
+      "userMessage": "Vui lòng trích xuất và trả về nội dung CV thô (raw content) của ứng viên CandidateID=9123. Nếu là PDF thì trả về chuỗi base64 đầy đủ.",
+      "userMessageAlt": "Cho tôi xin raw CV file content của ứng viên mã 9123 (plain text hoặc base64 PDF), trả về toàn bộ nội dung.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_cv_content"
+      ],
+      "assertionCriteria": [
+        "Response payload is a non‑empty string",
+        "String appears to be plain text or base64‑encoded PDF content",
+        "Content length is greater than 100 characters"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "cv",
+        "candidate",
+        "expert",
+        "get_content"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299852_130",
+      "compositeTaskId": "ct_1774719299852_130",
+      "userMessage": "Bạn lấy giúp mình nội dung CV của ứng viên mã 5678 được không? Mình cần xem phần chữ trong CV ấy.",
+      "userMessageAlt": "Cho mình xin nội dung file CV (raw) của bạn ứng viên ID 5678 nhé.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_cv_content"
+      ],
+      "assertionCriteria": [
+        "Response payload is a non‑empty string",
+        "String appears to be plain text or base64‑encoded PDF content",
+        "Content length is greater than 100 characters"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "cv",
+        "candidate",
+        "novice",
+        "get_content"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_139",
+      "compositeTaskId": "ct_1774719299853_139",
+      "userMessage": "Bạn tìm giúp mình ứng viên tên “Phạm Minh Kha” với. Mình muốn xem có ai tên vậy trong hệ thống không.",
+      "userMessageAlt": "Tra cứu thử trong danh sách ứng viên có người tên Phạm Minh Kha không, trả mình kết quả nhé.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidates"
+      ],
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ],
+      "edgeCaseType": "entity_not_found",
+      "tags": [
+        "search",
+        "candidate",
+        "novice",
+        "entity_not_found",
+        "by_name"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_140",
+      "compositeTaskId": "ct_1774719299853_140",
+      "userMessage": "Bạn chấm điểm phù hợp (fit score) cho các ứng viên ID 101, 102, 103 so với tin tuyển dụng RecruitmentID=55 giúp mình với.",
+      "userMessageAlt": "Tính fit score cho danh sách ứng viên 101/102/103 theo job có mã 55 và trả về kết quả từng người nhé.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": "entity_not_found",
+      "tags": [
+        "fit_score",
+        "evaluate",
+        "novice",
+        "entity_not_found",
+        "recruitment"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_142",
+      "compositeTaskId": "ct_1774719299853_142",
+      "userMessage": "Mình cần tìm ứng viên tên “Nguyễn Văn A”. Bạn trả về danh sách các bạn trùng tên đó kèm CandidateID giúp mình nha.",
+      "userMessageAlt": "Tìm giúp mình các ứng viên có tên Nguyễn Văn A, cho mình xem CandidateID và CandidateName của từng người.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidates"
+      ],
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ],
+      "edgeCaseType": "ambiguous_entity",
+      "tags": [
+        "search",
+        "candidate",
+        "novice",
+        "ambiguous_entity",
+        "by_name"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_143",
+      "compositeTaskId": "ct_1774719299853_143",
+      "userMessage": "Bạn lọc giúp mình: các ứng viên đang ở vòng phỏng vấn cho tin QC-T1-2026. Trả về danh sách ứng viên kèm thông tin tin tuyển dụng luôn nhé.",
+      "userMessageAlt": "Cho mình danh sách ứng viên ở vòng interview thuộc tin QC-T1-2026, kèm RecruitmentID và RecruitmentName.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidates_for_evaluation"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates với ít nhất một ứng viên",
+        "RecruitmentID và RecruitmentName được trả về cùng với danh sách"
+      ],
+      "edgeCaseType": "ambiguous_entity",
+      "tags": [
+        "search",
+        "natural_language_query",
+        "novice",
+        "ambiguous_entity",
+        "recruitment"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_145",
+      "compositeTaskId": "ct_1774719299853_145",
+      "userMessage": "Bạn chấm giúp mình điểm phù hợp (fit score) cho vài ứng viên với job đang tuyển này được không? Mình muốn xem ai hợp hơn.",
+      "userMessageAlt": "Nhờ bạn tính fit score cho danh sách ứng viên so với tin tuyển dụng bên mình với.",
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": "missing_required_input",
+      "tags": [
+        "novice",
+        "partial",
+        "missing_required_input",
+        "fit_score",
+        "multiple_candidates"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_146",
+      "compositeTaskId": "ct_1774719299853_146",
+      "userMessage": "Bạn xem giúp mình ứng viên này có phù hợp với vị trí đang tuyển không, cho mình cái fit score luôn với.",
+      "userMessageAlt": "Tính giúp mình điểm fit score của một ứng viên so với job tuyển dụng hiện tại nha.",
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": "missing_required_input",
+      "tags": [
+        "novice",
+        "partial",
+        "missing_required_input",
+        "fit_score",
+        "single_candidate"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_148",
+      "compositeTaskId": "ct_1774719299853_148",
+      "userMessage": "Tính fit score giúp mình cho các ứng viên 101; 102; 10O (chữ O nha) với tin tuyển dụng ID=55.",
+      "userMessageAlt": "Bạn chấm điểm phù hợp cho danh sách candidate: [101, 102, 10O] so với Recruitment 55 giúp mình.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": "malformed_input",
+      "tags": [
+        "novice",
+        "complete",
+        "malformed_input",
+        "fit_score",
+        "multiple_candidates"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_149",
+      "compositeTaskId": "ct_1774719299853_149",
+      "userMessage": "Tính fit score cho ứng viên mã 1O1 (một-O-một) với RecruitmentID 55 giúp mình.",
+      "userMessageAlt": "Bạn chấm mức độ phù hợp của candidate 1O1 với job 55, trả về fit score và tên ứng viên nha.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": "malformed_input",
+      "tags": [
+        "novice",
+        "complete",
+        "malformed_input",
+        "fit_score",
+        "single_candidate"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_151",
+      "compositeTaskId": "ct_1774719299853_151",
+      "userMessage": "Bạn tìm giúp mình các ứng viên tên Nguyễn Văn A trong hệ thống, nếu được thì lọc thêm theo job 'Chuyên viên Kinh doanh' luôn.",
+      "userMessageAlt": "Tra cứu danh sách candidate có tên Nguyễn Văn A (ưu tiên đúng job Chuyên viên Kinh doanh) và trả về ID + tên giúp mình.",
+      "persona": "out_of_scope",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidates"
+      ],
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ],
+      "edgeCaseType": "out_of_scope",
+      "tags": [
+        "out_of_scope",
+        "complete",
+        "candidate_search",
+        "search_by_name"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_152",
+      "compositeTaskId": "ct_1774719299853_152",
+      "userMessage": "Bạn chạy giúp mình fit score cho các ứng viên 101, 102, 103 với RecruitmentID 55 rồi gửi mình bảng kết quả nhé.",
+      "userMessageAlt": "Tính điểm phù hợp (fit score) của list candidate 101-102-103 so với tin tuyển dụng 55 giúp mình với.",
+      "persona": "out_of_scope",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": "out_of_scope",
+      "tags": [
+        "out_of_scope",
+        "complete",
+        "fit_score",
+        "multiple_candidates"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_154",
+      "compositeTaskId": "ct_1774719299853_154",
+      "userMessage": "Bạn tìm giúp mình ứng viên tên Trần Thị B nhé. Nhưng chỉ trả về đúng 1 người thôi, và đồng thời cũng liệt kê tất cả những người trùng tên Trần Thị B (kèm CandidateID) để mình đối chiếu.",
+      "userMessageAlt": "Cho mình tra cứu ứng viên tên Trần Thị B. Mình muốn kết quả vừa chỉ có một ứng viên duy nhất, vừa phải hiển thị toàn bộ danh sách các ứng viên tên Trần Thị B với CandidateID.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidates"
+      ],
+      "assertionCriteria": [
+        "Danh sách trả về chứa ít nhất một ứng viên có tên khớp",
+        "Mỗi mục trong danh sách có CandidateID và CandidateName"
+      ],
+      "edgeCaseType": "conflicting_request",
+      "tags": [
+        "search_candidate",
+        "novice",
+        "complete",
+        "conflicting_request",
+        "by_name"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_155",
+      "compositeTaskId": "ct_1774719299853_155",
+      "userMessage": "Tính fit score giúp mình cho các CandidateID 101, 102, 103 với RecruitmentID 55. Nhưng mình chỉ muốn bạn trả về 1 ứng viên có điểm cao nhất, đồng thời vẫn phải hiển thị fit score cho tất cả 3 ứng viên.",
+      "userMessageAlt": "Bạn đánh giá độ phù hợp (fit score) cho 101, 102, 103 theo tin tuyển dụng 55 nhé. Kết quả vừa cần chỉ có một người thôi, vừa cần có điểm của cả ba người.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": "conflicting_request",
+      "tags": [
+        "fit_score",
+        "novice",
+        "complete",
+        "conflicting_request",
+        "multiple_candidates"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_9",
+      "compositeTaskId": "ct_1774719299851_9",
+      "userMessage": "Evaluate fit score for CandidateID 101 against RecruitmentID 55. Return CandidateName and the computed fit score, and ensure the output RecruitmentID is 55.",
+      "userMessageAlt": "Please calculate the suitability (fit score) of candidate 101 for recruitment posting 55, including the candidate name and fit score in the result.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit_score",
+        "expert",
+        "complete",
+        "single_candidate"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_15",
+      "compositeTaskId": "ct_1774719299851_15",
+      "userMessage": "Truy vấn tự nhiên: \"Các ứng viên đang ở vòng phỏng vấn cho tin QC-T1-2026\". Vui lòng trả về danh sách Candidates kèm RecruitmentID và RecruitmentName liên quan.",
+      "userMessageAlt": "Bạn tìm theo câu truy vấn: \"Ứng viên ở vòng phỏng vấn cho QC-T1-2026\" và trả về Candidates cùng RecruitmentID/RecruitmentName.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_candidates_for_evaluation"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates với ít nhất một ứng viên",
+        "RecruitmentID và RecruitmentName được trả về cùng với danh sách"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "search_candidates",
+        "expert",
+        "complete",
+        "natural_language_query"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_19",
+      "compositeTaskId": "ct_1774719299851_19",
+      "userMessage": "Generate email nội dung mới từ template EmailID 2001 với FieldValues: [{\"FieldName\":\"CandidateName\",\"Value\":\"Nguyễn Văn A\"},{\"FieldName\":\"RecruitmentName\",\"Value\":\"Backend Engineer\"},{\"FieldName\":\"InterviewTime\",\"Value\":\"09:30 02/04/2026\"},{\"FieldName\":\"InterviewLocation\",\"Value\":\"Tầng 8, Tòa nhà ABC, 12 Nguyễn Huệ, Q1\"},{\"FieldName\":\"HRName\",\"Value\":\"Lê Minh\"}]. Đảm bảo EmailContent không còn placeholder dạng ##Value##.",
+      "userMessageAlt": "Bạn tạo email tuyển dụng mới theo template 2001, thay các field: CandidateName=Nguyễn Văn A, RecruitmentName=Backend Engineer, InterviewTime=09:30 02/04/2026, InterviewLocation=Tầng 8, Tòa nhà ABC, 12 Nguyễn Huệ, Q1, HRName=Lê Minh. Trả về EmailContent đã được fill đầy đủ.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "generate_email",
+        "expert",
+        "complete",
+        "template_fill"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_67",
+      "compositeTaskId": "ct_1774719299851_67",
+      "userMessage": "Tóm tắt CV của ứng viên tên Pham D. Nếu có nhiều người trùng tên thì hỏi lại mình để chọn đúng người trước khi tóm tắt. (Không cần lọc theo tin tuyển dụng.)",
+      "userMessageAlt": "Bạn giúp mình tìm ứng viên Pham D rồi tóm tắt CV nhé; nếu có nhiều kết quả trùng tên thì xác nhận lại đúng ứng viên trước.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_candidates",
+        "get_cv_content"
+      ],
+      "assertionCriteria": [
+        "Agent selects the correct candidate from the list",
+        "Returned summary reflects the selected candidate's CV",
+        "If multiple matches, agent asks clarification before summarizing"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "summarize_cv",
+        "expert",
+        "complete",
+        "by_name",
+        "disambiguation"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_75",
+      "compositeTaskId": "ct_1774719299851_75",
+      "userMessage": "Nhờ bạn tìm ứng viên tên Hoang Van D (đợt tuyển “Backend Engineer Q2/2024” nếu có) và dịch toàn bộ CV của ứng viên đó sang tiếng Anh (English). Trước khi dịch, xác nhận đúng hồ sơ ứng viên giúp tôi.",
+      "userMessageAlt": "Vui lòng locate candidate Hoang Van D trong recruitment “Backend Engineer Q2/2024” và translate CV sang English; nhớ xác nhận đúng ứng viên trước khi xuất bản bản dịch.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_candidates",
+        "get_cv_content"
+      ],
+      "assertionCriteria": [
+        "Agent confirms the correct candidate before translation",
+        "Returned text is fully translated into the target language",
+        "If multiple candidates match, agent asks for clarification"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "translate_cv",
+        "candidate_lookup",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_81",
+      "compositeTaskId": "ct_1774719299851_81",
+      "userMessage": "Cho tôi danh sách các ứng viên có tên chứa “Tran”, lọc trong tin tuyển “Data Analyst - HCM 2024”. Trả về đầy đủ CandidateID, CandidateName, RecruitmentName, TitleWebsite, ApplyDate và Position.",
+      "userMessageAlt": "Bạn list giúp các candidate match keyword “Tran” theo recruitment “Data Analyst - HCM 2024”, output gồm CandidateID/CandidateName/RecruitmentName/TitleWebsite/ApplyDate/Position.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_candidates"
+      ],
+      "assertionCriteria": [
+        "Agent returns an array of candidate records",
+        "Each record includes CandidateID, CandidateName, RecruitmentName, TitleWebsite, ApplyDate, and Position",
+        "Results are limited to matches for the provided name (and recruitment if given)"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "list_candidates",
+        "filter_by_name",
+        "recruitment_filter",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_85",
+      "compositeTaskId": "ct_1774719299851_85",
+      "userMessage": "So sánh metric tuyển dụng giữa 2 giai đoạn: Period1 từ 2024-04-01 đến 2024-04-30 và Period2 từ 2024-05-01 đến 2024-05-31. Tôi cần bảng/JSON side-by-side gồm TotalNeeded, TotalCVApplied, TotalHired và CompletionRate cho từng period.",
+      "userMessageAlt": "Nhờ bạn compare recruitment metrics cho 2024-04-01..2024-04-30 vs 2024-05-01..2024-05-31, trả về Period1/Period2 với TotalNeeded, TotalCVApplied, TotalHired, CompletionRate.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "recruitment_comparison"
+      ],
+      "assertionCriteria": [
+        "Output contains Period1 and Period2 objects with TotalNeeded, TotalCVApplied, TotalHired, and CompletionRate",
+        "Numeric values are present for each metric in both periods"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "metrics_compare",
+        "recruitment_analytics",
+        "date_ranges",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_91",
+      "compositeTaskId": "ct_1774719299851_91",
+      "userMessage": "Lấy report số lượng ứng viên apply theo từng ngày cho RecruitmentID 2045 trong khoảng 2024-06-01 đến 2024-06-30. Output dạng mảng, mỗi phần tử có Date và Total.",
+      "userMessageAlt": "Bạn thống kê applications per day cho posting 2045 từ 2024-06-01 tới 2024-06-30, trả về array gồm {Date, Total}.",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "get_candidate_by_time_by_recruitment"
+      ],
+      "assertionCriteria": [
+        "Payload is an array where each element has Date and Total fields",
+        "Total is a non‑negative integer for each date"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "applications_over_time",
+        "recruitment_id",
+        "daily_report",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_97",
+      "compositeTaskId": "ct_1774719299851_97",
+      "userMessage": "Cho tôi overview chi tiết của tin tuyển RecruitmentID 1789: gồm các mảng về RecruitmentRound, RecruitmentEfficiency, RecruitmentEvaluation, RecruitmentChannel (và các phần liên quan như cost/channels nếu có).",
+      "userMessageAlt": "Vui lòng fetch recruitment overview cho ID 1789, trả về đầy đủ các array như RecruitmentRound/Efficiency/Evaluation/Channel và các field RoundName, Quantity, Percent…",
+      "persona": "expert",
+      "infoCompleteness": "complete",
+      "difficulty": "easy",
+      "expectedToolChain": [
+        "recruitment_post_overview"
+      ],
+      "assertionCriteria": [
+        "Output contains arrays RecruitmentRound, RecruitmentEfficiency, RecruitmentEvaluation, RecruitmentChannel, etc.",
+        "Each array includes the fields described in the tool definition (e.g., RoundName, Quantity, Percent)"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "recruitment_overview",
+        "recruitment_metrics",
+        "expert",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_5",
+      "compositeTaskId": "ct_1774719299851_5",
+      "userMessage": "Nhờ bạn chấm fit score cho một nhóm ứng viên so với một tin tuyển giúp tôi. Danh sách ứng viên: 101, 102, 103, 104; còn RecruitmentID thì là 55 hay 56 (mình không chắc đang dùng cái nào) — bạn kiểm tra giúp và trả kết quả có danh sách Candidates kèm fit score.",
+      "userMessageAlt": "Bạn tính suitability/fit score cho các CandidateIDs 101-104 với posting (RecruitmentID 55/56), mình chưa rõ ID nào đúng; cứ đối chiếu giúp và output danh sách Candidates có fit score.",
+      "persona": "expert",
+      "infoCompleteness": "ambiguous",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit_score",
+        "candidate_scoring",
+        "expert",
+        "ambiguous",
+        "needs_clarification"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_6",
+      "compositeTaskId": "ct_1774719299851_6",
+      "userMessage": "Bạn giúp mình chấm điểm phù hợp (fit score) cho mấy ứng viên này với job đăng tuyển ID 55 nhé: 101, 102, 103. Trả về danh sách từng ứng viên kèm fit score.",
+      "userMessageAlt": "Nhờ bạn tính fit score cho các candidate 101/102/103 so với recruitment 55 và cho mình kết quả theo từng người.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit-score",
+        "multiple-candidates",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_7",
+      "compositeTaskId": "ct_1774719299851_7",
+      "userMessage": "Bạn chấm giúp mình fit score cho các ứng viên 101, 102, 103 với tin tuyển dụng đó được không?",
+      "userMessageAlt": "Tính điểm phù hợp cho 3 bạn ứng viên 101-102-103 theo job mình đang tuyển với, cho mình danh sách kèm fit score nhé.",
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit-score",
+        "multiple-candidates",
+        "novice",
+        "partial",
+        "missing-recruitment-id"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_8",
+      "compositeTaskId": "ct_1774719299851_8",
+      "userMessage": "Bạn xem giúp mấy ứng viên 101, 102, 103 hợp với job số 55 hay 56 hơn, rồi cho mình fit score nha.",
+      "userMessageAlt": "Nhờ bạn tính fit score cho 101/102/103, mà mình không chắc là đối chiếu theo recruitment 55 hay 56 nữa—bạn làm giúp mình với.",
+      "persona": "novice",
+      "infoCompleteness": "ambiguous",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_multiple_candidates_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates chứa danh sách các ứng viên",
+        "Mỗi ứng viên có trường fit score (được tính trong nội dung trả về)"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit-score",
+        "multiple-candidates",
+        "novice",
+        "ambiguous",
+        "ambiguous-recruitment-id"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_10",
+      "compositeTaskId": "ct_1774719299851_10",
+      "userMessage": "Vui lòng evaluate fit score cho candidate ID 101 so với requisition mình đang xử lý (ID recruitment mình chưa nhớ). Output cần CandidateName và fit score.",
+      "userMessageAlt": "Nhờ tính suitability/fit score cho ứng viên 101 đối với job posting hiện tại của mình; trả về CandidateName + fit score giúp.",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit-score",
+        "single-candidate",
+        "expert",
+        "partial",
+        "missing-recruitment-id"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_11",
+      "compositeTaskId": "ct_1774719299851_11",
+      "userMessage": "Bạn tính fit score cho ứng viên ID 101 theo recruitment 55/56 (mình đang phân vân cái nào đúng) và trả về CandidateName + fit score.",
+      "userMessageAlt": "Evaluate fit score candidate 101 đối chiếu recruitment ID 55 hay 56 (chưa confirm), cho mình kết quả gồm CandidateName và fit score.",
+      "persona": "expert",
+      "infoCompleteness": "ambiguous",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit-score",
+        "single-candidate",
+        "expert",
+        "ambiguous",
+        "ambiguous-recruitment-id"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_12",
+      "compositeTaskId": "ct_1774719299851_12",
+      "userMessage": "Bạn tính giúp mình fit score cho ứng viên ID 101 so với tin tuyển dụng (RecruitmentID) 55 nhé. Mình muốn xem tên ứng viên và điểm fit score luôn.",
+      "userMessageAlt": "Nhờ bạn đánh giá độ phù hợp (fit score) của candidate 101 với recruitment 55 và trả về CandidateName kèm fit score.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "fit-score",
+        "single-candidate",
+        "novice",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_13",
+      "compositeTaskId": "ct_1774719299851_13",
+      "userMessage": "Bạn xem giúp mình độ phù hợp (fit score) của ứng viên mã 101 với tin tuyển dụng 55 được không?",
+      "userMessageAlt": "Tính giúp mình điểm fit của candidate 101 cho job/tin tuyển dụng 55 nhé.",
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "evaluate_fit_score",
+        "novice",
+        "partial"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_14",
+      "compositeTaskId": "ct_1774719299851_14",
+      "userMessage": "Bạn chấm giúp mình fit score cho bạn ứng viên 101 với cái job 55 hay 56 gì đó ấy, mình không nhớ rõ, cứ tính thử xem phù hợp không.",
+      "userMessageAlt": "Tính điểm phù hợp cho ứng viên 101 với tin tuyển dụng mình gửi hôm trước (hình như ID 55) giúp mình nha.",
+      "persona": "novice",
+      "infoCompleteness": "ambiguous",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "evaluate_fit_score",
+        "novice",
+        "ambiguous"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_141",
+      "compositeTaskId": "ct_1774719299853_141",
+      "userMessage": "Bạn tính giúp mình fit score của ứng viên CandidateID 999999 với tin tuyển dụng RecruitmentID 55 nhé, trả mình cả tên ứng viên và điểm luôn.",
+      "userMessageAlt": "Check độ phù hợp (fit score) cho candidate 999999 so với recruitment 55 giúp mình với.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": "entity_not_found",
+      "tags": [
+        "evaluate_fit_score",
+        "novice",
+        "entity_not_found"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_144",
+      "compositeTaskId": "ct_1774719299853_144",
+      "userMessage": "Mình muốn lưu mẫu email tên “Mời phỏng vấn - Kỹ sư phần mềm”, loại email 18. Nội dung: “Kính gửi Nguyễn Văn A, chúng tôi mời bạn tham gia phỏng vấn vào lúc ##Time## ngày ##Date## tại ##Location##. Vui lòng phản hồi trước ##Deadline##. Trân trọng.” Tiêu đề email: “Thư mời phỏng vấn”. Lưu giúp mình nhé.",
+      "userMessageAlt": "Bạn tạo và lưu giúp mình template email (EmailType 18) tên “Mời phỏng vấn - Kỹ sư phần mềm”, title “Thư mời phỏng vấn”, content: “Kính gửi Nguyễn Văn A, chúng tôi mời bạn tham gia phỏng vấn vào ##Time## ngày ##Date## tại ##Location##...”",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "SaveEmailTool_placeholder"
+      ],
+      "assertionCriteria": [
+        "Trả về ID mới của mẫu email đã lưu",
+        "Thông báo lưu thành công được hiển thị"
+      ],
+      "edgeCaseType": "ambiguous_entity",
+      "tags": [
+        "save_email_template",
+        "novice",
+        "ambiguous_entity"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_147",
+      "compositeTaskId": "ct_1774719299853_147",
+      "userMessage": "Bạn tạo giúp mình một email tuyển dụng mới từ mẫu email ID 2001, điền mấy thông tin như tên ứng viên, vị trí ứng tuyển, thời gian phỏng vấn giúp mình luôn nha.",
+      "userMessageAlt": "Nhờ bạn generate nội dung email từ template 2001 và thay hết các chỗ ##Value## bằng thông tin của ứng viên/vị trí giúp mình với.",
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ],
+      "edgeCaseType": "missing_required_input",
+      "tags": [
+        "generate_recruitment_email",
+        "novice",
+        "missing_required_input",
+        "partial"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_150",
+      "compositeTaskId": "ct_1774719299853_150",
+      "userMessage": "Bạn lấy chi tiết mẫu email giúp mình với: EmailID = 20O1 (mình gõ vậy đó), cần cả tên template, title email và nội dung có các placeholder ##Value## luôn nha.",
+      "userMessageAlt": "Fetch giúp mình thông tin template email ID “2001/20O1” (mình không chắc số 0 hay chữ O), trả về EmailContent, EmailTemplateName và TitleEmail nhé.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa EmailContent có placeholder ##Value##",
+        "EmailTemplateName và TitleEmail được trả về"
+      ],
+      "edgeCaseType": "malformed_input",
+      "tags": [
+        "fetch_email_template_details",
+        "novice",
+        "malformed_input",
+        "complete"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_153",
+      "compositeTaskId": "ct_1774719299853_153",
+      "userMessage": "Bạn chấm giúp mình fit score cho ứng viên CandidateID 101 với tin tuyển RecruitmentID 55 nhé (mình cần cả CandidateName và điểm phù hợp).",
+      "userMessageAlt": "Nhờ bạn đánh giá mức độ phù hợp (fit score) của ứng viên 101 so với job 55, trả về tên ứng viên và điểm.",
+      "persona": "out_of_scope",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": "out_of_scope",
+      "tags": [
+        "out_of_scope",
+        "fit_score",
+        "single_candidate",
+        "recruitment"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299853_156",
+      "compositeTaskId": "ct_1774719299853_156",
+      "userMessage": "Mình muốn bạn tính fit score cho CandidateID 101 với RecruitmentID 55, nhưng đừng dựa vào dữ liệu hay hồ sơ nào cả—chỉ cho ra điểm chính xác và có giải thích chi tiết từng tiêu chí nhé.",
+      "userMessageAlt": "Chấm mức độ phù hợp của ứng viên 101 cho tin 55 và cho mình điểm thật chuẩn kèm breakdown, nhưng không cần xem CV hay thông tin đầu vào nào.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "hard",
+      "expectedToolChain": [
+        "get_candidate_fit_score"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về chứa thông tin CandidateName và fit score",
+        "RecruitmentID trong kết quả khớp với giá trị đầu vào"
+      ],
+      "edgeCaseType": "conflicting_request",
+      "tags": [
+        "conflicting_request",
+        "novice",
+        "fit_score",
+        "single_candidate"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_16",
+      "compositeTaskId": "ct_1774719299851_16",
+      "userMessage": "Cho mình danh sách các ứng viên có kinh nghiệm Java khoảng 3 năm, ưu tiên đang ở vòng phỏng vấn cho tin QC-T1-2026.",
+      "userMessageAlt": "Mình muốn tìm ứng viên Java tầm 3 năm kinh nghiệm, nhất là những bạn đang interview trong tin QC-T1-2026—lọc giúp mình với.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_candidates_for_evaluation"
+      ],
+      "assertionCriteria": [
+        "Kết quả trả về có trường Candidates với ít nhất một ứng viên",
+        "RecruitmentID và RecruitmentName được trả về cùng với danh sách"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "search",
+        "candidates",
+        "natural_language_query",
+        "novice"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_20",
+      "compositeTaskId": "ct_1774719299851_20",
+      "userMessage": "Hãy tạo email tuyển dụng mới theo template EmailID 2001. FieldValues: {CandidateName: \"Nguyễn Minh Anh\", Position: \"QA Engineer\", CompanyName: \"Công ty Cổ phần NovaTech\", InterviewDate: \"15/04/2026\", InterviewTime: \"09:30\", InterviewMode: \"Online (Google Meet)\", MeetingLink: \"https://meet.google.com/abc-defg-hij\", ContactPerson: \"Trần Hoàng Long\", ContactPhone: \"0903 112 233\", Location: \"N/A\"}.",
+      "userMessageAlt": "Nhờ bạn generate nội dung email theo mẫu 2001 và thay các trường sau: Nguyễn Minh Anh, QA Engineer, NovaTech, phỏng vấn 15/04/2026 lúc 09:30 qua Google Meet (link https://meet.google.com/abc-defg-hij), liên hệ Trần Hoàng Long 0903 112 233.",
+      "persona": "expert",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "generate_email",
+        "expert",
+        "partial",
+        "template_2001"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_21",
+      "compositeTaskId": "ct_1774719299851_21",
+      "userMessage": "Tạo giúp mình email theo template 2001, nhưng các field thì bạn tự điền theo thông tin trong hệ thống cho ứng viên Minh Anh và lịch phỏng vấn tuần sau (mình không chắc chính xác ngày/giờ).",
+      "userMessageAlt": "Generate email mẫu 2001; bạn lấy dữ liệu sẵn có cho ứng viên Minh Anh + lịch interview tuần tới và thay hết placeholder giúp mình.",
+      "persona": "expert",
+      "infoCompleteness": "ambiguous",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "generate_email",
+        "expert",
+        "ambiguous",
+        "missing_fields"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_22",
+      "compositeTaskId": "ct_1774719299851_22",
+      "userMessage": "Bạn soạn giúp mình email theo mẫu EmailID 2001 với các thông tin này nhé: Tên ứng viên: Lê Quốc Bảo; vị trí: Backend Developer; công ty: FPT Software; ngày phỏng vấn: 20/04/2026; giờ: 14:00; hình thức: trực tiếp; địa điểm: Tầng 12, 456 Nguyễn Văn Cừ, Q.5, TP.HCM; người liên hệ: Mai Phương; SĐT: 0987 654 321.",
+      "userMessageAlt": "Nhờ bạn tạo nội dung email template 2001 và điền: Lê Quốc Bảo - Backend Developer - FPT Software, phỏng vấn 20/04/2026 lúc 14:00, onsite tại Tầng 12, 456 Nguyễn Văn Cừ Q5, liên hệ Mai Phương 0987 654 321.",
+      "persona": "novice",
+      "infoCompleteness": "complete",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "generate_email",
+        "novice",
+        "complete",
+        "template_2001"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_23",
+      "compositeTaskId": "ct_1774719299851_23",
+      "userMessage": "Bạn giúp mình soạn một email tuyển dụng mới theo mẫu có sẵn với nhé. Mình muốn điền các thông tin như tên ứng viên, vị trí ứng tuyển, tên công ty, ngày phỏng vấn và địa điểm vào email (để không còn mấy chỗ trống kiểu ##...##).",
+      "userMessageAlt": "Nhờ bạn tạo nội dung email tuyển dụng theo template, rồi thay các chỗ ##Value## bằng thông tin mình cung cấp (tên, vị trí, công ty, lịch/phòng phỏng vấn...).",
+      "persona": "novice",
+      "infoCompleteness": "partial",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "recruitment_email",
+        "novice",
+        "partial",
+        "template",
+        "missing_emailid",
+        "missing_fieldvalues_format"
+      ]
+    },
+    {
+      "id": "gt_ct_1774719299851_24",
+      "compositeTaskId": "ct_1774719299851_24",
+      "userMessage": "Bạn tạo giúp mình email tuyển dụng mới theo mẫu email 2001 hoặc cái mẫu mời phỏng vấn ấy (mình không chắc mã), rồi điền thông tin ứng viên và lịch hẹn vào cho tự nhiên, đừng để lại ##Value## nhé.",
+      "userMessageAlt": "Soạn email tuyển dụng theo template (hình như ID 2001, hoặc mẫu offer/mời phỏng vấn gì đó), thay hết placeholder bằng thông tin của mình, giọng văn thân thiện một chút.",
+      "persona": "novice",
+      "infoCompleteness": "ambiguous",
+      "difficulty": "medium",
+      "expectedToolChain": [
+        "get_email"
+      ],
+      "assertionCriteria": [
+        "EmailContent trong kết quả không còn placeholder ##Value##",
+        "Các giá trị thay thế xuất hiện đúng vị trí trong nội dung"
+      ],
+      "edgeCaseType": null,
+      "tags": [
+        "recruitment_email",
+        "novice",
+        "ambiguous",
+        "template_choice_unclear",
+        "emailid_uncertain",
+        "fieldvalues_unspecified"
+      ]
+    }
+  ],
+  "stats": {
+    "totalTasks": 80,
+    "byDifficulty": {
+      "easy": 28,
+      "medium": 34,
+      "hard": 18
+    },
+    "byIntent": {
+      "information_retrieval": 27,
+      "analysis": 28,
+      "content_generation": 18,
+      "action": 7
+    },
+    "byPersona": {
+      "expert": 42,
+      "novice": 35,
+      "out_of_scope": 3
+    },
+    "byEdgeCase": {
+      "entity_not_found": 3,
+      "ambiguous_entity": 3,
+      "missing_required_input": 3,
+      "malformed_input": 3,
+      "out_of_scope": 3,
+      "conflicting_request": 3
+    },
+    "avgStepsPerTask": 1,
+    "skillCoverage": 1,
+    "toolCoverage": 0.9142857142857143
+  }
+}

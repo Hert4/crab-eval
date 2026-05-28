@@ -1,0 +1,10 @@
+Lọc danh sách nhân viên thuộc khối KD bán thêm, trực thuộc khối doanh nghiệp nhỏ và khối KD thị trường doanh nghiệp.
+Gửi lời chúc sinh nhật cho 3 nhân viên đầu tiên trong danh sách sinh nhật hôm nay với phong cách mạnh mẽ hơn.
+Tạo lại lời chúc sinh nhật cho các nhân viên trong danh sách hiện tại theo phong cách hài hước.
+Hiển thị danh sách nhân viên thuộc nhóm quản lý 01, phòng KD bán thêm 01, phòng KD bán thêm, trung tâm KD giải pháp DN vừa – Hồ Chí Minh.
+Thêm thông tin Facebook của các nhân viên khác trong danh sách sinh nhật hiện tại.
+Tạo thêm 1 lời chúc sinh nhật mới cho các nhân viên thuộc nhóm tư vấn bán hàng.
+Xóa đoạn “hy vọng bạn sẽ tiếp tục phát huy năng lực, đóng góp tích cực vào sự phát triển chung của công ty.” khỏi toàn bộ lời chúc sinh nhật đã tạo.
+Gửi lời chúc mừng sinh nhật cho các nhân viên trong danh sách hiện tại với nội dung bá đạo hơn.
+Cập nhật lời chúc sinh nhật cho nhóm lập trình viên thành: “tuổi mới code nhanh như gió, lương cao như núi, dáng đẹp như mơ, bớt ăn hành để còn lấy vợ”.
+Tạo lời chúc sinh nhật hài hước cho các lập trình viên thuộc dự án MISA Order trong hệ thống nhân sự.

@@ -1,0 +1,12 @@
+{
+  "runId": "86a314bb-16ba-4aad-9566-999f041cbd97",
+  "model": "gpt-4.1",
+  "baseUrl": "https://api.openai.com/v1",
+  "date": "2026-05-11 13:38:03",
+  "durationMs": 107689,
+  "tasks": {
+    "AVA Multi-turn Tool Calling (synthetic)": {
+      "tool_call_exact_sequence": 73.44
+    }
+  }
+}

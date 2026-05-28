@@ -1,0 +1,13 @@
+{
+  "runId": "990fb3d2-b897-4adc-9a29-ecc80e60cbb1",
+  "model": "gpt-4.1",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 08:25:44",
+  "durationMs": 44869,
+  "tasks": {
+    "ava_tool_calling": {
+      "ast_accuracy": 89.39,
+      "task_success_rate": 85.71
+    }
+  }
+}

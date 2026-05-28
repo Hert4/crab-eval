@@ -1,0 +1,2911 @@
+{
+  "runId": "1b583291-882d-4147-b0c8-662ca1d93e0d",
+  "model": "gpt-4o-mini",
+  "baseUrl": "https://test-aiservice.misa.com.vn/llm-gateway/v1",
+  "date": "2026-05-25 11:56:29",
+  "taskName": "birthday_sample_100",
+  "taskType": "multi_turn_tool_calling",
+  "description": "Imported from birthday_sample_100.txt — 100 user inputs",
+  "numSamples": 100,
+  "metrics": [
+    "envscaler_score",
+    "checkpoints_passed",
+    "checkpoints_total"
+  ],
+  "scores": {
+    "envscaler_score": 9.47
+  },
+  "logs": [
+    {
+      "id": "birthday_sample_100_1",
+      "status": "error",
+      "input": "Sinh nhật ban giám đốc ttkd bán thêm tháng này",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_2",
+      "status": "done",
+      "input": "Gio cho xem sinh nhat thang 10 cua khối sản xuất",
+      "reference": "",
+      "output": "[fail] Has the list of employees in the production department been retrieved?\n[pass] Has each employee in the production department a defined birthday field?\n[fail] Has the system filtered employees of the production department whose birthday month is \"10\"?\n[fail] Has the result displaying birthdays in October for the production department been generated?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 25
+      },
+      "durationMs": 25209,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of employees in the production department been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each employee in the production department a defined birthday field?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the system filtered employees of the production department whose birthday month is \"10\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the result displaying birthdays in October for the production department been generated?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_3",
+      "status": "done",
+      "input": "Hôm qua phòng bán thêm gp hddt 04 có ai sinh nhật",
+      "reference": "",
+      "output": "[fail] Has the list of members in the department \"phòng bán thêm gp hddt 04\" been identified?\n[fail] Has the birthdate of each member in the department \"phòng bán thêm gp hddt 04\" been recorded?\n[fail] Has the date corresponding to \"yesterday\" been determined based on the system date?\n[fail] Has any member in the department \"phòng bán thêm gp hddt 04\" had a birthdate matching the day and month of \"yesterday\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 37108,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of members in the department \"phòng bán thêm gp hddt 04\" been identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthdate of each member in the department \"phòng bán thêm gp hddt 04\" been recorded?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date corresponding to \"yesterday\" been determined based on the system date?",
+            "passed": false
+          },
+          {
+            "check_item": "Has any member in the department \"phòng bán thêm gp hddt 04\" had a birthdate matching the day and month of \"yesterday\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_4",
+      "status": "done",
+      "input": "Sinh nhật quý 1 dự án emis công lập",
+      "reference": "",
+      "output": "[fail] Has the anniversary date of the public EMIS project for Quarter 1 been verified?\n[fail] Has the anniversary event for the public EMIS project in Quarter 1 been scheduled?\n[fail] Has the public EMIS project Q1 anniversary announcement been created?\n[fail] Has the list of stakeholders for the public EMIS project Q1 anniversary been identified?\n[fail] Has the announcement of the public EMIS project Q1 anniversary been sent to all stakeholders?\n[fail] Has the documentation of the public EMIS project Q1 anniversary event been prepared?\n[fail] Has the summary report of the public EMIS project Q1 anniversary been completed?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 28450,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the anniversary date of the public EMIS project for Quarter 1 been verified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the anniversary event for the public EMIS project in Quarter 1 been scheduled?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the public EMIS project Q1 anniversary announcement been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list of stakeholders for the public EMIS project Q1 anniversary been identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the announcement of the public EMIS project Q1 anniversary been sent to all stakeholders?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the documentation of the public EMIS project Q1 anniversary event been prepared?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the summary report of the public EMIS project Q1 anniversary been completed?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_5",
+      "status": "done",
+      "input": "Còn ai sinh nhật ở phòng bán thêm gp hddt không",
+      "reference": "",
+      "output": "[fail] Has the room named \"bán thêm gp hddt\" been created?\n[fail] Has a list of individuals assigned to the room \"bán thêm gp hddt\" been generated?\n[fail] Has at least one individual in the room \"bán thêm gp hddt\" been identified whose birthday is today?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 29209,
+      "metadata": {
+        "steps": 10,
+        "checklist_results": [
+          {
+            "check_item": "Has the room named \"bán thêm gp hddt\" been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a list of individuals assigned to the room \"bán thêm gp hddt\" been generated?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one individual in the room \"bán thêm gp hddt\" been identified whose birthday is today?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_6",
+      "status": "done",
+      "input": "Ngày mai sinh nhật ai ở dự án emis công lập",
+      "reference": "",
+      "output": "[fail] Has the list of all users in the \"emis công lập\" project been retrieved?\n[fail] Has the date_of_birth field been set for each user in the \"emis công lập\" project?\n[fail] Has the current date been determined correctly?\n[fail] Has tomorrow's date been calculated correctly based on the current date?\n[fail] Has the date_of_birth (ignoring year) of each user in the \"emis công lập\" project been compared with tomorrow's date?\n[fail] Has the list of users whose birthday falls on tomorrow's date been generated?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 67578,
+      "metadata": {
+        "steps": 13,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of all users in the \"emis công lập\" project been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date_of_birth field been set for each user in the \"emis công lập\" project?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the current date been determined correctly?",
+            "passed": false
+          },
+          {
+            "check_item": "Has tomorrow's date been calculated correctly based on the current date?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date_of_birth (ignoring year) of each user in the \"emis công lập\" project been compared with tomorrow's date?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list of users whose birthday falls on tomorrow's date been generated?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_7",
+      "status": "done",
+      "input": "Tìm sn tháng này ở trung tâm kd bán thêm - hồ chí minh",
+      "reference": "",
+      "output": "[fail] Has the business center \"Trung tâm KD bán thêm - Hồ Chí Minh\" been selected?\n[fail] Has the time frame been set to the current month?\n[fail] Has the sales number (số lượng bán) for the current month been retrieved for the business center \"Trung tâm KD bán thêm - Hồ Chí Minh\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 68837,
+      "metadata": {
+        "steps": 8,
+        "checklist_results": [
+          {
+            "check_item": "Has the business center \"Trung tâm KD bán thêm - Hồ Chí Minh\" been selected?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the time frame been set to the current month?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the sales number (số lượng bán) for the current month been retrieved for the business center \"Trung tâm KD bán thêm - Hồ Chí Minh\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_8",
+      "status": "error",
+      "input": "Tìm thông tin thị nga dự án emis công lập",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_9",
+      "status": "done",
+      "input": "Ê trợ lý ảo, cho xin thông tin sinh nhựt của mí anh chị em khối kd thị trường doanh nghiệp đi, tui tính làm cái tiệc bất ngờ hoành tá tràng á mà hổng biết ngày tháng năm nào để còn book vé máy bay với đặt phòng ốc nữa chớ!",
+      "reference": "",
+      "output": "[fail] Has the full list of all members in the Enterprise Market Sales division been obtained?\n[fail] Has the full name of each member in the Enterprise Market Sales division been recorded?\n[fail] Has the date of birth of each member in the Enterprise Market Sales division been recorded?\n[fail] Has the department of each member in the Enterprise Market Sales division been set to \"Enterprise Market Sales\"?\n[pass] Has the contact information for each member in the Enterprise Market Sales division been recorded?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 20
+      },
+      "durationMs": 38592,
+      "metadata": {
+        "steps": 15,
+        "checklist_results": [
+          {
+            "check_item": "Has the full list of all members in the Enterprise Market Sales division been obtained?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the full name of each member in the Enterprise Market Sales division been recorded?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth of each member in the Enterprise Market Sales division been recorded?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the department of each member in the Enterprise Market Sales division been set to \"Enterprise Market Sales\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the contact information for each member in the Enterprise Market Sales division been recorded?",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_10",
+      "status": "done",
+      "input": "Gửi lời chúc đã sửa cho nhung thôi, còn lại bỏ đi",
+      "reference": "",
+      "output": "[fail] Has the edited message been sent to Nhung?\n[pass] Has the message been deleted or not sent to all recipients other than Nhung?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 50
+      },
+      "durationMs": 24957,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the edited message been sent to Nhung?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the message been deleted or not sent to all recipients other than Nhung?",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_11",
+      "status": "error",
+      "input": "Gửi lời chúc mừng sinh nhật cho mấy người này đi, nhớ tạo lời chúc nào đó thật là bá đạo vào",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_12",
+      "status": "done",
+      "input": "Check dùm sinh nhật mấy bạn khối kd bán thêm từ 1/5 tới h đi",
+      "reference": "",
+      "output": "[fail] Has the product_type for each sale been set to \"birthday_gift\"?\n[fail] Has the department for each sale been set to \"business\"?\n[fail] Has the sale_date for each sale been set on or after \"2024-05-01\"?\n[pass] Has the sale_date for each sale been set on or before today's date?\n[fail] Has the total number of \"birthday_gift\" products sold by the business department from \"2024-05-01\" to today been counted?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 20
+      },
+      "durationMs": 29671,
+      "metadata": {
+        "steps": 10,
+        "checklist_results": [
+          {
+            "check_item": "Has the product_type for each sale been set to \"birthday_gift\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the department for each sale been set to \"business\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the sale_date for each sale been set on or after \"2024-05-01\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the sale_date for each sale been set on or before today's date?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the total number of \"birthday_gift\" products sold by the business department from \"2024-05-01\" to today been counted?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_13",
+      "status": "done",
+      "input": "Sn quý 4 khối sản xuất",
+      "reference": "",
+      "output": "[fail] Has the revenue for Q4 been recorded for the production sector?\n[fail] Has the revenue amount for Q4 production sector been entered?\n[fail] Has the period for the revenue record been set to \"Q4\"?\n[fail] Has the sector for the revenue record been set to \"khối sản xuất\"?\n[fail] Has the unit of the revenue amount been set to \"VND\"?\n[fail] Has the revenue record for Q4 production sector been timestamped?\n[fail] Has the revenue record for Q4 production sector been approved?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 87293,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the revenue for Q4 been recorded for the production sector?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the revenue amount for Q4 production sector been entered?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the period for the revenue record been set to \"Q4\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the sector for the revenue record been set to \"khối sản xuất\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the unit of the revenue amount been set to \"VND\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the revenue record for Q4 production sector been timestamped?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the revenue record for Q4 production sector been approved?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_14",
+      "status": "error",
+      "input": "Chị quyên trưởng phòng đào tạo",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_15",
+      "status": "done",
+      "input": "Còn ai sinh nhật nhóm kd bán thêm amis vps",
+      "reference": "",
+      "output": "[fail] Has the list of all nhóm kd members been obtained?\n[fail] Has the birthday of each nhóm kd member been checked?\n[fail] Has the sales record for amis VPS of each nhóm kd member been checked?\n[fail] Has any nhóm kd member with a birthday today been identified?\n[fail] Has the amis VPS sales record for any nhóm kd member with a birthday today been verified?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 22207,
+      "metadata": {
+        "steps": 12,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of all nhóm kd members been obtained?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday of each nhóm kd member been checked?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the sales record for amis VPS of each nhóm kd member been checked?",
+            "passed": false
+          },
+          {
+            "check_item": "Has any nhóm kd member with a birthday today been identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the amis VPS sales record for any nhóm kd member with a birthday today been verified?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_16",
+      "status": "done",
+      "input": "Tìm sinh nhật ai đó trong phòng bán thêm gp hddt 01 vào tháng 09 năm 2025",
+      "reference": "",
+      "output": "[fail] Has the list of individuals in phòng bán thêm gp hddt 01 been retrieved?\n[fail] Has the birthdate field of each individual in phòng bán thêm gp hddt 01 been checked?\n[fail] Has the search for birthdays been limited to the month of September 2025?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 42966,
+      "metadata": {
+        "steps": 10,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of individuals in phòng bán thêm gp hddt 01 been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthdate field of each individual in phòng bán thêm gp hddt 01 been checked?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the search for birthdays been limited to the month of September 2025?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_17",
+      "status": "done",
+      "input": "Gắt zữ zậy, thui sửa cho tui lời chúc của lưu trung khôi đi, nhớ thêm mã nhân viên c21-0041 vào nha",
+      "reference": "",
+      "output": "[fail] Has the well-wishing message for Lưu Trung Khôi been updated?\n[fail] Has the employee code of Lưu Trung Khôi been set to \"c21-0041\"?\n[fail] Has the updated well-wishing message for Lưu Trung Khôi been linked to the employee code \"c21-0041\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 27886,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the well-wishing message for Lưu Trung Khôi been updated?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the employee code of Lưu Trung Khôi been set to \"c21-0041\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the updated well-wishing message for Lưu Trung Khôi been linked to the employee code \"c21-0041\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_18",
+      "status": "error",
+      "input": "Không, sửa lời chúc cho trưởng phòng pr đi",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_19",
+      "status": "done",
+      "input": "Trung tâm kd bán thêm - hà nội có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the entity \"Trung tâm kd bán thêm - hà nội\" been registered?\n[fail] Has a list of persons associated with \"Trung tâm kd bán thêm - hà nội\" been created?\n[pass] Has the date_of_birth field been specified for each person in \"Trung tâm kd bán thêm - hà nội\"?\n[fail] Has any person in \"Trung tâm kd bán thêm - hà nội\" been identified whose date_of_birth matches today?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 25
+      },
+      "durationMs": 17336,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the entity \"Trung tâm kd bán thêm - hà nội\" been registered?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a list of persons associated with \"Trung tâm kd bán thêm - hà nội\" been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date_of_birth field been specified for each person in \"Trung tâm kd bán thêm - hà nội\"?",
+            "passed": true
+          },
+          {
+            "check_item": "Has any person in \"Trung tâm kd bán thêm - hà nội\" been identified whose date_of_birth matches today?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_20",
+      "status": "done",
+      "input": "Info phạm đăng tú vị trí trưởng nhóm lập trình",
+      "reference": "",
+      "output": "[fail] Has the full name been set to \"Phạm Đăng Tú\"?\n[fail] Has the position been set to \"trưởng nhóm lập trình\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 34520,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the full name been set to \"Phạm Đăng Tú\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the position been set to \"trưởng nhóm lập trình\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_21",
+      "status": "done",
+      "input": "Không, bỏ hết đi. tìm sinh nhật thị thư ở văn phòng công ty",
+      "reference": "",
+      "output": "[fail] Has Thị Thư's full name been located in the company office records?\n[fail] Has Thị Thư's date of birth been found in the company office records?\n[fail] Has Thị Thư's date of birth been verified as accurate in the company office records?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 34511,
+      "metadata": {
+        "steps": 13,
+        "checklist_results": [
+          {
+            "check_item": "Has Thị Thư's full name been located in the company office records?",
+            "passed": false
+          },
+          {
+            "check_item": "Has Thị Thư's date of birth been found in the company office records?",
+            "passed": false
+          },
+          {
+            "check_item": "Has Thị Thư's date of birth been verified as accurate in the company office records?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_22",
+      "status": "done",
+      "input": "Phòng bán thêm gp ktdn 02 ngày kia có ai sinh nhật",
+      "reference": "",
+      "output": "[fail] Has the \"bán thêm\" department been created?\n[fail] Has each member of the \"bán thêm\" department been assigned a valid business license (\"giấy phép kinh doanh\")?\n[fail] Has the birthday field been set for each member of the \"bán thêm\" department?\n[fail] Has any member of the \"bán thêm\" department, who holds a valid business license, a birthday that matches the date two days from today?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 24561,
+      "metadata": {
+        "steps": 11,
+        "checklist_results": [
+          {
+            "check_item": "Has the \"bán thêm\" department been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each member of the \"bán thêm\" department been assigned a valid business license (\"giấy phép kinh doanh\")?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday field been set for each member of the \"bán thêm\" department?",
+            "passed": false
+          },
+          {
+            "check_item": "Has any member of the \"bán thêm\" department, who holds a valid business license, a birthday that matches the date two days from today?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_23",
+      "status": "done",
+      "input": "Tìm cho tôi những ai là lập trình viên có sinh nhật trong tháng này",
+      "reference": "",
+      "output": "[fail] Has the role of the user been set to \"developer\"?\n[pass] Has the birth_date of the user been provided in a valid date format?\n[pass] Has the month of the birth_date of the user been set to the current month?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 66.67
+      },
+      "durationMs": 8451,
+      "metadata": {
+        "steps": 3,
+        "checklist_results": [
+          {
+            "check_item": "Has the role of the user been set to \"developer\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birth_date of the user been provided in a valid date format?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the month of the birth_date of the user been set to the current month?",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_24",
+      "status": "done",
+      "input": "Trung tâm kd bán thêm - hà nội có ai sinh nhật tháng 05",
+      "reference": "",
+      "output": "[fail] Has the center \"Trung tâm kd bán thêm - hà nội\" been created?\n[fail] Has at least one individual been assigned to the center \"Trung tâm kd bán thêm - hà nội\"?\n[fail] Has at least one individual assigned to the center \"Trung tâm kd bán thêm - hà nội\" had a birth month of \"05\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 20308,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the center \"Trung tâm kd bán thêm - hà nội\" been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one individual been assigned to the center \"Trung tâm kd bán thêm - hà nội\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one individual assigned to the center \"Trung tâm kd bán thêm - hà nội\" had a birth month of \"05\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_25",
+      "status": "done",
+      "input": "Hom nay co ai snhat o trung tâm kd bán thêm - hồ chí minh ko",
+      "reference": "",
+      "output": "[fail] Has a work schedule for today been created for \"trung tâm kd bán thêm - hồ chí minh\"?\n[fail] Has at least one staff member been assigned to \"trung tâm kd bán thêm - hồ chí minh\" on today’s schedule?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 19354,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has a work schedule for today been created for \"trung tâm kd bán thêm - hồ chí minh\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one staff member been assigned to \"trung tâm kd bán thêm - hồ chí minh\" on today’s schedule?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_26",
+      "status": "done",
+      "input": "Ngày 18/06 phòng ban thêm gp ktdn 01 có ai sinh nhật",
+      "reference": "",
+      "output": "[fail] Has the operation date been set to \"18/06\"?\n[fail] Has the entity \"gp ktdn 01\" been added to the department?\n[fail] Has a check been performed for department members with a birthday on \"18/06\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 25886,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the operation date been set to \"18/06\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the entity \"gp ktdn 01\" been added to the department?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a check been performed for department members with a birthday on \"18/06\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_27",
+      "status": "error",
+      "input": "Đừng gửi vội, chỉnh sửa lời chúc cho bạn trần ngọc hương liên thành 'chúc mừng sinh nhật liên nha! mong bạn luôn xinh đẹp và thành công.'",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_28",
+      "status": "done",
+      "input": "Văn phòng sản xuất có ai sinh nhật quý vừa qua",
+      "reference": "",
+      "output": "[fail] Has the department of the employee been set to \"văn phòng sản xuất\"?\n[pass] Has the birthday field of the employee been specified?\n[fail] Has the birthday of the employee occurred within the previous quarter?\n[fail] Has the employee who meets the above conditions been identified?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 25
+      },
+      "durationMs": 21609,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the department of the employee been set to \"văn phòng sản xuất\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday field of the employee been specified?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the birthday of the employee occurred within the previous quarter?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the employee who meets the above conditions been identified?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_29",
+      "status": "done",
+      "input": "Chỉnh sửa lời chúc cho bạn nguyễn thị lê vi thành chúc mừng sinh nhật vui vẻ",
+      "reference": "",
+      "output": "[fail] Has the recipient name been set to \"nguyễn thị lê vi\"?\n[fail] Has the congratulatory message content been set to \"chúc mừng sinh nhật vui vẻ\"?\n[fail] Has the message type been set to \"sinh nhật\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 15097,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has the recipient name been set to \"nguyễn thị lê vi\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the congratulatory message content been set to \"chúc mừng sinh nhật vui vẻ\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the message type been set to \"sinh nhật\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_30",
+      "status": "done",
+      "input": "Ban hợp tác đào tạo có ai sinh nhật trong tháng 6 không",
+      "reference": "",
+      "output": "[fail] Has the list of Training Cooperation Committee members been created?\n[fail] Has at least one member of the Training Cooperation Committee been assigned a birth month of 6?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 23601,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of Training Cooperation Committee members been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one member of the Training Cooperation Committee been assigned a birth month of 6?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_31",
+      "status": "done",
+      "input": "Còn ai sinh nhật tháng sau ở trung tâm kd bán thêm - hồ chí minh",
+      "reference": "",
+      "output": "[fail] Has the list of individuals for the center \"kd bán thêm - hồ chí minh\" been created?\n[pass] Has each individual's date_of_birth been recorded in the system?\n[fail] Has the list of individuals whose birth month matches next month been generated for \"kd bán thêm - hồ chí minh\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 33.33
+      },
+      "durationMs": 29080,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of individuals for the center \"kd bán thêm - hồ chí minh\" been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each individual's date_of_birth been recorded in the system?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the list of individuals whose birth month matches next month been generated for \"kd bán thêm - hồ chí minh\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_32",
+      "status": "done",
+      "input": "Tìm sinh nhật trung tâm kd bán thêm - hồ chí minh ngày 12/04 có lời chúc",
+      "reference": "",
+      "output": "[fail] Has the birthday event for \"trung tâm kd bán thêm - hồ chí minh\" been created?\n[fail] Has the date of the birthday event for \"trung tâm kd bán thêm - hồ chí minh\" been set to \"12/04\"?\n[fail] Has a congratulatory message been added to the birthday event for \"trung tâm kd bán thêm - hồ chí minh\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 28361,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the birthday event for \"trung tâm kd bán thêm - hồ chí minh\" been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of the birthday event for \"trung tâm kd bán thêm - hồ chí minh\" been set to \"12/04\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a congratulatory message been added to the birthday event for \"trung tâm kd bán thêm - hồ chí minh\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_33",
+      "status": "done",
+      "input": "Get birthday trung tâm kd bán thêm - hồ chí minh",
+      "reference": "",
+      "output": "[fail] Has the entity \"trung tâm kd bán thêm - hồ chí minh\" been correctly identified?\n[fail] Has the birthday of \"trung tâm kd bán thêm - hồ chí minh\" been set?\n[fail] Has the birthday of \"trung tâm kd bán thêm - hồ chí minh\" been retrieved?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 24793,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the entity \"trung tâm kd bán thêm - hồ chí minh\" been correctly identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday of \"trung tâm kd bán thêm - hồ chí minh\" been set?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday of \"trung tâm kd bán thêm - hồ chí minh\" been retrieved?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_34",
+      "status": "done",
+      "input": "November birthday in \"văn phòng sản xuất\"",
+      "reference": "",
+      "output": "[fail] Has the department of the employee been set to \"văn phòng sản xuất\"?\n[pass] Has the birth month of the employee been set to \"November\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 50
+      },
+      "durationMs": 21796,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the department of the employee been set to \"văn phòng sản xuất\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birth month of the employee been set to \"November\"?",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_35",
+      "status": "done",
+      "input": "Tìm sinh nhật tháng 12 của thị hảo - phòng bán thêm gp hddt 02",
+      "reference": "",
+      "output": "[fail] Has a staff member named \"Thị Hảo\" been recorded?\n[fail] Has \"Thị Hảo\" been assigned to \"phòng bán thêm gp hddt 02\"?\n[fail] Has the month of the \"ngày sinh\" field for \"Thị Hảo\" been set to \"12\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 22191,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has a staff member named \"Thị Hảo\" been recorded?",
+            "passed": false
+          },
+          {
+            "check_item": "Has \"Thị Hảo\" been assigned to \"phòng bán thêm gp hddt 02\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the month of the \"ngày sinh\" field for \"Thị Hảo\" been set to \"12\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_36",
+      "status": "done",
+      "input": "Sinh nhật quý 2 năm 2025 ban giám đốc ttkd bán thêm",
+      "reference": "",
+      "output": "[fail] Has the event date been set within Q2 2025?\n[fail] Has the recipient group for the birthday event been set to \"ban giám đốc ttkd\"?\n[fail] Has the event venue for the birthday celebration been booked?\n[fail] Has the invitation list for \"ban giám đốc ttkd\" been created?\n[fail] Has the birthday event agenda been documented?\n[fail] Has the arrangement for additional sales (\"bán thêm\") at the event been confirmed?\n[fail] Has the list of items for additional sales at the event been finalized?\n[fail] Has the payment process for additional sales at the birthday event been set up?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 39670,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has the event date been set within Q2 2025?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the recipient group for the birthday event been set to \"ban giám đốc ttkd\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the event venue for the birthday celebration been booked?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the invitation list for \"ban giám đốc ttkd\" been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday event agenda been documented?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the arrangement for additional sales (\"bán thêm\") at the event been confirmed?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list of items for additional sales at the event been finalized?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the payment process for additional sales at the birthday event been set up?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_37",
+      "status": "done",
+      "input": "Không, sửa lời chúc cho chị hà thành 'chúc mừng sinh nhật hà nha, thêm tuổi mới bớt ăn hành!' còn chị trà thì giữ nguyên",
+      "reference": "",
+      "output": "[fail] Has the birthday message for chị Hà been set to \"chúc mừng sinh nhật hà nha, thêm tuổi mới bớt ăn hành!\"?\n[pass] Has the birthday message for chị Trà remained unchanged?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 50
+      },
+      "durationMs": 19672,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the birthday message for chị Hà been set to \"chúc mừng sinh nhật hà nha, thêm tuổi mới bớt ăn hành!\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday message for chị Trà remained unchanged?",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_38",
+      "status": "done",
+      "input": "Khối sản xuất có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the production department been registered in the system?\n[fail] Has the staff list for the production department been created?\n[fail] Has at least one employee in the production department been recorded with a birthdate matching today’s date?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 25803,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the production department been registered in the system?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the staff list for the production department been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one employee in the production department been recorded with a birthdate matching today’s date?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_39",
+      "status": "error",
+      "input": "Tài vị trí lập trình viên",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_40",
+      "status": "skipped",
+      "input": "Tháng này nhóm kd bán thêm gp ký điện tử có ai sinh nhật ko",
+      "reference": "",
+      "output": "No checklist items",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 22516,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_41",
+      "status": "error",
+      "input": "Tìm sinh nhật của mấy ông lập trình viên xem nào",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_42",
+      "status": "done",
+      "input": "Còn ai sinh nhật trong sản phẩm emis công lập không",
+      "reference": "",
+      "output": "[pass] Has each user record in the emis công lập product been checked for the presence of a birthday field?\n[pass] Has the birthday field in each user record of the emis công lập product been checked for a non-null value?\n[pass] Has the birthday field in each user record of the emis công lập product been verified for correct date format (e.g., YYYY-MM-DD)?\n[fail] Has the status of each user in the emis công lập product been checked to confirm if the user is active?\n[fail] Has the emis công lập product been checked for any active user whose birthday matches today’s date?\n[fail] Has the emis công lập product been checked for enabled birthday notifications or reminders for active users?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 50
+      },
+      "durationMs": 11824,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has each user record in the emis công lập product been checked for the presence of a birthday field?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the birthday field in each user record of the emis công lập product been checked for a non-null value?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the birthday field in each user record of the emis công lập product been verified for correct date format (e.g., YYYY-MM-DD)?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the status of each user in the emis công lập product been checked to confirm if the user is active?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the emis công lập product been checked for any active user whose birthday matches today’s date?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the emis công lập product been checked for enabled birthday notifications or reminders for active users?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_43",
+      "status": "error",
+      "input": "Không thích lời chúc này, sửa cho chị thúy hằng thành 'chúc mừng sinh nhật hằng! tuổi mới thêm nhiều niềm vui và thành công'. còn lại giữ nguyên",
+      "reference": "",
+      "output": "[stage1_or_stage2] SyntaxError: invalid syntax (<unknown>, line 217)",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1_or_stage2] SyntaxError: invalid syntax (<unknown>, line 217)",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_44",
+      "status": "done",
+      "input": "Ê, cho xin info con bé nguyễn thị hảo bên dự án misa taskgo vs. thêm cái sdt lun nha!",
+      "reference": "",
+      "output": "[fail] Has a profile for Nguyen Thi Hao been created in the system?\n[fail] Has the full name of Nguyen Thi Hao been set to \"Nguyễn Thị Hảo\"?\n[fail] Has Nguyen Thi Hao been assigned to the project \"MISA Taskgo\"?\n[fail] Has a phone number for Nguyen Thi Hao been entered?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 45966,
+      "metadata": {
+        "steps": 12,
+        "checklist_results": [
+          {
+            "check_item": "Has a profile for Nguyen Thi Hao been created in the system?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the full name of Nguyen Thi Hao been set to \"Nguyễn Thị Hảo\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has Nguyen Thi Hao been assigned to the project \"MISA Taskgo\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a phone number for Nguyen Thi Hao been entered?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_45",
+      "status": "skipped",
+      "input": "Sinh nhật tuần này ở văn phòng sản xuất",
+      "reference": "",
+      "output": "No checklist items",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 33584,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_46",
+      "status": "done",
+      "input": "Tìm sinh nhật quý 4 năm 2024 của thế vị trí lập trình viên thuộc [amis kế toán hkd] nhóm phân tích & thiết kế",
+      "reference": "",
+      "output": "[fail] Has the position title been set to \"lập trình viên\"?\n[fail] Has the group name been set to \"phân tích & thiết kế\"?\n[fail] Has the system or project been set to \"[amis kế toán hkd]\"?\n[pass] Has the birthday month been set to either \"October\", \"November\", or \"December\"?\n[fail] Has the birthday year been set to \"2024\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 20
+      },
+      "durationMs": 35083,
+      "metadata": {
+        "steps": 12,
+        "checklist_results": [
+          {
+            "check_item": "Has the position title been set to \"lập trình viên\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the group name been set to \"phân tích & thiết kế\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the system or project been set to \"[amis kế toán hkd]\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday month been set to either \"October\", \"November\", or \"December\"?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the birthday year been set to \"2024\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_47",
+      "status": "done",
+      "input": "Tìm sinh nhật ai làm quản lý phân tích thiết kế ở [emis công lập] nhóm phân tích & thiết kế",
+      "reference": "",
+      "output": "[fail] Has the group \"nhóm phân tích & thiết kế\" been created in \"emis công lập\"?\n[fail] Has the membership list of \"nhóm phân tích & thiết kế\" in \"emis công lập\" been retrieved?\n[fail] Has a member with the role \"quản lý phân tích thiết kế\" been identified in the \"nhóm phân tích & thiết kế\" group in \"emis công lập\"?\n[fail] Has the birthday of the member with the role \"quản lý phân tích thiết kế\" in \"nhóm phân tích & thiết kế\" of \"emis công lập\" been retrieved?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 34702,
+      "metadata": {
+        "steps": 11,
+        "checklist_results": [
+          {
+            "check_item": "Has the group \"nhóm phân tích & thiết kế\" been created in \"emis công lập\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the membership list of \"nhóm phân tích & thiết kế\" in \"emis công lập\" been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a member with the role \"quản lý phân tích thiết kế\" been identified in the \"nhóm phân tích & thiết kế\" group in \"emis công lập\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday of the member with the role \"quản lý phân tích thiết kế\" in \"nhóm phân tích & thiết kế\" of \"emis công lập\" been retrieved?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_48",
+      "status": "done",
+      "input": "Tháng 6/2025 có ai sinh nhật ở ban công nghệ thông tin, ban giám đốc ttkd bán thêm, ban giám đốc ttkd gp ktdn, ban hợp tác đào tạo ko",
+      "reference": "",
+      "output": "[fail] Has at least one member of Ban Công Nghệ Thông Tin a birthday in June 2025?\n[fail] Has at least one member of Ban Giám Đốc TTKD Bán Thêm a birthday in June 2025?\n[fail] Has at least one member of Ban Giám Đốc TTKD GP KTDN a birthday in June 2025?\n[fail] Has at least one member of Ban Hợp Tác Đào Tạo a birthday in June 2025?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 33839,
+      "metadata": {
+        "steps": 8,
+        "checklist_results": [
+          {
+            "check_item": "Has at least one member of Ban Công Nghệ Thông Tin a birthday in June 2025?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one member of Ban Giám Đốc TTKD Bán Thêm a birthday in June 2025?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one member of Ban Giám Đốc TTKD GP KTDN a birthday in June 2025?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one member of Ban Hợp Tác Đào Tạo a birthday in June 2025?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_49",
+      "status": "done",
+      "input": "Văn phòng sản xuất có ai sn nhật ko",
+      "reference": "",
+      "output": "[fail] Has the employee list for the production office been created?\n[fail] Has at least one employee in the production office been marked with nationality \"Japanese\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 33700,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has the employee list for the production office been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one employee in the production office been marked with nationality \"Japanese\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_50",
+      "status": "done",
+      "input": "Trần viết hữu thuộc phòng bán thêm gp ktdn 01 sinh nhật khi nào",
+      "reference": "",
+      "output": "[fail] Has the employee \"Trần Viết Hữu\" been registered in the system?\n[fail] Has the department of \"Trần Viết Hữu\" been set to \"phòng bán thêm\"?\n[fail] Has the permit \"gp ktdn 01\" been assigned to \"Trần Viết Hữu\"?\n[fail] Has the date of birth for \"Trần Viết Hữu\" been recorded?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 41639,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the employee \"Trần Viết Hữu\" been registered in the system?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the department of \"Trần Viết Hữu\" been set to \"phòng bán thêm\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the permit \"gp ktdn 01\" been assigned to \"Trần Viết Hữu\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth for \"Trần Viết Hữu\" been recorded?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_51",
+      "status": "done",
+      "input": "Ngày mai phòng đào tạo có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the list of all current members of the training department been obtained?\n[fail] Has tomorrow's date been correctly determined?\n[pass] Has the date of birth of each training department member been recorded?\n[fail] Has each date of birth been compared to tomorrow's date to check for a match?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 25
+      },
+      "durationMs": 32511,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of all current members of the training department been obtained?",
+            "passed": false
+          },
+          {
+            "check_item": "Has tomorrow's date been correctly determined?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth of each training department member been recorded?",
+            "passed": true
+          },
+          {
+            "check_item": "Has each date of birth been compared to tomorrow's date to check for a match?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_52",
+      "status": "done",
+      "input": "Tìm sinh nhật phòng kd bán thêm 03 tháng này",
+      "reference": "",
+      "output": "[fail] Has the staff member been assigned to the \"phòng kinh doanh\" department?\n[pass] Has the staff member's date_of_birth month been set to the current month?\n[fail] Has the staff member recorded at least one \"bán thêm\" (additional sale) in the current month?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 33.33
+      },
+      "durationMs": 20983,
+      "metadata": {
+        "steps": 5,
+        "checklist_results": [
+          {
+            "check_item": "Has the staff member been assigned to the \"phòng kinh doanh\" department?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the staff member's date_of_birth month been set to the current month?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the staff member recorded at least one \"bán thêm\" (additional sale) in the current month?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_53",
+      "status": "done",
+      "input": "Phòng kd bán thêm 01 có ai sinh nhật từ đầu tháng đến nay không",
+      "reference": "",
+      "output": "[fail] Has the department \"phòng kd bán thêm 01\" been correctly identified?\n[fail] Has the list of staff members in \"phòng kd bán thêm 01\" been obtained?\n[fail] Has the date_of_birth field been recorded for each staff member in \"phòng kd bán thêm 01\"?\n[fail] Has it been verified for each staff member in \"phòng kd bán thêm 01\" whether their date_of_birth's month and day falls between the first day of the current month and today?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 21823,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the department \"phòng kd bán thêm 01\" been correctly identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list of staff members in \"phòng kd bán thêm 01\" been obtained?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date_of_birth field been recorded for each staff member in \"phòng kd bán thêm 01\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has it been verified for each staff member in \"phòng kd bán thêm 01\" whether their date_of_birth's month and day falls between the first day of the current month and today?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_54",
+      "status": "done",
+      "input": "Tìm sinh nhật tháng trước phòng bán thêm amis vps",
+      "reference": "",
+      "output": "[fail] Has the \"bán thêm amis vps\" sales department been created?\n[fail] Has a list of employees assigned to the \"bán thêm amis vps\" sales department been generated?\n[pass] Has the date_of_birth field been set for each employee in the \"bán thêm amis vps\" sales department?\n[fail] Has a report of employees in the \"bán thêm amis vps\" sales department with birthdays in the previous month been generated?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 25
+      },
+      "durationMs": 33689,
+      "metadata": {
+        "steps": 11,
+        "checklist_results": [
+          {
+            "check_item": "Has the \"bán thêm amis vps\" sales department been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a list of employees assigned to the \"bán thêm amis vps\" sales department been generated?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date_of_birth field been set for each employee in the \"bán thêm amis vps\" sales department?",
+            "passed": true
+          },
+          {
+            "check_item": "Has a report of employees in the \"bán thêm amis vps\" sales department with birthdays in the previous month been generated?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_55",
+      "status": "done",
+      "input": "Ui cha, nhìu thu hà dữ zị! thôi kệ, gửi lời chúc sn mặc định cho hết mí bạn thu hà đó đi, tháng tới nhớ nhắc tui nha!",
+      "reference": "",
+      "output": "[pass] Has a default birthday wish been sent to every friend with the name \"Thu Hà\"?\n[fail] Has a reminder been set to notify the user next month?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 50
+      },
+      "durationMs": 35291,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has a default birthday wish been sent to every friend with the name \"Thu Hà\"?",
+            "passed": true
+          },
+          {
+            "check_item": "Has a reminder been set to notify the user next month?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_56",
+      "status": "done",
+      "input": "Tìm sinh nhật trung tâm kd bán thêm - hà nội",
+      "reference": "",
+      "output": "[fail] Has the business center named \"bán thêm\" been found in Hà Nội?\n[fail] Has the birthday (establishment date) of the business center \"bán thêm\" in Hà Nội been retrieved?\n[fail] Has the birthday (establishment date) of the business center \"bán thêm\" in Hà Nội been recorded in the correct date format (YYYY-MM-DD)?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 42144,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the business center named \"bán thêm\" been found in Hà Nội?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday (establishment date) of the business center \"bán thêm\" in Hà Nội been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday (establishment date) of the business center \"bán thêm\" in Hà Nội been recorded in the correct date format (YYYY-MM-DD)?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_57",
+      "status": "done",
+      "input": "Get birthday oct/2023 trung tâm kd bán thêm - hồ chí minh",
+      "reference": "",
+      "output": "[fail] Has the birthday event for October 2023 been created?\n[fail] Has the location of the birthday event been set to \"trung tâm kd bán thêm - hồ chí minh\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 29178,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the birthday event for October 2023 been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the location of the birthday event been set to \"trung tâm kd bán thêm - hồ chí minh\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_58",
+      "status": "done",
+      "input": "Còn ai sinh nhật quý 2 năm 2023 ở trung tâm kd bán thêm - hà nội không",
+      "reference": "",
+      "output": "[fail] Has the center \"trung tâm kd bán thêm - hà nội\" been registered?\n[fail] Has at least one individual been assigned to \"trung tâm kd bán thêm - hà nội\"?\n[fail] Has any individual's birth_date at \"trung tâm kd bán thêm - hà nội\" been set to a value in 2023?\n[fail] Has any individual's birth_date at \"trung tâm kd bán thêm - hà nội\" been set to a month of April, May, or June?\n[fail] Has any individual's birth_date at \"trung tâm kd bán thêm - hà nội\" been set to a date between 2023-04-01 and 2023-06-30?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 58095,
+      "metadata": {
+        "steps": 13,
+        "checklist_results": [
+          {
+            "check_item": "Has the center \"trung tâm kd bán thêm - hà nội\" been registered?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one individual been assigned to \"trung tâm kd bán thêm - hà nội\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has any individual's birth_date at \"trung tâm kd bán thêm - hà nội\" been set to a value in 2023?",
+            "passed": false
+          },
+          {
+            "check_item": "Has any individual's birth_date at \"trung tâm kd bán thêm - hà nội\" been set to a month of April, May, or June?",
+            "passed": false
+          },
+          {
+            "check_item": "Has any individual's birth_date at \"trung tâm kd bán thêm - hà nội\" been set to a date between 2023-04-01 and 2023-06-30?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_59",
+      "status": "done",
+      "input": "Thêm lời chúc cho trọng thể - phòng chuyển giao gp hddt - ký số",
+      "reference": "",
+      "output": "[fail] Has a congratulatory message been added for the ceremonial event?\n[fail] Has the congratulatory message been associated with the transfer department for e-invoice licensing?\n[fail] Has the digital signature been applied to the related congratulatory message?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 26255,
+      "metadata": {
+        "steps": 3,
+        "checklist_results": [
+          {
+            "check_item": "Has a congratulatory message been added for the ceremonial event?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the congratulatory message been associated with the transfer department for e-invoice licensing?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the digital signature been applied to the related congratulatory message?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_60",
+      "status": "error",
+      "input": "Không xác nhận, sửa lời chúc cho hrbp",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_61",
+      "status": "done",
+      "input": "Tuần rồi phòng kd bán thêm giải pháp bán lẻ có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the business department recorded a sale of an additional retail solution in the previous week?\n[fail] Has a list of individuals with birthdays in the previous week been generated?\n[fail] Has it been confirmed whether at least one individual had a birthday in the previous week?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 85225,
+      "metadata": {
+        "steps": 18,
+        "checklist_results": [
+          {
+            "check_item": "Has the business department recorded a sale of an additional retail solution in the previous week?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a list of individuals with birthdays in the previous week been generated?",
+            "passed": false
+          },
+          {
+            "check_item": "Has it been confirmed whether at least one individual had a birthday in the previous week?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_62",
+      "status": "done",
+      "input": "Zậy có ai làm lập trình viên mà sinh nhật tháng này hong",
+      "reference": "",
+      "output": "[fail] Has at least one person in the data been assigned the job title \"lập trình viên\"?\n[fail] Has the birthday_month field been defined for every person with the job title \"lập trình viên\"?\n[fail] Has at least one person with the job title \"lập trình viên\" been assigned a birthday_month equal to the current month?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 8406,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has at least one person in the data been assigned the job title \"lập trình viên\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday_month field been defined for every person with the job title \"lập trình viên\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one person with the job title \"lập trình viên\" been assigned a birthday_month equal to the current month?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_63",
+      "status": "done",
+      "input": "Nguyễn trọng tuế vị trí lập trình viên sinh nhật khi nào",
+      "reference": "",
+      "output": "[fail] Has a person named \"Nguyễn trọng tuế\" been registered in the system?\n[fail] Has the position of \"Nguyễn trọng tuế\" been set to \"lập trình viên\"?\n[fail] Has the date of birth of \"Nguyễn trọng tuế\" been recorded?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 35029,
+      "metadata": {
+        "steps": 14,
+        "checklist_results": [
+          {
+            "check_item": "Has a person named \"Nguyễn trọng tuế\" been registered in the system?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the position of \"Nguyễn trọng tuế\" been set to \"lập trình viên\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth of \"Nguyễn trọng tuế\" been recorded?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_64",
+      "status": "done",
+      "input": "Ban giám đốc ttkd bán thêm có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the list of business management board members been retrieved?\n[fail] Has the birth_date field for MEMBER_1 of the business management board been checked for a match with today?\n[fail] Has the birth_date field for MEMBER_2 of the business management board been checked for a match with today?\n[fail] Has the birth_date field for MEMBER_3 of the business management board been checked for a match with today?\n[fail] Has the birth_date field for MEMBER_4 of the business management board been checked for a match with today?\n[fail] Has the birth_date field for MEMBER_5 of the business management board been checked for a match with today?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 31792,
+      "metadata": {
+        "steps": 14,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of business management board members been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birth_date field for MEMBER_1 of the business management board been checked for a match with today?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birth_date field for MEMBER_2 of the business management board been checked for a match with today?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birth_date field for MEMBER_3 of the business management board been checked for a match with today?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birth_date field for MEMBER_4 of the business management board been checked for a match with today?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birth_date field for MEMBER_5 of the business management board been checked for a match with today?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_65",
+      "status": "done",
+      "input": "Hôm nay phòng bán thêm gp ký điện tử 01 có ai sinh nhật",
+      "reference": "",
+      "output": "[fail] Has the current date been set to today's date?\n[fail] Has the office named \"phòng bán thêm gp ký điện tử 01\" been registered?\n[fail] Has at least one individual assigned to \"phòng bán thêm gp ký điện tử 01\" been identified with a date_of_birth matching today's date?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 59074,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the current date been set to today's date?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the office named \"phòng bán thêm gp ký điện tử 01\" been registered?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one individual assigned to \"phòng bán thêm gp ký điện tử 01\" been identified with a date_of_birth matching today's date?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_66",
+      "status": "done",
+      "input": "Báo cáo sinh nhật trung tâm kd bán thêm - hà nội tuần này",
+      "reference": "",
+      "output": "[fail] Has the report on \"bán thêm\" sinh nhật for trung tâm kinh doanh Hà Nội for this week been created?\n[fail] Has the report title been set to include \"bán thêm sinh nhật trung tâm kinh doanh Hà Nội tuần này\"?\n[fail] Has the report location been set to \"Hà Nội\"?\n[fail] Has the report date range been set to the current week?\n[fail] Has the report included only \"bán thêm\" (additional sales) related events?\n[fail] Has the report event type been set to \"sinh nhật\"?\n[fail] Has the report included a list of all individual sinh nhật events at the trung tâm kinh doanh Hà Nội for the current week?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 41196,
+      "metadata": {
+        "steps": 11,
+        "checklist_results": [
+          {
+            "check_item": "Has the report on \"bán thêm\" sinh nhật for trung tâm kinh doanh Hà Nội for this week been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the report title been set to include \"bán thêm sinh nhật trung tâm kinh doanh Hà Nội tuần này\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the report location been set to \"Hà Nội\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the report date range been set to the current week?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the report included only \"bán thêm\" (additional sales) related events?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the report event type been set to \"sinh nhật\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the report included a list of all individual sinh nhật events at the trung tâm kinh doanh Hà Nội for the current week?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_67",
+      "status": "done",
+      "input": "Trung tâm kd bán thêm - hồ chí minh có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the existence of the sales center \"Trung tâm kd bán thêm - hồ chí minh\" been confirmed?\n[fail] Has the list of all active individuals associated with \"Trung tâm kd bán thêm - hồ chí minh\" been retrieved?\n[pass] Has the date of birth field been confirmed for each individual in \"Trung tâm kd bán thêm - hồ chí minh\"?\n[fail] Has any individual's date of birth in \"Trung tâm kd bán thêm - hồ chí minh\" matched today's date?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 25
+      },
+      "durationMs": 24834,
+      "metadata": {
+        "steps": 8,
+        "checklist_results": [
+          {
+            "check_item": "Has the existence of the sales center \"Trung tâm kd bán thêm - hồ chí minh\" been confirmed?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list of all active individuals associated with \"Trung tâm kd bán thêm - hồ chí minh\" been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth field been confirmed for each individual in \"Trung tâm kd bán thêm - hồ chí minh\"?",
+            "passed": true
+          },
+          {
+            "check_item": "Has any individual's date of birth in \"Trung tâm kd bán thêm - hồ chí minh\" matched today's date?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_68",
+      "status": "done",
+      "input": "Tìm sinh nhật nhân viên văn phòng sản xuất tuần tới",
+      "reference": "",
+      "output": "[fail] Has the list of office staff in the production department been identified?\n[fail] Has the date of birth for each office staff member in the production department been retrieved?\n[fail] Has a check been performed to determine if any office staff member in the production department has a birthday occurring in the next week?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 46940,
+      "metadata": {
+        "steps": 15,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of office staff in the production department been identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth for each office staff member in the production department been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a check been performed to determine if any office staff member in the production department has a birthday occurring in the next week?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_69",
+      "status": "done",
+      "input": "Tìm sinh nhật phòng quản trị nguồn nhân lực - khối sản xuất",
+      "reference": "",
+      "output": "[fail] Has the department \"phòng quản trị nguồn nhân lực\" been found?\n[fail] Has the division of \"phòng quản trị nguồn nhân lực\" been set to \"khối sản xuất\"?\n[fail] Has the birthday of the department \"phòng quản trị nguồn nhân lực\" been retrieved?\n[fail] Has the birthday of the department \"phòng quản trị nguồn nhân lực\" been verified as a valid date?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 21006,
+      "metadata": {
+        "steps": 8,
+        "checklist_results": [
+          {
+            "check_item": "Has the department \"phòng quản trị nguồn nhân lực\" been found?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the division of \"phòng quản trị nguồn nhân lực\" been set to \"khối sản xuất\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday of the department \"phòng quản trị nguồn nhân lực\" been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday of the department \"phòng quản trị nguồn nhân lực\" been verified as a valid date?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_70",
+      "status": "error",
+      "input": "Không, sửa lời chúc cho nga đi",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_71",
+      "status": "done",
+      "input": "Từ đầu năm tới giờ nhóm bán thêm amis bán hàng 02 có ai sinh nhật",
+      "reference": "",
+      "output": "[fail] Has the member list of the \"bán thêm amis bán hàng 02\" sales group been identified?\n[fail] Has the date_of_birth field been recorded for each member of the \"bán thêm amis bán hàng 02\" sales group?\n[fail] Has the start_date been set to the first day of the current year?\n[fail] Has the end_date been set to today?\n[fail] Has at least one member in the \"bán thêm amis bán hàng 02\" sales group had their birthday fall between the start_date and end_date in the current year?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 30475,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the member list of the \"bán thêm amis bán hàng 02\" sales group been identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date_of_birth field been recorded for each member of the \"bán thêm amis bán hàng 02\" sales group?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the start_date been set to the first day of the current year?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the end_date been set to today?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one member in the \"bán thêm amis bán hàng 02\" sales group had their birthday fall between the start_date and end_date in the current year?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_72",
+      "status": "done",
+      "input": "Trong khối sản xuất có ai snhat ko nhi",
+      "reference": "",
+      "output": "[fail] Has anyone with the name \"Snhat\" been listed in the production department?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 34353,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has anyone with the name \"Snhat\" been listed in the production department?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_73",
+      "status": "skipped",
+      "input": "Ai làm ở trung tâm kd bán thêm - hà nội sinh nhật tuần này",
+      "reference": "",
+      "output": "No checklist items",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 22703,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_74",
+      "status": "done",
+      "input": "Còn ai sinh nhật trong ban giám đốc ttkd bán thêm vào ngày 28/04 không",
+      "reference": "",
+      "output": "[fail] Has the list of members in \"ban giám đốc ttkd bán thêm\" been identified?\n[fail] Has each member in \"ban giám đốc ttkd bán thêm\" had their date of birth checked for matching \"28/04\"?\n[fail] Has any member of \"ban giám đốc ttkd bán thêm\" been found with a date of birth equal to \"28/04\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 59262,
+      "metadata": {
+        "steps": 8,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of members in \"ban giám đốc ttkd bán thêm\" been identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each member in \"ban giám đốc ttkd bán thêm\" had their date of birth checked for matching \"28/04\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has any member of \"ban giám đốc ttkd bán thêm\" been found with a date of birth equal to \"28/04\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_75",
+      "status": "done",
+      "input": "Hnay những ai ở văn phòng sản xuất có sinh nhật",
+      "reference": "",
+      "output": "[fail] Has the person been assigned to the \"văn phòng sản xuất\" office?\n[pass] Has the person's date of birth been recorded?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 50
+      },
+      "durationMs": 20749,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has the person been assigned to the \"văn phòng sản xuất\" office?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the person's date of birth been recorded?",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_76",
+      "status": "done",
+      "input": "Thêm ai sinh nhật từ đầu năm đến giờ ở văn phòng đà nẵng",
+      "reference": "",
+      "output": "[fail] Has the employee's office location been set to \"Đà Nẵng\"?\n[pass] Has the employee's birthday been on or after January 1st of the current year?\n[pass] Has the employee's birthday been on or before today's date of the current year?\n[fail] Has the employee meeting the above criteria been added to the list of people with birthdays from the beginning of the year up to now at the Đà Nẵng office?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 50
+      },
+      "durationMs": 50434,
+      "metadata": {
+        "steps": 10,
+        "checklist_results": [
+          {
+            "check_item": "Has the employee's office location been set to \"Đà Nẵng\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the employee's birthday been on or after January 1st of the current year?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the employee's birthday been on or before today's date of the current year?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the employee meeting the above criteria been added to the list of people with birthdays from the beginning of the year up to now at the Đà Nẵng office?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_77",
+      "status": "done",
+      "input": "Thêm ai sinh nhật ban giám đốc truyền thông không",
+      "reference": "",
+      "output": "[fail] Has the full name of each member of the communications board of directors been added?\n[fail] Has the date of birth of each member of the communications board of directors been added?\n[fail] Has each member of the communications board of directors been correctly assigned to the \"communications board of directors\" group or position?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 86012,
+      "metadata": {
+        "steps": 10,
+        "checklist_results": [
+          {
+            "check_item": "Has the full name of each member of the communications board of directors been added?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth of each member of the communications board of directors been added?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each member of the communications board of directors been correctly assigned to the \"communications board of directors\" group or position?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_78",
+      "status": "skipped",
+      "input": "Tìm sinh nhật từ đầu tuần đến nay ở văn phòng sản xuất",
+      "reference": "",
+      "output": "No checklist items",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 46230,
+      "metadata": {
+        "steps": 20,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_79",
+      "status": "error",
+      "input": "Chỉnh sửa lời chúc cho bạn phạm thị lan vĩnh đi",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_80",
+      "status": "done",
+      "input": "Sang tuần nhóm bán thêm amis nhân sự 03 có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the group \"amis nhân sự 03\" been identified as the correct team?\n[fail] Has the list of current members of the group \"amis nhân sự 03\" been retrieved?\n[fail] Has the date_of_birth field for each member of the group \"amis nhân sự 03\" been verified as populated?\n[fail] Has each member's date_of_birth been checked for occurrence within the dates of the upcoming week?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 68165,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the group \"amis nhân sự 03\" been identified as the correct team?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list of current members of the group \"amis nhân sự 03\" been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date_of_birth field for each member of the group \"amis nhân sự 03\" been verified as populated?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each member's date_of_birth been checked for occurrence within the dates of the upcoming week?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_81",
+      "status": "done",
+      "input": "Tìm ai sinh nhật ngày 06/12/2025 chức vụ lập trình viên",
+      "reference": "",
+      "output": "[fail] Has the date_of_birth of the individual been set to \"06/12/2025\"?\n[fail] Has the job_position of the individual been set to \"lập trình viên\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 30461,
+      "metadata": {
+        "steps": 5,
+        "checklist_results": [
+          {
+            "check_item": "Has the date_of_birth of the individual been set to \"06/12/2025\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the job_position of the individual been set to \"lập trình viên\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_82",
+      "status": "done",
+      "input": "Văn phòng sản xuất có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the \"production office\" location been created?\n[fail] Has a list of people assigned to the \"production office\" been made available?\n[pass] Has the birthdate field been recorded for each person assigned to the \"production office\"?\n[fail] Has at least one person assigned to the \"production office\" had their birthdate match today’s date?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 25
+      },
+      "durationMs": 27206,
+      "metadata": {
+        "steps": 8,
+        "checklist_results": [
+          {
+            "check_item": "Has the \"production office\" location been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a list of people assigned to the \"production office\" been made available?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthdate field been recorded for each person assigned to the \"production office\"?",
+            "passed": true
+          },
+          {
+            "check_item": "Has at least one person assigned to the \"production office\" had their birthdate match today’s date?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_83",
+      "status": "done",
+      "input": "Mai phòng bán thêm gp ký điện tử có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the availability of additional digital signature licenses been confirmed?\n[fail] Has the sale of additional digital signature licenses by the department been recorded?\n[fail] Has tomorrow's date been correctly identified?\n[fail] Has a check been performed to identify if any staff member has a birthday on tomorrow's date?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 20732,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has the availability of additional digital signature licenses been confirmed?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the sale of additional digital signature licenses by the department been recorded?",
+            "passed": false
+          },
+          {
+            "check_item": "Has tomorrow's date been correctly identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a check been performed to identify if any staff member has a birthday on tomorrow's date?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_84",
+      "status": "done",
+      "input": "Còn ai sinh nhật trong tháng 9 ở văn phòng sản xuất không",
+      "reference": "",
+      "output": "[fail] Has the work location of each staff member been set to \"production office\"?\n[fail] Has the birthday month field of each staff member been recorded?\n[fail] Has any staff member assigned to the production office a birthday month set to \"September\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 17762,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has the work location of each staff member been set to \"production office\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday month field of each staff member been recorded?",
+            "passed": false
+          },
+          {
+            "check_item": "Has any staff member assigned to the production office a birthday month set to \"September\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_85",
+      "status": "done",
+      "input": "Chỉnh sửa lời chúc cho bạn lê văn nam",
+      "reference": "",
+      "output": "[fail] Has the greeting message for lê văn nam been located?\n[fail] Has the recipient name of the greeting message been set to \"lê văn nam\"?\n[fail] Has the content of the greeting message for lê văn nam been edited?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 67862,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the greeting message for lê văn nam been located?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the recipient name of the greeting message been set to \"lê văn nam\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the content of the greeting message for lê văn nam been edited?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_86",
+      "status": "done",
+      "input": "Ngày kia khối sản xuất có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the production department been defined in the organization records?\n[fail] Has a list of all employees in the production department been generated?\n[fail] Has the department assignment of each employee in the list been set to \"production\"?\n[fail] Has the date of birth of each employee in the production department been checked for a match with the date that is the day after tomorrow?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 36800,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the production department been defined in the organization records?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a list of all employees in the production department been generated?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the department assignment of each employee in the list been set to \"production\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth of each employee in the production department been checked for a match with the date that is the day after tomorrow?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_87",
+      "status": "done",
+      "input": "Văn phòng sản xuất có ai sinh nhật tháng này",
+      "reference": "",
+      "output": "[fail] Has the staff list for \"Văn phòng sản xuất\" been obtained?\n[fail] Has the birth month been recorded for each staff member in \"Văn phòng sản xuất\"?\n[fail] Has the office/department for each staff member been set to \"Văn phòng sản xuất\"?\n[fail] Has at least one staff member in \"Văn phòng sản xuất\" been identified whose birth month matches the current month?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 16596,
+      "metadata": {
+        "steps": 4,
+        "checklist_results": [
+          {
+            "check_item": "Has the staff list for \"Văn phòng sản xuất\" been obtained?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birth month been recorded for each staff member in \"Văn phòng sản xuất\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the office/department for each staff member been set to \"Văn phòng sản xuất\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has at least one staff member in \"Văn phòng sản xuất\" been identified whose birth month matches the current month?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_88",
+      "status": "skipped",
+      "input": "Sinh nhật ai sản phẩm amis quản lý sản xuất quý vừa qua",
+      "reference": "",
+      "output": "No checklist items",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 109275,
+      "metadata": {
+        "steps": 20,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_89",
+      "status": "done",
+      "input": "Ngày kia sinh nhật ai phòng kd bán thêm",
+      "reference": "",
+      "output": "[fail] Has the list of employees in the business sales department been reviewed to identify birthdays occurring the day after tomorrow?\n[fail] Has the exact date for \"the day after tomorrow\" been calculated based on the current date?\n[fail] Has a record been created for the identified employee's birthday in the business sales department for the calculated date?\n[fail] Has the sales plan for the business sales department been updated to reflect an increase in sales for the day after tomorrow?\n[fail] Has a notification or reminder been sent to relevant staff about the upcoming birthday in the business sales department?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 39191,
+      "metadata": {
+        "steps": 11,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of employees in the business sales department been reviewed to identify birthdays occurring the day after tomorrow?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the exact date for \"the day after tomorrow\" been calculated based on the current date?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a record been created for the identified employee's birthday in the business sales department for the calculated date?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the sales plan for the business sales department been updated to reflect an increase in sales for the day after tomorrow?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a notification or reminder been sent to relevant staff about the upcoming birthday in the business sales department?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_90",
+      "status": "done",
+      "input": "Ngày mai phòng kd bán thêm - cần thơ có ai sinh nhật không",
+      "reference": "",
+      "output": "[fail] Has the existence of the \"phòng kinh doanh\" (sales department) in Cần Thơ been verified?\n[fail] Has a check been performed to identify any member of the \"phòng kinh doanh\" Cần Thơ whose date_of_birth matches tomorrow’s date?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 45345,
+      "metadata": {
+        "steps": 7,
+        "checklist_results": [
+          {
+            "check_item": "Has the existence of the \"phòng kinh doanh\" (sales department) in Cần Thơ been verified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a check been performed to identify any member of the \"phòng kinh doanh\" Cần Thơ whose date_of_birth matches tomorrow’s date?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_91",
+      "status": "done",
+      "input": "Chỉnh sửa lời chúc cho nguyễn thị lê vi thành 'chúc mừng sinh nhật! chúc bạn luôn tràn đầy năng lượng'",
+      "reference": "",
+      "output": "[fail] Has the record for \"nguyễn thị lê vi\" been selected?\n[fail] Has the birthday message for \"nguyễn thị lê vi\" been set to \"chúc mừng sinh nhật! chúc bạn luôn tràn đầy năng lượng\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 57556,
+      "metadata": {
+        "steps": 11,
+        "checklist_results": [
+          {
+            "check_item": "Has the record for \"nguyễn thị lê vi\" been selected?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday message for \"nguyễn thị lê vi\" been set to \"chúc mừng sinh nhật! chúc bạn luôn tràn đầy năng lượng\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_92",
+      "status": "done",
+      "input": "Hom nay sinh nhat ai o nhom kd bán thêm gp ký điện tử khong",
+      "reference": "",
+      "output": "[fail] Has the group \"kd bán thêm gp ký điện tử\" been identified?\n[fail] Has the date_of_birth field been recorded for each member in the group \"kd bán thêm gp ký điện tử\"?\n[fail] Has the current system date been obtained?\n[fail] Has each member of the group \"kd bán thêm gp ký điện tử\" been checked to see if their date_of_birth matches today's date?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 23136,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the group \"kd bán thêm gp ký điện tử\" been identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date_of_birth field been recorded for each member in the group \"kd bán thêm gp ký điện tử\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the current system date been obtained?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each member of the group \"kd bán thêm gp ký điện tử\" been checked to see if their date_of_birth matches today's date?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_93",
+      "status": "done",
+      "input": "Tháng trước ai sinh nhật ở trung tâm kd bán thêm - hồ chí minh",
+      "reference": "",
+      "output": "[fail] Has the employee's birth month been set to the previous calendar month?\n[fail] Has the employee's work location been set to \"trung tâm kd bán thêm - hồ chí minh\"?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 59914,
+      "metadata": {
+        "steps": 15,
+        "checklist_results": [
+          {
+            "check_item": "Has the employee's birth month been set to the previous calendar month?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the employee's work location been set to \"trung tâm kd bán thêm - hồ chí minh\"?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_94",
+      "status": "done",
+      "input": "Gửi lời chúc vừa sửa cho sếp tiến",
+      "reference": "",
+      "output": "[pass] Has the recently updated greeting been saved with the latest changes?\n[fail] Has the recipient of the greeting been set to \"sếp Tiến\"?\n[fail] Has the recently updated greeting been sent to sếp Tiến?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 33.33
+      },
+      "durationMs": 36094,
+      "metadata": {
+        "steps": 6,
+        "checklist_results": [
+          {
+            "check_item": "Has the recently updated greeting been saved with the latest changes?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the recipient of the greeting been set to \"sếp Tiến\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the recently updated greeting been sent to sếp Tiến?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_95",
+      "status": "done",
+      "input": "Cho xin thông tin của hiếu vị trí lập trình viên",
+      "reference": "",
+      "output": "[fail] Has the full name of Hiếu been provided?\n[fail] Has the employee ID for Hiếu been provided?\n[fail] Has the date of birth of Hiếu been provided?\n[fail] Has the contact phone number of Hiếu been provided?\n[fail] Has the email address of Hiếu been provided?\n[fail] Has the position of Hiếu been set to \"lập trình viên\"?\n[fail] Has the department of Hiếu been provided?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 27843,
+      "metadata": {
+        "steps": 8,
+        "checklist_results": [
+          {
+            "check_item": "Has the full name of Hiếu been provided?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the employee ID for Hiếu been provided?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the date of birth of Hiếu been provided?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the contact phone number of Hiếu been provided?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the email address of Hiếu been provided?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the position of Hiếu been set to \"lập trình viên\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the department of Hiếu been provided?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_96",
+      "status": "done",
+      "input": "Tìm sinh nhật ai đó trong quý 4 phòng bán thêm gp hddt 03 ở hà nội",
+      "reference": "",
+      "output": "[fail] Has the room \"bán thêm gp hddt 03\" been created?\n[fail] Has the location of the room \"bán thêm gp hddt 03\" been set to \"Hà Nội\"?\n[pass] Has the birthday field of each person in the room \"bán thêm gp hddt 03\" been recorded?\n[fail] Has the birthday of at least one person in the room \"bán thêm gp hddt 03\" fallen within the months 10, 11, or 12?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 25
+      },
+      "durationMs": 93718,
+      "metadata": {
+        "steps": 12,
+        "checklist_results": [
+          {
+            "check_item": "Has the room \"bán thêm gp hddt 03\" been created?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the location of the room \"bán thêm gp hddt 03\" been set to \"Hà Nội\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday field of each person in the room \"bán thêm gp hddt 03\" been recorded?",
+            "passed": true
+          },
+          {
+            "check_item": "Has the birthday of at least one person in the room \"bán thêm gp hddt 03\" fallen within the months 10, 11, or 12?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_97",
+      "status": "done",
+      "input": "Tìm sinh nhật quý 4 năm 2024 nhóm bán thêm amis bán hàng 02",
+      "reference": "",
+      "output": "[fail] Has the group \"bán thêm amis bán hàng 02\" been verified to exist?\n[fail] Has the list of members for group \"bán thêm amis bán hàng 02\" been retrieved?\n[fail] Has each member of group \"bán thêm amis bán hàng 02\" been checked for a recorded birthday?\n[fail] Has each recorded birthday of group \"bán thêm amis bán hàng 02\" members been checked to ensure a valid date is present?\n[fail] Has a list of members with birthdays in October, November, or December 2024 from group \"bán thêm amis bán hàng 02\" been created?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 33321,
+      "metadata": {
+        "steps": 8,
+        "checklist_results": [
+          {
+            "check_item": "Has the group \"bán thêm amis bán hàng 02\" been verified to exist?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the list of members for group \"bán thêm amis bán hàng 02\" been retrieved?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each member of group \"bán thêm amis bán hàng 02\" been checked for a recorded birthday?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each recorded birthday of group \"bán thêm amis bán hàng 02\" members been checked to ensure a valid date is present?",
+            "passed": false
+          },
+          {
+            "check_item": "Has a list of members with birthdays in October, November, or December 2024 from group \"bán thêm amis bán hàng 02\" been created?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_98",
+      "status": "error",
+      "input": "Sinh nhật nhóm kd bán thêm gp ký điện tử tháng này",
+      "reference": "",
+      "output": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "error": "[stage1] Record filtered out: not stateful or below metrics threshold",
+      "durationMs": 0,
+      "metadata": {
+        "steps": 0,
+        "checklist_results": []
+      }
+    },
+    {
+      "id": "birthday_sample_100_99",
+      "status": "done",
+      "input": "Gửi lời chúc đã sửa cho thanh và lời chúc mặc định cho những người còn lại",
+      "reference": "",
+      "output": "[fail] Has the edited greeting message been sent to Thanh?\n[fail] Has the default greeting message been sent to each recipient except Thanh?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 96370,
+      "metadata": {
+        "steps": 14,
+        "checklist_results": [
+          {
+            "check_item": "Has the edited greeting message been sent to Thanh?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the default greeting message been sent to each recipient except Thanh?",
+            "passed": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "birthday_sample_100_100",
+      "status": "done",
+      "input": "Get birthday of people in \"Sản phẩm AMIS Quản lý sản xuất\" in October 2025",
+      "reference": "",
+      "output": "[fail] Has the list of people associated with \"Sản phẩm AMIS Quản lý sản xuất\" been identified?\n[fail] Has the birthday field been retrieved for each person in \"Sản phẩm AMIS Quản lý sản xuất\"?\n[fail] Has each person’s birthday been checked for the month value of \"10\" (October)?\n[fail] Has each person’s birthday been checked for the year value of \"2025\"?\n[fail] Has the final list included only people from \"Sản phẩm AMIS Quản lý sản xuất\" with birthdays in October 2025?",
+      "tool_calls": [],
+      "scores": {
+        "envscaler_score": 0
+      },
+      "durationMs": 82360,
+      "metadata": {
+        "steps": 9,
+        "checklist_results": [
+          {
+            "check_item": "Has the list of people associated with \"Sản phẩm AMIS Quản lý sản xuất\" been identified?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the birthday field been retrieved for each person in \"Sản phẩm AMIS Quản lý sản xuất\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each person’s birthday been checked for the month value of \"10\" (October)?",
+            "passed": false
+          },
+          {
+            "check_item": "Has each person’s birthday been checked for the year value of \"2025\"?",
+            "passed": false
+          },
+          {
+            "check_item": "Has the final list included only people from \"Sản phẩm AMIS Quản lý sản xuất\" with birthdays in October 2025?",
+            "passed": false
+          }
+        ]
+      }
+    }
+  ]
+}

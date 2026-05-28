@@ -1,0 +1,1818 @@
+{
+  "runId": "13899193-3ecc-44ea-9bf5-215bebdb4980",
+  "model": "misa-ai-1.1-plus",
+  "baseUrl": "http://test-k8s.misa.local/llm-gateway/v1",
+  "date": "2026-04-20 04:43:12",
+  "taskName": "htkh_intent_classification",
+  "taskType": "qa",
+  "description": "HTKH — Phân loại intent: request_human_handoff vs others",
+  "numSamples": 150,
+  "metrics": [
+    "accuracy"
+  ],
+  "scores": {
+    "accuracy": 97.33
+  },
+  "logs": [
+    {
+      "id": "htkh_intent_classification_0001",
+      "status": "done",
+      "input": "tại sao đơn hàng đã giao nhưng phần mềm k tự động xuất\nhóa đơn",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1765
+    },
+    {
+      "id": "htkh_intent_classification_0002",
+      "status": "done",
+      "input": "Chị sử dụng PM kết toán misa, pm quản lý hđ đầu vào, chị thấy hđ đầu vào khách hàng đã gửi vào mail cty, nhưng pm kế toán chưa nhận được, đồng bộ trên pm hóa đơn cũng không thấy hđ. hôm qua có bạn vào xem giúp hôm nay pm cũng chưa tải được hđ về, trong khi đó mail cty sáng giờ nhận được 3 tờ hđ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2142
+    },
+    {
+      "id": "htkh_intent_classification_0003",
+      "status": "done",
+      "input": "bỏ bớt dữ liệu đã sao lưu như nào",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2644
+    },
+    {
+      "id": "htkh_intent_classification_0004",
+      "status": "done",
+      "input": "bạn ơi trước mình mua phần mềm các bạn làm nhầm cho mình là cty mà mình là HKD",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1462
+    },
+    {
+      "id": "htkh_intent_classification_0005",
+      "status": "done",
+      "input": "Mình muốn tăt cái bảng tìm nhanh Tài khoản ngân hàng và tìm nhanh đối tượng như nào ban",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1962
+    },
+    {
+      "id": "htkh_intent_classification_0006",
+      "status": "done",
+      "input": "Chị muốn xử lý khi thanh toán công nợ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1966
+    },
+    {
+      "id": "htkh_intent_classification_0007",
+      "status": "done",
+      "input": "chi tiền ăn\ncơ quan đảng",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1970
+    },
+    {
+      "id": "htkh_intent_classification_0008",
+      "status": "done",
+      "input": "Chỗ quản lí người dùng không hiện\nMà tk ghi là đã hoạt động rồi\nMà vẫn ko thấy có",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2156
+    },
+    {
+      "id": "htkh_intent_classification_0009",
+      "status": "done",
+      "input": "đang bị lệch bảng kê với mình",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2214
+    },
+    {
+      "id": "htkh_intent_classification_0010",
+      "status": "done",
+      "input": "Giờ chị đã phân quyền cho bạn đó rồi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2159
+    },
+    {
+      "id": "htkh_intent_classification_0011",
+      "status": "done",
+      "input": "làm thế nào mình xem được lợi nhuận",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1940
+    },
+    {
+      "id": "htkh_intent_classification_0012",
+      "status": "done",
+      "input": "Cách xuất bảng kê chứng từ theo nhiều tiêu chí",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1919
+    },
+    {
+      "id": "htkh_intent_classification_0013",
+      "status": "done",
+      "input": "khi mua thì bên e3m nói là số lượng này là số lượng ng sử dụng pm\ncòn ko giới h ạn slg chứng từ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2250
+    },
+    {
+      "id": "htkh_intent_classification_0014",
+      "status": "done",
+      "input": "tai sao khi đã xoa gb cũ đổi giá bán mới mà khi nhập phiếu bán hàng vẫn còn thể hiện giá cũ ????",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2309
+    },
+    {
+      "id": "htkh_intent_classification_0015",
+      "status": "done",
+      "input": "hướng dẫn tách số liệu",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2769
+    },
+    {
+      "id": "htkh_intent_classification_0016",
+      "status": "done",
+      "input": "báo cáo lên số tài sản và nguồn vốn k bằng nau\n0799958990",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2419
+    },
+    {
+      "id": "htkh_intent_classification_0017",
+      "status": "done",
+      "input": "mình xem được rồi nhé, vào báo cáo đối chiếu",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2488
+    },
+    {
+      "id": "htkh_intent_classification_0018",
+      "status": "done",
+      "input": "vao meinvoice  khong duoc do ke toan cũ nghỉ khong bàn giao",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2256
+    },
+    {
+      "id": "htkh_intent_classification_0019",
+      "status": "done",
+      "input": "không tìm thấy thông tin máy chủ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2227
+    },
+    {
+      "id": "htkh_intent_classification_0020",
+      "status": "done",
+      "input": "thu tiền khách hàng thế nào",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1961
+    },
+    {
+      "id": "htkh_intent_classification_0021",
+      "status": "done",
+      "input": "e thêm vô chứ  c ko biết làm\nđầu h hỗ trọe c nhé",
+      "reference": "others",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 1823
+    },
+    {
+      "id": "htkh_intent_classification_0022",
+      "status": "done",
+      "input": "Hiện mình đâng có một hóa đơn, lúc xem hóa đơn để tải về thì đã có mã của CQT cấp, nhung khi xem bình thường thì thấy vẫn đang trang thái là chờ cấp mã, cái này là do sao ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2065
+    },
+    {
+      "id": "htkh_intent_classification_0023",
+      "status": "done",
+      "input": "Anh muốn chạy SME trên máy chủ, em hỗ trợ anh nhé",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2017
+    },
+    {
+      "id": "htkh_intent_classification_0024",
+      "status": "done",
+      "input": "máy của bạn đó là máy khác tận dưới nhà máy bình dương",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2008
+    },
+    {
+      "id": "htkh_intent_classification_0025",
+      "status": "done",
+      "input": "Tôi muốn thiết lập báo cáo tài chính nhưng không làm được\nhãy gọi cho tôi",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1990
+    },
+    {
+      "id": "htkh_intent_classification_0026",
+      "status": "done",
+      "input": "Em cần liên hệ qua số điện thoại ạ",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2814
+    },
+    {
+      "id": "htkh_intent_classification_0027",
+      "status": "done",
+      "input": "gặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên\ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên \ngặp tư vấn viên",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2747
+    },
+    {
+      "id": "htkh_intent_classification_0028",
+      "status": "done",
+      "input": "cài máy chủ sql giúp mình với\nmình cài bị lõi\nsdt 0382 561 726 \n ID 201033871\npass 63110\ncài máy chủ sql sme 2023\nsdt 0382 561 726 \n ID 201033871\npass 63110\nsdt 0382 561 726 \n ID 201033871\npass 63110",
+      "reference": "request_human_handoff",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 3401
+    },
+    {
+      "id": "htkh_intent_classification_0029",
+      "status": "done",
+      "input": "từ tổng cục thuế. đầu vào đã ok rồi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2466
+    },
+    {
+      "id": "htkh_intent_classification_0030",
+      "status": "done",
+      "input": "muốn trên hóa đơn hiển thị số căn cước công dân của cá nhân mua hàng thì làm thế nào a?",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2317
+    },
+    {
+      "id": "htkh_intent_classification_0031",
+      "status": "done",
+      "input": "mà e tra hóa đơn điện tử trên tổng cục thuế",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2085
+    },
+    {
+      "id": "htkh_intent_classification_0032",
+      "status": "done",
+      "input": "vẫn ko được ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2032
+    },
+    {
+      "id": "htkh_intent_classification_0033",
+      "status": "done",
+      "input": "dạ k cho nhập dòng 2 ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2069
+    },
+    {
+      "id": "htkh_intent_classification_0034",
+      "status": "done",
+      "input": "Em cho chị hỏi, chị cập nhật số dư năm trước sang, mà chị quên xua612t khẩu ra excel file chi tie612t thay đổi số dư, rồi chị thực hiện cập nhật xong rồi, giờ chị muốn xem bảng chi tiết thay đổi số dư, chị làm sao để tìm ra để xuất khẩu lại, em hướng dẫn giúp chị nha",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2018
+    },
+    {
+      "id": "htkh_intent_classification_0035",
+      "status": "done",
+      "input": "chị ko lưu được quyết toán thuế thu nhập cá nhân e ơi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2057
+    },
+    {
+      "id": "htkh_intent_classification_0036",
+      "status": "done",
+      "input": "trên phiếu thu có thiết lập đơn giá sau thuế được ko ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2855
+    },
+    {
+      "id": "htkh_intent_classification_0037",
+      "status": "done",
+      "input": "dạ em đã nhập 421 nguồn khác lên\nnhưng còn 421 của kinh phí thường xuyên ạ\nphần mềm k cho nah65p 2 dòng ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 3215
+    },
+    {
+      "id": "htkh_intent_classification_0038",
+      "status": "done",
+      "input": "nộp tờ khai rùi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 3538
+    },
+    {
+      "id": "htkh_intent_classification_0039",
+      "status": "done",
+      "input": "Đã đầy đủ\nrồi mới có làm đc 1 HĐ chứ\nNhưng tới HĐ thứ 2 ko cho chuyển đổi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2848
+    },
+    {
+      "id": "htkh_intent_classification_0040",
+      "status": "done",
+      "input": "Cách gộp kho",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2191
+    },
+    {
+      "id": "htkh_intent_classification_0041",
+      "status": "done",
+      "input": "cty mình đổi tên công ty",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1501
+    },
+    {
+      "id": "htkh_intent_classification_0042",
+      "status": "done",
+      "input": "bán ngoại tệ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1631
+    },
+    {
+      "id": "htkh_intent_classification_0043",
+      "status": "done",
+      "input": "các mục doanh thu tài chính, thu nhập khác ko hiện số liệu",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1234
+    },
+    {
+      "id": "htkh_intent_classification_0044",
+      "status": "done",
+      "input": "Cả 2",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1262
+    },
+    {
+      "id": "htkh_intent_classification_0045",
+      "status": "done",
+      "input": "mình muốn bù trừ công nợ VND và USD quy đổi\nlàm sao để lập chứng từ bù trừ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1747
+    },
+    {
+      "id": "htkh_intent_classification_0046",
+      "status": "done",
+      "input": "em ơi chị hỏi, chị chạy giá xuất kho bình quân cuối kỳ sao số lượng tồn còn mà giá trị lại âm nhỉ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2097
+    },
+    {
+      "id": "htkh_intent_classification_0047",
+      "status": "done",
+      "input": "Thông báo lỗi này cho biết tệp bảng định kiểu XSLT có cấu trúc không chính xác và không thể xử lý. Bảng định kiểu phải định nghĩa chính xác ngôn ngữ chuyển đổi để hoạt động đúng cách.\n\nTệp phải bắt đầu bằng phần tử &lt;xsl:stylesheet&gt; hoặc &lt;xsl:transform&gt;.\n\nNgoài ra, nó có thể bắt đầu bằng một phần tử kết quả chứa thuộc tính xsl:version.\n\nTiền tố xsl phải được ánh xạ chính xác đến không gian tên http://www.w3.org/1999/XSL/Transform.\nc tra nó báo như này ấy e",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2586
+    },
+    {
+      "id": "htkh_intent_classification_0048",
+      "status": "done",
+      "input": "đã lập nhé",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2041
+    },
+    {
+      "id": "htkh_intent_classification_0049",
+      "status": "done",
+      "input": "mình để định mức trc là 120 cái trên 1kg nhưng đợt này là 200 cái /1kg vậy nó có chayjtheo ko",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1588
+    },
+    {
+      "id": "htkh_intent_classification_0050",
+      "status": "done",
+      "input": "USB",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1226
+    },
+    {
+      "id": "htkh_intent_classification_0051",
+      "status": "done",
+      "input": "Lý do Mã CQ BHXH hệ thống\nKhác Mã CQ BHXH quản lý\ncần gặp tư vấn viên",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1220
+    },
+    {
+      "id": "htkh_intent_classification_0052",
+      "status": "done",
+      "input": "XUẤT TRÙNG 2 HÓA ĐƠN GIỜ XỬ LÝ NHƯ THẾ NÀ?",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1556
+    },
+    {
+      "id": "htkh_intent_classification_0053",
+      "status": "done",
+      "input": "muốn đặt lịch hẹn chuyển tiền",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1275
+    },
+    {
+      "id": "htkh_intent_classification_0054",
+      "status": "done",
+      "input": "NGĂT ĐỒNG BÔ CƠ QUAN THUẾ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1599
+    },
+    {
+      "id": "htkh_intent_classification_0055",
+      "status": "done",
+      "input": "có thể sửa ngày trên hóa đơn về trước 1 ngày phát hành k",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2601
+    },
+    {
+      "id": "htkh_intent_classification_0056",
+      "status": "done",
+      "input": "c MUỐN PHÂN QUYỀN KẾ TOÁN VÀ ADMIN",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 3184
+    },
+    {
+      "id": "htkh_intent_classification_0057",
+      "status": "done",
+      "input": "sao chuyển đổi dự liệu xong bị lệch số thì sao em",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2919
+    },
+    {
+      "id": "htkh_intent_classification_0058",
+      "status": "done",
+      "input": "báo \" mã đối tượng tạp hợp chi phí\" không phải của mã hàng",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2852
+    },
+    {
+      "id": "htkh_intent_classification_0059",
+      "status": "done",
+      "input": "Chị đang đầu ra",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2727
+    },
+    {
+      "id": "htkh_intent_classification_0060",
+      "status": "done",
+      "input": "0983696076",
+      "reference": "others",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 3173
+    },
+    {
+      "id": "htkh_intent_classification_0061",
+      "status": "done",
+      "input": "chỗ này em thanh toán rồi\nsao vẫn hiện trả tiền ak\nhỗ trợ gặp nhân viên\n0387675067",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 3243
+    },
+    {
+      "id": "htkh_intent_classification_0062",
+      "status": "done",
+      "input": "Nhưng bạn đó muốn vào PMKT thì sao ạ, bạn đó đã mở vào đc PMKT rồi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2456
+    },
+    {
+      "id": "htkh_intent_classification_0063",
+      "status": "done",
+      "input": "để các bạn í sửa ạ",
+      "reference": "others",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 0
+      },
+      "durationMs": 2268
+    },
+    {
+      "id": "htkh_intent_classification_0064",
+      "status": "done",
+      "input": "không kết nối tự động với sàn được",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1231
+    },
+    {
+      "id": "htkh_intent_classification_0065",
+      "status": "done",
+      "input": "mã số thuế trên giấy phép sử dụng bên bạn đang để theo MST cũ, hiện cơ quan thuế đã thay đổi MST sang số CCCD của chủ hộ từ T7/25 rồi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1275
+    },
+    {
+      "id": "htkh_intent_classification_0066",
+      "status": "done",
+      "input": "TRONG PHẦN QUẢN LÝ LAO ĐỘNG",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1252
+    },
+    {
+      "id": "htkh_intent_classification_0067",
+      "status": "done",
+      "input": "e ơi có cách nào chuyển phân bổ chi phí trả trước từ theo tháng thành theo quý ko",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1859
+    },
+    {
+      "id": "htkh_intent_classification_0068",
+      "status": "done",
+      "input": "Em nhờ chị giúp em",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2295
+    },
+    {
+      "id": "htkh_intent_classification_0069",
+      "status": "done",
+      "input": "xuất hóa đơn quà cty kèm bảng kê nhé e",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2448
+    },
+    {
+      "id": "htkh_intent_classification_0070",
+      "status": "done",
+      "input": "em oi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1889
+    },
+    {
+      "id": "htkh_intent_classification_0071",
+      "status": "done",
+      "input": "chuyển số dư đầu kỳ tác tk thì đúng mà bảng tổng hợp tồn kho bị sai",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1345
+    },
+    {
+      "id": "htkh_intent_classification_0072",
+      "status": "done",
+      "input": "ý là e k tìm thấy CCDC để ghi tăng",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1632
+    },
+    {
+      "id": "htkh_intent_classification_0073",
+      "status": "done",
+      "input": "chị nhìn qua có thể do giá nhập có biến động lớn e ạ. cách xử lý cái này thế nào",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1459
+    },
+    {
+      "id": "htkh_intent_classification_0074",
+      "status": "done",
+      "input": "mình vẫn ko thao tác, xử lý được có thể hỗ trợ mình qua Utra với đuco75 ko ạ",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2071
+    },
+    {
+      "id": "htkh_intent_classification_0075",
+      "status": "done",
+      "input": "hôm qua vẫn in đúng",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2093
+    },
+    {
+      "id": "htkh_intent_classification_0076",
+      "status": "done",
+      "input": "dạ hiện tại mình có 1 vấn đề là bên mình có theo dõi công nợ usd nhưng khi xuất hóa đơn ở vn thì phải xuất hóa đơn bằng tiền vnd, vậy nhưng khi theo dõi công nợ lại bằng usd thì có cách nào thể hiện con số tiền usd k ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2401
+    },
+    {
+      "id": "htkh_intent_classification_0077",
+      "status": "done",
+      "input": "bạn ơi mình nhập khẩu file xuất hóa đơn baops thành công\nmà vào hệ thống ko thấy hiện tờ hóa đơn nháp đó",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2292
+    },
+    {
+      "id": "htkh_intent_classification_0078",
+      "status": "done",
+      "input": "tôi k cất dc tờ khai bổ sung",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2951
+    },
+    {
+      "id": "htkh_intent_classification_0079",
+      "status": "done",
+      "input": "VÌ TẤT CẢ MỌI NGƯỜI ĐỀU ĐĂNG NHẬP BĂNG ADMIN",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2662
+    },
+    {
+      "id": "htkh_intent_classification_0080",
+      "status": "done",
+      "input": "<strong>Chi tiết công nợ phải thu theo nhóm khách hàng</strong>",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2138
+    },
+    {
+      "id": "htkh_intent_classification_0081",
+      "status": "done",
+      "input": "CHỊ KO KÝ SỐ ĐƯỢC EM HỖ TRỢ CÀI PHẦN MỀM GIÚP CHỊ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2051
+    },
+    {
+      "id": "htkh_intent_classification_0082",
+      "status": "done",
+      "input": "Mình vào sửa tài sản để sửa nguyên giá nhưng không đươch sửa, Misa hướng dẫn giúp mình với\n11:17\n/-strong\n/-heart\n:&gt;\n😉\n😞(\n:-h\n<strong>Bảo&nbsp;Châu</strong>\n@Thu Huyền hỗ trợ c với. phần công cụ dụng cụ số liệu 2024 có mà mở 2025 lại ko có số liệu Utra 39 965 169 mk 1037\nở phần mềm quản lý tài sản",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2119
+    },
+    {
+      "id": "htkh_intent_classification_0083",
+      "status": "done",
+      "input": "máy bị lỗi không phục hồi được dữ liệu",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2076
+    },
+    {
+      "id": "htkh_intent_classification_0084",
+      "status": "done",
+      "input": "tôi không thìm thấy",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1357
+    },
+    {
+      "id": "htkh_intent_classification_0085",
+      "status": "done",
+      "input": "<strong>Báo cáo 2: Sổ chi tiết bán hàng</strong>",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1894
+    },
+    {
+      "id": "htkh_intent_classification_0086",
+      "status": "done",
+      "input": "tại sao giá nhập kho thành phẩm lại = 0 nhỉ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1888
+    },
+    {
+      "id": "htkh_intent_classification_0087",
+      "status": "done",
+      "input": "Khi thu vào thì có hạch toán đồng thời không ko em",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2064
+    },
+    {
+      "id": "htkh_intent_classification_0088",
+      "status": "done",
+      "input": "Chuyển đổi 1 mã vật tư chỉ ghi sổ 1 hóa đơn, hóa đơn thứ 2 cũng ãm nhưng không chuyển đổi được",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1842
+    },
+    {
+      "id": "htkh_intent_classification_0089",
+      "status": "done",
+      "input": "Tài liệu xác thực đối với hình thức chấm công linh động",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2283
+    },
+    {
+      "id": "htkh_intent_classification_0090",
+      "status": "done",
+      "input": "mình vẫn k làm được",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1878
+    },
+    {
+      "id": "htkh_intent_classification_0091",
+      "status": "done",
+      "input": "là sdtmình vừa nhắn đó bạn\nNgày trước là mua với sdt khác nhưng khi các kt cũ nghỉ ồi\n2022 mình đã đổi lại theo sdt này của mình\nmình vẫn sd sdt này và phân quyền các user cho các nhân viên",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2037
+    },
+    {
+      "id": "htkh_intent_classification_0092",
+      "status": "done",
+      "input": "em đã làm nhưng vẫn không được ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1799
+    },
+    {
+      "id": "htkh_intent_classification_0093",
+      "status": "done",
+      "input": "hóa đơn điện tử đã phát hành",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2137
+    },
+    {
+      "id": "htkh_intent_classification_0094",
+      "status": "done",
+      "input": "dù đã có phiếu thu từ HIS, chị vẫn cần lập hóa đơn bán hàng trên AMIS Kế toán để đảm bảo đầy đủ các chứng từ theo quy định và phản ánh đúng nghiệp vụ kinh tế phát sinh ạ. th2i c chỉ cần lập háo đơn là được đúng ko ,có cần lập phiếu thu trên amis k",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2699
+    },
+    {
+      "id": "htkh_intent_classification_0095",
+      "status": "done",
+      "input": "vì các bạn làm nhầm cho mình thành công ty nên giờ phải đổi lại thành HKD",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2388
+    },
+    {
+      "id": "htkh_intent_classification_0096",
+      "status": "done",
+      "input": "Dạ em cảm ơn",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2325
+    },
+    {
+      "id": "htkh_intent_classification_0097",
+      "status": "done",
+      "input": "hạch toán chuyển nguồn",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1240
+    },
+    {
+      "id": "htkh_intent_classification_0098",
+      "status": "done",
+      "input": "tren phiếu",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1276
+    },
+    {
+      "id": "htkh_intent_classification_0099",
+      "status": "done",
+      "input": "Giờ chị muốn sửa thành tính theo PP bình quân cuối kỳ đc k",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1888
+    },
+    {
+      "id": "htkh_intent_classification_0100",
+      "status": "done",
+      "input": "Mất dữ liệu doanh thu đơn hàng và thuế ước tính",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2185
+    },
+    {
+      "id": "htkh_intent_classification_0101",
+      "status": "done",
+      "input": "Tôi không tim thấy chỗ đồng bộ hoá đơn đầu ra",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2211
+    },
+    {
+      "id": "htkh_intent_classification_0102",
+      "status": "done",
+      "input": "cách chỉnh độ dãn cột trước khi in sao cho vừa trang giấy",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1688
+    },
+    {
+      "id": "htkh_intent_classification_0103",
+      "status": "done",
+      "input": "EM BẤM CẬP NHẬT NGAY\nKHÔNG ĐUOẸC Ạ\nHỖ TRỢ DÙM E",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1633
+    },
+    {
+      "id": "htkh_intent_classification_0104",
+      "status": "done",
+      "input": "sme 2023",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1854
+    },
+    {
+      "id": "htkh_intent_classification_0105",
+      "status": "done",
+      "input": "nhập kho trả lại",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2208
+    },
+    {
+      "id": "htkh_intent_classification_0106",
+      "status": "done",
+      "input": "chỗ đối chiếu chứng từ sổ sách báo lệch số dư đầu kỳ 242",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2375
+    },
+    {
+      "id": "htkh_intent_classification_0107",
+      "status": "done",
+      "input": "vậy thì có ai tv gia hạn k",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2349
+    },
+    {
+      "id": "htkh_intent_classification_0108",
+      "status": "done",
+      "input": "đồng hộ hóa đơn ý ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2336
+    },
+    {
+      "id": "htkh_intent_classification_0109",
+      "status": "done",
+      "input": "bạn nhận dc k",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2378
+    },
+    {
+      "id": "htkh_intent_classification_0110",
+      "status": "done",
+      "input": "phần mềm bên chị hàng tặng vẫn đang tính thuế gtgt",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2013
+    },
+    {
+      "id": "htkh_intent_classification_0111",
+      "status": "done",
+      "input": "Tối muốn kiểm tra tổng tiền đa chuyển cho nhà cung cấp nhưng hàng chưa về",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2795
+    },
+    {
+      "id": "htkh_intent_classification_0112",
+      "status": "done",
+      "input": "HÓA ĐƠN MÌNH RẤT NHÙI\nNHỜ KỸ THUẬN HỖ TRỢ DÙM\nKỸ THUẬT CÓ BẢO CÓ VẤN ĐỀ GÌ LIÊN HỆ RỒI MÀ\nSAO CỨ HỎI DÒNG DÒNG HOÀI",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2904
+    },
+    {
+      "id": "htkh_intent_classification_0113",
+      "status": "done",
+      "input": "lập BB thay thế vào đâu để vẫn còn tên hàng hoá số lượng như hoá đơn đã lập trước đó e",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2288
+    },
+    {
+      "id": "htkh_intent_classification_0114",
+      "status": "done",
+      "input": "vậy vào nghiệp vụ khác của hóa đơn bị điều chỉnh hay sao e\ndoanh thu kê khai ở kỳ nào",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1929
+    },
+    {
+      "id": "htkh_intent_classification_0115",
+      "status": "done",
+      "input": "DN chị mới mở\nNăm nay mới bắt đầu làm báo cáo",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1521
+    },
+    {
+      "id": "htkh_intent_classification_0116",
+      "status": "done",
+      "input": "e thêm vô chứ  c ko biết làm\nđầu h hỗ trọe c nhé\n0935699156",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1968
+    },
+    {
+      "id": "htkh_intent_classification_0117",
+      "status": "done",
+      "input": "CN khách hàng năm 2025 : TK 331 là 21 tr",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2047
+    },
+    {
+      "id": "htkh_intent_classification_0118",
+      "status": "done",
+      "input": "làm sao để kiểm tra được số lần phân bô đang bị sai",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1977
+    },
+    {
+      "id": "htkh_intent_classification_0119",
+      "status": "done",
+      "input": "ở tap ghi tăng thì c xoá đc rồi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2040
+    },
+    {
+      "id": "htkh_intent_classification_0120",
+      "status": "done",
+      "input": "Xóa bỏ Truong Thoi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1955
+    },
+    {
+      "id": "htkh_intent_classification_0121",
+      "status": "done",
+      "input": "nhưng chuyển đổi được 1 HĐ hóa đơn thứ 2 cũng mã đó nhưng chuyển đổi không được\ncùng 1 mã không thay đổi\nChỉ chuyển đổi 1 bộ sang cái",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1909
+    },
+    {
+      "id": "htkh_intent_classification_0122",
+      "status": "done",
+      "input": "ko có chứng từ nào chưa thanh toán",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1882
+    },
+    {
+      "id": "htkh_intent_classification_0123",
+      "status": "done",
+      "input": "Cốc Cốc",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1477
+    },
+    {
+      "id": "htkh_intent_classification_0124",
+      "status": "done",
+      "input": "Cho mình gặp nhận viên missa trực tiếp",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1763
+    },
+    {
+      "id": "htkh_intent_classification_0125",
+      "status": "done",
+      "input": "là sdtmình vừa nhắn đó bạn",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1561
+    },
+    {
+      "id": "htkh_intent_classification_0126",
+      "status": "done",
+      "input": "báo cáo tài chính đã lập ý ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1797
+    },
+    {
+      "id": "htkh_intent_classification_0127",
+      "status": "done",
+      "input": "mà e tra hóa đơn điện tử trên tổng cục thuế\nchỗ tính chất hàng hóa dịch vụ ấy ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1919
+    },
+    {
+      "id": "htkh_intent_classification_0128",
+      "status": "done",
+      "input": "c nhấn chuột phải trên hoá đơn cần thay thế vô lập hoá đơn mà nó ko ra tên của hàng hoias đó",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2012
+    },
+    {
+      "id": "htkh_intent_classification_0129",
+      "status": "done",
+      "input": "mỗi mã của mình ko có cả tăng và giảm đâu b",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1437
+    },
+    {
+      "id": "htkh_intent_classification_0130",
+      "status": "done",
+      "input": "nếu mình bỏ sticker cái này và chọn mục trên lấy tất cả đơn hàng từ lazada về eshop được tạo từ ngày 01.01.2026 thì vẫn chạy đúng dữ liệu phải không",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1376
+    },
+    {
+      "id": "htkh_intent_classification_0131",
+      "status": "done",
+      "input": "báo cáo hđ kinh doanh",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2184
+    },
+    {
+      "id": "htkh_intent_classification_0132",
+      "status": "done",
+      "input": "tôi đã tìm thấy hóa đơn trong phần bảng lê hóa đơn sử dụng",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2264
+    },
+    {
+      "id": "htkh_intent_classification_0133",
+      "status": "done",
+      "input": "Chỗ quản lí người dùng không hiện\nMà tk ghi là đã hoạt động rồi",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2155
+    },
+    {
+      "id": "htkh_intent_classification_0134",
+      "status": "done",
+      "input": "tại tab xử lý hóa đơn đầu vào, không mở hóa đơn lên xem được",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1596
+    },
+    {
+      "id": "htkh_intent_classification_0135",
+      "status": "done",
+      "input": "biên bản giao hàng",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1746
+    },
+    {
+      "id": "htkh_intent_classification_0136",
+      "status": "done",
+      "input": "1C26TYY",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2185
+    },
+    {
+      "id": "htkh_intent_classification_0137",
+      "status": "done",
+      "input": "Biết ơn em nhiều nhé",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2084
+    },
+    {
+      "id": "htkh_intent_classification_0138",
+      "status": "done",
+      "input": "do chỉ tiêu Tồn tại dòng có Chỉ tiêu (4) không bằng Chỉ tiêu (3)*8%.",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1564
+    },
+    {
+      "id": "htkh_intent_classification_0139",
+      "status": "done",
+      "input": "e không xem đc",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1470
+    },
+    {
+      "id": "htkh_intent_classification_0140",
+      "status": "done",
+      "input": "cho c giá gia hạn MISA SME 1 năm, và 2 năm",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1622
+    },
+    {
+      "id": "htkh_intent_classification_0141",
+      "status": "done",
+      "input": "vẫn không được",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1809
+    },
+    {
+      "id": "htkh_intent_classification_0142",
+      "status": "done",
+      "input": "Trong danh sách, có 10 người đóng ở tháng 1 và 1 người bắt đầu ở tháng 2\nthì điền như thế nào",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1891
+    },
+    {
+      "id": "htkh_intent_classification_0143",
+      "status": "done",
+      "input": "dạ là cá nhân không kinh doanh ạ",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2025
+    },
+    {
+      "id": "htkh_intent_classification_0144",
+      "status": "done",
+      "input": "Bên bạn gọi điện hỗ trợ luôn giúp mình với nhé",
+      "reference": "request_human_handoff",
+      "output": "request_human_handoff",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2292
+    },
+    {
+      "id": "htkh_intent_classification_0145",
+      "status": "done",
+      "input": "hao mon bên qlts chuyển qua msa ko khớp số làm sao ại",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2440
+    },
+    {
+      "id": "htkh_intent_classification_0146",
+      "status": "done",
+      "input": "Chữ ký số bên khác",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1976
+    },
+    {
+      "id": "htkh_intent_classification_0147",
+      "status": "done",
+      "input": "cột thành tiền sau khi cộng thuế",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2491
+    },
+    {
+      "id": "htkh_intent_classification_0148",
+      "status": "done",
+      "input": "xóa bớt tài khoản thì làm sao",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2322
+    },
+    {
+      "id": "htkh_intent_classification_0149",
+      "status": "done",
+      "input": "các đối tượng này là đối tượng a bây giờ mk muốn đổi thành đối tượng B hàng loạt thì làm ntn",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 2461
+    },
+    {
+      "id": "htkh_intent_classification_0150",
+      "status": "done",
+      "input": "ko dc e ơi\nc gửi ultra",
+      "reference": "others",
+      "output": "others",
+      "tool_calls": [],
+      "scores": {
+        "accuracy": 100
+      },
+      "durationMs": 1779
+    }
+  ]
+}
