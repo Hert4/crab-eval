@@ -1,0 +1,1414 @@
+{
+  "metadata": {
+    "task_name": "misa_translate_sentence",
+    "task_type": "translation",
+    "gt_task_type": "translation",
+    "description": "MISA Translate — dịch câu/HTML tiếng Việt sang 10 ngôn ngữ (en/zh/ja/ko/km/lo/my/ne/si/ta) + identity vi→vi. Test giữ số, giữ HTML, đúng ngôn ngữ đích.",
+    "source_file": "20260527-102649-misa-translategemma-4b-it.json",
+    "gt_metrics": [
+      "translation_score",
+      "translation_quality",
+      "chrf"
+    ],
+    "gt_model": "claude-opus-4-8",
+    "gt_generated_date": "2026-05-30",
+    "source_language_original": "tiếng Việt",
+    "num_samples": 45,
+    "note": "reference cho km/lo/my/ne/si/ta là best-effort (xem metadata.reference_confidence) — spot-check trước khi tin chrf. digit_preservation/html_structure chưa có metric trong codebase.",
+    "customAttributes": {
+      "domain": "MISA / dữ liệu tài chính",
+      "fixtures": "vi_to_common, vi_to_km, vi_to_rare, vi_to_vi"
+    }
+  },
+  "data": [
+    {
+      "id": "vi-en-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Tổng doanh thu năm 2025 đạt 12.500.000.000 đồng, tăng 15% so với cùng kỳ.",
+      "output": "",
+      "reference": "Total revenue in 2025 reached 12,500,000,000 VND, up 15% compared to the same period last year.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Tổng doanh thu năm 2025 đạt 12.500.000.000 đồng, tăng 15% so với cùng kỳ.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Total revenue in 2025 reached 12,500,000,000 VND, an increase of 15% compared to the same period last year.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Dịch chính xác, đúng ngôn ngữ, giữ nguyên số, không có HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-002",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên cấu trúc và các thẻ HTML. Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: <p>Hợp đồng số <b>HD-2026-001</b> ngày 15/03/2026, giá trị 500 triệu VND.</p>",
+      "output": "",
+      "reference": "<p>Contract No. <b>HD-2026-001</b> dated 15/03/2026, valued at 500 million VND.</p>",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "<p>Hợp đồng số <b>HD-2026-001</b> ngày 15/03/2026, giá trị 500 triệu VND.</p>",
+        "kind": "html",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "html"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Contract number **HD-2026-001** dated 15/03/2026, with a value of 500 million VND.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": 5,
+          "note": "Dịch chính xác, đúng ngôn ngữ, giữ nguyên số và cấu trúc HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r01",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict of having the mind and heart disagree.",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Ý chính được truyền tải nhưng thiếu chi tiết về sự quên lãng"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r02",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict of having one's reason and heart at odds.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đúng ý, ngôn ngữ chuẩn, không có số hay HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r03",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict between reason and heart that the speaker must endure.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r04",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict between reason and heart that the speaker must endure.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML trong source."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r05",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Decision to let the loved one go, in order to find happiness elsewhere, even though the speaker must endure the pain of being forgotten and the conflict between reason and heart.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r06",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict between reason and heart that the speaker must endure.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r07",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict of having the mind and heart disagree.",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Ý chính được truyền tải nhưng thiếu chi tiết về 'sự quên lãng' và 'khi lý trí và con tim mâu thuẫn' chưa rõ ràng"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r08",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict between reason and heart that the speaker must endure.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r09",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict of having the mind and heart disagree.",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Ý chính được truyền tải nhưng thiếu chi tiết về 'sự quên lãng' và 'lý trí và con tim mâu thuẫn' chưa rõ ràng"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r10",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict between reason and heart that the speaker must endure.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML trong source."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r11",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Decision to let the loved one go, in order to find happiness elsewhere, even though the speaker must endure the pain of being forgotten and the conflict between reason and heart.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r12",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict of having the mind and heart disagree.",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Ý chính được truyền tải nhưng thiếu chi tiết về sự quên lãng"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r13",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict between reason and heart that the speaker must endure.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML trong source."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r14",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict between reason and heart that the speaker must endure.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-003-r15",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+      "output": "",
+      "reference": "The decision to set a loved one free so they can find new happiness, even though one must endure oblivion and pain when reason and the heart are in conflict.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Quyết định giải thoát cho người yêu để họ tìm hạnh phúc mới, dù bản thân phải chịu đựng sự quên lãng và đau đớn khi lý trí và con tim mâu thuẫn.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "The decision to let go of the loved one, in order for them to find happiness elsewhere, despite the pain and conflict between reason and heart that the speaker must endure.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đầy đủ ý nghĩa, đúng ngôn ngữ, không có số hay HTML trong source."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-004",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: không biết cách yêu em;chia tay;hạnh phúc riêng mình;đau đớn;kết thúc;yêu không đúng cách",
+      "output": "",
+      "reference": "not knowing how to love you;breaking up;happiness of one’s own;pain;ending;loving the wrong way",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "không biết cách yêu em;chia tay;hạnh phúc riêng mình;đau đớn;kết thúc;yêu không đúng cách",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "I don't know how to love you; breakup; finding happiness on my own; pain; ending; loving in the wrong way",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đúng ý, đúng ngôn ngữ, không có số hay HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-mix-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Xin chào - Hello",
+      "output": "",
+      "reference": "Hello - Hello",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Xin chào - Hello",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Hello",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch đúng nghĩa, đúng ngôn ngữ, không có số hay HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-mix-002",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Tổng cộng Total: 1500 đồng, đã thanh toán Paid.",
+      "output": "",
+      "reference": "Total: 1500 VND, Paid.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Tổng cộng Total: 1500 đồng, đã thanh toán Paid.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Total: 1500 VND, Paid.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đúng ý, đúng ngôn ngữ, số được giữ nguyên, không có HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-en-mix-003",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Anh một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Trạng thái: Pending - Đang chờ xử lý, Priority: Cao",
+      "output": "",
+      "reference": "Status: Pending - Awaiting processing, Priority: High",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "en",
+        "target_language_original": "tiếng Anh",
+        "source_text": "Trạng thái: Pending - Đang chờ xử lý, Priority: Cao",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Status: Pending - Awaiting processing, Priority: High",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch chính xác, đúng ngôn ngữ, không có số hay HTML trong source"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-ja-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Nhật một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Xin lỗi, tôi không hiểu câu hỏi. Bạn có thể nhắc lại không?",
+      "output": "",
+      "reference": "申し訳ありませんが、質問が理解できません。もう一度言っていただけますか？",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "ja",
+        "target_language_original": "tiếng Nhật",
+        "source_text": "Xin lỗi, tôi không hiểu câu hỏi. Bạn có thể nhắc lại không?",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "申し訳ありません。質問の意味がわかりません。もう一度おっしゃっていただけますか？",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Bản dịch chính xác, đúng ngôn ngữ, không có số hay HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-ja-002",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Nhật một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên cấu trúc và các thẻ HTML. Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: <ul><li>Sản phẩm A: 150.000đ</li><li>Sản phẩm B: 200.000đ</li></ul>",
+      "output": "",
+      "reference": "<ul><li>製品A：150,000ドン</li><li>製品B：200,000ドン</li></ul>",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "ja",
+        "target_language_original": "tiếng Nhật",
+        "source_text": "<ul><li>Sản phẩm A: 150.000đ</li><li>Sản phẩm B: 200.000đ</li></ul>",
+        "kind": "html",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "html"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "<ul><li>商品A：150,000円</li><li>商品B：200,000円</li></ul>",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": 5,
+          "note": "Dịch chính xác, đúng ngôn ngữ, giữ số và cấu trúc HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-ko-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Hàn một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Mã đơn hàng 7890 đã được xác nhận vào 14:30.",
+      "output": "",
+      "reference": "주문번호 7890이 14시 30분에 확인되었습니다.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "ko",
+        "target_language_original": "tiếng Hàn",
+        "source_text": "Mã đơn hàng 7890 đã được xác nhận vào 14:30.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "주문 번호 7890이 14:30에 확인되었습니다.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Dịch chính xác, đúng ngôn ngữ, giữ nguyên số, không có HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-zh-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Trung một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Cuộc họp ngày 26 tháng 5 năm 2026 lúc 9 giờ sáng.",
+      "output": "",
+      "reference": "会议于2026年5月26日上午9点举行。",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "zh",
+        "target_language_original": "tiếng Trung",
+        "source_text": "Cuộc họp ngày 26 tháng 5 năm 2026 lúc 9 giờ sáng.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "2026年5月26日上午9点会议。",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Bản dịch chính xác, đúng ngôn ngữ, số được giữ nguyên."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-zh-002",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Trung một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên cấu trúc và các thẻ HTML. Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: <div><h2>Báo cáo</h2><p>Quý 1: <b>120 tỷ</b>, Quý 2: <b>135 tỷ</b></p></div>",
+      "output": "",
+      "reference": "<div><h2>报告</h2><p>第一季度：<b>1200亿</b>，第二季度：<b>1350亿</b></p></div>",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "zh",
+        "target_language_original": "tiếng Trung",
+        "source_text": "<div><h2>Báo cáo</h2><p>Quý 1: <b>120 tỷ</b>, Quý 2: <b>135 tỷ</b></p></div>",
+        "kind": "html",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "html"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "<div><h2>报告</h2><p>第一季度：<b>120亿</b>，第二季度：<b>135亿</b></p></div>",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": 5,
+          "note": "Bản dịch chính xác, đúng ngôn ngữ, giữ nguyên số và cấu trúc HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-zh-mix-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Trung một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Xin chào - 你好, hôm nay là thứ Hai.",
+      "output": "",
+      "reference": "你好 - 你好，今天是星期一。",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "zh",
+        "target_language_original": "tiếng Trung",
+        "source_text": "Xin chào - 你好, hôm nay là thứ Hai.",
+        "kind": "plain",
+        "fixture": "vi_to_common",
+        "tags": [
+          "vi_to_common",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "你好 - 你好，今天是星期二。",
+        "baseline_judge": {
+          "fidelity": 2,
+          "target_lang_match": 5,
+          "digit_preservation": 1,
+          "html_structure": null,
+          "note": "Ngày trong source là thứ Hai, dịch thành thứ Ba sai nghĩa; ngôn ngữ đúng; số 'Hai' không được giữ đúng"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-km-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Khmer một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Xin chào, hôm nay là thứ Hai.",
+      "output": "",
+      "reference": "សួស្តី ថ្ងៃនេះគឺថ្ងៃច័ន្ទ។",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "km",
+        "target_language_original": "tiếng Khmer",
+        "source_text": "Xin chào, hôm nay là thứ Hai.",
+        "kind": "plain",
+        "fixture": "vi_to_km",
+        "tags": [
+          "vi_to_km",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "ជំរាបសួស្ដី, ថ្ងៃនេះ គឺជាថ្ងៃ ព្រហស្ប៍។",
+        "baseline_judge": {
+          "fidelity": 2,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Dịch sai ngày, source là thứ Hai nhưng bản dịch là thứ Năm"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-km-002",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Khmer một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Tổng giá trị đơn hàng là 1500 đồng, giảm giá 20%.",
+      "output": "",
+      "reference": "តម្លៃសរុបនៃការបញ្ជាទិញគឺ 1500 ដុង បញ្ចុះតម្លៃ 20%។",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "km",
+        "target_language_original": "tiếng Khmer",
+        "source_text": "Tổng giá trị đơn hàng là 1500 đồng, giảm giá 20%.",
+        "kind": "plain",
+        "fixture": "vi_to_km",
+        "tags": [
+          "vi_to_km",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "សរុបតម្លៃទិញគឺ ១៥០០០ រៀល, ជាមួយនឹងការបញ្ចុះតម្លៃ ២០%.",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Nội dung chính đúng, chỉ khác đơn vị tiền tệ (đồng thành រៀល)"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-km-003",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Khmer một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Cuộc họp bắt đầu lúc 14 giờ 30 ngày 25 tháng 12 năm 2026.",
+      "output": "",
+      "reference": "កិច្ចប្រជុំចាប់ផ្តើមនៅម៉ោង 14:30 ថ្ងៃទី 25 ខែ 12 ឆ្នាំ 2026។",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "km",
+        "target_language_original": "tiếng Khmer",
+        "source_text": "Cuộc họp bắt đầu lúc 14 giờ 30 ngày 25 tháng 12 năm 2026.",
+        "kind": "plain",
+        "fixture": "vi_to_km",
+        "tags": [
+          "vi_to_km",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "ស pertemuan គឺចាប់ផ្តើម នៅវេលា ១៤:៣០ នៅថ្ងៃ ២៥ ខវិច្ឆា ១៩៦៦។",
+        "baseline_judge": {
+          "fidelity": 2,
+          "target_lang_match": 4,
+          "digit_preservation": 1,
+          "html_structure": null,
+          "note": "Ý nghĩa ngày tháng bị sai, số giờ đúng nhưng năm dịch sai từ 2026 thành 1966"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-km-004",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Khmer một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên cấu trúc và các thẻ HTML. Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: <p>Báo cáo doanh thu quý 1: <b>1.500.000đ</b></p>",
+      "output": "",
+      "reference": "<p>របាយការណ៍ចំណូលត្រីមាសទី 1៖ <b>1.500.000ដុង</b></p>",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "km",
+        "target_language_original": "tiếng Khmer",
+        "source_text": "<p>Báo cáo doanh thu quý 1: <b>1.500.000đ</b></p>",
+        "kind": "html",
+        "fixture": "vi_to_km",
+        "tags": [
+          "vi_to_km",
+          "html"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "<p>របាយការណ៍ ឥណ្ឌីស ត្រីមាសទី១: <b>១,៥០០,០០០ វ៉ុត</b></p>",
+        "baseline_judge": {
+          "fidelity": 2,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": 5,
+          "note": "Dịch sai nghĩa 'doanh thu' thành 'ឥណ្ឌីស' (Ấn Độ), số và HTML đúng"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-km-005",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Khmer một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên cấu trúc và các thẻ HTML. Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: <div><h3>Hóa đơn số 12345</h3><p>Ngày: 26/05/2026</p><p>Số tiền: <strong>2,500,000 VND</strong></p></div>",
+      "output": "",
+      "reference": "<div><h3>វិក្កយបត្រលេខ 12345</h3><p>កាលបរិច្ឆេទ៖ 26/05/2026</p><p>ចំនួនទឹកប្រាក់៖ <strong>2,500,000 VND</strong></p></div>",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "km",
+        "target_language_original": "tiếng Khmer",
+        "source_text": "<div><h3>Hóa đơn số 12345</h3><p>Ngày: 26/05/2026</p><p>Số tiền: <strong>2,500,000 VND</strong></p></div>",
+        "kind": "html",
+        "fixture": "vi_to_km",
+        "tags": [
+          "vi_to_km",
+          "html"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "<div><h3>វិញ្ញប័ត្រ លេខ 12345</h3><p>ថ្ងៃ: 26/05/2026</p><p>ប្រាក់: <strong>2,500,000 ដុល្លារវៀតណាម</strong></p></div>",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": 5,
+          "note": "Dịch đúng nghĩa nhưng 'Số tiền' dịch thành 'ប្រាក់' hơi chung, không chính xác bằng 'ចំនួនទឹកប្រាក់' hoặc 'ចំនួនប្រាក់'"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-km-006",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Khmer một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Công ty MISA được thành lập năm 1994 tại Hà Nội.",
+      "output": "",
+      "reference": "ក្រុមហ៊ុន MISA ត្រូវបានបង្កើតឡើងក្នុងឆ្នាំ 1994 នៅទីក្រុងហាណូយ។",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "km",
+        "target_language_original": "tiếng Khmer",
+        "source_text": "Công ty MISA được thành lập năm 1994 tại Hà Nội.",
+        "kind": "plain",
+        "fixture": "vi_to_km",
+        "tags": [
+          "vi_to_km",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "ក្រុមហ៊ុន MISA ត្រូវបានបង្កើតឡើងនៅឆ្នាំ១៩៩៤ ក្នុងរដ្ឋធានា ហាណូ",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Dịch đúng ý, chỉ thiếu từ 'Hà Nội' dịch chính xác thành 'រដ្ឋធានា ហាណូ' hơi không tự nhiên"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-km-007",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Khmer một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Chính anh đã không biết cách, không biết cách yêu em. Để em phải buồn nhiều lần, giọt lệ vẫn cứ tràn mi. Cũng đã đến lúc phải nên kết thúc, rời đi đúng lúc.",
+      "output": "",
+      "reference": "ខ្ញុំផ្ទាល់មិនចេះស្រឡាញ់អ្នកទេ។ ធ្វើឱ្យអ្នកព្រួយចិត្តជាច្រើនដង ទឹកភ្នែកនៅតែហូរ។ ដល់ពេលត្រូវបញ្ចប់ហើយ ចាកចេញឱ្យទាន់ពេល។",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "km",
+        "target_language_original": "tiếng Khmer",
+        "source_text": "Chính anh đã không biết cách, không biết cách yêu em. Để em phải buồn nhiều lần, giọt lệ vẫn cứ tràn mi. Cũng đã đến lúc phải nên kết thúc, rời đi đúng lúc.",
+        "kind": "plain",
+        "fixture": "vi_to_km",
+        "tags": [
+          "vi_to_km",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": null,
+        "baseline_judge": null,
+        "baseline_error": "http-504: <html>\r\n<head><title>504 Gateway Time-out</title></head>\r\n<body>\r\n<center><h1>504 Gateway Time-out</h1></center>\r\n<hr><center>nginx/1.30.1</center>\r\n</body>\r\n</html>\r\n"
+      }
+    },
+    {
+      "id": "vi-km-008",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Khmer một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Chẳng ai một mình ra chết vì đã từng yêu hết con tim. Chẳng ai lại muốn kết thúc khi lại đang hạnh phúc bên nhau.",
+      "output": "",
+      "reference": "គ្មានអ្នកណាស្លាប់តែម្នាក់ឯងព្រោះធ្លាប់ស្រឡាញ់អស់ពីដួងចិត្ត។ គ្មានអ្នកណាចង់បញ្ចប់ពេលកំពុងមានសុភមង្គលជាមួយគ្នា។",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "km",
+        "target_language_original": "tiếng Khmer",
+        "source_text": "Chẳng ai một mình ra chết vì đã từng yêu hết con tim. Chẳng ai lại muốn kết thúc khi lại đang hạnh phúc bên nhau.",
+        "kind": "plain",
+        "fixture": "vi_to_km",
+        "tags": [
+          "vi_to_km",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "គ្មានអ្នកណាអាចស្លាប់ដោយសារតែបានស្រឡាញ់ពេញចិត្តទេ។ គ្មានអ្នកណាចង់បញ្ចប់ទំនាក់ទំនង នៅពេលដែលកំពុងតែមានសុខភាពជាមួយគ្នា។",
+        "baseline_judge": {
+          "fidelity": 3,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": null,
+          "note": "Ý chính được truyền tải nhưng có một số sai lệch về nghĩa, ví dụ 'hạnh phúc' dịch thành 'sức khỏe'"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-lo-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Lào một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Công ty MISA năm 2026 đạt doanh thu 1500 tỷ đồng.",
+      "output": "",
+      "reference": "ບໍລິສັດ MISA ໃນປີ 2026 ມີລາຍຮັບ 1500 ຕື້ດົ່ງ.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "lo",
+        "target_language_original": "tiếng Lào",
+        "source_text": "Công ty MISA năm 2026 đạt doanh thu 1500 tỷ đồng.",
+        "kind": "plain",
+        "fixture": "vi_to_rare",
+        "tags": [
+          "vi_to_rare",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "ក្រុមហ៊ុន MISA ປີ 2026 ໄດ້หารายได้ 1500 ພັນລ້ານກີບ.",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 3,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Ý chính đúng nhưng dùng ngôn ngữ Lào không chuẩn, pha tiếng Khmer"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-my-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Miến Điện một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Xin chào, hôm nay là thứ Hai ngày 26.",
+      "output": "",
+      "reference": "မင်္ဂလာပါ၊ ဒီနေ့သည် တနင်္လာနေ့ 26 ရက်နေ့ ဖြစ်သည်။",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "my",
+        "target_language_original": "tiếng Miến Điện",
+        "source_text": "Xin chào, hôm nay là thứ Hai ngày 26.",
+        "kind": "plain",
+        "fixture": "vi_to_rare",
+        "tags": [
+          "vi_to_rare",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "ဟိုနေ့၊ ဒီနေ့က တနင်္လာနေ့၊ ဇူလိုင်လ ၂၆ ရက်။",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Dịch đúng ý, chỉ thiếu từ 'hôm nay' rõ ràng, số và ngôn ngữ đúng"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-my-002",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Miến Điện một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên cấu trúc và các thẻ HTML. Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: <p>Hóa đơn số <b>123</b>: 500.000đ</p>",
+      "output": "",
+      "reference": "<p>ပြေစာအမှတ် <b>123</b>: 500.000đ</p>",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "my",
+        "target_language_original": "tiếng Miến Điện",
+        "source_text": "<p>Hóa đơn số <b>123</b>: 500.000đ</p>",
+        "kind": "html",
+        "fixture": "vi_to_rare",
+        "tags": [
+          "vi_to_rare",
+          "html"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "မှတ်ပုံတင်စာ <b>123</b>: 500,000 ကျပ်",
+        "baseline_judge": {
+          "fidelity": 3,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": 5,
+          "note": "Dịch 'Hóa đơn' thành 'မှတ်ပုံတင်စာ' không chính xác, số và HTML đúng, ngôn ngữ đúng"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-ne-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Nepal một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Tổng số nhân viên là 1200 người.",
+      "output": "",
+      "reference": "कुल कर्मचारी संख्या 1200 जना हो।",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "ne",
+        "target_language_original": "tiếng Nepal",
+        "source_text": "Tổng số nhân viên là 1200 người.",
+        "kind": "plain",
+        "fixture": "vi_to_rare",
+        "tags": [
+          "vi_to_rare",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "कुल कर्मचारी संख्या 1200 जना।",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đúng ý, đúng tiếng Nepali, số 1200 được giữ nguyên."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-si-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Sinhala một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Mã sản phẩm 4567, giá 250.000 đồng.",
+      "output": "",
+      "reference": "නිෂ්පාදන කේතය 4567, මිල 250,000 ඩොං.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "si",
+        "target_language_original": "tiếng Sinhala",
+        "source_text": "Mã sản phẩm 4567, giá 250.000 đồng.",
+        "kind": "plain",
+        "fixture": "vi_to_rare",
+        "tags": [
+          "vi_to_rare",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": " නිෂ්පාදන අංකය 4567, මිල 250,000 ඩොලර්.",
+        "baseline_judge": {
+          "fidelity": 3,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Dịch đúng ngôn ngữ, số giữ nguyên nhưng sai đơn vị tiền tệ (đồng thành đô la)"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-ta-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Tamil một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Cuộc họp lúc 10 giờ sáng ngày 15 tháng 6.",
+      "output": "",
+      "reference": "கூட்டம் 6 ஆம் மாதம் 15 ஆம் தேதி காலை 10 மணிக்கு நடைபெறும்.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "ta",
+        "target_language_original": "tiếng Tamil",
+        "source_text": "Cuộc họp lúc 10 giờ sáng ngày 15 tháng 6.",
+        "kind": "plain",
+        "fixture": "vi_to_rare",
+        "tags": [
+          "vi_to_rare",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "best-effort",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "15 ஜூன் அன்று காலை 10 மணிக்கு கூட்டம்.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đúng ý, đúng tiếng Tamil, số được giữ nguyên dưới dạng chữ số 10 và ngày 15."
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-vi-001",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Việt một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Hôm nay là thứ Hai, ngày 26 tháng 5 năm 2026.",
+      "output": "",
+      "reference": "Hôm nay là thứ Hai, ngày 26 tháng 5 năm 2026.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "vi",
+        "target_language_original": "tiếng Việt",
+        "source_text": "Hôm nay là thứ Hai, ngày 26 tháng 5 năm 2026.",
+        "kind": "plain",
+        "fixture": "vi_to_vi",
+        "tags": [
+          "vi_to_vi",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Hôm nay là thứ Hai, ngày 26 tháng 5 năm 2026.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Bản dịch đúng nguyên văn, đúng ngôn ngữ, giữ nguyên số, không có HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-vi-002",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Việt một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: Giá trị hóa đơn là 1.500.000 đồng, đã bao gồm VAT 10%.",
+      "output": "",
+      "reference": "Giá trị hóa đơn là 1.500.000 đồng, đã bao gồm VAT 10%.",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "vi",
+        "target_language_original": "tiếng Việt",
+        "source_text": "Giá trị hóa đơn là 1.500.000 đồng, đã bao gồm VAT 10%.",
+        "kind": "plain",
+        "fixture": "vi_to_vi",
+        "tags": [
+          "vi_to_vi",
+          "plain"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "Tổng giá trị hóa đơn là 1.500.000 đồng, bao gồm thuế VAT 10%.",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": null,
+          "note": "Bản dịch truyền tải đúng ý, đúng ngôn ngữ, giữ nguyên số, không có HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-vi-003",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Việt một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên cấu trúc và các thẻ HTML. Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: <p>Xin chào <b>các bạn</b>, hôm nay trời <i>rất đẹp</i>.</p>",
+      "output": "",
+      "reference": "<p>Xin chào <b>các bạn</b>, hôm nay trời <i>rất đẹp</i>.</p>",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "vi",
+        "target_language_original": "tiếng Việt",
+        "source_text": "<p>Xin chào <b>các bạn</b>, hôm nay trời <i>rất đẹp</i>.</p>",
+        "kind": "html",
+        "fixture": "vi_to_vi",
+        "tags": [
+          "vi_to_vi",
+          "html"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "<p>Chào <b>các bạn</b>, hôm nay trời <i>rất đẹp</i>.</p>",
+        "baseline_judge": {
+          "fidelity": 4,
+          "target_lang_match": 5,
+          "digit_preservation": null,
+          "html_structure": 5,
+          "note": "Bản dịch thiếu từ 'Xin' nhưng vẫn giữ nguyên ý chính và cấu trúc HTML"
+        },
+        "baseline_error": null
+      }
+    },
+    {
+      "id": "vi-vi-004",
+      "input": "Bạn là một chuyên gia dịch thuật. Hãy dịch nội dung sau từ tiếng Việt sang tiếng Việt một cách chính xác, tự nhiên.\n# Lưu ý: Giữ nguyên cấu trúc và các thẻ HTML. Giữ nguyên toàn bộ con số, ngày tháng và ký hiệu. Chỉ trả về bản dịch, không giải thích.\n# Nội dung: <div><h2>Báo cáo doanh thu</h2><ul><li>Tháng 1: 1.200.000đ</li><li>Tháng 2: 1.500.000đ</li></ul></div>",
+      "output": "",
+      "reference": "<div><h2>Báo cáo doanh thu</h2><ul><li>Tháng 1: 1.200.000đ</li><li>Tháng 2: 1.500.000đ</li></ul></div>",
+      "metadata": {
+        "source_language": "vi",
+        "source_language_original": "tiếng Việt",
+        "target_language": "vi",
+        "target_language_original": "tiếng Việt",
+        "source_text": "<div><h2>Báo cáo doanh thu</h2><ul><li>Tháng 1: 1.200.000đ</li><li>Tháng 2: 1.500.000đ</li></ul></div>",
+        "kind": "html",
+        "fixture": "vi_to_vi",
+        "tags": [
+          "vi_to_vi",
+          "html"
+        ],
+        "reference_source": "claude-opus-4-8",
+        "reference_confidence": "high",
+        "baseline_model": "misa-translategemma-4b-it",
+        "baseline_translation": "<div><h2>Báo cáo doanh thu</h2><ul><li>Tháng 1: 1.200.000 VNĐ</li><li>Tháng 2: 1.500.000 VNĐ</li></ul></div>",
+        "baseline_judge": {
+          "fidelity": 5,
+          "target_lang_match": 5,
+          "digit_preservation": 5,
+          "html_structure": 5,
+          "note": "Bản dịch giữ nguyên ý nghĩa, ngôn ngữ, số và cấu trúc HTML"
+        },
+        "baseline_error": null
+      }
+    }
+  ]
+}
