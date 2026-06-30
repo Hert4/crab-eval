@@ -32,6 +32,10 @@ export interface OpenAIConfig {
   model: string
   maxTokens?: number
   temperature?: number
+  // Constrained decoding (mode A): when set, force the model to emit exactly one
+  // of these strings via vLLM `guided_choice`. Providers that reject it degrade
+  // gracefully (retry strips the field → free generation).
+  guidedChoice?: string[]
 }
 
 export interface OpenAIResponse {
@@ -82,7 +86,8 @@ export async function chatCompletion(
 
   const buildBody = (
     useCompletionTokens: boolean,
-    includeChatTemplateKwargs: boolean
+    includeChatTemplateKwargs: boolean,
+    includeGuided: boolean
   ): Record<string, unknown> => {
     const b: Record<string, unknown> = { model: config.model, messages }
     if (config.maxTokens) {
@@ -93,6 +98,11 @@ export async function chatCompletion(
       b.temperature = config.temperature
     }
     if (tools?.length) { b.tools = tools; b.tool_choice = 'auto' }
+    // Constrained decoding (vLLM `guided_choice`): output must be exactly one label.
+    // Non-supporting providers 400 → auto-retry below strips it (useGuided=false).
+    if (includeGuided && config.guidedChoice?.length) {
+      b.guided_choice = config.guidedChoice
+    }
     // Disable thinking mode for Qwen3-style models that return content=null with reasoning field.
     // Some upstreams (OpenAI, Anthropic gateways) reject this — auto-retry below strips it.
     if (includeChatTemplateKwargs) {
@@ -117,7 +127,8 @@ export async function chatCompletion(
 
   let useCompletion = prefersCompletionTokens
   let useChatTpl = true
-  let res = await doFetch(buildBody(useCompletion, useChatTpl))
+  let useGuided = true
+  let res = await doFetch(buildBody(useCompletion, useChatTpl, useGuided))
 
   // Auto-retry on 400: detect which param the API rejected, flip it, retry once.
   // Handles three independent issues: max_tokens vs max_completion_tokens,
@@ -129,11 +140,13 @@ export async function chatCompletion(
       const msg: string = errJson?.details?.error?.message || errJson?.error?.message || ''
       const tokenIssue = msg.includes('max_tokens') || msg.includes('max_completion_tokens')
       const tplIssue = msg.includes('chat_template_kwargs') || msg.includes('enable_thinking')
+      const guidedIssue = msg.includes('guided')
       const generic = msg.includes('unsupported_parameter') || msg.includes('Unrecognized')
       if (tokenIssue) useCompletion = !useCompletion
       if (tplIssue || generic) useChatTpl = false
-      if (tokenIssue || tplIssue || generic) {
-        res = await doFetch(buildBody(useCompletion, useChatTpl))
+      if (guidedIssue || generic) useGuided = false
+      if (tokenIssue || tplIssue || guidedIssue || generic) {
+        res = await doFetch(buildBody(useCompletion, useChatTpl, useGuided))
       }
     } catch { /* not JSON, fall through to normal error handling */ }
   }
@@ -159,6 +172,74 @@ export async function chatCompletion(
   }
 
   return json as OpenAIResponse
+}
+
+// Mode B — closed-set classification via first-token logprob (MMLU/BFCL-style
+// discriminative probe). Sends max_tokens:1 with top_logprobs, scores each candidate
+// label by the logprob of the top token that matches its leading token, returns argmax.
+// Assumes labels are first-token-distinguishable (digit codes, distinct intent names).
+// Removes the format/verbosity confound entirely — the model never gets to ramble.
+// Falls back to the generated token if no label matches any top-logprob token.
+export async function classifyByLogprob(
+  config: OpenAIConfig,
+  messages: OpenAIMessage[],
+  labels: string[],
+  signal?: AbortSignal
+): Promise<{ label: string; scores: Record<string, number> }> {
+  const { url, extraHeaders } = resolveEndpoint(config.baseUrl, 'chat/completions')
+  const body: Record<string, unknown> = {
+    model: config.model,
+    messages,
+    max_tokens: 1,
+    temperature: 0,
+    logprobs: true,
+    top_logprobs: 20,
+  }
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${config.apiKey}`,
+      ...extraHeaders,
+    },
+    body: JSON.stringify(body),
+    signal,
+  })
+  if (!r.ok) {
+    const text = await r.text().catch(() => '')
+    throw new Error(`API error ${r.status}: ${text}`)
+  }
+  const json = await r.json()
+  const top: Array<{ token: string; logprob: number }> =
+    json?.choices?.[0]?.logprobs?.content?.[0]?.top_logprobs ?? []
+
+  const scores: Record<string, number> = {}
+  for (const lab of labels) {
+    const labLow = lab.trim().toLowerCase()
+    let best = -Infinity
+    for (const t of top) {
+      const tok = String(t.token ?? '').trim().toLowerCase()
+      if (!tok) continue
+      // first-token match: candidate and token agree on their shared prefix
+      if (labLow === tok || labLow.startsWith(tok) || tok.startsWith(labLow)) {
+        if (t.logprob > best) best = t.logprob
+      }
+    }
+    scores[lab] = best
+  }
+
+  let chosen = labels[0]
+  let bestScore = -Infinity
+  for (const lab of labels) {
+    if (scores[lab] > bestScore) { bestScore = scores[lab]; chosen = lab }
+  }
+  // No candidate matched any top token → fall back to the actually generated token.
+  if (bestScore === -Infinity) {
+    const gen = String(json?.choices?.[0]?.message?.content ?? '').trim().toLowerCase()
+    const match = labels.find(l => gen.startsWith(l.toLowerCase()) || l.toLowerCase().startsWith(gen))
+    if (match) chosen = match
+  }
+  return { label: chosen, scores }
 }
 
 export async function testConnection(config: OpenAIConfig): Promise<boolean> {

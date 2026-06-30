@@ -172,11 +172,15 @@ RunResult {
 
 ```ts
 chatCompletion(config, messages, signal?, tools?) → OpenAIResponse
+classifyByLogprob(config, messages, labels, signal?) → { label, scores }  // mode B
 buildFileMessageContent(file, baseUrl, apiKey, signal?) → FileMessageContent[] | null
 getApiKey(key) / setApiKey(key, value) / removeApiKey(key)  // sessionStorage only
 ```
 
 - **`max_tokens` vs `max_completion_tokens`**: tự detect theo model name (`o1`, `o3`, `o4`, `gpt-5` → dùng `max_completion_tokens`). Auto-retry với param kia nếu API trả 400.
+- **Closed-set classification (modes A/B)** — khử confound format khi chấm intent/phân loại:
+  - **A — `OpenAIConfig.guidedChoice: string[]`**: gửi `guided_choice` (vLLM constrained decode) → output buộc đúng 1 nhãn. Provider không hỗ trợ trả 400 → auto-retry **strip** field (cùng cơ chế với `chat_template_kwargs`).
+  - **B — `classifyByLogprob(config, messages, labels)`**: `max_tokens:1` + `top_logprobs:20`, chấm mỗi nhãn theo logprob của first-token khớp → argmax. Yêu cầu nhãn **phân biệt được bằng token đầu**. Fallback về token sinh ra nếu không nhãn nào khớp.
 - **`chat_template_kwargs.enable_thinking=false`**: gửi mặc định cho Qwen3-style models. Nếu API 400 → auto-retry KHÔNG có field này. Cũng retry cùng lúc nếu lỗi token-param. Một lần retry là đủ.
 - **API keys** không trong config object — lấy qua `getApiKey(key)` từ sessionStorage:
   - Key names: `'target_api_key'`, `'judge_api_key'`
@@ -219,7 +223,9 @@ EvalRunner đọc `dataset.metadata.gt_metrics` để quyết định metric nà
 - `accuracy` → optional `metadata.{unknown_label, unknown_synonyms, valid_label_range}` cho special-case classification
 - `word_count_compliance` → cần `metadata.max_words: number`
 
-Các metric-key trên (`unknown_label`, `unknown_synonyms`, `valid_label_range`, `expected_behavior`, `refusal_phrases`, `constraints`, `key_facts`, `source_text`, `max_words`, `source_language`, `target_language`, `source_language_original`, `target_language_original`) có thể đặt ở **`dataset.metadata`** để làm default cho mọi record — `record.metadata` override khi cần. Whitelist ở `METRIC_METADATA_KEYS` trong `evalRunner.ts`.
+- `classification_mode` + `labels` → bật mode A/B cho task phân loại nhãn đóng. `classification_mode: 'guided'` (constrained decode) | `'logprob'` (first-token argmax); `labels: string[]` là tập nhãn ứng viên. Khi set, runner **bỏ qua free-generation** → output là nhãn trần, chấm `accuracy`/`exact_match` sạch (không lẫn format). Không set → chạy bình thường.
+
+Các metric-key trên (`unknown_label`, `unknown_synonyms`, `valid_label_range`, `expected_behavior`, `refusal_phrases`, `constraints`, `key_facts`, `source_text`, `max_words`, `source_language`, `target_language`, `source_language_original`, `target_language_original`, `labels`, `classification_mode`) có thể đặt ở **`dataset.metadata`** để làm default cho mọi record — `record.metadata` override khi cần. Whitelist ở `METRIC_METADATA_KEYS` trong `evalRunner.ts`.
 
 ## Multi-model eval (parallel)
 

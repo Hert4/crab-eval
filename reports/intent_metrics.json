@@ -1,0 +1,1034 @@
+{
+  "htkh_intent_classification": [
+    {
+      "model": "gpt-4.1",
+      "n": 150,
+      "excluded": 0,
+      "accuracy": 96.7,
+      "crabAccuracy": 96.7,
+      "majorityBaseline": 92,
+      "macroF1": 90.5,
+      "weightedF1": 96.9,
+      "focusF1": 82.8,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 100,
+          "recall": 96.4,
+          "f1": 98.2,
+          "support": 138
+        },
+        "request_human_handoff": {
+          "precision": 70.6,
+          "recall": 100,
+          "f1": 82.8,
+          "support": 12
+        }
+      }
+    },
+    {
+      "model": "gpt-4.1-mini",
+      "n": 150,
+      "excluded": 0,
+      "accuracy": 96.7,
+      "crabAccuracy": 96.7,
+      "majorityBaseline": 92,
+      "macroF1": 90.5,
+      "weightedF1": 96.9,
+      "focusF1": 82.8,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 100,
+          "recall": 96.4,
+          "f1": 98.2,
+          "support": 138
+        },
+        "request_human_handoff": {
+          "precision": 70.6,
+          "recall": 100,
+          "f1": 82.8,
+          "support": 12
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.0",
+      "n": 150,
+      "excluded": 0,
+      "accuracy": 90.7,
+      "crabAccuracy": 90.7,
+      "majorityBaseline": 92,
+      "macroF1": 78.9,
+      "weightedF1": 92.1,
+      "focusF1": 63.2,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 100,
+          "recall": 89.9,
+          "f1": 94.7,
+          "support": 138
+        },
+        "request_human_handoff": {
+          "precision": 46.2,
+          "recall": 100,
+          "f1": 63.2,
+          "support": 12
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.0-plus",
+      "n": 141,
+      "excluded": 0,
+      "accuracy": 96.5,
+      "crabAccuracy": 96.5,
+      "majorityBaseline": 92.2,
+      "macroF1": 89,
+      "weightedF1": 96.6,
+      "focusF1": 80,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 99.2,
+          "recall": 96.9,
+          "f1": 98.1,
+          "support": 130
+        },
+        "request_human_handoff": {
+          "precision": 71.4,
+          "recall": 90.9,
+          "f1": 80,
+          "support": 11
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.1",
+      "n": 150,
+      "excluded": 0,
+      "accuracy": 95.3,
+      "crabAccuracy": 95.3,
+      "majorityBaseline": 92,
+      "macroF1": 87.4,
+      "weightedF1": 95.8,
+      "focusF1": 77.4,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 100,
+          "recall": 94.9,
+          "f1": 97.4,
+          "support": 138
+        },
+        "request_human_handoff": {
+          "precision": 63.2,
+          "recall": 100,
+          "f1": 77.4,
+          "support": 12
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.1-plus",
+      "n": 150,
+      "excluded": 0,
+      "accuracy": 97.3,
+      "crabAccuracy": 97.3,
+      "majorityBaseline": 92,
+      "macroF1": 91.6,
+      "weightedF1": 97.4,
+      "focusF1": 84.6,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 99.3,
+          "recall": 97.8,
+          "f1": 98.5,
+          "support": 138
+        },
+        "request_human_handoff": {
+          "precision": 78.6,
+          "recall": 91.7,
+          "f1": 84.6,
+          "support": 12
+        }
+      }
+    },
+    {
+      "model": "misa-ai-2.0-bloom",
+      "n": 150,
+      "excluded": 0,
+      "accuracy": 97.3,
+      "crabAccuracy": 97.3,
+      "majorityBaseline": 92,
+      "macroF1": 92.1,
+      "weightedF1": 97.5,
+      "focusF1": 85.7,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 100,
+          "recall": 97.1,
+          "f1": 98.5,
+          "support": 138
+        },
+        "request_human_handoff": {
+          "precision": 75,
+          "recall": 100,
+          "f1": 85.7,
+          "support": 12
+        }
+      }
+    },
+    {
+      "model": "misa-gemma-4-26b-it-06042026",
+      "n": 150,
+      "excluded": 0,
+      "accuracy": 95.3,
+      "crabAccuracy": 95.3,
+      "majorityBaseline": 92,
+      "macroF1": 86.6,
+      "weightedF1": 95.7,
+      "focusF1": 75.9,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 99.2,
+          "recall": 95.7,
+          "f1": 97.4,
+          "support": 138
+        },
+        "request_human_handoff": {
+          "precision": 64.7,
+          "recall": 91.7,
+          "f1": 75.9,
+          "support": 12
+        }
+      }
+    },
+    {
+      "model": "misa-gemma-4-31b-it-06042026",
+      "n": 150,
+      "excluded": 0,
+      "accuracy": 98,
+      "crabAccuracy": 98,
+      "majorityBaseline": 92,
+      "macroF1": 92.9,
+      "weightedF1": 98,
+      "focusF1": 87,
+      "oosF1": null,
+      "perClass": {
+        "others": {
+          "precision": 98.6,
+          "recall": 99.3,
+          "f1": 98.9,
+          "support": 138
+        },
+        "request_human_handoff": {
+          "precision": 90.9,
+          "recall": 83.3,
+          "f1": 87,
+          "support": 12
+        }
+      }
+    }
+  ],
+  "htkh_intent_routing": [
+    {
+      "model": "gpt-4.1",
+      "n": 154,
+      "excluded": 0,
+      "accuracy": 66.9,
+      "crabAccuracy": 66.9,
+      "majorityBaseline": 50,
+      "macroF1": 60.2,
+      "weightedF1": 69.6,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 90.6,
+          "recall": 75.3,
+          "f1": 82.3,
+          "support": 77
+        },
+        "clarify": {
+          "precision": 70.2,
+          "recall": 51.6,
+          "f1": 59.5,
+          "support": 64
+        },
+        "rag_answer": {
+          "precision": 25,
+          "recall": 90,
+          "f1": 39.1,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 42.9,
+          "recall": 100,
+          "f1": 60,
+          "support": 3
+        }
+      }
+    },
+    {
+      "model": "gpt-4.1-mini",
+      "n": 154,
+      "excluded": 0,
+      "accuracy": 68.2,
+      "crabAccuracy": 68.2,
+      "majorityBaseline": 50,
+      "macroF1": 61.1,
+      "weightedF1": 71.3,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 95.1,
+          "recall": 75.3,
+          "f1": 84.1,
+          "support": 77
+        },
+        "clarify": {
+          "precision": 70,
+          "recall": 54.7,
+          "f1": 61.4,
+          "support": 64
+        },
+        "rag_answer": {
+          "precision": 25,
+          "recall": 90,
+          "f1": 39.1,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 42.9,
+          "recall": 100,
+          "f1": 60,
+          "support": 3
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.0",
+      "n": 154,
+      "excluded": 0,
+      "accuracy": 58.4,
+      "crabAccuracy": 58.4,
+      "majorityBaseline": 50,
+      "macroF1": 48.9,
+      "weightedF1": 58,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 80.5,
+          "recall": 90.9,
+          "f1": 85.4,
+          "support": 77
+        },
+        "clarify": {
+          "precision": 70.6,
+          "recall": 18.8,
+          "f1": 29.6,
+          "support": 64
+        },
+        "rag_answer": {
+          "precision": 20.7,
+          "recall": 60,
+          "f1": 30.8,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 40,
+          "recall": 66.7,
+          "f1": 50,
+          "support": 3
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.0-plus",
+      "n": 139,
+      "excluded": 0,
+      "accuracy": 59.7,
+      "crabAccuracy": 59.7,
+      "majorityBaseline": 48.2,
+      "macroF1": 46.4,
+      "weightedF1": 61.5,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 90.5,
+          "recall": 85.1,
+          "f1": 87.7,
+          "support": 67
+        },
+        "clarify": {
+          "precision": 78.9,
+          "recall": 25,
+          "f1": 38,
+          "support": 60
+        },
+        "rag_answer": {
+          "precision": 21.3,
+          "recall": 100,
+          "f1": 35.1,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 16.7,
+          "recall": 50,
+          "f1": 25,
+          "support": 2
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.1",
+      "n": 154,
+      "excluded": 0,
+      "accuracy": 51.9,
+      "crabAccuracy": 52,
+      "majorityBaseline": 50,
+      "macroF1": 51.1,
+      "weightedF1": 53.6,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 87.9,
+          "recall": 75.3,
+          "f1": 81.1,
+          "support": 77
+        },
+        "clarify": {
+          "precision": 81.8,
+          "recall": 14.1,
+          "f1": 24,
+          "support": 64
+        },
+        "rag_answer": {
+          "precision": 13.9,
+          "recall": 100,
+          "f1": 24.4,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 60,
+          "recall": 100,
+          "f1": 75,
+          "support": 3
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.1-plus",
+      "n": 154,
+      "excluded": 0,
+      "accuracy": 59.1,
+      "crabAccuracy": 59.1,
+      "majorityBaseline": 50,
+      "macroF1": 47.4,
+      "weightedF1": 54.4,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 78,
+          "recall": 92.2,
+          "f1": 84.5,
+          "support": 77
+        },
+        "clarify": {
+          "precision": 80,
+          "recall": 12.5,
+          "f1": 21.6,
+          "support": 64
+        },
+        "rag_answer": {
+          "precision": 20.5,
+          "recall": 90,
+          "f1": 33.3,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 33.3,
+          "recall": 100,
+          "f1": 50,
+          "support": 3
+        }
+      }
+    },
+    {
+      "model": "misa-ai-2.0-bloom",
+      "n": 154,
+      "excluded": 0,
+      "accuracy": 55.8,
+      "crabAccuracy": 55.8,
+      "majorityBaseline": 50,
+      "macroF1": 48.4,
+      "weightedF1": 54.4,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 88,
+          "recall": 85.7,
+          "f1": 86.8,
+          "support": 77
+        },
+        "clarify": {
+          "precision": 87.5,
+          "recall": 10.9,
+          "f1": 19.4,
+          "support": 64
+        },
+        "rag_answer": {
+          "precision": 15.9,
+          "recall": 100,
+          "f1": 27.4,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 42.9,
+          "recall": 100,
+          "f1": 60,
+          "support": 3
+        }
+      }
+    },
+    {
+      "model": "misa-gemma-4-26b-it-06042026",
+      "n": 154,
+      "excluded": 0,
+      "accuracy": 58.4,
+      "crabAccuracy": 58.4,
+      "majorityBaseline": 50,
+      "macroF1": 49.7,
+      "weightedF1": 58.6,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 82.9,
+          "recall": 81.8,
+          "f1": 82.4,
+          "support": 77
+        },
+        "clarify": {
+          "precision": 65.2,
+          "recall": 23.4,
+          "f1": 34.5,
+          "support": 64
+        },
+        "rag_answer": {
+          "precision": 19.6,
+          "recall": 90,
+          "f1": 32.1,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 33.3,
+          "recall": 100,
+          "f1": 50,
+          "support": 3
+        }
+      }
+    },
+    {
+      "model": "misa-gemma-4-31b-it-06042026",
+      "n": 154,
+      "excluded": 0,
+      "accuracy": 60.4,
+      "crabAccuracy": 60.4,
+      "majorityBaseline": 50,
+      "macroF1": 54,
+      "weightedF1": 61.6,
+      "focusF1": null,
+      "oosF1": null,
+      "perClass": {
+        "human_handoff": {
+          "precision": 82.4,
+          "recall": 79.2,
+          "f1": 80.8,
+          "support": 77
+        },
+        "clarify": {
+          "precision": 63.6,
+          "recall": 32.8,
+          "f1": 43.3,
+          "support": 64
+        },
+        "rag_answer": {
+          "precision": 20,
+          "recall": 80,
+          "f1": 32,
+          "support": 10
+        },
+        "chitchat": {
+          "precision": 42.9,
+          "recall": 100,
+          "f1": 60,
+          "support": 3
+        }
+      }
+    }
+  ],
+  "crm_intent_analysis": [
+    {
+      "model": "gpt-4.1",
+      "n": 49,
+      "excluded": 8,
+      "accuracy": 67.3,
+      "crabAccuracy": 57.9,
+      "majorityBaseline": 79.6,
+      "macroF1": 44,
+      "weightedF1": 74.7,
+      "focusF1": null,
+      "oosF1": 80.6,
+      "perClass": {
+        "1": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "2": {
+          "precision": 71.4,
+          "recall": 100,
+          "f1": 83.3,
+          "support": 5
+        },
+        "5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 96.4,
+          "recall": 69.2,
+          "f1": 80.6,
+          "support": 39
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    },
+    {
+      "model": "gpt-4.1-mini",
+      "n": 49,
+      "excluded": 8,
+      "accuracy": 81.6,
+      "crabAccuracy": 82.5,
+      "majorityBaseline": 79.6,
+      "macroF1": 61.6,
+      "weightedF1": 87,
+      "focusF1": null,
+      "oosF1": 94.6,
+      "perClass": {
+        "1": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "2": {
+          "precision": 100,
+          "recall": 60,
+          "f1": 75,
+          "support": 5
+        },
+        "5": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 100,
+          "recall": 89.7,
+          "f1": 94.6,
+          "support": 39
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.0",
+      "n": 49,
+      "excluded": 8,
+      "accuracy": 91.8,
+      "crabAccuracy": 80.7,
+      "majorityBaseline": 79.6,
+      "macroF1": 50,
+      "weightedF1": 91.8,
+      "focusF1": null,
+      "oosF1": 100,
+      "perClass": {
+        "1": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "2": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 5
+        },
+        "5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 39
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.0-plus",
+      "n": 46,
+      "excluded": 7,
+      "accuracy": 87,
+      "crabAccuracy": 75.5,
+      "majorityBaseline": 78.3,
+      "macroF1": 54.8,
+      "weightedF1": 88.6,
+      "focusF1": null,
+      "oosF1": 95.7,
+      "perClass": {
+        "1": {
+          "precision": 50,
+          "recall": 100,
+          "f1": 66.7,
+          "support": 1
+        },
+        "2": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 5
+        },
+        "5": {
+          "precision": 50,
+          "recall": 100,
+          "f1": 66.7,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 100,
+          "recall": 91.7,
+          "f1": 95.7,
+          "support": 36
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.1",
+      "n": 49,
+      "excluded": 8,
+      "accuracy": 83.7,
+      "crabAccuracy": 71.9,
+      "majorityBaseline": 79.6,
+      "macroF1": 65.5,
+      "weightedF1": 88.4,
+      "focusF1": null,
+      "oosF1": 93.2,
+      "perClass": {
+        "1": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "2": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 5
+        },
+        "5": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 100,
+          "recall": 87.2,
+          "f1": 93.2,
+          "support": 39
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    },
+    {
+      "model": "misa-ai-1.1-plus",
+      "n": 49,
+      "excluded": 8,
+      "accuracy": 69.4,
+      "crabAccuracy": 59.6,
+      "majorityBaseline": 79.6,
+      "macroF1": 63.6,
+      "weightedF1": 79.4,
+      "focusF1": null,
+      "oosF1": 81.8,
+      "perClass": {
+        "1": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "2": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 5
+        },
+        "5": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 100,
+          "recall": 69.2,
+          "f1": 81.8,
+          "support": 39
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    },
+    {
+      "model": "misa-ai-2.0-bloom",
+      "n": 49,
+      "excluded": 8,
+      "accuracy": 79.6,
+      "crabAccuracy": 68.4,
+      "majorityBaseline": 79.6,
+      "macroF1": 52.8,
+      "weightedF1": 82.7,
+      "focusF1": null,
+      "oosF1": 90.1,
+      "perClass": {
+        "1": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 1
+        },
+        "2": {
+          "precision": 62.5,
+          "recall": 100,
+          "f1": 76.9,
+          "support": 5
+        },
+        "5": {
+          "precision": 33.3,
+          "recall": 100,
+          "f1": 50,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 100,
+          "recall": 82.1,
+          "f1": 90.1,
+          "support": 39
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    },
+    {
+      "model": "misa-gemma-4-26b-it-06042026",
+      "n": 49,
+      "excluded": 8,
+      "accuracy": 65.3,
+      "crabAccuracy": 56.1,
+      "majorityBaseline": 79.6,
+      "macroF1": 46.4,
+      "weightedF1": 74.4,
+      "focusF1": null,
+      "oosF1": 78.1,
+      "perClass": {
+        "1": {
+          "precision": 50,
+          "recall": 100,
+          "f1": 66.7,
+          "support": 1
+        },
+        "2": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 5
+        },
+        "5": {
+          "precision": 20,
+          "recall": 100,
+          "f1": 33.3,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 100,
+          "recall": 64.1,
+          "f1": 78.1,
+          "support": 39
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    },
+    {
+      "model": "misa-gemma-4-31b-it-06042026",
+      "n": 49,
+      "excluded": 8,
+      "accuracy": 65.3,
+      "crabAccuracy": 56.1,
+      "majorityBaseline": 79.6,
+      "macroF1": 38.1,
+      "weightedF1": 73.9,
+      "focusF1": null,
+      "oosF1": 78.8,
+      "perClass": {
+        "1": {
+          "precision": 33.3,
+          "recall": 100,
+          "f1": 50,
+          "support": 1
+        },
+        "2": {
+          "precision": 100,
+          "recall": 100,
+          "f1": 100,
+          "support": 5
+        },
+        "5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        },
+        "unknown": {
+          "precision": 96.3,
+          "recall": 66.7,
+          "f1": 78.8,
+          "support": 39
+        },
+        "1,5": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 2
+        },
+        "1,2": {
+          "precision": 0,
+          "recall": 0,
+          "f1": 0,
+          "support": 1
+        }
+      }
+    }
+  ]
+}

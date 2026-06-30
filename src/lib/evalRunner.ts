@@ -1,5 +1,5 @@
 import { Dataset, DataRecord, RecordLog, RunResult, TaskRunResult } from '@/types'
-import { chatCompletion, OpenAIConfig, OpenAIMessage, OpenAITool } from './openai'
+import { chatCompletion, classifyByLogprob, OpenAIConfig, OpenAIMessage, OpenAITool } from './openai'
 import { computeMetrics, avgScores } from './metrics'
 import { randomUUID } from './utils'
 import {
@@ -249,6 +249,9 @@ const METRIC_METADATA_KEYS = [
   'constraints', 'key_facts', 'source_text', 'max_words',
   'source_language', 'target_language',
   'source_language_original', 'target_language_original',
+  // Closed-set classification (modes A/B): candidate label set + how to obtain the
+  // answer — 'guided' (constrained decode) | 'logprob' (first-token argmax).
+  'labels', 'classification_mode',
 ] as const
 
 function mergeDatasetMetricDefaults(record: DataRecord, datasetMeta: Record<string, unknown>): DataRecord {
@@ -317,13 +320,30 @@ async function processRecord({
 
     const messages = buildMessages(record, targetSystemPrompt, simulatedHistory)
     const tools = record.tools as OpenAITool[] | undefined
-    const res = await chatCompletionWithRetry(targetOpenAI, messages, abortSignal, tools)
-    const choice = res.choices?.[0]
-    output = choice?.message?.content || ''
-    gotToolCalls = choice?.message?.tool_calls?.map(tc => ({
-      type: tc.type,
-      function: { name: tc.function.name, arguments: tc.function.arguments },
-    })) || []
+    // Closed-set classification override (modes A/B): when the dataset declares a
+    // label set + mode, bypass free generation so the score reflects intent, not format.
+    const clsMode = record.metadata?.classification_mode as string | undefined
+    const clsLabels = Array.isArray(record.metadata?.labels)
+      ? (record.metadata!.labels as string[]) : undefined
+
+    if (clsMode === 'logprob' && clsLabels?.length) {
+      // B — first-token logprob argmax (pure discriminative probe)
+      const { label } = await classifyByLogprob(targetOpenAI, messages, clsLabels, abortSignal)
+      output = label
+    } else if (clsMode === 'guided' && clsLabels?.length) {
+      // A — constrained decode: model emits exactly one label
+      const res = await chatCompletionWithRetry(
+        { ...targetOpenAI, guidedChoice: clsLabels }, messages, abortSignal)
+      output = res.choices?.[0]?.message?.content || ''
+    } else {
+      const res = await chatCompletionWithRetry(targetOpenAI, messages, abortSignal, tools)
+      const choice = res.choices?.[0]
+      output = choice?.message?.content || ''
+      gotToolCalls = choice?.message?.tool_calls?.map(tc => ({
+        type: tc.type,
+        function: { name: tc.function.name, arguments: tc.function.arguments },
+      })) || []
+    }
   } catch (e) {
     if (e instanceof DOMException && e.name === 'AbortError') throw e
     error = String(e)
